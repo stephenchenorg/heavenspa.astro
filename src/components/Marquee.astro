@@ -1,0 +1,80 @@
+---
+interface Props {
+  texts: string[];
+  speed?: number;
+}
+
+const { texts, speed = 50 } = Astro.props;
+---
+
+<div class="marquee-container">
+  <div class="marquee" data-speed={speed}>
+    {texts.map(text => (
+      <span class="marquee-text">{text}</span>
+    ))}
+    {texts.map(text => (
+      <span class="marquee-text">{text}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 1rem 0;
+    margin-top: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .marquee {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+  }
+
+  .marquee-text {
+    color: white;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-right: 4rem;
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .marquee-text {
+      font-size: 0.9rem;
+      margin-right: 2rem;
+    }
+
+    .marquee {
+      animation: scroll 20s linear infinite;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const marquees = document.querySelectorAll('.marquee') as NodeListOf<HTMLElement>;
+    
+    marquees.forEach((marquee) => {
+      const speed = marquee.getAttribute('data-speed') || '50';
+      const duration = 30 / (parseInt(speed) / 50);
+      marquee.style.animationDuration = `${duration}s`;
+    });
+  });
+</script>

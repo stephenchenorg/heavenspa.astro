@@ -1,0 +1,760 @@
+---
+import { seoMeta } from '@stephenchenorg/astro/page'
+import Layout from '@/layouts/Layout.astro'
+
+const meta = seoMeta({
+  title: 'Heaven Spa - 專業按摩課程',
+  description: '專業按摩課程培訓，從基礎手法到進階技巧，全面掌握按摩療法'
+})
+
+// 課程詳細資訊
+const courseData = {
+  title: '專業按摩課程',
+  subtitle: 'Professional Massage Training',
+  duration: '3個月',
+  price: 'NT$ 45,000',
+  level: '初級到高級',
+  description: '本課程涵蓋從基礎按摩手法到進階療法技巧，讓學員全面掌握專業按摩技能。課程結合理論與實務，由資深按摩師親自指導，確保學員能夠熟練運用各種按摩技法。',
+  
+  modules: [
+    {
+      title: '基礎解剖學',
+      duration: '2週',
+      content: ['人體骨骼結構', '肌肉系統', '血液循環', '神經系統'],
+      image: '/api/placeholder/400/300'
+    },
+    {
+      title: '瑞典式按摩',
+      duration: '3週',
+      content: ['基本手法', '推拿技巧', '穴位按摩', '力道控制'],
+      image: '/api/placeholder/400/300'
+    },
+    {
+      title: '深層組織按摩',
+      duration: '3週',
+      content: ['深層放鬆', '疼痛緩解', '運動按摩', '復健技巧'],
+      image: '/api/placeholder/400/300'
+    },
+    {
+      title: '熱石療法',
+      duration: '2週',
+      content: ['熱石運用', '溫度控制', '安全防護', '療程設計'],
+      image: '/api/placeholder/400/300'
+    },
+    {
+      title: '芳香療法',
+      duration: '2週',
+      content: ['精油認識', '調配技巧', '按摩應用', '客戶諮詢'],
+      image: '/api/placeholder/400/300'
+    }
+  ],
+
+  features: [
+    '小班制教學，確保學習品質',
+    '專業師資團隊，豐富實務經驗',
+    '完整實習機會，累積實戰經驗',
+    '課程結業證書，業界認可',
+    '就業輔導服務，協助職涯發展',
+    '終身學習支援，持續技能提升'
+  ],
+
+  schedule: [
+    { day: '週一', time: '09:00-12:00', content: '理論課程' },
+    { day: '週二', time: '14:00-17:00', content: '實務練習' },
+    { day: '週三', time: '09:00-12:00', content: '手法訓練' },
+    { day: '週四', time: '14:00-17:00', content: '案例研討' },
+    { day: '週五', time: '09:00-12:00', content: '綜合練習' }
+  ],
+
+  requirements: [
+    '年滿18歲，具備基本中文閱讀能力',
+    '對按摩療法有興趣與熱忱',
+    '身體健康，無重大疾病',
+    '願意學習並遵守職業道德'
+  ]
+}
+---
+
+<Layout meta={meta}>
+  <!-- 導航列 -->
+  <nav class="main-nav">
+    <div class="nav-logo">
+      <a href="/">
+        <div class="logo-icon">HS</div>
+      </a>
+    </div>
+    <div class="nav-menu">
+      <a href="/" class="nav-item">HOME</a>
+      <a href="/courses" class="nav-item">COURSES</a>
+      <a href="/about" class="nav-item">ABOUT</a>
+      <a href="/contact" class="nav-item">CONTACT</a>
+    </div>
+    <div class="nav-contact">
+      <button class="contact-btn">CONTACT</button>
+    </div>
+  </nav>
+
+  <!-- 麵包屑導航 -->
+  <section class="breadcrumb">
+    <div class="container">
+      <a href="/">首頁</a>
+      <span class="separator">></span>
+      <a href="/courses">課程介紹</a>
+      <span class="separator">></span>
+      <span class="current">專業按摩課程</span>
+    </div>
+  </section>
+
+  <!-- 課程標題區塊 -->
+  <section class="course-hero">
+    <div class="container">
+      <div class="course-header">
+        <div class="course-info">
+          <h1 class="course-title">{courseData.title}</h1>
+          <p class="course-subtitle">{courseData.subtitle}</p>
+          <p class="course-description">{courseData.description}</p>
+          
+          <div class="course-meta">
+            <div class="meta-item">
+              <span class="meta-label">課程時長</span>
+              <span class="meta-value">{courseData.duration}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">課程費用</span>
+              <span class="meta-value">{courseData.price}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">適合程度</span>
+              <span class="meta-value">{courseData.level}</span>
+            </div>
+          </div>
+          
+          <button class="enroll-btn">立即報名</button>
+        </div>
+        <div class="course-image">
+          <img src="/api/placeholder/600/400" alt="專業按摩課程" />
+          <div class="image-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 課程模組 -->
+  <section class="course-modules">
+    <div class="container">
+      <h2 class="section-title">課程內容</h2>
+      <div class="modules-grid">
+        {courseData.modules.map((module, index) => (
+          <div class="module-card" data-aos="fade-up" data-aos-delay={index * 100}>
+            <div class="module-image">
+              <img src={module.image} alt={module.title} />
+            </div>
+            <div class="module-content">
+              <h3 class="module-title">{module.title}</h3>
+              <p class="module-duration">課程時長：{module.duration}</p>
+              <ul class="module-topics">
+                {module.content.map(topic => (
+                  <li>{topic}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 課程特色 -->
+  <section class="course-features">
+    <div class="container">
+      <h2 class="section-title">課程特色</h2>
+      <div class="features-grid">
+        {courseData.features.map((feature, index) => (
+          <div class="feature-item" data-aos="zoom-in" data-aos-delay={index * 100}>
+            <div class="feature-icon">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <p class="feature-text">{feature}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 課程時間表 -->
+  <section class="course-schedule">
+    <div class="container">
+      <h2 class="section-title">課程時間表</h2>
+      <div class="schedule-table">
+        <div class="table-header">
+          <div class="header-cell">星期</div>
+          <div class="header-cell">時間</div>
+          <div class="header-cell">課程內容</div>
+        </div>
+        {courseData.schedule.map(item => (
+          <div class="table-row">
+            <div class="table-cell day">{item.day}</div>
+            <div class="table-cell time">{item.time}</div>
+            <div class="table-cell content">{item.content}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 報名條件 -->
+  <section class="course-requirements">
+    <div class="container">
+      <h2 class="section-title">報名條件</h2>
+      <div class="requirements-list">
+        {courseData.requirements.map((requirement, index) => (
+          <div class="requirement-item">
+            <div class="requirement-number">{index + 1}</div>
+            <p class="requirement-text">{requirement}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 報名區塊 -->
+  <section class="enrollment-section">
+    <div class="container">
+      <div class="enrollment-card">
+        <h2 class="enrollment-title">開始您的按摩師之路</h2>
+        <p class="enrollment-text">立即報名專業按摩課程，開啟您的美容事業新篇章</p>
+        <div class="enrollment-actions">
+          <button class="primary-btn">立即報名</button>
+          <button class="secondary-btn">課程諮詢</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* 導航列 */
+    .main-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #c48b6e, #d4a574);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-item {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav-item:hover {
+      color: #c48b6e;
+    }
+
+    .contact-btn {
+      background: #c48b6e;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      background: #b37a5e;
+      transform: translateY(-2px);
+    }
+
+    /* 麵包屑 */
+    .breadcrumb {
+      margin-top: 80px;
+      padding: 1rem 0;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .breadcrumb a {
+      color: #636e72;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: #c48b6e;
+    }
+
+    .separator {
+      margin: 0 0.5rem;
+      color: #636e72;
+    }
+
+    .current {
+      color: #c48b6e;
+      font-weight: 500;
+    }
+
+    /* 課程標題區塊 */
+    .course-hero {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .course-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .course-title {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #2d3436;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .course-subtitle {
+      font-size: 1.2rem;
+      color: #636e72;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .course-description {
+      font-size: 1.1rem;
+      color: #636e72;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .course-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      text-align: center;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 0.9rem;
+      color: #636e72;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #c48b6e;
+    }
+
+    .enroll-btn {
+      background: #c48b6e;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .enroll-btn:hover {
+      background: #b37a5e;
+      transform: translateY(-2px);
+    }
+
+    .course-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(196, 139, 110, 0.3), transparent);
+    }
+
+    /* 課程模組 */
+    .course-modules {
+      padding: 6rem 0;
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2d3436;
+      margin-bottom: 4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .modules-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .module-card {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .module-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .module-image img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .module-content {
+      padding: 2rem;
+    }
+
+    .module-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d3436;
+      margin-bottom: 0.5rem;
+    }
+
+    .module-duration {
+      color: #c48b6e;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .module-topics {
+      list-style: none;
+    }
+
+    .module-topics li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f1f3f4;
+      color: #636e72;
+    }
+
+    .module-topics li:last-child {
+      border-bottom: none;
+    }
+
+    /* 課程特色 */
+    .course-features {
+      padding: 6rem 0;
+      background: #f8f9fa;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #c48b6e, #d4a574);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      color: #636e72;
+      line-height: 1.6;
+    }
+
+    /* 課程時間表 */
+    .course-schedule {
+      padding: 6rem 0;
+      background: white;
+    }
+
+    .schedule-table {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      background: #c48b6e;
+      color: white;
+    }
+
+    .header-cell {
+      padding: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      border-bottom: 1px solid #f1f3f4;
+    }
+
+    .table-row:last-child {
+      border-bottom: none;
+    }
+
+    .table-cell {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .table-cell.day {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #c48b6e;
+    }
+
+    /* 報名條件 */
+    .course-requirements {
+      padding: 6rem 0;
+      background: #f8f9fa;
+    }
+
+    .requirements-list {
+      display: grid;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .requirement-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .requirement-number {
+      width: 40px;
+      height: 40px;
+      background: #c48b6e;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .requirement-text {
+      color: #636e72;
+      line-height: 1.6;
+    }
+
+    /* 報名區塊 */
+    .enrollment-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .enrollment-card {
+      text-align: center;
+      color: white;
+    }
+
+    .enrollment-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .enrollment-text {
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+    }
+
+    .enrollment-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .primary-btn {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .secondary-btn:hover {
+      background: white;
+      color: #667eea;
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      .main-nav {
+        padding: 1rem 2rem;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .course-header {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .course-title {
+        font-size: 2rem;
+      }
+
+      .course-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .module-card {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-header,
+      .table-row {
+        grid-template-columns: 1fr;
+      }
+
+      .enrollment-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+
+  <script>
+    // AOS 動畫初始化 (如果需要的話)
+    document.addEventListener('DOMContentLoaded', () => {
+      // 可以在這裡添加滾動動畫或其他互動效果
+      console.log('按摩課程頁面載入完成');
+    });
+  </script>
+</Layout>

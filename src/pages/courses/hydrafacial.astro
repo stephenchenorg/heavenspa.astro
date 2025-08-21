@@ -1,0 +1,19 @@
+---
+import { seoMeta } from '@stephenchenorg/astro/page'
+import Layout from '@/layouts/Layout.astro'
+
+const meta = seoMeta({
+  title: 'Heaven Spa - 水飛梭課程',
+  description: '最新水飛梭技術培訓，深層清潔與肌膚護理專業課程'
+})
+---
+
+<Layout meta={meta}>
+  <!-- 簡化版的水飛梭課程頁面 -->
+  <div style="padding: 100px 20px; text-align: center;">
+    <h1>水飛梭專業課程</h1>
+    <p>最新水飛梭技術培訓，深層清潔與肌膚護理</p>
+    <p>課程詳細內容開發中...</p>
+    <a href="/courses" style="color: #4facfe; text-decoration: none;">← 返回課程列表</a>
+  </div>
+</Layout>

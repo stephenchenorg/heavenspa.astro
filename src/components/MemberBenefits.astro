@@ -1,0 +1,477 @@
+---
+export interface Benefit {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  date: string;
+  year: string;
+  month: string;
+  image: string;
+  buttonText: string;
+  category: string;
+  bgColor?: string;
+}
+
+export interface Props {
+  benefits?: Benefit[];
+}
+
+const defaultBenefits: Benefit[] = [
+  {
+    id: 'mothers-day',
+    title: 'Happy Mother\'s Day',
+    subtitle: '母親節福滿限定活動',
+    description: '專為母親節特別企劃的限定優惠活動，讓您與媽媽一起享受美好時光',
+    date: '31',
+    year: '2025',
+    month: '05',
+    image: '/api/placeholder/400/300',
+    buttonText: '母親節限定活動',
+    category: 'VIEW MORE',
+    bgColor: 'linear-gradient(135deg, #2d5016 0%, #3d6b1c 100%)'
+  },
+  {
+    id: 'special-offer',
+    title: '優惠活動',
+    subtitle: 'Special Offer',
+    description: '全館優質套餐 Combo 1~5 會員優惠價 100，非會員專案惠活動',
+    date: '10',
+    year: '2024',
+    month: '10',
+    image: '/api/placeholder/400/300',
+    buttonText: '非會員專案惠活動',
+    category: 'VIEW MORE',
+    bgColor: 'linear-gradient(135deg, #8b4513 0%, #a0522d 100%)'
+  },
+  {
+    id: 'hama-exclusive',
+    title: 'Hama',
+    subtitle: '海洋胸好禮',
+    description: '專業海洋產品體驗，15分鐘專案服務',
+    date: '06',
+    year: '2024',
+    month: '06',
+    image: '/api/placeholder/400/300',
+    buttonText: '海洋胸好禮',
+    category: 'VIEW MORE',
+    bgColor: 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'
+  }
+];
+
+const { benefits = defaultBenefits } = Astro.props;
+---
+
+<section class="member-benefits">
+  <div class="benefits-container">
+    <!-- 標題區 -->
+    <div class="benefits-header">
+      <h2 class="benefits-title">MEMBER BENEFITS</h2>
+      <h3 class="benefits-subtitle">會員禮遇</h3>
+    </div>
+
+    <!-- 專屬優惠按鈕 -->
+    <div class="exclusive-button">
+      <button class="exclusive-btn">專屬優惠</button>
+    </div>
+
+    <!-- 優惠卡片輪播 -->
+    <div class="benefits-carousel">
+      <div class="carousel-container">
+        <div class="carousel-track" id="benefitsTrack">
+          {benefits.map((benefit, index) => (
+            <div class="benefit-card" data-index={index}>
+              <div class="card-header">
+                <div class="card-date">
+                  <div class="date-number">{benefit.date}</div>
+                  <div class="date-info">
+                    <span class="year">{benefit.year}</span>
+                    <span class="month">{benefit.month}</span>
+                  </div>
+                </div>
+                <div class="card-category">{benefit.category}</div>
+              </div>
+              
+              <div class="card-content">
+                <div class="card-image">
+                  <img src={benefit.image} alt={benefit.title} />
+                  <div class="image-overlay" style={`background: ${benefit.bgColor}`}></div>
+                </div>
+                
+                <div class="card-info">
+                  <h4 class="card-title">{benefit.title}</h4>
+                  <h5 class="card-subtitle">{benefit.subtitle}</h5>
+                  <p class="card-description">{benefit.description}</p>
+                  <button class="card-button">{benefit.buttonText}</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 導航按鈕 -->
+      <div class="carousel-navigation">
+        <button class="nav-arrow prev-arrow" id="prevBtn">
+          <span>←</span>
+        </button>
+        <button class="nav-arrow next-arrow" id="nextBtn">
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .member-benefits {
+      background: linear-gradient(135deg, #f8f6f0 0%, #ede6d6 100%);
+      padding: 6rem 2rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefits-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+    }
+
+    /* 標題區 */
+    .benefits-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .benefits-title {
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: #c4956c;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .benefits-subtitle {
+      font-size: 1.5rem;
+      color: #8b7355;
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    /* 專屬優惠按鈕 */
+    .exclusive-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .exclusive-btn {
+      background: #c4956c;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
+    }
+
+    .exclusive-btn:hover {
+      background: #b8895f;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(196, 149, 108, 0.4);
+    }
+
+    /* 輪播容器 */
+    .benefits-carousel {
+      position: relative;
+    }
+
+    .carousel-container {
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 2rem;
+    }
+
+    /* 優惠卡片 */
+    .benefit-card {
+      flex: 0 0 calc(33.333% - 1.333rem);
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 卡片標題 */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.5rem 1.5rem 0;
+    }
+
+    .card-date {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .date-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #c4956c;
+      line-height: 1;
+    }
+
+    .date-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .year, .month {
+      font-size: 0.8rem;
+      color: #8b7355;
+      font-weight: 500;
+    }
+
+    .card-category {
+      background: rgba(196, 149, 108, 0.1);
+      color: #c4956c;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    /* 卡片內容 */
+    .card-content {
+      position: relative;
+    }
+
+    .card-image {
+      position: relative;
+      height: 200px;
+      margin: 1rem 1.5rem;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.7;
+      mix-blend-mode: multiply;
+    }
+
+    .card-info {
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3436;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-subtitle {
+      font-size: 1rem;
+      color: #c4956c;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .card-description {
+      font-size: 0.9rem;
+      color: #636e72;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-button {
+      background: transparent;
+      border: 2px solid #c4956c;
+      color: #c4956c;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .card-button:hover {
+      background: #c4956c;
+      color: white;
+    }
+
+    /* 導航按鈕 */
+    .carousel-navigation {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .nav-arrow {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #c4956c;
+      background: transparent;
+      color: #c4956c;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+      background: #c4956c;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 1024px) {
+      .benefit-card {
+        flex: 0 0 calc(50% - 1rem);
+      }
+
+      .benefits-title {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .member-benefits {
+        padding: 4rem 1rem;
+      }
+
+      .benefit-card {
+        flex: 0 0 100%;
+      }
+
+      .benefits-title {
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+      }
+
+      .benefits-subtitle {
+        font-size: 1.2rem;
+      }
+
+      .exclusive-button {
+        position: relative;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .carousel-track {
+        gap: 1rem;
+      }
+    }
+
+    /* 動畫效果 */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .benefit-card {
+      animation: slideIn 0.6s ease forwards;
+    }
+
+    .benefit-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .benefit-card:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('benefitsTrack') as HTMLElement;
+      const prevBtn = document.getElementById('prevBtn') as HTMLElement;
+      const nextBtn = document.getElementById('nextBtn') as HTMLElement;
+      const cards = document.querySelectorAll('.benefit-card');
+      
+      let currentIndex = 0;
+      const totalCards = cards.length;
+      const cardsPerView = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+      const maxIndex = Math.max(0, totalCards - cardsPerView);
+
+      function updateCarousel() {
+        const translateX = -(currentIndex * (100 / cardsPerView));
+        track.style.transform = `translateX(${translateX}%)`;
+      }
+
+      function nextSlide() {
+        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        updateCarousel();
+      }
+
+      function prevSlide() {
+        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+        updateCarousel();
+      }
+
+      nextBtn?.addEventListener('click', nextSlide);
+      prevBtn?.addEventListener('click', prevSlide);
+
+      // 自動輪播
+      setInterval(nextSlide, 6000);
+
+      // 響應式更新
+      window.addEventListener('resize', () => {
+        const newCardsPerView = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+        if (newCardsPerView !== cardsPerView) {
+          currentIndex = 0;
+          updateCarousel();
+        }
+      });
+    });
+  </script>
+</section>

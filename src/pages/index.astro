@@ -1,6 +1,8 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
+import MemberBenefits from '@/components/MemberBenefits.astro'
+import Footer from '@/components/Footer.astro'
 
 const meta = seoMeta({
   title: 'Heaven Spa - 極致放鬆體驗',
@@ -8,6 +10,11 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
+  <!-- 滾動進度指示器 -->
+  <div class="scroll-progress">
+    <div class="progress-bar"></div>
+  </div>
+
   <!-- 導航列 -->
   <nav class="main-nav">
     <div class="nav-logo">
@@ -15,19 +22,20 @@ const meta = seoMeta({
     </div>
     <div class="nav-menu">
       <a href="#home" class="nav-item active">HOME</a>
-      <a href="#services" class="nav-item">SERVICES</a>
-      <a href="#about" class="nav-item">ABOUT</a>
-      <a href="#blog" class="nav-item">BLOG</a>
-      <a href="#contact" class="nav-item">CONTACT</a>
-      <a href="#more" class="nav-item">MORE</a>
+      <a href="#intro" class="nav-item">INTRO</a>
+      <a href="#courses" class="nav-item">COURSES</a>
+      <a href="#benefits" class="nav-item">BENEFITS</a>
     </div>
     <div class="nav-contact">
       <button class="contact-btn">CONTACT</button>
     </div>
   </nav>
 
+  <!-- 滾動容器 -->
+  <div class="scroll-container">
+
   <!-- Hero Banner -->
-  <section class="hero-banner" id="hero">
+  <section class="scroll-section hero-banner" id="home" data-section="home">
     <div class="hero-content">
       <div class="hero-text">
         <h1 class="hero-title">
@@ -56,46 +64,81 @@ const meta = seoMeta({
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about-section">
-    <div class="section-content">
-      <h2 class="section-title">關於我們</h2>
-      <p class="section-text">
-        Heaven Spa 致力於提供最頂級的 SPA 體驗，結合傳統療法與現代技術，
-        為您創造身心靈完全放鬆的奢華時光。
-      </p>
+  <!-- Intro Section -->
+  <section class="scroll-section intro-section" id="intro" data-section="intro">
+    <div class="intro-container">
+      <div class="intro-left">
+        <div class="intro-text-stack">
+          <h2 class="intro-title">intro</h2>
+          <h2 class="intro-title">intro</h2>
+          <h2 class="intro-title">intro</h2>
+        </div>
+      </div>
+      <div class="intro-right">
+        <h3 class="intro-heading">致力成為世界一流的製造服務整合者與持續成長的永續經營企業</h3>
+        <p class="intro-description">
+          聚焦擁有創新管理思維、專業素養及技術能量、進件客戶佈局、
+          創新設計研發、全球資訊整合，市場細緻分析等多項能力，從聚
+          集成為台灣最式界領航者，亦展美、日、歐、台各大服飾品牌與
+          零售業者主要合作夥伴，在全球皮革產業價值鏈中取得關鍵地
+          位。
+        </p>
+      </div>
+      <div class="intro-circle-decoration"></div>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section class="services-section">
-    <div class="section-content">
-      <h2 class="section-title">精選服務</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <h3>花瓣芳療</h3>
-          <p>結合花精與芳香療法的極致體驗</p>
-        </div>
-        <div class="service-card">
-          <h3>熱石按摩</h3>
-          <p>溫熱石頭深層肌肉放鬆療程</p>
-        </div>
-        <div class="service-card">
-          <h3>鑽石煥膚</h3>
-          <p>奢華鑽石微晶煥膚護理</p>
+  <!-- Course Section -->
+  <section class="scroll-section course-section" id="courses" data-section="courses">
+    <div class="course-showcase">
+      <div class="course-container">
+        <div class="course-slide active" data-course="combo4" data-index="0">
+          <div class="course-content">
+            <div class="course-left">
+              <div class="course-info">
+                <h1 class="course-main-title">COURSE</h1>
+                <h2 class="course-sub-title">課程介紹</h2>
+                <h3 class="course-title">combo4</h3>
+                <h4 class="course-subtitle">極致養護放鬆之旅</h4>
+                <p class="course-description">全方位身心靈護理，體驗前所未有的奢華享受。集結多項頂級療程，從肌膚護理到深度放鬆，為您打造完美的療癒時光。</p>
+                <a href="/courses/combo4" class="course-btn">
+                  課程介紹 <span class="btn-arrow">→</span>
+                </a>
+              </div>
+              
+              <!-- 導航按鈕 -->
+              <div class="course-navigation">
+                <button class="nav-btn prev-btn" data-direction="prev">
+                  <span>←</span>
+                </button>
+                <button class="nav-btn next-btn" data-direction="next">
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="course-right">
+              <div class="course-image">
+                <img src="/api/placeholder/800/600" alt="極致養護放鬆之旅" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <div class="section-content">
-      <h2 class="section-title">預約體驗</h2>
-      <p class="section-text">立即預約您的專屬放鬆時光</p>
-      <button class="cta-button">立即預約</button>
-    </div>
+  <!-- Member Benefits Section -->
+  <section class="scroll-section member-benefits-section" id="benefits" data-section="benefits">
+    <MemberBenefits />
   </section>
+
+  <!-- Footer Section -->
+  <section class="scroll-section footer-section" id="footer" data-section="footer">
+    <Footer />
+  </section>
+
+  </div> <!-- 結束滾動容器 -->
 
   <style>
     * {
@@ -104,10 +147,60 @@ const meta = seoMeta({
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    /* 滾動進度指示器 */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 10000;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #c48b6e, #d4a574);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+
+    /* 滾動容器 */
+    .scroll-container {
+      height: 500vh; /* 5個區塊的高度 */
+      position: relative;
+    }
+
+    .scroll-section {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .scroll-section.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-section.exit {
+      opacity: 0;
+      transform: translateY(-100px) scale(0.95);
     }
 
     /* 導航列樣式 */
@@ -123,6 +216,7 @@ const meta = seoMeta({
       padding: 2rem 4rem;
       background: rgba(196, 139, 110, 0.1);
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
     }
 
     .nav-logo .logo-icon {
@@ -178,16 +272,12 @@ const meta = seoMeta({
     /* Hero Banner 樣式 */
     .hero-banner {
       position: relative;
-      height: 100vh;
       background: linear-gradient(
         45deg,
         #c48b6e 0%,
         #d4a574 50%,
         #c48b6e 100%
       );
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
 
@@ -301,11 +391,300 @@ const meta = seoMeta({
     }
 
     /* 其他區塊樣式 */
+    .intro-section {
+      background: linear-gradient(135deg, #e17055 0%, #fdcb6e 30%, #e17055 60%, #fd79a8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100vh;
+      padding: 0 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro-left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .intro-text-stack {
+      display: flex;
+      flex-direction: column;
+      gap: -2rem;
+    }
+
+    .intro-title {
+      font-size: 12rem;
+      font-weight: 100;
+      color: white;
+      text-transform: lowercase;
+      line-height: 0.8;
+      letter-spacing: -0.05em;
+      opacity: 0.9;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .intro-title:nth-child(2) {
+      margin-left: 2rem;
+      opacity: 0.6;
+    }
+
+    .intro-title:nth-child(3) {
+      margin-left: 4rem;
+      opacity: 0.3;
+    }
+
+    .intro-right {
+      flex: 1;
+      max-width: 500px;
+      padding-left: 4rem;
+    }
+
+    .intro-heading {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2d3436;
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .intro-description {
+      font-size: 1.1rem;
+      color: #636e72;
+      line-height: 1.8;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .intro-circle-decoration {
+      position: absolute;
+      top: -20%;
+      right: -15%;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      z-index: 1;
+      animation: float 6s ease-in-out infinite;
+    }
+
     .about-section,
     .services-section,
     .contact-section {
-      padding: 8rem 2rem;
       text-align: center;
+      padding: 2rem;
+      background: white;
+    }
+
+    .course-section {
+      background: linear-gradient(135deg, #f5f1eb 0%, #ede4d8 100%);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-showcase {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .course-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .course-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: all 0.8s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .course-slide.active {
+      opacity: 1;
+    }
+
+    .course-content {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 6rem;
+      gap: 6rem;
+    }
+
+    .course-left {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .course-info {
+      margin-bottom: 4rem;
+    }
+
+    .course-main-title {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #8b7355;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-sub-title {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #333;
+      margin-bottom: 3rem;
+      letter-spacing: 2px;
+    }
+
+    .course-title {
+      font-size: 4rem;
+      font-weight: 300;
+      color: #333;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .course-subtitle {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .course-description {
+      font-size: 1rem;
+      color: #777;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      letter-spacing: 0.5px;
+    }
+
+    .course-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2.5rem;
+      background: #8b7355;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+    }
+
+    .course-btn:hover {
+      background: #7a6449;
+      transform: translateY(-2px);
+    }
+
+    .btn-arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .course-btn:hover .btn-arrow {
+      transform: translateX(5px);
+    }
+
+    .course-navigation {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #8b7355;
+      background: transparent;
+      color: #8b7355;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn:hover {
+      background: #8b7355;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .course-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .course-image {
+      width: 500px;
+      height: 600px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .course-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .member-benefits-section {
+      background: transparent;
+      padding: 0;
+    }
+
+    .member-benefits-section .member-benefits {
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .footer-section {
+      background: transparent;
+      padding: 0;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    .footer-section .main-footer {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .section-content {
@@ -328,52 +707,6 @@ const meta = seoMeta({
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
-    }
-
-    .service-card {
-      padding: 2rem;
-      background: #f8f9fa;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .service-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #333;
-    }
-
-    .service-card p {
-      color: #666;
-      line-height: 1.6;
-    }
-
-    .cta-button {
-      background: #c48b6e;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .cta-button:hover {
-      background: #b37a5e;
-      transform: translateY(-2px);
     }
 
     /* 動畫效果 */
@@ -409,6 +742,15 @@ const meta = seoMeta({
       }
     }
 
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+
     /* 響應式設計 */
     @media (max-width: 768px) {
       .main-nav {
@@ -439,59 +781,238 @@ const meta = seoMeta({
         left: 1rem;
       }
 
-      .services-grid {
-        grid-template-columns: 1fr;
+      .intro-container {
+        flex-direction: column;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .intro-title {
+        font-size: 6rem;
+      }
+
+      .intro-right {
+        padding-left: 0;
+        padding-top: 2rem;
+        max-width: 100%;
+      }
+
+      .intro-heading {
+        font-size: 1.5rem;
+      }
+
+      .intro-circle-decoration {
+        width: 400px;
+        height: 400px;
+        top: -10%;
+        right: -25%;
+      }
+
+      .course-content {
+        flex-direction: column;
+        gap: 3rem;
+        padding: 2rem;
+      }
+
+      .course-left,
+      .course-right {
+        max-width: 100%;
+      }
+
+      .course-title {
+        font-size: 2.5rem;
+      }
+
+      .course-subtitle {
+        font-size: 1.4rem;
+      }
+
+      .course-image {
+        width: 100%;
+        height: 400px;
+      }
+
+      .course-navigation {
+        justify-content: center;
+        margin-top: 2rem;
       }
     }
   </style>
 
   <script>
-    // 導航項目點擊效果
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-        e.target.classList.add('active');
-      });
-    });
+    // 等待 DOM 載入完成
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentSection = 0;
+      const sections = document.querySelectorAll('.scroll-section') as NodeListOf<HTMLElement>;
+      const totalSections = sections.length;
+      let isScrolling = false;
 
-    // 旋轉圓圈文字效果
-    const circleText = document.querySelector('.circle-text span');
-    if (circleText) {
-      const text = circleText.textContent;
-      circleText.innerHTML = '';
-      
-      for (let i = 0; i < text.length; i++) {
-        const char = document.createElement('span');
-        char.textContent = text[i];
-        char.style.transform = `rotate(${i * (360 / text.length)}deg)`;
-        char.style.position = 'absolute';
-        char.style.left = '50%';
-        char.style.transformOrigin = '0 50px';
-        circleText.appendChild(char);
+      // 初始化第一個區塊
+      if (sections.length > 0) {
+        sections[0].classList.add('active');
       }
-    }
 
-    // 平滑滾動效果
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+      // 更新進度條
+      function updateProgressBar() {
+        const progress = (currentSection / (totalSections - 1)) * 100;
+        const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+        }
+      }
+
+      // 更新導航狀態
+      function updateNavigation() {
+        const navItems = document.querySelectorAll('.nav-item') as NodeListOf<HTMLElement>;
+        navItems.forEach((item, index) => {
+          item.classList.remove('active');
+          if (index === currentSection) {
+            item.classList.add('active');
+          }
+        });
+      }
+
+      // 顯示指定區塊
+      function showSection(index: number) {
+        sections.forEach((section, i) => {
+          section.classList.remove('active', 'exit');
+          if (i === index) {
+            section.classList.add('active');
+          } else if (i < index) {
+            section.classList.add('exit');
+          }
+        });
+        updateProgressBar();
+        updateNavigation();
+      }
+
+      // 滾動事件處理
+      function handleScroll() {
+        if (isScrolling) return;
+        
+        const scrollTop = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const newSection = Math.floor(scrollTop / windowHeight);
+        
+        if (newSection !== currentSection && newSection >= 0 && newSection < totalSections) {
+          currentSection = newSection;
+          showSection(currentSection);
+        }
+      }
+
+      // 防抖滾動
+      let scrollTimeout: number;
+      window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = window.setTimeout(handleScroll, 10);
+      });
+
+      // 導航項目點擊效果
+      const navItems = document.querySelectorAll('.nav-item') as NodeListOf<HTMLElement>;
+      navItems.forEach((item, index) => {
+        item.addEventListener('click', (e: Event) => {
+          e.preventDefault();
+          const target = e.target as HTMLElement;
+          if (target) {
+            navItems.forEach(nav => nav.classList.remove('active'));
+            target.classList.add('active');
+            
+            // 滾動到對應區塊
+            currentSection = index;
+            window.scrollTo({
+              top: index * window.innerHeight,
+              behavior: 'smooth'
+            });
+            showSection(currentSection);
+          }
+        });
+      });
+
+      // 旋轉圓圈文字效果
+      const circleText = document.querySelector('.circle-text span') as HTMLElement;
+      if (circleText) {
+        const text = circleText.textContent || '';
+        circleText.innerHTML = '';
+        
+        for (let i = 0; i < text.length; i++) {
+          const char = document.createElement('span');
+          char.textContent = text[i];
+          char.style.transform = `rotate(${i * (360 / text.length)}deg)`;
+          char.style.position = 'absolute';
+          char.style.left = '50%';
+          char.style.transformOrigin = '0 50px';
+          circleText.appendChild(char);
+        }
+      }
+
+      // 平滑滾動效果
+      const scrollLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
+      scrollLinks.forEach(anchor => {
+        anchor.addEventListener('click', function (e: Event) {
+          e.preventDefault();
+          const href = (this as HTMLAnchorElement).getAttribute('href');
+          const target = href ? document.querySelector(href) : null;
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // 視差滾動效果
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroImage = document.querySelector('.hero-image') as HTMLElement;
+        if (heroImage) {
+          heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
         }
       });
-    });
 
-    // 視差滾動效果
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const heroImage = document.querySelector('.hero-image');
-      if (heroImage) {
-        heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
-      }
+      // 鍵盤導航
+      document.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'ArrowDown' && currentSection < totalSections - 1) {
+          e.preventDefault();
+          currentSection++;
+          window.scrollTo({
+            top: currentSection * window.innerHeight,
+            behavior: 'smooth'
+          });
+          showSection(currentSection);
+        } else if (e.key === 'ArrowUp' && currentSection > 0) {
+          e.preventDefault();
+          currentSection--;
+          window.scrollTo({
+            top: currentSection * window.innerHeight,
+            behavior: 'smooth'
+          });
+          showSection(currentSection);
+        }
+      });
+
+      // 滾輪事件處理
+      let wheelTimeout: number;
+      window.addEventListener('wheel', (e: WheelEvent) => {
+        e.preventDefault();
+        
+        clearTimeout(wheelTimeout);
+        wheelTimeout = window.setTimeout(() => {
+          if (e.deltaY > 0 && currentSection < totalSections - 1) {
+            // 向下滾動
+            currentSection++;
+          } else if (e.deltaY < 0 && currentSection > 0) {
+            // 向上滾動
+            currentSection--;
+          }
+          
+          window.scrollTo({
+            top: currentSection * window.innerHeight,
+            behavior: 'smooth'
+          });
+          showSection(currentSection);
+        }, 50);
+      }, { passive: false });
     });
   </script>
 </Layout>
