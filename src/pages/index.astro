@@ -36,6 +36,7 @@ const meta = seoMeta({
 
   <!-- Hero Banner -->
   <section class="scroll-section hero-banner" id="home" data-section="home">
+
     <div class="hero-content">
       <div class="hero-text">
         <h1 class="hero-title">
@@ -45,7 +46,7 @@ const meta = seoMeta({
         <p class="hero-subtitle">Wellness</p>
       </div>
     </div>
-    
+
     <!-- 旋轉圓圈元素 -->
     <div class="rotating-circle">
       <div class="circle-text">
@@ -53,12 +54,12 @@ const meta = seoMeta({
       </div>
       <div class="circle-arrow">↓</div>
     </div>
-    
+
     <!-- 側邊文字 -->
     <div class="side-text">
       <span>& SPA</span>
     </div>
-    
+
     <div class="hero-bg">
       <div class="hero-image"></div>
     </div>
@@ -90,41 +91,205 @@ const meta = seoMeta({
 
   <!-- Course Section -->
   <section class="scroll-section course-section" id="courses" data-section="courses">
-    <div class="course-showcase">
-      <div class="course-container">
-        <div class="course-slide active" data-course="combo4" data-index="0">
-          <div class="course-content">
-            <div class="course-left">
-              <div class="course-info">
-                <h1 class="course-main-title">COURSE</h1>
-                <h2 class="course-sub-title">課程介紹</h2>
-                <h3 class="course-title">combo4</h3>
-                <h4 class="course-subtitle">極致養護放鬆之旅</h4>
-                <p class="course-description">全方位身心靈護理，體驗前所未有的奢華享受。集結多項頂級療程，從肌膚護理到深度放鬆，為您打造完美的療癒時光。</p>
-                <a href="/courses/combo4" class="course-btn">
-                  課程介紹 <span class="btn-arrow">→</span>
-                </a>
-              </div>
-              
-              <!-- 導航按鈕 -->
-              <div class="course-navigation">
-                <button class="nav-btn prev-btn" data-direction="prev">
-                  <span>←</span>
-                </button>
-                <button class="nav-btn next-btn" data-direction="next">
-                  <span>→</span>
-                </button>
-              </div>
+    <div class="course-header">
+      <h1 class="course-main-title">COURSE</h1>
+      <h2 class="course-sub-title">課程介紹</h2>
+    </div>
+
+    <div class="course-carousel-main">
+      <!-- 輪播項目1 -->
+      <div class="course-carousel-item active" data-index="0">
+        <div class="course-info-section">
+          <div class="course-info-content">
+            <h3 class="course-title">other6</h3>
+            <h4 class="course-subtitle">加點項目</h4>
+            <div class="absolute -bottom-8">
+              <a href="/courses/relax" class="course-btn">
+                課程介紹 <span class="btn-arrow">→</span>
+              </a>
             </div>
-            
-            <div class="course-right">
-              <div class="course-image">
-                <img src="/api/placeholder/800/600" alt="極致養護放鬆之旅" />
-              </div>
+            <!-- 導航按鈕 -->
+            <div class="course-navigation-inline">
+              <button class="nav-btn prev-btn" data-direction="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
+                        <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <button class="nav-btn next-btn" data-direction="next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="圖層_2-2" data-name="圖層 2">
+                        <g id="圖層_1-2-2" data-name="圖層 1-2">
+                          <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
+                            <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
+        <div class="course-carousel">
+          <img src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg" alt="加點項目" />
+        </div>
       </div>
+
+      <!-- 輪播項目2 -->
+      <div class="course-carousel-item" data-index="1">
+        <div class="course-info-section">
+          <div class="course-info-content">
+            <h3 class="course-title">massage</h3>
+            <h4 class="course-subtitle">專業按摩</h4>
+            <div class="absolute -bottom-8">
+              <a href="/courses/massage" class="course-btn">
+                課程介紹 <span class="btn-arrow">→</span>
+              </a>
+            </div>
+            <!-- 導航按鈕 -->
+            <div class="course-navigation-inline">
+              <button class="nav-btn prev-btn" data-direction="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
+                        <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <button class="nav-btn next-btn" data-direction="next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="圖層_2-2" data-name="圖層 2">
+                        <g id="圖層_1-2-2" data-name="圖層 1-2">
+                          <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
+                            <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="course-carousel">
+          <img src="/api/placeholder/600/400" alt="專業按摩" />
+        </div>
+      </div>
+
+      <!-- 輪播項目3 -->
+      <div class="course-carousel-item" data-index="2">
+        <div class="course-info-section">
+          <div class="course-info-content">
+            <h3 class="course-title">beauty</h3>
+            <h4 class="course-subtitle">美容護理</h4>
+            <div class="absolute -bottom-8">
+              <a href="/courses/beauty" class="course-btn">
+                課程介紹 <span class="btn-arrow">→</span>
+              </a>
+            </div>
+            <!-- 導航按鈕 -->
+            <div class="course-navigation-inline">
+              <button class="nav-btn prev-btn" data-direction="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
+                        <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <button class="nav-btn next-btn" data-direction="next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="圖層_2-2" data-name="圖層 2">
+                        <g id="圖層_1-2-2" data-name="圖層 1-2">
+                          <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
+                            <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="course-carousel">
+          <img src="/api/placeholder/600/400" alt="美容護理" />
+        </div>
+      </div>
+
+      <!-- 輪播項目4 -->
+      <div class="course-carousel-item" data-index="3">
+        <div class="course-info-section">
+          <div class="course-info-content">
+            <h3 class="course-title">relax</h3>
+            <h4 class="course-subtitle">放鬆體驗</h4>
+            <div class="absolute -bottom-8">
+              <a href="/courses/relax" class="course-btn">
+                課程介紹 <span class="btn-arrow">→</span>
+              </a>
+            </div>
+            <!-- 導航按鈕 -->
+            <div class="course-navigation-inline">
+              <button class="nav-btn prev-btn" data-direction="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
+                        <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              <button class="nav-btn next-btn" data-direction="next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
+                  <g id="圖層_2" data-name="圖層 2">
+                    <g id="圖層_1-2" data-name="圖層 1">
+                      <g id="圖層_2-2" data-name="圖層 2">
+                        <g id="圖層_1-2-2" data-name="圖層 1-2">
+                          <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
+                            <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="course-carousel">
+          <img src="/api/placeholder/600/400" alt="放鬆體驗" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部描述區域 -->
+    <div class="course-description-area">
+      <h3 class="description-title">在我們的店中另有一區「女性專屬空間」</h3>
+      <p class="description-text">讓女性貴賓能夠在空間中享受我們的課程</p>
     </div>
   </section>
 
@@ -340,6 +505,13 @@ const meta = seoMeta({
       width: 120px;
       height: 120px;
       z-index: 10;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .rotating-circle.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .circle-text {
@@ -484,109 +656,118 @@ const meta = seoMeta({
     }
 
     .course-section {
-      background: linear-gradient(135deg, #f5f1eb 0%, #ede4d8 100%);
-      padding: 0;
+      background: #f8f6f0;
+      padding: 2rem 0;
       position: relative;
+      height: 100vh;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .course-showcase {
-      height: 100vh;
+    .course-section > * {
+      max-width: 1140px;
+      margin-left: 115.5px;
+      margin-right: 115.5px;
+    }
+
+    .course-header {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .course-main-title {
+      font-size: 3rem;
+      font-weight: 300;
+      color: #c4956c;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .course-sub-title {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #8b7355;
+      letter-spacing: 2px;
+    }
+
+    .course-carousel-main {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
 
-    .course-container {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-
-    .course-slide {
+    .course-carousel-item {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       opacity: 0;
-      transition: all 0.8s ease;
+      visibility: hidden;
+      transition: all 0.8s ease-in-out;
+      transform: translateX(50px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .course-carousel-item.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .course-info-section {
+      width: 446.391px;
+      height: 161.938px;
+      background: #F5E9DAD4;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      z-index: 20;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: 100px;
+      position: relative;
     }
 
-    .course-slide.active {
-      opacity: 1;
-    }
-
-    .course-content {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 6rem;
-      gap: 6rem;
-    }
-
-    .course-left {
-      flex: 1;
-      max-width: 600px;
-    }
-
-    .course-info {
-      margin-bottom: 4rem;
-    }
-
-    .course-main-title {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #8b7355;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    .course-sub-title {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #333;
-      margin-bottom: 3rem;
-      letter-spacing: 2px;
+    .course-info-content {
+      margin-bottom: 0;
     }
 
     .course-title {
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: 300;
-      color: #333;
+      color: #c4956c;
+      text-transform: lowercase;
+      letter-spacing: 2px;
       margin-bottom: 1rem;
-      letter-spacing: -0.02em;
+      line-height: 1;
     }
 
     .course-subtitle {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
+      color: #8b7355;
       font-weight: 400;
-      color: #666;
       margin-bottom: 2rem;
-      line-height: 1.4;
-    }
-
-    .course-description {
-      font-size: 1rem;
-      color: #777;
-      line-height: 1.8;
-      margin-bottom: 3rem;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     .course-btn {
       display: inline-flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 2.5rem;
-      background: #8b7355;
+      padding: 1rem 2rem;
+      background: #c4956c;
       color: white;
       text-decoration: none;
       border-radius: 50px;
@@ -594,11 +775,13 @@ const meta = seoMeta({
       font-size: 1rem;
       transition: all 0.3s ease;
       letter-spacing: 1px;
+      box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
     }
 
     .course-btn:hover {
-      background: #7a6449;
+      background: #b8895f;
       transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(196, 149, 108, 0.4);
     }
 
     .btn-arrow {
@@ -610,57 +793,82 @@ const meta = seoMeta({
       transform: translateX(5px);
     }
 
-    .course-navigation {
+    .course-navigation-inline {
+      position: absolute;
+      top: 220px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       gap: 1rem;
+      z-index: 25;
+      margin-top: 1rem;
     }
 
     .nav-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      border: 2px solid #8b7355;
       background: transparent;
-      color: #8b7355;
-      font-size: 1.5rem;
+      border: 1px solid rgb(201, 151, 114);
+      border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 8px;
+      margin: 2px;
     }
 
-    .nav-btn:hover {
-      background: #8b7355;
-      color: white;
+    .nav-btn svg {
+      fill: #c4956c;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover svg {
+      fill: #b8895f;
       transform: scale(1.1);
     }
 
-    .course-right {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .course-image {
-      width: 500px;
-      height: 600px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    .course-carousel {
+      width: 639.609px;
+      height: 420px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
       position: relative;
+      z-index: 1;
     }
 
-    .course-image img {
+    .course-carousel img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
 
-    .course-image:hover img {
+    .course-carousel:hover img {
       transform: scale(1.05);
+    }
+
+    .course-description-area {
+      text-align: center;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      flex-shrink: 0;
+      padding-bottom: 2rem;
+    }
+
+    .description-title {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: #333;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .description-text {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+      letter-spacing: 0.5px;
     }
 
     .member-benefits-section {
@@ -808,33 +1016,60 @@ const meta = seoMeta({
         right: -25%;
       }
 
-      .course-content {
-        flex-direction: column;
-        gap: 3rem;
-        padding: 2rem;
+      .course-carousel-main {
+        padding: 0 1rem;
       }
 
-      .course-left,
-      .course-right {
-        max-width: 100%;
+      .course-info-section {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        margin: 0 auto 2rem auto;
+        padding: 1.5rem;
+        border-radius: 0;
+      }
+
+      .course-section > * {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        max-width: calc(100% - 2rem);
+      }
+
+      .course-carousel {
+        width: 100%;
+        max-width: 400px;
+        height: 250px;
+        margin: 0 auto;
+      }
+
+      .course-main-title {
+        font-size: 2rem;
+        letter-spacing: 4px;
       }
 
       .course-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
 
       .course-subtitle {
+        font-size: 1rem;
+      }
+
+      .course-description-area {
+        margin-top: 2rem;
+        padding: 0 1rem;
+      }
+
+      .description-title {
         font-size: 1.4rem;
       }
 
-      .course-image {
-        width: 100%;
-        height: 400px;
-      }
-
-      .course-navigation {
-        justify-content: center;
-        margin-top: 2rem;
+      .description-text {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -889,22 +1124,33 @@ const meta = seoMeta({
       // 滾動事件處理
       function handleScroll() {
         if (isScrolling) return;
-        
+
         const scrollTop = window.pageYOffset;
         const windowHeight = window.innerHeight;
         const newSection = Math.floor(scrollTop / windowHeight);
-        
+
+        // 控制旋轉圓圈在footer區域的顯示
+        const rotatingCircle = document.querySelector('.rotating-circle') as HTMLElement;
+        if (rotatingCircle) {
+          // 當到達最後一個section (footer) 時隱藏
+          if (newSection >= totalSections - 1) {
+            rotatingCircle.classList.add('hidden');
+          } else {
+            rotatingCircle.classList.remove('hidden');
+          }
+        }
+
         if (newSection !== currentSection && newSection >= 0 && newSection < totalSections) {
           currentSection = newSection;
           showSection(currentSection);
         }
       }
 
-      // 防抖滾動
+      // 防抖滾動 - 縮短延遲時間提高響應性
       let scrollTimeout: number;
       window.addEventListener('scroll', () => {
         clearTimeout(scrollTimeout);
-        scrollTimeout = window.setTimeout(handleScroll, 10);
+        scrollTimeout = window.setTimeout(handleScroll, 5);
       });
 
       // 導航項目點擊效果
@@ -912,28 +1158,58 @@ const meta = seoMeta({
       navItems.forEach((item, index) => {
         item.addEventListener('click', (e: Event) => {
           e.preventDefault();
+          if (isScrolling) return;
+
           const target = e.target as HTMLElement;
           if (target) {
             navItems.forEach(nav => nav.classList.remove('active'));
             target.classList.add('active');
-            
+
             // 滾動到對應區塊
             currentSection = index;
+            isScrolling = true;
             window.scrollTo({
               top: index * window.innerHeight,
               behavior: 'smooth'
             });
             showSection(currentSection);
+            setTimeout(() => { isScrolling = false; }, 800);
           }
         });
       });
+
+      // 課程輪播功能
+      let currentCourseIndex = 0;
+      const courseItems = document.querySelectorAll('.course-carousel-item') as NodeListOf<HTMLElement>;
+      const prevBtn = document.querySelector('.prev-btn') as HTMLButtonElement;
+      const nextBtn = document.querySelector('.next-btn') as HTMLButtonElement;
+      const totalCourses = courseItems.length;
+
+      function updateCourseCarousel() {
+        courseItems.forEach((item, index) => {
+          item.classList.toggle('active', index === currentCourseIndex);
+        });
+      }
+
+      function nextCourse() {
+        currentCourseIndex = (currentCourseIndex + 1) % totalCourses;
+        updateCourseCarousel();
+      }
+
+      function prevCourse() {
+        currentCourseIndex = (currentCourseIndex - 1 + totalCourses) % totalCourses;
+        updateCourseCarousel();
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', nextCourse);
+      if (prevBtn) prevBtn.addEventListener('click', prevCourse);
 
       // 旋轉圓圈文字效果
       const circleText = document.querySelector('.circle-text span') as HTMLElement;
       if (circleText) {
         const text = circleText.textContent || '';
         circleText.innerHTML = '';
-        
+
         for (let i = 0; i < text.length; i++) {
           const char = document.createElement('span');
           char.textContent = text[i];
@@ -972,46 +1248,73 @@ const meta = seoMeta({
 
       // 鍵盤導航
       document.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (isScrolling) return;
+
         if (e.key === 'ArrowDown' && currentSection < totalSections - 1) {
           e.preventDefault();
           currentSection++;
+          isScrolling = true;
           window.scrollTo({
             top: currentSection * window.innerHeight,
             behavior: 'smooth'
           });
           showSection(currentSection);
+          setTimeout(() => { isScrolling = false; }, 800);
         } else if (e.key === 'ArrowUp' && currentSection > 0) {
           e.preventDefault();
           currentSection--;
+          isScrolling = true;
           window.scrollTo({
             top: currentSection * window.innerHeight,
             behavior: 'smooth'
           });
           showSection(currentSection);
+          setTimeout(() => { isScrolling = false; }, 800);
         }
       });
 
-      // 滾輪事件處理
+      // 滾輪事件處理 - 更靈敏的響應
       let wheelTimeout: number;
+      let lastWheelTime = 0;
+      let wheelDelta = 0;
+
       window.addEventListener('wheel', (e: WheelEvent) => {
         e.preventDefault();
-        
+
+        const currentTime = Date.now();
+        wheelDelta += Math.abs(e.deltaY);
+
+        // 降低防抖時間並增加靈敏度
         clearTimeout(wheelTimeout);
         wheelTimeout = window.setTimeout(() => {
-          if (e.deltaY > 0 && currentSection < totalSections - 1) {
-            // 向下滾動
-            currentSection++;
-          } else if (e.deltaY < 0 && currentSection > 0) {
-            // 向上滾動
-            currentSection--;
+          // 提高觸發閾值，防止過於敏感
+          if (wheelDelta > 30) {
+            if (e.deltaY > 0 && currentSection < totalSections - 1) {
+              // 向下滾動
+              currentSection++;
+              isScrolling = true;
+              window.scrollTo({
+                top: currentSection * window.innerHeight,
+                behavior: 'smooth'
+              });
+              showSection(currentSection);
+              setTimeout(() => { isScrolling = false; }, 800);
+            } else if (e.deltaY < 0 && currentSection > 0) {
+              // 向上滾動
+              currentSection--;
+              isScrolling = true;
+              window.scrollTo({
+                top: currentSection * window.innerHeight,
+                behavior: 'smooth'
+              });
+              showSection(currentSection);
+              setTimeout(() => { isScrolling = false; }, 800);
+            }
           }
-          
-          window.scrollTo({
-            top: currentSection * window.innerHeight,
-            behavior: 'smooth'
-          });
-          showSection(currentSection);
-        }, 50);
+          wheelDelta = 0;
+        }, 20);
+
+        lastWheelTime = currentTime;
       }, { passive: false });
     });
   </script>
