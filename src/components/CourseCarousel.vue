@@ -5,13 +5,24 @@
       <h2 class="course-sub-title">課程介紹</h2>
     </div>
 
-    <div class="course-carousel-main">
+    <div 
+      class="course-carousel-main"
+      ref="carouselContainer"
+      @mousedown="handleDragStart"
+      @mousemove="handleDragMove"
+      @mouseup="handleDragEnd"
+      @mouseleave="handleDragEnd"
+      @touchstart="handleDragStart"
+      @touchmove="handleDragMove"
+      @touchend="handleDragEnd"
+    >
       <div
         v-for="(course, index) in courses"
         :key="course.id"
         class="course-carousel-item"
         :class="{ active: index === currentIndex }"
         :data-index="index"
+        :style="{ transform: `translateX(${currentTranslate}px)` }"
       >
         <div class="course-info-section">
           <div class="course-info-content">
@@ -25,30 +36,23 @@
             
             <!-- 導航按鈕 -->
             <div class="course-navigation-inline">
-              <button class="nav-btn prev-btn" @click="prevSlide">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
-                  <g id="圖層_2" data-name="圖層 2">
-                    <g id="圖層_1-2" data-name="圖層 1">
-                      <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
-                        <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
-                      </g>
-                    </g>
-                  </g>
+              <button class="nav-btn prev-btn" @click="prevSlide" :disabled="currentIndex === 0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15,18 9,12 15,6"></polyline>
                 </svg>
               </button>
-              <button class="nav-btn next-btn" @click="nextSlide">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
-                  <g id="圖層_2" data-name="圖層 2">
-                    <g id="圖層_1-2" data-name="圖層 1">
-                      <g id="圖層_2-2" data-name="圖層 2">
-                        <g id="圖層_1-2-2" data-name="圖層 1-2">
-                          <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
-                            <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
+              <div class="carousel-dots">
+                <button 
+                  v-for="(_, index) in courses" 
+                  :key="index"
+                  class="dot"
+                  :class="{ active: index === currentIndex }"
+                  @click="currentIndex = index"
+                ></button>
+              </div>
+              <button class="nav-btn next-btn" @click="nextSlide" :disabled="currentIndex === courses.length - 1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9,18 15,12 9,6"></polyline>
                 </svg>
               </button>
             </div>
@@ -69,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 interface Course {
   id: string
@@ -80,6 +84,11 @@ interface Course {
 }
 
 const currentIndex = ref(0)
+const isDragging = ref(false)
+const startX = ref(0)
+const currentTranslate = ref(0)
+const initialTranslate = ref(0)
+const carouselContainer = ref<HTMLElement>()
 
 const courses: Course[] = [
   {
@@ -119,18 +128,76 @@ const nextSlide = () => {
 const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + courses.length) % courses.length
 }
+
+// 拖拽功能
+const handleDragStart = (e: MouseEvent | TouchEvent) => {
+  isDragging.value = true
+  startX.value = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
+  initialTranslate.value = currentTranslate.value
+  
+  if (carouselContainer.value) {
+    carouselContainer.value.style.transition = 'none'
+  }
+}
+
+const handleDragMove = (e: MouseEvent | TouchEvent) => {
+  if (!isDragging.value) return
+  
+  e.preventDefault()
+  const currentX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
+  const diff = currentX - startX.value
+  currentTranslate.value = initialTranslate.value + diff
+}
+
+const handleDragEnd = () => {
+  if (!isDragging.value) return
+  
+  isDragging.value = false
+  
+  if (carouselContainer.value) {
+    carouselContainer.value.style.transition = 'transform 0.3s ease'
+  }
+  
+  const threshold = 100
+  if (currentTranslate.value > threshold) {
+    prevSlide()
+  } else if (currentTranslate.value < -threshold) {
+    nextSlide()
+  }
+  
+  currentTranslate.value = 0
+}
+
+// 鍵盤控制
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'ArrowLeft') {
+    prevSlide()
+  } else if (e.key === 'ArrowRight') {
+    nextSlide()
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeydown)
+})
 </script>
 
 <style scoped>
 .course-section {
   background: #f8f6f0;
-  padding: 2rem 0;
+  padding: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .course-section > * {
@@ -168,6 +235,12 @@ const prevSlide = () => {
   align-items: center;
   justify-content: center;
   min-height: 420px;
+  cursor: grab;
+  user-select: none;
+}
+
+.course-carousel-main:active {
+  cursor: grabbing;
 }
 
 .course-carousel-item {
@@ -265,33 +338,59 @@ const prevSlide = () => {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(196, 149, 108, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #c4956c;
+  transform: scale(1.2);
+}
+
+.dot:hover {
+  background: rgba(196, 149, 108, 0.6);
 }
 
 .nav-btn {
   width: 40px;
   height: 40px;
-  border: none;
-  background: transparent;
+  border: 2px solid #c4956c;
+  background: white;
+  border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #c4956c;
 }
 
-.nav-btn:hover {
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #c4956c;
+  color: white;
   transform: scale(1.1);
-}
-
-.nav-btn svg {
-  fill: #c4956c;
-  transition: fill 0.3s ease;
-}
-
-.nav-btn:hover svg {
-  fill: #b8895f;
 }
 
 .course-carousel {
@@ -338,6 +437,10 @@ const prevSlide = () => {
 
 /* 響應式設計 */
 @media (max-width: 1024px) {
+  .course-section {
+    padding: 6rem 0 2rem 0;
+  }
+
   .course-carousel-main {
     flex-direction: column;
     text-align: center;

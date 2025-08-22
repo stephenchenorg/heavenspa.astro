@@ -91,7 +91,7 @@ const meta = seoMeta({
   </section>
 
   <!-- Course Section -->
-  <section class="scroll-section" id="courses" data-section="courses">
+  <section class="scroll-section course-section-container" id="courses" data-section="courses">
     <CourseCarousel client:load />
   </section>
 
@@ -145,7 +145,6 @@ const meta = seoMeta({
     /* 滾動容器 */
     .scroll-container {
       height: 500vh; /* 5個區塊的高度 */
-      position: relative;
     }
 
     .scroll-section {
@@ -176,27 +175,38 @@ const meta = seoMeta({
       top: 0;
       left: 0;
       right: 0;
-      z-index: 1000;
+      z-index: 2000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 2rem 4rem;
-      background: rgba(196, 139, 110, 0.1);
-      backdrop-filter: blur(10px);
+      background: transparent;
+      backdrop-filter: none;
       transition: all 0.3s ease;
+    }
+
+    .main-nav.scrolled {
+      background: rgba(196, 149, 108, 0.95);
+      backdrop-filter: blur(10px);
     }
 
     .nav-logo .logo-icon {
       width: 40px;
       height: 40px;
-      background: white;
+      background: black;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      color: #c48b6e;
+      color: white;
       font-size: 14px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .main-nav.scrolled .nav-logo .logo-icon {
+      background: white;
+      color: #c4956c;
     }
 
     .nav-menu {
@@ -205,12 +215,16 @@ const meta = seoMeta({
     }
 
     .nav-item {
-      color: white;
+      color: black;
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 400;
       letter-spacing: 1px;
-      transition: opacity 0.3s ease;
+      transition: color 0.3s ease, opacity 0.3s ease;
+    }
+
+    .main-nav.scrolled .nav-item {
+      color: white;
     }
 
     .nav-item:hover,
@@ -219,8 +233,8 @@ const meta = seoMeta({
     }
 
     .contact-btn {
-      background: white;
-      color: #c48b6e;
+      background: black;
+      color: white;
       border: none;
       padding: 12px 24px;
       border-radius: 25px;
@@ -231,14 +245,19 @@ const meta = seoMeta({
       transition: all 0.3s ease;
     }
 
+    .main-nav.scrolled .contact-btn {
+      background: white;
+      color: #c4956c;
+    }
+
     .contact-btn:hover {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(0, 0, 0, 0.8);
       transform: translateY(-2px);
     }
 
     /* Hero Banner 樣式 */
     .hero-banner {
-      position: relative;
+      position: absolute;
       background: linear-gradient(
         45deg,
         #c48b6e 0%,
@@ -246,6 +265,8 @@ const meta = seoMeta({
         #c48b6e 100%
       );
       overflow: hidden;
+      width: 100%;
+      top: 0;
     }
 
     .hero-bg {
@@ -458,6 +479,15 @@ const meta = seoMeta({
     }
 
 
+    .course-section-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1500;
+      margin-top: 0;
+    }
+
     .member-benefits-section {
       background: transparent;
       padding: 0;
@@ -613,6 +643,7 @@ const meta = seoMeta({
       const sections = document.querySelectorAll('.scroll-section') as NodeListOf<HTMLElement>;
       const totalSections = sections.length;
       let isScrolling = false;
+      const mainNav = document.querySelector('.main-nav') as HTMLElement;
 
       // 初始化第一個區塊
       if (sections.length > 0) {
@@ -660,6 +691,15 @@ const meta = seoMeta({
         const scrollTop = window.pageYOffset;
         const windowHeight = window.innerHeight;
         const newSection = Math.floor(scrollTop / windowHeight);
+
+        // 導航樣式變化處理
+        if (mainNav) {
+          if (scrollTop > 20) {
+            mainNav.classList.add('scrolled');
+          } else {
+            mainNav.classList.remove('scrolled');
+          }
+        }
 
         // 控制旋轉圓圈在footer區域的顯示
         const rotatingCircle = document.querySelector('.rotating-circle') as HTMLElement;

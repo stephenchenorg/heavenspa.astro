@@ -1,0 +1,89 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+
+const meta: PageMeta = {
+  seo_title: 'PNG 預覽器',
+  seo_description: 'PNG 文件預覽功能'
+}
+---
+
+<Layout meta={meta}>
+  <div class="min-h-screen bg-gray-100 flex items-center justify-center p-8">
+    <div class="relative">
+      <!-- Main PNG file icon -->
+      <div class="relative w-80 h-96 bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <!-- Folded corner effect -->
+        <div class="absolute top-0 right-0 w-16 h-16">
+          <div class="w-full h-full bg-gradient-to-bl from-gray-300 via-gray-200 to-transparent rounded-bl-2xl"></div>
+          <div class="absolute top-0 right-0 w-12 h-12 bg-gray-200 rounded-bl-2xl"></div>
+        </div>
+        
+        <!-- Preview image area -->
+        <div class="relative p-6 pt-16">
+          <div class="relative w-full h-40 bg-blue-400 rounded-2xl overflow-hidden shadow-lg border-4 border-gray-100">
+            <!-- Ocean scene background -->
+            <div class="absolute inset-0 bg-gradient-to-b from-blue-300 via-blue-400 to-blue-600"></div>
+            
+            <!-- Horizon line -->
+            <div class="absolute top-1/3 left-0 right-0 h-px bg-blue-500"></div>
+            
+            <!-- Ocean waves and foam -->
+            <div class="absolute bottom-4 left-2 w-6 h-1 bg-white rounded-full opacity-90"></div>
+            <div class="absolute bottom-6 right-4 w-4 h-1 bg-white rounded-full opacity-80"></div>
+            <div class="absolute bottom-2 right-8 w-8 h-1 bg-white rounded-full opacity-70"></div>
+            <div class="absolute bottom-8 left-6 w-3 h-1 bg-white rounded-full opacity-85"></div>
+            
+            <!-- Rocky coastline -->
+            <div class="absolute bottom-0 left-1 w-8 h-6 bg-gray-700 rounded-t-full"></div>
+            <div class="absolute bottom-0 left-6 w-6 h-4 bg-gray-600 rounded-t-lg"></div>
+            <div class="absolute bottom-0 right-2 w-10 h-8 bg-gray-700 rounded-t-full"></div>
+            <div class="absolute bottom-0 right-8 w-4 h-3 bg-gray-600 rounded-t-lg"></div>
+          </div>
+          
+          <!-- 3D Magnifying glass jar positioned outside the image -->
+          <div class="absolute -bottom-6 right-8 w-20 h-24 z-10">
+            <!-- Jar lid -->
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-5 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-600 rounded-full shadow-xl">
+              <!-- Lid ridges -->
+              <div class="absolute inset-x-2 top-1 h-px bg-gray-900 opacity-50"></div>
+              <div class="absolute inset-x-2 top-2 h-px bg-gray-900 opacity-40"></div>
+              <div class="absolute inset-x-2 top-3 h-px bg-gray-900 opacity-30"></div>
+              <div class="absolute inset-x-2 bottom-1 h-px bg-gray-500 opacity-80"></div>
+            </div>
+            
+            <!-- Jar body -->
+            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-14 h-18">
+              <!-- Main glass body -->
+              <div class="w-full h-full bg-gradient-to-r from-gray-50 via-white to-gray-100 rounded-b-full shadow-2xl border border-gray-200" style="background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,240,240,0.8) 30%, rgba(255,255,255,0.95) 70%, rgba(230,230,230,0.7) 100%);">
+                <!-- Glass reflection -->
+                <div class="absolute top-2 left-2 w-4 h-10 bg-gradient-to-b from-white to-transparent opacity-70 rounded-full"></div>
+                <!-- Bottom reflection -->
+                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-10 h-2 bg-white opacity-50 rounded-full"></div>
+                <!-- Side highlight -->
+                <div class="absolute top-1 right-2 w-2 h-8 bg-gradient-to-b from-white to-transparent opacity-40 rounded-full"></div>
+              </div>
+              
+              <!-- Glass highlight -->
+              <div class="absolute top-1 left-1 w-3 h-12 bg-gradient-to-b from-white via-white to-transparent opacity-60 rounded-full"></div>
+              
+              <!-- Glass shadow -->
+              <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-3 bg-black opacity-20 rounded-full blur-sm"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PNG text -->
+        <div class="absolute bottom-12 left-0 right-0 text-center">
+          <h1 class="text-7xl font-normal text-gray-500 tracking-wide" style="font-weight: 300;">PNG</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+.clip-triangle {
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+</style>

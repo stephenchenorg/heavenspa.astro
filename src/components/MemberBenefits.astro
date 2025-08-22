@@ -77,7 +77,7 @@ const { benefits = defaultBenefits } = Astro.props;
 
     <!-- 優惠卡片輪播 -->
     <div class="benefits-carousel">
-      <div class="carousel-container">
+      <div class="carousel-container" id="carouselContainer">
         <div class="carousel-track" id="benefitsTrack">
           {benefits.map((benefit, index) => (
               <div class="card-content" data-index={index}>
@@ -115,30 +115,17 @@ const { benefits = defaultBenefits } = Astro.props;
 
       <!-- 導航按鈕 -->
       <div class="carousel-navigation">
-        <button class="nav-btn prev-btn" @click="prevSlide">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
-            <g id="圖層_2" data-name="圖層 2">
-              <g id="圖層_1-2" data-name="圖層 1">
-                <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
-                  <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
-                </g>
-              </g>
-            </g>
+        <button class="nav-btn prev-btn" id="prevBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
           </svg>
         </button>
-        <button class="nav-btn next-btn" @click="nextSlide">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
-            <g id="圖層_2" data-name="圖層 2">
-              <g id="圖層_1-2" data-name="圖層 1">
-                <g id="圖層_2-2" data-name="圖層 2">
-                  <g id="圖層_1-2-2" data-name="圖層 1-2">
-                    <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
-                      <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </g>
+        <div class="carousel-dots" id="carouselDots">
+          <!-- 動態生成的圓點 -->
+        </div>
+        <button class="nav-btn next-btn" id="nextBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"></polyline>
           </svg>
         </button>
       </div>
@@ -218,6 +205,12 @@ const { benefits = defaultBenefits } = Astro.props;
 
     .carousel-container {
       overflow: hidden;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .carousel-container:active {
+      cursor: grabbing;
     }
 
     .carousel-track {
@@ -378,30 +371,62 @@ const { benefits = defaultBenefits } = Astro.props;
     .carousel-navigation {
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 1rem;
       margin-top: 3rem;
     }
 
-    .nav-arrow {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid #c4956c;
-      background: transparent;
-      color: #c4956c;
-      cursor: pointer;
+    .carousel-dots {
       display: flex;
+      gap: 0.5rem;
       align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(196, 149, 108, 0.3);
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .nav-arrow:hover {
+    .dot.active {
+      background: #c4956c;
+      transform: scale(1.2);
+    }
+
+    .dot:hover {
+      background: rgba(196, 149, 108, 0.6);
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #c4956c;
+      background: white;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c4956c;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-btn:hover:not(:disabled) {
       background: #c4956c;
       color: white;
       transform: scale(1.1);
     }
+
 
     /* 響應式設計 */
     @media (max-width: 1024px) {
@@ -471,44 +496,151 @@ const { benefits = defaultBenefits } = Astro.props;
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const track = document.getElementById('benefitsTrack') as HTMLElement;
+      const container = document.getElementById('carouselContainer') as HTMLElement;
       const prevBtn = document.getElementById('prevBtn') as HTMLElement;
       const nextBtn = document.getElementById('nextBtn') as HTMLElement;
-      const cards = document.querySelectorAll('.benefit-card');
+      const dotsContainer = document.getElementById('carouselDots') as HTMLElement;
+      const cards = document.querySelectorAll('.card-content');
       
       let currentIndex = 0;
+      let isDragging = false;
+      let startX = 0;
+      let currentTranslate = 0;
+      let initialTranslate = 0;
+      
       const totalCards = cards.length;
-      const cardsPerView = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
-      const maxIndex = Math.max(0, totalCards - cardsPerView);
+      const getCardsPerView = () => window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+      let cardsPerView = getCardsPerView();
+      const getMaxIndex = () => Math.max(0, totalCards - cardsPerView);
 
+      // 創建圓點
+      function createDots() {
+        dotsContainer.innerHTML = '';
+        const maxIndex = getMaxIndex();
+        for (let i = 0; i <= maxIndex; i++) {
+          const dot = document.createElement('button');
+          dot.className = `dot ${i === currentIndex ? 'active' : ''}`;
+          dot.addEventListener('click', () => goToSlide(i));
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      // 更新輪播位置
       function updateCarousel() {
         const translateX = -(currentIndex * (100 / cardsPerView));
         track.style.transform = `translateX(${translateX}%)`;
+        updateDots();
+        updateButtons();
       }
 
+      // 更新圓點狀態
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentIndex);
+        });
+      }
+
+      // 更新按鈕狀態
+      function updateButtons() {
+        const maxIndex = getMaxIndex();
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+      }
+
+      // 跳到指定幻燈片
+      function goToSlide(index: number) {
+        currentIndex = Math.max(0, Math.min(index, getMaxIndex()));
+        updateCarousel();
+      }
+
+      // 下一張
       function nextSlide() {
-        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
-        updateCarousel();
-      }
-
-      function prevSlide() {
-        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
-        updateCarousel();
-      }
-
-      nextBtn?.addEventListener('click', nextSlide);
-      prevBtn?.addEventListener('click', prevSlide);
-
-      // 自動輪播
-      setInterval(nextSlide, 6000);
-
-      // 響應式更新
-      window.addEventListener('resize', () => {
-        const newCardsPerView = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
-        if (newCardsPerView !== cardsPerView) {
-          currentIndex = 0;
+        if (currentIndex < getMaxIndex()) {
+          currentIndex++;
           updateCarousel();
         }
-      });
+      }
+
+      // 上一張
+      function prevSlide() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+        }
+      }
+
+      // 拖拽功能
+      function handleDragStart(e: MouseEvent | TouchEvent) {
+        isDragging = true;
+        startX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+        initialTranslate = currentTranslate;
+        container.style.transition = 'none';
+      }
+
+      function handleDragMove(e: MouseEvent | TouchEvent) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const currentX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
+        const diff = currentX - startX;
+        currentTranslate = initialTranslate + diff;
+      }
+
+      function handleDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        container.style.transition = 'transform 0.3s ease';
+        
+        const threshold = 100;
+        if (currentTranslate > threshold) {
+          prevSlide();
+        } else if (currentTranslate < -threshold) {
+          nextSlide();
+        }
+        
+        currentTranslate = 0;
+      }
+
+      // 鍵盤控制
+      function handleKeydown(e: KeyboardEvent) {
+        if (e.key === 'ArrowLeft') {
+          prevSlide();
+        } else if (e.key === 'ArrowRight') {
+          nextSlide();
+        }
+      }
+
+      // 響應式更新
+      function handleResize() {
+        const newCardsPerView = getCardsPerView();
+        if (newCardsPerView !== cardsPerView) {
+          cardsPerView = newCardsPerView;
+          currentIndex = Math.min(currentIndex, getMaxIndex());
+          createDots();
+          updateCarousel();
+        }
+      }
+
+      // 事件監聽器
+      prevBtn?.addEventListener('click', prevSlide);
+      nextBtn?.addEventListener('click', nextSlide);
+      
+      // 拖拽事件
+      container?.addEventListener('mousedown', handleDragStart);
+      container?.addEventListener('mousemove', handleDragMove);
+      container?.addEventListener('mouseup', handleDragEnd);
+      container?.addEventListener('mouseleave', handleDragEnd);
+      container?.addEventListener('touchstart', handleDragStart);
+      container?.addEventListener('touchmove', handleDragMove);
+      container?.addEventListener('touchend', handleDragEnd);
+      
+      // 鍵盤和響應式事件
+      document.addEventListener('keydown', handleKeydown);
+      window.addEventListener('resize', handleResize);
+
+      // 初始化
+      createDots();
+      updateCarousel();
     });
   </script>
 </section>
