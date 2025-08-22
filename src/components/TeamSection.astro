@@ -1,0 +1,219 @@
+---
+// TeamSection component
+export interface TeamMember {
+  name: string;
+  title: string;
+  image: string;
+}
+
+const teamMembers: TeamMember[] = [
+  {
+    name: "THOMAS JOHNSON",
+    title: "Project Manager",
+    image: "https://resonance-next-app.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fdemo-elegant%2Fteam%2Fteam-1.jpg&w=640&q=75"
+  },
+  {
+    name: "EMMA ADAMS", 
+    title: "UI/UX Designer",
+    image: "https://resonance-next-app.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fdemo-elegant%2Fteam%2Fteam-2.jpg&w=640&q=75"
+  },
+  {
+    name: "JACK ANDERSON",
+    title: "Full-stack Developer", 
+    image: "https://resonance-next-app.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fdemo-elegant%2Fteam%2Fteam-3.jpg&w=640&q=75"
+  }
+];
+---
+
+<section class="scroll-section team-section" id="team" data-section="team">
+  <div class="team-container">
+    <div class="team-header">
+      <h2 class="team-title">Our Team.</h2>
+      <p class="team-description">
+        The same color can evoke different emotions, or have various
+        meanings to different individuals and cultures.
+      </p>
+    </div>
+    
+    <div class="team-grid">
+      {teamMembers.map((member) => (
+        <div class="team-member">
+          <div class="member-image">
+            <img src={member.image} alt={member.name} />
+          </div>
+          <div class="member-info">
+            <h3 class="member-name">{member.name}</h3>
+            <p class="member-title">{member.title}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- 跑馬燈區塊 -->
+  <div class="marquee-container">
+    <div class="marquee-content">
+      <span class="marquee-text">PROFESSIONAL TEAM • EXCEPTIONAL SERVICE • PREMIUM EXPERIENCE • BEAUTIFUL RESULTS • PROFESSIONAL TEAM • EXCEPTIONAL SERVICE • PREMIUM EXPERIENCE • BEAUTIFUL RESULTS • </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-section {
+    background: #f8f9fa;
+    padding: 6rem 0;
+  }
+
+  .team-container {
+    //max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .team-header {
+    margin-bottom: 4rem;
+  }
+
+  .team-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .team-description {
+    font-size: 1.1rem;
+    color: #636e72;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .team-grid {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 6rem;
+    justify-items: center;
+  }
+
+  .team-member {
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px);
+  }
+
+  .member-image {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto 2rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+
+  .team-member:hover .member-image img {
+    filter: grayscale(0%);
+  }
+
+  .member-info {
+    text-align: center;
+  }
+
+  .member-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .member-title {
+    font-size: 1rem;
+    color: #74b9ff;
+    font-weight: 400;
+  }
+
+  /* 跑馬燈樣式 */
+  .marquee-container {
+    margin-top: 10rem;
+    background: #F8F6F0;
+    padding: 2rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .marquee-content {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #C4966C;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .team-section {
+      padding: 4rem 0;
+    }
+
+    .team-title {
+      font-size: 2.5rem;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .member-image {
+      width: 250px;
+      height: 250px;
+    }
+
+    .team-container {
+      padding: 0 1rem;
+    }
+
+    .marquee-text {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+  }
+</style>
