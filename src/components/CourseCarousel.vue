@@ -81,33 +81,47 @@ const carouselContainer = ref<HTMLElement>()
 
 const courses: Course[] = [
   {
+    id: 'combo1',
+    title: 'combo1',
+    subtitle: '頭頸肩芳療紓壓洗頭',
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
+    link: '/courses/relax',
+  },
+  {
+    id: 'combo2',
+    title: 'combo2',
+    subtitle: '身心靈放鬆之旅',
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
+    link: '/courses/massage',
+  },
+  {
+    id: 'combo3',
+    title: 'combo3',
+    subtitle: '精緻養護放鬆之旅',
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
+    link: '/courses/beauty',
+  },
+  {
+    id: 'combo4',
+    title: 'combo4',
+    subtitle: '極緻養護放鬆之旅',
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
+    link: '/courses/relax',
+  },
+  {
+    id: 'combo5',
+    title: 'combo5',
+    subtitle: '活絡放鬆spa',
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/07/%E5%A4%A7close-up-hand-massage-concept.jpeg',
+    link: '/courses/relax',
+  },
+  {
     id: 'other6',
     title: 'other6',
     subtitle: '加點項目',
-    image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
-    link: '/courses/relax'
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/07/close-up-man-massaging-client.jpeg',
+    link: '/courses/relax',
   },
-  {
-    id: 'massage',
-    title: 'massage',
-    subtitle: '專業按摩',
-    image: '/api/placeholder/600/400',
-    link: '/courses/massage'
-  },
-  {
-    id: 'beauty',
-    title: 'beauty',
-    subtitle: '美容護理',
-    image: '/api/placeholder/600/400',
-    link: '/courses/beauty'
-  },
-  {
-    id: 'relax',
-    title: 'relax',
-    subtitle: '放鬆體驗',
-    image: '/api/placeholder/600/400',
-    link: '/courses/relax'
-  }
 ]
 
 const nextSlide = () => {
