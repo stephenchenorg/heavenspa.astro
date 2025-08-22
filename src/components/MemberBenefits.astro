@@ -10,7 +10,6 @@ export interface Benefit {
   image: string;
   buttonText: string;
   category: string;
-  bgColor?: string;
 }
 
 export interface Props {
@@ -29,7 +28,6 @@ const defaultBenefits: Benefit[] = [
     image: 'https://hamahairspa.com/wp-content/uploads/2025/05/hamahairspa%E6%AF%8D%E8%A6%AA%E7%AF%80%E5%84%AA%E6%83%A0-e1746153127699-1024x1024.jpg',
     buttonText: '母親節限定活動',
     category: 'VIEW MORE',
-    bgColor: 'linear-gradient(135deg, #2d5016 0%, #3d6b1c 100%)'
   },
   {
     id: 'special-offer',
@@ -42,7 +40,6 @@ const defaultBenefits: Benefit[] = [
     image: 'https://hamahairspa.com/wp-content/uploads/2024/12/95439753-4AFF-448A-A4E8-A4F5744899DF-1024x1024.png',
     buttonText: '非會員專案惠活動',
     category: 'VIEW MORE',
-    bgColor: 'linear-gradient(135deg, #8b4513 0%, #a0522d 100%)'
   },
   {
     id: 'hama-exclusive',
@@ -55,7 +52,6 @@ const defaultBenefits: Benefit[] = [
     image: 'https://hamahairspa.com/wp-content/uploads/2025/05/hamahairspa%E6%AF%8D%E8%A6%AA%E7%AF%80%E5%84%AA%E6%83%A0-e1746153127699-1024x1024.jpg',
     buttonText: '海洋胸好禮',
     category: 'VIEW MORE',
-    bgColor: 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'
   }
 ];
 
@@ -83,7 +79,7 @@ const { benefits = defaultBenefits } = Astro.props;
               <div class="card-content" data-index={index}>
                 <div class="card-image relative">
                   <img src={benefit.image} alt={benefit.title} />
-                  <div class="image-overlay" style={`background: ${benefit.bgColor}`}></div>
+                  <div class="image-overlay"></div>
                   <div class="card-header">
                     <span class="year">{benefit.year}</span>
                     <span class="month font-bold">{benefit.month}</span>
@@ -116,17 +112,13 @@ const { benefits = defaultBenefits } = Astro.props;
       <!-- 導航按鈕 -->
       <div class="carousel-navigation">
         <button class="nav-btn prev-btn" id="prevBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15,18 9,12 15,6"></polyline>
-          </svg>
+          <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="_0pqL0h.tif" data-name="0pqL0h.tif"><path fill="currentColor" d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path></g></g></g></svg>
         </button>
         <div class="carousel-dots" id="carouselDots">
           <!-- 動態生成的圓點 -->
         </div>
         <button class="nav-btn next-btn" id="nextBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9,18 15,12 9,6"></polyline>
-          </svg>
+          <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="圖層_2-2" data-name="圖層 2"><g id="圖層_1-2-2" data-name="圖層 1-2"><g id="_0pqL0h.tif" data-name=" 0pqL0h.tif"><path fill="currentColor" d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path></g></g></g></g></g></svg>
         </button>
       </div>
     </div>
@@ -311,6 +303,11 @@ const { benefits = defaultBenefits } = Astro.props;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease
+    }
+
+    .card-image:hover img {
+      transform: translateY(10px);
     }
 
     .image-overlay {

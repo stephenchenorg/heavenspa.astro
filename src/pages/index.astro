@@ -2,7 +2,6 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import Header from '@/layouts/partials/Header.astro'
-import Footer from '@/layouts/partials/Footer.astro'
 import MemberBenefits from '@/components/MemberBenefits.astro'
 import CourseCarousel from '@/components/CourseCarousel.vue'
 
@@ -116,7 +115,7 @@ const meta = seoMeta({
 
     /* Hero Banner 樣式 */
     .hero-banner {
-      position: absolute;
+      position: relative;
       background: linear-gradient(
         45deg,
         #c48b6e 0%,
@@ -125,7 +124,7 @@ const meta = seoMeta({
       );
       overflow: hidden;
       width: 100%;
-      top: 0;
+      height: 100vh;
     }
 
     .hero-bg {
@@ -249,7 +248,6 @@ const meta = seoMeta({
       background: linear-gradient(135deg, #e17055 0%, #fdcb6e 30%, #e17055 60%, #fd79a8 100%);
       position: relative;
       overflow: hidden;
-      margin-top: 100vh;
       z-index: 1;
     }
 
@@ -341,18 +339,13 @@ const meta = seoMeta({
 
 
     .course-section-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1500;
-      height: 100vh;
+      position: relative;
+      z-index: 1;
     }
 
     .member-benefits-section {
       background: transparent;
       padding: 0;
-      margin-top: 100vh;
       position: relative;
       z-index: 1;
     }

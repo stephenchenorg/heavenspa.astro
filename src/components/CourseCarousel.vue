@@ -22,7 +22,7 @@
         class="course-carousel-item"
         :class="{ active: index === currentIndex }"
         :data-index="index"
-        :style="{ transform: `translateX(${currentTranslate}px)` }"
+        :style="isDragging ? { transform: `translateX(${currentTranslate}px)` } : {}"
       >
         <div class="course-info-section">
           <div class="course-info-content">
@@ -33,33 +33,22 @@
                 課程介紹 <span class="btn-arrow">→</span>
               </a>
             </div>
-            
-            <!-- 導航按鈕 -->
-            <div class="course-navigation-inline">
-              <button class="nav-btn prev-btn" @click="prevSlide" :disabled="currentIndex === 0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15,18 9,12 15,6"></polyline>
-                </svg>
-              </button>
-              <div class="carousel-dots">
-                <button 
-                  v-for="(_, index) in courses" 
-                  :key="index"
-                  class="dot"
-                  :class="{ active: index === currentIndex }"
-                  @click="currentIndex = index"
-                ></button>
-              </div>
-              <button class="nav-btn next-btn" @click="nextSlide" :disabled="currentIndex === courses.length - 1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9,18 15,12 9,6"></polyline>
-                </svg>
-              </button>
-            </div>
+          </div>
+          <!-- 導航按鈕 -->
+          <div class="course-navigation-inline">
+            <button class="nav-btn prev-btn" @click="prevSlide" :disabled="currentIndex === 0">
+              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="_0pqL0h.tif" data-name="0pqL0h.tif"><path fill="currentColor" d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path></g></g></g></svg>
+            </button>
+            <button class="nav-btn next-btn" @click="nextSlide" :disabled="currentIndex === courses.length - 1">
+              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="圖層_2-2" data-name="圖層 2"><g id="圖層_1-2-2" data-name="圖層 1-2"><g id="_0pqL0h.tif" data-name=" 0pqL0h.tif"><path fill="currentColor" d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path></g></g></g></g></g></svg>
+            </button>
           </div>
         </div>
-        <div class="course-carousel">
-          <img :src="course.image" :alt="course.subtitle" />
+
+        <div class="w-full">
+          <div class="course-carousel">
+            <img :src="course.image" :alt="course.subtitle" />
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 interface Course {
   id: string
@@ -265,8 +254,8 @@ onUnmounted(() => {
 }
 
 .course-info-section {
-  width: 446.391px;
-  height: 161.938px;
+  min-width: 446.391px;
+  max-height: 161.938px;
   background: #F5E9DAD4;
   padding: 2rem;
   backdrop-filter: blur(10px);
@@ -334,43 +323,17 @@ onUnmounted(() => {
 
 .course-navigation-inline {
   position: absolute;
-  bottom: -4rem;
+  bottom: -8rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-
-.carousel-dots {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(196, 149, 108, 0.3);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dot.active {
-  background: #c4956c;
-  transform: scale(1.2);
-}
-
-.dot:hover {
-  background: rgba(196, 149, 108, 0.6);
-}
-
 .nav-btn {
   width: 40px;
   height: 40px;
-  border: 2px solid #c4956c;
+  border: 2px solid #C9A48E;
   background: white;
   border-radius: 50%;
   cursor: pointer;
@@ -379,7 +342,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #c4956c;
+  color: #C9A48E;
 }
 
 .nav-btn:disabled {
@@ -388,7 +351,7 @@ onUnmounted(() => {
 }
 
 .nav-btn:hover:not(:disabled) {
-  background: #c4956c;
+  background: #C9A48E;
   color: white;
   transform: scale(1.1);
 }
@@ -398,10 +361,10 @@ onUnmounted(() => {
   height: 420px;
   position: relative;
   z-index: 1;
-  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   margin-left: -20px;
+
 }
 
 .course-carousel img {
@@ -409,10 +372,6 @@ onUnmounted(() => {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-}
-
-.course-carousel:hover img {
-  transform: scale(1.05);
 }
 
 .course-description-area {
