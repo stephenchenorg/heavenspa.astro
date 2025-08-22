@@ -61,7 +61,7 @@ const teamMembers: TeamMember[] = [
 <style>
   .scroll-section {
     position: relative;
-    height: 100vh;
+    min-height: 120vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,11 +70,13 @@ const teamMembers: TeamMember[] = [
 
   .team-section {
     background: #f8f9fa;
-    padding: 6rem 0;
+    padding: 8rem 0;
+    position: relative;
+    z-index: 10;
+    flex-grow: 1;
   }
 
   .team-container {
-    //max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     text-align: center;
@@ -163,6 +165,7 @@ const teamMembers: TeamMember[] = [
     overflow: hidden;
     white-space: nowrap;
     position: relative;
+    z-index: 10;
   }
 
   .marquee-content {
@@ -188,9 +191,33 @@ const teamMembers: TeamMember[] = [
   }
 
   /* 響應式設計 */
+  @media (max-width: 1024px) {
+    .team-grid {
+      gap: 4rem;
+    }
+
+    .member-image {
+      width: 350px;
+      height: 350px;
+    }
+  }
+
   @media (max-width: 768px) {
+    .scroll-section {
+      height: auto;
+      min-height: 100vh;
+    }
+
     .team-section {
-      padding: 4rem 0;
+      padding: 3rem 0;
+    }
+
+    .team-container {
+      padding: 0 1rem;
+    }
+
+    .team-header {
+      margin-bottom: 3rem;
     }
 
     .team-title {
@@ -198,7 +225,49 @@ const teamMembers: TeamMember[] = [
     }
 
     .team-grid {
-      grid-template-columns: 1fr;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .member-image {
+      width: 280px;
+      height: 280px;
+    }
+
+    .marquee-container {
+      margin-top: 6rem;
+    }
+
+    .marquee-text {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-section {
+      padding: 2rem 0;
+    }
+
+    .team-container {
+      padding: 0 0.5rem;
+    }
+
+    .team-header {
+      margin-bottom: 2rem;
+    }
+
+    .team-title {
+      font-size: 2rem;
+    }
+
+    .team-description {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+
+    .team-grid {
       gap: 2rem;
     }
 
@@ -207,13 +276,38 @@ const teamMembers: TeamMember[] = [
       height: 250px;
     }
 
-    .team-container {
-      padding: 0 1rem;
+    .member-name {
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .member-title {
+      font-size: 0.9rem;
+    }
+
+    .marquee-container {
+      margin-top: 4rem;
+      padding: 1.5rem 0;
     }
 
     .marquee-text {
-      font-size: 1.2rem;
-      letter-spacing: 2px;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .team-title {
+      font-size: 1.5rem;
+    }
+
+    .member-image {
+      width: 200px;
+      height: 200px;
+    }
+
+    .marquee-text {
+      font-size: 0.9rem;
     }
   }
 </style>
