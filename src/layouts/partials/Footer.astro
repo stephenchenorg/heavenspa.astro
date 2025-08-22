@@ -1,13 +1,9 @@
 ---
-import { cn } from '@/utils/className'
+import Footer from '@/components/Footer.astro'
 
 interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
 }
 ---
 
-<footer class={cn('bg-gray-50 py-10', Astro.props.class)}>
-  <div class="container">
-    &copy; {new Date().getFullYear()} My Website. All rights reserved.
-  </div>
-</footer>
+<Footer class={Astro.props.class} />

@@ -1,8 +1,9 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
+import Header from '@/layouts/partials/Header.astro'
+import Footer from '@/layouts/partials/Footer.astro'
 import MemberBenefits from '@/components/MemberBenefits.astro'
-import Footer from '@/components/Footer.astro'
 import CourseCarousel from '@/components/CourseCarousel.vue'
 
 const meta = seoMeta({
@@ -11,29 +12,10 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <!-- 滾動進度指示器 -->
-  <div class="scroll-progress">
-    <div class="progress-bar"></div>
-  </div>
+  <Header />
 
-  <!-- 導航列 -->
-  <nav class="main-nav">
-    <div class="nav-logo">
-      <div class="logo-icon">HS</div>
-    </div>
-    <div class="nav-menu">
-      <a href="#home" class="nav-item active">HOME</a>
-      <a href="#intro" class="nav-item">INTRO</a>
-      <a href="#courses" class="nav-item">COURSES</a>
-      <a href="#benefits" class="nav-item">BENEFITS</a>
-    </div>
-    <div class="nav-contact">
-      <button class="contact-btn">CONTACT</button>
-    </div>
-  </nav>
-
-  <!-- 滾動容器 -->
-  <div class="scroll-container">
+  <!-- 內容容器 -->
+  <div class="content-container">
 
   <!-- Hero Banner -->
   <section class="scroll-section hero-banner" id="home" data-section="home">
@@ -100,12 +82,7 @@ const meta = seoMeta({
     <MemberBenefits />
   </section>
 
-  <!-- Footer Section -->
-  <section class="scroll-section footer-section" id="footer" data-section="footer">
-    <Footer />
-  </section>
-
-  </div> <!-- 結束滾動容器 -->
+  </div> <!-- 結束內容容器 -->
 
   <style>
     * {
@@ -124,135 +101,17 @@ const meta = seoMeta({
       overflow-x: hidden;
     }
 
-    /* 滾動進度指示器 */
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      z-index: 10000;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #c48b6e, #d4a574);
-      width: 0%;
-      transition: width 0.1s ease;
-    }
-
-    /* 滾動容器 */
-    .scroll-container {
-      height: 500vh; /* 5個區塊的高度 */
+    /* 內容容器 */
+    .content-container {
+      position: relative;
     }
 
     .scroll-section {
-      position: sticky;
-      top: 0;
+      position: relative;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transform: translateY(100px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .scroll-section.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .scroll-section.exit {
-      opacity: 0;
-      transform: translateY(-100px) scale(0.95);
-    }
-
-    /* 導航列樣式 */
-    .main-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 2000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem 4rem;
-      background: transparent;
-      backdrop-filter: none;
-      transition: all 0.3s ease;
-    }
-
-    .main-nav.scrolled {
-      background: rgba(196, 149, 108, 0.95);
-      backdrop-filter: blur(10px);
-    }
-
-    .nav-logo .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: black;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: white;
-      font-size: 14px;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    .main-nav.scrolled .nav-logo .logo-icon {
-      background: white;
-      color: #c4956c;
-    }
-
-    .nav-menu {
-      display: flex;
-      gap: 2.5rem;
-    }
-
-    .nav-item {
-      color: black;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 400;
-      letter-spacing: 1px;
-      transition: color 0.3s ease, opacity 0.3s ease;
-    }
-
-    .main-nav.scrolled .nav-item {
-      color: white;
-    }
-
-    .nav-item:hover,
-    .nav-item.active {
-      opacity: 0.7;
-    }
-
-    .contact-btn {
-      background: black;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 25px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .main-nav.scrolled .contact-btn {
-      background: white;
-      color: #c4956c;
-    }
-
-    .contact-btn:hover {
-      background: rgba(0, 0, 0, 0.8);
-      transform: translateY(-2px);
     }
 
     /* Hero Banner 樣式 */
@@ -390,6 +249,8 @@ const meta = seoMeta({
       background: linear-gradient(135deg, #e17055 0%, #fdcb6e 30%, #e17055 60%, #fd79a8 100%);
       position: relative;
       overflow: hidden;
+      margin-top: 100vh;
+      z-index: 1;
     }
 
     .intro-container {
@@ -485,12 +346,15 @@ const meta = seoMeta({
       left: 0;
       right: 0;
       z-index: 1500;
-      margin-top: 0;
+      height: 100vh;
     }
 
     .member-benefits-section {
       background: transparent;
       padding: 0;
+      margin-top: 100vh;
+      position: relative;
+      z-index: 1;
     }
 
     .member-benefits-section .member-benefits {
@@ -578,14 +442,6 @@ const meta = seoMeta({
 
     /* 響應式設計 */
     @media (max-width: 768px) {
-      .main-nav {
-        padding: 1rem 2rem;
-      }
-
-      .nav-menu {
-        display: none;
-      }
-
       .hero-title {
         font-size: 4rem;
       }
@@ -639,117 +495,6 @@ const meta = seoMeta({
   <script>
     // 等待 DOM 載入完成
     document.addEventListener('DOMContentLoaded', () => {
-      let currentSection = 0;
-      const sections = document.querySelectorAll('.scroll-section') as NodeListOf<HTMLElement>;
-      const totalSections = sections.length;
-      let isScrolling = false;
-      const mainNav = document.querySelector('.main-nav') as HTMLElement;
-
-      // 初始化第一個區塊
-      if (sections.length > 0) {
-        sections[0].classList.add('active');
-      }
-
-      // 更新進度條
-      function updateProgressBar() {
-        const progress = (currentSection / (totalSections - 1)) * 100;
-        const progressBar = document.querySelector('.progress-bar') as HTMLElement;
-        if (progressBar) {
-          progressBar.style.width = `${progress}%`;
-        }
-      }
-
-      // 更新導航狀態
-      function updateNavigation() {
-        const navItems = document.querySelectorAll('.nav-item') as NodeListOf<HTMLElement>;
-        navItems.forEach((item, index) => {
-          item.classList.remove('active');
-          if (index === currentSection) {
-            item.classList.add('active');
-          }
-        });
-      }
-
-      // 顯示指定區塊
-      function showSection(index: number) {
-        sections.forEach((section, i) => {
-          section.classList.remove('active', 'exit');
-          if (i === index) {
-            section.classList.add('active');
-          } else if (i < index) {
-            section.classList.add('exit');
-          }
-        });
-        updateProgressBar();
-        updateNavigation();
-      }
-
-      // 滾動事件處理
-      function handleScroll() {
-        if (isScrolling) return;
-
-        const scrollTop = window.pageYOffset;
-        const windowHeight = window.innerHeight;
-        const newSection = Math.floor(scrollTop / windowHeight);
-
-        // 導航樣式變化處理
-        if (mainNav) {
-          if (scrollTop > 20) {
-            mainNav.classList.add('scrolled');
-          } else {
-            mainNav.classList.remove('scrolled');
-          }
-        }
-
-        // 控制旋轉圓圈在footer區域的顯示
-        const rotatingCircle = document.querySelector('.rotating-circle') as HTMLElement;
-        if (rotatingCircle) {
-          // 當到達最後一個section (footer) 時隱藏
-          if (newSection >= totalSections - 1) {
-            rotatingCircle.classList.add('hidden');
-          } else {
-            rotatingCircle.classList.remove('hidden');
-          }
-        }
-
-        if (newSection !== currentSection && newSection >= 0 && newSection < totalSections) {
-          currentSection = newSection;
-          showSection(currentSection);
-        }
-      }
-
-      // 防抖滾動 - 縮短延遲時間提高響應性
-      let scrollTimeout: number;
-      window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = window.setTimeout(handleScroll, 5);
-      });
-
-      // 導航項目點擊效果
-      const navItems = document.querySelectorAll('.nav-item') as NodeListOf<HTMLElement>;
-      navItems.forEach((item, index) => {
-        item.addEventListener('click', (e: Event) => {
-          e.preventDefault();
-          if (isScrolling) return;
-
-          const target = e.target as HTMLElement;
-          if (target) {
-            navItems.forEach(nav => nav.classList.remove('active'));
-            target.classList.add('active');
-
-            // 滾動到對應區塊
-            currentSection = index;
-            isScrolling = true;
-            window.scrollTo({
-              top: index * window.innerHeight,
-              behavior: 'smooth'
-            });
-            showSection(currentSection);
-            setTimeout(() => { isScrolling = false; }, 800);
-          }
-        });
-      });
-
 
       // 旋轉圓圈文字效果
       const circleText = document.querySelector('.circle-text span') as HTMLElement;
@@ -792,77 +537,6 @@ const meta = seoMeta({
           heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
         }
       });
-
-      // 鍵盤導航
-      document.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (isScrolling) return;
-
-        if (e.key === 'ArrowDown' && currentSection < totalSections - 1) {
-          e.preventDefault();
-          currentSection++;
-          isScrolling = true;
-          window.scrollTo({
-            top: currentSection * window.innerHeight,
-            behavior: 'smooth'
-          });
-          showSection(currentSection);
-          setTimeout(() => { isScrolling = false; }, 800);
-        } else if (e.key === 'ArrowUp' && currentSection > 0) {
-          e.preventDefault();
-          currentSection--;
-          isScrolling = true;
-          window.scrollTo({
-            top: currentSection * window.innerHeight,
-            behavior: 'smooth'
-          });
-          showSection(currentSection);
-          setTimeout(() => { isScrolling = false; }, 800);
-        }
-      });
-
-      // 滾輪事件處理 - 更靈敏的響應
-      let wheelTimeout: number;
-      let lastWheelTime = 0;
-      let wheelDelta = 0;
-
-      window.addEventListener('wheel', (e: WheelEvent) => {
-        e.preventDefault();
-
-        const currentTime = Date.now();
-        wheelDelta += Math.abs(e.deltaY);
-
-        // 降低防抖時間並增加靈敏度
-        clearTimeout(wheelTimeout);
-        wheelTimeout = window.setTimeout(() => {
-          // 提高觸發閾值，防止過於敏感
-          if (wheelDelta > 30) {
-            if (e.deltaY > 0 && currentSection < totalSections - 1) {
-              // 向下滾動
-              currentSection++;
-              isScrolling = true;
-              window.scrollTo({
-                top: currentSection * window.innerHeight,
-                behavior: 'smooth'
-              });
-              showSection(currentSection);
-              setTimeout(() => { isScrolling = false; }, 800);
-            } else if (e.deltaY < 0 && currentSection > 0) {
-              // 向上滾動
-              currentSection--;
-              isScrolling = true;
-              window.scrollTo({
-                top: currentSection * window.innerHeight,
-                behavior: 'smooth'
-              });
-              showSection(currentSection);
-              setTimeout(() => { isScrolling = false; }, 800);
-            }
-          }
-          wheelDelta = 0;
-        }, 20);
-
-        lastWheelTime = currentTime;
-      }, { passive: false });
     });
   </script>
 </Layout>

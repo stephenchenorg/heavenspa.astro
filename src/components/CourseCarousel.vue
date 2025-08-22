@@ -201,9 +201,9 @@ onUnmounted(() => {
 }
 
 .course-section > * {
-  max-width: 1140px;
-  margin-left: 115.5px;
-  margin-right: 115.5px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .course-header {
@@ -461,9 +461,8 @@ onUnmounted(() => {
   }
 
   .course-section > * {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    max-width: calc(100% - 2rem);
+    max-width: 100%;
+    padding: 0 1rem;
   }
 
   .course-carousel {

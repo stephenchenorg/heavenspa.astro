@@ -134,13 +134,16 @@ const { benefits = defaultBenefits } = Astro.props;
 
   <style>
     .member-benefits {
-      background: linear-gradient(135deg, #f8f6f0 0%, #ede6d6 100%);
+      background: #f8f6f0;
       padding: 6rem 2rem;
       min-height: 100vh;
       display: flex;
       align-items: center;
       position: relative;
       overflow: hidden;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .benefits-container {

@@ -6,8 +6,161 @@ interface Props {
 }
 ---
 
-<header class={cn('bg-white border-b border-gray-200', Astro.props.class)}>
-  <nav class="container flex items-center justify-between p-4">
-    <a href="/">Header</a>
-  </nav>
-</header>
+<!-- 滾動進度指示器 -->
+<div class="scroll-progress">
+  <div class="progress-bar"></div>
+</div>
+
+<!-- 導航列 -->
+<nav class="main-nav">
+  <div class="nav-logo">
+    <div class="logo-icon">HS</div>
+  </div>
+  <div class="nav-menu">
+    <a href="#home" class="nav-item active">HOME</a>
+    <a href="#intro" class="nav-item">INTRO</a>
+    <a href="#courses" class="nav-item">COURSES</a>
+    <a href="#benefits" class="nav-item">BENEFITS</a>
+  </div>
+  <div class="nav-contact">
+    <button class="contact-btn">CONTACT</button>
+  </div>
+</nav>
+
+<style>
+  /* 滾動進度指示器 */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 10000;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #c48b6e, #d4a574);
+    width: 0%;
+    transition: width 0.1s ease;
+  }
+
+  /* 導航列樣式 */
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    background: transparent;
+    backdrop-filter: none;
+    transition: all 0.3s ease;
+  }
+
+  .main-nav.scrolled {
+    background: rgba(196, 149, 108, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 14px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .main-nav.scrolled .nav-logo .logo-icon {
+    background: white;
+    color: #c4956c;
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .nav-item {
+    color: black;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, opacity 0.3s ease;
+  }
+
+  .main-nav.scrolled .nav-item {
+    color: white;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    opacity: 0.7;
+  }
+
+  .contact-btn {
+    background: black;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .main-nav.scrolled .contact-btn {
+    background: white;
+    color: #c4956c;
+  }
+
+  .contact-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateY(-2px);
+  }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .main-nav {
+      padding: 1rem 2rem;
+    }
+
+    .nav-menu {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // 導航滾動效果
+  document.addEventListener('DOMContentLoaded', () => {
+    const mainNav = document.querySelector('.main-nav') as HTMLElement;
+    
+    function handleNavScroll() {
+      const scrollTop = window.pageYOffset;
+      
+      if (mainNav) {
+        if (scrollTop > 20) {
+          mainNav.classList.add('scrolled');
+        } else {
+          mainNav.classList.remove('scrolled');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleNavScroll);
+  });
+</script>
