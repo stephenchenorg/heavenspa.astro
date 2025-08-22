@@ -26,7 +26,7 @@ const defaultBenefits: Benefit[] = [
     date: '31',
     year: '2025',
     month: '05',
-    image: '/api/placeholder/400/300',
+    image: 'https://hamahairspa.com/wp-content/uploads/2025/05/hamahairspa%E6%AF%8D%E8%A6%AA%E7%AF%80%E5%84%AA%E6%83%A0-e1746153127699-1024x1024.jpg',
     buttonText: '母親節限定活動',
     category: 'VIEW MORE',
     bgColor: 'linear-gradient(135deg, #2d5016 0%, #3d6b1c 100%)'
@@ -39,7 +39,7 @@ const defaultBenefits: Benefit[] = [
     date: '10',
     year: '2024',
     month: '10',
-    image: '/api/placeholder/400/300',
+    image: 'https://hamahairspa.com/wp-content/uploads/2024/12/95439753-4AFF-448A-A4E8-A4F5744899DF-1024x1024.png',
     buttonText: '非會員專案惠活動',
     category: 'VIEW MORE',
     bgColor: 'linear-gradient(135deg, #8b4513 0%, #a0522d 100%)'
@@ -52,7 +52,7 @@ const defaultBenefits: Benefit[] = [
     date: '06',
     year: '2024',
     month: '06',
-    image: '/api/placeholder/400/300',
+    image: 'https://hamahairspa.com/wp-content/uploads/2025/05/hamahairspa%E6%AF%8D%E8%A6%AA%E7%AF%80%E5%84%AA%E6%83%A0-e1746153127699-1024x1024.jpg',
     buttonText: '海洋胸好禮',
     category: 'VIEW MORE',
     bgColor: 'linear-gradient(135deg, #4a5568 0%, #2d3748 100%)'
@@ -80,43 +80,66 @@ const { benefits = defaultBenefits } = Astro.props;
       <div class="carousel-container">
         <div class="carousel-track" id="benefitsTrack">
           {benefits.map((benefit, index) => (
-            <div class="benefit-card" data-index={index}>
-              <div class="card-header">
-                <div class="card-date">
-                  <div class="date-number">{benefit.date}</div>
-                  <div class="date-info">
-                    <span class="year">{benefit.year}</span>
-                    <span class="month">{benefit.month}</span>
-                  </div>
-                </div>
-                <div class="card-category">{benefit.category}</div>
-              </div>
-              
-              <div class="card-content">
-                <div class="card-image">
+              <div class="card-content" data-index={index}>
+                <div class="card-image relative">
                   <img src={benefit.image} alt={benefit.title} />
                   <div class="image-overlay" style={`background: ${benefit.bgColor}`}></div>
+                  <div class="card-header">
+                    <span class="year">{benefit.year}</span>
+                    <span class="month font-bold">{benefit.month}</span>
+                  </div>
                 </div>
-                
-                <div class="card-info">
-                  <h4 class="card-title">{benefit.title}</h4>
-                  <h5 class="card-subtitle">{benefit.subtitle}</h5>
-                  <p class="card-description">{benefit.description}</p>
-                  <button class="card-button">{benefit.buttonText}</button>
+                <div class="flex justify-between card-button">
+                  <button>{benefit.buttonText}</button>
+                  <div class="flex border-b border-b-[#c4956c]">
+                    <span>VIEW MORE</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28" class="ml-4">
+                      <g id="圖層_2" data-name="圖層 2">
+                        <g id="圖層_1-2" data-name="圖層 1">
+                          <g id="圖層_2-2" data-name="圖層 2">
+                            <g id="圖層_1-2-2" data-name="圖層 1-2">
+                              <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
+                                <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
           ))}
         </div>
       </div>
 
       <!-- 導航按鈕 -->
       <div class="carousel-navigation">
-        <button class="nav-arrow prev-arrow" id="prevBtn">
-          <span>←</span>
+        <button class="nav-btn prev-btn" @click="prevSlide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1" width="28" height="28">
+            <g id="圖層_2" data-name="圖層 2">
+              <g id="圖層_1-2" data-name="圖層 1">
+                <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
+                  <path d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path>
+                </g>
+              </g>
+            </g>
+          </svg>
         </button>
-        <button class="nav-arrow next-arrow" id="nextBtn">
-          <span>→</span>
+        <button class="nav-btn next-btn" @click="nextSlide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28">
+            <g id="圖層_2" data-name="圖層 2">
+              <g id="圖層_1-2" data-name="圖層 1">
+                <g id="圖層_2-2" data-name="圖層 2">
+                  <g id="圖層_1-2-2" data-name="圖層 1-2">
+                    <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
+                      <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
         </button>
       </div>
     </div>
@@ -164,10 +187,7 @@ const { benefits = defaultBenefits } = Astro.props;
 
     /* 專屬優惠按鈕 */
     .exclusive-button {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 10;
+      margin: 20px 0;
     }
 
     .exclusive-btn {
@@ -182,6 +202,7 @@ const { benefits = defaultBenefits } = Astro.props;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
+      width: 209px;
     }
 
     .exclusive-btn:hover {
@@ -197,7 +218,6 @@ const { benefits = defaultBenefits } = Astro.props;
 
     .carousel-container {
       overflow: hidden;
-      border-radius: 20px;
     }
 
     .carousel-track {
@@ -210,7 +230,7 @@ const { benefits = defaultBenefits } = Astro.props;
     .benefit-card {
       flex: 0 0 calc(33.333% - 1.333rem);
       background: white;
-      border-radius: 20px;
+      //border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -224,9 +244,16 @@ const { benefits = defaultBenefits } = Astro.props;
     /* 卡片標題 */
     .card-header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 1.5rem 1.5rem 0;
+      flex-direction: column;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      top: 0;
+      background: #C997728C;
+      width: 80px;
+      height: 80px;
+      padding: 10px;
     }
 
     .card-date {
@@ -244,14 +271,20 @@ const { benefits = defaultBenefits } = Astro.props;
 
     .date-info {
       display: flex;
+      justify-content: center;
       flex-direction: column;
       gap: 0.2rem;
     }
 
-    .year, .month {
-      font-size: 0.8rem;
-      color: #8b7355;
-      font-weight: 500;
+    .year{
+        font-size: 18px;
+        color: white;
+        font-weight: 500;
+    }
+    .month {
+      font-size: 35px;
+      color: white;
+      font-weight: 700;
     }
 
     .card-category {
@@ -267,13 +300,14 @@ const { benefits = defaultBenefits } = Astro.props;
     /* 卡片內容 */
     .card-content {
       position: relative;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
     }
 
     .card-image {
       position: relative;
-      height: 200px;
       margin: 1rem 1.5rem;
-      border-radius: 15px;
       overflow: hidden;
     }
 
@@ -320,7 +354,9 @@ const { benefits = defaultBenefits } = Astro.props;
     }
 
     .card-button {
-      background: transparent;
+      position: relative;
+      top: -40px;
+      background: #F9F2E9F5;
       border: 2px solid #c4956c;
       color: #c4956c;
       padding: 0.8rem 1.5rem;
@@ -329,7 +365,8 @@ const { benefits = defaultBenefits } = Astro.props;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
-      width: 100%;
+      width: calc( 100% - 40px);
+      margin: 0 auto;
     }
 
     .card-button:hover {
