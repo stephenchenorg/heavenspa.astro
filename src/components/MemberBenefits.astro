@@ -87,21 +87,9 @@ const { benefits = defaultBenefits } = Astro.props;
                 </div>
                 <div class="flex justify-between card-button">
                   <button>{benefit.buttonText}</button>
-                  <div class="flex border-b border-b-[#c4956c]">
-                    <span>VIEW MORE</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1" width="28" height="28" class="ml-4">
-                      <g id="圖層_2" data-name="圖層 2">
-                        <g id="圖層_1-2" data-name="圖層 1">
-                          <g id="圖層_2-2" data-name="圖層 2">
-                            <g id="圖層_1-2-2" data-name="圖層 1-2">
-                              <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
-                                <path d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path>
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </svg>
+                  <div class="card-button-btn">
+                    <span class="card-button-btn-title">VIEW MORE</span>
+                    <svg class="card-button-btn-svg ml-4" width="28" height="28" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="圖層_2-2" data-name="圖層 2"><g id="圖層_1-2-2" data-name="圖層 1-2"><g id="_0pqL0h.tif" data-name=" 0pqL0h.tif"><path fill="currentColor" d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path></g></g></g></g></g></svg>
                   </div>
                 </div>
               </div>
@@ -362,10 +350,29 @@ const { benefits = defaultBenefits } = Astro.props;
       margin: 0 auto;
     }
 
-    .card-button:hover {
-      background: #c4956c;
-      color: white;
+    .card-button-btn {
+      display: flex;
+      border-bottom: 1px solid #c4956c;
+      transition: all 0.3s ease-in-out;
     }
+
+    .card-button-btn:hover{
+      border: none;
+    }
+
+    .card-button-btn:hover .card-button-btn-title {
+      transform: translateX(-10px);
+    }
+
+    .card-button-btn:hover .card-button-btn-svg {
+      transform: translateX(10px);
+    }
+
+    .card-button-btn-title,.card-button-btn-svg {
+      transition: all 0.3s ease-in-out;
+    }
+
+
 
     /* 導航按鈕 */
     .carousel-navigation {
