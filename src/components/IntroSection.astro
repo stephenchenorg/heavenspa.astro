@@ -1,0 +1,249 @@
+---
+// IntroSection component
+---
+
+<section class="scroll-section intro-section" id="intro" data-section="intro">
+  <div class="intro-container">
+    <!-- intro 文字 (左側) -->
+    <div class="intro-left">
+      <div class="intro-text-stack">
+        <h2 class="intro-title">intro</h2>
+        <h2 class="intro-title">intro</h2>
+        <h2 class="intro-title">intro</h2>
+      </div>
+    </div>
+    
+    <!-- 圓圈區域 (右側) -->
+    <div class="intro-right">
+      <div class="circles-container">
+        <div class="circle circle-inner">
+          <div class="circle-content">
+            <h3 class="circle-heading">致力成為世界一流的製造服務整合者與持續成長的永續經營企業</h3>
+            <p class="circle-description">
+              聚焦擁有創新管理思維、專業素養及技術能量、進件客戶佈局、
+              創新設計研發、全球資訊整合，市場細緻分析等多項能力，從聚
+              集成為台灣最式界領航者，亦展美、日、歐、台各大服飾品牌與
+              零售業者主要合作夥伴，在全球皮革產業價值鏈中取得關鍵地
+              位。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .intro-section {
+    background: #FCA777;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .intro-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 0 0 0 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .intro-left {
+    color: rgb(255, 255, 255);
+    font-size: 220px;
+    line-height: 220px;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    font-family: Boska-Medium;
+    position: absolute;
+    left: 100px;
+    top: 45%;
+    transform: translateY(-50%);
+  }
+
+  .intro-right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100vh;
+    position: relative;
+  }
+
+  .circles-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .intro-text-stack {
+    display: flex;
+    flex-direction: column;
+    gap: -2rem;
+  }
+
+  .intro-title {
+    font-weight: 100;
+    text-transform: lowercase;
+    letter-spacing: -0.05em;
+    opacity: 0.9;
+  }
+
+  .intro-title:nth-child(2) {
+    margin-left: 2rem;
+    opacity: 0.6;
+  }
+
+  .intro-title:nth-child(3) {
+    margin-left: 4rem;
+    opacity: 0.3;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circle-inner {
+    width: 100vh;
+    height: 100vh;
+    background: #E8E8E8;
+    border: none;
+    padding: 3rem;
+    z-index: 3;
+    position: relative;
+  }
+
+  .circle-inner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 115vh;
+    height: 115vh;
+    background: #F1D5C7;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .circle-inner::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130vh;
+    height: 130vh;
+    background: #F9B48F;
+    border-radius: 50%;
+    z-index: -2;
+  }
+
+  .circle-content {
+    text-align: center;
+    width: 100%;
+    background: #E8E8E8;
+    border-radius: 50%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .circle-heading {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2d3436;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .circle-description {
+    font-size: 1rem;
+    color: #636e72;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+  }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .intro-container {
+      flex-direction: column;
+      padding: 2rem;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .intro-left {
+      z-index: 10;
+      margin-bottom: 2rem;
+    }
+
+    .intro-title {
+      font-size: 6rem;
+    }
+
+    .intro-right {
+      flex: 1;
+      height: 60vh;
+    }
+
+    .circle-outer {
+      width: 80vw;
+      height: 80vw;
+    }
+
+    .circle-middle {
+      width: 65vw;
+      height: 65vw;
+    }
+
+    .circle-inner {
+      width: 50vw;
+      height: 50vw;
+      padding: 2rem;
+    }
+
+    .circle-heading {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .circle-description {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  }
+</style>
