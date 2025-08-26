@@ -24,21 +24,28 @@ const meta = seoMeta({
     <HeroBanner />
   </section>
 
-  <!-- Intro Section -->
-  <IntroSection />
+  <!-- 堆疊卡片容器 -->
+  <div class="stack-container">
+    <!-- Intro Section -->
+    <section class="stack-card intro-card" id="intro" data-section="intro">
+      <IntroSection />
+    </section>
 
-  <!-- Team Section -->
-  <TeamSection />
+    <!-- Team Section -->
+    <section class="stack-card team-card" id="team" data-section="team">
+      <TeamSection />
+    </section>
 
-  <!-- Course Section -->
-  <section class="scroll-section course-section-container" id="courses" data-section="courses">
-    <CourseCarousel client:load />
-  </section>
+    <!-- Course Section -->
+    <section class="stack-card course-card" id="courses" data-section="courses">
+      <CourseCarousel client:load />
+    </section>
 
-  <!-- Member Benefits Section -->
-  <section class="scroll-section member-benefits-section" id="benefits" data-section="benefits">
-    <MemberBenefits />
-  </section>
+    <!-- Member Benefits Section -->
+    <section class="stack-card benefits-card" id="benefits" data-section="benefits">
+      <MemberBenefits />
+    </section>
+  </div>
 
   </div> <!-- 結束內容容器 -->
 
@@ -57,6 +64,7 @@ const meta = seoMeta({
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      background: #111;
     }
 
     /* 內容容器 */
@@ -72,6 +80,56 @@ const meta = seoMeta({
       justify-content: center;
     }
 
+    /* 堆疊卡片容器 */
+    .stack-container {
+      position: relative;
+      height: 400vh; /* 創造足夠的滾動距離 */
+      padding: 4rem 2rem; /* 上下4rem，左右2rem */
+    }
+
+    /* 堆疊卡片樣式 */
+    .stack-card {
+      position: sticky;
+      top: 50px;
+      width: 100%; /* 使用容器的100%寬度，由padding控制邊界 */
+      height: 80vh; /* 減少高度為80vh */
+      margin: 2.5vh auto; /* 上下各2.5vh邊界 */
+      border-radius: 50px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .stack-card.active {
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 10;
+    }
+
+    /* 不同卡片的背景色 */
+    .intro-card {
+      background: linear-gradient(135deg, #FCA777 0%, #F4A261 100%);
+    }
+
+    .team-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .course-card {
+      background: linear-gradient(135deg, #f8f6f0 0%, #f1ede4 100%);
+    }
+
+    .benefits-card {
+      background: linear-gradient(135deg, #f8f6f0 0%, #ede7dc 100%);
+    }
+
     @media (max-width: 768px) {
       .scroll-section {
         min-height: 80vh;
@@ -79,12 +137,17 @@ const meta = seoMeta({
         padding: 2rem 0;
       }
 
-      .course-section-container {
-        margin-bottom: 1rem;
+      .stack-container {
+        padding: 2rem 1rem; /* 手機版上下2rem，左右1rem */
+        height: 350vh;
       }
 
-      .member-benefits-section {
-        margin-top: -1rem;
+      .stack-card {
+        width: 100%; /* 使用容器100%寬度 */
+        height: 75vh; /* 手機版高度調整 */
+        margin: 2vh auto; /* 手機版上下邊界 */
+        border-radius: 30px;
+        top: 30px;
       }
     }
 
@@ -168,6 +231,26 @@ const meta = seoMeta({
   <script>
     // 等待 DOM 載入完成
     document.addEventListener('DOMContentLoaded', () => {
+      // 堆疊卡片效果
+      const stackCards = document.querySelectorAll('.stack-card') as NodeListOf<HTMLElement>;
+      
+      const stackObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            (entry.target as HTMLElement).style.zIndex = '10';
+          } else {
+            entry.target.classList.remove('active');
+            (entry.target as HTMLElement).style.zIndex = '1';
+          }
+        });
+      }, { 
+        threshold: 0.3,
+        rootMargin: '-50px 0px -50px 0px'
+      });
+
+      stackCards.forEach(card => stackObserver.observe(card));
+
       // 平滑滾動效果
       const scrollLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
       scrollLinks.forEach(anchor => {

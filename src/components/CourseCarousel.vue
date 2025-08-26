@@ -189,20 +189,15 @@ onUnmounted(() => {
 
 <style scoped>
 .course-section {
-  background: #f8f6f0;
-  padding: 8rem 0;
-  width: calc(100vw - 2rem); /* 調整寬度留出邊界空間 */
-  min-height: 100vh;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow-x: hidden;
-  border: 1px solid rgba(196, 149, 108, 0.3);
-  border-radius: 50px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  margin: 2rem;
 }
 
 /* 內容容器 */
