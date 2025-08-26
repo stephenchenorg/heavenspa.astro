@@ -1,16 +1,4 @@
 @layer base {
-  /* 重置瀏覽器預設的 margin 和 padding */
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
   button {
     @apply cursor-pointer;
   }

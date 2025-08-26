@@ -298,6 +298,7 @@ onUnmounted(() => {
   max-width: 480px; /* 最大寬度也設為 200px */
   background: #F5E9DAD4;
   padding: 1.5rem; /* 調整 padding 以適應較小寬度 */
+  height: 160px;
   backdrop-filter: blur(10px);
   text-align: center;
   z-index: 10;
@@ -489,16 +490,17 @@ onUnmounted(() => {
 
   .course-carousel {
     width: 100%;
-    max-width: none; /* 移除最大寬度限制 */
-    height: 350px; /* 增加高度 */
+    max-width: 450px; /* 設定圖片的最大寬度 */
+    height: 350px;
     margin: 0 auto;
   }
 
     .course-info-section {
     position: relative;
     top: -30px;
-    width: calc(100% - 50px); /* 圖片寬度減去 50px */
-    max-width: calc(100% - 50px); /* 最大寬度也是圖片寬度減去 50px */
+    width: calc(min(450px, 100%) - 100px); /* 圖片實際寬度減去 50px */
+    max-width: calc(min(450px, 100%) - 100px); /* 確保不會超過圖片寬度 */
+    min-width: calc(100% - 100px);
     margin: 0 auto;
     padding: 1.5rem;
     background: #F5E9DAD4;
@@ -512,8 +514,8 @@ onUnmounted(() => {
 
   .course-carousel {
     width: 100%;
-    max-width: none; /* 移除最大寬度限制 */
-    height: 350px; /* 增加高度 */
+    max-width: 450px; /* 與上面保持一致 */
+    height: 350px;
     margin: 0 auto; /* 手機版恢復正常的margin */
   }
 
@@ -560,7 +562,9 @@ onUnmounted(() => {
   .course-info-section {
     gap: 1rem; /* 卡片內部元素間距 */
     margin: 0 auto;
-    max-width: calc( 100% - 20px);
+    width: calc(min(450px, 100%) - 100px); /* 圖片實際寬度減去 50px */
+    max-width: calc(min(450px, 100%) - 100px); /* 確保不會超過圖片寬度 */
+    min-width: calc(100% - 100px);
   }
 
   .course-carousel-main {
@@ -568,15 +572,15 @@ onUnmounted(() => {
   }
 
   .course-carousel {
-    max-width: 380px;
+    max-width: 100%;
     height: 260px;
     margin: 0 auto; /* 确保居中 */
   }
 
   .course-info-section {
-    max-width: calc(100% - 50px); /* 與上面保持一致：圖片寬度減去 50px */
+    max-width: calc(min(380px, 100%) - 50px); /* 根據圖片的實際最大寬度計算 */
     padding: 1.2rem;
-    width: calc(100% - 50px); /* 與上面保持一致 */
+    width: calc(min(380px, 100%) - 50px); /* 確保不會超過圖片寬度 */
     top: -26px; /* 覆蓋圖片 1/10 (260px 的 1/10) */
     border-radius: 0; /* 移除圓角 */
   }
@@ -637,6 +641,9 @@ onUnmounted(() => {
   .course-info-section {
     gap: 0.8rem;
     padding: 1rem;
+    width: calc(min(450px, 100%) - 100px); /* 圖片實際寬度減去 50px */
+    max-width: calc(min(450px, 100%) - 100px); /* 確保不會超過圖片寬度 */
+    min-width: calc(100% - 100px);
   }
 
   .course-navigation-inline {
@@ -651,7 +658,9 @@ onUnmounted(() => {
   }
 
   .course-info-section {
-    max-width: 300px;
+    width: calc(min(450px, 100%) - 100px); /* 圖片實際寬度減去 50px */
+    max-width: calc(min(450px, 100%) - 100px); /* 確保不會超過圖片寬度 */
+    min-width: calc(100% - 100px);
     padding: 1rem;
     width: 85%;
     top: -20px; /* 覆蓋圖片 1/10 (200px 的 1/10) */
