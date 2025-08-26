@@ -771,8 +771,8 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
       // 更新按鈕狀態
       function updateButtons() {
         const maxIndex = getMaxIndex();
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex >= maxIndex;
+        (prevBtn as HTMLButtonElement).disabled = currentIndex === 0;
+        (nextBtn as HTMLButtonElement).disabled = currentIndex >= maxIndex;
       }
 
       // 跳到指定幻燈片
