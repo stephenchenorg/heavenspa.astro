@@ -196,15 +196,19 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
   <style>
     .member-benefits {
       background: #f8f6f0;
-      padding: 6rem 2rem;
+      padding: 8rem 0;
+      width: calc(100vw - 2rem); /* 調整寬度留出邊界空間 */
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
       position: relative;
-      overflow: hidden;
-      width: 100vw;
-      left: 50%;
-      transform: translateX(-50%);
+      overflow-x: hidden;
+      border: 1px solid rgba(196, 149, 108, 0.3);
+      border-radius: 50px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      margin: 2rem;
     }
 
     .benefits-container {
@@ -544,6 +548,8 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
 
       .member-benefits {
         padding: 3rem 1rem;
+        border-radius: 30px;
+        margin: 1rem 0;
       }
 
       .card-content {

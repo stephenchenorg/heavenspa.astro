@@ -190,8 +190,8 @@ onUnmounted(() => {
 <style scoped>
 .course-section {
   background: #f8f6f0;
-  padding: 4rem 0; /* 上下padding */
-  width: 100vw; /* 滿版寬度 */
+  padding: 8rem 0;
+  width: calc(100vw - 2rem); /* 調整寬度留出邊界空間 */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -199,7 +199,10 @@ onUnmounted(() => {
   align-items: center;
   position: relative;
   overflow-x: hidden;
-  margin-left: calc(-50vw + 50%); /* 突破容器限制，滿版顯示 */
+  border: 1px solid rgba(196, 149, 108, 0.3);
+  border-radius: 50px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin: 2rem;
 }
 
 /* 內容容器 */
@@ -545,10 +548,12 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .course-section {
-    padding: 1.5rem 0; /* 手機版上下padding */
+    padding: 1.5rem 1rem; /* 手機版上下左右padding */
     gap: 1.5rem;
-    width: 100vw; /* 保持滿版 */
-    margin-left: calc(-50vw + 50%); /* 保持滿版設定 */
+    width: calc(100vw - 2rem); /* 手機版留出邊界空間 */
+    margin-left: calc(-50vw + 50% + 1rem); /* 調整手機版定位 */
+    border-radius: 30px;
+    margin: 1rem calc(-50vw + 50% + 1rem);
   }
 
   .course-content-wrapper {
