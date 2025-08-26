@@ -67,7 +67,7 @@ try {
 }
 ---
 
-<section class="scroll-section team-section" id="team" data-section="team">
+<section class="team-section" id="team" data-section="team">
   <div class="team-container">
     <div class="team-header">
       <h2 class="team-title">Our Team.</h2>
@@ -127,16 +127,15 @@ try {
   }
 
   .team-section {
-    padding: 2rem 0;
+    padding: 2rem 1rem 0 1rem;
     position: relative;
     z-index: 10;
-    flex-grow: 1;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   .team-container {
@@ -146,32 +145,34 @@ try {
   }
 
   .team-header {
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem;
   }
 
   .team-title {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: 600;
     color: #2d3436;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.02em;
   }
 
   .team-description {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #636e72;
-    line-height: 1.8;
-    max-width: 600px;
+    line-height: 1.6;
+    max-width: 500px;
     margin: 0 auto;
   }
 
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
     justify-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 0 auto 1rem auto;
+    flex: 1;
+    align-content: center;
   }
 
   .team-member {
@@ -180,13 +181,13 @@ try {
   }
 
   .team-member:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 
   .member-image {
-    width: 400px;
-    height: 400px;
-    margin: 0 auto 2rem;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1rem;
     overflow: hidden;
     position: relative;
     border-radius: 8px;
@@ -210,29 +211,30 @@ try {
   }
 
   .member-name {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #2d3436;
-    margin-bottom: 0.5rem;
-    letter-spacing: 2px;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
   }
 
   .member-title {
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: #74b9ff;
     font-weight: 400;
   }
 
   /* 跑馬燈樣式 */
   .marquee-container {
-    margin-top: 10rem;
     background: #F8F6F0;
-    padding: 2rem 0;
+    padding: 1rem 0;
     overflow: hidden;
     white-space: nowrap;
     position: relative;
     z-index: 10;
+    margin-top: auto;
+    flex-shrink: 0;
   }
 
   .marquee-content {
@@ -241,10 +243,10 @@ try {
   }
 
   .marquee-text {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #333;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
   }
 
@@ -277,9 +279,7 @@ try {
     }
 
     .team-section {
-      padding: 3rem 0;
-      border-radius: 30px;
-      margin: 1rem;
+      padding: 2rem 1rem 0 1rem;
     }
 
     .team-container {
