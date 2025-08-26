@@ -294,10 +294,10 @@ onUnmounted(() => {
 }
 
 .course-info-section {
-  flex: 0 0 35%; /* 減少左側卡片寬度 */
-  max-width: 400px; /* 調整最大寬度 */
+  flex: 0 0 45%; /* 固定卡片寬度為 200px */
+  max-width: 480px; /* 最大寬度也設為 200px */
   background: #F5E9DAD4;
-  padding: 2rem;
+  padding: 1.5rem; /* 調整 padding 以適應較小寬度 */
   backdrop-filter: blur(10px);
   text-align: center;
   z-index: 10;
@@ -305,8 +305,8 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
-  margin-right: -60px; /* 減少負margin */
+  gap: 1rem; /* 減少間距 */
+  margin-right: -40px; /* 調整負margin */
   position: relative;
 }
 
@@ -315,21 +315,21 @@ onUnmounted(() => {
 }
 
 .course-title {
-  font-size: 3rem;
+  font-size: 2rem; /* 從 3rem 減少到 2rem */
   font-weight: 300;
   color: #c4956c;
   text-transform: lowercase;
-  letter-spacing: 2px;
-  margin-bottom: 1rem;
+  letter-spacing: 1px; /* 從 2px 減少到 1px */
+  margin-bottom: 0.5rem; /* 從 1rem 減少到 0.5rem */
   line-height: 1;
 }
 
 .course-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.2rem; /* 從 1.5rem 減少到 1.2rem */
   font-weight: 400;
   color: #5d4037;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
+  margin-bottom: 1rem; /* 從 2rem 減少到 1rem */
+  letter-spacing: 0.5px; /* 從 1px 減少到 0.5px */
 }
 
 .course-btn {
@@ -337,12 +337,12 @@ onUnmounted(() => {
   align-items: center;
   background: #c4956c;
   color: white;
-  padding: 0.8rem 2rem;
+  padding: 0.6rem 1.2rem; /* 從 0.8rem 2rem 調整為更小的padding */
   border-radius: 50px;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.8rem; /* 從 0.9rem 減少到 0.8rem */
+  letter-spacing: 0.5px; /* 從 1px 減少到 0.5px */
   transition: all 0.3s ease;
 }
 
@@ -497,9 +497,9 @@ onUnmounted(() => {
     .course-info-section {
     position: relative;
     top: -30px;
-    width: 90%;
-    max-width: 380px;
-    margin: 0 auto; /* 手機版恢復正常的margin，不使用重疊效果 */
+    width: calc(100% - 50px); /* 圖片寬度減去 50px */
+    max-width: calc(100% - 50px); /* 最大寬度也是圖片寬度減去 50px */
+    margin: 0 auto;
     padding: 1.5rem;
     background: #F5E9DAD4;
     backdrop-filter: blur(10px);
@@ -574,9 +574,9 @@ onUnmounted(() => {
   }
 
   .course-info-section {
-    max-width: 350px;
+    max-width: calc(100% - 50px); /* 與上面保持一致：圖片寬度減去 50px */
     padding: 1.2rem;
-    width: 85%;
+    width: calc(100% - 50px); /* 與上面保持一致 */
     top: -26px; /* 覆蓋圖片 1/10 (260px 的 1/10) */
     border-radius: 0; /* 移除圓角 */
   }
