@@ -127,10 +127,11 @@ const { benefits = defaultBenefits } = Astro.props;
     }
 
     .benefits-container {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
       width: 100%;
       position: relative;
+      padding: 0 2rem;
     }
 
     /* 標題區 */
@@ -203,16 +204,16 @@ const { benefits = defaultBenefits } = Astro.props;
     }
 
     /* 優惠卡片 */
-    .benefit-card {
+    .card-content {
       flex: 0 0 calc(33.333% - 1.333rem);
       background: white;
-      //border-radius: 20px;
+      border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .benefit-card:hover {
+    .card-content:hover {
       transform: translateY(-10px);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
     }
@@ -273,25 +274,29 @@ const { benefits = defaultBenefits } = Astro.props;
       letter-spacing: 1px;
     }
 
-    /* 卡片內容 */
+    /* 卡片內容佈局 */
     .card-content {
       position: relative;
       display: flex;
-      justify-content: center;
       flex-direction: column;
+      height: 450px;
     }
 
     .card-image {
       position: relative;
       margin: 1rem 1.5rem;
       overflow: hidden;
+      width: calc(100% - 3rem);
+      height: 300px;
+      border-radius: 12px;
+      flex-shrink: 0;
     }
 
     .card-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease
+      transition: transform 0.3s ease;
     }
 
     .card-image:hover img {
@@ -381,6 +386,7 @@ const { benefits = defaultBenefits } = Astro.props;
       align-items: center;
       gap: 1rem;
       margin-top: 3rem;
+      flex-wrap: wrap;
     }
 
     .carousel-dots {
@@ -421,6 +427,7 @@ const { benefits = defaultBenefits } = Astro.props;
       align-items: center;
       justify-content: center;
       color: #c4956c;
+      flex-shrink: 0;
     }
 
     .nav-btn:disabled {
@@ -437,22 +444,41 @@ const { benefits = defaultBenefits } = Astro.props;
 
     /* 響應式設計 */
     @media (max-width: 1024px) {
-      .benefit-card {
+      .member-benefits {
+        padding: 4rem 1.5rem;
+      }
+
+      .card-content {
         flex: 0 0 calc(50% - 1rem);
+        height: 420px;
       }
 
       .benefits-title {
         font-size: 3rem;
+        letter-spacing: 4px;
+      }
+
+      .card-image {
+        margin: 0.8rem 1.2rem;
+        width: calc(100% - 2.4rem);
+        height: 280px;
       }
     }
 
     @media (max-width: 768px) {
-      .member-benefits {
-        padding: 4rem 1rem;
+      .benefits-container {
+        padding: 0 1rem;
       }
 
-      .benefit-card {
+      .member-benefits {
+        padding: 3rem 1rem;
+      }
+
+      .card-content {
         flex: 0 0 100%;
+        height: 400px;
+        max-width: 350px;
+        margin: 0 auto;
       }
 
       .benefits-title {
@@ -465,13 +491,122 @@ const { benefits = defaultBenefits } = Astro.props;
       }
 
       .exclusive-button {
-        position: relative;
         text-align: center;
         margin-bottom: 2rem;
       }
 
       .carousel-track {
-        gap: 1rem;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      .card-image {
+        margin: 0.8rem 1rem;
+        width: calc(100% - 2rem);
+        height: 260px;
+      }
+
+      .card-header {
+        width: 70px;
+        height: 70px;
+      }
+
+      .year {
+        font-size: 16px;
+      }
+
+      .month {
+        font-size: 28px;
+      }
+
+      .carousel-navigation {
+        margin-top: 2rem;
+        gap: 1.2rem;
+      }
+
+      /* 手機版顯示更多導航圓點 */
+      .carousel-dots {
+        order: 0;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .prev-btn {
+        order: -1;
+      }
+
+      .next-btn {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .member-benefits {
+        padding: 2rem 0.5rem;
+      }
+
+      .card-content {
+        height: 380px;
+        max-width: 300px;
+      }
+
+      .benefits-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+
+      .benefits-subtitle {
+        font-size: 1rem;
+      }
+
+      .card-image {
+        margin: 0.5rem 0.8rem;
+        width: calc(100% - 1.6rem);
+        height: 240px;
+      }
+
+      .card-header {
+        width: 60px;
+        height: 60px;
+      }
+
+      .year {
+        font-size: 14px;
+      }
+
+      .month {
+        font-size: 24px;
+      }
+
+      .exclusive-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        width: 180px;
+      }
+
+      .nav-btn {
+        width: 35px;
+        height: 35px;
+      }
+
+      .carousel-navigation {
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+      }
+
+      /* 手機版導航佈局 */
+      .carousel-navigation {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 280px;
+        margin: 1.5rem auto 0;
+      }
+
+      .carousel-dots {
+        flex: 1;
+        justify-content: center;
+        margin: 0 1rem;
       }
     }
 
@@ -516,7 +651,12 @@ const { benefits = defaultBenefits } = Astro.props;
       let initialTranslate = 0;
       
       const totalCards = cards.length;
-      const getCardsPerView = () => window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+      const getCardsPerView = () => {
+        if (window.innerWidth <= 480) return 1;
+        if (window.innerWidth <= 768) return 1;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+      };
       let cardsPerView = getCardsPerView();
       const getMaxIndex = () => Math.max(0, totalCards - cardsPerView);
 
@@ -534,8 +674,16 @@ const { benefits = defaultBenefits } = Astro.props;
 
       // 更新輪播位置
       function updateCarousel() {
-        const translateX = -(currentIndex * (100 / cardsPerView));
-        track.style.transform = `translateX(${translateX}%)`;
+        if (cardsPerView === 1) {
+          // 手機版：每次移動一整個卡片的寬度
+          const cardWidth = cards[0] ? (cards[0] as HTMLElement).offsetWidth + 24 : 350; // 24px = gap
+          const translateX = -(currentIndex * cardWidth);
+          track.style.transform = `translateX(${translateX}px)`;
+        } else {
+          // 桌面版：使用百分比
+          const translateX = -(currentIndex * (100 / cardsPerView));
+          track.style.transform = `translateX(${translateX}%)`;
+        }
         updateDots();
         updateButtons();
       }
@@ -582,7 +730,7 @@ const { benefits = defaultBenefits } = Astro.props;
         isDragging = true;
         startX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
         initialTranslate = currentTranslate;
-        container.style.transition = 'none';
+        track.style.transition = 'none';
       }
 
       function handleDragMove(e: MouseEvent | TouchEvent) {
@@ -591,18 +739,32 @@ const { benefits = defaultBenefits } = Astro.props;
         const currentX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX;
         const diff = currentX - startX;
         currentTranslate = initialTranslate + diff;
+        
+        // 即時更新位置以提供視覺反饋
+        const currentTransform = track.style.transform;
+        const currentTranslateX = currentTransform.includes('translateX') ? 
+          parseFloat(currentTransform.match(/translateX\(([^)]+)\)/)?.[1] || '0') : 0;
+        
+        track.style.transform = cardsPerView === 1 ? 
+          `translateX(${currentTranslateX + diff}px)` : 
+          `translateX(${currentTranslateX + diff}%)`;
       }
 
       function handleDragEnd() {
         if (!isDragging) return;
         isDragging = false;
-        container.style.transition = 'transform 0.3s ease';
+        track.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
         
-        const threshold = 100;
-        if (currentTranslate > threshold) {
-          prevSlide();
-        } else if (currentTranslate < -threshold) {
-          nextSlide();
+        const threshold = cardsPerView === 1 ? 80 : 100;
+        if (Math.abs(currentTranslate) > threshold) {
+          if (currentTranslate > 0) {
+            prevSlide();
+          } else {
+            nextSlide();
+          }
+        } else {
+          // 回到原位置
+          updateCarousel();
         }
         
         currentTranslate = 0;
@@ -623,8 +785,15 @@ const { benefits = defaultBenefits } = Astro.props;
         if (newCardsPerView !== cardsPerView) {
           cardsPerView = newCardsPerView;
           currentIndex = Math.min(currentIndex, getMaxIndex());
-          createDots();
-          updateCarousel();
+          
+          // 重設transform以避免佈局錯亂
+          track.style.transform = 'translateX(0)';
+          
+          // 延遲更新以確保DOM已更新
+          setTimeout(() => {
+            createDots();
+            updateCarousel();
+          }, 100);
         }
       }
 

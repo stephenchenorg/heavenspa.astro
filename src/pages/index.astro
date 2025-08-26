@@ -91,10 +91,27 @@ const meta = seoMeta({
 
     .scroll-section {
       position: relative;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .scroll-section {
+        min-height: 80vh;
+        height: auto;
+        padding: 2rem 0;
+      }
+
+      .course-section-container {
+        margin-bottom: 1rem;
+        /* 移除padding設定，讓元件內部控制 */
+      }
+
+      .member-benefits-section {
+        margin-top: -1rem;
+      }
     }
 
     /* Hero Banner 樣式 */
@@ -235,6 +252,8 @@ const meta = seoMeta({
     .course-section-container {
       position: relative;
       z-index: 1;
+      margin-bottom: 2rem;
+      /* 移除樣式設定，讓 CourseCarousel 元件內部控制 */
     }
 
     .member-benefits-section {
@@ -242,6 +261,7 @@ const meta = seoMeta({
       padding: 0;
       position: relative;
       z-index: 1;
+      margin-top: -2rem; /* 讓兩個區塊間距更緊密 */
     }
 
     .member-benefits-section .member-benefits {
@@ -319,9 +339,33 @@ const meta = seoMeta({
     }
 
     /* 響應式設計 */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .hero-title {
-        font-size: 4rem;
+        font-size: clamp(3rem, 8vw, 6rem);
+      }
+
+      .rotating-circle {
+        bottom: 3rem;
+        right: 3rem;
+        width: 100px;
+        height: 100px;
+      }
+
+      .circle-text span {
+        font-size: 9px;
+        transform-origin: 0 42px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-banner {
+        height: 100vh;
+        min-height: 600px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 1.5rem;
       }
 
       .rotating-circle {
@@ -338,6 +382,35 @@ const meta = seoMeta({
 
       .side-text {
         left: 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(2rem, 12vw, 3rem);
+        margin-bottom: 1rem;
+      }
+
+      .rotating-circle {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 70px;
+        height: 70px;
+      }
+
+      .circle-text span {
+        font-size: 7px;
+        transform-origin: 0 30px;
+      }
+
+      .side-text {
+        left: 0.5rem;
+      }
+
+      .side-text span {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
       }
     }
   </style>

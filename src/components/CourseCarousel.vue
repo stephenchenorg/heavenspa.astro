@@ -1,63 +1,61 @@
 <template>
   <section class="course-section">
-    <div class="course-header">
-      <h1 class="course-main-title">COURSE</h1>
-      <h2 class="course-sub-title">課程介紹</h2>
-    </div>
+    <div class="course-content-wrapper">
+      <div class="course-header">
+        <h1 class="course-main-title">COURSE</h1>
+        <h2 class="course-sub-title">課程介紹</h2>
+      </div>
 
-    <div 
-      class="course-carousel-main"
-      ref="carouselContainer"
-      @mousedown="handleDragStart"
-      @mousemove="handleDragMove"
-      @mouseup="handleDragEnd"
-      @mouseleave="handleDragEnd"
-      @touchstart="handleDragStart"
-      @touchmove="handleDragMove"
-      @touchend="handleDragEnd"
-    >
-      <div
-        v-for="(course, index) in courses"
-        :key="course.id"
-        class="course-carousel-item"
-        :class="{ active: index === currentIndex }"
-        :data-index="index"
-        :style="isDragging ? { transform: `translateX(${currentTranslate}px)` } : {}"
+      <div 
+        class="course-carousel-main"
+        ref="carouselContainer"
+        @mousedown="handleDragStart"
+        @mousemove="handleDragMove"
+        @mouseup="handleDragEnd"
+        @mouseleave="handleDragEnd"
+        @touchstart="handleDragStart"
+        @touchmove="handleDragMove"
+        @touchend="handleDragEnd"
       >
-        <div class="course-info-section">
-          <div class="course-info-content">
-            <h3 class="course-title">{{ course.title }}</h3>
-            <h4 class="course-subtitle">{{ course.subtitle }}</h4>
-            <div class="absolute -bottom-8">
-              <a :href="course.link" class="course-btn">
-                課程介紹 <span class="btn-arrow">→</span>
-              </a>
+        <div
+          v-for="(course, index) in courses"
+          :key="course.id"
+          class="course-carousel-item"
+          :class="{ active: index === currentIndex }"
+          :data-index="index"
+          :style="isDragging ? { transform: `translateX(${currentTranslate}px)` } : {}"
+        >
+          <!-- 圖片在上 -->
+          <div class="w-full">
+            <div class="course-carousel">
+              <img :src="course.image" :alt="course.subtitle" />
             </div>
           </div>
-          <!-- 導航按鈕 -->
-          <div class="course-navigation-inline">
-            <button class="nav-btn prev-btn" @click="prevSlide" :disabled="currentIndex === 0">
-              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="_0pqL0h.tif" data-name="0pqL0h.tif"><path fill="currentColor" d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path></g></g></g></svg>
-            </button>
-            <button class="nav-btn next-btn" @click="nextSlide" :disabled="currentIndex === courses.length - 1">
-              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="圖層_2-2" data-name="圖層 2"><g id="圖層_1-2-2" data-name="圖層 1-2"><g id="_0pqL0h.tif" data-name=" 0pqL0h.tif"><path fill="currentColor" d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path></g></g></g></g></g></svg>
-            </button>
+
+          <!-- 卡片在下，並壓在圖片上 -->
+          <div class="course-info-section">
+            <div class="course-info-content">
+              <h3 class="course-title">{{ course.title }}</h3>
+              <h4 class="course-subtitle">{{ course.subtitle }}</h4>
+              <div class="course-btn-container">
+                <a :href="course.link" class="course-btn">
+                  課程介紹 <span class="btn-arrow">→</span>
+                </a>
+              </div>
+            </div>
+            <!-- 導航按鈕 -->
+            <div class="course-navigation-inline">
+              <button class="nav-btn prev-btn" @click="prevSlide" :disabled="currentIndex === 0">
+                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="_0pqL0h.tif" data-name="0pqL0h.tif"><path fill="currentColor" d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path></g></g></g></svg>
+              </button>
+              <button class="nav-btn next-btn" @click="nextSlide" :disabled="currentIndex === courses.length - 1">
+                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="圖層_2-2" data-name="圖層 2"><g id="圖層_1-2-2" data-name="圖層 1-2"><g id="_0pqL0h.tif" data-name=" 0pqL0h.tif"><path fill="currentColor" d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path></g></g></g></g></g></svg>
+              </button>
+            </div>
           </div>
         </div>
-
-        <div class="w-full">
-          <div class="course-carousel">
-            <img :src="course.image" :alt="course.subtitle" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 底部描述區域 -->
-    <div class="course-description-area">
-      <h3 class="description-title">在我們的店中另有一區「女性專屬空間」</h3>
-      <p class="description-text">讓女性貴賓能夠在空間中享受我們的課程</p>
-    </div>
+      </div> <!-- 閉合 course-carousel-main -->
+    </div> <!-- 閉合 course-content-wrapper -->
   </section>
 </template>
 
@@ -192,26 +190,47 @@ onUnmounted(() => {
 <style scoped>
 .course-section {
   background: #f8f6f0;
-  padding: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  padding: 4rem 0; /* 上下padding */
+  width: 100vw; /* 滿版寬度 */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: relative;
-  z-index: 1;
+  overflow-x: hidden;
+  margin-left: calc(-50vw + 50%); /* 突破容器限制，滿版顯示 */
 }
 
-.course-section > * {
-  max-width: 1400px;
+/* 內容容器 */
+.course-content-wrapper {
+  width: 100%;
+  max-width: 1200px; /* 內容最大寬度 */
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2rem; /* 內容的左右padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 清理CSS */
+
+.course-carousel-main {
+  position: relative;
+  width: 100%;
+  max-width: 1000px; /* 保持輪播的最大寬度 */
+  margin: 2rem 0;
+  cursor: grab;
+  user-select: none;
 }
 
 .course-header {
   text-align: center;
-  flex-shrink: 0;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 100;
+  background: #f8f6f0;
+  padding: 1rem 0; /* 移除額外的左右padding，使用父容器的padding */
 }
 
 .course-main-title {
@@ -233,13 +252,16 @@ onUnmounted(() => {
 .course-carousel-main {
   position: relative;
   width: 100%;
-  flex: 1;
+  max-width: 1000px; /* 統一使用1000px作為輪播容器寬度 */
+  min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 420px;
   cursor: grab;
   user-select: none;
+  margin: 2rem auto;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .course-carousel-main:active {
@@ -259,6 +281,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: row-reverse; /* 圖片在右，卡片在左 */
+  min-height: 450px;
+  z-index: 1;
+  overflow: hidden; /* 防止子元素溢出 */
 }
 
 .course-carousel-item.active {
@@ -268,18 +294,19 @@ onUnmounted(() => {
 }
 
 .course-info-section {
-  min-width: 446.391px;
-  max-height: 161.938px;
+  flex: 0 0 45%;
+  max-width: 480px;
   background: #F5E9DAD4;
   padding: 2rem;
   backdrop-filter: blur(10px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   text-align: center;
-  z-index: 20;
+  z-index: 10;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  margin-left: 100px;
+  align-items: center;
+  gap: 1.5rem;
+  margin-right: -60px; /* 減少負margin */
   position: relative;
 }
 
@@ -317,13 +344,11 @@ onUnmounted(() => {
   font-size: 0.9rem;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
 }
 
 .course-btn:hover {
   background: #b8895f;
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(196, 149, 108, 0.4);
 }
 
 .btn-arrow {
@@ -337,12 +362,13 @@ onUnmounted(() => {
 
 .course-navigation-inline {
   position: absolute;
-  bottom: -8rem;
+  bottom: -3rem; /* 調整位置讓按鈕也與卡片重疊 */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 1rem;
+  z-index: 15; /* 確保按鈕在最上層 */
 }
 .nav-btn {
   width: 40px;
@@ -371,27 +397,27 @@ onUnmounted(() => {
 }
 
 .course-carousel {
-  width: 639.609px;
+  flex: 0 0 65%;
+  max-width: 650px;
   height: 420px;
   position: relative;
   z-index: 1;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  margin-left: -20px;
-
+  margin-left: -60px; /* 減少負margin保持平衡 */
 }
 
 .course-carousel img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
 .course-description-area {
   text-align: center;
   padding: 2rem 0;
-  flex-shrink: 0;
+  margin-top: 2rem;
 }
 
 .description-title {
@@ -409,66 +435,279 @@ onUnmounted(() => {
 }
 
 /* 響應式設計 */
+@media (max-width: 1200px) {
+  .course-info-section {
+    min-width: 460px;
+    margin-right: -40px;
+  }
+
+  .course-carousel {
+    width: 620px;
+    height: 400px;
+    margin-left: -40px;
+  }
+}
+
+/* 手機版RWD */
 @media (max-width: 1024px) {
   .course-section {
-    padding: 6rem 0 2rem 0;
+    padding: 2rem 1rem; /* 手機版恢復左右padding */
+    width: 100%; /* 手機版使用100% */
+    margin-left: 0; /* 手機版重置margin */
+  }
+
+  .course-header {
+    margin-bottom: 2rem;
   }
 
   .course-carousel-main {
+    margin: 2rem auto;
+  }
+
+  .course-carousel-item {
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: flex;
     flex-direction: column;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .course-info-section {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
+    align-items: center;
+    min-height: auto;
     width: 100%;
-    max-width: 350px;
-    height: auto;
-    margin: 0 auto 2rem auto;
-    padding: 1.5rem;
-    border-radius: 0;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
-  .course-section > * {
-    max-width: 100%;
-    padding: 0 1rem;
+  .course-carousel-item:not(.active) {
+    display: none;
+  }
+
+  .w-full {
+    width: 100%;
+    margin-bottom: 0;
   }
 
   .course-carousel {
     width: 100%;
-    max-width: 400px;
-    height: 250px;
+    max-width: 450px;
+    height: 300px;
     margin: 0 auto;
   }
 
+    .course-info-section {
+    position: relative;
+    top: -30px;
+    width: 90%;
+    max-width: 380px;
+    margin: 0 auto; /* 手機版恢復正常的margin，不使用重疊效果 */
+    padding: 1.5rem;
+    background: #F5E9DAD4;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .course-carousel {
+    width: 100%;
+    max-width: 450px;
+    height: 300px;
+    margin: 0 auto; /* 手機版恢復正常的margin */
+  }
+
   .course-main-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     letter-spacing: 4px;
   }
 
   .course-title {
     font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .course-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .course-navigation-inline {
+    margin-top: 0.5rem;
+    position: relative; /* 手機版重置為相對定位 */
+    bottom: auto;
+    left: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-section {
+    padding: 1.5rem 0; /* 手機版上下padding */
+    gap: 1.5rem;
+    width: 100vw; /* 保持滿版 */
+    margin-left: calc(-50vw + 50%); /* 保持滿版設定 */
+  }
+
+  .course-content-wrapper {
+    padding: 0 1rem; /* 手機版內容padding */
+  }
+
+  .course-description-area {
+    padding: 1rem;
+  }
+
+  .course-info-section {
+    gap: 1rem; /* 卡片內部元素間距 */
+    margin: 0 auto;
+    max-width: calc( 100% - 20px);
+  }
+
+  .course-carousel-main {
+    padding: 1.5rem;
+  }
+
+  .course-carousel {
+    max-width: 380px;
+    height: 260px;
+    margin: 0 auto; /* 确保居中 */
+  }
+
+  .course-info-section {
+    max-width: 350px;
+    padding: 1.2rem;
+    width: 85%;
+    top: -26px; /* 覆蓋圖片 1/10 (260px 的 1/10) */
+    border-radius: 0; /* 移除圓角 */
+  }
+
+  .course-carousel {
+    border-radius: 0; /* 移除圓角 */
+  }
+
+  .course-main-title {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+
+  .course-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
   }
 
   .course-subtitle {
     font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .course-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .nav-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .course-navigation-inline {
+    position: relative; /* 手機版重置為相對定位 */
+    bottom: auto;
+    left: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-section {
+    padding: 1rem;
+    gap: 1rem; /* 小螢幕緊密gap */
+    width: 100%; /* 確保小螢幕正常寬度 */
+    margin-left: 0; /* 重置margin */
+  }
+
+  .course-carousel-main {
+    padding: 0;
   }
 
   .course-description-area {
-    margin-top: 2rem;
-    padding: 0 1rem;
+    padding: 0.5rem;
+  }
+
+  .course-info-section {
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .course-navigation-inline {
+    gap: 0.8rem;
+  }
+
+  .course-carousel {
+    max-width: 320px;
+    height: 200px;
+    border-radius: 8px;
+    margin: 0 auto; /* 确保居中 */
+  }
+
+  .course-info-section {
+    max-width: 300px;
+    padding: 1rem;
+    width: 85%;
+    top: -20px; /* 覆蓋圖片 1/10 (200px 的 1/10) */
+    border-radius: 0; /* 移除圓角 */
+  }
+
+  .course-carousel {
+    border-radius: 0; /* 移除圓角 */
+  }
+
+  .course-main-title {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
+
+  .course-title {
+    font-size: 1.5rem;
+  }
+
+  .course-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .course-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .course-navigation-inline {
+    gap: 0.8rem;
+    margin-top: 1rem;
+    position: relative; /* 手機版重置為相對定位 */
+    bottom: auto;
+    left: auto;
+    transform: none;
   }
 
   .description-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .description-text {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .course-navigation-inline {
+    margin-top: 0.8rem;
+    position: relative; /* 小螢幕重置為相對定位 */
+    bottom: auto;
+    left: auto;
+    transform: none;
   }
 }
 </style>

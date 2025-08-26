@@ -1,9 +1,542 @@
 ---
-import Footer from '@/components/Footer.astro'
-
-interface Props {
-  class?: astroHTML.JSX.HTMLAttributes['class']
+import {cn} from '@/utils/className'
+import type {CompanySettingData} from '@/types/companySetting'
+import WellnessButton from '@/components/WellnessButton.astro'
+export interface ContactInfo {
+    phone: string;
+    address: string;
+    businessHours: string;
 }
+
+export interface SocialLink {
+    platform: string;
+    url: string;
+    icon: string;
+}
+
+export interface Props {
+    contactInfo?: ContactInfo;
+    socialLinks?: SocialLink[];
+    mapEmbedUrl?: string;
+    class?: astroHTML.JSX.HTMLAttributes['class']
+    // companySetting?: CompanySettingData | null
+}
+
+const defaultContactInfo: ContactInfo = {
+    phone: '0972-959-699',
+    address: '臺北市中夏東路四段216巷11弄8號1樓 (捷運教化站3號出口)',
+    businessHours: 'AM 10:00~AM 00:00 (最後收客時間)'
+};
+
+const defaultSocialLinks: SocialLink[] = [
+    {
+        platform: 'Instagram',
+        url: 'https://instagram.com',
+        icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>'
+    },
+    {
+        platform: 'Facebook',
+        url: 'https://facebook.com',
+        icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+    },
+    {
+        platform: 'LINE',
+        url: 'https://line.me',
+        icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>'
+    },
+    {
+        platform: 'WhatsApp',
+        url: 'https://wa.me/',
+        icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.570-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.525 3.488"/></svg>'
+    },
+    {
+        platform: 'Phone',
+        url: 'tel:0972959699',
+        icon: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>'
+    }
+];
+
+const {
+    contactInfo = defaultContactInfo,
+    socialLinks = defaultSocialLinks,
+    mapEmbedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.5234567890123!2d121.5654321!3d25.0123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAyJzA4LjQiTiAxMjHCsDMzJzU1LjYiRQ!5e0!3m2!1szh-TW!2stw!4v1234567890123!5m2!1szh-TW!2stw',
+    // companySetting = null
+} = Astro.props;
+
 ---
 
-<Footer class={Astro.props.class} />
+<footer class="main-footer">
+    <div class="footer-container">
+
+        <!-- 主要資訊區塊 -->
+
+        <!-- 社群媒體 -->
+        <div class="footer-center">
+            <div class="social-section">
+                <WellnessButton/>
+            </div>
+            <div class="social-section">
+                <h4 class="social-title">FOLLOW OUR</h4>
+                <div class="social-links">
+                    {socialLinks.map(link => (
+                            <a href={link.url} class="social-link" title={link.platform}>
+                                <span class="social-icon" set:html={link.icon}></span>
+                            </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-center">
+            <!-- 左側：關於我們 -->
+            <div class="footer-left">
+
+                <!-- Logo 區域 -->
+                <div class="footer-logo">
+                    <div class="logo-text">HAMA</div>
+                    <div class="logo-subtitle">HAIR SPA</div>
+                </div>
+
+                <!-- 關於我們 -->
+                <div class="about-section">
+                    <h4 class="section-title">關於我們</h4>
+
+                    <div class="contact-item">
+                        <span class="contact-label">服務專線</span>
+                        <a href={`tel:${contactInfo.phone}`} class="contact-value">
+                            {contactInfo.phone}
+                        </a>
+                    </div>
+
+                    <div class="contact-item">
+                        <span class="contact-label">地址</span>
+                        <span class="contact-value">{contactInfo.address}</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <span class="contact-label">營業時間</span>
+                        <span class="contact-value">{contactInfo.businessHours}</span>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 右側：地圖 -->
+            <div class="footer-right">
+                <div class="map-section">
+                    <iframe
+                            src={mapEmbedUrl}
+                            class="map-iframe"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="HAMA Hair Spa 位置"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- 版權資訊 -->
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2025 HAMA Hair Spa. All rights reserved.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <style>
+        .main-footer {
+            background: linear-gradient(135deg, #f8f6f0 0%, #ede6d6 100%);
+            color: #5d4037;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        /* 預約服務區塊 */
+        .booking-section {
+            background: linear-gradient(135deg, #8b7355 0%, #a0896b 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .booking-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .booking-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: white;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .services-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .service-item {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .service-divider {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+
+        .booking-btn {
+            background: #e17055;
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(225, 112, 85, 0.3);
+        }
+
+        .booking-btn:hover {
+            background: #d63031;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(225, 112, 85, 0.4);
+        }
+
+        /* 主要資訊區塊 */
+        .footer-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 3rem;
+            padding: 4rem 2rem;
+            align-items: start;
+        }
+
+        /* 左側：關於我們 */
+        .footer-left {
+            padding-right: 2rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8b7355;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+
+        .logo-subtitle {
+            font-size: 1rem;
+            color: #a0896b;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #5d4037;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            color: #8b7355;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-value {
+            font-size: 1rem;
+            color: #5d4037;
+            line-height: 1.6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value:hover {
+            color: #e17055;
+        }
+
+        /* 中間：社群媒體 */
+        .footer-center {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 30px;
+        }
+
+        .social-section {
+            text-align: center;
+        }
+
+        .social-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #8b7355;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .social-icon {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: #C9A48E;
+        }
+
+        .social-icon svg {
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover .social-icon {
+            transform: scale(1.1);
+        }
+
+        /* 右側：地圖 */
+        .footer-right {
+            padding-left: 2rem;
+        }
+
+        .map-section {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .map-iframe:hover {
+            filter: grayscale(0%);
+        }
+
+        /* 版權資訊 */
+        .footer-bottom {
+            background: rgba(139, 115, 85, 0.1);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(139, 115, 85, 0.2);
+        }
+
+        .copyright p {
+            font-size: 0.9rem;
+            color: #8b7355;
+            letter-spacing: 0.5px;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 1200px) {
+            .footer-center {
+                padding: 25px;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .footer-center {
+                padding: 20px;
+            }
+
+            .map-section {
+                height: 280px;
+            }
+
+            .social-link {
+                width: 45px;
+                height: 45px;
+            }
+
+            .social-icon {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                padding: 0 1rem;
+            }
+
+            .footer-center {
+                padding: 15px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+
+            .social-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .map-section {
+                height: 220px;
+            }
+
+            .logo-text {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-center {
+                padding: 10px;
+            }
+
+            .social-title {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .social-links {
+                gap: 0.8rem;
+            }
+
+            .social-link {
+                width: 35px;
+                height: 35px;
+            }
+
+            .social-icon {
+                width: 18px;
+                height: 18px;
+            }
+
+            .map-section {
+                height: 200px;
+            }
+
+            .logo-text {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .contact-item {
+                margin-bottom: 1rem;
+            }
+
+            .contact-value {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 動畫效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .footer-center {
+            animation-delay: 0.2s;
+        }
+
+        .footer-right {
+            animation-delay: 0.4s;
+        }
+    </style>
+</footer>
+

@@ -103,10 +103,12 @@ const teamMembers: TeamMember[] = [
   }
 
   .team-grid {
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 6rem;
+    gap: 4rem;
     justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .team-member {
@@ -124,6 +126,8 @@ const teamMembers: TeamMember[] = [
     margin: 0 auto 2rem;
     overflow: hidden;
     position: relative;
+    border-radius: 8px;
+    flex-shrink: 0;
   }
 
   .member-image img {
@@ -131,7 +135,7 @@ const teamMembers: TeamMember[] = [
     height: 100%;
     object-fit: cover;
     filter: grayscale(100%);
-    transition: filter 0.3s ease;
+    transition: filter 0.3s ease, transform 0.3s ease;
   }
 
   .team-member:hover .member-image img {
@@ -193,7 +197,8 @@ const teamMembers: TeamMember[] = [
   /* 響應式設計 */
   @media (max-width: 1024px) {
     .team-grid {
-      gap: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
     }
 
     .member-image {
@@ -225,14 +230,14 @@ const teamMembers: TeamMember[] = [
     }
 
     .team-grid {
-      flex-direction: column;
-      align-items: center;
+      grid-template-columns: 1fr;
       gap: 3rem;
+      justify-items: center;
     }
 
     .member-image {
-      width: 280px;
-      height: 280px;
+      width: 300px;
+      height: 300px;
     }
 
     .marquee-container {
@@ -251,7 +256,7 @@ const teamMembers: TeamMember[] = [
     }
 
     .team-container {
-      padding: 0 0.5rem;
+      padding: 0 1rem;
     }
 
     .team-header {
@@ -264,7 +269,7 @@ const teamMembers: TeamMember[] = [
 
     .team-description {
       font-size: 1rem;
-      padding: 0 1rem;
+      padding: 0;
     }
 
     .team-grid {
@@ -297,13 +302,17 @@ const teamMembers: TeamMember[] = [
   }
 
   @media (max-width: 320px) {
+    .team-container {
+      padding: 0 0.5rem;
+    }
+
     .team-title {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
 
     .member-image {
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
     }
 
     .marquee-text {
