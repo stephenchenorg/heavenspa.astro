@@ -1,4 +1,27 @@
 ---
+import { gql, graphQLAPI } from '@/api'
+
+// 定義 API 回應的類型
+export interface ArticleCover {
+  desktop: string;
+  desktop_blur: string;
+  mobile: string;
+  mobile_blur: string;
+}
+
+export interface Article {
+  id: string;
+  title: string;
+  created_at: string;
+  cover: ArticleCover;
+}
+
+export interface ArticlesResponse {
+  articles: {
+    data: Article[];
+  };
+}
+
 export interface Benefit {
   id: string;
   title: string;
@@ -10,6 +33,7 @@ export interface Benefit {
   image: string;
   buttonText: string;
   category: string;
+  cover?: ArticleCover; // 添加 cover 物件支援
 }
 
 export interface Props {
@@ -55,7 +79,51 @@ const defaultBenefits: Benefit[] = [
   }
 ];
 
-const { benefits = defaultBenefits } = Astro.props;
+// GraphQL 查詢與錯誤處理
+let apiBenefits: Benefit[] = [];
+
+try {
+  const articlesData: ArticlesResponse = await graphQLAPI(gql`
+    query MyQuery {
+      articles(sort_by: "asc", sort_column: "sort", is_newest: true) {
+        data {
+          cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          id
+          title
+          created_at
+        }
+      }
+    }
+  `);
+  
+  // 將 API 資料轉換為 Benefit 格式
+  apiBenefits = (articlesData.articles.data || []).map((article: Article) => {
+    const createdDate = new Date(article.created_at);
+    return {
+      id: article.id,
+      title: article.title,
+      subtitle: '會員專屬禮遇',
+      description: `最新優惠活動 - ${article.title}`,
+      date: createdDate.getDate().toString().padStart(2, '0'),
+      year: createdDate.getFullYear().toString(),
+      month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
+      image: article.cover.desktop,
+      buttonText: '立即查看',
+      category: 'VIEW MORE',
+      cover: article.cover, // 保留完整的 cover 物件
+    } as Benefit;
+  });
+} catch (error) {
+  console.error('Failed to fetch articles data:', error);
+}
+
+// 使用 API 資料，如果沒有資料則使用預設資料
+const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = Astro.props;
 ---
 
 <section class="member-benefits">
@@ -78,7 +146,20 @@ const { benefits = defaultBenefits } = Astro.props;
           {benefits.map((benefit, index) => (
               <div class="card-content" data-index={index}>
                 <div class="card-image relative">
-                  <img src={benefit.image} alt={benefit.title} />
+                  {benefit.cover ? (
+                    <picture>
+                      <source media="(max-width: 768px)" srcset={benefit.cover.mobile} />
+                      <img 
+                        src={benefit.cover.desktop} 
+                        alt={benefit.title}
+                        loading="lazy"
+                        onload="this.style.filter='none'"
+                        style="filter: blur(5px); transition: filter 0.3s ease;"
+                      />
+                    </picture>
+                  ) : (
+                    <img src={benefit.image} alt={benefit.title} />
+                  )}
                   <div class="image-overlay"></div>
                   <div class="card-header">
                     <span class="year">{benefit.year}</span>

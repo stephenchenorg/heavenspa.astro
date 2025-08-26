@@ -1,28 +1,70 @@
 ---
-// TeamSection component
-export interface TeamMember {
-  name: string;
-  title: string;
-  image: string;
+import { gql, graphQLAPI } from '@/api'
+
+// 定義 API 回應的類型
+export interface TeamCover {
+  desktop: string;
+  desktop_blur: string;
+  mobile: string;
+  mobile_blur: string;
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    name: "THOMAS JOHNSON",
-    title: "Project Manager",
-    image: "https://resonance-next-app.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fdemo-elegant%2Fteam%2Fteam-1.jpg&w=640&q=75"
-  },
-  {
-    name: "EMMA ADAMS", 
-    title: "UI/UX Designer",
-    image: "https://resonance-next-app.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fdemo-elegant%2Fteam%2Fteam-2.jpg&w=640&q=75"
-  },
-  {
-    name: "JACK ANDERSON",
-    title: "Full-stack Developer", 
-    image: "https://resonance-next-app.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fdemo-elegant%2Fteam%2Fteam-3.jpg&w=640&q=75"
-  }
-];
+export interface TeamCategory {
+  title: string;
+}
+
+export interface TeamMember {
+  title: string;
+  category: TeamCategory;
+  cover: TeamCover;
+}
+
+export interface TeamsResponse {
+  teams: {
+    data: TeamMember[];
+  };
+}
+
+// GraphQL 查詢與錯誤處理
+let teamMembers: TeamMember[] = [];
+
+try {
+  const teamsData: TeamsResponse = await graphQLAPI(gql`
+    query MyQuery {
+      teams(sort_by: "asc", sort_column: "sort") {
+        data {
+          cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          title
+          category {
+            title
+          }
+        }
+      }
+    }
+  `);
+  
+  teamMembers = teamsData.teams.data || [];
+} catch (error) {
+  console.error('Failed to fetch team data:', error);
+  // 如果 API 失敗，提供預設資料
+  teamMembers = [
+    {
+      title: "專業團隊",
+      category: { title: "服務專員" },
+      cover: {
+        desktop: "/images/default-team.jpg",
+        desktop_blur: "/images/default-team-blur.jpg", 
+        mobile: "/images/default-team-mobile.jpg",
+        mobile_blur: "/images/default-team-mobile-blur.jpg"
+      }
+    }
+  ];
+}
 ---
 
 <section class="scroll-section team-section" id="team" data-section="team">
@@ -39,11 +81,20 @@ const teamMembers: TeamMember[] = [
       {teamMembers.map((member) => (
         <div class="team-member">
           <div class="member-image">
-            <img src={member.image} alt={member.name} />
+            <picture>
+              <source media="(max-width: 768px)" srcset={member.cover.mobile} />
+              <img 
+                src={member.cover.desktop} 
+                alt={member.title}
+                loading="lazy"
+                onload="this.style.filter='none'"
+                style="filter: blur(10px); transition: filter 0.3s ease;"
+              />
+            </picture>
           </div>
           <div class="member-info">
-            <h3 class="member-name">{member.name}</h3>
-            <p class="member-title">{member.title}</p>
+            <h3 class="member-name">{member.title}</h3>
+            <p class="member-title">{member.category.title}</p>
           </div>
         </div>
       ))}
@@ -53,7 +104,14 @@ const teamMembers: TeamMember[] = [
   <!-- 跑馬燈區塊 -->
   <div class="marquee-container">
     <div class="marquee-content">
-      <span class="marquee-text">PROFESSIONAL TEAM • EXCEPTIONAL SERVICE • PREMIUM EXPERIENCE • BEAUTIFUL RESULTS • PROFESSIONAL TEAM • EXCEPTIONAL SERVICE • PREMIUM EXPERIENCE • BEAUTIFUL RESULTS • </span>
+      <span class="marquee-text">
+        {teamMembers.map((member, index) => (
+          `${member.title} • `
+        )).join('')}
+        {teamMembers.map((member, index) => (
+          `${member.title} • `
+        )).join('')}
+      </span>
     </div>
   </div>
 </section>
@@ -178,10 +236,10 @@ const teamMembers: TeamMember[] = [
   }
 
   .marquee-text {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #C4966C;
-    letter-spacing: 3px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    letter-spacing: 2px;
     text-transform: uppercase;
   }
 
@@ -245,8 +303,9 @@ const teamMembers: TeamMember[] = [
     }
 
     .marquee-text {
-      font-size: 1.2rem;
-      letter-spacing: 2px;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      color: #333;
     }
   }
 
@@ -296,8 +355,9 @@ const teamMembers: TeamMember[] = [
     }
 
     .marquee-text {
-      font-size: 1rem;
+      font-size: 0.9rem;
       letter-spacing: 1px;
+      color: #333;
     }
   }
 

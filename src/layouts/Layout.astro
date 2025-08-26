@@ -48,11 +48,11 @@ const {
 <BaseLayout meta={meta}>
   <slot name="head" slot="head" />
 
-  <Header companySetting={data.companySetting} client:load/>
+  <Header companySetting={data.companySetting}/>
 
   <slot />
 
-  <Footer companySetting={data.companySetting} client:load/>
+  <Footer companySetting={data.companySetting}/>
   
   <FloatingContactSidebar client:load />
 </BaseLayout>
