@@ -28,6 +28,7 @@ const data: CompanySetting = await graphQLAPI(gql`
       ig_link
       lang
       line_link
+      twitter_link
       logo
       name
       phone_1
@@ -47,11 +48,11 @@ const {
 <BaseLayout meta={meta}>
   <slot name="head" slot="head" />
 
-  <Header />
+  <Header companySetting={data.companySetting} client:load/>
 
   <slot />
 
-  <Footer companySetting={data.companySetting}/>
+  <Footer companySetting={data.companySetting} client:load/>
   
   <FloatingContactSidebar client:load />
 </BaseLayout>
