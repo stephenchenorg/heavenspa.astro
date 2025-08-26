@@ -294,8 +294,8 @@ onUnmounted(() => {
 }
 
 .course-info-section {
-  flex: 0 0 45%;
-  max-width: 480px;
+  flex: 0 0 35%; /* 減少左側卡片寬度 */
+  max-width: 400px; /* 調整最大寬度 */
   background: #F5E9DAD4;
   padding: 2rem;
   backdrop-filter: blur(10px);
@@ -397,13 +397,13 @@ onUnmounted(() => {
 }
 
 .course-carousel {
-  flex: 0 0 65%;
-  max-width: 650px;
+  flex: 1; /* 讓圖片區塊佔滿剩餘空間 */
+  max-width: none; /* 移除最大寬度限制 */
   height: 420px;
   position: relative;
   z-index: 1;
   overflow: hidden;
-  margin-left: -60px; /* 減少負margin保持平衡 */
+  margin-left: -20px; /* 減少負margin */
 }
 
 .course-carousel img {
@@ -489,8 +489,8 @@ onUnmounted(() => {
 
   .course-carousel {
     width: 100%;
-    max-width: 450px;
-    height: 300px;
+    max-width: none; /* 移除最大寬度限制 */
+    height: 350px; /* 增加高度 */
     margin: 0 auto;
   }
 
@@ -512,8 +512,8 @@ onUnmounted(() => {
 
   .course-carousel {
     width: 100%;
-    max-width: 450px;
-    height: 300px;
+    max-width: none; /* 移除最大寬度限制 */
+    height: 350px; /* 增加高度 */
     margin: 0 auto; /* 手機版恢復正常的margin */
   }
 
