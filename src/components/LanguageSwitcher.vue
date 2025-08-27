@@ -195,21 +195,11 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
-/* 導航欄滾動狀態下的樣式 */
-:global(.main-nav.scrolled) .language-toggle {
-  background: rgba(196, 149, 108, 0.1) !important;
-  border: 1px solid rgba(196, 149, 108, 0.3) !important;
-  color: #C99772 !important;
-}
-
-:global(.main-nav.scrolled) .language-toggle::after {
-  background: #C99772;
-}
-
-:global(.main-nav.scrolled) .language-toggle:hover {
-  background: rgba(196, 149, 108, 0.2) !important;
-  border-color: rgba(196, 149, 108, 0.5) !important;
-  opacity: 1;
+.main-nav.scrolled .language-toggle {
+  background: rgba(196, 149, 108, 0.1);
+  border: 1px solid rgba(196, 149, 108, 0.3);
+  color: #C99772;
+  min-width: 140px;
 }
 
 /* 手機版選單中的語系選擇器樣式 */
