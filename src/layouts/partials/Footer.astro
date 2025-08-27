@@ -23,7 +23,7 @@ const t = createAstroT(Astro)
 
     <!-- 社群媒體 -->
     <div class="footer-center">
-      <div class="social-section">
+      <div class="social-section-button">
         <Button>{t('buttons.book-now')}</Button>
       </div>
       <div class="social-section">
@@ -275,9 +275,10 @@ const t = createAstroT(Astro)
     .footer-center {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: end;
       padding: 30px;
     }
+
 
     .social-section {
       text-align: center;

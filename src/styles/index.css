@@ -95,7 +95,7 @@
 }
 
 .team-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #f8f6f0 0%, #f1ede4 100%);
   z-index: 2; /* 第二張卡片 */
 }
 
@@ -105,7 +105,7 @@
 }
 
 .benefits-card {
-  background: linear-gradient(135deg, #f8f6f0 0%, #ede7dc 100%);
+  background: linear-gradient(135deg, #f8f6f0 0%, #f1ede4 100%);
   z-index: 4; /* 第四張卡片，最上層 */
 }
 

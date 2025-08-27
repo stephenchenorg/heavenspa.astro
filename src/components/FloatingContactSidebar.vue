@@ -2,7 +2,7 @@
   <div
     class="fixed right-2 top-1/2 z-50 flex -translate-y-1/2 transform flex-col lg:right-6 sm:right-3 border border-[#E4D0C0] rounded-full bg-[#F9EEE4] divide-y divide-[#E4D0C0]">
     <!-- LINE Contact Button -->
-    <div class="py-4 px-6 first:rounded-t-full">
+    <div class="p-4 first:rounded-t-full">
       <a
         href="https://line.me/ti/p/"
         target="_blank"
@@ -19,7 +19,7 @@
     </div>
 
     <!-- WhatsApp Contact Button -->
-    <div class="py-4 px-6">
+    <div class="p-4">
       <a
         href="https://wa.me/"
         target="_blank"
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Phone Contact Button -->
-    <div class="py-4 px-6 last:rounded-b-full">
+    <div class="p-4 last:rounded-b-full">
       <a
         href="tel:"
         class="group flex h-12 w-12 items-center justify-center rounded-full shadow-lg sm:h-10 sm:w-10 hover:scale-90 transition-all duration-300"
