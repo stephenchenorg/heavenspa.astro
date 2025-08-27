@@ -27,6 +27,7 @@ const t = createAstroT(Astro)
             <div class="social-section">
                 <Button>{t('buttons.book-now')}</Button>
             </div>
+
             <div class="social-section">
                 <h4 class="social-title">{t('footer.follow-us')}</h4>
                 <div class="social-links">
@@ -56,15 +57,19 @@ const t = createAstroT(Astro)
             </div>
         </div>
 
+        <div class="footer-title">
+            <!-- Logo 區域 -->
+            <div class="footer-logo">
+                <div class="logo-text">{ companySetting?.name }</div>
+                <div class="logo-subtitle">HEAVEN SPA</div>
+            </div>
+        </div>
+
         <div class="footer-center">
             <!-- 左側：關於我們 -->
             <div class="footer-left">
 
-                <!-- Logo 區域 -->
-                <div class="footer-logo">
-                    <div class="logo-text">{ companySetting?.name }</div>
-                    <div class="logo-subtitle">HEAVEN SPA</div>
-                </div>
+
 
                 <!-- 關於我們 -->
                 <div class="about-section">
@@ -87,7 +92,6 @@ const t = createAstroT(Astro)
                         <span class="contact-value">AM 10:00~AM 00:00 (最後收客時間)</span>
                     </div>
                 </div>
-
             </div>
             <!-- 右側：地圖 -->
             <div class="footer-right">
@@ -196,10 +200,6 @@ const t = createAstroT(Astro)
             padding-right: 2rem;
         }
 
-        .footer-logo {
-            margin-bottom: 2rem;
-        }
-
         .logo-text {
             font-size: 2.5rem;
             font-weight: 700;
@@ -247,6 +247,13 @@ const t = createAstroT(Astro)
 
         .contact-value:hover {
             color: #e17055;
+        }
+
+        .footer-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 30px;
         }
 
         /* 中間：社群媒體 */
@@ -343,7 +350,7 @@ const t = createAstroT(Astro)
 
         /* 版權資訊 */
         .footer-bottom {
-            background: rgba(139, 115, 85, 0.1);
+            //background: rgba(139, 115, 85, 0.1);
             padding: 1.5rem 2rem;
             text-align: center;
             border-top: 1px solid rgba(139, 115, 85, 0.2);
@@ -357,6 +364,11 @@ const t = createAstroT(Astro)
 
         /* 響應式設計 */
         @media (max-width: 1200px) {
+            .footer-title {
+                padding: 10px 25px;
+                flex-direction: column;
+                gap: 2rem;
+            }
             .footer-center {
                 padding: 25px;
                 flex-direction: column;
@@ -369,6 +381,9 @@ const t = createAstroT(Astro)
         }
 
         @media (max-width: 1024px) {
+            .footer-title {
+                padding: 10px 20px;
+            }
             .footer-center {
                 padding: 20px;
             }
@@ -389,8 +404,14 @@ const t = createAstroT(Astro)
         }
 
         @media (max-width: 768px) {
+            .footer-title {
+                padding: 10px 15px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
             .footer-center {
-                padding: 15px;
+                padding: 10px 15px;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
@@ -426,6 +447,7 @@ const t = createAstroT(Astro)
         }
 
         @media (max-width: 480px) {
+            .footer-title,
             .footer-center {
                 padding: 10px;
             }
@@ -483,11 +505,13 @@ const t = createAstroT(Astro)
         }
 
         .footer-left,
+        .footer-title,
         .footer-center,
         .footer-right {
             animation: fadeInUp 0.6s ease forwards;
         }
 
+        .footer-title,
         .footer-center {
             animation-delay: 0.2s;
         }
