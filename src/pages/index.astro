@@ -57,7 +57,7 @@ const meta = seoMeta({
       const stackCards = document.querySelectorAll('.stack-card') as NodeListOf<HTMLElement>;
       
       const stackObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry, _index) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
           } else {

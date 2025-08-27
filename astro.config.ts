@@ -11,6 +11,13 @@ export default defineConfig({
   build: {
     format: 'file',
   },
+  i18n: {
+    defaultLocale: 'zh-tw',
+    locales: ['zh-tw', 'en'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   adapter: netlify({
     devFeatures: false,
   }),

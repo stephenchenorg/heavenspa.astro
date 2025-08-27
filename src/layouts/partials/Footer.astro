@@ -1,6 +1,6 @@
 ---
 import type {CompanySettingData} from '@/types'
-import WellnessButton from '@/components/WellnessButton.astro'
+import Button from "@/components/ui/Button.astro";
 
 export interface Props {
     class?: astroHTML.JSX.HTMLAttributes['class']
@@ -21,7 +21,7 @@ const {
         <!-- 社群媒體 -->
         <div class="footer-center">
             <div class="social-section">
-                <WellnessButton/>
+                <Button>立即預約</Button>
             </div>
             <div class="social-section">
                 <h4 class="social-title">FOLLOW OUR</h4>

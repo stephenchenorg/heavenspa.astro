@@ -1,5 +1,7 @@
 ---
 import type {CompanySettingData} from "@/types";
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+import { createAstroT } from '@/utils/astro-i18n';
 
 interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -12,6 +14,9 @@ const {
 
 // 安全的 logo URL，避免 hydration mismatch
 const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/public/LOGO-GOLD.png';
+
+// 翻譯函數
+const t = createAstroT(Astro);
 ---
 
 <!-- 滾動進度指示器 -->
@@ -33,14 +38,14 @@ const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/p
     </a>
   </div>
   <div class="nav-menu">
-    <a href="#home" class="nav-item active">首頁</a>
-    <a href="#news" class="nav-item">最新消息</a>
-    <a href="#courses" class="nav-item">服務項目</a>
-    <a href="#team" class="nav-item">我們的團隊</a>
-    <a href="#products" class="nav-item">精油產品</a>
-    <a href="#guide" class="nav-item">顧客須知</a>
-    <a href="#faq" class="nav-item">常見問題</a>
-    <a href="#careers" class="nav-item">人才招募</a>
+    <a href="#home" class="nav-item active">{t('nav.home')}</a>
+    <a href="#news" class="nav-item">{t('nav.news')}</a>
+    <a href="#courses" class="nav-item">{t('nav.courses')}</a>
+    <a href="#team" class="nav-item">{t('nav.team')}</a>
+    <a href="#products" class="nav-item">{t('nav.products')}</a>
+    <a href="#guide" class="nav-item">{t('nav.guide')}</a>
+    <a href="#faq" class="nav-item">{t('nav.faq')}</a>
+    <a href="#careers" class="nav-item">{t('nav.careers')}</a>
   </div>
 
   <!-- 手機版選單按鈕 -->
@@ -50,7 +55,8 @@ const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/p
     <span></span>
   </button>
   <div class="nav-contact">
-    <button class="contact-btn">CONTACT</button>
+    <LanguageSwitcher client:load />
+    <button class="contact-btn">{t('contact')}</button>
   </div>
 </nav>
 
@@ -72,17 +78,17 @@ const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/p
       </button>
     </div>
     <nav class="mobile-nav">
-      <a href="#home" class="mobile-nav-item active">首頁</a>
-      <a href="#news" class="mobile-nav-item">最新消息</a>
-      <a href="#courses" class="mobile-nav-item">服務項目</a>
-      <a href="#team" class="mobile-nav-item">我們的團隊</a>
-      <a href="#products" class="mobile-nav-item">精油產品</a>
-      <a href="#guide" class="mobile-nav-item">顧客須知</a>
-      <a href="#faq" class="mobile-nav-item">常見問題</a>
-      <a href="#careers" class="mobile-nav-item">人才招募</a>
+      <a href="#home" class="mobile-nav-item active">{t('nav.home')}</a>
+      <a href="#news" class="mobile-nav-item">{t('nav.news')}</a>
+      <a href="#courses" class="mobile-nav-item">{t('nav.courses')}</a>
+      <a href="#team" class="mobile-nav-item">{t('nav.team')}</a>
+      <a href="#products" class="mobile-nav-item">{t('nav.products')}</a>
+      <a href="#guide" class="mobile-nav-item">{t('nav.guide')}</a>
+      <a href="#faq" class="mobile-nav-item">{t('nav.faq')}</a>
+      <a href="#careers" class="mobile-nav-item">{t('nav.careers')}</a>
     </nav>
     <div class="mobile-contact">
-      <button class="mobile-contact-btn">聯繫我們</button>
+      <button class="mobile-contact-btn">{t('nav.contact')}</button>
     </div>
   </div>
 </div>
@@ -510,6 +516,12 @@ const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/p
     box-shadow: 0 6px 20px rgba(196, 149, 108, 0.4);
   }
 
+  .nav-contact {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .contact-btn {
     background: white;
     color: black;
@@ -562,10 +574,11 @@ const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/p
     }
   }
 
-  /* 確保按鈕在所有尺寸下都顯示 */
-  .mobile-menu-btn {
-    display: flex !important;
-    z-index: 2001 !important;
+  /* 桌面版隱藏手機選單按鈕 */
+  @media (min-width: 769px) {
+    .mobile-menu-btn {
+      display: none !important;
+    }
   }
 
   @media (max-width: 480px) {

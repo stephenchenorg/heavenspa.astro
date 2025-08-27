@@ -1,5 +1,6 @@
 ---
 import { gql, graphQLAPI } from '@/api'
+import Button from "./ui/Button.astro"
 
 // 定義 API 回應的類型
 export interface ArticleCover {
@@ -136,7 +137,7 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
 
     <!-- 專屬優惠按鈕 -->
     <div class="exclusive-button">
-      <button class="exclusive-btn">專屬優惠</button>
+      <Button href="#courses" variant="primary">專屬優惠</Button>
     </div>
 
     <!-- 優惠卡片輪播 -->
@@ -239,27 +240,6 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
     /* 專屬優惠按鈕 */
     .exclusive-button {
       margin: 20px 0;
-    }
-
-    .exclusive-btn {
-      background: #c4956c;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
-      width: 209px;
-    }
-
-    .exclusive-btn:hover {
-      background: #b8895f;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(196, 149, 108, 0.4);
     }
 
     /* 輪播容器 */
@@ -413,7 +393,7 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
 
     .card-button {
       position: relative;
-      top: -40px;
+      top: -100px;
       background: #F9F2E9F5;
       border: 2px solid #c4956c;
       color: #c4956c;
@@ -655,12 +635,6 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
 
       .month {
         font-size: 24px;
-      }
-
-      .exclusive-btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.9rem;
-        width: 180px;
       }
 
       .nav-btn {

@@ -226,24 +226,24 @@
 .btn--primary {
   background: #C39370;
   color: white;
-  box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   backdrop-filter: blur(10px);
 }
 
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.6);
 }
 
 .btn--secondary {
   background: rgba(255, 255, 255, 0.9);
   color: #2d3436;
-  border: 1px solid rgba(45, 52, 54, 0.3);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 
 .btn--secondary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.6);
 }
 
 .btn:active {
