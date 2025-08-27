@@ -184,14 +184,14 @@ onUnmounted(() => {
 
 .language-option:hover {
   background: rgba(196, 149, 108, 0.1);
-  border-left-color: #C99772;
+  border-left-color: #D7AE54;
   padding-left: 1.25rem;
 }
 
 .language-option.active {
   background: rgba(196, 149, 108, 0.25);
-  border-left-color: #C99772;
-  color: #C99772;
+  border-left-color: #D7AE54;
+  color: #D7AE54;
   font-weight: 600;
 }
 
@@ -206,12 +206,12 @@ onUnmounted(() => {
 .mobile-language .language-toggle {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
-  color: #C99772;
+  color: #D7AE54;
   min-width: 140px;
 }
 
 .mobile-language .language-toggle::after {
-  background: #C99772;
+  background: #D7AE54;
 }
 
 .mobile-language .language-toggle:hover {
