@@ -9,6 +9,7 @@
       <div 
         class="course-carousel-main"
         ref="carouselContainer"
+        @click="handleClick"
         @mousedown="handleDragStart"
         @mousemove="handleDragMove"
         @mouseup="handleDragEnd"
@@ -130,8 +131,14 @@ const prevSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + courses.length) % courses.length
 }
 
+// 點擊測試
+const handleClick = () => {
+  console.log('CourseCarousel clicked!')
+}
+
 // 拖拽功能
 const handleDragStart = (e: MouseEvent | TouchEvent) => {
+  console.log('CourseCarousel handleDragStart triggered:', e.type)
   isDragging.value = true
   startX.value = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
   initialTranslate.value = currentTranslate.value
@@ -144,6 +151,7 @@ const handleDragStart = (e: MouseEvent | TouchEvent) => {
 const handleDragMove = (e: MouseEvent | TouchEvent) => {
   if (!isDragging.value) return
   
+  console.log('CourseCarousel handleDragMove triggered:', e.type)
   e.preventDefault()
   const currentX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
   const diff = currentX - startX.value
@@ -151,6 +159,7 @@ const handleDragMove = (e: MouseEvent | TouchEvent) => {
 }
 
 const handleDragEnd = () => {
+  console.log('CourseCarousel handleDragEnd triggered')
   if (!isDragging.value) return
   
   isDragging.value = false
@@ -179,6 +188,8 @@ const handleKeydown = (e: KeyboardEvent) => {
 }
 
 onMounted(() => {
+  console.log('CourseCarousel component mounted')
+  console.log('CarouselContainer ref:', carouselContainer.value)
   document.addEventListener('keydown', handleKeydown)
 })
 
@@ -549,9 +560,8 @@ onUnmounted(() => {
     padding: 1.5rem 1rem; /* 手機版上下左右padding */
     gap: 1.5rem;
     width: calc(100vw - 2rem); /* 手機版留出邊界空間 */
-    margin-left: calc(-50vw + 50% + 1rem); /* 調整手機版定位 */
     border-radius: 30px;
-    margin: 1rem calc(-50vw + 50% + 1rem);
+    //margin: 1rem calc(-50vw + 50% + 1rem);
   }
 
   .course-content-wrapper {

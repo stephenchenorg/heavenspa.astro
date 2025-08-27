@@ -58,10 +58,10 @@
 
   .intro-container {
     display: flex;
-    align-items: end;
-    justify-content: end;
+    align-items: center;
+    justify-content: flex-end;
     height: 100vh;
-    padding: 0 0 0 6rem;
+    padding: 0 2rem 0 6rem;
     position: relative;
     z-index: 2;
     width: 100%;
@@ -97,8 +97,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: end;
-    margin-right: 40px;
+    justify-content: center;
   }
 
   .intro-text-stack {
@@ -137,6 +136,7 @@
     width: 100vh;
     height: 100vh;
     background: #E8E8E8;
+    border-radius: 50%;
     border: none;
     padding: 3rem;
     z-index: 3;
@@ -183,106 +183,168 @@
 
   
   /* 響應式設計 */
+  /* 針對 770-1024px 圓形修復 */
+  @media (max-width: 1024px) and (min-width: 770px) {
+    .circle-inner {
+      width: 80vmin;
+      height: 80vmin;
+    }
+  }
+
   @media (max-width: 1024px) {
+    .intro-container {
+      padding: 0 1rem 0 4rem;
+    }
+
     .intro-left {
-      font-size: 180px;
-      line-height: 180px;
-      left: -250px;
+      font-size: 160px;
+      line-height: 160px;
+      left: -120px;
     }
 
     .circle-inner {
-      width: 90vh;
-      height: 90vh;
+      width: 85vh;
+      height: 85vh;
       padding: 2.5rem;
     }
 
-    
     .circle-heading {
       font-size: 1.6rem;
     }
   }
 
-  @media (max-width: 768px) {
-    .intro-section {
-      height: auto;
-      min-height: 100vh;
-      border-radius: 30px;
-      margin: 1rem;
-    }
-
+  /* 中等平板 */
+  @media (max-width: 950px) {
     .intro-container {
-      flex-direction: column;
-      padding: 2rem;
-      text-align: center;
-      justify-content: center;
-      height: auto;
-      min-height: 100vh;
+      padding: 0 1rem 0 3rem;
     }
 
     .intro-left {
-      position: relative;
-      left: 0;
-      top: 0;
-      transform: none;
-      z-index: 10;
-      margin-bottom: 2rem;
-      font-size: 4rem;
-      line-height: 4rem;
-    }
-
-    .intro-right {
-      flex: 1;
-      height: 70vh;
-      min-height: 400px;
+      font-size: 130px;
+      line-height: 130px;
+      left: -100px;
     }
 
     .circle-inner {
-      width: 70vw;
-      height: 70vw;
-      max-width: 400px;
-      max-height: 400px;
-      padding: 1.5rem;
+      width: 75vh;
+      height: 75vh;
+      padding: 2.3rem;
+    }
+  }
+
+  /* 平板橫向 */
+  @media (max-width: 900px) {
+    .intro-container {
+      padding: 0 1rem 0 2rem;
     }
 
-    
+    .intro-left {
+      font-size: 110px;
+      line-height: 110px;
+      left: -70px;
+    }
+
+    .circle-inner {
+      width: 70vh;
+      height: 70vh;
+      padding: 2rem;
+    }
+
     .circle-heading {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
 
     .circle-description {
-      font-size: 0.9rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .intro-section {
+      height: 100vh;
+      min-height: 100vh;
+    }
+
+    .intro-container {
+      flex-direction: row;
+      padding: 0 1rem 0 1.5rem;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100vh;
+    }
+
+    .intro-left {
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      font-size: 7rem;
+      line-height: 6.5rem;
+    }
+
+    .intro-right {
+      flex: 2;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .circle-inner {
+      width: 60vh;
+      height: 60vh;
+      padding: 2rem;
+    }
+
+    .circle-content {
+      min-height: 60vh;
+    }
+
+    .circle-heading {
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .circle-description {
+      font-size: 0.95rem;
       line-height: 1.6;
     }
   }
 
   @media (max-width: 480px) {
-    .intro-left {
-      font-size: 3rem;
-      line-height: 3rem;
+    .intro-container {
+      padding: 0 0.5rem 0 1rem;
     }
 
-    .intro-right {
-      height: 60vh;
-      min-height: 350px;
+    .intro-left {
+      font-size: 5rem; /* 保持較大，但適合小螢幕 */
+      line-height: 5rem;
+      left: -50px; /* 讓更多文字露出螢幕外 */
+    }
+
+    .circles-container {
+      margin-right: 10px;
     }
 
     .circle-inner {
-      width: 80vw;
-      height: 80vw;
-      max-width: 300px;
-      max-height: 300px;
-      padding: 1rem;
+      width: 50vh;
+      height: 50vh;
+      padding: 1.5rem;
     }
 
-    
+    .circle-content {
+      min-height: 50vh;
+    }
+
     .circle-heading {
-      font-size: 1rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
     }
 
     .circle-description {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
     }
   }
 </style>

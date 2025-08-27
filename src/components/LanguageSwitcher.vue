@@ -198,7 +198,7 @@ onUnmounted(() => {
 .main-nav.scrolled .language-toggle {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
-  color: #C99772;
+  color: #D7AE54;
   min-width: 140px;
 }
 

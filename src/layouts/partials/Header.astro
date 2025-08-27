@@ -178,7 +178,7 @@ const t = createAstroT(Astro);
   }
 
   .main-nav.scrolled .nav-item {
-    color: #C99772 !important;
+    color: #D7AE54 !important;
   }
 
   .nav-item::after {
@@ -329,9 +329,11 @@ const t = createAstroT(Astro);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     padding: 8px;
-    z-index: 2001;
+    z-index: 10000;
     position: relative;
     transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   .mobile-menu-btn:hover {
@@ -614,6 +616,11 @@ const t = createAstroT(Astro);
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
       const mobileMenuClose = document.getElementById('mobile-menu-close');
+      
+      console.log('Button exists:', !!mobileMenuBtn);
+      console.log('Button display:', mobileMenuBtn ? getComputedStyle(mobileMenuBtn).display : 'N/A');
+      console.log('Button visibility:', mobileMenuBtn ? getComputedStyle(mobileMenuBtn).visibility : 'N/A');
+      console.log('Window width:', window.innerWidth);
       const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
 
       console.log('Mobile menu elements:', {
@@ -645,28 +652,78 @@ const t = createAstroT(Astro);
         document.body.style.overflow = '';
       }
 
-      // 打開選單
+      // 打開選單 - 簡化版本，直接在原按鈕上添加事件
       if (mobileMenuBtn) {
-        // 添加多種事件監聽
+        console.log('Adding event listeners to mobile menu button (simplified version)');
+        
+        // 直接在原按鈕上添加事件監聽器
+        console.log('Adding event listeners to original button...');
+        
+        // 添加點擊事件
         mobileMenuBtn.addEventListener('click', (e) => {
-          console.log('Mobile menu button clicked!');
+          console.log('🔴 Mobile menu button clicked! (original)');
           e.preventDefault();
           e.stopPropagation();
           openMobileMenu();
         });
+        console.log('✅ Click event listener added to original button');
 
-        mobileMenuBtn.addEventListener('touchstart', (e) => {
-          console.log('Mobile menu button touched!');
+        // 添加觸控事件
+        mobileMenuBtn.addEventListener('touchend', (e) => {
+          console.log('🔴 Mobile menu button touched! (original)');
           e.preventDefault();
+          e.stopPropagation();
           openMobileMenu();
         });
+        console.log('✅ Touchend event listener added to original button');
 
-        // 測試按鈕是否可以接收事件
+        // 添加額外的事件監聽器作為備用
+        mobileMenuBtn.addEventListener('mousedown', (e) => {
+          console.log('🟡 Mobile menu button mousedown! (original)');
+        });
+        
+        mobileMenuBtn.addEventListener('touchstart', (e) => {
+          console.log('🟡 Mobile menu button touchstart! (original)');
+        });
+
+        // 直接設置 onclick 屬性作為最後備用
         mobileMenuBtn.onclick = function(e) {
-          console.log('Mobile menu button onclick!');
+          console.log('🟢 Mobile menu button onclick fired! (original)');
           e.preventDefault();
+          e.stopPropagation();
           openMobileMenu();
+          return false;
         };
+        console.log('✅ Onclick attribute set on original button');
+
+        // 確保按鈕可見且可點擊
+        mobileMenuBtn.style.pointerEvents = 'auto';
+        mobileMenuBtn.style.zIndex = '10000';
+        
+        // 添加明顯的調試樣式
+        mobileMenuBtn.style.border = '3px solid blue';
+        mobileMenuBtn.style.backgroundColor = 'rgba(0, 0, 255, 0.3)';
+        
+        // 詳細的可見性檢查
+        const rect = mobileMenuBtn.getBoundingClientRect();
+        const styles = getComputedStyle(mobileMenuBtn);
+        
+        console.log('🔍 Button visibility check (original):', {
+          display: styles.display,
+          visibility: styles.visibility,
+          opacity: styles.opacity,
+          pointerEvents: styles.pointerEvents,
+          zIndex: styles.zIndex,
+          position: styles.position,
+          width: rect.width,
+          height: rect.height,
+          top: rect.top,
+          left: rect.left,
+          bottom: rect.bottom,
+          right: rect.right
+        });
+        
+        console.log('Mobile menu button setup complete (original)', mobileMenuBtn);
       }
 
       // 關閉選單

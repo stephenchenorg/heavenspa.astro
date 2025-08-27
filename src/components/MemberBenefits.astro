@@ -532,7 +532,7 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
       .member-benefits {
         padding: 3rem 1rem;
         border-radius: 30px;
-        margin: 1rem 0;
+        //margin: 1rem 0;
       }
 
       .card-content {
@@ -863,8 +863,8 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
       container?.addEventListener('mousemove', handleDragMove);
       container?.addEventListener('mouseup', handleDragEnd);
       container?.addEventListener('mouseleave', handleDragEnd);
-      container?.addEventListener('touchstart', handleDragStart);
-      container?.addEventListener('touchmove', handleDragMove);
+      container?.addEventListener('touchstart', handleDragStart, { passive: false });
+      container?.addEventListener('touchmove', handleDragMove, { passive: false });
       container?.addEventListener('touchend', handleDragEnd);
       
       // 鍵盤和響應式事件
