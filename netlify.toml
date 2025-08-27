@@ -4,9 +4,3 @@
 
 [build.environment]
   NODE_VERSION = "22"
-
-[[plugins]]
-  package = "@netlify/plugin-env-var-from-file"
-
-  [plugins.inputs]
-    file = ".env.example"

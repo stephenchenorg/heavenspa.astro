@@ -49,7 +49,7 @@ const t = createAstroT(Astro);
   </div>
 
   <!-- 手機版選單按鈕 -->
-  <button class="mobile-menu-btn" type="button" id="mobile-menu-btn" onclick="window.testMobileMenu()">
+  <button class="mobile-menu-btn" type="button" id="mobile-menu-btn">
     <span></span>
     <span></span>
     <span></span>
@@ -699,7 +699,7 @@ const t = createAstroT(Astro);
       console.log('Mobile menu setup complete');
       
       // 全局測試函數
-      window.testMobileMenu = function() {
+      (window as any).testMobileMenu = function() {
         console.log('Test function called!');
         openMobileMenu();
       };
