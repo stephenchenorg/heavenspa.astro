@@ -13,7 +13,7 @@ const {
 } = Astro.props;
 
 // 安全的 logo URL，避免 hydration mismatch
-const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/public/LOGO-GOLD.png';
+const logoUrl = companySetting?.logo || 'https://cs-studio-test.s3.ap-northeast-1.amazonaws.com/heavenspa/staging/uploads/public/LOGO-GOLD.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4DOS245ETM7CE2KT%2F20250827%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20250827T152755Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=05cef20dc8fbbefc793714a4c9a583eeb35ec79ccff76912fd105af2038ca056';
 
 // 翻譯函數
 const t = createAstroT(Astro);
