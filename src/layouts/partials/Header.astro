@@ -13,7 +13,7 @@ const {
 } = Astro.props;
 
 // 安全的 logo URL，避免 hydration mismatch
-const logoUrl = companySetting?.logo || 'https://cs-studio-test.s3.amazonaws.com/heavenspa/staging/uploads/public/LOGO-GOLD.png';
+const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/public/LOGO-GOLD.png';
 
 // 翻譯函數
 const t = createAstroT(Astro);
