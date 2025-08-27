@@ -51,8 +51,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-// This component renders a floating sidebar with contact buttons
-// Positioned on the right side of the screen, vertically centered
-</script>

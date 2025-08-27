@@ -1,73 +1,17 @@
 ---
 // Wellness Button Component
+import Button from '@/components/ui/Button.astro';
+
 export interface Props {
   href?: string;
   onClick?: string;
   variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large';
 }
 
-const { href = '#', onClick, variant = 'primary' } = Astro.props;
+const { href = '#', onClick, variant = 'primary', size = 'large' } = Astro.props;
 ---
 
-{href ? (
-  <a href={href} class={`wellness-btn wellness-btn--${variant}`}>
-    立即預約
-  </a>
-) : (
-  <button class={`wellness-btn wellness-btn--${variant}`} onclick={onClick}>
-    立即預約
-  </button>
-)}
-
-<style>
-  .wellness-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #c4956c;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(196, 149, 108, 0.3);
-    width: 209px;
-  }
-
-  .wellness-btn--primary {
-    color: white;
-    border-color: #C39370;
-    background: #C39370;
-    backdrop-filter: blur(10px);
-  }
-
-  .wellness-btn--primary:hover {
-    /* background: rgba(255, 255, 255, 0.2); */
-    /* border-color: rgba(255, 255, 255, 0.6); */
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .wellness-btn--secondary {
-    color: #2d3436;
-    border-color: rgba(45, 52, 54, 0.3);
-    background: rgba(255, 255, 255, 0.9);
-  }
-
-  .wellness-btn--secondary:hover {
-    /* background: white; */
-    /* border-color: rgba(45, 52, 54, 0.6); */
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .wellness-btn:active {
-    transform: translateY(0);
-  }
-
-  
-</style>
+<Button href={href} onclick={onClick} variant={variant} size={size}>
+  立即預約
+</Button>
