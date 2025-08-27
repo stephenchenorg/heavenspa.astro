@@ -232,9 +232,11 @@ try {
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    z-index: 10;
+    z-index: 100;
     margin-top: auto;
     flex-shrink: 0;
+    width: 100%;
+    clear: both;
   }
 
   .marquee-content {
@@ -280,6 +282,9 @@ try {
 
     .team-section {
       padding: 2rem 1rem 0 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .team-container {
@@ -306,7 +311,10 @@ try {
     }
 
     .marquee-container {
-      margin-top: 6rem;
+      margin-top: 4rem;
+      position: relative;
+      z-index: 200;
+      padding: 1.5rem 0;
     }
 
     .marquee-text {
@@ -357,8 +365,12 @@ try {
     }
 
     .marquee-container {
-      margin-top: 4rem;
+      margin-top: 3rem;
       padding: 1.5rem 0;
+      position: relative;
+      z-index: 300;
+      background: #F8F6F0;
+      border-top: 1px solid rgba(196, 149, 108, 0.2);
     }
 
     .marquee-text {
@@ -380,6 +392,12 @@ try {
     .member-image {
       width: 220px;
       height: 220px;
+    }
+
+    .marquee-container {
+      z-index: 400;
+      position: relative;
+      margin-top: 2rem;
     }
 
     .marquee-text {

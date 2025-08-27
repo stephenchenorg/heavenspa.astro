@@ -179,7 +179,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
+    box-sizing: border-box;
   }
 
   .circle-heading {
@@ -189,6 +191,8 @@
     line-height: 1.3;
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .circle-description {
@@ -197,6 +201,9 @@
     line-height: 1.6;
     font-weight: 400;
     letter-spacing: 0.3px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: justify;
   }
 
   @keyframes float {

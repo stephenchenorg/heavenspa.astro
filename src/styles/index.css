@@ -75,7 +75,6 @@
   top: 50px;
   width: 100%; /* 使用容器的100%寬度，由padding控制邊界 */
   height: 80vh; /* 減少高度為80vh */
-  min-height: 700px; /* 設定最小高度700px防止過小 */
   margin: 2.5vh auto; /* 上下各2.5vh邊界 */
   border-radius: 50px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
@@ -86,7 +85,7 @@
   transform: translateY(0px);
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Card Variants */
@@ -267,7 +266,6 @@
   .stack-card {
     width: 100%; /* 使用容器100%寬度 */
     height: 75vh; /* 手機版高度調整 */
-    min-height: 700px; /* 手機版最小高度也設為700px */
     margin: 2vh auto; /* 手機版上下邊界 */
     border-radius: 30px;
     top: 30px;

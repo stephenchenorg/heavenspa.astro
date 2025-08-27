@@ -281,6 +281,7 @@ onUnmounted(() => {
   justify-content: space-between;
   flex-direction: row-reverse; /* 圖片在右，卡片在左 */
   min-height: 450px;
+  height: auto;
   z-index: 1;
   overflow: hidden; /* 防止子元素溢出 */
 }
@@ -296,7 +297,8 @@ onUnmounted(() => {
   max-width: 480px; /* 最大寬度也設為 200px */
   background: #F5E9DAD4;
   padding: 1.5rem; /* 調整 padding 以適應較小寬度 */
-  height: 160px;
+  min-height: 160px;
+  height: auto;
   backdrop-filter: blur(10px);
   text-align: center;
   z-index: 10;
@@ -513,7 +515,8 @@ onUnmounted(() => {
   .course-carousel {
     width: 100%;
     max-width: 450px; /* 與上面保持一致 */
-    height: 350px;
+    min-height: 350px;
+    height: auto;
     margin: 0 auto; /* 手機版恢復正常的margin */
   }
 
@@ -573,7 +576,8 @@ onUnmounted(() => {
 
   .course-carousel {
     max-width: 100%;
-    height: 260px;
+    min-height: 260px;
+    height: auto;
     margin: 0 auto; /* 确保居中 */
   }
 
@@ -652,7 +656,8 @@ onUnmounted(() => {
 
   .course-carousel {
     max-width: 320px;
-    height: 200px;
+    min-height: 200px;
+    height: auto;
     border-radius: 8px;
     margin: 0 auto; /* 确保居中 */
   }
