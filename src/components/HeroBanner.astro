@@ -1,21 +1,25 @@
 ---
 import Button from "./ui/Button.astro";
+import { createAstroT } from '@/utils/astro-i18n'
+
+// 翻譯函數
+const t = createAstroT(Astro)
 ---
 
 <div class="hero-content">
   <div class="hero-text">
     <h1 class="hero-title">
-      <span class="title-line">EMBRACE</span>
-      <span class="title-line">YOURSELF</span>
+      <span class="title-line">{t('hero.embrace')}</span>
+      <span class="title-line">{t('hero.yourself')}</span>
     </h1>
-    <Button href="#courses" variant="primary">立即預約</Button>
+    <Button href="#courses" variant="primary">{t('buttons.book-now')}</Button>
   </div>
 </div>
 
 <!-- 旋轉圓圈元素 -->
 <div class="rotating-circle">
   <div class="circle-text">
-    <span>SCROLL TO EXPLORE • SCROLL TO EXPLORE • </span>
+    <span>{t('hero.scroll')} • {t('hero.scroll')} • </span>
   </div>
   <div class="circle-arrow">↓</div>
 </div>

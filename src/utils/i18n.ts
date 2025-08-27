@@ -47,6 +47,24 @@ export const translations = {
       'view-more': 'VIEW MORE',
     },
 
+    // Buttons & Actions
+    buttons: {
+      'book-now': '立即預約',
+      'learn-more': '了解更多',
+      'view-more': '查看更多',
+      'contact-us': '聯繫我們',
+    },
+
+    // Footer & Contact Info
+    footer: {
+      address: '地址',
+      'business-hours': '營業時間',
+      'contact-info': '聯繫資訊',
+      phone: '電話',
+      email: '電子信箱',
+      'follow-us': '關注我們',
+    },
+
     // 其他
     intro: 'intro',
     contact: 'CONTACT',
@@ -91,6 +109,24 @@ export const translations = {
       subtitle: 'Member Privileges',
       exclusive: 'Exclusive Offers',
       'view-more': 'VIEW MORE',
+    },
+
+    // Buttons & Actions
+    buttons: {
+      'book-now': 'Book Now',
+      'learn-more': 'Learn More',
+      'view-more': 'View More',
+      'contact-us': 'Contact Us',
+    },
+
+    // Footer & Contact Info
+    footer: {
+      address: 'Address',
+      'business-hours': 'Business Hours',
+      'contact-info': 'Contact Information',
+      phone: 'Phone',
+      email: 'Email',
+      'follow-us': 'Follow Us',
     },
 
     // Others

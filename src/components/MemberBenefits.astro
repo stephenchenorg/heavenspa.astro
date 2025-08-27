@@ -1,6 +1,10 @@
 ---
 import { gql, graphQLAPI } from '@/api'
 import Button from "./ui/Button.astro"
+import { createAstroT } from '@/utils/astro-i18n'
+
+// 翻譯函數
+const t = createAstroT(Astro)
 
 // 定義 API 回應的類型
 export interface ArticleCover {
@@ -137,7 +141,7 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
 
     <!-- 專屬優惠按鈕 -->
     <div class="exclusive-button">
-      <Button href="#courses" variant="primary">專屬優惠</Button>
+      <Button href="#courses" variant="primary">{t('benefits.exclusive')}</Button>
     </div>
 
     <!-- 優惠卡片輪播 -->
