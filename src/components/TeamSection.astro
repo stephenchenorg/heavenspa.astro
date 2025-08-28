@@ -1,5 +1,5 @@
 ---
-import { gql, graphQLAPI } from '@/api'
+import {gql, graphQLAPI} from '@/api'
 
 // 定義 API 回應的類型
 export interface TeamCover {
@@ -55,7 +55,7 @@ try {
   teamMembers = [
     {
       title: '專業團隊',
-      category: { title: '服務專員' },
+      category: {title: '服務專員'},
       cover: {
         desktop: '/images/default-team.jpg',
         desktop_blur: '/images/default-team-blur.jpg',
@@ -70,10 +70,9 @@ try {
 <section class="team-section" id="team" data-section="team">
   <div class="team-container">
     <div class="team-header">
-      <h2 class="team-title">Our Team.</h2>
+      <h2 class="team-title">我們的團隊</h2>
       <p class="team-description">
-        The same color can evoke different emotions, or have various
-        meanings to different individuals and cultures.
+        嚴選頂尖團隊，成為最懂你的那雙手
       </p>
     </div>
 
@@ -82,7 +81,7 @@ try {
         <div class="team-member">
           <div class="member-image">
             <picture>
-              <source media="(max-width: 768px)" srcset={member.cover.mobile} />
+              <source media="(max-width: 768px)" srcset={member.cover.mobile}/>
               <img
                 src={member.cover.desktop}
                 alt={member.title}
