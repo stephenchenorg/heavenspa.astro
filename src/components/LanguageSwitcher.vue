@@ -116,7 +116,7 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   font-size: 1.1rem;
   font-weight: 500;
-  min-width: 60px;
+  min-width: 120px;
   justify-content: center;
   letter-spacing: 0.5px;
   position: relative;
@@ -215,7 +215,7 @@ onUnmounted(() => {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
   color: #D7AE54;
-  min-width: 60px;
+  min-width: 120px;
 }
 
 /* 手機版選單中的語系選擇器樣式 */
@@ -223,7 +223,7 @@ onUnmounted(() => {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
   color: #D7AE54;
-  min-width: 60px;
+  min-width: 120px;
 }
 
 .mobile-language .language-toggle::after {

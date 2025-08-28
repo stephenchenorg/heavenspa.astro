@@ -9,7 +9,8 @@ const t = createAstroT(Astro)
 <div class="relative z-10 text-center">
   <div>
     <h1
-      class="text-[clamp(3rem,8vw,6rem)] lg:text-[clamp(2.5rem,7vw,5rem)] md:text-[clamp(2rem,8vw,3.5rem)] sm:text-[clamp(1.5rem,10vw,2.5rem)] font-black leading-[0.85] text-white uppercase tracking-[-0.02em] mb-8 md:mb-6 sm:mb-4">
+      id="hero-title"
+      class="text-[clamp(3rem,8vw,6rem)] lg:text-[clamp(2.5rem,7vw,5rem)] md:text-[clamp(2rem,8vw,3.5rem)] sm:text-[clamp(1.5rem,10vw,2.5rem)] font-black leading-[0.85] text-white uppercase tracking-[-0.02em] mb-8 md:mb-6 sm:mb-4 transition-colors duration-300">
       <span
         class="block animate-fade-in-up [animation-delay:0.5s] [animation-fill-mode:both]">{t('hero.embrace')}</span>
       <span
@@ -76,6 +77,19 @@ const t = createAstroT(Astro)
         char.style.transformOrigin = '0 50px'
         circleText.appendChild(char)
       }
+    }
+
+    // 滾動時改變文字顏色
+    const heroTitle = document.getElementById('hero-title')
+    if (heroTitle) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY
+        if (scrollY > 100) {
+          heroTitle.style.color = '#C39370'
+        } else {
+          heroTitle.style.color = 'white'
+        }
+      })
     }
   })
 </script>

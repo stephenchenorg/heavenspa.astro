@@ -64,11 +64,6 @@
 }
 
 /* Stack Card System */
-.stack-container {
-  position: relative;
-  height: 400vh; /* 創造足夠的滾動距離 */
-  padding: 4rem 2rem; /* 上下4rem，左右2rem */
-}
 
 .stack-card {
   position: sticky;
@@ -125,45 +120,6 @@
 }
 
 /* Section Styles */
-.services-section,
-.contact-section {
-  text-align: center;
-  padding: 2rem;
-  background: white;
-}
-
-.course-section-container {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 2rem;
-}
-
-.member-benefits-section {
-  background: transparent;
-  padding: 0;
-  position: relative;
-  z-index: 1;
-  margin-top: -2rem; /* 讓兩個區塊間距更緊密 */
-}
-
-.member-benefits-section .member-benefits {
-  padding: 0;
-  min-height: 100vh;
-}
-
-.footer-section {
-  background: transparent;
-  padding: 0;
-  height: auto;
-  min-height: 100vh;
-}
-
-.footer-section .main-footer {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 /* Common Content Styles */
 .section-content {
