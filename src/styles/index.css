@@ -32,22 +32,8 @@
   padding-inline: 1.5rem;
 }
 
-/* Layout Components */
-
 /* Stack Card System - Keep only the active state for JavaScript */
 .stack-card.active {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
-
-/* Hero Banner 樣式 */
-
-/* Section Styles */
-
-/* Common Content Styles */
-
-
-
-/* Button System */
-
-/* Responsive Design */
