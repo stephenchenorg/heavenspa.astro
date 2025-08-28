@@ -1,16 +1,16 @@
 ---
 // Wellness Button Component
-import Button from '@/components/ui/Button.astro';
+import Button from '@/components/ui/Button.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Props {
-  href?: string;
-  onClick?: string;
-  variant?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large';
+  href?: string
+  onClick?: string
+  variant?: 'primary' | 'secondary'
+  size?: 'small' | 'medium' | 'large'
 }
 
-const { href = '#', onClick, variant = 'primary', size = 'large' } = Astro.props;
+const { href = '#', onClick, variant = 'primary', size = 'large' } = Astro.props
 
 // 翻譯函數
 const t = createAstroT(Astro)

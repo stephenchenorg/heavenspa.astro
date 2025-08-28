@@ -1,22 +1,22 @@
 <template>
   <div class="language-switcher">
-    <button 
+    <button
       class="language-toggle"
-      @click="toggleDropdown"
       :class="{ active: isOpen }"
+      @click="toggleDropdown"
     >
       <span class="current-lang">{{ getLocaleName(currentLocale) }}</span>
-      <svg 
-        class="chevron" 
+      <svg
+        class="chevron"
         :class="{ rotated: isOpen }"
-        width="12" 
-        height="12" 
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
       >
         <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" />
       </svg>
     </button>
-    
+
     <div class="language-dropdown" :class="{ show: isOpen }">
       <button
         v-for="locale in locales"
@@ -32,39 +32,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { 
-  type Locale, 
-  locales, 
-  getCurrentLocale, 
-  setLocale, 
-  getLocaleName 
+import type { Locale } from '@/utils/i18n'
+import { onMounted, onUnmounted, ref } from 'vue'
+import {
+  getCurrentLocale,
+  getLocaleName,
+
+  locales,
+  setLocale,
 } from '@/utils/i18n'
 
 const currentLocale = ref<Locale>('zh-tw')
 const isOpen = ref(false)
 
-const toggleDropdown = () => {
+function toggleDropdown() {
   isOpen.value = !isOpen.value
 }
 
-const changeLocale = (locale: Locale) => {
+function changeLocale(locale: Locale) {
   currentLocale.value = locale
   setLocale(locale)
   isOpen.value = false
-  
+
   // 重新載入頁面以應用新語言
   window.location.reload()
 }
 
-const handleClickOutside = (event: Event) => {
+function handleClickOutside(event: Event) {
   const target = event.target as Element
   if (!target.closest('.language-switcher')) {
     isOpen.value = false
   }
 }
 
-const handleEscape = (event: KeyboardEvent) => {
+function handleEscape(event: KeyboardEvent) {
   if (event.key === 'Escape') {
     isOpen.value = false
   }
@@ -226,23 +227,23 @@ onUnmounted(() => {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
-  
+
   .current-lang {
     font-size: 0.75rem;
   }
-  
+
   .chevron {
     width: 10px;
     height: 10px;
   }
-  
+
   /* 手機版選單內的語系選擇器 */
   .mobile-language .language-toggle {
     min-width: 120px;
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
-  
+
   .mobile-language .current-lang {
     font-size: 0.9rem;
   }

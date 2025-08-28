@@ -1,5 +1,6 @@
 import type { APIContext } from 'astro'
-import { type Locale, defaultLocale, t } from './i18n'
+import type { Locale } from './i18n'
+import { defaultLocale, t } from './i18n'
 
 // 從 Astro 請求中獲取語言
 export function getLocaleFromRequest(request: Request): Locale {
@@ -12,20 +13,20 @@ export function getLocaleFromRequest(request: Request): Locale {
         return [key, decodeURIComponent(value || '')]
       })
     )
-    
-    const storedLocale = cookies['locale'] as Locale
+
+    const storedLocale = cookies.locale as Locale
     if (storedLocale && (storedLocale === 'zh-tw' || storedLocale === 'en')) {
       return storedLocale
     }
   }
-  
+
   // 2. 從 Accept-Language 標頭獲取瀏覽器預設語言 (第二優先級)
   const acceptLanguage = request.headers.get('accept-language')
   if (acceptLanguage) {
-    const languages = acceptLanguage.split(',').map(lang => 
+    const languages = acceptLanguage.split(',').map(lang =>
       lang.split(';')[0].trim().toLowerCase()
     )
-    
+
     for (const lang of languages) {
       // 檢測中文（包含各種中文變體）
       if (lang.includes('zh')) {
@@ -37,7 +38,7 @@ export function getLocaleFromRequest(request: Request): Locale {
       }
     }
   }
-  
+
   // 3. 預設語言
   return defaultLocale
 }
@@ -45,7 +46,7 @@ export function getLocaleFromRequest(request: Request): Locale {
 // Astro 組件中使用的翻譯函數
 export function createAstroT(context: APIContext) {
   const locale = getLocaleFromRequest(context.request)
-  
+
   return function astroT(key: string): string {
     return t(key, locale)
   }
@@ -55,15 +56,15 @@ export function createAstroT(context: APIContext) {
 export function getAlternateUrls(context: APIContext) {
   const url = new URL(context.request.url)
   const currentLocale = getLocaleFromRequest(context.request)
-  
+
   // 移除當前語言前綴
   let pathname = url.pathname
   if (pathname.startsWith(`/${currentLocale}`)) {
     pathname = pathname.substring(`/${currentLocale}`.length) || '/'
   }
-  
+
   return {
     'zh-tw': currentLocale === 'zh-tw' ? url.href : `${url.origin}${pathname}`,
-    'en': currentLocale === 'en' ? url.href : `${url.origin}/en${pathname === '/' ? '' : pathname}`
+    en: currentLocale === 'en' ? url.href : `${url.origin}/en${pathname === '/' ? '' : pathname}`,
   }
 }

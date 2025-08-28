@@ -1,6 +1,6 @@
 ---
-import Button from "./ui/Button.astro";
 import { createAstroT } from '@/utils/astro-i18n'
+import Button from './ui/Button.astro'
 
 // 翻譯函數
 const t = createAstroT(Astro)
@@ -258,20 +258,20 @@ const t = createAstroT(Astro)
 <script>
   // 旋轉圓圈文字效果
   document.addEventListener('DOMContentLoaded', () => {
-    const circleText = document.querySelector('.circle-text span') as HTMLElement;
-    if (circleText) {
-      const text = circleText.textContent || '';
-      circleText.innerHTML = '';
+    const circleText = document.querySelector('.circle-text span') as HTMLElement
+  if (circleText) {
+      const text = circleText.textContent || ''
+    circleText.innerHTML = ''
 
-      for (let i = 0; i < text.length; i++) {
-        const char = document.createElement('span');
-        char.textContent = text[i];
-        char.style.transform = `rotate(${i * (360 / text.length)}deg)`;
-        char.style.position = 'absolute';
-        char.style.left = '50%';
-        char.style.transformOrigin = '0 50px';
-        circleText.appendChild(char);
-      }
+    for (let i = 0; i < text.length; i++) {
+        const char = document.createElement('span')
+      char.textContent = text[i]
+      char.style.transform = `rotate(${i * (360 / text.length)}deg)`
+      char.style.position = 'absolute'
+      char.style.left = '50%'
+      char.style.transformOrigin = '0 50px'
+      circleText.appendChild(char)
     }
-  });
+    }
+  })
 </script>

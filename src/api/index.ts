@@ -14,7 +14,7 @@ function getCurrentLocale(): string {
       .find(c => c.trim().startsWith('locale='))?.split('=')[1]
 
     const frontendLocale = localeFromLS || localeFromCookie || 'zh-tw'
-    
+
     // 前端 zh-tw → 後端 zh_TW
     return frontendLocale === 'en' ? 'en' : 'zh_TW'
   }

@@ -15,8 +15,8 @@ export default defineConfig({
     defaultLocale: 'zh-tw',
     locales: ['zh-tw', 'en'],
     routing: {
-      prefixDefaultLocale: false
-    }
+      prefixDefaultLocale: false,
+    },
   },
   adapter: netlify({
     devFeatures: false,

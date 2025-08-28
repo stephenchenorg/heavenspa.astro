@@ -3,30 +3,30 @@ import { gql, graphQLAPI } from '@/api'
 
 // 定義 API 回應的類型
 export interface TeamCover {
-  desktop: string;
-  desktop_blur: string;
-  mobile: string;
-  mobile_blur: string;
+  desktop: string
+  desktop_blur: string
+  mobile: string
+  mobile_blur: string
 }
 
 export interface TeamCategory {
-  title: string;
+  title: string
 }
 
 export interface TeamMember {
-  title: string;
-  category: TeamCategory;
-  cover: TeamCover;
+  title: string
+  category: TeamCategory
+  cover: TeamCover
 }
 
 export interface TeamsResponse {
   teams: {
-    data: TeamMember[];
-  };
+    data: TeamMember[]
+  }
 }
 
 // GraphQL 查詢與錯誤處理
-let teamMembers: TeamMember[] = [];
+let teamMembers: TeamMember[] = []
 
 try {
   const teamsData: TeamsResponse = await graphQLAPI(gql`
@@ -46,24 +46,24 @@ try {
         }
       }
     }
-  `);
-  
-  teamMembers = teamsData.teams.data || [];
+  `)
+
+  teamMembers = teamsData.teams.data || []
 } catch (error) {
-  console.error('Failed to fetch team data:', error);
+  console.error('Failed to fetch team data:', error)
   // 如果 API 失敗，提供預設資料
   teamMembers = [
     {
-      title: "專業團隊",
-      category: { title: "服務專員" },
+      title: '專業團隊',
+      category: { title: '服務專員' },
       cover: {
-        desktop: "/images/default-team.jpg",
-        desktop_blur: "/images/default-team-blur.jpg", 
-        mobile: "/images/default-team-mobile.jpg",
-        mobile_blur: "/images/default-team-mobile-blur.jpg"
-      }
-    }
-  ];
+        desktop: '/images/default-team.jpg',
+        desktop_blur: '/images/default-team-blur.jpg',
+        mobile: '/images/default-team-mobile.jpg',
+        mobile_blur: '/images/default-team-mobile-blur.jpg',
+      },
+    },
+  ]
 }
 ---
 
@@ -76,15 +76,15 @@ try {
         meanings to different individuals and cultures.
       </p>
     </div>
-    
+
     <div class="team-grid">
-      {teamMembers.map((member) => (
+      {teamMembers.map(member => (
         <div class="team-member">
           <div class="member-image">
             <picture>
               <source media="(max-width: 768px)" srcset={member.cover.mobile} />
-              <img 
-                src={member.cover.desktop} 
+              <img
+                src={member.cover.desktop}
                 alt={member.title}
                 loading="lazy"
                 onload="this.style.filter='none'"
@@ -100,15 +100,15 @@ try {
       ))}
     </div>
   </div>
-  
+
   <!-- 跑馬燈區塊 -->
   <div class="marquee-container">
     <div class="marquee-content">
       <span class="marquee-text">
-        {teamMembers.map((member) => (
+        {teamMembers.map(member => (
           `${member.title} • `
         )).join('')}
-        {teamMembers.map((member) => (
+        {teamMembers.map(member => (
           `${member.title} • `
         )).join('')}
       </span>

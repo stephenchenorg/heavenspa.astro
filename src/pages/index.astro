@@ -1,12 +1,11 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
-import Header from '@/layouts/partials/Header.astro'
-import HeroBanner from '@/components/HeroBanner.astro'
-import MemberBenefits from '@/components/MemberBenefits.astro'
 import CourseCarousel from '@/components/CourseCarousel.vue'
+import HeroBanner from '@/components/HeroBanner.astro'
 import IntroSection from '@/components/IntroSection.astro'
-import TeamSection from '@/components/TeamSection.astro';
+import MemberBenefits from '@/components/MemberBenefits.astro'
+import TeamSection from '@/components/TeamSection.astro'
+import Layout from '@/layouts/Layout.astro'
 
 const meta = seoMeta({
   title: 'Heaven Spa - 極致放鬆體驗',
@@ -47,52 +46,51 @@ const meta = seoMeta({
 
   </div> <!-- 結束內容容器 -->
 
-
   <script>
     // 等待 DOM 載入完成
     document.addEventListener('DOMContentLoaded', () => {
       // 堆疊卡片效果
-      const stackCards = document.querySelectorAll('.stack-card') as NodeListOf<HTMLElement>;
-      
-      const stackObserver = new IntersectionObserver((entries) => {
+      const stackCards = document.querySelectorAll('.stack-card') as NodeListOf<HTMLElement>
+
+  const stackObserver = new IntersectionObserver(entries => {
         entries.forEach((entry, _index) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          } else {
-            entry.target.classList.remove('active');
-          }
-        });
-      }, { 
+            entry.target.classList.add('active')
+      } else {
+            entry.target.classList.remove('active')
+      }
+        })
+  }, {
         threshold: 0.3,
-        rootMargin: '-50px 0px -50px 0px'
-      });
+        rootMargin: '-50px 0px -50px 0px',
+  })
 
-      stackCards.forEach(card => stackObserver.observe(card));
+      stackCards.forEach(card => stackObserver.observe(card))
 
-      // 平滑滾動效果
-      const scrollLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>;
-      scrollLinks.forEach(anchor => {
+  // 平滑滾動效果
+  const scrollLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>
+  scrollLinks.forEach(anchor => {
         anchor.addEventListener('click', function (e: Event) {
-          e.preventDefault();
-          const href = (this as HTMLAnchorElement).getAttribute('href');
-          const target = href ? document.querySelector(href) : null;
-          if (target) {
+          e.preventDefault()
+      const href = (this as HTMLAnchorElement).getAttribute('href')
+      const target = href ? document.querySelector(href) : null
+      if (target) {
             target.scrollIntoView({
               behavior: 'smooth',
-              block: 'start'
-            });
+              block: 'start',
+        })
           }
-        });
-      });
+        })
+  })
 
       // 視差滾動效果
       window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const heroImage = document.querySelector('.hero-image') as HTMLElement;
-        if (heroImage) {
-          heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
-        }
-      });
-    });
-  </script>
+        const scrolled = window.pageYOffset
+    const heroImage = document.querySelector('.hero-image') as HTMLElement
+    if (heroImage) {
+          heroImage.style.transform = `translateY(${scrolled * 0.5}px)`
+    }
+      })
+})
+</script>
 </Layout>

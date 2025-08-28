@@ -65,8 +65,8 @@ export const translations = {
           title: '季節優惠',
           description: '春夏秋冬各季節限定優惠活動，會員享有獨家折扣',
           buttonText: '季節限定',
-        }
-      }
+        },
+      },
     },
 
     // Buttons & Actions
@@ -91,7 +91,7 @@ export const translations = {
     intro: 'intro',
     contact: 'CONTACT',
   },
-  'en': {
+  en: {
     // Navigation Menu
     nav: {
       home: 'Home',
@@ -151,8 +151,8 @@ export const translations = {
           title: 'Seasonal Offers',
           description: 'Exclusive seasonal promotions throughout the year with member-only discounts',
           buttonText: 'Seasonal Special',
-        }
-      }
+        },
+      },
     },
 
     // Buttons & Actions
@@ -176,7 +176,7 @@ export const translations = {
     // Others
     intro: 'intro',
     contact: 'CONTACT',
-  }
+  },
 } as const
 
 // 翻譯函數
@@ -184,29 +184,29 @@ export function t(key: string, locale: Locale = defaultLocale): string {
   const translation = translations[locale]
   const keys = key.split('.')
   let result: any = translation
-  
+
   for (const k of keys) {
     result = result?.[k]
   }
-  
+
   return result || key
 }
 
 // 檢測瀏覽器語言
 export function detectBrowserLocale(): Locale {
   if (typeof window === 'undefined') return defaultLocale
-  
+
   // 獲取用戶的語言偏好列表
   const languages = window.navigator.languages || [window.navigator.language]
-  
+
   for (const lang of languages) {
     const normalizedLang = lang.toLowerCase()
-    
+
     // 檢測各種中文變體
     if (
-      normalizedLang.includes('zh-tw') ||  // 繁體中文 (台灣)
-      normalizedLang.includes('zh-hk') ||  // 繁體中文 (香港)
-      normalizedLang.includes('zh-mo') ||  // 繁體中文 (澳門)
+      normalizedLang.includes('zh-tw') || // 繁體中文 (台灣)
+      normalizedLang.includes('zh-hk') || // 繁體中文 (香港)
+      normalizedLang.includes('zh-mo') || // 繁體中文 (澳門)
       normalizedLang.includes('zh-hant') || // 繁體中文
       normalizedLang === 'zh-tw' ||
       normalizedLang === 'zh-hk' ||
@@ -214,44 +214,44 @@ export function detectBrowserLocale(): Locale {
     ) {
       return 'zh-tw'
     }
-    
+
     // 簡體中文也映射到繁體中文（根據你的需求調整）
     if (
-      normalizedLang.includes('zh-cn') ||  // 簡體中文 (中國)
-      normalizedLang.includes('zh-sg') ||  // 簡體中文 (新加坡)
+      normalizedLang.includes('zh-cn') || // 簡體中文 (中國)
+      normalizedLang.includes('zh-sg') || // 簡體中文 (新加坡)
       normalizedLang.includes('zh-hans') || // 簡體中文
       normalizedLang === 'zh-cn' ||
       normalizedLang === 'zh-sg' ||
-      normalizedLang === 'zh'  // 通用中文
+      normalizedLang === 'zh' // 通用中文
     ) {
-      return 'zh-tw'  // 或者你可以改為 'zh-cn' 如果你支援簡體
+      return 'zh-tw' // 或者你可以改為 'zh-cn' 如果你支援簡體
     }
-    
+
     // 檢測英文
     if (normalizedLang.includes('en')) {
       return 'en'
     }
   }
-  
+
   return defaultLocale
 }
 
 // 獲取當前語言
 export function getCurrentLocale(): Locale {
   if (typeof window === 'undefined') return defaultLocale
-  
+
   // 1. 檢查 cookies (最高優先級 - 用戶手動選擇)
   const cookies = document.cookie.split(';').reduce((acc, cookie) => {
     const [key, value] = cookie.trim().split('=')
     acc[key] = decodeURIComponent(value || '')
     return acc
   }, {} as Record<string, string>)
-  
-  const storedInCookie = cookies['locale'] as Locale
+
+  const storedInCookie = cookies.locale as Locale
   if (storedInCookie && locales.includes(storedInCookie)) {
     return storedInCookie
   }
-  
+
   // 2. 檢查 localStorage (向後兼容，但優先級較低)
   const storedInLS = localStorage.getItem('locale') as Locale
   if (storedInLS && locales.includes(storedInLS)) {
@@ -259,7 +259,7 @@ export function getCurrentLocale(): Locale {
     setLocale(storedInLS)
     return storedInLS
   }
-  
+
   // 3. 檢測瀏覽器預設語言 (第二優先級)
   return detectBrowserLocale()
 }
@@ -267,7 +267,6 @@ export function getCurrentLocale(): Locale {
 // 設置語言
 export function setLocale(locale: Locale): void {
   if (typeof window === 'undefined') return
-  
 
   // 設定 localStorage
   localStorage.setItem('locale', locale)
@@ -286,7 +285,7 @@ export function setLocale(locale: Locale): void {
 export function getLocaleName(locale: Locale): string {
   const names = {
     'zh-tw': '繁體中文',
-    'en': 'English'
+    en: 'English',
   }
   return names[locale]
 }

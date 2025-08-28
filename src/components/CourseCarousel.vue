@@ -6,9 +6,9 @@
         <h2 class="course-sub-title">課程介紹</h2>
       </div>
 
-      <div 
-        class="course-carousel-main"
+      <div
         ref="carouselContainer"
+        class="course-carousel-main"
         @click="handleClick"
         @mousedown="handleDragStart"
         @mousemove="handleDragMove"
@@ -29,7 +29,7 @@
           <!-- 圖片在上 -->
           <div class="w-full">
             <div class="course-carousel">
-              <img :src="course.image" :alt="course.subtitle" />
+              <img :src="course.image" :alt="course.subtitle">
             </div>
           </div>
 
@@ -46,10 +46,10 @@
             </div>
             <!-- 導航按鈕 -->
             <div class="course-navigation-inline">
-              <button class="nav-btn prev-btn" @click="prevSlide" :disabled="currentIndex === 0">
+              <button class="nav-btn prev-btn" :disabled="currentIndex === 0" @click="prevSlide">
                 <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="_0pqL0h.tif" data-name="0pqL0h.tif"><path fill="currentColor" d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"></path></g></g></g></svg>
               </button>
-              <button class="nav-btn next-btn" @click="nextSlide" :disabled="currentIndex === courses.length - 1">
+              <button class="nav-btn next-btn" :disabled="currentIndex === courses.length - 1" @click="nextSlide">
                 <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1"><g id="圖層_2" data-name="圖層 2"><g id="圖層_1-2" data-name="圖層 1"><g id="圖層_2-2" data-name="圖層 2"><g id="圖層_1-2-2" data-name="圖層 1-2"><g id="_0pqL0h.tif" data-name=" 0pqL0h.tif"><path fill="currentColor" d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"></path></g></g></g></g></g></svg>
               </button>
             </div>
@@ -123,34 +123,34 @@ const courses: Course[] = [
   },
 ]
 
-const nextSlide = () => {
+function nextSlide() {
   currentIndex.value = (currentIndex.value + 1) % courses.length
 }
 
-const prevSlide = () => {
+function prevSlide() {
   currentIndex.value = (currentIndex.value - 1 + courses.length) % courses.length
 }
 
 // 點擊測試
-const handleClick = () => {
+function handleClick() {
   console.log('CourseCarousel clicked!')
 }
 
 // 拖拽功能
-const handleDragStart = (e: MouseEvent | TouchEvent) => {
+function handleDragStart(e: MouseEvent | TouchEvent) {
   console.log('CourseCarousel handleDragStart triggered:', e.type)
   isDragging.value = true
   startX.value = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
   initialTranslate.value = currentTranslate.value
-  
+
   if (carouselContainer.value) {
     carouselContainer.value.style.transition = 'none'
   }
 }
 
-const handleDragMove = (e: MouseEvent | TouchEvent) => {
+function handleDragMove(e: MouseEvent | TouchEvent) {
   if (!isDragging.value) return
-  
+
   console.log('CourseCarousel handleDragMove triggered:', e.type)
   e.preventDefault()
   const currentX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
@@ -158,28 +158,28 @@ const handleDragMove = (e: MouseEvent | TouchEvent) => {
   currentTranslate.value = initialTranslate.value + diff
 }
 
-const handleDragEnd = () => {
+function handleDragEnd() {
   console.log('CourseCarousel handleDragEnd triggered')
   if (!isDragging.value) return
-  
+
   isDragging.value = false
-  
+
   if (carouselContainer.value) {
     carouselContainer.value.style.transition = 'transform 0.3s ease'
   }
-  
+
   const threshold = 100
   if (currentTranslate.value > threshold) {
     prevSlide()
   } else if (currentTranslate.value < -threshold) {
     nextSlide()
   }
-  
+
   currentTranslate.value = 0
 }
 
 // 鍵盤控制
-const handleKeydown = (e: KeyboardEvent) => {
+function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'ArrowLeft') {
     prevSlide()
   } else if (e.key === 'ArrowRight') {

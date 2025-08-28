@@ -1,20 +1,20 @@
 ---
 export interface Props {
-  href?: string;
-  onclick?: string;
-  variant?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large';
-  children?: any;
+  href?: string
+  onclick?: string
+  variant?: 'primary' | 'secondary'
+  size?: 'small' | 'medium' | 'large'
+  children?: any
 }
 
-const { 
-  href, 
-  onclick, 
-  variant = 'primary', 
-  size = 'large'
-} = Astro.props;
+const {
+  href,
+  onclick,
+  variant = 'primary',
+  size = 'large',
+} = Astro.props
 
-const buttonClass = `btn btn--${variant} btn--${size}`;
+const buttonClass = `btn btn--${variant} btn--${size}`
 ---
 
 {href ? (
