@@ -62,39 +62,13 @@
                 class="w-10 h-10 border-2 border-[#C9A48E] bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-[#C9A48E] disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#C9A48E] hover:text-white hover:scale-110"
                 :disabled="currentIndex === 0" @click="prevSlide"
               >
-                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.77 49.1">
-                  <g id="圖層_2" data-name="圖層 2">
-                    <g id="圖層_1-2" data-name="圖層 1">
-                      <g id="_0pqL0h.tif" data-name="0pqL0h.tif">
-                        <path
-                          fill="currentColor"
-                          d="M263.77,49.1Q141.45,49,19.13,48.8c-3.23,0-10.37,0-16.71.05a2.4,2.4,0,0,1-1-4.61C10,40.58,26.69,33.75,30.08,32.39c27.29-12.21,39.49-18,65.69-29.27,15.47-6.64,13.25-2.38,13.7,9.81,1,26.27,1,29.12,27.76,29.15q63.27.08,126.54.23Z"
-                        ></path>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
+                <ArrowLeft size="20" />
               </button>
               <button
                 class="w-10 h-10 border-2 border-[#C9A48E] bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-[#C9A48E] disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#C9A48E] hover:text-white hover:scale-110"
                 :disabled="currentIndex === courses.length - 1" @click="nextSlide"
               >
-                <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.82 49.1">
-                  <g id="圖層_2" data-name="圖層 2">
-                    <g id="圖層_1-2" data-name="圖層 1">
-                      <g id="圖層_2-2" data-name="圖層 2">
-                        <g id="圖層_1-2-2" data-name="圖層 1-2">
-                          <g id="_0pqL0h.tif" data-name=" 0pqL0h.tif">
-                            <path
-                              fill="currentColor"
-                              d="M0,49.1q122.32-.09,244.64-.3c3.23,0,10.37,0,16.71.05a2.4,2.4,0,0,0,1-4.61c-8.58-3.66-25.27-10.49-28.66-11.85C206.4,20.18,194.2,14.39,168,3.12c-15.47-6.64-13.25-2.38-13.7,9.81-1,26.27-1,29.12-27.76,29.15Q63.27,42.17,0,42.31Z"
-                            ></path>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
+                <ArrowRight size="20" />
               </button>
             </div>
           </div>
@@ -106,6 +80,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { ArrowLeft, ArrowRight } from '@/components/icon'
 
 interface Course {
   id: string

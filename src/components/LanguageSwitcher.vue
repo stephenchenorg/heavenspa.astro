@@ -5,30 +5,15 @@
       :class="{ active: isOpen }"
       @click="toggleDropdown"
     >
-      <svg
-        class="earth-icon"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-        <path d="M2 12h20"/>
-      </svg>
-      <svg
-        class="chevron"
+      <Globe 
+        size="20"
+        className="earth-icon"
+      />
+      <ChevronDown 
+        size="12"
+        className="chevron"
         :class="{ rotated: isOpen }"
-        width="12"
-        height="12"
-        viewBox="0 0 12 12"
-      >
-        <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" />
-      </svg>
+      />
     </button>
 
     <div class="language-dropdown" :class="{ show: isOpen }">
@@ -55,6 +40,7 @@ import {
   locales,
   setLocale,
 } from '@/utils/i18n'
+import { Globe, ChevronDown } from '@/components/icon'
 
 const currentLocale = ref<Locale>('zh-tw')
 const isOpen = ref(false)

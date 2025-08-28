@@ -2,6 +2,10 @@
 import type { CompanySettingData } from '@/types'
 import Button from '@/components/ui/Button.astro'
 import { createAstroT } from '@/utils/astro-i18n'
+import Instagram from '@/components/icon/Instagram.astro'
+import Facebook from '@/components/icon/Facebook.astro'
+import Line from '@/components/icon/Line.astro'
+import X from '@/components/icon/X.astro'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -38,15 +42,7 @@ const t = createAstroT(Astro)
               rel="noopener noreferrer"
             >
               <span class="social-icon">
-                <div class="w-full h-full rounded-lg relative" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); display: block !important;">
-                  <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-label="Instagram" role="img" viewBox="0 0 512 512" style="display: block !important;">
-                    <g fill="none" stroke="#ffffff" stroke-width="30">
-                      <rect width="308" height="308" x="102" y="102" rx="81" />
-                      <circle cx="256" cy="256" r="72" />
-                      <circle cx="347" cy="165" r="6" />
-                    </g>
-                  </svg>
-                </div>
+                <Instagram />
               </span>
             </a>
           )}
@@ -60,10 +56,7 @@ const t = createAstroT(Astro)
               rel="noopener noreferrer"
             >
               <span class="social-icon">
-                <svg aria-label="Facebook" role="img" viewBox="0 0 24 24" width="40" height="40" fill="#1877F2">
-                  <title>Facebook</title>
-                  <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.325v21.351C0 23.403.597 24 1.325 24H12.82v-9.294H9.691v-3.622h3.129V8.413c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.793.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.59l-.467 3.622h-3.123V24h6.116C23.403 24 24 23.403 24 22.676V1.325C24 .597 23.403 0 22.675 0z" />
-                </svg>
+                <Facebook />
               </span>
             </a>
           )}
@@ -71,29 +64,7 @@ const t = createAstroT(Astro)
           {companySetting?.line_link && (
             <a href={companySetting.line_link} class="social-link" title=LINE target="_blank" rel="noopener noreferrer">
               <span class="social-icon">
-                <svg aria-label="LINE" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="40" height="40">
-                  <title>LINE</title>
-                  <defs>
-                    <style>
-                      .cls-1 {
-                        fill: #06c755;
-                      }
-                      .cls-2 {
-                        fill: #fff;
-                      }
-                    </style>
-                  </defs>
-                  <g id="Layer_2" data-name="Layer 2">
-                    <g id="LINE_LOGO" data-name="LINE LOGO">
-                      <rect class="cls-1" width="320" height="320" rx="72.14" />
-                      <path class="cls-2" d="M266.66,144.92c0-47.74-47.86-86.58-106.69-86.58S53.28,97.18,53.28,144.92c0,42.8,38,78.65,89.22,85.42,3.48.75,8.21,2.29,9.4,5.26,1.08,2.7.71,6.93.35,9.65,0,0-1.25,7.53-1.52,9.13-.47,2.7-2.15,10.55,9.24,5.76s61.44-36.18,83.82-61.95h0C259.25,181.24,266.66,164,266.66,144.92Z" />
-                      <path class="cls-1" d="M231.16,172.49h-30a2,2,0,0,1-2-2v0h0V123.94h0v0a2,2,0,0,1,2-2h30a2,2,0,0,1,2,2v7.57a2,2,0,0,1-2,2H210.79v7.85h20.37a2,2,0,0,1,2,2V151a2,2,0,0,1-2,2H210.79v7.86h20.37a2,2,0,0,1,2,2v7.56A2,2,0,0,1,231.16,172.49Z" />
-                      <path class="cls-1" d="M120.29,172.49a2,2,0,0,0,2-2v-7.56a2,2,0,0,0-2-2H99.92v-37a2,2,0,0,0-2-2H90.32a2,2,0,0,0-2,2v46.53h0v0a2,2,0,0,0,2,2h30Z" />
-                      <rect class="cls-1" x="128.73" y="121.85" width="11.64" height="50.64" rx="2.04" />
-                      <path class="cls-1" d="M189.84,121.85h-7.56a2,2,0,0,0-2,2v27.66l-21.3-28.77a1.2,1.2,0,0,0-.17-.21v0l-.12-.12,0,0-.11-.09-.06,0-.11-.08-.06,0-.11-.06-.07,0-.11,0-.07,0-.12,0-.08,0-.12,0h-.08l-.11,0h-7.71a2,2,0,0,0-2,2v46.56a2,2,0,0,0,2,2h7.57a2,2,0,0,0,2-2V142.81l21.33,28.8a2,2,0,0,0,.52.52h0l.12.08.06,0,.1.05.1,0,.07,0,.14,0h0a2.42,2.42,0,0,0,.54.07h7.52a2,2,0,0,0,2-2V123.89A2,2,0,0,0,189.84,121.85Z" />
-                    </g>
-                  </g>
-                </svg>
+                <Line />
               </span>
             </a>
           )}
@@ -106,10 +77,7 @@ const t = createAstroT(Astro)
               rel="noopener noreferrer"
             >
               <span class="social-icon">
-                <svg aria-label="X" role="img" viewBox="0 0 24 24" width="40" height="40" fill="#000000">
-                  <title>X</title>
-                  <path d="M18.244 2H22l-7.89 9.45L22.5 22h-6.6l-4.77-6.19L6.02 22H2l8.51-9.86L2.5 2h6.6l4.58 6.06L18.244 2z" />
-                </svg>
+                <X />
               </span>
             </a>
           )}

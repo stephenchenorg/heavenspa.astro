@@ -1,0 +1,24 @@
+---
+export interface Props {
+  size?: string | number
+  class?: string
+}
+
+const { 
+  size = '40',
+  class: className = ''
+} = Astro.props
+---
+
+<svg 
+  aria-label="X" 
+  role="img" 
+  viewBox="0 0 24 24" 
+  width={size}
+  height={size}
+  fill="#000000"
+  class={className}
+>
+  <title>X</title>
+  <path d="M18.244 2H22l-7.89 9.45L22.5 22h-6.6l-4.77-6.19L6.02 22H2l8.51-9.86L2.5 2h6.6l4.58 6.06L18.244 2z" />
+</svg>
