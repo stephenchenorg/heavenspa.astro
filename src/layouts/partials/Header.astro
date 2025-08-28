@@ -186,7 +186,7 @@ const t = createAstroT(Astro)
       if (window.pageYOffset > 20) {
         // 滾動時的樣式變化 - 使用 TailwindCSS 類名
         mainNav?.classList.remove('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.add('bg-white/90', 'backdrop-blur-2xl', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
+        mainNav?.classList.add('bg-white/50', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
         mainNav?.setAttribute('data-scrolled', 'true')
 
         // 導航項目顏色保持白色
@@ -207,7 +207,7 @@ const t = createAstroT(Astro)
       } else {
         // 頂部時恢復透明樣式
         mainNav?.classList.add('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.remove('bg-white/20', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
+        mainNav?.classList.remove('bg-white/50', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
         mainNav?.setAttribute('data-scrolled', 'false')
 
         // 導航項目顏色保持白色 (無需變更)
