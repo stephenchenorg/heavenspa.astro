@@ -43,11 +43,10 @@ const data: CompanySetting = await graphQLAPI(gql`
 const {
   meta,
 } = Astro.props
+
 ---
 
 <BaseLayout meta={meta}>
-  <slot name="head" slot="head" />
-
   <Header companySetting={data.companySetting}/>
 
   <slot />

@@ -45,44 +45,7 @@ export interface Props {
   benefits?: Benefit[];
 }
 
-const defaultBenefits: Benefit[] = [
-  {
-    id: 'mothers-day',
-    title: 'Happy Mother\'s Day',
-    subtitle: '母親節福滿限定活動',
-    description: '專為母親節特別企劃的限定優惠活動，讓您與媽媽一起享受美好時光',
-    date: '31',
-    year: '2025',
-    month: '05',
-    image: 'https://hamahairspa.com/wp-content/uploads/2025/05/hamahairspa%E6%AF%8D%E8%A6%AA%E7%AF%80%E5%84%AA%E6%83%A0-e1746153127699-1024x1024.jpg',
-    buttonText: '母親節限定活動',
-    category: 'VIEW MORE',
-  },
-  {
-    id: 'special-offer',
-    title: '優惠活動',
-    subtitle: 'Special Offer',
-    description: '全館優質套餐 Combo 1~5 會員優惠價 100，非會員專案惠活動',
-    date: '10',
-    year: '2024',
-    month: '10',
-    image: 'https://hamahairspa.com/wp-content/uploads/2024/12/95439753-4AFF-448A-A4E8-A4F5744899DF-1024x1024.png',
-    buttonText: '非會員專案惠活動',
-    category: 'VIEW MORE',
-  },
-  {
-    id: 'hama-exclusive',
-    title: 'Hama',
-    subtitle: '海洋胸好禮',
-    description: '專業海洋產品體驗，15分鐘專案服務',
-    date: '06',
-    year: '2024',
-    month: '06',
-    image: 'https://hamahairspa.com/wp-content/uploads/2025/05/hamahairspa%E6%AF%8D%E8%A6%AA%E7%AF%80%E5%84%AA%E6%83%A0-e1746153127699-1024x1024.jpg',
-    buttonText: '海洋胸好禮',
-    category: 'VIEW MORE',
-  }
-];
+// 不再使用預設假資料
 
 // GraphQL 查詢與錯誤處理
 let apiBenefits: Benefit[] = [];
@@ -127,16 +90,16 @@ try {
   console.error('Failed to fetch articles data:', error);
 }
 
-// 使用 API 資料，如果沒有資料則使用預設資料
-const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = Astro.props;
+// 只使用 API 資料或 props 傳入的資料
+const { benefits = apiBenefits } = Astro.props;
 ---
 
 <section class="member-benefits">
   <div class="benefits-container">
     <!-- 標題區 -->
     <div class="benefits-header">
-      <h2 class="benefits-title">MEMBER BENEFITS</h2>
-      <h3 class="benefits-subtitle">會員禮遇</h3>
+      <h2 class="benefits-title">{t('benefits.title')}</h2>
+      <h3 class="benefits-subtitle">{t('benefits.subtitle')}</h3>
     </div>
 
     <!-- 專屬優惠按鈕 -->
@@ -144,6 +107,7 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
       <Button href="#courses" variant="primary">{t('benefits.exclusive')}</Button>
     </div>
 
+    {benefits && benefits.length > 0 ? (
     <!-- 優惠卡片輪播 -->
     <div class="benefits-carousel">
       <div class="carousel-container" id="carouselContainer">
@@ -196,6 +160,21 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
         </button>
       </div>
     </div>
+    ) : (
+    <!-- 無資料顯示 -->
+    <div class="no-benefits">
+      <div class="no-benefits-content">
+        <div class="no-benefits-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="#D7AE54" opacity="0.3"/>
+            <path d="M12 6L12.5 10L17 10.5L12.5 11L12 15L11.5 11L7 10.5L11.5 10L12 6Z" fill="#D7AE54"/>
+          </svg>
+        </div>
+        <h3 class="no-benefits-title">會員禮遇即將推出</h3>
+        <p class="no-benefits-description">我們正在為您準備精彩的會員專屬優惠，敬請期待！</p>
+      </div>
+    </div>
+    )}
   </div>
 
   <style>
@@ -244,6 +223,42 @@ const { benefits = apiBenefits.length > 0 ? apiBenefits : defaultBenefits } = As
     /* 專屬優惠按鈕 */
     .exclusive-button {
       margin: 20px 0;
+    }
+
+    /* 無資料狀態 */
+    .no-benefits {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+      margin: 2rem 0;
+    }
+
+    .no-benefits-content {
+      text-align: center;
+      max-width: 400px;
+      padding: 2rem;
+    }
+
+    .no-benefits-icon {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .no-benefits-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #c4956c;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .no-benefits-description {
+      font-size: 1.1rem;
+      color: #8b7355;
+      line-height: 1.6;
+      letter-spacing: 0.5px;
     }
 
     /* 輪播容器 */

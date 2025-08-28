@@ -3,7 +3,7 @@ import type {CompanySettingData} from "@/types";
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { createAstroT } from '@/utils/astro-i18n';
 
-interface Props {
+export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
   companySetting?: CompanySettingData | null
 }
@@ -12,11 +12,8 @@ const {
   companySetting = null
 } = Astro.props;
 
-// 安全的 logo URL，避免 hydration mismatch
-const logoUrl = companySetting?.logo || 'http://127.0.0.1:8000/storage/uploads/public/LOGO-GOLD.png';
-
 // 翻譯函數
-const t = createAstroT(Astro);
+const t = createAstroT(Astro)
 ---
 
 <!-- 滾動進度指示器 -->
@@ -28,9 +25,9 @@ const t = createAstroT(Astro);
 <nav class="main-nav">
   <div class="nav-logo">
     <a href="/" class="flex items-center h-full mr-4">
-      { logoUrl && (
+      { companySetting?.logo && (
       <img
-        src={logoUrl}
+        src={companySetting?.logo}
         class="h-12 w-auto object-contain"
         alt="Logo"
       />
@@ -65,9 +62,9 @@ const t = createAstroT(Astro);
   <div class="mobile-menu">
     <div class="mobile-menu-header">
       <a href="/" class="mobile-logo">
-        { logoUrl && (
+        { companySetting?.logo && (
         <img
-          src={logoUrl}
+          src={companySetting?.logo}
           class="h-10 w-auto object-contain"
           alt="Logo"
         />
@@ -87,6 +84,11 @@ const t = createAstroT(Astro);
       <a href="#faq" class="mobile-nav-item">{t('nav.faq')}</a>
       <a href="#careers" class="mobile-nav-item">{t('nav.careers')}</a>
     </nav>
+    <div class="mobile-language-section">
+      <div class="mobile-language">
+        <LanguageSwitcher client:load />
+      </div>
+    </div>
     <div class="mobile-contact">
       <!-- <button class="mobile-contact-btn">{t('nav.contact')}</button> -->
     </div>
@@ -449,9 +451,15 @@ const t = createAstroT(Astro);
   }
 
   .mobile-nav {
-    flex: 1;
-    padding: 2rem 0;
+    padding: 2rem 0 1rem 0;
     overflow-y: auto;
+  }
+
+  .mobile-language-section {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(196, 149, 108, 0.15);
+    border-bottom: 1px solid rgba(196, 149, 108, 0.15);
+    background: rgba(196, 149, 108, 0.05);
   }
 
   .mobile-nav-item {
@@ -495,7 +503,17 @@ const t = createAstroT(Astro);
 
   .mobile-contact {
     padding: 1.5rem;
-    border-top: 1px solid rgba(196, 149, 108, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .mobile-language {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .mobile-contact-btn {
@@ -544,21 +562,24 @@ const t = createAstroT(Astro);
   }
 
   /* 響應式設計 */
-  @media (max-width: 1024px) {
+  /* 中等螢幕 - 緊湊版選單 */
+  @media (max-width: 1200px) and (min-width: 1116px) {
     .main-nav {
-      padding: 1.5rem 3rem;
+      padding: 1.5rem 2.5rem;
     }
 
     .nav-menu {
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
     .nav-item {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      padding: 6px 1px;
     }
   }
 
-  @media (max-width: 768px) {
+  /* 提早進入手機版選單 */
+  @media (max-width: 1115px) {
     .main-nav {
       padding: 1rem 2rem;
     }
@@ -576,8 +597,14 @@ const t = createAstroT(Astro);
     }
   }
 
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .main-nav {
+      padding: 1.5rem 2rem;
+    }
+  }
+
   /* 桌面版隱藏手機選單按鈕 */
-  @media (min-width: 769px) {
+  @media (min-width: 1116px) {
     .mobile-menu-btn {
       display: none !important;
     }
@@ -591,175 +618,135 @@ const t = createAstroT(Astro);
 </style>
 
 <script>
-  // 導航滾動效果
-  document.addEventListener('DOMContentLoaded', () => {
-    const mainNavs = document.querySelectorAll('.main-nav') as NodeListOf<HTMLElement>;
+  // 等待頁面完全載入
+  function initializeMobileMenu() {
+    // 導航滾動效果
+    const mainNav = document.querySelector('.main-nav');
     
     function handleNavScroll() {
-      const scrollTop = window.pageYOffset;
-      
-      mainNavs.forEach((mainNav) => {
-        if (scrollTop > 20) {
-          mainNav.classList.add('scrolled');
-        } else {
-          mainNav.classList.remove('scrolled');
+      if (window.pageYOffset > 20) {
+        mainNav?.classList.add('scrolled');
+      } else {
+        mainNav?.classList.remove('scrolled');
+      }
+    }
+    
+    window.addEventListener('scroll', handleNavScroll);
+
+    // 手機版選單功能
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+    console.log('Mobile menu elements check:', {
+      btn: !!mobileMenuBtn,
+      overlay: !!mobileMenuOverlay,
+      close: !!mobileMenuClose,
+      items: mobileNavItems.length,
+      windowWidth: window.innerWidth
+    });
+
+    // 開啟選單
+    function openMobileMenu() {
+      console.log('Opening mobile menu');
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.add('active');
+      }
+      if (mobileMenuBtn) {
+        mobileMenuBtn.classList.add('active');
+      }
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 關閉選單
+    function closeMobileMenu() {
+      console.log('Closing mobile menu');
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.remove('active');
+      }
+      if (mobileMenuBtn) {
+        mobileMenuBtn.classList.remove('active');
+      }
+      document.body.style.overflow = '';
+    }
+
+    // 多種方式綁定點擊事件
+    if (mobileMenuBtn) {
+      // 方法1: addEventListener
+      mobileMenuBtn.addEventListener('click', function(e) {
+        console.log('Button clicked via addEventListener');
+        e.preventDefault();
+        e.stopPropagation();
+        openMobileMenu();
+      });
+
+      // 方法2: ontouchstart (行動裝置)
+      mobileMenuBtn.addEventListener('touchstart', function(e) {
+        console.log('Button touched via touchstart');
+        e.preventDefault();
+        openMobileMenu();
+      });
+
+      // 方法3: onclick 屬性作為備用
+      mobileMenuBtn.onclick = function(e) {
+        console.log('Button clicked via onclick property');
+        e.preventDefault();
+        openMobileMenu();
+        return false;
+      };
+
+      // 確保按鈕可見和可點擊
+      mobileMenuBtn.style.pointerEvents = 'auto';
+      mobileMenuBtn.style.position = 'relative';
+      mobileMenuBtn.style.zIndex = '10000';
+    }
+
+    // 關閉按鈕點擊事件
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeMobileMenu();
+      });
+    }
+
+    // 點擊背景關閉選單
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', function(e) {
+        if (e.target === mobileMenuOverlay) {
+          closeMobileMenu();
         }
       });
     }
 
-    window.addEventListener('scroll', handleNavScroll);
+    // 選單項目點擊後關閉選單
+    mobileNavItems.forEach(function(item) {
+      item.addEventListener('click', closeMobileMenu);
+    });
 
-    // 手機版選單功能 - 延遲初始化
-    setTimeout(() => {
-      console.log('Initializing mobile menu...');
-      
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-      const mobileMenuClose = document.getElementById('mobile-menu-close');
-      
-      console.log('Button exists:', !!mobileMenuBtn);
-      console.log('Button display:', mobileMenuBtn ? getComputedStyle(mobileMenuBtn).display : 'N/A');
-      console.log('Button visibility:', mobileMenuBtn ? getComputedStyle(mobileMenuBtn).visibility : 'N/A');
-      console.log('Window width:', window.innerWidth);
-      const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
-
-      console.log('Mobile menu elements:', {
-        btn: mobileMenuBtn,
-        overlay: mobileMenuOverlay,
-        close: mobileMenuClose,
-        items: mobileNavItems.length
-      });
-
-      function openMobileMenu() {
-        console.log('Opening mobile menu');
-        if (mobileMenuOverlay) {
-          mobileMenuOverlay.classList.add('active');
-        }
-        if (mobileMenuBtn) {
-          mobileMenuBtn.classList.add('active');
-        }
-        document.body.style.overflow = 'hidden';
+    // ESC鍵關閉選單
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileMenuOverlay?.classList.contains('active')) {
+        closeMobileMenu();
       }
+    });
 
-      function closeMobileMenu() {
-        console.log('Closing mobile menu');
-        if (mobileMenuOverlay) {
-          mobileMenuOverlay.classList.remove('active');
-        }
-        if (mobileMenuBtn) {
-          mobileMenuBtn.classList.remove('active');
-        }
-        document.body.style.overflow = '';
-      }
+    // 全域測試函數
+    window.testMobileMenu = function() {
+      console.log('Manual test - opening menu');
+      openMobileMenu();
+    };
+  }
 
-      // 打開選單 - 簡化版本，直接在原按鈕上添加事件
-      if (mobileMenuBtn) {
-        console.log('Adding event listeners to mobile menu button (simplified version)');
-        
-        // 直接在原按鈕上添加事件監聽器
-        console.log('Adding event listeners to original button...');
-        
-        // 添加點擊事件
-        mobileMenuBtn.addEventListener('click', (e) => {
-          console.log('🔴 Mobile menu button clicked! (original)');
-          e.preventDefault();
-          e.stopPropagation();
-          openMobileMenu();
-        });
-        console.log('✅ Click event listener added to original button');
+  // 多種方式確保初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeMobileMenu);
+  } else {
+    initializeMobileMenu();
+  }
 
-        // 添加觸控事件
-        mobileMenuBtn.addEventListener('touchend', (e) => {
-          console.log('🔴 Mobile menu button touched! (original)');
-          e.preventDefault();
-          e.stopPropagation();
-          openMobileMenu();
-        });
-        console.log('✅ Touchend event listener added to original button');
-
-        // 添加額外的事件監聽器作為備用
-        mobileMenuBtn.addEventListener('mousedown', (e) => {
-          console.log('🟡 Mobile menu button mousedown! (original)');
-        });
-        
-        mobileMenuBtn.addEventListener('touchstart', (e) => {
-          console.log('🟡 Mobile menu button touchstart! (original)');
-        });
-
-        // 直接設置 onclick 屬性作為最後備用
-        mobileMenuBtn.onclick = function(e) {
-          console.log('🟢 Mobile menu button onclick fired! (original)');
-          e.preventDefault();
-          e.stopPropagation();
-          openMobileMenu();
-          return false;
-        };
-        console.log('✅ Onclick attribute set on original button');
-
-        // 確保按鈕可見且可點擊
-        mobileMenuBtn.style.pointerEvents = 'auto';
-        mobileMenuBtn.style.zIndex = '10000';
-        
-        // 添加明顯的調試樣式
-        mobileMenuBtn.style.border = '3px solid blue';
-        mobileMenuBtn.style.backgroundColor = 'rgba(0, 0, 255, 0.3)';
-        
-        // 詳細的可見性檢查
-        const rect = mobileMenuBtn.getBoundingClientRect();
-        const styles = getComputedStyle(mobileMenuBtn);
-        
-        console.log('🔍 Button visibility check (original):', {
-          display: styles.display,
-          visibility: styles.visibility,
-          opacity: styles.opacity,
-          pointerEvents: styles.pointerEvents,
-          zIndex: styles.zIndex,
-          position: styles.position,
-          width: rect.width,
-          height: rect.height,
-          top: rect.top,
-          left: rect.left,
-          bottom: rect.bottom,
-          right: rect.right
-        });
-        
-        console.log('Mobile menu button setup complete (original)', mobileMenuBtn);
-      }
-
-      // 關閉選單
-      if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', closeMobileMenu);
-      }
-
-      // 點擊背景關閉選單
-      if (mobileMenuOverlay) {
-        mobileMenuOverlay.addEventListener('click', (e) => {
-          if (e.target === mobileMenuOverlay) {
-            closeMobileMenu();
-          }
-        });
-      }
-
-      // 點擊選單項目後關閉選單
-      mobileNavItems.forEach(item => {
-        item.addEventListener('click', closeMobileMenu);
-      });
-
-      // ESC 鍵關閉選單
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenuOverlay?.classList.contains('active')) {
-          closeMobileMenu();
-        }
-      });
-
-      // 測試按鈕是否可點擊
-      console.log('Mobile menu setup complete');
-      
-      // 全局測試函數
-      (window as any).testMobileMenu = function() {
-        console.log('Test function called!');
-        openMobileMenu();
-      };
-    }, 100);
+  // 備用初始化
+  window.addEventListener('load', function() {
+    setTimeout(initializeMobileMenu, 100);
   });
 </script>

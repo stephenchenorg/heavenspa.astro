@@ -44,7 +44,29 @@ export const translations = {
       title: 'MEMBER BENEFITS',
       subtitle: '會員禮遇',
       exclusive: '專屬優惠',
-      'view-more': 'VIEW MORE',
+      'view-more': '查看更多',
+      items: {
+        'birthday-gift': {
+          title: '生日禮',
+          description: '生日月份享有專屬優惠券與贈品，讓您的生日更加特別',
+          buttonText: '生日專屬禮',
+        },
+        'points-reward': {
+          title: '點數回饋',
+          description: '每次消費累積點數，點數可折抵下次消費金額，越消費越優惠',
+          buttonText: '點數兌換',
+        },
+        'vip-treatment': {
+          title: 'VIP 待遇',
+          description: '優先預約服務、專屬顧問諮詢、定期保養提醒服務',
+          buttonText: 'VIP 專屬',
+        },
+        'seasonal-offers': {
+          title: '季節優惠',
+          description: '春夏秋冬各季節限定優惠活動，會員享有獨家折扣',
+          buttonText: '季節限定',
+        }
+      }
     },
 
     // Buttons & Actions
@@ -109,6 +131,28 @@ export const translations = {
       subtitle: 'Member Privileges',
       exclusive: 'Exclusive Offers',
       'view-more': 'VIEW MORE',
+      items: {
+        'birthday-gift': {
+          title: 'Birthday Gift',
+          description: 'Exclusive birthday vouchers and gifts to make your special day even more memorable',
+          buttonText: 'Birthday Special',
+        },
+        'points-reward': {
+          title: 'Points Reward',
+          description: 'Earn points with every purchase and redeem them for discounts on future services',
+          buttonText: 'Redeem Points',
+        },
+        'vip-treatment': {
+          title: 'VIP Treatment',
+          description: 'Priority booking, dedicated consultant services, and regular maintenance reminders',
+          buttonText: 'VIP Exclusive',
+        },
+        'seasonal-offers': {
+          title: 'Seasonal Offers',
+          description: 'Exclusive seasonal promotions throughout the year with member-only discounts',
+          buttonText: 'Seasonal Special',
+        }
+      }
     },
 
     // Buttons & Actions
