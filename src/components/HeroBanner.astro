@@ -6,151 +6,43 @@ import Button from './ui/Button.astro'
 const t = createAstroT(Astro)
 ---
 
-<div class="hero-content">
-  <div class="hero-text">
-    <h1 class="hero-title">
-      <span class="title-line">{t('hero.embrace')}</span>
-      <span class="title-line">{t('hero.yourself')}</span>
+<div class="relative z-10 text-center">
+  <div>
+    <h1
+      class="text-[clamp(3rem,8vw,6rem)] lg:text-[clamp(2.5rem,7vw,5rem)] md:text-[clamp(2rem,8vw,3.5rem)] sm:text-[clamp(1.5rem,10vw,2.5rem)] font-black leading-[0.85] text-white uppercase tracking-[-0.02em] mb-8 md:mb-6 sm:mb-4">
+      <span
+        class="block animate-fade-in-up [animation-delay:0.5s] [animation-fill-mode:both]">{t('hero.embrace')}</span>
+      <span
+        class="block animate-fade-in-up [animation-delay:0.7s] [animation-fill-mode:both] text-[clamp(2rem,6vw,4rem)] lg:text-[clamp(1.5rem,5vw,3rem)] md:text-[clamp(1.2rem,6vw,2rem)] sm:text-[clamp(0.8rem,7vw,1.5rem)] pt-8">{t('hero.yourself')}</span>
     </h1>
     <Button href="#courses" variant="primary">{t('buttons.book-now')}</Button>
   </div>
 </div>
 
 <!-- 旋轉圓圈元素 -->
-<div class="rotating-circle">
-  <div class="circle-text">
-    <span>{t('hero.scroll')} • {t('hero.scroll')} • </span>
+<div
+  class="absolute bottom-20 right-20 lg:bottom-12 lg:right-12 md:bottom-8 md:right-8 sm:bottom-6 sm:right-6 w-[120px] h-[120px] lg:w-[100px] lg:h-[100px] md:w-20 md:h-20 sm:w-[70px] sm:h-[70px] z-10 opacity-100 transition-opacity duration-500 ease-out">
+  <div class="absolute w-full h-full rounded-full border border-white/30 animate-spin [animation-duration:20s]">
+    <span
+      class="absolute left-1/2 top-2.5 text-[10px] lg:text-[9px] md:text-[8px] sm:text-[7px] text-white tracking-[2px] font-normal origin-[0_50px] lg:origin-[0_42px] md:origin-[0_35px] sm:origin-[0_30px] whitespace-nowrap">{t('hero.scroll')}
+      • {t('hero.scroll')} • </span>
   </div>
-  <div class="circle-arrow">↓</div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-2xl animate-bounce">↓</div>
 </div>
 
 <!-- 側邊文字 -->
-<div class="side-text">
-  <span>& SPA</span>
+<div class="absolute left-12 md:left-4 sm:left-2 top-1/2 -translate-y-1/2 -rotate-90 z-10">
+  <span
+    class="text-white text-base md:text-sm sm:text-sm tracking-[3px] sm:tracking-[2px] font-light uppercase">& SPA</span>
 </div>
 
-<div class="hero-bg">
-  <div class="hero-image"></div>
+<div class="absolute top-0 left-0 w-full h-full z-[1]">
+  <div
+    class="w-full h-full bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg')] bg-center bg-cover mix-blend-multiply opacity-80"></div>
 </div>
 
 <style>
-  .hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    background: url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg') center/cover;
-    mix-blend-mode: multiply;
-    opacity: 0.8;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-  }
-
-  .hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 0.85;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-  }
-
-  .title-line {
-    display: block;
-    animation: fadeInUp 1s ease 0.5s both;
-  }
-
-  .title-line:nth-child(2) {
-    animation-delay: 0.7s;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-    color: white;
-    font-weight: 300;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    animation: fadeInUp 1s ease 0.9s both;
-  }
-
-  /* 旋轉圓圈樣式 */
-  .rotating-circle {
-    position: absolute;
-    bottom: 5rem;
-    right: 5rem;
-    width: 120px;
-    height: 120px;
-    z-index: 10;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
-
-  .rotating-circle.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .circle-text {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: rotate 20s linear infinite;
-  }
-
-  .circle-text span {
-    position: absolute;
-    left: 50%;
-    top: 10px;
-    font-size: 10px;
-    color: white;
-    letter-spacing: 2px;
-    font-weight: 400;
-    transform-origin: 0 50px;
-    white-space: nowrap;
-  }
-
-  .circle-arrow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 1.5rem;
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  /* 側邊文字 */
-  .side-text {
-    position: absolute;
-    left: 3rem;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
-    z-index: 10;
-  }
-
-  .side-text span {
-    color: white;
-    font-size: 1rem;
-    letter-spacing: 3px;
-    font-weight: 300;
-    text-transform: uppercase;
-  }
-
-  /* 動畫效果 */
+  /* Custom animations for fade-in-up effect */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -162,96 +54,8 @@ const t = createAstroT(Astro)
     }
   }
 
-  @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translate(-50%, -50%) translateY(0);
-    }
-    40% {
-      transform: translate(-50%, -50%) translateY(-10px);
-    }
-    60% {
-      transform: translate(-50%, -50%) translateY(-5px);
-    }
-  }
-
-  /* 響應式設計 */
-  @media (max-width: 1024px) {
-    .hero-title {
-      font-size: clamp(2.5rem, 7vw, 5rem);
-    }
-
-    .rotating-circle {
-      bottom: 3rem;
-      right: 3rem;
-      width: 100px;
-      height: 100px;
-    }
-
-    .circle-text span {
-      font-size: 9px;
-      transform-origin: 0 42px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-title {
-      font-size: clamp(2rem, 8vw, 3.5rem);
-      margin-bottom: 1.5rem;
-    }
-
-    .rotating-circle {
-      bottom: 2rem;
-      right: 2rem;
-      width: 80px;
-      height: 80px;
-    }
-
-    .circle-text span {
-      font-size: 8px;
-      transform-origin: 0 35px;
-    }
-
-    .side-text {
-      left: 1rem;
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero-title {
-      font-size: clamp(1.5rem, 10vw, 2.5rem);
-      margin-bottom: 1rem;
-    }
-
-    .rotating-circle {
-      bottom: 1.5rem;
-      right: 1.5rem;
-      width: 70px;
-      height: 70px;
-    }
-
-    .circle-text span {
-      font-size: 7px;
-      transform-origin: 0 30px;
-    }
-
-    .side-text {
-      left: 0.5rem;
-    }
-
-    .side-text span {
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-    }
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease both;
   }
 </style>
 
