@@ -21,8 +21,8 @@ export const translations = {
 
     // Hero Banner
     hero: {
-      embrace: 'EMBRACE',
-      yourself: 'YOURSELF',
+      embrace: '嚴格把關',
+      yourself: '享天堂讓您置身天堂',
       scroll: 'SCROLL TO EXPLORE',
     },
 

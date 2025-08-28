@@ -116,7 +116,7 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   font-size: 1.1rem;
   font-weight: 500;
-  min-width: auto;
+  min-width: 60px;
   justify-content: center;
   letter-spacing: 0.5px;
   position: relative;
@@ -215,7 +215,7 @@ onUnmounted(() => {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
   color: #D7AE54;
-  min-width: auto;
+  min-width: 60px;
 }
 
 /* 手機版選單中的語系選擇器樣式 */
@@ -223,7 +223,7 @@ onUnmounted(() => {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
   color: #D7AE54;
-  min-width: auto;
+  min-width: 60px;
 }
 
 .mobile-language .language-toggle::after {
@@ -238,13 +238,14 @@ onUnmounted(() => {
 /* 響應式設計 */
 @media (max-width: 768px) {
   .language-toggle {
-    min-width: 100px;
+    min-width: auto;
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
   }
 
-  .current-lang {
-    font-size: 0.75rem;
+  .earth-icon {
+    width: 16px;
+    height: 16px;
   }
 
   .chevron {
@@ -254,13 +255,14 @@ onUnmounted(() => {
 
   /* 手機版選單內的語系選擇器 */
   .mobile-language .language-toggle {
-    min-width: 120px;
+    min-width: 50px;
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
 
-  .mobile-language .current-lang {
-    font-size: 0.9rem;
+  .mobile-language .earth-icon {
+    width: 18px;
+    height: 18px;
   }
 }
 </style>

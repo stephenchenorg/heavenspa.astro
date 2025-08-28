@@ -228,6 +228,7 @@
   color: white;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   backdrop-filter: blur(10px);
+  opacity: 0.5;
 }
 
 .btn--primary:hover {

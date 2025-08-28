@@ -186,16 +186,14 @@ const t = createAstroT(Astro)
       if (window.pageYOffset > 20) {
         // 滾動時的樣式變化 - 使用 TailwindCSS 類名
         mainNav?.classList.remove('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.add('bg-white', 'backdrop-blur-2xl', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
+        mainNav?.classList.add('bg-white/20', 'backdrop-blur-2xl', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
         mainNav?.setAttribute('data-scrolled', 'true')
 
-        // 導航項目顏色變化
+        // 導航項目顏色保持白色
         navItems?.forEach(item => {
           const underline = item.querySelector('div')
-          item.classList.remove('text-white')
-          item.classList.add('!text-[#D7AE54]')
-          underline?.classList.remove('bg-white')
-          underline?.classList.add('bg-[#D7AE54]')
+          // 保持文字為白色，不改變顏色
+          // underline 也保持白色
         })
 
         // 手機選單按鈕樣式變化
@@ -209,16 +207,14 @@ const t = createAstroT(Astro)
       } else {
         // 頂部時恢復透明樣式
         mainNav?.classList.add('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.remove('bg-white', 'backdrop-blur-2xl', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
+        mainNav?.classList.remove('bg-white/20', 'backdrop-blur-2xl', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
         mainNav?.setAttribute('data-scrolled', 'false')
 
-        // 導航項目顏色恢復
+        // 導航項目顏色保持白色 (無需變更)
         navItems?.forEach(item => {
           const underline = item.querySelector('div')
-          item.classList.add('text-white')
-          item.classList.remove('!text-[#D7AE54]')
-          underline?.classList.add('bg-white')
-          underline?.classList.remove('bg-[#D7AE54]')
+          // 文字本來就是白色，無需變更
+          // underline 本來就是白色，無需變更
         })
 
         // 手機選單按鈕樣式恢復
