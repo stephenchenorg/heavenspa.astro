@@ -138,6 +138,7 @@ try {
   }
 
   .team-container {
+    width: 70vw;
     margin: 0 auto;
     padding: 0 2rem;
     text-align: center;
@@ -165,10 +166,9 @@ try {
 
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
     justify-items: center;
-    max-width: 800px;
     margin: 0 auto 1rem auto;
     flex: 1;
     align-content: center;
@@ -262,14 +262,18 @@ try {
 
   /* 響應式設計 */
   @media (max-width: 1024px) {
+    .team-container {
+      width: 85vw;
+    }
+    
     .team-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 3rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
     }
 
     .member-image {
-      width: 350px;
-      height: 350px;
+      width: 250px;
+      height: 250px;
     }
   }
 
@@ -287,6 +291,7 @@ try {
     }
 
     .team-container {
+      width: 90vw;
       padding: 0 1rem;
     }
 
@@ -300,7 +305,7 @@ try {
 
     .team-grid {
       grid-template-columns: 1fr;
-      gap: 3rem;
+      gap: 2rem;
       justify-items: center;
     }
 
@@ -329,6 +334,7 @@ try {
     }
 
     .team-container {
+      width: 95vw;
       padding: 0 1rem;
     }
 
@@ -346,7 +352,7 @@ try {
     }
 
     .team-grid {
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .member-image {
