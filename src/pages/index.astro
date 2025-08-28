@@ -1,5 +1,5 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {seoMeta} from '@stephenchenorg/astro/page'
 import CourseCarousel from '@/components/CourseCarousel.vue'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IntroSection from '@/components/IntroSection.astro'
@@ -16,33 +16,41 @@ const meta = seoMeta({
   <!-- 內容容器 -->
   <div class="relative">
 
-  <!-- Hero Banner -->
-  <section class="relative min-h-screen md:min-h-[80vh] md:h-auto md:py-8 flex items-center justify-center bg-[#C39270] overflow-hidden w-full h-screen" id="home" data-section="home">
-    <HeroBanner />
-  </section>
+    <!-- Hero Banner -->
+    <section
+      class="relative min-h-screen md:min-h-[80vh] md:h-auto md:py-8 flex items-center justify-center bg-[#C39270] overflow-hidden w-full h-screen"
+      id="home" data-section="home">
+      <HeroBanner/>
+    </section>
 
-  <!-- 堆疊卡片容器 -->
-  <div class="">
-    <!-- Intro Section -->
-    <!--<section class=" intro-card" id="intro" data-section="intro">-->
+    <!-- 堆疊卡片容器 -->
+    <div class="">
+      <!-- Intro Section -->
+      <!--<section class=" intro-card" id="intro" data-section="intro">-->
       <!--<IntroSection />-->
-    <!--</section>-->
+      <!--</section>-->
 
-    <!-- Team Section -->
-    <section class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[2]" id="team" data-section="team">
-      <TeamSection />
-    </section>
+      <!-- Team Section -->
+      <section
+        class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[2]"
+        id="team" data-section="team">
+        <TeamSection/>
+      </section>
 
-    <!-- Course Section -->
-    <section class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[3]" id="courses" data-section="courses">
-      <CourseCarousel client:load />
-    </section>
+      <!-- Course Section -->
+      <section
+        class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[3]"
+        id="courses" data-section="courses">
+        <CourseCarousel client:load/>
+      </section>
 
-    <!-- Member Benefits Section -->
-    <section class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[4]" id="benefits" data-section="benefits">
-      <MemberBenefits />
-    </section>
-  </div>
+      <!-- Member Benefits Section -->
+      <section
+        class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[4]"
+        id="benefits" data-section="benefits">
+        <MemberBenefits/>
+      </section>
+    </div>
 
   </div> <!-- 結束內容容器 -->
 
@@ -52,45 +60,45 @@ const meta = seoMeta({
       // 堆疊卡片效果
       const stackCards = document.querySelectorAll('.stack-card') as NodeListOf<HTMLElement>
 
-  const stackObserver = new IntersectionObserver(entries => {
+      const stackObserver = new IntersectionObserver(entries => {
         entries.forEach((entry, _index) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active')
-      } else {
+          } else {
             entry.target.classList.remove('active')
-      }
+          }
         })
-  }, {
+      }, {
         threshold: 0.3,
         rootMargin: '-50px 0px -50px 0px',
-  })
+      })
 
       stackCards.forEach(card => stackObserver.observe(card))
 
-  // 平滑滾動效果
-  const scrollLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>
-  scrollLinks.forEach(anchor => {
+      // 平滑滾動效果
+      const scrollLinks = document.querySelectorAll('a[href^="#"]') as NodeListOf<HTMLAnchorElement>
+      scrollLinks.forEach(anchor => {
         anchor.addEventListener('click', function (e: Event) {
           e.preventDefault()
-      const href = (this as HTMLAnchorElement).getAttribute('href')
-      const target = href ? document.querySelector(href) : null
-      if (target) {
+          const href = (this as HTMLAnchorElement).getAttribute('href')
+          const target = href ? document.querySelector(href) : null
+          if (target) {
             target.scrollIntoView({
               behavior: 'smooth',
               block: 'start',
-        })
+            })
           }
         })
-  })
+      })
 
       // 視差滾動效果
       window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset
-    const heroImage = document.querySelector('.hero-image') as HTMLElement
-    if (heroImage) {
+        const heroImage = document.querySelector('.hero-image') as HTMLElement
+        if (heroImage) {
           heroImage.style.transform = `translateY(${scrolled * 0.5}px)`
-    }
+        }
       })
-})
-</script>
+    })
+  </script>
 </Layout>
