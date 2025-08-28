@@ -14,10 +14,10 @@ const meta = seoMeta({
 
 <Layout meta={meta}>
   <!-- 內容容器 -->
-  <div class="content-container">
+  <div class="relative">
 
   <!-- Hero Banner -->
-  <section class="scroll-section hero-banner" id="home" data-section="home">
+  <section class="relative min-h-screen md:min-h-[80vh] md:h-auto md:py-8 flex items-center justify-center bg-[#C39270] overflow-hidden w-full h-screen" id="home" data-section="home">
     <HeroBanner />
   </section>
 
@@ -29,17 +29,17 @@ const meta = seoMeta({
     <!--</section>-->
 
     <!-- Team Section -->
-    <section class=" team-card" id="team" data-section="team">
+    <section class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[2]" id="team" data-section="team">
       <TeamSection />
     </section>
 
     <!-- Course Section -->
-    <section class=" course-card" id="courses" data-section="courses">
+    <section class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[3]" id="courses" data-section="courses">
       <CourseCarousel client:load />
     </section>
 
     <!-- Member Benefits Section -->
-    <section class=" benefits-card" id="benefits" data-section="benefits">
+    <section class="stack-card sticky top-[50px] md:top-[30px] w-full h-[80vh] md:h-[75vh] my-[2.5vh] md:my-[2vh] mx-auto rounded-[50px] md:rounded-[30px] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] flex items-center justify-center opacity-0 translate-y-0 transition-all duration-[0.6s] cubic-bezier(0.25,0.46,0.45,0.94) border border-white/10 overflow-auto bg-gradient-to-br from-[#f8f6f0] to-[#f1ede4] z-[4]" id="benefits" data-section="benefits">
       <MemberBenefits />
     </section>
   </div>
