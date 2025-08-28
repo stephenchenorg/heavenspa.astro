@@ -5,7 +5,21 @@
       :class="{ active: isOpen }"
       @click="toggleDropdown"
     >
-      <span class="current-lang">{{ getLocaleName(currentLocale) }}</span>
+      <svg
+        class="earth-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+        <path d="M2 12h20"/>
+      </svg>
       <svg
         class="chevron"
         :class="{ rotated: isOpen }"
@@ -102,8 +116,8 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   font-size: 1.1rem;
   font-weight: 500;
-  min-width: 120px;
-  justify-content: space-between;
+  min-width: auto;
+  justify-content: center;
   letter-spacing: 0.5px;
   position: relative;
 }
@@ -132,8 +146,9 @@ onUnmounted(() => {
   opacity: 1;
 }
 
-.current-lang {
-  font-size: 1.1rem;
+.earth-icon {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
 .chevron {
@@ -200,7 +215,7 @@ onUnmounted(() => {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
   color: #D7AE54;
-  min-width: 140px;
+  min-width: auto;
 }
 
 /* 手機版選單中的語系選擇器樣式 */
@@ -208,7 +223,7 @@ onUnmounted(() => {
   background: rgba(196, 149, 108, 0.1);
   border: 1px solid rgba(196, 149, 108, 0.3);
   color: #D7AE54;
-  min-width: 140px;
+  min-width: auto;
 }
 
 .mobile-language .language-toggle::after {
