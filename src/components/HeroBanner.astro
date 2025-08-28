@@ -1,5 +1,5 @@
 ---
-import { createAstroT } from '@/utils/astro-i18n'
+import {createAstroT} from '@/utils/astro-i18n'
 import Button from './ui/Button.astro'
 
 // 翻譯函數
@@ -58,7 +58,7 @@ const t = createAstroT(Astro)
   }
 
   .hero-title {
-    font-size: clamp(4rem, 12vw, 9rem);
+    font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 900;
     line-height: 0.85;
     color: white;
@@ -186,7 +186,7 @@ const t = createAstroT(Astro)
   /* 響應式設計 */
   @media (max-width: 1024px) {
     .hero-title {
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(2.5rem, 7vw, 5rem);
     }
 
     .rotating-circle {
@@ -204,7 +204,7 @@ const t = createAstroT(Astro)
 
   @media (max-width: 768px) {
     .hero-title {
-      font-size: clamp(2.5rem, 10vw, 4rem);
+      font-size: clamp(2rem, 8vw, 3.5rem);
       margin-bottom: 1.5rem;
     }
 
@@ -228,7 +228,7 @@ const t = createAstroT(Astro)
 
   @media (max-width: 480px) {
     .hero-title {
-      font-size: clamp(2rem, 12vw, 3rem);
+      font-size: clamp(1.5rem, 10vw, 2.5rem);
       margin-bottom: 1rem;
     }
 
@@ -259,19 +259,19 @@ const t = createAstroT(Astro)
   // 旋轉圓圈文字效果
   document.addEventListener('DOMContentLoaded', () => {
     const circleText = document.querySelector('.circle-text span') as HTMLElement
-  if (circleText) {
+    if (circleText) {
       const text = circleText.textContent || ''
-    circleText.innerHTML = ''
+      circleText.innerHTML = ''
 
-    for (let i = 0; i < text.length; i++) {
+      for (let i = 0; i < text.length; i++) {
         const char = document.createElement('span')
-      char.textContent = text[i]
-      char.style.transform = `rotate(${i * (360 / text.length)}deg)`
-      char.style.position = 'absolute'
-      char.style.left = '50%'
-      char.style.transformOrigin = '0 50px'
-      circleText.appendChild(char)
-    }
+        char.textContent = text[i]
+        char.style.transform = `rotate(${i * (360 / text.length)}deg)`
+        char.style.position = 'absolute'
+        char.style.left = '50%'
+        char.style.transformOrigin = '0 50px'
+        circleText.appendChild(char)
+      }
     }
   })
 </script>

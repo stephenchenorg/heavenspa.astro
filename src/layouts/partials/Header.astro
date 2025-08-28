@@ -17,9 +17,9 @@ const t = createAstroT(Astro)
 ---
 
 <!-- 滾動進度指示器 -->
-<div class="scroll-progress">
-  <div class="progress-bar"></div>
-</div>
+<!--<div class="scroll-progress">-->
+<!--  <div class="progress-bar"></div>-->
+<!--</div>-->
 
 <!-- 導航列 -->
 <nav class="main-nav">
@@ -35,8 +35,7 @@ const t = createAstroT(Astro)
     </a>
   </div>
   <div class="nav-menu">
-    <a href="#home" class="nav-item active">{t('nav.home')}</a>
-    <a href="#news" class="nav-item">{t('nav.news')}</a>
+    <a href="#news" class="nav-item active">{t('nav.news')}</a>
     <a href="#courses" class="nav-item">{t('nav.courses')}</a>
     <a href="#team" class="nav-item">{t('nav.team')}</a>
     <a href="#products" class="nav-item">{t('nav.products')}</a>
@@ -75,8 +74,7 @@ const t = createAstroT(Astro)
       </button>
     </div>
     <nav class="mobile-nav">
-      <a href="#home" class="mobile-nav-item active">{t('nav.home')}</a>
-      <a href="#news" class="mobile-nav-item">{t('nav.news')}</a>
+      <a href="#news" class="mobile-nav-item active">{t('nav.news')}</a>
       <a href="#courses" class="mobile-nav-item">{t('nav.courses')}</a>
       <a href="#team" class="mobile-nav-item">{t('nav.team')}</a>
       <a href="#products" class="mobile-nav-item">{t('nav.products')}</a>
@@ -135,6 +133,7 @@ const t = createAstroT(Astro)
     backdrop-filter: blur(15px);
     border-radius: 0 0 50px 50px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(228, 208, 192, 0.3);
   }
 
   .nav-logo .logo-icon {
