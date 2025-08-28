@@ -1,7 +1,7 @@
 ---
-import type { CompanySettingData } from '@/types'
+import type {CompanySettingData} from '@/types'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import { createAstroT } from '@/utils/astro-i18n'
+import {createAstroT} from '@/utils/astro-i18n'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -25,12 +25,12 @@ const t = createAstroT(Astro)
 <nav class="main-nav">
   <div class="nav-logo">
     <a href="/" class="flex items-center h-full mr-4">
-      { companySetting?.logo && (
-      <img
-        src={companySetting?.logo}
-        class="h-12 w-auto object-contain"
-        alt="Logo"
-      />
+      {companySetting?.logo && (
+        <img
+          src={companySetting?.logo}
+          class="h-12 w-auto object-contain"
+          alt="Logo"
+        />
       )}
     </a>
   </div>
@@ -51,7 +51,7 @@ const t = createAstroT(Astro)
     <span></span>
   </button>
   <div class="nav-contact">
-    <LanguageSwitcher client:load />
+    <LanguageSwitcher client:load/>
     <!-- <button class="contact-btn">{t('contact')}</button> -->
   </div>
 </nav>
@@ -61,12 +61,12 @@ const t = createAstroT(Astro)
   <div class="mobile-menu">
     <div class="mobile-menu-header">
       <a href="/" class="mobile-logo">
-        { companySetting?.logo && (
-        <img
-          src={companySetting?.logo}
-          class="h-10 w-auto object-contain"
-          alt="Logo"
-        />
+        {companySetting?.logo && (
+          <img
+            src={companySetting?.logo}
+            class="h-10 w-auto object-contain"
+            alt="Logo"
+          />
         )}
       </a>
       <button class="mobile-menu-close" id="mobile-menu-close">
@@ -84,7 +84,7 @@ const t = createAstroT(Astro)
     </nav>
     <div class="mobile-language-section">
       <div class="mobile-language">
-        <LanguageSwitcher client:load />
+        <LanguageSwitcher client:load/>
       </div>
     </div>
     <div class="mobile-contact">
@@ -621,91 +621,91 @@ const t = createAstroT(Astro)
     // 導航滾動效果
     const mainNav = document.querySelector('.main-nav')
 
-  function handleNavScroll() {
+    function handleNavScroll() {
       if (window.pageYOffset > 20) {
         mainNav?.classList.add('scrolled')
-    } else {
+      } else {
         mainNav?.classList.remove('scrolled')
-    }
+      }
     }
 
     window.addEventListener('scroll', handleNavScroll)
 
-  // 手機版選單功能
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn')
-  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay')
-  const mobileMenuClose = document.getElementById('mobile-menu-close')
-  const mobileNavItems = document.querySelectorAll('.mobile-nav-item')
+    // 手機版選單功能
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn')
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay')
+    const mobileMenuClose = document.getElementById('mobile-menu-close')
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item')
 
-  console.log('Mobile menu elements check:', {
+    console.log('Mobile menu elements check:', {
       btn: !!mobileMenuBtn,
       overlay: !!mobileMenuOverlay,
       close: !!mobileMenuClose,
       items: mobileNavItems.length,
       windowWidth: window.innerWidth,
-  })
+    })
 
     // 開啟選單
     function openMobileMenu() {
       console.log('Opening mobile menu')
-    if (mobileMenuOverlay) {
+      if (mobileMenuOverlay) {
         mobileMenuOverlay.classList.add('active')
-    }
+      }
       if (mobileMenuBtn) {
         mobileMenuBtn.classList.add('active')
-    }
+      }
       document.body.style.overflow = 'hidden'
-  }
+    }
 
     // 關閉選單
     function closeMobileMenu() {
       console.log('Closing mobile menu')
-    if (mobileMenuOverlay) {
+      if (mobileMenuOverlay) {
         mobileMenuOverlay.classList.remove('active')
-    }
+      }
       if (mobileMenuBtn) {
         mobileMenuBtn.classList.remove('active')
-    }
+      }
       document.body.style.overflow = ''
-  }
+    }
 
     // 多種方式綁定點擊事件
     if (mobileMenuBtn) {
       // 方法1: addEventListener
       mobileMenuBtn.addEventListener('click', e => {
         console.log('Button clicked via addEventListener')
-      e.preventDefault()
-      e.stopPropagation()
-      openMobileMenu()
-    })
+        e.preventDefault()
+        e.stopPropagation()
+        openMobileMenu()
+      })
 
       // 方法2: ontouchstart (行動裝置)
       mobileMenuBtn.addEventListener('touchstart', e => {
         console.log('Button touched via touchstart')
-      e.preventDefault()
-      openMobileMenu()
-    })
+        e.preventDefault()
+        openMobileMenu()
+      })
 
       // 方法3: onclick 屬性作為備用
       mobileMenuBtn.onclick = function (e) {
         console.log('Button clicked via onclick property')
-      e.preventDefault()
-      openMobileMenu()
-      return false
-    }
+        e.preventDefault()
+        openMobileMenu()
+        return false
+      }
 
       // 確保按鈕可見和可點擊
       mobileMenuBtn.style.pointerEvents = 'auto'
-    mobileMenuBtn.style.position = 'relative'
-    mobileMenuBtn.style.zIndex = '10000'
-  }
+      mobileMenuBtn.style.position = 'relative'
+      mobileMenuBtn.style.zIndex = '10000'
+    }
 
     // 關閉按鈕點擊事件
     if (mobileMenuClose) {
       mobileMenuClose.addEventListener('click', e => {
         e.preventDefault()
-      closeMobileMenu()
-    })
+        closeMobileMenu()
+      })
     }
 
     // 點擊背景關閉選單
@@ -713,38 +713,38 @@ const t = createAstroT(Astro)
       mobileMenuOverlay.addEventListener('click', e => {
         if (e.target === mobileMenuOverlay) {
           closeMobileMenu()
-      }
+        }
       })
-  }
+    }
 
     // 選單項目點擊後關閉選單
     mobileNavItems.forEach(item => {
       item.addEventListener('click', closeMobileMenu)
-  })
+    })
 
     // ESC鍵關閉選單
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && mobileMenuOverlay?.classList.contains('active')) {
         closeMobileMenu()
-    }
+      }
     })
 
-  // 全域測試函數
-  window.testMobileMenu = function () {
+    // 全域測試函數
+    ;(window as any).testMobileMenu = function () {
       console.log('Manual test - opening menu')
-    openMobileMenu()
-  }
+      openMobileMenu()
+    }
   }
 
   // 多種方式確保初始化
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeMobileMenu)
-} else {
+  } else {
     initializeMobileMenu()
-}
+  }
 
   // 備用初始化
   window.addEventListener('load', () => {
     setTimeout(initializeMobileMenu, 100)
-})
+  })
 </script>
