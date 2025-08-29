@@ -37,47 +37,33 @@ const t = createAstroT(Astro)
     </a>
   </div>
   <div class="hidden xl:flex gap-6 items-center flex-nowrap overflow-hidden nav-menu">
-    <a href="#news"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item active group">
+    <a href="#news" class="nav-item active">
       <span>{t('nav.news')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
-    <a href="#courses"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item group">
+    <a href="#courses" class="nav-item">
       <span>{t('nav.courses')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
-    <a href="#team"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item group">
+    <a href="#team" class="nav-item">
       <span>{t('nav.team')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
-    <a href="#products"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item group">
+    <a href="#products" class="nav-item">
       <span>{t('nav.products')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
-    <a href="#guide"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item group">
+    <a href="#guide" class="nav-item">
       <span>{t('nav.guide')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
-    <a href="#faq"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item group">
+    <a href="#faq" class="nav-item">
       <span>{t('nav.faq')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
-    <a href="#careers"
-       class="text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-none border-none cursor-pointer px-0.5 py-2 relative nav-item group">
+    <a href="#careers" class="nav-item">
       <span>{t('nav.careers')}</span>
-      <div
-        class="absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-400 group-hover:w-full group-[.active]:w-full"></div>
+      <div class="nav-underline"></div>
     </a>
   </div>
 
@@ -118,47 +104,33 @@ const t = createAstroT(Astro)
       </button>
     </div>
     <nav class="pt-8 pb-4 overflow-y-auto mobile-nav">
-      <a href="#news"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item active group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#news" class="mobile-nav-item active">
         <span>{t('nav.news')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
-      <a href="#courses"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#courses" class="mobile-nav-item">
         <span>{t('nav.courses')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
-      <a href="#team"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#team" class="mobile-nav-item">
         <span>{t('nav.team')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
-      <a href="#products"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#products" class="mobile-nav-item">
         <span>{t('nav.products')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
-      <a href="#guide"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#guide" class="mobile-nav-item">
         <span>{t('nav.guide')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
-      <a href="#faq"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#faq" class="mobile-nav-item">
         <span>{t('nav.faq')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
-      <a href="#careers"
-         class="block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-transparent transition-all duration-300 ease-in-out relative mobile-nav-item group hover:bg-[#c4956c]/10 hover:border-l-[#D7AE54] hover:text-[#D7AE54] hover:pl-8">
+      <a href="#careers" class="mobile-nav-item">
         <span>{t('nav.careers')}</span>
-        <div
-          class="absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#D7AE54] rounded-full opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-[.active]:opacity-100"></div>
+        <div class="mobile-nav-indicator"></div>
       </a>
     </nav>
     <div class="px-6 py-4 border-t border-b border-[#c4956c]/15 bg-[#c4956c]/5 mobile-language-section">
@@ -198,11 +170,11 @@ const t = createAstroT(Astro)
 
         // 手機選單按鈕樣式變化
         mobileMenuBtn?.classList.remove('bg-white/10', 'border-white/20', 'hover:bg-white/20')
-        mobileMenuBtn?.classList.add('bg-[#c4956c]/10', 'border-[#c4956c]/20', 'hover:bg-[#c4956c]/20')
+        mobileMenuBtn?.classList.add('bg-primary-600/10', 'border-primary-600/20', 'hover:bg-primary-600/20')
 
         mobileMenuBtnSpans?.forEach(span => {
           span.classList.remove('bg-white')
-          span.classList.add('bg-[#D7AE54]')
+          span.style.backgroundColor = '#d7ae54'
         })
       } else {
         // 頂部時恢復透明樣式
@@ -219,11 +191,11 @@ const t = createAstroT(Astro)
 
         // 手機選單按鈕樣式恢復
         mobileMenuBtn?.classList.add('bg-white/10', 'border-white/20', 'hover:bg-white/20')
-        mobileMenuBtn?.classList.remove('bg-[#c4956c]/10', 'border-[#c4956c]/20', 'hover:bg-[#c4956c]/20')
+        mobileMenuBtn?.classList.remove('bg-primary-600/10', 'border-primary-600/20', 'hover:bg-primary-600/20')
 
         mobileMenuBtnSpans?.forEach(span => {
           span.classList.add('bg-white')
-          span.classList.remove('bg-[#D7AE54]')
+          span.style.backgroundColor = '#ffffff'
         })
       }
     }

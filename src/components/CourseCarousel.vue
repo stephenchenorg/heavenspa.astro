@@ -1,9 +1,9 @@
 <template>
   <section class="p-8 w-full h-full flex flex-col justify-center items-center relative overflow-x-hidden">
     <div class="w-full max-w-6xl mx-auto px-8 flex flex-col items-center">
-      <div class="text-center mb-12 relative z-[100] bg-[#f8f6f0] py-4">
-        <h1 class="text-5xl font-light text-[#c4956c] tracking-[8px] uppercase mb-2">COURSE</h1>
-        <h2 class="text-xl font-normal text-[#8b7355] tracking-[2px]">課程介紹</h2>
+      <div class="text-center mb-12 relative z-[100] bg-[color:var(--color-background-light)] py-4">
+        <h1 class="text-5xl font-light text-primary-600 tracking-[8px] uppercase mb-2">COURSE</h1>
+        <h2 class="text-xl font-normal text-brand-900 tracking-[2px]">課程介紹</h2>
       </div>
 
       <div
@@ -37,20 +37,18 @@
           </div>
 
           <!-- 卡片在下，並壓在圖片上 -->
-          <div
-            class="flex-[0_0_45%] max-w-[480px] bg-[#F5E9DAD4] p-6 min-h-[160px] h-auto backdrop-blur-[10px] text-center z-10 flex flex-col justify-center items-center gap-4 -mr-10 relative"
-          >
+          <div class="course-card flex-[0_0_45%] max-w-[480px] p-6 min-h-[160px] h-auto -mr-10">
             <div class="mb-0">
-              <h3 class="text-3xl font-light text-[#c4956c] lowercase tracking-[1px] mb-2 leading-none">
+              <h3 class="text-3xl font-light text-primary-600 lowercase tracking-[1px] mb-2 leading-none">
                 {{
                   course.title
                 }}
               </h3>
-              <h4 class="text-xl font-normal text-[#5d4037] mb-4 tracking-[0.5px]">{{ course.subtitle }}</h4>
+              <h4 class="text-xl font-normal text-brand-950 mb-4 tracking-[0.5px]">{{ course.subtitle }}</h4>
               <div>
                 <a
                   :href="course.link"
-                  class="inline-flex items-center bg-[#c4956c] text-white px-5 py-2.5 rounded-full no-underline font-medium text-sm tracking-[0.5px] transition-all duration-300 hover:bg-[#b8895f] hover:-translate-y-0.5"
+                  class="btn-brand inline-flex items-center no-underline"
                 >
                   課程介紹 <span class="ml-2 transition-transform duration-300 group-hover:translate-x-1.5">→</span>
                 </a>
@@ -59,13 +57,13 @@
             <!-- 導航按鈕 -->
             <div class="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 z-15">
               <button
-                class="w-10 h-10 border-2 border-[#C9A48E] bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-[#C9A48E] disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#C9A48E] hover:text-white hover:scale-110"
+                class="w-10 h-10 border-2 border-primary-500 bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-primary-500 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-500 hover:text-white hover:scale-110"
                 :disabled="currentIndex === 0" @click="prevSlide"
               >
                 <ArrowLeft size="20" />
               </button>
               <button
-                class="w-10 h-10 border-2 border-[#C9A48E] bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-[#C9A48E] disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#C9A48E] hover:text-white hover:scale-110"
+                class="w-10 h-10 border-2 border-primary-500 bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-primary-500 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-500 hover:text-white hover:scale-110"
                 :disabled="currentIndex === courses.length - 1" @click="nextSlide"
               >
                 <ArrowRight size="20" />

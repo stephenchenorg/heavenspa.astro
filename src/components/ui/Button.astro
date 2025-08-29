@@ -14,9 +14,6 @@ const {
   size = 'large',
 } = Astro.props
 
-// Base button classes
-const baseClasses = "inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center"
-
 // Size variants
 const sizeClasses = {
   small: "px-4 py-2 text-sm w-[120px]",
@@ -24,13 +21,13 @@ const sizeClasses = {
   large: "px-8 py-4 text-base w-[209px]"
 }
 
-// Variant classes
+// Variant classes using centralized design tokens
 const variantClasses = {
-  primary: "bg-[#C39370] text-white shadow-[2px_2px_5px_rgba(0,0,0,0.2)] backdrop-blur-[10px] opacity-80 hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0",
-  secondary: "bg-white/90 text-[#2d3436] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0"
+  primary: "btn-primary",
+  secondary: "btn-secondary"
 }
 
-const buttonClass = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]}`
+const buttonClass = `${sizeClasses[size]} ${variantClasses[variant]}`
 ---
 
 {href ? (

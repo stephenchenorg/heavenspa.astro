@@ -85,9 +85,11 @@ const t = createAstroT(Astro)
       window.addEventListener('scroll', () => {
         const scrollY = window.scrollY
         if (scrollY > 100) {
-          heroTitle.style.color = '#C39370'
+          heroTitle.classList.add('text-primary-500')
+          heroTitle.classList.remove('text-white')
         } else {
-          heroTitle.style.color = 'white'
+          heroTitle.classList.add('text-white')
+          heroTitle.classList.remove('text-primary-500')
         }
       })
     }

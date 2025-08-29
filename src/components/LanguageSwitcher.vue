@@ -1,5 +1,5 @@
 <template>
-  <div class="language-switcher">
+  <div class="relative inline-block">
     <button
       class="language-toggle"
       :class="{ active: isOpen }"
@@ -84,52 +84,20 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.language-switcher {
-  position: relative;
-  display: inline-block;
-}
-
-.language-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 8px 12px;
-  border: 1px solid transparent;
-  border-radius: 25px;
-  background: transparent;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.1rem;
-  font-weight: 500;
-  min-width: 120px;
-  justify-content: center;
-  letter-spacing: 0.5px;
-  position: relative;
-}
-
 .language-toggle::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
-  bottom: -2px;
+  height: 0.125rem;
+  bottom: -0.125rem;
   left: 0;
   background: white;
-  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .language-toggle:hover::after,
 .language-toggle.active::after {
   width: 100%;
-}
-
-.language-toggle:hover {
-  opacity: 1;
-}
-
-.language-toggle.active {
-  opacity: 1;
 }
 
 .earth-icon {
@@ -146,48 +114,10 @@ onUnmounted(() => {
   transform: rotate(180deg);
 }
 
-.language-dropdown {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(196, 149, 108, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  z-index: 1000;
-  overflow: hidden;
-}
-
 .language-dropdown.show {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
-
-.language-option {
-  display: block;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  color: #333;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
-}
-
-.language-option:hover {
-  background: rgba(196, 149, 108, 0.1);
-  border-left-color: #D7AE54;
-  padding-left: 1.25rem;
 }
 
 .language-option.active {
@@ -213,7 +143,7 @@ onUnmounted(() => {
 }
 
 .mobile-language .language-toggle::after {
-  background: #D7AE54;
+  background: #d7ae54;
 }
 
 .mobile-language .language-toggle:hover {
@@ -225,25 +155,25 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .language-toggle {
     min-width: auto;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
   }
 
   .earth-icon {
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
   }
 
   .chevron {
-    width: 10px;
-    height: 10px;
+    width: 0.625rem;
+    height: 0.625rem;
   }
 
   /* 手機版選單內的語系選擇器 */
   .mobile-language .language-toggle {
     min-width: 50px;
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
   }
 
   .mobile-language .earth-icon {
