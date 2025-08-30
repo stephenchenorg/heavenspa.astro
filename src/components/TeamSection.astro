@@ -67,19 +67,24 @@ try {
 }
 ---
 
-<section class="team-section" id="team" data-section="team">
-  <div class="team-container">
-    <div class="team-header">
-      <h2 class="team-title">我們的團隊</h2>
-      <p class="team-description">
+<section
+  class="relative z-10 flex h-full w-full flex-col justify-between overflow-visible px-4 pt-8 pb-0 lg:px-16 md:px-4 sm:px-4"
+  id="team" data-section="team">
+  <div class="mx-auto w-[70vw] px-8 text-center lg:w-[85vw] md:w-[90vw] md:px-4 sm:w-[95vw] sm:px-4 xs:px-2">
+    <div class="mb-6 md:mb-12 sm:mb-8">
+      <h2 class="mb-4 text-4xl font-semibold tracking-tight text-gray-800 md:text-4xl sm:text-3xl xs:text-[1.8rem]">
+        我們的團隊</h2>
+      <p class="mx-auto max-w-[500px] text-sm leading-relaxed text-gray-600 sm:text-base sm:px-0">
         嚴選頂尖團隊，成為最懂你的那雙手
       </p>
     </div>
 
-    <div class="team-grid">
+    <div
+      class="mx-auto mb-4 grid flex-1 content-center justify-items-center gap-2 grid-cols-3 lg:grid-cols-2 lg:gap-4 md:grid-cols-1 md:gap-6 sm:gap-4">
       {teamMembers.map(member => (
-        <div class="team-member">
-          <div class="member-image">
+        <div class="text-center transition-transform duration-300 ease-out hover:-translate-y-1">
+          <div
+            class="relative mx-auto mb-4 h-[200px] w-[200px] flex-shrink-0 overflow-hidden rounded-lg lg:h-[250px] lg:w-[250px] md:h-[300px] md:w-[300px] sm:h-[250px] sm:w-[250px] xs:h-[220px] xs:w-[220px]">
             <picture>
               <source media="(max-width: 768px)" srcset={member.cover.mobile}/>
               <img
@@ -88,12 +93,13 @@ try {
                 loading="lazy"
                 onload="this.style.filter='none'"
                 style="filter: blur(10px); transition: filter 0.3s ease;"
+                class="h-full w-full object-cover grayscale transition-all duration-300 ease-out hover:grayscale-0"
               />
             </picture>
           </div>
-          <div class="member-info">
-            <h3 class="member-name">{member.title}</h3>
-            <p class="member-title">{member.category.title}</p>
+          <div class="text-center">
+            <h3 class="mb-1 text-base font-bold uppercase tracking-wide text-gray-800 sm:text-base">{member.title}</h3>
+            <p class="text-sm font-normal text-blue-400 sm:text-[0.9rem]">{member.category.title}</p>
           </div>
         </div>
       ))}
@@ -101,9 +107,11 @@ try {
   </div>
 
   <!-- 跑馬燈區塊 -->
-  <div class="marquee-container">
-    <div class="marquee-content">
-      <span class="marquee-text">
+  <div
+    class="relative z-[100] mt-auto w-full flex-shrink-0 overflow-hidden whitespace-nowrap bg-[#F8F6F0] px-0 py-4 clear-both md:relative md:z-[200] md:mt-16 md:py-6 sm:relative sm:z-[300] sm:mt-12 sm:border-t sm:border-brand-400/20 sm:py-6 xs:relative xs:z-[400] xs:mt-8">
+    <div class="inline-block animate-marquee">
+      <span
+        class="text-base font-medium uppercase tracking-wide text-gray-800 md:text-base md:tracking-wider sm:text-sm sm:tracking-normal xs:text-sm">
         {teamMembers.map(member => (
           `${member.title} • `
         )).join('')}
@@ -115,298 +123,3 @@ try {
   </div>
 </section>
 
-<style>
-  .scroll-section {
-    position: relative;
-    min-height: 120vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .team-section {
-    padding: 2rem 1rem 0 1rem;
-    position: relative;
-    z-index: 10;
-    overflow: visible;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .team-container {
-    width: 70vw;
-    margin: 0 auto;
-    padding: 0 2rem;
-    text-align: center;
-  }
-
-  .team-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .team-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2d3436;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-  }
-
-  .team-description {
-    font-size: 0.9rem;
-    color: #636e72;
-    line-height: 1.6;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    justify-items: center;
-    margin: 0 auto 1rem auto;
-    flex: 1;
-    align-content: center;
-  }
-
-  .team-member {
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-
-  .team-member:hover {
-    transform: translateY(-5px);
-  }
-
-  .member-image {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 1rem;
-    overflow: hidden;
-    position: relative;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-
-  .member-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease, transform 0.3s ease;
-  }
-
-  .team-member:hover .member-image img {
-    filter: grayscale(0%);
-  }
-
-  .member-info {
-    text-align: center;
-  }
-
-  .member-name {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #2d3436;
-    margin-bottom: 0.3rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .member-title {
-    font-size: 0.85rem;
-    color: #74b9ff;
-    font-weight: 400;
-  }
-
-  /* 跑馬燈樣式 */
-  .marquee-container {
-    background: #F8F6F0;
-    padding: 1rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    z-index: 100;
-    margin-top: auto;
-    flex-shrink: 0;
-    width: 100%;
-    clear: both;
-  }
-
-  .marquee-content {
-    display: inline-block;
-    animation: marquee 30s linear infinite;
-  }
-
-  .marquee-text {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #333;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  /* 響應式設計 */
-  @media (max-width: 1024px) {
-    .team-container {
-      width: 85vw;
-    }
-
-    .team-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .member-image {
-      width: 250px;
-      height: 250px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .scroll-section {
-      height: auto;
-      min-height: 100vh;
-    }
-
-    .team-section {
-      padding: 2rem 1rem 0 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .team-container {
-      width: 90vw;
-      padding: 0 1rem;
-    }
-
-    .team-header {
-      margin-bottom: 3rem;
-    }
-
-    .team-title {
-      font-size: 2.5rem;
-    }
-
-    .team-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      justify-items: center;
-    }
-
-    .member-image {
-      width: 300px;
-      height: 300px;
-    }
-
-    .marquee-container {
-      margin-top: 4rem;
-      position: relative;
-      z-index: 200;
-      padding: 1.5rem 0;
-    }
-
-    .marquee-text {
-      font-size: 1rem;
-      letter-spacing: 1.5px;
-      color: #333;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .team-section {
-      padding: 2rem 0;
-    }
-
-    .team-container {
-      width: 95vw;
-      padding: 0 1rem;
-    }
-
-    .team-header {
-      margin-bottom: 2rem;
-    }
-
-    .team-title {
-      font-size: 2rem;
-    }
-
-    .team-description {
-      font-size: 1rem;
-      padding: 0;
-    }
-
-    .team-grid {
-      gap: 1rem;
-    }
-
-    .member-image {
-      width: 250px;
-      height: 250px;
-    }
-
-    .member-name {
-      font-size: 1rem;
-      letter-spacing: 1px;
-    }
-
-    .member-title {
-      font-size: 0.9rem;
-    }
-
-    .marquee-container {
-      margin-top: 3rem;
-      padding: 1.5rem 0;
-      position: relative;
-      z-index: 300;
-      background: #F8F6F0;
-      border-top: 1px solid rgba(196, 149, 108, 0.2);
-    }
-
-    .marquee-text {
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      color: #333;
-    }
-  }
-
-  @media (max-width: 320px) {
-    .team-container {
-      padding: 0 0.5rem;
-    }
-
-    .team-title {
-      font-size: 1.8rem;
-    }
-
-    .member-image {
-      width: 220px;
-      height: 220px;
-    }
-
-    .marquee-container {
-      z-index: 400;
-      position: relative;
-      margin-top: 2rem;
-    }
-
-    .marquee-text {
-      font-size: 0.9rem;
-    }
-  }
-</style>

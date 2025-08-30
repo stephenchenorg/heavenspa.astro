@@ -67,6 +67,7 @@
   /* Custom animations */
   --animation-fade-in-up: fadeInUp 1s ease both;
   --animation-spin-slow: spin 20s linear infinite;
+  --animation-marquee: marquee 30s linear infinite;
 }
 
 @utility container {
@@ -252,6 +253,19 @@
   }
 }
 
+@keyframes marquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 .animate-fade-in-up {
   animation: var(--animation-fade-in-up);
+}
+
+.animate-marquee {
+  animation: var(--animation-marquee);
 }
