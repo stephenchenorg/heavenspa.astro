@@ -68,6 +68,7 @@
   --animation-fade-in-up: fadeInUp 1s ease both;
   --animation-spin-slow: spin 20s linear infinite;
   --animation-marquee: marquee 30s linear infinite;
+  --animation-slide-in: slideIn 0.6s ease forwards;
 }
 
 @utility container {
@@ -253,6 +254,17 @@
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(100%);
@@ -268,4 +280,18 @@
 
 .animate-marquee {
   animation: var(--animation-marquee);
+}
+
+.animate-slide-in {
+  animation: var(--animation-slide-in);
+}
+
+.animate-slide-in-delay-200 {
+  animation: var(--animation-slide-in);
+  animation-delay: 0.2s;
+}
+
+.animate-slide-in-delay-400 {
+  animation: var(--animation-slide-in);
+  animation-delay: 0.4s;
 }
