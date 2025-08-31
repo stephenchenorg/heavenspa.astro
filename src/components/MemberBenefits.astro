@@ -102,9 +102,9 @@ const {benefits = apiBenefits} = Astro.props;
     <!-- 標題區 -->
     <div class="text-center mb-16">
       <h2
-        class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-primary-600 tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] uppercase mb-4">{t('benefits.title')}</h2>
+        class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-white tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] uppercase mb-4">{t('benefits.title')}</h2>
       <h3
-        class="text-2xl md:text-xl sm:text-base text-primary-900 font-normal tracking-[2px]">{t('benefits.subtitle')}</h3>
+        class="text-2xl md:text-xl sm:text-base text-white font-normal tracking-[2px]">{t('benefits.subtitle')}</h3>
     </div>
 
     <!-- 專屬優惠按鈕 -->
@@ -144,13 +144,13 @@ const {benefits = apiBenefits} = Astro.props;
                   )}
                   <div class="absolute inset-0 opacity-70 mix-blend-multiply"></div>
                   <div
-                    class="flex flex-col absolute justify-center items-center right-0 top-0 bg-[#D7AE548C] w-20 h-20 md:w-[70px] md:h-[70px] sm:w-[60px] sm:h-[60px] p-[10px]">
+                    class="flex flex-col absolute justify-center items-center right-0 top-0 bg-primary-500 w-20 h-20 md:w-[70px] md:h-[70px] sm:w-[60px] sm:h-[60px] p-[10px]">
                     <span class="text-lg md:text-base sm:text-sm text-white font-medium">{benefit.year}</span>
                     <span class="text-[35px] md:text-[28px] sm:text-2xl text-white font-bold">{benefit.month}</span>
                   </div>
                 </div>
                 <div
-                  class="flex justify-between relative -top-[100px] bg-[#F9F2E9F5] border-2 border-primary-600 text-primary-600 py-3 px-6 rounded-[25px] text-sm font-medium cursor-pointer transition-all duration-300 w-[calc(100%-40px)] mx-auto flex-shrink-0 mt-auto">
+                  class="flex justify-between relative -top-[100px] bg-primary-500 border-2 border-primary-600 text-white py-3 px-6 rounded-[25px] text-sm font-medium cursor-pointer transition-all duration-300 w-[calc(100%-40px)] mx-auto flex-shrink-0 mt-auto">
                   <button>{benefit.buttonText}</button>
                   <div
                     class="flex border-b border-primary-600 transition-all duration-300 ease-in-out hover:border-none">
@@ -168,7 +168,7 @@ const {benefits = apiBenefits} = Astro.props;
         <div
           class="flex justify-center items-center gap-4 md:gap-5 sm:gap-3 mt-12 md:mt-8 sm:mt-6 flex-wrap sm:justify-between sm:items-center sm:max-w-[280px] sm:mx-auto">
           <button
-            class="w-10 h-10 sm:w-[35px] sm:h-[35px] border-2 border-primary-600 bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-primary-600 flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-600 hover:text-white hover:scale-110 hover:disabled:bg-white hover:disabled:text-primary-600 hover:disabled:scale-100 sm:order-first"
+            class="w-10 h-10 sm:w-[35px] sm:h-[35px] border-2 border-primary-600 bg-primary-500 rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-white flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-600 hover:text-white hover:scale-110 hover:disabled:bg-primary-500 hover:disabled:text-white hover:disabled:scale-100 sm:order-first"
             id="prevBtn">
             <ArrowLeft size="20"/>
           </button>
@@ -176,7 +176,7 @@ const {benefits = apiBenefits} = Astro.props;
             <!-- 動態生成的圓點 -->
           </div>
           <button
-            class="w-10 h-10 sm:w-[35px] sm:h-[35px] border-2 border-primary-600 bg-white rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-primary-600 flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-600 hover:text-white hover:scale-110 hover:disabled:bg-white hover:disabled:text-primary-600 hover:disabled:scale-100 sm:order-last"
+            class="w-10 h-10 sm:w-[35px] sm:h-[35px] border-2 border-primary-600 bg-primary-500 rounded-full cursor-pointer transition-all duration-300 p-0 flex items-center justify-center text-white flex-shrink-0 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary-600 hover:text-white hover:scale-110 hover:disabled:bg-primary-500 hover:disabled:text-white hover:disabled:scale-100 sm:order-last"
             id="nextBtn">
             <ArrowRight size="20"/>
           </button>
@@ -193,8 +193,8 @@ const {benefits = apiBenefits} = Astro.props;
               <path d="M12 6L12.5 10L17 10.5L12.5 11L12 15L11.5 11L7 10.5L11.5 10L12 6Z" fill="#D7AE54"/>
             </svg>
           </div>
-          <h3 class="text-[1.8rem] font-semibold text-primary-600 mb-4 tracking-wide">會員禮遇即將推出</h3>
-          <p class="text-lg text-primary-900 leading-relaxed tracking-[0.5px]">
+          <h3 class="text-[1.8rem] font-semibold text-white mb-4 tracking-wide">會員禮遇即將推出</h3>
+          <p class="text-lg text-white leading-relaxed tracking-[0.5px]">
             我們正在為您準備精彩的會員專屬優惠，敬請期待！</p>
         </div>
       </div>
@@ -235,8 +235,8 @@ const {benefits = apiBenefits} = Astro.props;
           const dot = document.createElement('button')
           dot.className = `w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-300 ${
             i === currentIndex
-              ? 'bg-primary-600 transform scale-110'
-              : 'bg-primary-600/30 hover:bg-primary-600/60'
+              ? 'bg-primary-500 transform scale-110'
+              : 'bg-primary-500/30 hover:bg-primary-500/60'
           }`
           dot.addEventListener('click', () => goToSlide(i))
           dotsContainer.appendChild(dot)
@@ -264,9 +264,9 @@ const {benefits = apiBenefits} = Astro.props;
         const dots = dotsContainer.querySelectorAll('button')
         dots.forEach((dot, index) => {
           if (index === currentIndex) {
-            dot.className = 'w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-300 bg-primary-600 transform scale-110'
+            dot.className = 'w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-300 bg-primary-500 transform scale-110'
           } else {
-            dot.className = 'w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-300 bg-primary-600/30 hover:bg-primary-600/60'
+            dot.className = 'w-3 h-3 rounded-full border-none cursor-pointer transition-all duration-300 bg-primary-500/30 hover:bg-primary-500/60'
           }
         })
       }
