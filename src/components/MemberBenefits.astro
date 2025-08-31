@@ -97,14 +97,14 @@ const {benefits = apiBenefits} = Astro.props;
 ---
 
 <section
-  class="p-8 lg:p-16 md:p-12 sm:p-8 w-full h-full flex flex-col justify-center items-center relative overflow-x-hidden md:rounded-[30px]">
+  class="p-8 lg:p-16 md:p-12 sm:p-8 w-full h-full flex flex-col justify-center items-center relative overflow-x-hidden bg-white md:rounded-[30px]">
   <div class="max-w-6xl mx-auto w-full relative px-8 lg:px-8 md:px-6 sm:px-4">
     <!-- 標題區 -->
     <div class="text-center mb-16">
       <h2
-        class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-white tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] uppercase mb-4">{t('benefits.title')}</h2>
+        class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] uppercase mb-4">{t('benefits.title')}</h2>
       <h3
-        class="text-2xl md:text-xl sm:text-base text-white font-normal tracking-[2px]">{t('benefits.subtitle')}</h3>
+        class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px]">{t('benefits.subtitle')}</h3>
     </div>
 
     <!-- 專屬優惠按鈕 -->
@@ -193,8 +193,8 @@ const {benefits = apiBenefits} = Astro.props;
               <path d="M12 6L12.5 10L17 10.5L12.5 11L12 15L11.5 11L7 10.5L11.5 10L12 6Z" fill="#D7AE54"/>
             </svg>
           </div>
-          <h3 class="text-[1.8rem] font-semibold text-white mb-4 tracking-wide">會員禮遇即將推出</h3>
-          <p class="text-lg text-white leading-relaxed tracking-[0.5px]">
+          <h3 class="text-[1.8rem] font-semibold text-black mb-4 tracking-wide">會員禮遇即將推出</h3>
+          <p class="text-lg text-neutral-600 leading-relaxed tracking-[0.5px]">
             我們正在為您準備精彩的會員專屬優惠，敬請期待！</p>
         </div>
       </div>

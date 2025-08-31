@@ -4,57 +4,81 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Brand Color Palette */
-  --color-brand-50: #fdf8f3;
-  --color-brand-100: #f9ece0;
-  --color-brand-200: #f5e9da;
-  --color-brand-300: #e4d0c0;
-  --color-brand-400: #d7ae54;
-  --color-brand-500: #c39370;
-  --color-brand-600: #c4956c;
-  --color-brand-700: #b8895f;
-  --color-brand-800: #9c714a;
-  --color-brand-900: #8b7355;
-  --color-brand-950: #5d4037;
+  /* Gold Color Palette (Primary) */
+  --color-gold-50: #fefce8;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #f4e7b1;
+  --color-gold-500: #d4af37; /* Main Gold */
+  --color-gold-600: #c4a428;
+  --color-gold-700: #b8941f;
+  --color-gold-800: #92400e;
+  --color-gold-900: #78350f;
 
-  /* Primary colors mapped to brand */
-  --color-primary-50: var(--color-brand-50);
-  --color-primary-100: var(--color-brand-100);
-  --color-primary-200: var(--color-brand-200);
-  --color-primary-300: var(--color-brand-300);
-  --color-primary-400: var(--color-brand-400);
-  --color-primary-500: var(--color-brand-500);
-  --color-primary-600: var(--color-brand-600);
-  --color-primary-700: var(--color-brand-700);
-  --color-primary-800: var(--color-brand-800);
-  --color-primary-900: var(--color-brand-900);
-  --color-primary-950: var(--color-brand-950);
+  /* Primary colors mapped to gold */
+  --color-primary-50: var(--color-gold-50);
+  --color-primary-100: var(--color-gold-100);
+  --color-primary-200: var(--color-gold-200);
+  --color-primary-300: var(--color-gold-300);
+  --color-primary-400: var(--color-gold-400);
+  --color-primary-500: var(--color-gold-500);
+  --color-primary-600: var(--color-gold-600);
+  --color-primary-700: var(--color-gold-700);
+  --color-primary-800: var(--color-gold-800);
+  --color-primary-900: var(--color-gold-900);
 
-  /* Secondary/Accent colors (gold) */
-  --color-secondary-50: #fefce8;
-  --color-secondary-100: #fef9c3;
-  --color-secondary-200: #fef08a;
-  --color-secondary-300: #fde047;
-  --color-secondary-400: #facc15;
-  --color-secondary-500: #d7ae54;
-  --color-secondary-600: #d4a574;
-  --color-secondary-700: #c48b6e;
-  --color-secondary-800: #a16207;
-  --color-secondary-900: #854d0e;
+  /* Brand colors (legacy support) */
+  --color-brand-50: var(--color-gold-50);
+  --color-brand-100: var(--color-gold-100);
+  --color-brand-200: var(--color-gold-200);
+  --color-brand-300: var(--color-gold-300);
+  --color-brand-400: var(--color-gold-400);
+  --color-brand-500: var(--color-gold-500);
+  --color-brand-600: var(--color-gold-600);
+  --color-brand-700: var(--color-gold-700);
+  --color-brand-800: var(--color-gold-800);
+  --color-brand-900: var(--color-gold-900);
+  --color-brand-950: var(--color-gold-900);
+
+  /* Neutral/Grayscale System */
+  --color-neutral-0: #ffffff;   /* Pure White */
+  --color-neutral-50: #fafafa;  /* Card Background */
+  --color-neutral-100: #f8f9fa; /* Section Background */
+  --color-neutral-200: #e5e7eb; /* Border */
+  --color-neutral-300: #d1d5db; /* Divider */
+  --color-neutral-400: #9ca3af; /* Hint Text */
+  --color-neutral-500: #6b7280; /* Secondary Text */
+  --color-neutral-600: #374151; /* Body Text */
+  --color-neutral-700: #1f2937; /* Heading */
+  --color-neutral-800: #111827; /* Important Heading */
+  --color-neutral-900: #000000; /* Pure Black */
+
+  /* Secondary/Accent colors (gold variations) */
+  --color-secondary-50: var(--color-gold-50);
+  --color-secondary-100: var(--color-gold-100);
+  --color-secondary-200: var(--color-gold-200);
+  --color-secondary-300: var(--color-gold-300);
+  --color-secondary-400: var(--color-gold-400);
+  --color-secondary-500: var(--color-gold-500);
+  --color-secondary-600: var(--color-gold-600);
+  --color-secondary-700: var(--color-gold-700);
+  --color-secondary-800: var(--color-gold-800);
+  --color-secondary-900: var(--color-gold-900);
 
   /* Semantic colors */
-  --color-success: var(--color-green-500);
-  --color-warning: var(--color-yellow-500);
-  --color-error: var(--color-red-500);
-  --color-info: var(--color-blue-500);
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
 
   /* Background variations */
-  --color-background-cream: #f9eee4;
-  --color-background-light: #f8f6f0;
-  --color-surface-overlay: rgba(245, 233, 218, 0.84);
+  --color-background-cream: var(--color-neutral-50);
+  --color-background-light: var(--color-neutral-0);
+  --color-surface-overlay: rgba(255, 255, 255, 0.95);
 
   /* 字體設定 */
-  --font-sans: 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: 'Krona One', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace';
 
   /* Letter spacing scale */

@@ -68,13 +68,13 @@ try {
 ---
 
 <section
-  class="relative z-10 flex h-full w-full flex-col justify-between overflow-visible px-4 pt-8 pb-0 lg:px-16 md:px-4 sm:px-4"
+  class="relative z-10 flex h-full w-full flex-col justify-between overflow-visible bg-white px-4 pt-8 pb-0 lg:px-16 md:px-4 sm:px-4"
   id="team" data-section="team">
   <div class="mx-auto w-[70vw] px-8 text-center lg:w-[85vw] md:w-[90vw] md:px-4 sm:w-[95vw] sm:px-4 xs:px-2">
     <div class="mb-6 md:mb-12 sm:mb-8">
-      <h2 class="mb-4 text-4xl font-semibold tracking-tight text-gray-800 md:text-4xl sm:text-3xl xs:text-[1.8rem]">
+      <h2 class="mb-4 text-4xl font-semibold tracking-tight text-black md:text-4xl sm:text-3xl xs:text-[1.8rem]">
         我們的團隊</h2>
-      <p class="mx-auto max-w-[500px] text-sm leading-relaxed text-gray-600 sm:text-base sm:px-0">
+      <p class="mx-auto max-w-[500px] text-sm leading-relaxed text-neutral-600 sm:text-base sm:px-0">
         嚴選頂尖團隊，成為最懂你的那雙手
       </p>
     </div>
@@ -98,8 +98,8 @@ try {
             </picture>
           </div>
           <div class="text-center">
-            <h3 class="mb-1 text-base font-bold uppercase tracking-wide text-gray-800 sm:text-base">{member.title}</h3>
-            <p class="text-sm font-normal text-blue-400 sm:text-[0.9rem]">{member.category.title}</p>
+            <h3 class="mb-1 text-base font-bold uppercase tracking-wide text-black sm:text-base">{member.title}</h3>
+            <p class="text-sm font-normal text-primary-500 sm:text-[0.9rem]">{member.category.title}</p>
           </div>
         </div>
       ))}
@@ -108,10 +108,10 @@ try {
 
   <!-- 跑馬燈區塊 -->
   <div
-    class="relative z-[100] mt-auto w-full flex-shrink-0 overflow-hidden whitespace-nowrap bg-[#F8F6F0] px-0 py-4 clear-both md:relative md:z-[200] md:mt-16 md:py-6 sm:relative sm:z-[300] sm:mt-12 sm:border-t sm:border-brand-400/20 sm:py-6 xs:relative xs:z-[400] xs:mt-8">
+    class="relative z-[100] mt-auto w-full flex-shrink-0 overflow-hidden whitespace-nowrap bg-neutral-100 px-0 py-4 clear-both md:relative md:z-[200] md:mt-16 md:py-6 sm:relative sm:z-[300] sm:mt-12 sm:border-t sm:border-primary-500/20 sm:py-6 xs:relative xs:z-[400] xs:mt-8">
     <div class="inline-block animate-marquee">
       <span
-        class="text-base font-medium uppercase tracking-wide text-gray-800 md:text-base md:tracking-wider sm:text-sm sm:tracking-normal xs:text-sm">
+        class="text-base font-medium uppercase tracking-wide text-neutral-700 md:text-base md:tracking-wider sm:text-sm sm:tracking-normal xs:text-sm">
         {teamMembers.map(member => (
           `${member.title} • `
         )).join('')}
