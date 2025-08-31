@@ -1,9 +1,6 @@
 ---
-import {seoMeta} from '@stephenchenorg/astro/page'
-import CourseCarousel from '@/components/CourseCarousel.vue'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import HeroBanner from '@/components/HeroBanner.astro'
-import IntroSection from '@/components/IntroSection.astro'
-import MemberBenefits from '@/components/MemberBenefits.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
 
@@ -13,11 +10,16 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <!-- 內容容器 -->
+  <!-- Hero Banner -->
+  <HeroBanner />
+  
+  <!-- Team Section -->
+  <TeamSection />
+
   <div class="relative">
 
-    <HeroBanner/>
-    <TeamSection/>
+    <!--<HeroBanner/>-->
+    <!--<TeamSection/>-->
     <!--<CourseCarousel client:load/>-->
     <!--<MemberBenefits/>-->
 

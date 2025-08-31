@@ -18,6 +18,6 @@ export interface Props {
 
 const {
   size = '12',
-  className = ''
+  className = '',
 } = defineProps<Props>()
 </script>

@@ -11,7 +11,7 @@
         class="group flex h-10 w-10 items-center justify-center rounded-full hover:scale-90 transition-all duration-300 sm:h-8 sm:w-8 bg-brand-800"
         aria-label="聯絡 LINE"
       >
-        <LineMessenger className="h-5 w-5 sm:h-4 sm:w-4" />
+        <LineMessenger class-name="h-5 w-5 sm:h-4 sm:w-4" />
       </a>
     </div>
 
@@ -24,7 +24,7 @@
         class="group flex h-10 w-10 items-center justify-center rounded-full sm:h-8 sm:w-8 hover:scale-90 transition-all duration-300 bg-brand-800"
         aria-label="WhatsApp 聯絡"
       >
-        <WhatsApp className="h-5 w-5 sm:h-4 sm:w-4" />
+        <WhatsApp class-name="h-5 w-5 sm:h-4 sm:w-4" />
       </a>
     </div>
 
@@ -35,12 +35,12 @@
         class="group flex h-10 w-10 items-center justify-center rounded-full shadow-lg sm:h-8 sm:w-8 hover:scale-90 transition-all duration-300 bg-brand-800"
         aria-label="電話聯絡"
       >
-        <PhoneCall className="h-5 w-5 sm:h-4 sm:w-4" />
+        <PhoneCall class-name="h-5 w-5 sm:h-4 sm:w-4" />
       </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { LineMessenger, WhatsApp, PhoneCall } from '@/components/icon'
+import { LineMessenger, PhoneCall, WhatsApp } from '@/components/icon'
 </script>

@@ -381,8 +381,8 @@ const {benefits = apiBenefits} = Astro.props;
       container?.addEventListener('mousemove', handleDragMove)
       container?.addEventListener('mouseup', handleDragEnd)
       container?.addEventListener('mouseleave', handleDragEnd)
-      container?.addEventListener('touchstart', handleDragStart, {passive: false})
-      container?.addEventListener('touchmove', handleDragMove, {passive: false})
+      container?.addEventListener('touchstart', handleDragStart, { passive: false })
+      container?.addEventListener('touchmove', handleDragMove, { passive: false })
       container?.addEventListener('touchend', handleDragEnd)
 
       // 鍵盤和響應式事件

@@ -1,46 +1,80 @@
 ---
-import {createAstroT} from '@/utils/astro-i18n'
+import { createAstroT } from '@/utils/astro-i18n'
 import Button from './ui/Button.astro'
 
 // 翻譯函數
 const t = createAstroT(Astro)
 ---
 
-<div class="relative z-10 text-center">
-  <div>
-    <h1
-      id="hero-title"
-      class="text-[clamp(3rem,8vw,6rem)] lg:text-[clamp(2.5rem,7vw,5rem)] md:text-[clamp(2rem,8vw,3.5rem)] sm:text-[clamp(1.5rem,10vw,2.5rem)] font-black leading-[0.85] text-white uppercase tracking-[-0.02em] mb-8 md:mb-6 sm:mb-4 transition-colors duration-300">
-      <span
-        class="block animate-fade-in-up [animation-delay:0.5s] [animation-fill-mode:both]">{t('hero.embrace')}</span>
-      <span
-        class="block animate-fade-in-up [animation-delay:0.7s] [animation-fill-mode:both] text-[clamp(2rem,6vw,4rem)] lg:text-[clamp(1.5rem,5vw,3rem)] md:text-[clamp(1.2rem,6vw,2rem)] sm:text-[clamp(0.8rem,7vw,1.5rem)] pt-8">{t('hero.yourself')}</span>
-    </h1>
-    <Button href="#courses" variant="primary">{t('buttons.book-now')}</Button>
+<!-- Dark Modern Portfolio Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] overflow-hidden" id="page-header">
+  <!-- Subtle texture background -->
+  <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.02)_1px,_transparent_1px)] bg-[size:60px_60px]"></div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center space-y-12">
+      
+      <!-- Category Label -->
+      <div class="animate-fade-in-up [animation-delay:0.2s] [animation-fill-mode:both]">
+        <span class="text-sm text-white/60 tracking-[0.3em] uppercase font-light">
+          我們的服務
+        </span>
+      </div>
+
+      <!-- Main Heading -->
+      <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
+        <h1 class="text-[clamp(4rem,12vw,12rem)] font-black text-white leading-[0.85] tracking-[-0.05em] uppercase">
+          PROJECTS
+        </h1>
+      </div>
+
+      <!-- Description -->
+      <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
+        <p class="text-lg md:text-xl text-white/80 leading-relaxed font-light tracking-wide">
+          探索我們的創意旅程，展示我們對打造極致 SPA 體驗的熱忱
+        </p>
+        <p class="text-sm md:text-base text-white/50 uppercase tracking-[0.2em] font-light">
+          DISCOVER A SHOWCASE OF OUR CREATIVE JOURNEY THAT REFLECTS OUR<br class="hidden md:block">
+          PASSION FOR CRAFTING ENGAGING DIGITAL EXPERIENCES
+        </p>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- 旋轉圓圈元素 -->
-<div
-  class="absolute bottom-20 right-20 lg:bottom-12 lg:right-12 md:bottom-8 md:right-8 sm:bottom-6 sm:right-6 w-[120px] h-[120px] lg:w-[100px] lg:h-[100px] md:w-20 md:h-20 sm:w-[70px] sm:h-[70px] z-10 opacity-100 transition-opacity duration-500 ease-out">
-  <div class="absolute w-full h-full rounded-full border border-white/30 animate-spin [animation-duration:20s]">
-    <span
-      class="absolute left-1/2 top-2.5 text-[10px] lg:text-[9px] md:text-[8px] sm:text-[7px] text-white tracking-[2px] font-normal origin-[0_50px] lg:origin-[0_42px] md:origin-[0_35px] sm:origin-[0_30px] whitespace-nowrap">{t('hero.scroll')}
-      • {t('hero.scroll')} • </span>
+  <!-- Social Links - Left Side -->
+  <div class="absolute left-8 bottom-8 z-10 hidden md:block">
+    <div class="flex flex-col space-y-4">
+      <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
+        <span class="text-xs tracking-wider">FB</span>
+      </a>
+      <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
+        <span class="text-xs tracking-wider">IG</span>
+      </a>
+      <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
+        <span class="text-xs tracking-wider">LI</span>
+      </a>
+    </div>
   </div>
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-2xl animate-bounce">↓</div>
-</div>
 
-<!-- 側邊文字 -->
-<div class="absolute left-12 md:left-4 sm:left-2 top-1/2 -translate-y-1/2 -rotate-90 z-10">
-  <span
-    class="text-white text-base md:text-sm sm:text-sm tracking-[3px] sm:tracking-[2px] font-light uppercase">& SPA</span>
-</div>
+  <!-- Scroll Indicator - Right Side -->
+  <div class="absolute right-8 bottom-8 z-10 animate-fade-in-up [animation-delay:1s] [animation-fill-mode:both]">
+    <div class="flex flex-col items-center space-y-3">
+      <span class="text-xs text-white/40 tracking-[0.3em] uppercase font-light -rotate-90 origin-center whitespace-nowrap">
+        SCROLL TO EXPLORE
+      </span>
+      <div class="w-px h-16 bg-white/20 relative">
+        <div class="absolute top-0 left-0 w-full h-6 bg-gradient-to-b from-white/40 to-transparent animate-pulse"></div>
+      </div>
+      <div class="w-1 h-1 bg-white/60 rounded-full animate-bounce [animation-delay:0.5s]"></div>
+    </div>
+  </div>
 
-<div class="absolute top-0 left-0 w-full h-full z-[1]">
-  <div
-    class="w-full h-full bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg')] bg-center bg-cover mix-blend-multiply opacity-80"></div>
-</div>
+  <!-- Decorative elements -->
+  <div class="absolute top-8 left-1/2 -translate-x-1/2 z-10">
+    <div class="w-12 h-px bg-white/20"></div>
+  </div>
+</section>
 
 <style>
   /* Custom animations for fade-in-up effect */

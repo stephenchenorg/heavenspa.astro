@@ -4,17 +4,17 @@ export interface Props {
   class?: string
 }
 
-const { 
+const {
   size = '40',
-  class: className = ''
+  class: className = '',
 } = Astro.props
 ---
 
-<svg 
-  aria-label="LINE" 
-  role="img" 
-  xmlns="http://www.w3.org/2000/svg" 
-  viewBox="0 0 320 320" 
+<svg
+  aria-label="LINE"
+  role="img"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 320 320"
   width={size}
   height={size}
   class={className}

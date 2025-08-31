@@ -1,5 +1,5 @@
 ---
-import {gql, graphQLAPI} from '@/api'
+import { gql, graphQLAPI } from '@/api'
 
 // 定義 API 回應的類型
 export interface TeamCover {
@@ -55,7 +55,7 @@ try {
   teamMembers = [
     {
       title: '專業團隊',
-      category: {title: '服務專員'},
+      category: { title: '服務專員' },
       cover: {
         desktop: '/images/default-team.jpg',
         desktop_blur: '/images/default-team-blur.jpg',
@@ -69,7 +69,9 @@ try {
 
 <section
   class="relative z-10 w-full min-h-screen flex flex-col justify-center bg-white py-16 px-6 lg:px-20 md:px-8 sm:px-6"
-  id="team" data-section="team">
+  id="team"
+  data-section="team"
+>
 
   <!-- 標題區 -->
   <div class="mb-12 text-left max-w-7xl mx-auto w-full">
@@ -80,7 +82,8 @@ try {
 
   <!-- Airbnb 風格卡片網格 -->
   <div class="max-w-7xl mx-auto w-full">
-    <div class="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 lg:gap-5 md:gap-6 sm:gap-8">
+    <!-- 桌面和平板：網格布局 -->
+    <div class="hidden sm:grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 gap-6 lg:gap-5 md:gap-6">
       {teamMembers.map((member, index) => (
         <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
           <!-- 圖片容器 -->
@@ -88,13 +91,13 @@ try {
             <!-- 愛心收藏按鈕 -->
             <button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">
               <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
             </button>
 
             <!-- 團隊成員照片 -->
             <picture class="block w-full h-full">
-              <source media="(max-width: 768px)" srcset={member.cover.mobile}/>
+              <source media="(max-width: 768px)" srcset={member.cover.mobile} />
               <img
                 src={member.cover.desktop}
                 alt={member.title}
@@ -123,6 +126,52 @@ try {
         </div>
       ))}
     </div>
+
+    <!-- 手機版：水平滾動布局 -->
+    <div class="sm:hidden">
+      <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
+        {teamMembers.map((member, index) => (
+          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px]">
+            <!-- 圖片容器 -->
+            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4">
+              <!-- 愛心收藏按鈕 -->
+              <button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">
+                <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+              </button>
+
+              <!-- 團隊成員照片 -->
+              <picture class="block w-full h-full">
+                <source media="(max-width: 768px)" srcset={member.cover.mobile} />
+                <img
+                  src={member.cover.desktop}
+                  alt={member.title}
+                  loading="lazy"
+                  onload="this.style.filter='none'"
+                  style="filter: blur(5px); transition: filter 0.3s ease;"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </picture>
+
+              <!-- 評級標籤 (左下角) -->
+              <div class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
+                ⭐ {member.category.title}
+              </div>
+            </div>
+
+            <!-- 卡片資訊 -->
+            <div class="space-y-1">
+              <!-- 標題和評分 -->
+              <div class="flex items-start justify-between">
+                <h3 class="text-base font-semibold text-black leading-tight line-clamp-1 flex-1 mr-2">
+                  {member.title}
+                </h3>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
   </div>
 
   <!-- 查看更多按鈕 -->
@@ -132,4 +181,3 @@ try {
     </button>
   </div>
 </section>
-

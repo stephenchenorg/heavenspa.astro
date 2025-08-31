@@ -5,13 +5,13 @@
       :class="{ active: isOpen }"
       @click="toggleDropdown"
     >
-      <Globe 
+      <Globe
         size="20"
-        className="earth-icon"
+        class-name="earth-icon"
       />
-      <ChevronDown 
+      <ChevronDown
         size="12"
-        className="chevron"
+        class-name="chevron"
         :class="{ rotated: isOpen }"
       />
     </button>
@@ -33,6 +33,7 @@
 <script setup lang="ts">
 import type { Locale } from '@/utils/i18n'
 import { onMounted, onUnmounted, ref } from 'vue'
+import { ChevronDown, Globe } from '@/components/icon'
 import {
   getCurrentLocale,
   getLocaleName,
@@ -40,7 +41,6 @@ import {
   locales,
   setLocale,
 } from '@/utils/i18n'
-import { Globe, ChevronDown } from '@/components/icon'
 
 const currentLocale = ref<Locale>('zh-tw')
 const isOpen = ref(false)

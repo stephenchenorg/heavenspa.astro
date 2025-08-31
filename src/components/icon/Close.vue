@@ -11,8 +11,8 @@
     :class="className"
     v-bind="$attrs"
   >
-    <path d="M18 6L6 18"/>
-    <path d="M6 6l12 12"/>
+    <path d="M18 6L6 18" />
+    <path d="M6 6l12 12" />
   </svg>
 </template>
 
@@ -24,6 +24,6 @@ export interface Props {
 
 const {
   size = '24',
-  className = ''
+  className = '',
 } = defineProps<Props>()
 </script>
