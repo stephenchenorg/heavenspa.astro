@@ -68,59 +68,68 @@ try {
 ---
 
 <section
-  class="relative z-10 w-full min-h-screen flex flex-col justify-center bg-white py-16 px-4 lg:px-16 md:px-4 sm:px-4"
+  class="relative z-10 w-full min-h-screen flex flex-col justify-center bg-white py-16 px-6 lg:px-20 md:px-8 sm:px-6"
   id="team" data-section="team">
-  <div class="mx-auto w-[70vw] px-8 text-center lg:w-[85vw] md:w-[90vw] md:px-4 sm:w-[95vw] sm:px-4 xs:px-2">
-    <div class="mb-6 md:mb-12 sm:mb-8">
-      <h2 class="mb-4 text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px]">
-        我們的團隊</h2>
-      <h3 class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px] uppercase mb-4">OUR TEAM</h3>
-      <p class="mx-auto max-w-[500px] text-sm leading-relaxed text-neutral-600 sm:text-base sm:px-0">
-        嚴選頂尖團隊，成為最懂你的那雙手
-      </p>
-    </div>
 
-    <div
-      class="mx-auto mb-4 grid flex-1 content-center justify-items-center gap-2 grid-cols-3 lg:grid-cols-2 lg:gap-4 md:grid-cols-1 md:gap-6 sm:gap-4">
-      {teamMembers.map(member => (
-        <div class="text-center transition-transform duration-300 ease-out hover:-translate-y-1">
-          <div
-            class="relative mx-auto mb-4 h-[200px] w-[200px] flex-shrink-0 overflow-hidden rounded-lg lg:h-[250px] lg:w-[250px] md:h-[300px] md:w-[300px] sm:h-[250px] sm:w-[250px] xs:h-[220px] xs:w-[220px]">
-            <picture>
+  <!-- 標題區 -->
+  <div class="mb-12 text-left max-w-7xl mx-auto w-full">
+    <h2 class="mb-4 text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px]">
+      我們的團隊</h2>
+    <h3 class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px] uppercase mb-4">OUR TEAM</h3>
+  </div>
+
+  <!-- Airbnb 風格卡片網格 -->
+  <div class="max-w-7xl mx-auto w-full">
+    <div class="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 lg:gap-5 md:gap-6 sm:gap-8">
+      {teamMembers.map((member, index) => (
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
+          <!-- 圖片容器 -->
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4">
+            <!-- 愛心收藏按鈕 -->
+            <button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">
+              <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+
+            <!-- 團隊成員照片 -->
+            <picture class="block w-full h-full">
               <source media="(max-width: 768px)" srcset={member.cover.mobile}/>
               <img
                 src={member.cover.desktop}
                 alt={member.title}
                 loading="lazy"
                 onload="this.style.filter='none'"
-                style="filter: blur(10px); transition: filter 0.3s ease;"
-                class="h-full w-full object-cover grayscale transition-all duration-300 ease-out hover:grayscale-0"
+                style="filter: blur(5px); transition: filter 0.3s ease;"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </picture>
+
+            <!-- 評級標籤 (左下角) -->
+            <div class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
+              ⭐ {member.category.title}
+            </div>
           </div>
-          <div class="text-center">
-            <h3 class="mb-1 text-base font-bold uppercase tracking-wide text-black sm:text-base">{member.title}</h3>
-            <p class="text-sm font-normal text-primary-500 sm:text-[0.9rem]">{member.category.title}</p>
+
+          <!-- 卡片資訊 -->
+          <div class="space-y-1">
+            <!-- 標題和評分 -->
+            <div class="flex items-start justify-between">
+              <h3 class="text-base font-semibold text-black leading-tight line-clamp-1 flex-1 mr-2">
+                {member.title}
+              </h3>
+            </div>
           </div>
         </div>
       ))}
     </div>
   </div>
 
-  <!-- 跑馬燈區塊 -->
-  <div
-    class="relative z-[100] mt-auto w-full flex-shrink-0 overflow-hidden whitespace-nowrap bg-neutral-100 px-0 py-4 clear-both md:relative md:z-[200] md:mt-16 md:py-6 sm:relative sm:z-[300] sm:mt-12 sm:border-t sm:border-primary-500/20 sm:py-6 xs:relative xs:z-[400] xs:mt-8">
-    <div class="inline-block animate-marquee">
-      <span
-        class="text-base font-medium uppercase tracking-wide text-neutral-700 md:text-base md:tracking-wider sm:text-sm sm:tracking-normal xs:text-sm">
-        {teamMembers.map(member => (
-          `${member.title} • `
-        )).join('')}
-        {teamMembers.map(member => (
-          `${member.title} • `
-        )).join('')}
-      </span>
-    </div>
+  <!-- 查看更多按鈕 -->
+  <div class="mt-12 max-w-7xl mx-auto w-full">
+    <button class="px-6 py-3 border border-black rounded-lg font-medium text-black hover:bg-black hover:text-white transition-colors duration-200">
+      顯示更多團隊成員
+    </button>
   </div>
 </section>
 
