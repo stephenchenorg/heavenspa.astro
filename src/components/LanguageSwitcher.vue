@@ -1,5 +1,5 @@
 <template>
-  <div class="relative inline-block">
+  <div class="relative inline-block language-switcher">
     <button
       class="language-toggle"
       :class="{ active: isOpen }"

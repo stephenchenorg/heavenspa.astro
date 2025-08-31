@@ -2,8 +2,8 @@
   <section class="p-8 w-full h-full flex flex-col justify-center items-center relative overflow-x-hidden">
     <div class="w-full max-w-6xl mx-auto px-8 flex flex-col items-center">
       <div class="text-center mb-12 relative z-[100] bg-[color:var(--color-background-light)] py-4">
-        <h1 class="text-5xl font-light text-primary-600 tracking-[8px] uppercase mb-2">COURSE</h1>
-        <h2 class="text-xl font-normal text-brand-900 tracking-[2px]">課程介紹</h2>
+        <h1 class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] mb-4">課程介紹</h1>
+        <h2 class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px] uppercase">COURSE</h2>
       </div>
 
       <div
