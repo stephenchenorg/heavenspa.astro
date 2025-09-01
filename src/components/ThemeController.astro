@@ -1,0 +1,337 @@
+---
+// Theme Controller Component
+---
+
+<!-- Theme Controller Floating Button -->
+<div class="theme-controller-container">
+  <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme">
+    <!-- Light Mode Icon (Sun) -->
+    <svg class="theme-icon light-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    
+    <!-- Dark Mode Icon (Moon) -->
+    <svg class="theme-icon dark-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <!-- Theme Control Panel (Hidden by default) -->
+  <div class="theme-panel" id="theme-panel">
+    <h3 class="theme-panel-title">主題控制中心</h3>
+    <div class="theme-options">
+      <button class="theme-option active" data-theme="light">
+        <div class="theme-preview light-preview"></div>
+        <span>淺色主題</span>
+      </button>
+      <button class="theme-option" data-theme="dark">
+        <div class="theme-preview dark-preview"></div>
+        <span>深色主題</span>
+      </button>
+    </div>
+    
+    <div class="theme-info">
+      <p>點擊切換網站主題色彩</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .theme-controller-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  .theme-toggle-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--color-primary-600);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theme-toggle-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+  }
+
+  .theme-icon {
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+
+  .light-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .dark-icon {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+
+  /* Dark theme icon states */
+  .dark-theme .light-icon {
+    opacity: 0;
+    transform: rotate(-180deg);
+  }
+
+  .dark-theme .dark-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  /* Theme Panel */
+  .theme-panel {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--theme-card-bg, #ffffff);
+    color: var(--theme-text, #000000);
+    border: 1px solid var(--theme-border, #f0f0f0);
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 280px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .theme-panel.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .theme-panel-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--theme-text, #000000);
+  }
+
+  .theme-options {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .theme-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    color: var(--theme-text, #000000);
+  }
+
+  .theme-option:hover {
+    background: var(--theme-hover-bg, #f8f9fa);
+  }
+
+  .theme-option.active {
+    border-color: var(--color-primary-600);
+    background: var(--color-primary-50);
+  }
+
+  .theme-preview {
+    width: 50px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid var(--theme-border, #f0f0f0);
+    position: relative;
+  }
+
+  .light-preview {
+    background: linear-gradient(to bottom, #ffffff 70%, #f8f9fa 70%);
+  }
+
+  .light-preview::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    background: #000000;
+    border-radius: 2px;
+  }
+
+  .dark-preview {
+    background: linear-gradient(to bottom, #000000 70%, #111111 70%);
+  }
+
+  .dark-preview::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 2px;
+  }
+
+  .theme-option span {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .theme-info {
+    font-size: 0.8rem;
+    color: var(--theme-text-secondary, #666666);
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--theme-border, #f0f0f0);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .theme-controller-container {
+      top: 15px;
+      right: 15px;
+    }
+
+    .theme-toggle-btn {
+      width: 50px;
+      height: 50px;
+    }
+
+    .theme-panel {
+      min-width: 260px;
+      right: -20px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle')
+    const themePanel = document.getElementById('theme-panel')
+    const themeOptions = document.querySelectorAll('.theme-option')
+    const body = document.body
+
+    // Get saved theme or default to light
+    const savedTheme = localStorage.getItem('theme') || 'light'
+    
+    // Apply saved theme
+    applyTheme(savedTheme)
+
+    // Toggle panel visibility
+    themeToggle?.addEventListener('click', (e) => {
+      e.stopPropagation()
+      themePanel?.classList.toggle('show')
+    })
+
+    // Close panel when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!themePanel?.contains(e.target as Node) && e.target !== themeToggle) {
+        themePanel?.classList.remove('show')
+      }
+    })
+
+    // Theme option handlers
+    themeOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.stopPropagation()
+        const theme = (option as HTMLElement).dataset.theme
+        if (theme) {
+          applyTheme(theme)
+          localStorage.setItem('theme', theme)
+          themePanel?.classList.remove('show')
+        }
+      })
+    })
+
+    function applyTheme(theme: string) {
+      // Update body class
+      body.classList.remove('dark-theme', 'light-theme')
+      body.classList.add(`${theme}-theme`)
+
+      // Update active option
+      themeOptions.forEach(option => {
+        option.classList.toggle('active', (option as HTMLElement).dataset.theme === theme)
+      })
+
+      // Update all sections with theme classes
+      updateAllSections(theme)
+    }
+
+    function updateAllSections(theme: string) {
+      // Update all major sections
+      const sections = document.querySelectorAll('section, footer, header')
+      sections.forEach(section => {
+        if (theme === 'dark') {
+          // Apply dark theme styles
+          section.style.background = 'var(--theme-bg, #000000)'
+          section.style.color = 'var(--theme-text, #ffffff)'
+        } else {
+          // Apply light theme styles
+          section.style.background = 'var(--theme-bg, #ffffff)'
+          section.style.color = 'var(--theme-text, #000000)'
+        }
+      })
+
+      // Update text elements
+      const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div')
+      textElements.forEach(element => {
+        if (theme === 'dark') {
+          if (element.style.color === 'rgb(0, 0, 0)' || element.classList.contains('text-black')) {
+            element.style.color = 'var(--theme-text, #ffffff)'
+          }
+          if (element.style.color === 'rgb(102, 102, 102)' || element.classList.contains('text-neutral-600')) {
+            element.style.color = 'var(--theme-text-secondary, #cccccc)'
+          }
+        } else {
+          if (element.style.color === 'var(--theme-text, #ffffff)') {
+            element.style.color = 'var(--theme-text, #000000)'
+          }
+          if (element.style.color === 'var(--theme-text-secondary, #cccccc)') {
+            element.style.color = 'var(--theme-text-secondary, #666666)'
+          }
+        }
+      })
+
+      // Trigger custom event for components to update
+      document.dispatchEvent(new CustomEvent('themeChanged', { 
+        detail: { theme } 
+      }))
+    }
+
+    // Handle keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+        e.preventDefault()
+        themePanel?.classList.toggle('show')
+      }
+    })
+  })
+</script>

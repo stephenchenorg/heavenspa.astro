@@ -7,7 +7,7 @@ const t = createAstroT(Astro)
 ---
 
 <!-- Dark Modern Portfolio Hero Section -->
-<section class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] overflow-hidden" id="page-header">
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden theme-section" id="page-header" style="background: var(--theme-bg, #0a0a0a)">
   <!-- Subtle texture background -->
   <div class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.02)_1px,_transparent_1px)] bg-[size:60px_60px]"></div>
 
@@ -17,24 +17,24 @@ const t = createAstroT(Astro)
       
       <!-- Category Label -->
       <div class="animate-fade-in-up [animation-delay:0.2s] [animation-fill-mode:both]">
-        <span class="text-sm text-white/60 tracking-[0.3em] uppercase font-light">
+        <span class="text-sm tracking-[0.3em] uppercase font-light" style="color: var(--theme-text-secondary, rgba(255,255,255,0.6))">
           我們的服務
         </span>
       </div>
 
       <!-- Main Heading -->
       <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
-        <h1 class="text-[clamp(4rem,12vw,12rem)] font-black text-white leading-[0.85] tracking-[-0.05em] uppercase">
+        <h1 class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em] uppercase" style="color: var(--theme-text, #ffffff)">
           PROJECTS
         </h1>
       </div>
 
       <!-- Description -->
       <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
-        <p class="text-lg md:text-xl text-white/80 leading-relaxed font-light tracking-wide">
+        <p class="text-lg md:text-xl leading-relaxed font-light tracking-wide" style="color: var(--theme-text, rgba(255,255,255,0.8))">
           探索我們的創意旅程，展示我們對打造極致 SPA 體驗的熱忱
         </p>
-        <p class="text-sm md:text-base text-white/50 uppercase tracking-[0.2em] font-light">
+        <p class="text-sm md:text-base uppercase tracking-[0.2em] font-light" style="color: var(--theme-text-secondary, rgba(255,255,255,0.5))">
           DISCOVER A SHOWCASE OF OUR CREATIVE JOURNEY THAT REFLECTS OUR<br class="hidden md:block">
           PASSION FOR CRAFTING ENGAGING DIGITAL EXPERIENCES
         </p>

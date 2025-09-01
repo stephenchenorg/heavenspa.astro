@@ -93,6 +93,32 @@
   --animation-spin-slow: spin 20s linear infinite;
   --animation-marquee: marquee 30s linear infinite;
   --animation-slide-in: slideIn 0.6s ease forwards;
+
+  /* Theme Control Variables - Light Mode (Default) */
+  --theme-bg: #ffffff;
+  --theme-text: #000000;
+  --theme-text-secondary: #666666;
+  --theme-border: #f0f0f0;
+  --theme-card-bg: #ffffff;
+  --theme-hover-bg: #f8f9fa;
+}
+
+/* Dark Mode Theme */
+.dark-theme {
+  /* Override theme variables for dark mode */
+  --theme-bg: #000000;
+  --theme-text: #ffffff;
+  --theme-text-secondary: #cccccc;
+  --theme-border: #333333;
+  --theme-card-bg: #111111;
+  --theme-hover-bg: #1a1a1a;
+  
+  /* Invert neutral colors for dark mode */
+  --color-neutral-0: #000000;
+  --color-neutral-50: #0a0a0a;
+  --color-neutral-100: #111111;
+  --color-neutral-600: #cccccc;
+  --color-neutral-900: #ffffff;
 }
 
 @utility container {
