@@ -30,11 +30,18 @@ function toggleLanguage() {
   const nextIndex = (currentIndex + 1) % locales.length
   const nextLocale = locales[nextIndex]
   
+  console.log('Switching from', currentLocale.value, 'to', nextLocale)
+  
+  // Update the reactive ref first
   currentLocale.value = nextLocale
+  
+  // Set the locale (saves to localStorage and cookie)
   setLocale(nextLocale)
   
-  // 重新載入頁面以應用新語言
-  window.location.reload()
+  // Force reload to apply server-side i18n changes
+  setTimeout(() => {
+    window.location.reload()
+  }, 100)
 }
 
 function getCurrentLanguageCode(): string {
