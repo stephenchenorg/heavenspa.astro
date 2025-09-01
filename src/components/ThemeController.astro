@@ -3,12 +3,13 @@
 ---
 
 <!-- Simple Theme Toggle Button -->
-<div class="fixed top-5 right-5 z-[9999]">
+<div class="theme-controller-wrapper">
   <button 
-    class="w-15 h-15 md:w-12 md:h-12 bg-primary-600 text-white border-none rounded-full flex items-center justify-center cursor-pointer shadow-[0_4px_20px_rgba(212,175,55,0.3)] transition-all duration-300 ease-in-out relative overflow-hidden hover:scale-110 hover:shadow-[0_6px_25px_rgba(212,175,55,0.4)] active:scale-95" 
+    class="w-12 h-12 bg-transparent text-current border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out relative overflow-hidden hover:scale-110 active:scale-95" 
     id="theme-toggle" 
     aria-label="Toggle theme" 
     title="切換主題"
+    style="color: var(--theme-nav-text, #000000);"
   >
     <!-- Light Mode Icon (Sun) -->
     <svg 

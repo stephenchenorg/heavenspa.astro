@@ -1,6 +1,7 @@
 ---
 import type {CompanySettingData} from '@/types'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import ThemeController from '@/components/ThemeController.astro'
 import {createAstroT} from '@/utils/astro-i18n'
 
 export interface Props {
@@ -25,7 +26,7 @@ const t = createAstroT(Astro)
 <nav
   class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center px-16 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav"
   data-scrolled="false"
-  style="background: var(--theme-nav-bg, transparent); color: var(--theme-nav-text, white);"
+  style="background: var(--theme-nav-bg, transparent); color: var(--theme-nav-text, #000000);"
 >
   <div class="nav-logo">
     <a href="/" class="flex items-center h-full mr-4">
@@ -39,33 +40,33 @@ const t = createAstroT(Astro)
     </a>
   </div>
   <div class="hidden xl:flex gap-6 items-center flex-nowrap overflow-hidden nav-menu">
-    <a href="#news" class="nav-item active" style="color: var(--theme-nav-text, white);">
+    <a href="#news" class="nav-item active" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.news')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="#courses" class="nav-item" style="color: var(--theme-nav-text, white);">
+    <a href="#courses" class="nav-item" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.courses')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="#team" class="nav-item" style="color: var(--theme-nav-text, white);">
+    <a href="#team" class="nav-item" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.team')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="#products" class="nav-item" style="color: var(--theme-nav-text, white);">
+    <a href="#products" class="nav-item" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.products')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="#guide" class="nav-item" style="color: var(--theme-nav-text, white);">
+    <a href="#guide" class="nav-item" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.guide')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="#faq" class="nav-item" style="color: var(--theme-nav-text, white);">
+    <a href="#faq" class="nav-item" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.faq')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="#careers" class="nav-item" style="color: var(--theme-nav-text, white);">
+    <a href="#careers" class="nav-item" style="color: var(--theme-nav-text, #000000);">
       <span>{t('nav.careers')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
   </div>
 
@@ -74,14 +75,15 @@ const t = createAstroT(Astro)
     class="xl:!hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 bg-white/10 border border-white/20 rounded-lg p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn hover:bg-white/20"
     type="button"
     id="mobile-menu-btn"
-    style="background: var(--theme-mobile-btn-bg, rgba(255,255,255,0.1)); border-color: var(--theme-mobile-btn-border, rgba(255,255,255,0.2));"
+    style="background: var(--theme-mobile-btn-bg, rgba(0,0,0,0.1)); border-color: var(--theme-mobile-btn-border, rgba(0,0,0,0.2));"
   >
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, white);"></span>
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, white);"></span>
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, white);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
   </button>
   <div class="hidden xl:flex items-center gap-4 nav-contact">
     <LanguageSwitcher client:load/>
+    <ThemeController />
   </div>
 </nav>
 
@@ -141,8 +143,9 @@ const t = createAstroT(Astro)
       </a>
     </nav>
     <div class="px-6 py-4 border-t border-b border-[#c4956c]/15 bg-[#c4956c]/5 mobile-language-section">
-      <div class="flex justify-center items-center mobile-language">
+      <div class="flex justify-center items-center gap-4 mobile-language">
         <LanguageSwitcher client:load/>
+        <ThemeController />
       </div>
     </div>
     <div class="p-6 flex flex-col gap-4 flex-1 justify-end mobile-contact">
@@ -208,12 +211,12 @@ const t = createAstroT(Astro)
         root.style.setProperty('--theme-mobile-nav-text', '#ffffff')
         root.style.setProperty('--theme-mobile-nav-indicator', '#ffffff')
       } else {
-        // 淺色主題
+        // 淺色主題 - 文字應該是深色的
         root.style.setProperty('--theme-nav-bg', 'transparent')
-        root.style.setProperty('--theme-nav-text', '#ffffff')
-        root.style.setProperty('--theme-nav-scrolled-bg', 'rgba(255,255,255,0.5)')
-        root.style.setProperty('--theme-mobile-btn-bg', 'rgba(255,255,255,0.1)')
-        root.style.setProperty('--theme-mobile-btn-border', 'rgba(255,255,255,0.2)')
+        root.style.setProperty('--theme-nav-text', '#000000')
+        root.style.setProperty('--theme-nav-scrolled-bg', 'rgba(255,255,255,0.9)')
+        root.style.setProperty('--theme-mobile-btn-bg', 'rgba(0,0,0,0.1)')
+        root.style.setProperty('--theme-mobile-btn-border', 'rgba(0,0,0,0.2)')
         root.style.setProperty('--theme-mobile-nav-text', '#D7AE54')
         root.style.setProperty('--theme-mobile-nav-indicator', '#D7AE54')
       }
