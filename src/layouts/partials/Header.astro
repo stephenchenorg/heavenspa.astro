@@ -25,6 +25,7 @@ const t = createAstroT(Astro)
 <nav
   class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center px-16 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav"
   data-scrolled="false"
+  style="background: var(--theme-nav-bg, transparent); color: var(--theme-nav-text, white);"
 >
   <div class="nav-logo">
     <a href="/" class="flex items-center h-full mr-4">
@@ -38,33 +39,33 @@ const t = createAstroT(Astro)
     </a>
   </div>
   <div class="hidden xl:flex gap-6 items-center flex-nowrap overflow-hidden nav-menu">
-    <a href="#news" class="nav-item active">
+    <a href="#news" class="nav-item active" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.news')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
-    <a href="#courses" class="nav-item">
+    <a href="#courses" class="nav-item" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.courses')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
-    <a href="#team" class="nav-item">
+    <a href="#team" class="nav-item" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.team')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
-    <a href="#products" class="nav-item">
+    <a href="#products" class="nav-item" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.products')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
-    <a href="#guide" class="nav-item">
+    <a href="#guide" class="nav-item" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.guide')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
-    <a href="#faq" class="nav-item">
+    <a href="#faq" class="nav-item" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.faq')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
-    <a href="#careers" class="nav-item">
+    <a href="#careers" class="nav-item" style="color: var(--theme-nav-text, white);">
       <span>{t('nav.careers')}</span>
-      <div class="nav-underline"></div>
+      <div class="nav-underline" style="background: var(--theme-nav-text, white);"></div>
     </a>
   </div>
 
@@ -73,10 +74,11 @@ const t = createAstroT(Astro)
     class="xl:!hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 bg-white/10 border border-white/20 rounded-lg p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn hover:bg-white/20"
     type="button"
     id="mobile-menu-btn"
+    style="background: var(--theme-mobile-btn-bg, rgba(255,255,255,0.1)); border-color: var(--theme-mobile-btn-border, rgba(255,255,255,0.2));"
   >
-    <span class="w-6 h-0.5 bg-white transition-all duration-300 ease-in-out rounded-sm block"></span>
-    <span class="w-6 h-0.5 bg-white transition-all duration-300 ease-in-out rounded-sm block"></span>
-    <span class="w-6 h-0.5 bg-white transition-all duration-300 ease-in-out rounded-sm block"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, white);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, white);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, white);"></span>
   </button>
   <div class="hidden xl:flex items-center gap-4 nav-contact">
     <LanguageSwitcher client:load/>
@@ -109,33 +111,33 @@ const t = createAstroT(Astro)
       </button>
     </div>
     <nav class="pt-8 pb-4 overflow-y-auto mobile-nav">
-      <a href="#news" class="mobile-nav-item active">
+      <a href="#news" class="mobile-nav-item active" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.news')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="#courses" class="mobile-nav-item">
+      <a href="#courses" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.courses')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="#team" class="mobile-nav-item">
+      <a href="#team" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.team')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="#products" class="mobile-nav-item">
+      <a href="#products" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.products')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="#guide" class="mobile-nav-item">
+      <a href="#guide" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.guide')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="#faq" class="mobile-nav-item">
+      <a href="#faq" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.faq')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="#careers" class="mobile-nav-item">
+      <a href="#careers" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span>{t('nav.careers')}</span>
-        <div class="mobile-nav-indicator"></div>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
     </nav>
     <div class="px-6 py-4 border-t border-b border-[#c4956c]/15 bg-[#c4956c]/5 mobile-language-section">
@@ -159,52 +161,70 @@ const t = createAstroT(Astro)
     const mobileMenuBtnSpans = mobileMenuBtn?.querySelectorAll('span')
 
     function handleNavScroll() {
+      const currentTheme = localStorage.getItem('theme') || 'light'
+      
       if (window.pageYOffset > 20) {
-        // 滾動時的樣式變化 - 使用 TailwindCSS 類名
+        // 滾動時的樣式變化
         mainNav?.classList.remove('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.add('bg-white/50', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
+        mainNav?.classList.add('shadow-lg', 'shadow-black/15', 'border-b')
         mainNav?.setAttribute('data-scrolled', 'true')
-
-        // 導航項目顏色保持白色
-        navItems?.forEach(item => {
-          const underline = item.querySelector('div')
-          // 保持文字為白色，不改變顏色
-          // underline 也保持白色
-        })
-
-        // 手機選單按鈕樣式變化
-        mobileMenuBtn?.classList.remove('bg-white/10', 'border-white/20', 'hover:bg-white/20')
-        mobileMenuBtn?.classList.add('bg-primary-600/10', 'border-primary-600/20', 'hover:bg-primary-600/20')
-
-        mobileMenuBtnSpans?.forEach(span => {
-          span.classList.remove('bg-white')
-          span.style.backgroundColor = '#d7ae54'
-        })
+        
+        // 根據主題設置滾動時的背景
+        if (currentTheme === 'dark') {
+          mainNav?.style.setProperty('background', 'var(--theme-nav-scrolled-bg, rgba(0,0,0,0.8))')
+        } else {
+          mainNav?.style.setProperty('background', 'var(--theme-nav-scrolled-bg, rgba(255,255,255,0.5))')
+        }
       } else {
         // 頂部時恢復透明樣式
         mainNav?.classList.add('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.remove('bg-white/50', 'shadow-lg', 'shadow-black/15', 'border-b', 'border-[#e4d0c0]/30')
+        mainNav?.classList.remove('shadow-lg', 'shadow-black/15', 'border-b')
         mainNav?.setAttribute('data-scrolled', 'false')
-
-        // 導航項目顏色保持白色 (無需變更)
-        navItems?.forEach(item => {
-          const underline = item.querySelector('div')
-          // 文字本來就是白色，無需變更
-          // underline 本來就是白色，無需變更
-        })
-
-        // 手機選單按鈕樣式恢復
-        mobileMenuBtn?.classList.add('bg-white/10', 'border-white/20', 'hover:bg-white/20')
-        mobileMenuBtn?.classList.remove('bg-primary-600/10', 'border-primary-600/20', 'hover:bg-primary-600/20')
-
-        mobileMenuBtnSpans?.forEach(span => {
-          span.classList.add('bg-white')
-          span.style.backgroundColor = '#ffffff'
-        })
+        
+        // 恢復透明背景
+        mainNav?.style.setProperty('background', 'var(--theme-nav-bg, transparent)')
       }
     }
 
     window.addEventListener('scroll', handleNavScroll)
+
+    // 監聽主題變更事件
+    document.addEventListener('themeChanged', (e) => {
+      const theme = e.detail.theme
+      updateHeaderTheme(theme)
+    })
+
+    function updateHeaderTheme(theme) {
+      // 更新 CSS 自定義屬性
+      const root = document.documentElement
+      
+      if (theme === 'dark') {
+        // 深色主題
+        root.style.setProperty('--theme-nav-bg', 'transparent')
+        root.style.setProperty('--theme-nav-text', '#ffffff')
+        root.style.setProperty('--theme-nav-scrolled-bg', 'rgba(0,0,0,0.8)')
+        root.style.setProperty('--theme-mobile-btn-bg', 'rgba(255,255,255,0.1)')
+        root.style.setProperty('--theme-mobile-btn-border', 'rgba(255,255,255,0.2)')
+        root.style.setProperty('--theme-mobile-nav-text', '#ffffff')
+        root.style.setProperty('--theme-mobile-nav-indicator', '#ffffff')
+      } else {
+        // 淺色主題
+        root.style.setProperty('--theme-nav-bg', 'transparent')
+        root.style.setProperty('--theme-nav-text', '#ffffff')
+        root.style.setProperty('--theme-nav-scrolled-bg', 'rgba(255,255,255,0.5)')
+        root.style.setProperty('--theme-mobile-btn-bg', 'rgba(255,255,255,0.1)')
+        root.style.setProperty('--theme-mobile-btn-border', 'rgba(255,255,255,0.2)')
+        root.style.setProperty('--theme-mobile-nav-text', '#D7AE54')
+        root.style.setProperty('--theme-mobile-nav-indicator', '#D7AE54')
+      }
+      
+      // 立即更新滾動狀態
+      handleNavScroll()
+    }
+
+    // 初始化主題
+    const initialTheme = localStorage.getItem('theme') || 'light'
+    updateHeaderTheme(initialTheme)
 
     // 手機版選單功能
     const mobileMenuBtnEl = document.getElementById('mobile-menu-btn')
