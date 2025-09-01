@@ -1,0 +1,321 @@
+---
+// Member Benefits Section with Card Layout
+---
+
+<section
+  class="relative z-10 w-full min-h-screen flex flex-col justify-center bg-white py-16 px-6 lg:px-20 md:px-8 sm:px-6"
+  id="benefits"
+  data-section="benefits"
+>
+
+  <!-- 標題區 - Same style as TeamSection -->
+  <div class="mb-12 text-left max-w-7xl mx-auto w-full">
+    <h2 class="mb-4 text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px]">
+      會員禮遇</h2>
+    <h3 class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px] uppercase mb-4">MEMBER BENEFITS</h3>
+  </div>
+
+  <!-- Benefits Cards Grid -->
+  <div class="max-w-7xl mx-auto w-full">
+    <!-- 桌面和平板：網格布局 -->
+    <div class="hidden sm:grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 gap-6 lg:gap-5 md:gap-6">
+      
+      <!-- Card 1: Happy Mother's Day -->
+      <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
+        <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-green-200 to-green-300">
+          <!-- Background Image -->
+          <div class="absolute inset-0 bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg')] bg-cover bg-center opacity-80"></div>
+          <div class="absolute inset-0 bg-green-400/20"></div>
+          
+          <!-- Date Badge -->
+          <div class="absolute top-4 right-4 text-right">
+            <span class="block text-white/80 text-sm font-light">2025</span>
+            <span class="block text-white text-4xl font-light">5</span>
+          </div>
+          
+          <!-- Content -->
+          <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+            <div>
+              <h3 class="text-2xl font-light mb-2">Happy<br>Mother's Day</h3>
+              <p class="text-sm opacity-90 mb-1">限定母親節限定活動</p>
+            </div>
+            
+            <div class="space-y-2">
+              <div class="text-xs opacity-80">
+                <p>期間限定 5/31</p>
+                <p>帶媽媽同行或夫妻一起來優惠任一套餐</p>
+                <p>HAMA 最暖最貼心的呵護11套</p>
+              </div>
+              <div class="text-sm font-medium">
+                讓家人都有最暢銷優的完客
+              </div>
+            </div>
+          </div>
+          
+          <!-- View More Button -->
+          <div class="absolute bottom-4 left-6">
+            <button class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/30 flex items-center space-x-2">
+              <span>母親節限定活動</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Info -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <button class="text-sm text-neutral-600 border border-neutral-300 px-3 py-1 rounded-full hover:bg-neutral-100 transition-colors duration-200 flex items-center space-x-1">
+              <span>VIEW MORE</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Special Offer -->
+      <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
+        <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-orange-100 to-orange-200">
+          <!-- Background with spa hands image -->
+          <div class="absolute inset-0 bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg')] bg-cover bg-center"></div>
+          <div class="absolute inset-0 bg-orange-300/30"></div>
+          
+          <!-- Date Badge -->
+          <div class="absolute top-4 right-4 text-right">
+            <span class="block text-white/80 text-sm font-light">2024</span>
+            <span class="block text-white text-4xl font-light">10</span>
+          </div>
+          
+          <!-- Content -->
+          <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+            <div>
+              <h3 class="text-xl font-light mb-2">優惠活動</h3>
+              <p class="text-sm opacity-90 mb-1">Special Offer</p>
+            </div>
+            
+            <!-- Circular overlay for spa hands -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-20 bg-white/10 rounded-full backdrop-blur-sm"></div>
+            
+            <div class="space-y-2">
+              <div class="text-xs opacity-80">
+                <p>非會員</p>
+              </div>
+              <div class="bg-primary-600 text-white px-3 py-1 rounded text-sm font-medium inline-block">
+                全館超值優惠 Combo 1~5
+              </div>
+              <div class="flex items-baseline space-x-2">
+                <span class="text-sm">會員折扣</span>
+                <span class="text-2xl font-light">$100</span>
+                <span class="text-xs opacity-80">起</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- View More Button -->
+          <div class="absolute bottom-4 left-6">
+            <button class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/30">
+              非會員優惠活動
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Info -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <button class="text-sm text-neutral-600 border border-neutral-300 px-3 py-1 rounded-full hover:bg-neutral-100 transition-colors duration-200 flex items-center space-x-1">
+              <span>VIEW MORE</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Hama 壽星關好禮 -->
+      <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
+        <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-amber-100 to-amber-200">
+          <!-- Background with spa interior -->
+          <div class="absolute inset-0 bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg')] bg-cover bg-center"></div>
+          <div class="absolute inset-0 bg-black/40"></div>
+          
+          <!-- Date Badge -->
+          <div class="absolute top-4 right-4 text-right">
+            <span class="block text-white/80 text-sm font-light">2024</span>
+            <span class="block text-white text-4xl font-light">06</span>
+          </div>
+          
+          <!-- Content -->
+          <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+            <div>
+              <h3 class="text-xl font-medium mb-2">Hama<br>壽星關好禮</h3>
+              <div class="bg-white text-black px-2 py-1 text-xs rounded inline-block mb-2">
+                會員專屬
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <div class="text-xs space-y-1">
+                <p>生日當月</p>
+                <p>即可享有套餐5折優惠</p>
+                <p>15分鐘肩頸按摩</p>
+              </div>
+              
+              <div class="text-xs opacity-80 mt-3">
+                <p>Hama Hair Spa</p>
+                <p>台北市大安區建國南路一段316號</p>
+                <p>11號1樓1號</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- View More Button -->
+          <div class="absolute bottom-4 left-6">
+            <button class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/30">
+              壽星關好禮
+            </button>
+          </div>
+        </div>
+
+        <!-- Card Info -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <button class="text-sm text-neutral-600 border border-neutral-300 px-3 py-1 rounded-full hover:bg-neutral-100 transition-colors duration-200 flex items-center space-x-1">
+              <span>VIEW MORE</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 手機版：水平滾動布局 -->
+    <div class="sm:hidden">
+      <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
+        
+        <!-- Mobile Card 1 -->
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px]">
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-green-200 to-green-300">
+            <div class="absolute inset-0 bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg')] bg-cover bg-center opacity-80"></div>
+            <div class="absolute inset-0 bg-green-400/20"></div>
+            
+            <div class="absolute top-4 right-4 text-right">
+              <span class="block text-white/80 text-sm font-light">2025</span>
+              <span class="block text-white text-4xl font-light">5</span>
+            </div>
+            
+            <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+              <div>
+                <h3 class="text-2xl font-light mb-2">Happy<br>Mother's Day</h3>
+                <p class="text-sm opacity-90 mb-1">限定母親節限定活動</p>
+              </div>
+              
+              <div class="absolute bottom-4 left-6">
+                <button class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/30">
+                  母親節限定活動
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <button class="text-sm text-neutral-600 border border-neutral-300 px-3 py-1 rounded-full hover:bg-neutral-100 transition-colors duration-200 flex items-center space-x-1">
+              <span>VIEW MORE</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Card 2 -->
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px]">
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-orange-100 to-orange-200">
+            <div class="absolute inset-0 bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-orange-300/30"></div>
+            
+            <div class="absolute top-4 right-4 text-right">
+              <span class="block text-white/80 text-sm font-light">2024</span>
+              <span class="block text-white text-4xl font-light">10</span>
+            </div>
+            
+            <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+              <div>
+                <h3 class="text-xl font-light mb-2">優惠活動</h3>
+                <p class="text-sm opacity-90 mb-1">Special Offer</p>
+              </div>
+              
+              <div class="absolute bottom-4 left-6">
+                <button class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/30">
+                  非會員優惠活動
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <button class="text-sm text-neutral-600 border border-neutral-300 px-3 py-1 rounded-full hover:bg-neutral-100 transition-colors duration-200 flex items-center space-x-1">
+              <span>VIEW MORE</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Card 3 -->
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px]">
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-amber-100 to-amber-200">
+            <div class="absolute inset-0 bg-[url('https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-black/40"></div>
+            
+            <div class="absolute top-4 right-4 text-right">
+              <span class="block text-white/80 text-sm font-light">2024</span>
+              <span class="block text-white text-4xl font-light">06</span>
+            </div>
+            
+            <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+              <div>
+                <h3 class="text-xl font-medium mb-2">Hama<br>壽星關好禮</h3>
+                <div class="bg-white text-black px-2 py-1 text-xs rounded inline-block mb-2">
+                  會員專屬
+                </div>
+              </div>
+              
+              <div class="absolute bottom-4 left-6">
+                <button class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/30">
+                  壽星關好禮
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <button class="text-sm text-neutral-600 border border-neutral-300 px-3 py-1 rounded-full hover:bg-neutral-100 transition-colors duration-200 flex items-center space-x-1">
+              <span>VIEW MORE</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 專屬優惠按鈕 (和參考圖片一樣) -->
+  <div class="mt-12 max-w-7xl mx-auto w-full">
+    <div class="flex justify-center">
+      <button class="bg-primary-600 text-white px-8 py-4 rounded-full text-lg font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105">
+        專屬優惠
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Controls (like in the reference) -->
+  <div class="flex justify-center mt-8 space-x-4">
+    <button class="w-12 h-12 border-2 border-primary-600 bg-white rounded-full flex items-center justify-center text-primary-600 transition-all duration-300 hover:bg-primary-600 hover:text-white">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+    <button class="w-12 h-12 border-2 border-primary-600 bg-white rounded-full flex items-center justify-center text-primary-600 transition-all duration-300 hover:bg-primary-600 hover:text-white">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+  </div>
+
+</section>

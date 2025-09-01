@@ -1,7 +1,9 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import HeroBanner from '@/components/HeroBanner.astro'
+import CourseSection from '@/components/CourseSection.astro'
 import TeamSection from '@/components/TeamSection.astro'
+import MemberBenefitsNew from '@/components/MemberBenefitsNew.astro'
 import Layout from '@/layouts/Layout.astro'
 
 const meta = seoMeta({
@@ -13,8 +15,14 @@ const meta = seoMeta({
   <!-- Hero Banner -->
   <HeroBanner />
   
+  <!-- Course Section -->
+  <CourseSection />
+  
   <!-- Team Section -->
   <TeamSection />
+  
+  <!-- Member Benefits -->
+  <MemberBenefitsNew />
 
   <div class="relative">
 

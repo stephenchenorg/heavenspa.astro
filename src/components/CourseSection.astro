@@ -1,0 +1,408 @@
+---
+// Course Section with SPA Design Style
+---
+
+<section class="relative min-h-screen bg-white py-16 px-6 lg:px-20 md:px-8 sm:px-6" id="courses" data-section="courses">
+  
+  <!-- Section Title - Same style as TeamSection -->
+  <div class="mb-12 text-left max-w-7xl mx-auto w-full">
+    <h2 class="mb-4 text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px]">
+      課程介紹</h2>
+    <h3 class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px] uppercase mb-4">COURSE</h3>
+  </div>
+
+  <!-- Course Content -->
+  <div class="max-w-7xl mx-auto">
+    <div class="relative">
+      
+      <!-- Right Image (Background) -->
+      <div class="relative h-[500px] lg:h-[600px] overflow-hidden rounded-2xl lg:rounded-3xl">
+        <img
+          src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg"
+          alt="頭頸肩芳療紓壓洗頭"
+          class="w-full h-full object-cover transition-transform duration-700"
+          id="course-image"
+          loading="lazy"
+        />
+        <!-- Image Overlay -->
+        <div class="absolute inset-0 bg-black/30 rounded-2xl lg:rounded-3xl"></div>
+        
+        <!-- Overlay Course Card -->
+        <div class="absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-10 max-w-sm">
+          
+          <!-- Course Cards Container -->
+          <div class="relative overflow-hidden">
+            <div class="flex transition-transform duration-500 ease-in-out" id="course-cards-container">
+              
+              <!-- Course Card 1 -->
+              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="0">
+                <div class="space-y-4">
+                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide" data-course-title>
+                    combo1
+                  </h3>
+                  <p class="text-black text-base md:text-lg font-light leading-relaxed" data-course-subtitle>
+                    頭頸肩芳療紓壓洗頭
+                  </p>
+                  
+                  <!-- CTA Button -->
+                  <div class="pt-2">
+                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
+                      <span>課程介紹</span>
+                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 2 -->
+              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="1">
+                <div class="space-y-4">
+                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide">
+                    combo2
+                  </h3>
+                  <p class="text-black text-base md:text-lg font-light leading-relaxed">
+                    身心靈放鬆之旅
+                  </p>
+                  
+                  <div class="pt-2">
+                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
+                      <span>課程介紹</span>
+                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 3 -->
+              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="2">
+                <div class="space-y-4">
+                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide">
+                    combo3
+                  </h3>
+                  <p class="text-black text-base md:text-lg font-light leading-relaxed">
+                    精緻養護放鬆之旅
+                  </p>
+                  
+                  <div class="pt-2">
+                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
+                      <span>課程介紹</span>
+                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Card 4 -->
+              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="3">
+                <div class="space-y-4">
+                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide">
+                    combo4
+                  </h3>
+                  <p class="text-black text-base md:text-lg font-light leading-relaxed">
+                    極緻養護放鬆之旅
+                  </p>
+                  
+                  <div class="pt-2">
+                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
+                      <span>課程介紹</span>
+                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Navigation Controls -->
+          <div class="flex items-center justify-center space-x-4 mt-6">
+            <button class="w-10 h-10 border-2 border-white bg-white/90 rounded-full flex items-center justify-center text-black transition-all duration-300 hover:bg-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed" id="prev-course">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button class="w-10 h-10 border-2 border-white bg-white/90 rounded-full flex items-center justify-center text-black transition-all duration-300 hover:bg-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed" id="next-course">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Course data
+  const courses = [
+    {
+      id: 'combo1',
+      title: 'combo1',
+      subtitle: '頭頸肩芳療紓壓洗頭',
+      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
+      link: '/courses/relax',
+    },
+    {
+      id: 'combo2',
+      title: 'combo2',
+      subtitle: '身心靈放鬆之旅',
+      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
+      link: '/courses/massage',
+    },
+    {
+      id: 'combo3',
+      title: 'combo3',
+      subtitle: '精緻養護放鬆之旅',
+      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
+      link: '/courses/beauty',
+    },
+    {
+      id: 'combo4',
+      title: 'combo4',
+      subtitle: '極緻養護放鬆之旅',
+      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
+      link: '/courses/luxury',
+    },
+  ]
+
+  let currentCourseIndex = 0
+
+  // DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const prevButton = document.getElementById('prev-course')
+    const nextButton = document.getElementById('next-course')
+    const courseImage = document.getElementById('course-image')
+    const cardsContainer = document.getElementById('course-cards-container')
+
+    // Update course display
+    function updateCourse(index) {
+      const course = courses[index]
+      if (!course) return
+
+      // Update image
+      if (courseImage) {
+        courseImage.src = course.image
+        courseImage.alt = course.subtitle
+      }
+
+      // Slide cards container
+      if (cardsContainer) {
+        const translateX = -100 * index
+        cardsContainer.style.transform = `translateX(${translateX}%)`
+      }
+
+      // Update navigation buttons
+      if (prevButton) {
+        prevButton.disabled = index === 0
+      }
+      if (nextButton) {
+        nextButton.disabled = index === courses.length - 1
+      }
+    }
+
+    // Navigation events
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        if (currentCourseIndex > 0) {
+          currentCourseIndex--
+          updateCourse(currentCourseIndex)
+        }
+      })
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        if (currentCourseIndex < courses.length - 1) {
+          currentCourseIndex++
+          updateCourse(currentCourseIndex)
+        }
+      })
+    }
+
+    // Touch/Swipe functionality for mobile
+    let startX = 0
+    let currentX = 0
+    let isDragging = false
+
+    if (cardsContainer) {
+      // Touch events
+      cardsContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX
+        isDragging = true
+        cardsContainer.style.transition = 'none'
+      })
+
+      cardsContainer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return
+        currentX = e.touches[0].clientX
+        const diff = currentX - startX
+        const currentTranslate = -100 * currentCourseIndex
+        const newTranslate = currentTranslate + (diff / cardsContainer.offsetWidth) * 100
+        cardsContainer.style.transform = `translateX(${newTranslate}%)`
+      })
+
+      cardsContainer.addEventListener('touchend', () => {
+        if (!isDragging) return
+        isDragging = false
+        cardsContainer.style.transition = 'transform 0.5s ease-in-out'
+        
+        const diff = currentX - startX
+        const threshold = 50
+
+        if (diff > threshold && currentCourseIndex > 0) {
+          currentCourseIndex--
+        } else if (diff < -threshold && currentCourseIndex < courses.length - 1) {
+          currentCourseIndex++
+        }
+
+        updateCourse(currentCourseIndex)
+      })
+
+      // Mouse events for desktop
+      cardsContainer.addEventListener('mousedown', (e) => {
+        startX = e.clientX
+        isDragging = true
+        cardsContainer.style.transition = 'none'
+        cardsContainer.style.cursor = 'grabbing'
+      })
+
+      cardsContainer.addEventListener('mousemove', (e) => {
+        if (!isDragging) return
+        e.preventDefault()
+        currentX = e.clientX
+        const diff = currentX - startX
+        const currentTranslate = -100 * currentCourseIndex
+        const newTranslate = currentTranslate + (diff / cardsContainer.offsetWidth) * 100
+        cardsContainer.style.transform = `translateX(${newTranslate}%)`
+      })
+
+      cardsContainer.addEventListener('mouseup', () => {
+        if (!isDragging) return
+        isDragging = false
+        cardsContainer.style.transition = 'transform 0.5s ease-in-out'
+        cardsContainer.style.cursor = 'grab'
+        
+        const diff = currentX - startX
+        const threshold = 50
+
+        if (diff > threshold && currentCourseIndex > 0) {
+          currentCourseIndex--
+        } else if (diff < -threshold && currentCourseIndex < courses.length - 1) {
+          currentCourseIndex++
+        }
+
+        updateCourse(currentCourseIndex)
+      })
+
+      cardsContainer.addEventListener('mouseleave', () => {
+        if (isDragging) {
+          isDragging = false
+          cardsContainer.style.transition = 'transform 0.5s ease-in-out'
+          cardsContainer.style.cursor = 'grab'
+          updateCourse(currentCourseIndex)
+        }
+      })
+
+      // Set initial cursor
+      cardsContainer.style.cursor = 'grab'
+    }
+
+    // Auto-play functionality
+    let autoPlayInterval
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(() => {
+        currentCourseIndex = (currentCourseIndex + 1) % courses.length
+        updateCourse(currentCourseIndex)
+      }, 5000)
+    }
+
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval)
+      }
+    }
+
+    // Start auto-play
+    startAutoPlay()
+
+    // Pause auto-play on hover
+    const courseSection = document.getElementById('courses')
+    if (courseSection) {
+      courseSection.addEventListener('mouseenter', stopAutoPlay)
+      courseSection.addEventListener('mouseleave', startAutoPlay)
+    }
+
+    // Initialize
+    updateCourse(currentCourseIndex)
+  })
+</script>
+
+<style>
+  /* Smooth transitions for all elements */
+  #course-image {
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Course cards container */
+  #course-cards-container {
+    transition: transform 0.5s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Individual course cards */
+  .course-card {
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .course-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Button hover effects */
+  button:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Disable text selection during drag */
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Animation for content changes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  /* Touch-friendly navigation buttons */
+  @media (max-width: 768px) {
+    #prev-course,
+    #next-course {
+      width: 44px;
+      height: 44px;
+      touch-action: manipulation;
+    }
+  }
+</style>
