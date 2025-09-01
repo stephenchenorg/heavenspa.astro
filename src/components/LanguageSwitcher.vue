@@ -45,7 +45,11 @@ function toggleLanguage() {
 }
 
 function getCurrentLanguageCode(): string {
-  return currentLocale.value.toUpperCase()
+  const codes = {
+    'zh-tw': 'TW',
+    'en': 'EN'
+  }
+  return codes[currentLocale.value] || currentLocale.value.toUpperCase()
 }
 
 function getNextLanguageName(): string {
@@ -57,6 +61,11 @@ function getNextLanguageName(): string {
 
 onMounted(() => {
   currentLocale.value = getCurrentLocale()
+  console.log('Language switcher mounted, current locale:', currentLocale.value)
+  
+  // Debug: Check localStorage and cookies
+  console.log('localStorage locale:', localStorage.getItem('locale'))
+  console.log('document.cookie:', document.cookie)
 })
 </script>
 
