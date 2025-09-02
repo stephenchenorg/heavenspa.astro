@@ -20,6 +20,7 @@ import {
   getLocaleName,
   locales,
   setLocale,
+  t,
 } from '@/utils/i18n'
 
 const currentLocale = ref<Locale>('zh-tw')
@@ -38,25 +39,13 @@ function toggleLanguage() {
   // Set the locale (saves to localStorage and cookie)
   setLocale(nextLocale)
   
-  // Navigate to the correct URL based on Astro's i18n routing
-  const currentUrl = window.location
-  let newPath = currentUrl.pathname
+  // Dispatch a custom event to update all text content
+  document.dispatchEvent(new CustomEvent('languageChanged', {
+    detail: { locale: nextLocale }
+  }))
   
-  // Remove existing language prefix
-  if (newPath.startsWith('/en')) {
-    newPath = newPath.substring(3) || '/'
-  }
-  
-  // Add new language prefix if needed
-  if (nextLocale === 'en') {
-    newPath = '/en' + (newPath === '/' ? '' : newPath)
-  }
-  
-  // Navigate to the new URL
-  const newUrl = currentUrl.origin + newPath + currentUrl.search + currentUrl.hash
-  console.log('Navigating to:', newUrl)
-  
-  window.location.href = newUrl
+  // Update all translatable elements immediately
+  updatePageLanguage(nextLocale)
 }
 
 function getCurrentLanguageCode(): string {
@@ -74,20 +63,39 @@ function getNextLanguageName(): string {
   return getLocaleName(nextLocale)
 }
 
+function updatePageLanguage(locale: Locale) {
+  // Find all elements with data-i18n attributes and update them
+  const translatableElements = document.querySelectorAll('[data-i18n]')
+  
+  translatableElements.forEach(element => {
+    const key = element.getAttribute('data-i18n')
+    if (key) {
+      const translatedText = t(key, locale)
+      if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        (element as HTMLInputElement).placeholder = translatedText
+      } else {
+        element.textContent = translatedText
+      }
+    }
+  })
+
+  // Update HTML lang attribute
+  document.documentElement.setAttribute('lang', locale)
+}
+
 onMounted(() => {
-  // Detect locale from URL first (Astro's routing)
-  const currentPath = window.location.pathname
-  if (currentPath.startsWith('/en')) {
-    currentLocale.value = 'en'
-  } else {
-    currentLocale.value = 'zh-tw'
-  }
+  // Get saved locale from localStorage/cookies
+  currentLocale.value = getCurrentLocale()
   
   console.log('Language switcher mounted, current locale:', currentLocale.value)
-  console.log('Current path:', currentPath)
   
-  // Sync to localStorage and cookies
-  setLocale(currentLocale.value)
+  // Set initial HTML lang attribute
+  document.documentElement.setAttribute('lang', currentLocale.value)
+  
+  // Listen for language change events from other components
+  document.addEventListener('languageChanged', (e: any) => {
+    currentLocale.value = e.detail.locale
+  })
 })
 </script>
 
