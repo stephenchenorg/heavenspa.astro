@@ -4,6 +4,7 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
 import {gql, graphQLAPI} from "../api";
 
 export interface Article {
+  id: number
   title: string
   category: ArticleCategory
   cover: Cover
@@ -47,12 +48,26 @@ try {
     }
   `)
 
-  articles = articlesData.articles.data || []
+  // 將 API 資料轉換為 Benefit 格式
+  articles = (articlesData.articles.data || []).map((article: Article) => {
+    const createdDate = new Date(article.started_at);
+    return {
+      id: article.id,
+      title: article.title,
+      started_at: article.started_at,
+      date: createdDate.getDate().toString().padStart(2, '0'),
+      year: createdDate.getFullYear().toString(),
+      month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
+      category: article.category,
+      cover: article.cover,
+    };
+  });
 } catch (error) {
   console.error('Failed to fetch team data:', error)
   // 如果 API 失敗，提供預設資料
   articles = [
     {
+      id: 0,
       title: "Happy Mother's Day",
       started_at: "2025-05-01",
       category: { title: "限定母親節限定活動" },
@@ -64,6 +79,7 @@ try {
       },
     },
     {
+      id:0,
       title: "優惠活動",
       started_at: "2024-10-01",
       category: { title: "Special Offer" },
@@ -75,6 +91,7 @@ try {
       },
     },
     {
+      id: 0,
       title: "Hama 壽星關好禮",
       started_at: "2024-06-01",
       category: { title: "會員專屬" },
@@ -108,8 +125,8 @@ try {
           
           <!-- Date Badge -->
           <div class="absolute top-0 right-0 p-2 bg-[#D7AE54] text-center opacity-80">
-            <span class="block text-white/80 text-sm font-light">2025</span>
-            <span class="block text-white text-4xl font-light">5</span>
+            <span class="block text-white/80 text-sm font-light">{article.year}</span>
+            <span class="block text-white text-4xl font-light">{article.month}</span>
           </div>
 
           <!-- Content -->
@@ -151,8 +168,8 @@ try {
             <div class="absolute inset-0 bg-black/40"></div>
 
             <div class="absolute top-0 right-0 p-2 bg-[#D7AE54] text-center opacity-80">
-              <span class="block text-white/80 text-sm font-light">2025</span>
-              <span class="block text-white text-4xl font-light">5</span>
+              <span class="block text-white/80 text-sm font-light">{article.year}</span>
+              <span class="block text-white text-4xl font-light">{article.month}</span>
             </div>
             
             <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
