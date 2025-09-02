@@ -101,6 +101,15 @@
   --theme-border: #f0f0f0;
   --theme-card-bg: #ffffff;
   --theme-hover-bg: #f8f9fa;
+  
+  /* Mobile Menu Theme Variables */
+  --theme-mobile-menu-bg: rgba(255, 255, 255, 0.95);
+  --theme-mobile-menu-bg-gradient: linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.90));
+  --theme-mobile-menu-border: rgba(196, 149, 108, 0.2);
+  --theme-mobile-nav-text: #D7AE54;
+  --theme-mobile-nav-indicator: #D7AE54;
+  --theme-mobile-section-bg: rgba(196, 149, 108, 0.05);
+  --theme-mobile-section-border: rgba(196, 149, 108, 0.15);
 }
 
 /* Dark Mode Theme */
@@ -112,6 +121,15 @@
   --theme-border: #333333;
   --theme-card-bg: #111111;
   --theme-hover-bg: #1a1a1a;
+  
+  /* Mobile Menu Dark Theme Variables */
+  --theme-mobile-menu-bg: rgba(0, 0, 0, 0.95);
+  --theme-mobile-menu-bg-gradient: linear-gradient(to bottom right, rgba(0, 0, 0, 0.95), rgba(17, 17, 17, 0.90));
+  --theme-mobile-menu-border: rgba(212, 175, 55, 0.3);
+  --theme-mobile-nav-text: #D7AE54;
+  --theme-mobile-nav-indicator: #D7AE54;
+  --theme-mobile-section-bg: rgba(212, 175, 55, 0.1);
+  --theme-mobile-section-border: rgba(212, 175, 55, 0.25);
   
   /* Invert neutral colors for dark mode */
   --color-neutral-0: #000000;

@@ -1,0 +1,22 @@
+---
+export interface Props {
+  title: string
+  subtitle: string
+  class?: astroHTML.JSX.HTMLAttributes['class']
+}
+
+const {
+  title,
+  subtitle,
+  class: className = '',
+} = Astro.props
+---
+
+<div class={`mb-12 text-left max-w-7xl mx-auto w-full ${className}`}>
+  <h2 class="mb-4 lg:text-[3rem] md:text-[2.5rem] text-[2rem] font-light lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" style="color: var(--theme-text, #000000)">
+    {title}
+  </h2>
+  <h3 class="lg:text-2xl md:text-xl text-base font-normal tracking-[2px] uppercase mb-4" style="color: var(--theme-text-secondary, #666666)">
+    {subtitle}
+  </h3>
+</div>

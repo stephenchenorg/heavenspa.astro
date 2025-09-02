@@ -93,9 +93,10 @@ const t = createAstroT(Astro)
   id="mobile-menu-overlay"
 >
   <div
-    class="absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-2xl shadow-[-10px_0_40px_rgba(0,0,0,0.3)] transform translate-x-full transition-transform duration-300 cubic-bezier(0.25,0.46,0.45,0.94) flex flex-col mobile-menu"
+    class="absolute top-0 right-0 h-full w-80 max-w-[85vw] backdrop-blur-2xl shadow-[-10px_0_40px_rgba(0,0,0,0.3)] transform translate-x-full transition-transform duration-300 cubic-bezier(0.25,0.46,0.45,0.94) flex flex-col mobile-menu"
+    style="background: var(--theme-mobile-menu-bg-gradient);"
   >
-    <div class="flex justify-between items-center p-6 border-b border-[#c4956c]/20 mobile-menu-header">
+    <div class="flex justify-between items-center p-6 border-b mobile-menu-header" style="border-color: var(--theme-mobile-menu-border);">
       <a href="/" class="mobile-logo">
         {companySetting?.logo && (
           <img
@@ -142,7 +143,7 @@ const t = createAstroT(Astro)
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
     </nav>
-    <div class="px-6 py-4 border-t border-b border-[#c4956c]/15 bg-[#c4956c]/5 mobile-language-section">
+    <div class="px-6 py-4 border-t border-b mobile-language-section" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
       <div class="flex justify-center items-center gap-4 mobile-language">
         <LanguageSwitcher client:load/>
         <ThemeController />

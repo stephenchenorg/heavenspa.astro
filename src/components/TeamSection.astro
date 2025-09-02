@@ -1,5 +1,6 @@
 ---
 import { gql, graphQLAPI } from '@/api'
+import SectionTitle from '@/components/ui/SectionTitle.astro'
 
 // 定義 API 回應的類型
 export interface TeamCover {
@@ -75,11 +76,7 @@ try {
 >
 
   <!-- 標題區 -->
-  <div class="mb-12 text-left max-w-7xl mx-auto w-full">
-    <h2 class="mb-4 text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px]" style="color: var(--theme-text, #000000)">
-      我們的團隊</h2>
-    <h3 class="text-2xl md:text-xl sm:text-base font-normal tracking-[2px] uppercase mb-4" style="color: var(--theme-text-secondary, #666666)">OUR TEAM</h3>
-  </div>
+  <SectionTitle title="我們的團隊" subtitle="OUR TEAM" />
 
   <!-- Airbnb 風格卡片網格 -->
   <div class="max-w-7xl mx-auto w-full">
