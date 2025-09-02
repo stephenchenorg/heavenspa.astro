@@ -28,6 +28,7 @@ const data: CompanySetting = await graphQLAPI(gql`
       ig_link
       lang
       line_link
+      whatsapp_link
       twitter_link
       logo
       name
@@ -52,7 +53,12 @@ const {
 
   <Footer companySetting={data.companySetting} />
 
-  <FloatingContactSidebar client:load />
+  {(data.companySetting.phone_1 || data.companySetting.whatsapp_link || data.companySetting.line_link) && (
+    <FloatingContactSidebar 
+      client:load 
+      companySetting={data.companySetting}
+    />
+  )}
   
   <!-- Theme Controller -->
   <!--<ThemeController />-->

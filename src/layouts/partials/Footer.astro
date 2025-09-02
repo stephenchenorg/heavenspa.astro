@@ -36,43 +36,46 @@ const t = createAstroT(Astro)
           {companySetting?.ig_link && (
             <a
               href={companySetting.ig_link}
-              class="social-link"
-              title=Instagram 
+              class="social-link instagram"
+              title="Instagram" 
               target="_blank"
               rel="noopener noreferrer"
             >
               <span class="social-icon">
                 <Instagram />
               </span>
+              <span class="social-bg-effect"></span>
             </a>
           )}
 
           {companySetting?.fb_link && (
             <a
               href={companySetting.fb_link}
-              class="social-link"
-              title=Facebook 
+              class="social-link facebook"
+              title="Facebook" 
               target="_blank"
               rel="noopener noreferrer"
             >
               <span class="social-icon">
                 <Facebook />
               </span>
+              <span class="social-bg-effect"></span>
             </a>
           )}
 
           {companySetting?.line_link && (
-            <a href={companySetting.line_link} class="social-link" title=LINE target="_blank" rel="noopener noreferrer">
+            <a href={companySetting.line_link} class="social-link line" title="LINE" target="_blank" rel="noopener noreferrer">
               <span class="social-icon">
                 <Line />
               </span>
+              <span class="social-bg-effect"></span>
             </a>
           )}
           {companySetting?.twitter_link && (
             <a
               href={companySetting.twitter_link}
-              class="social-link"
-              title=Twitter 
+              class="social-link twitter"
+              title="Twitter" 
               target="_blank"
               rel="noopener noreferrer"
             >

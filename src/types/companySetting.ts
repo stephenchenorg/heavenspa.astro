@@ -8,6 +8,7 @@ export interface CompanySettingData {
   ig_link: string
   lang: string
   line_link: string
+  whatsapp_link: string
   twitter_link: string
   logo: string
   name: string
