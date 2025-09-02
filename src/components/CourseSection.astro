@@ -199,8 +199,10 @@ try {
   </div>
 </section>
 
-<script define:vars={{courses}}>
+<script is:inline define:vars={{courses}}>
   // Course data from API
+  // @ts-ignore - courses is passed from Astro define:vars
+  const coursesData = courses || []
 
   let currentCourseIndex = 0
 
@@ -213,7 +215,7 @@ try {
 
     // Update course display
     function updateCourse(index) {
-      const course = courses[index]
+      const course = coursesData[index]
       if (!course) return
 
       // Update image
@@ -233,7 +235,7 @@ try {
         prevButton.disabled = index === 0
       }
       if (nextButton) {
-        nextButton.disabled = index === courses.length - 1
+        nextButton.disabled = index === coursesData.length - 1
       }
     }
 
@@ -249,7 +251,7 @@ try {
 
     if (nextButton) {
       nextButton.addEventListener('click', () => {
-        if (currentCourseIndex < courses.length - 1) {
+        if (currentCourseIndex < coursesData.length - 1) {
           currentCourseIndex++
           updateCourse(currentCourseIndex)
         }
@@ -288,7 +290,7 @@ try {
 
         if (diff > threshold && currentCourseIndex > 0) {
           currentCourseIndex--
-        } else if (diff < -threshold && currentCourseIndex < courses.length - 1) {
+        } else if (diff < -threshold && currentCourseIndex < coursesData.length - 1) {
           currentCourseIndex++
         }
 
@@ -324,7 +326,7 @@ try {
 
         if (diff > threshold && currentCourseIndex > 0) {
           currentCourseIndex--
-        } else if (diff < -threshold && currentCourseIndex < courses.length - 1) {
+        } else if (diff < -threshold && currentCourseIndex < coursesData.length - 1) {
           currentCourseIndex++
         }
 
@@ -348,7 +350,7 @@ try {
     let autoPlayInterval
     const startAutoPlay = () => {
       autoPlayInterval = setInterval(() => {
-        currentCourseIndex = (currentCourseIndex + 1) % courses.length
+        currentCourseIndex = (currentCourseIndex + 1) % coursesData.length
         updateCourse(currentCourseIndex)
       }, 5000)
     }

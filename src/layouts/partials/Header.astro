@@ -160,45 +160,46 @@ const t = createAstroT(Astro)
   function initializeMobileMenu() {
     // 導航滾動效果
     const mainNav = document.querySelector('.main-nav')
-    const navItems = mainNav?.querySelectorAll('.nav-item')
-    const mobileMenuBtn = mainNav?.querySelector('.mobile-menu-btn')
-    const mobileMenuBtnSpans = mobileMenuBtn?.querySelectorAll('span')
 
     function handleNavScroll() {
       const currentTheme = localStorage.getItem('theme') || 'light'
       
-      if (window.pageYOffset > 20) {
-        // 滾動時的樣式變化
-        mainNav?.classList.remove('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.add('shadow-lg', 'shadow-black/15', 'border-b')
-        mainNav?.setAttribute('data-scrolled', 'true')
+      if (mainNav) {
+        const navElement = mainNav as HTMLElement
         
-        // 根據主題設置滾動時的背景
-        if (currentTheme === 'dark') {
-          mainNav?.style.setProperty('background', 'var(--theme-nav-scrolled-bg, rgba(0,0,0,0.8))')
+        if (window.pageYOffset > 20) {
+          // 滾動時的樣式變化
+          navElement.classList.remove('bg-transparent', 'backdrop-blur-none')
+          navElement.classList.add('shadow-lg', 'shadow-black/15', 'border-b')
+          navElement.setAttribute('data-scrolled', 'true')
+          
+          // 根據主題設置滾動時的背景
+          if (currentTheme === 'dark') {
+            navElement.style.setProperty('background', 'var(--theme-nav-scrolled-bg, rgba(0,0,0,0.8))')
+          } else {
+            navElement.style.setProperty('background', 'var(--theme-nav-scrolled-bg, rgba(255,255,255,0.5))')
+          }
         } else {
-          mainNav?.style.setProperty('background', 'var(--theme-nav-scrolled-bg, rgba(255,255,255,0.5))')
+          // 頂部時恢復透明樣式
+          navElement.classList.add('bg-transparent', 'backdrop-blur-none')
+          navElement.classList.remove('shadow-lg', 'shadow-black/15', 'border-b')
+          navElement.setAttribute('data-scrolled', 'false')
+          
+          // 恢復透明背景
+          navElement.style.setProperty('background', 'var(--theme-nav-bg, transparent)')
         }
-      } else {
-        // 頂部時恢復透明樣式
-        mainNav?.classList.add('bg-transparent', 'backdrop-blur-none')
-        mainNav?.classList.remove('shadow-lg', 'shadow-black/15', 'border-b')
-        mainNav?.setAttribute('data-scrolled', 'false')
-        
-        // 恢復透明背景
-        mainNav?.style.setProperty('background', 'var(--theme-nav-bg, transparent)')
       }
     }
 
     window.addEventListener('scroll', handleNavScroll)
 
     // 監聽主題變更事件
-    document.addEventListener('themeChanged', (e) => {
+    document.addEventListener('themeChanged', (e: any) => {
       const theme = e.detail.theme
       updateHeaderTheme(theme)
     })
 
-    function updateHeaderTheme(theme) {
+    function updateHeaderTheme(theme: string) {
       // 更新 CSS 自定義屬性
       const root = document.documentElement
       

@@ -161,7 +161,7 @@ try {
               {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
                 <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                   <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 active"></div>
-                  {member.images.filter(imageItem => !imageItem.is_default).map((_, dotIndex) => (
+                  {member.images.filter(imageItem => !imageItem.is_default).map((_) => (
                     <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60"></div>
                   ))}
                 </div>
