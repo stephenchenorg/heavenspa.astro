@@ -41,7 +41,8 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle')
+    // Use querySelectorAll to handle multiple theme toggle buttons (desktop + mobile)
+    const themeToggles = document.querySelectorAll('#theme-toggle')
     const body = document.body
 
     // Get saved theme or default to light
@@ -50,16 +51,18 @@
     // Apply saved theme
     applyTheme(currentTheme)
 
-    // Simple toggle functionality
-    themeToggle?.addEventListener('click', () => {
-      // Toggle between themes
-      currentTheme = currentTheme === 'light' ? 'dark' : 'light'
+    // Add event listeners to all theme toggle buttons
+    themeToggles.forEach(themeToggle => {
+      themeToggle?.addEventListener('click', () => {
+        // Toggle between themes
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light'
 
-      // Apply new theme
-      applyTheme(currentTheme)
+        // Apply new theme
+        applyTheme(currentTheme)
 
-      // Save to localStorage
-      localStorage.setItem('theme', currentTheme)
+        // Save to localStorage
+        localStorage.setItem('theme', currentTheme)
+      })
     })
 
     function applyTheme(theme: string) {
@@ -75,24 +78,27 @@
     }
 
     function updateThemeIcons(theme: string) {
-      const lightIcon = themeToggle?.querySelector('svg:first-child')
-      const darkIcon = themeToggle?.querySelector('svg:last-child')
+      // Update icons for all theme toggle buttons
+      themeToggles.forEach(themeToggle => {
+        const lightIcon = themeToggle?.querySelector('svg:first-child')
+        const darkIcon = themeToggle?.querySelector('svg:last-child')
 
-      if (theme === 'dark') {
-        // Show moon icon (dark theme active)
-        lightIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100')
-        lightIcon?.classList.add('opacity-0', '-rotate-90', 'scale-75')
-        
-        darkIcon?.classList.remove('opacity-0', 'rotate-90', 'scale-75')
-        darkIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100')
-      } else {
-        // Show sun icon (light theme active)
-        lightIcon?.classList.remove('opacity-0', '-rotate-90', 'scale-75')
-        lightIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100')
-        
-        darkIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100')
-        darkIcon?.classList.add('opacity-0', 'rotate-90', 'scale-75')
-      }
+        if (theme === 'dark') {
+          // Show moon icon (dark theme active)
+          lightIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100')
+          lightIcon?.classList.add('opacity-0', '-rotate-90', 'scale-75')
+          
+          darkIcon?.classList.remove('opacity-0', 'rotate-90', 'scale-75')
+          darkIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100')
+        } else {
+          // Show sun icon (light theme active)
+          lightIcon?.classList.remove('opacity-0', '-rotate-90', 'scale-75')
+          lightIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100')
+          
+          darkIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100')
+          darkIcon?.classList.add('opacity-0', 'rotate-90', 'scale-75')
+        }
+      })
     }
 
     function updateAllSections(theme: string) {
@@ -140,7 +146,8 @@
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key === 'T') {
         e.preventDefault()
-        themeToggle?.click()
+        // Click the first available theme toggle button
+        themeToggles[0]?.click()
       }
     })
   })
