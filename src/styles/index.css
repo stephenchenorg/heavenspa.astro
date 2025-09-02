@@ -219,6 +219,13 @@
     @apply opacity-100 visible translate-y-0;
   }
 
+  /* Section Layout Pattern */
+  .section-container {
+    @apply relative z-10 w-full min-h-screen flex flex-col justify-center pt-16 px-6 lg:px-20 md:px-8 sm:px-6;
+    background: var(--theme-bg, #ffffff);
+    color: var(--theme-text, #000000);
+  }
+
   /* Card Patterns */
   .course-card {
     @apply bg-[color:var(--color-surface-overlay)] backdrop-blur-[10px] text-center flex flex-col justify-center items-center gap-4 relative;
