@@ -105,33 +105,35 @@
       // Update all major sections
       const sections = document.querySelectorAll('section, footer, header')
       sections.forEach(section => {
+        const htmlSection = section as HTMLElement;
         if (theme === 'dark') {
           // Apply dark theme styles
-          section.style.background = 'var(--theme-bg, #000000)'
-          section.style.color = 'var(--theme-text, #ffffff)'
+          htmlSection.style.background = 'var(--theme-bg, #000000)'
+          htmlSection.style.color = 'var(--theme-text, #ffffff)'
         } else {
           // Apply light theme styles
-          section.style.background = 'var(--theme-bg, #ffffff)'
-          section.style.color = 'var(--theme-text, #000000)'
+          htmlSection.style.background = 'var(--theme-bg, #ffffff)'
+          htmlSection.style.color = 'var(--theme-text, #000000)'
         }
       })
 
       // Update text elements
       const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div')
       textElements.forEach(element => {
+        const htmlElement = element as HTMLElement;
         if (theme === 'dark') {
-          if (element.style.color === 'rgb(0, 0, 0)' || element.classList.contains('text-black')) {
-            element.style.color = 'var(--theme-text, #ffffff)'
+          if (htmlElement.style.color === 'rgb(0, 0, 0)' || element.classList.contains('text-black')) {
+            htmlElement.style.color = 'var(--theme-text, #ffffff)'
           }
-          if (element.style.color === 'rgb(102, 102, 102)' || element.classList.contains('text-neutral-600')) {
-            element.style.color = 'var(--theme-text-secondary, #cccccc)'
+          if (htmlElement.style.color === 'rgb(102, 102, 102)' || element.classList.contains('text-neutral-600')) {
+            htmlElement.style.color = 'var(--theme-text-secondary, #cccccc)'
           }
         } else {
-          if (element.style.color === 'var(--theme-text, #ffffff)') {
-            element.style.color = 'var(--theme-text, #000000)'
+          if (htmlElement.style.color === 'var(--theme-text, #ffffff)') {
+            htmlElement.style.color = 'var(--theme-text, #000000)'
           }
-          if (element.style.color === 'var(--theme-text-secondary, #cccccc)') {
-            element.style.color = 'var(--theme-text-secondary, #666666)'
+          if (htmlElement.style.color === 'var(--theme-text-secondary, #cccccc)') {
+            htmlElement.style.color = 'var(--theme-text-secondary, #666666)'
           }
         }
       })
@@ -147,7 +149,8 @@
       if (e.ctrlKey && e.shiftKey && e.key === 'T') {
         e.preventDefault()
         // Click the first available theme toggle button
-        themeToggles[0]?.click()
+        const firstToggle = themeToggles[0] as HTMLElement;
+        firstToggle?.click()
       }
     })
   })

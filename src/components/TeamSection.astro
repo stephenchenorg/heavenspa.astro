@@ -288,30 +288,30 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slides.length <= 1) return; // 只有一张图片时不需要轮播
     
     let currentSlide = 0;
-    let autoSlideTimer;
+    let autoSlideTimer: NodeJS.Timeout | null = null;
     
     // 显示指定的幻灯片
-    function showSlide(index) {
+    function showSlide(index: number) {
       // 隐藏所有幻灯片
       slides.forEach(slide => {
-        slide.style.opacity = '0';
+        (slide as HTMLElement).style.opacity = '0';
       });
       
       // 重置所有指示器
       dots.forEach(dot => {
         dot.classList.remove('active');
-        dot.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+        (dot as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
       });
       
       // 显示当前幻灯片
       if (slides[index]) {
-        slides[index].style.opacity = '1';
+        (slides[index] as HTMLElement).style.opacity = '1';
       }
       
       // 激活当前指示器
       if (dots[index]) {
         dots[index].classList.add('active');
-        dots[index].style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+        (dots[index] as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
       }
     }
     
@@ -329,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function stopAutoSlide() {
       if (autoSlideTimer) {
         clearInterval(autoSlideTimer);
+        autoSlideTimer = null;
       }
     }
     
@@ -351,7 +352,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let isDragging = false;
     
     container.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
+      const touchEvent = e as TouchEvent;
+      startX = touchEvent.touches[0].clientX;
       isDragging = true;
       stopAutoSlide();
     });
@@ -364,7 +366,8 @@ document.addEventListener('DOMContentLoaded', function() {
     container.addEventListener('touchend', (e) => {
       if (!isDragging) return;
       
-      const endX = e.changedTouches[0].clientX;
+      const touchEvent = e as TouchEvent;
+      const endX = touchEvent.changedTouches[0].clientX;
       const diffX = startX - endX;
       
       if (Math.abs(diffX) > 50) { // 最小滑动距离
