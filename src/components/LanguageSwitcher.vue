@@ -38,10 +38,25 @@ function toggleLanguage() {
   // Set the locale (saves to localStorage and cookie)
   setLocale(nextLocale)
   
-  // Force reload to apply server-side i18n changes
-  setTimeout(() => {
-    window.location.reload()
-  }, 100)
+  // Navigate to the correct URL based on Astro's i18n routing
+  const currentUrl = window.location
+  let newPath = currentUrl.pathname
+  
+  // Remove existing language prefix
+  if (newPath.startsWith('/en')) {
+    newPath = newPath.substring(3) || '/'
+  }
+  
+  // Add new language prefix if needed
+  if (nextLocale === 'en') {
+    newPath = '/en' + (newPath === '/' ? '' : newPath)
+  }
+  
+  // Navigate to the new URL
+  const newUrl = currentUrl.origin + newPath + currentUrl.search + currentUrl.hash
+  console.log('Navigating to:', newUrl)
+  
+  window.location.href = newUrl
 }
 
 function getCurrentLanguageCode(): string {
@@ -60,12 +75,19 @@ function getNextLanguageName(): string {
 }
 
 onMounted(() => {
-  currentLocale.value = getCurrentLocale()
-  console.log('Language switcher mounted, current locale:', currentLocale.value)
+  // Detect locale from URL first (Astro's routing)
+  const currentPath = window.location.pathname
+  if (currentPath.startsWith('/en')) {
+    currentLocale.value = 'en'
+  } else {
+    currentLocale.value = 'zh-tw'
+  }
   
-  // Debug: Check localStorage and cookies
-  console.log('localStorage locale:', localStorage.getItem('locale'))
-  console.log('document.cookie:', document.cookie)
+  console.log('Language switcher mounted, current locale:', currentLocale.value)
+  console.log('Current path:', currentPath)
+  
+  // Sync to localStorage and cookies
+  setLocale(currentLocale.value)
 })
 </script>
 
