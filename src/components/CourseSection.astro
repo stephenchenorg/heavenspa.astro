@@ -1,6 +1,130 @@
 ---
 // Course Section with SPA Design Style
+import { gql, graphQLAPI } from '@/api'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+
+// 定義 API 回應的類型
+export interface CourseCover {
+  desktop: string
+  desktop_blur: string
+  mobile: string
+  mobile_blur: string
+}
+
+export interface Course {
+  id: number
+  title: string
+  subtitle: string
+  description: string
+  cover: CourseCover
+  is_hottest: boolean
+  is_newest: boolean
+  status: string
+  sort: number
+}
+
+export interface CoursesResponse {
+  courses: {
+    data: Course[]
+  }
+}
+
+// GraphQL 查詢與錯誤處理
+let courses: Course[] = []
+
+try {
+  const coursesData: CoursesResponse = await graphQLAPI(gql`
+    query MyQuery {
+      courses(is_newest:true, sort_by: "asc", sort_column: "sort") {
+        data {
+          cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          id
+          subtitle
+          title
+          status
+          sort
+          description
+        }
+      }
+    }
+  `)
+
+  courses = coursesData.courses.data || []
+} catch (error) {
+  console.error('Failed to fetch courses data:', error)
+  // 如果 API 失敗，提供預設資料
+  courses = [
+    {
+      id: 1,
+      title: 'combo1',
+      subtitle: '頭頸肩芳療紓壓洗頭',
+      description: '專業的頭頸肩按摩服務，舒緩日常壓力',
+      cover: {
+        desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
+        desktop_blur: '',
+        mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
+        mobile_blur: '',
+      },
+      is_hottest: true,
+      is_newest: false,
+      status: 'active',
+      sort: 1,
+    },
+    {
+      id: 2,
+      title: 'combo2',
+      subtitle: '身心靈放鬆之旅',
+      description: '全方位的身心放鬆體驗',
+      cover: {
+        desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
+        desktop_blur: '',
+        mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
+        mobile_blur: '',
+      },
+      is_hottest: false,
+      is_newest: true,
+      status: 'active',
+      sort: 2,
+    },
+    {
+      id: 3,
+      title: 'combo3',
+      subtitle: '精緻養護放鬆之旅',
+      description: '頂級護理與放鬆的完美結合',
+      cover: {
+        desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
+        desktop_blur: '',
+        mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
+        mobile_blur: '',
+      },
+      is_hottest: false,
+      is_newest: false,
+      status: 'active',
+      sort: 3,
+    },
+    {
+      id: 4,
+      title: 'combo4',
+      subtitle: '極緻養護放鬆之旅',
+      description: '最高級的奢華 SPA 體驗',
+      cover: {
+        desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
+        desktop_blur: '',
+        mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
+        mobile_blur: '',
+      },
+      is_hottest: false,
+      is_newest: false,
+      status: 'active',
+      sort: 4,
+    },
+  ]
+}
 ---
 
 <section class="section-container" id="courses" data-section="courses">
@@ -15,8 +139,8 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
       <!-- Right Image (Background) -->
       <div class="relative h-[500px] lg:h-[600px] overflow-hidden rounded-2xl lg:rounded-3xl">
         <img
-          src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg"
-          alt="頭頸肩芳療紓壓洗頭"
+          src={courses[0]?.cover?.desktop || "https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg"}
+          alt={courses[0]?.subtitle || "課程介紹"}
           class="w-full h-full object-cover transition-transform duration-700"
           id="course-image"
           loading="lazy"
@@ -31,82 +155,26 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
           <div class="relative overflow-hidden">
             <div class="flex transition-transform duration-500 ease-in-out" id="course-cards-container">
               
-              <!-- Course Card 1 -->
-              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="0">
-                <div class="space-y-4">
-                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide" data-course-title>
-                    combo1
-                  </h3>
-                  <p class="text-black text-base md:text-lg font-light leading-relaxed" data-course-subtitle>
-                    頭頸肩芳療紓壓洗頭
-                  </p>
-                  
-                  <!-- CTA Button -->
-                  <div class="pt-2">
-                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
-                      <span>課程介紹</span>
-                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </button>
+              {courses.map((course, index) => (
+                <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course={index.toString()}>
+                  <div class="space-y-4">
+                    <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide" data-course-title>
+                      {course.title}
+                    </h3>
+                    <p class="text-black text-base md:text-lg font-light leading-relaxed" data-course-subtitle>
+                      {course.subtitle}
+                    </p>
+                    
+                    <!-- CTA Button -->
+                    <div class="pt-2">
+                      <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
+                        <span>課程介紹</span>
+                        <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <!-- Course Card 2 -->
-              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="1">
-                <div class="space-y-4">
-                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide">
-                    combo2
-                  </h3>
-                  <p class="text-black text-base md:text-lg font-light leading-relaxed">
-                    身心靈放鬆之旅
-                  </p>
-                  
-                  <div class="pt-2">
-                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
-                      <span>課程介紹</span>
-                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Course Card 3 -->
-              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="2">
-                <div class="space-y-4">
-                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide">
-                    combo3
-                  </h3>
-                  <p class="text-black text-base md:text-lg font-light leading-relaxed">
-                    精緻養護放鬆之旅
-                  </p>
-                  
-                  <div class="pt-2">
-                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
-                      <span>課程介紹</span>
-                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Course Card 4 -->
-              <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course="3">
-                <div class="space-y-4">
-                  <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide">
-                    combo4
-                  </h3>
-                  <p class="text-black text-base md:text-lg font-light leading-relaxed">
-                    極緻養護放鬆之旅
-                  </p>
-                  
-                  <div class="pt-2">
-                    <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
-                      <span>課程介紹</span>
-                      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+              ))}
 
             </div>
           </div>
@@ -131,38 +199,8 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
   </div>
 </section>
 
-<script>
-  // Course data
-  const courses = [
-    {
-      id: 'combo1',
-      title: 'combo1',
-      subtitle: '頭頸肩芳療紓壓洗頭',
-      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
-      link: '/courses/relax',
-    },
-    {
-      id: 'combo2',
-      title: 'combo2',
-      subtitle: '身心靈放鬆之旅',
-      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
-      link: '/courses/massage',
-    },
-    {
-      id: 'combo3',
-      title: 'combo3',
-      subtitle: '精緻養護放鬆之旅',
-      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
-      link: '/courses/beauty',
-    },
-    {
-      id: 'combo4',
-      title: 'combo4',
-      subtitle: '極緻養護放鬆之旅',
-      image: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
-      link: '/courses/luxury',
-    },
-  ]
+<script define:vars={{courses}}>
+  // Course data from API
 
   let currentCourseIndex = 0
 
@@ -180,7 +218,7 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
 
       // Update image
       if (courseImage) {
-        courseImage.src = course.image
+        courseImage.src = course.cover?.desktop || course.image || ''
         courseImage.alt = course.subtitle
       }
 
