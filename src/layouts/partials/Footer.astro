@@ -98,7 +98,7 @@ const t = createAstroT(Astro)
 
         <!-- 關於我們 -->
         <div class="about-section">
-          <h4 class="text-5xl font-light mb-8 text-black">{t('footer.contact-info')}</h4>
+          <h4 class="text-5xl font-light mb-8">{t('footer.contact-info')}</h4>
 
           <div class="contact-item">
             <span class="contact-label">{t('footer.phone')}</span>
@@ -238,7 +238,7 @@ const t = createAstroT(Astro)
     .logo-text {
       font-size: 2.5rem;
       font-weight: 700;
-      color: #000000;
+      color: var(--theme-text);
       letter-spacing: 3px;
       line-height: 1;
     }
@@ -274,14 +274,14 @@ const t = createAstroT(Astro)
 
     .contact-value {
       font-size: 1rem;
-      color: #000000;
+      color: var(--theme-text);
       line-height: 1.6;
       text-decoration: none;
       transition: color 0.3s ease;
     }
 
     .contact-value:hover {
-      color: #d4af37;
+      color: var(--color-gold-500);
     }
 
     /* 中間：社群媒體 */
@@ -321,15 +321,20 @@ const t = createAstroT(Astro)
       border-radius: 50%;
       text-decoration: none;
       transition: all 0.3s ease;
-      background: #000000;
-      border: 2px solid #000000;
+      background: var(--color-gold-400);
+      border: 2px solid var(--color-gold-400);
+      box-shadow: 1px 1px 5px var(--theme-text);
     }
 
     .social-link:hover {
       transform: translateY(-3px);
-      background: #ffffff;
-      border: 2px solid #000000;
+      background: var(--color-gold-500);
+      border: 2px solid var(--color-gold-500);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .dark-theme .social-link:hover {
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
     }
 
     .social-icon {
@@ -383,7 +388,7 @@ const t = createAstroT(Astro)
     .footer-bottom {
       padding: 1.5rem 2rem;
       text-align: center;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid #666666;
     }
 
     .copyright p {

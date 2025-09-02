@@ -177,7 +177,7 @@ try {
 
   <!-- 查看更多按鈕 -->
   <div class="mt-12 max-w-7xl mx-auto w-full">
-    <button class="px-6 py-3 border border-black rounded-lg font-medium text-black hover:bg-black hover:text-white transition-colors duration-200">
+    <button class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200" style="border-color: var(--theme-text); color: var(--theme-text);" onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');" onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
       顯示更多團隊成員
     </button>
   </div>
