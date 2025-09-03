@@ -9,13 +9,16 @@ export const translations = {
     // 導航選單
     nav: {
       home: '首頁',
+      about: '品牌介紹',
       news: '最新消息',
+      services: '服務項目',
       courses: '服務項目',
       team: '服務團隊',
       products: '精油產品',
       guide: '顧客須知',
       faq: '常見問題',
-      careers: '人才招募',
+      careers: '加入我們',
+      booking: '立即預約',
       contact: '聯繫我們',
     },
 
@@ -81,10 +84,12 @@ export const translations = {
     footer: {
       address: '地址',
       'business-hours': '營業時間',
+      'business-hours-time': 'AM 10:00~AM 00:00 (最後收客時間)',
       'contact-info': '聯繫資訊',
       phone: '電話',
       email: '電子信箱',
       'follow-us': '關注我們',
+      'rights-reserved': '版權所有',
     },
 
     // 其他
@@ -95,13 +100,16 @@ export const translations = {
     // Navigation Menu
     nav: {
       home: 'Home',
+      about: 'About Us',
       news: 'News',
+      services: 'Services',
       courses: 'Services',
       team: 'Our Team',
       products: 'Essential Oils',
       guide: 'Customer Guide',
       faq: 'FAQ',
-      careers: 'Careers',
+      careers: 'Join Us',
+      booking: 'Book Now',
       contact: 'Contact Us',
     },
 
@@ -167,10 +175,12 @@ export const translations = {
     footer: {
       address: 'Address',
       'business-hours': 'Business Hours',
+      'business-hours-time': 'AM 10:00~AM 00:00 (Last Appointment)',
       'contact-info': 'Contact Information',
       phone: 'Phone',
       email: 'Email',
       'follow-us': 'Follow Us',
+      'rights-reserved': 'All Rights Reserved',
     },
 
     // Others

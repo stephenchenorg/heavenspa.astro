@@ -28,16 +28,16 @@ const t = createAstroT(Astro)
     <!-- 社群媒體 -->
     <div class="footer-center">
       <div class="social-section-button">
-        <Button>{t('buttons.book-now')}</Button>
+        <Button><span data-i18n="buttons.book-now">{t('buttons.book-now')}</span></Button>
       </div>
       <div class="social-section">
-        <h4 class="social-title">{t('footer.follow-us')}</h4>
+        <h4 class="social-title" data-i18n="footer.follow-us">{t('footer.follow-us')}</h4>
         <div class="social-links">
           {companySetting?.ig_link && (
             <a
               href={companySetting.ig_link}
               class="social-link instagram"
-              title="Instagram" 
+              title="Instagram"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -52,7 +52,7 @@ const t = createAstroT(Astro)
             <a
               href={companySetting.fb_link}
               class="social-link facebook"
-              title="Facebook" 
+              title="Facebook"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -75,7 +75,7 @@ const t = createAstroT(Astro)
             <a
               href={companySetting.twitter_link}
               class="social-link twitter"
-              title="Twitter" 
+              title="Twitter"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -101,23 +101,23 @@ const t = createAstroT(Astro)
 
         <!-- 關於我們 -->
         <div class="about-section">
-          <h4 class="text-5xl font-light mb-8">{t('footer.contact-info')}</h4>
+          <h4 class="text-3xl font-light mb-8" data-i18n="footer.contact-info">{t('footer.contact-info')}</h4>
 
           <div class="contact-item">
-            <span class="contact-label">{t('footer.phone')}</span>
+            <span class="contact-label" data-i18n="footer.phone">{t('footer.phone')}</span>
             <a href={`tel:${companySetting?.phone_1}`} class="contact-value">
               {companySetting?.phone_1}
             </a>
           </div>
 
           <div class="contact-item">
-            <span class="contact-label">{t('footer.address')}</span>
+            <span class="contact-label" data-i18n="footer.address">{t('footer.address')}</span>
             <span class="contact-value">{companySetting?.address_1}</span>
           </div>
 
           <div class="contact-item">
-            <span class="contact-label">{t('footer.business-hours')}</span>
-            <span class="contact-value">AM 10:00~AM 00:00 (最後收客時間)</span>
+            <span class="contact-label" data-i18n="footer.business-hours">{t('footer.business-hours')}</span>
+            <span class="contact-value" data-i18n="footer.business-hours-time">{t('footer.business-hours-time')}</span>
           </div>
         </div>
 
@@ -139,7 +139,7 @@ const t = createAstroT(Astro)
     <!-- 版權資訊 -->
     <div class="footer-bottom">
       <div class="copyright">
-        <p>&copy; 2025 {companySetting?.name}. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} {companySetting?.name}. <span data-i18n="footer.rights-reserved">{t('footer.rights-reserved')}</span></p>
       </div>
     </div>
 
