@@ -14,8 +14,6 @@ const {
   aria-label="X"
   role="img"
   viewBox="0 0 24 24"
-  width={size}
-  height={size}
   fill="currentColor"
   class={`theme-icon ${className}`}
 >
@@ -25,48 +23,23 @@ const {
 
 <style>
   .theme-icon {
-    /* 淺色模式 (預設) */
+    width: 26px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
     color: var(--theme-text, #000000);
     transition: color 0.3s ease;
   }
 
-  /* 深色模式 */
   .dark .theme-icon,
   .dark-theme .theme-icon,
   [data-theme="dark"] .theme-icon {
     color: var(--theme-text, #ffffff);
   }
 
-  /* 懸停效果 */
   .theme-icon:hover {
     opacity: 0.7;
     transform: scale(1.05);
     transition: all 0.2s ease;
-  }
-
-  /* 響應式大小調整 */
-  @media (max-width: 768px) {
-    .theme-icon {
-      width: 1.2em;
-      height: 1.2em;
-    }
-  }
-
-  /* 高對比度模式支援 */
-  @media (prefers-contrast: high) {
-    .theme-icon {
-      filter: contrast(1.2);
-    }
-  }
-
-  /* 減少動畫偏好支援 */
-  @media (prefers-reduced-motion: reduce) {
-    .theme-icon {
-      transition: none;
-    }
-    
-    .theme-icon:hover {
-      transform: none;
-    }
   }
 </style>
