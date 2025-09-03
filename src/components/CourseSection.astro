@@ -133,43 +133,46 @@ try {
   <SectionTitle title="課程介紹" subtitle="COURSE" />
 
   <!-- Course Content -->
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-7xl mx-auto px-4">
     <div class="relative">
-      
-      <!-- Right Image (Background) -->
-      <div class="relative h-[500px] lg:h-[600px] overflow-hidden rounded-2xl lg:rounded-3xl">
-        <img
-          src={courses[0]?.cover?.desktop || "https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg"}
-          alt={courses[0]?.subtitle || "課程介紹"}
-          class="w-full h-full object-cover transition-transform duration-700"
-          id="course-image"
-          loading="lazy"
-        />
-        <!-- Image Overlay -->
-        <div class="absolute inset-0 bg-black/30 rounded-2xl lg:rounded-3xl"></div>
-        
-        <!-- Overlay Course Card -->
-        <div class="absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 z-10 max-w-sm">
-          
+
+      <!-- Right Content - Image (Background) -->
+      <div class="lg:ml-80">
+        <div class="relative h-[400px] lg:h-[600px] overflow-hidden rounded-3xl shadow-2xl">
+          <img
+            src={courses[0]?.cover?.desktop || "https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg"}
+            alt={courses[0]?.subtitle || "課程介紹"}
+            class="w-full h-full object-cover transition-transform duration-700"
+            id="course-image"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Left Content - Course Card (Overlapping) -->
+      <div class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:z-10 mt-8 lg:mt-0 lg:w-80">
+        <div class="bg-background dark:bg-background-dark rounded-3xl p-6 lg:p-8 text-center shadow-xl lg:h-[200px] flex flex-col justify-center">
           <!-- Course Cards Container -->
           <div class="relative overflow-hidden">
             <div class="flex transition-transform duration-500 ease-in-out" id="course-cards-container">
-              
+
               {courses.map((course, index) => (
-                <div class="min-w-full bg-white/95 backdrop-blur-sm rounded-2xl p-6 course-card shadow-lg" data-course={index.toString()}>
+                <div class="min-w-full course-card" data-course={index.toString()}>
                   <div class="space-y-4">
-                    <h3 class="text-primary-600 text-2xl md:text-3xl font-light tracking-wide" data-course-title>
+                    <h3 class="text-primary-600 dark:text-primary-400 text-3xl lg:text-4xl font-light tracking-wide" data-course-title>
                       {course.title}
                     </h3>
-                    <p class="text-black text-base md:text-lg font-light leading-relaxed" data-course-subtitle>
+                    <p class="text-foreground dark:text-foreground-dark text-base lg:text-lg font-light leading-relaxed" data-course-subtitle>
                       {course.subtitle}
                     </p>
-                    
+
                     <!-- CTA Button -->
                     <div class="pt-2">
-                      <button class="group bg-primary-600 text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-primary-700 hover:scale-105 flex items-center space-x-2">
+                      <button class="group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground px-8 py-3 rounded-full text-base font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2">
                         <span>課程介紹</span>
-                        <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 320 512" fill="currentColor">
+                          <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/>
+                        </svg>
                       </button>
                     </div>
                   </div>
@@ -180,21 +183,22 @@ try {
           </div>
 
           <!-- Navigation Controls -->
-          <div class="flex items-center justify-center space-x-4 mt-6">
-            <button class="w-10 h-10 border-2 border-white bg-white/90 rounded-full flex items-center justify-center text-black transition-all duration-300 hover:bg-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed" id="prev-course">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 18l-6-6 6-6" />
+          <div class="flex items-center justify-center space-x-4 mt-4">
+            <button class="w-12 h-12 border-2 border-primary-600 dark:border-primary-400 bg-background dark:bg-background-dark rounded-full flex items-center justify-center text-primary-600 dark:text-primary-400 transition-all duration-300 hover:bg-primary-600 hover:text-primary-foreground dark:hover:bg-primary-400 dark:hover:text-primary-foreground hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed" id="prev-course">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14" />
               </svg>
             </button>
-            <button class="w-10 h-10 border-2 border-white bg-white/90 rounded-full flex items-center justify-center text-black transition-all duration-300 hover:bg-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed" id="next-course">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 18l6-6-6-6" />
+            <button class="w-12 h-12 border-2 border-primary-600 dark:border-primary-400 bg-background dark:bg-background-dark rounded-full flex items-center justify-center text-primary-600 dark:text-primary-400 transition-all duration-300 hover:bg-primary-600 hover:text-primary-foreground dark:hover:bg-primary-400 dark:hover:text-primary-foreground hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed" id="next-course">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14" />
               </svg>
             </button>
           </div>
 
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -284,7 +288,7 @@ try {
         if (!isDragging) return
         isDragging = false
         cardsContainer.style.transition = 'transform 0.5s ease-in-out'
-        
+
         const diff = currentX - startX
         const threshold = 50
 
@@ -320,7 +324,7 @@ try {
         isDragging = false
         cardsContainer.style.transition = 'transform 0.5s ease-in-out'
         cardsContainer.style.cursor = 'grab'
-        
+
         const diff = currentX - startX
         const threshold = 50
 
