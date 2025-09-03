@@ -28,7 +28,9 @@ const t = createAstroT(Astro)
     <!-- 社群媒體 -->
     <div class="footer-center">
       <div class="social-section-button">
-        <Button><span data-i18n="buttons.book-now">{t('buttons.book-now')}</span></Button>
+        <a href="/booking">
+          <Button><span data-i18n="buttons.book-now">{t('buttons.book-now')}</span></Button>
+        </a>
       </div>
       <div class="social-section">
         <h4 class="social-title" data-i18n="footer.follow-us">{t('footer.follow-us')}</h4>

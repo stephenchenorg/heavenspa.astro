@@ -1,6 +1,6 @@
 ---
-// HeroBanner component
 import {createAstroT} from '@/utils/astro-i18n'
+import Button from '@/components/ui/Button.astro'
 
 const t = createAstroT(Astro)
 ---
@@ -38,10 +38,9 @@ const t = createAstroT(Astro)
            style="color: var(--theme-text, rgba(255,255,255,0.8))">
           從場地、團隊到精油皆嚴格把關，享天堂讓您置身天堂
         </p>
-        <p class="text-sm md:text-base uppercase tracking-[0.2em] font-light"
-           style="color: var(--theme-text-secondary, rgba(255,255,255,0.5))">
-          我們擁有各式不同的SPA服務以及男士熱蠟除毛<br class="hidden md:block">
-        </p>
+        <a href="/booking">
+          <Button><span data-i18n="buttons.book-now">{t('buttons.book-now')}</span></Button>
+        </a>
       </div>
     </div>
   </div>
