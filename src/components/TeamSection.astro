@@ -111,23 +111,17 @@ try {
   <!-- Airbnb 風格卡片網格 -->
   <div class="max-w-7xl mx-auto w-full">
     <!-- 桌面和平板：網格布局 -->
-    <div class="hidden sm:grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 gap-6 lg:gap-5 md:gap-6">
+    <div class="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
       {teamMembers.map((member) => (
         <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
           <!-- 圖片容器 -->
-          <div class="relative w-[400px] h-[400px] rounded-xl overflow-hidden mb-4">
-            <!-- 愛心收藏按鈕 -->
-            <!--<button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">-->
-            <!--  <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">-->
-            <!--    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />-->
-            <!--  </svg>-->
-            <!--</button>-->
+          <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
 
             <!-- 團隊成員照片轮播 -->
-            <div class="carousel-container relative w-full h-full" data-member-id={member.title}>
-              <div class="carousel-images absolute inset-0">
+            <div class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden" data-member-id={member.title}>
+              <div class="carousel-images absolute inset-0 backface-visibility-hidden">
                 {/* 主图片 */}
-                <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500">
+                <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
                   <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
                   <img
                     src={member.image?.desktop || member.cover?.desktop}
@@ -143,7 +137,7 @@ try {
                 {member.images && member.images.length > 0 && member.images
                   .filter(imageItem => !imageItem.is_default)
                   .map((imageItem, imgIndex) => (
-                  <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500">
+                  <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
                     <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
                     <img
                       src={imageItem.image.desktop}
@@ -159,10 +153,10 @@ try {
 
               {/* 轮播指示器 */}
               {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
-                <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                  <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 active"></div>
+                <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+                  <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
                   {member.images.filter(imageItem => !imageItem.is_default).map((_) => (
-                    <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60"></div>
+                    <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
                   ))}
                 </div>
               )}
@@ -178,7 +172,7 @@ try {
           <div class="space-y-1">
             <!-- 標題和評分 -->
             <div class="flex items-start justify-between">
-              <h3 class="text-base font-semibold text-black leading-tight line-clamp-1 flex-1 mr-2">
+              <h3 class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2" style="color: var(--theme-text)">
                 {member.title}
               </h3>
             </div>
@@ -191,21 +185,15 @@ try {
     <div class="sm:hidden">
       <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
         {teamMembers.map((member) => (
-          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[480px]">
+          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-80">
             <!-- 圖片容器 -->
-            <div class="relative w-[480px] h-[480px] rounded-xl overflow-hidden mb-4">
-              <!-- 愛心收藏按鈕 -->
-              <button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">
-                <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
-              </button>
+            <div class="relative w-80 h-80 rounded-xl overflow-hidden mb-4">
 
               <!-- 團隊成員照片轮播 -->
-              <div class="carousel-container relative w-full h-full" data-member-id={`${member.title}-mobile`}>
-                <div class="carousel-images absolute inset-0">
+              <div class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden" data-member-id={`${member.title}-mobile`}>
+                <div class="carousel-images absolute inset-0 backface-visibility-hidden">
                   {/* 主图片 */}
-                  <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500">
+                  <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
                     <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
                     <img
                       src={member.image?.desktop || member.cover?.desktop}
@@ -221,7 +209,7 @@ try {
                   {member.images && member.images.length > 0 && member.images
                     .filter(imageItem => !imageItem.is_default)
                     .map((imageItem, imgIndex) => (
-                    <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500">
+                    <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
                       <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
                       <img
                         src={imageItem.image.desktop}
@@ -237,10 +225,10 @@ try {
 
                 {/* 轮播指示器 */}
                 {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
-                  <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                    <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 active"></div>
+                  <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+                    <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
                     {member.images.filter(imageItem => !imageItem.is_default).map(() => (
-                      <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60"></div>
+                      <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
                     ))}
                   </div>
                 )}
@@ -256,7 +244,7 @@ try {
             <div class="space-y-1">
               <!-- 標題和評分 -->
               <div class="flex items-start justify-between">
-                <h3 class="text-base font-semibold text-black leading-tight line-clamp-1 flex-1 mr-2">
+                <h3 class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2" style="color: var(--theme-text)">
                   {member.title}
                 </h3>
               </div>
@@ -269,7 +257,10 @@ try {
 
   <!-- 查看更多按鈕 -->
   <div class="mt-12 max-w-7xl mx-auto w-full">
-    <button class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200" style="border-color: var(--theme-text); color: var(--theme-text);" onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');" onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
+    <button class="px-6 py-3 border rounded-lg font-medium transition-all duration-200 hover:scale-105" 
+            style="border-color: var(--theme-text); color: var(--theme-text); background-color: transparent;" 
+            onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');" 
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
       顯示更多團隊成員
     </button>
   </div>
@@ -395,36 +386,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-  /* 轮播容器样式 */
-  .carousel-container {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .carousel-slide {
-    transition: opacity 0.5s ease-in-out;
-  }
-
-  .carousel-dots {
-    z-index: 10;
-  }
-
-  .carousel-dot {
-    transition: all 0.2s ease;
-  }
-
-  .carousel-dot:hover {
-    transform: scale(1.2);
+  .backface-visibility-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .carousel-dot.active {
     background-color: rgba(255, 255, 255, 0.8) !important;
     transform: scale(1.1);
-  }
-
-  /* 防止轮播时的闪烁 */
-  .carousel-images {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
 </style>
