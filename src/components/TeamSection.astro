@@ -115,7 +115,7 @@ try {
       {teamMembers.map((member) => (
         <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
           <!-- 圖片容器 -->
-          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4">
+          <div class="relative w-[400px] h-[400px] rounded-xl overflow-hidden mb-4">
             <!-- 愛心收藏按鈕 -->
             <!--<button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">-->
             <!--  <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">-->
@@ -138,7 +138,7 @@ try {
                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </picture>
-                
+
                 {/* 轮播图片 - 排除is_default=true的图片 */}
                 {member.images && member.images.length > 0 && member.images
                   .filter(imageItem => !imageItem.is_default)
@@ -156,7 +156,7 @@ try {
                   </picture>
                 ))}
               </div>
-              
+
               {/* 轮播指示器 */}
               {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
                 <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
@@ -191,9 +191,9 @@ try {
     <div class="sm:hidden">
       <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
         {teamMembers.map((member) => (
-          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px]">
+          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[480px]">
             <!-- 圖片容器 -->
-            <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4">
+            <div class="relative w-[480px] h-[480px] rounded-xl overflow-hidden mb-4">
               <!-- 愛心收藏按鈕 -->
               <button class="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center">
                 <svg class="w-5 h-5 fill-none stroke-white stroke-2 drop-shadow-lg hover:fill-white transition-all duration-200" viewBox="0 0 24 24">
@@ -216,7 +216,7 @@ try {
                       class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </picture>
-                  
+
                   {/* 轮播图片 - 排除is_default=true的图片 */}
                   {member.images && member.images.length > 0 && member.images
                     .filter(imageItem => !imageItem.is_default)
@@ -234,7 +234,7 @@ try {
                     </picture>
                   ))}
                 </div>
-                
+
                 {/* 轮播指示器 */}
                 {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
                   <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
@@ -280,59 +280,59 @@ try {
 document.addEventListener('DOMContentLoaded', function() {
   // 初始化所有轮播容器
   const carouselContainers = document.querySelectorAll('.carousel-container');
-  
+
   carouselContainers.forEach(container => {
     const slides = container.querySelectorAll('.carousel-slide');
     const dots = container.querySelectorAll('.carousel-dot');
-    
+
     if (slides.length <= 1) return; // 只有一张图片时不需要轮播
-    
+
     let currentSlide = 0;
     let autoSlideTimer: NodeJS.Timeout | null = null;
-    
+
     // 显示指定的幻灯片
     function showSlide(index: number) {
       // 隐藏所有幻灯片
       slides.forEach(slide => {
         (slide as HTMLElement).style.opacity = '0';
       });
-      
+
       // 重置所有指示器
       dots.forEach(dot => {
         dot.classList.remove('active');
         (dot as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
       });
-      
+
       // 显示当前幻灯片
       if (slides[index]) {
         (slides[index] as HTMLElement).style.opacity = '1';
       }
-      
+
       // 激活当前指示器
       if (dots[index]) {
         dots[index].classList.add('active');
         (dots[index] as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
       }
     }
-    
+
     // 下一张幻灯片
     function nextSlide() {
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
     }
-    
+
     // 自动轮播
     function startAutoSlide() {
       autoSlideTimer = setInterval(nextSlide, 3000); // 每3秒切换
     }
-    
+
     function stopAutoSlide() {
       if (autoSlideTimer) {
         clearInterval(autoSlideTimer);
         autoSlideTimer = null;
       }
     }
-    
+
     // 指示器点击事件
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
@@ -342,34 +342,34 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoSlide(); // 重新开始自动轮播
       });
     });
-    
+
     // 鼠标悬停时暂停轮播
     container.addEventListener('mouseenter', stopAutoSlide);
     container.addEventListener('mouseleave', startAutoSlide);
-    
+
     // 触摸事件支持（移动设备）
     let startX = 0;
     let isDragging = false;
-    
+
     container.addEventListener('touchstart', (e) => {
       const touchEvent = e as TouchEvent;
       startX = touchEvent.touches[0].clientX;
       isDragging = true;
       stopAutoSlide();
     });
-    
+
     container.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
       e.preventDefault();
     });
-    
+
     container.addEventListener('touchend', (e) => {
       if (!isDragging) return;
-      
+
       const touchEvent = e as TouchEvent;
       const endX = touchEvent.changedTouches[0].clientX;
       const diffX = startX - endX;
-      
+
       if (Math.abs(diffX) > 50) { // 最小滑动距离
         if (diffX > 0) {
           // 向左滑动，下一张
@@ -380,14 +380,14 @@ document.addEventListener('DOMContentLoaded', function() {
           showSlide(currentSlide);
         }
       }
-      
+
       isDragging = false;
       startAutoSlide();
     });
-    
+
     // 初始化显示第一张幻灯片
     showSlide(0);
-    
+
     // 开始自动轮播
     startAutoSlide();
   });
@@ -400,28 +400,28 @@ document.addEventListener('DOMContentLoaded', function() {
     position: relative;
     overflow: hidden;
   }
-  
+
   .carousel-slide {
     transition: opacity 0.5s ease-in-out;
   }
-  
+
   .carousel-dots {
     z-index: 10;
   }
-  
+
   .carousel-dot {
     transition: all 0.2s ease;
   }
-  
+
   .carousel-dot:hover {
     transform: scale(1.2);
   }
-  
+
   .carousel-dot.active {
     background-color: rgba(255, 255, 255, 0.8) !important;
     transform: scale(1.1);
   }
-  
+
   /* 防止轮播时的闪烁 */
   .carousel-images {
     backface-visibility: hidden;
