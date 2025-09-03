@@ -63,11 +63,9 @@ const t = createAstroT(Astro)
 
   <!-- Circular Rotating Scroll Indicator - Right Side -->
   <div class="absolute right-8 bottom-8 z-10 animate-fade-in-up [animation-delay:1s] [animation-fill-mode:both]">
-    <div class="relative w-32 h-32 rotating-circle">
+    <div class="circle relative" style="width: 200px; height: 200px;">
       <!-- Circular Text -->
-      <div class="circle-text absolute inset-0 w-full h-full">
-        <span data-i18n="hero.scroll" class="text-xs tracking-[0.2em] uppercase font-light text-white/60">{t('hero.scroll')}</span>
-      </div>
+      <div class="text absolute w-full h-full">SCROLL TO EXPLORE</div>
       
       <!-- Center Arrow -->
       <div class="absolute inset-0 flex items-center justify-center">
@@ -102,85 +100,85 @@ const t = createAstroT(Astro)
   }
 
   /* Circular rotating text */
-  @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
+  @keyframes textRotation {
     to {
       transform: rotate(360deg);
     }
   }
 
-  .rotating-circle {
-    animation: rotate 20s linear infinite;
+  .circle {
+    position: relative;
+    border-radius: 100vmax;
   }
 
-  .circle-text {
-    position: relative;
-  }
-
-  .circle-text span {
-    position: relative;
-    display: block;
+  .text {
+    position: absolute;
     width: 100%;
     height: 100%;
+    font-family: consolas, monospace;
+    color: rgba(255,255,255,0.6);
+    font-size: 17px;
+    animation: textRotation 8s linear infinite;
   }
 
-  .circle-text .char {
+  .text span {
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform-origin: 0 -50px; /* Radius of the circle */
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.6);
+    font-size: 1.2em;
+    transform-origin: 0 100px;
+  }
+
+  /* Slower pulse animation */
+  @keyframes slowPulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .animate-slow-pulse {
+    animation: slowPulse 3s ease-in-out infinite;
   }
 </style>
 
 <script>
-  // 創建圓形文字效果
+  // 創建圓形文字效果 - 使用 YouTube 範例的方法
   document.addEventListener('DOMContentLoaded', () => {
-    const circleText = document.querySelector('.circle-text span') as HTMLElement
-    if (circleText) {
-      const text = circleText.textContent || ''
-      const chars = text.split('')
-      
-      // 清空原始文字
-      circleText.innerHTML = ''
-      
-      // 過濾掉空格，只計算實際字符
-      const validChars = chars.filter(char => char !== ' ')
-      let charIndex = 0
-      
-      // 為每個字符創建元素並定位
-      chars.forEach((char, index) => {
-        if (char === ' ') {
-          // 跳過空格
-          return
-        }
-        
-        const charElement = document.createElement('span')
-        charElement.textContent = char
-        charElement.className = 'char'
-        
-        // 計算每個字符的旋轉角度，基於有效字符數量
-        const angle = (360 / validChars.length) * charIndex
-        charElement.style.transform = `rotate(${angle}deg) translateY(-50%)`
-        
-        circleText.appendChild(charElement)
-        charIndex++
-      })
+    const text = document.querySelector('.text') as HTMLElement
+    if (text) {
+      text.innerHTML = text.innerText
+        .split("")
+        .map((char, i) => `<span style="transform:rotate(${i * 10.3}deg)">${char}</span>`)
+        .join("")
     }
 
-    // 滾動時改變文字顏色
+    // 滾動時改變文字顏色和漸層效果
     const heroTitle = document.querySelector('h1') as HTMLElement
     if (heroTitle) {
       window.addEventListener('scroll', () => {
         const scrollY = window.scrollY
-        if (scrollY > 100) {
-          heroTitle.style.color = 'var(--theme-text-primary, #D7AE54)'
+        if (scrollY > 0) {
+          // 添加漸層效果
+          heroTitle.style.background = 'linear-gradient(135deg, #D7AE54, #c4956c, #b8845a)'
+          heroTitle.style.webkitBackgroundClip = 'text'
+          heroTitle.style.backgroundClip = 'text'
+          heroTitle.style.webkitTextFillColor = 'transparent'
+          heroTitle.style.color = 'transparent'
+          
+          // 添加慢脈衝動畫
+          heroTitle.classList.add('animate-slow-pulse')
         } else {
+          // 恢復原始顏色
+          heroTitle.style.background = 'none'
+          heroTitle.style.webkitBackgroundClip = 'initial'
+          heroTitle.style.backgroundClip = 'initial'
+          heroTitle.style.webkitTextFillColor = 'initial'
           heroTitle.style.color = 'var(--theme-text, #ffffff)'
+          
+          // 移除慢脈衝動畫
+          heroTitle.classList.remove('animate-slow-pulse')
         }
       })
     }
