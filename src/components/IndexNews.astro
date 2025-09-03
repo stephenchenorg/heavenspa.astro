@@ -83,6 +83,7 @@ try {
     query MyQuery {
       articles(is_newest:true, sort_by: "asc", sort_column: "sort") {
         data {
+          id
           cover {
             desktop
             desktop_blur
@@ -118,13 +119,19 @@ try {
   if (apiArticles.length > 0) {
     articles = apiArticles;
   } else {
-    // 沒有資料時使用假資料
-    articles = articlesSeeder;
+    // 沒有資料時使用假資料，並為其添加唯一 ID
+    articles = articlesSeeder.map((article, index) => ({
+      ...article,
+      id: index + 1
+    }));
   }
 } catch (error) {
   console.error('Failed to fetch team data:', error)
-  // 如果 API 失敗，提供預設資料
-  articles = articlesSeeder
+  // 如果 API 失敗，提供預設資料，並為其添加唯一 ID
+  articles = articlesSeeder.map((article, index) => ({
+    ...article,
+    id: index + 1
+  }))
 }
 ---
 
@@ -141,7 +148,7 @@ try {
         <div class="hidden sm:grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 gap-6 lg:gap-5 md:gap-6">
           {articles.map((article) => (
             <!-- Card -->
-            <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative">
+            <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative" onclick={`window.location.href='/news/${article.id}'`}>
         <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 ">
           <!-- Background Image -->
           <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${article.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}></div>
@@ -190,10 +197,10 @@ try {
 
           <!-- VIEW MORE Button Overlay -->
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg">
+            <div class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
               <span>VIEW MORE</span>
               <span>→</span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
@@ -205,7 +212,7 @@ try {
       <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
         {articles.map((article) => (
         <!-- Mobile Card -->
-        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px] relative">
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px] relative" onclick={`window.location.href='/news/${article.id}'`}>
           <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-amber-100 to-amber-200">
           <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${article.cover?.mobile || article.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}></div>
             <!-- Base Overlay for better text readability -->
@@ -252,10 +259,10 @@ try {
 
             <!-- Mobile VIEW MORE Button Overlay -->
             <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg">
+              <div class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
                 <span>VIEW MORE</span>
                 <span>→</span>
-              </button>
+              </div>
             </div>
           </div>
         </div>
