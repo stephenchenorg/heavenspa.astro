@@ -30,6 +30,7 @@ export interface TeamCategory {
 }
 
 export interface TeamMember {
+  id: number
   title: string
   category: TeamCategory
   cover: TeamCover
@@ -51,6 +52,7 @@ try {
     query MyQuery {
       teams(sort_by: "asc", sort_column: "sort") {
         data {
+          id
           images {
             created_at
             id
@@ -84,6 +86,7 @@ try {
   // 如果 API 失敗，提供預設資料
   teamMembers = [
     {
+      id: 1,
       title: '專業團隊',
       category: { title: '服務專員' },
       cover: {
@@ -113,7 +116,7 @@ try {
     <!-- 桌面和平板：網格布局 -->
     <div class="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
       {teamMembers.map((member) => (
-        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2">
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2" onclick={`window.location.href='/team/${member.id}'`}>
           <!-- 圖片容器 -->
           <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
 
@@ -185,7 +188,7 @@ try {
     <div class="sm:hidden">
       <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
         {teamMembers.map((member) => (
-          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-80">
+          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-80" onclick={`window.location.href='/team/${member.id}'`}>
             <!-- 圖片容器 -->
             <div class="relative w-80 h-80 rounded-xl overflow-hidden mb-4">
 
@@ -257,9 +260,9 @@ try {
 
   <!-- 查看更多按鈕 -->
   <div class="mt-12 max-w-7xl mx-auto w-full">
-    <button class="px-6 py-3 border rounded-lg font-medium transition-all duration-200 hover:scale-105" 
-            style="border-color: var(--theme-text); color: var(--theme-text); background-color: transparent;" 
-            onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');" 
+    <button class="px-6 py-3 border rounded-lg font-medium transition-all duration-200 hover:scale-105"
+            style="border-color: var(--theme-text); color: var(--theme-text); background-color: transparent;"
+            onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
             onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
       顯示更多團隊成員
     </button>

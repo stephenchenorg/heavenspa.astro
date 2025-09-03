@@ -1,0 +1,176 @@
+---
+import { seoMeta } from '@stephenchenorg/astro/page'
+import Layout from '@/layouts/Layout.astro'
+import { gql, graphQLAPI } from '@/api'
+import type { TeamMember } from '@/components/TeamSection.astro'
+
+export async function getStaticPaths() {
+  try {
+    const teamsData = await graphQLAPI(gql`
+      query MyQuery {
+        teams(sort_by: "asc", sort_column: "sort") {
+          data {
+            id
+            title
+            category {
+              title
+            }
+            images {
+              created_at
+              id
+              image {
+                desktop
+                desktop_blur
+                mobile
+                mobile_blur
+              }
+              updated_at
+              is_default
+            }
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+          }
+        }
+      }
+    `)
+
+    const teamMembers = teamsData.teams.data || []
+    
+    return teamMembers.map((member: TeamMember & { id: number }) => ({
+      params: { id: member.id.toString() },
+      props: { member }
+    }))
+  } catch (error) {
+    console.error('Failed to fetch team data for static paths:', error)
+    return []
+  }
+}
+
+const { id } = Astro.params
+const { member } = Astro.props as { member: TeamMember & { id: number } }
+
+const meta = seoMeta({
+  title: `${member.title} - ${member.category.title} | Heaven Spa`,
+  description: `了解更多關於 ${member.title} 的專業服務和經驗。`,
+})
+---
+
+<Layout meta={meta}>
+  <main class="section-container pt-32">
+    <!-- 返回按鈕 -->
+    <div class="max-w-7xl mx-auto mb-8">
+      <button 
+        onclick="history.back()" 
+        class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:scale-105"
+        style="color: var(--theme-text); border: 1px solid var(--theme-text);"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        返回
+      </button>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- 圖片區域 -->
+        <div class="space-y-6">
+          <!-- 主要圖片 -->
+          <div class="relative aspect-square rounded-2xl overflow-hidden">
+            <picture>
+              <source media="(max-width: 768px)" srcset={member.image?.mobile || ''} />
+              <img
+                src={member.image?.desktop || ''}
+                alt={member.title}
+                class="w-full h-full object-cover"
+                loading="eager"
+              />
+            </picture>
+          </div>
+
+          <!-- 圖片集合 -->
+          {member.images && member.images.length > 0 && (
+            <div class="grid grid-cols-2 gap-4">
+              {member.images
+                .filter(imageItem => !imageItem.is_default)
+                .slice(0, 4)
+                .map((imageItem, index) => (
+                <div class="relative aspect-square rounded-xl overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300">
+                  <picture>
+                    <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
+                    <img
+                      src={imageItem.image.desktop}
+                      alt={`${member.title} - Image ${index + 1}`}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </picture>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- 資訊區域 -->
+        <div class="space-y-8">
+          <!-- 標題與類別 -->
+          <div class="space-y-4">
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
+              ⭐ {member.category.title}
+            </div>
+            <h1 class="text-4xl font-bold leading-tight" style="color: var(--theme-text)">
+              {member.title}
+            </h1>
+          </div>
+
+          <!-- 專業介紹 -->
+          <div class="space-y-6">
+            <div class="prose prose-lg" style="color: var(--theme-text-secondary)">
+              <h3 class="text-xl font-semibold mb-4" style="color: var(--theme-text)">專業服務</h3>
+              <p>
+                {member.title} 是我們專業的 {member.category.title}，擁有豐富的經驗和專業技能。
+                致力於為每位客戶提供最優質的服務體驗。
+              </p>
+              
+              <h3 class="text-xl font-semibold mb-4 mt-8" style="color: var(--theme-text)">服務特色</h3>
+              <ul class="space-y-2">
+                <li>• 專業認證的服務技術</li>
+                <li>• 個人化的服務方案</li>
+                <li>• 豐富的實務經驗</li>
+                <li>• 持續的專業進修</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 預約按鈕 -->
+          <div class="pt-6">
+            <a 
+              href="/booking" 
+              class="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-white font-medium rounded-full hover:bg-primary-600 hover:-translate-y-0.5 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              立即預約 {member.title} 的服務
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // 圖片點擊放大功能
+  document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.grid img');
+    
+    images.forEach(img => {
+      img.addEventListener('click', function() {
+        // 可以添加圖片放大功能
+        console.log('Image clicked:', this.src);
+      });
+    });
+  });
+</script>
