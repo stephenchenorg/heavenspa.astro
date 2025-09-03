@@ -1,5 +1,8 @@
 ---
 // HeroBanner component
+import {createAstroT} from '@/utils/astro-i18n'
+
+const t = createAstroT(Astro)
 ---
 
 <!-- Dark Modern Portfolio Hero Section -->
@@ -63,7 +66,7 @@
     <div class="relative w-32 h-32 rotating-circle">
       <!-- Circular Text -->
       <div class="circle-text absolute inset-0 w-full h-full">
-        <span data-i18n="hero.scroll" class="text-xs tracking-[0.2em] uppercase font-light text-white/60">SCROLL TO EXPLORE</span>
+        <span data-i18n="hero.scroll" class="text-xs tracking-[0.2em] uppercase font-light text-white/60">{t('hero.scroll')}</span>
       </div>
       
       <!-- Center Arrow -->
@@ -126,9 +129,11 @@
   .circle-text .char {
     position: absolute;
     left: 50%;
-    transform-origin: 0 64px; /* Half of container width/height + some padding */
-    font-size: 11px;
+    top: 50%;
+    transform-origin: 0 -50px; /* Radius of the circle */
+    font-size: 10px;
     letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.6);
   }
 </style>
 
@@ -143,10 +148,14 @@
       // 清空原始文字
       circleText.innerHTML = ''
       
+      // 過濾掉空格，只計算實際字符
+      const validChars = chars.filter(char => char !== ' ')
+      let charIndex = 0
+      
       // 為每個字符創建元素並定位
       chars.forEach((char, index) => {
         if (char === ' ') {
-          // 跳過空格，但在角度計算中保留位置
+          // 跳過空格
           return
         }
         
@@ -154,11 +163,12 @@
         charElement.textContent = char
         charElement.className = 'char'
         
-        // 計算每個字符的旋轉角度
-        const angle = (360 / chars.length) * index
-        charElement.style.transform = `rotate(${angle}deg)`
+        // 計算每個字符的旋轉角度，基於有效字符數量
+        const angle = (360 / validChars.length) * charIndex
+        charElement.style.transform = `rotate(${angle}deg) translateY(-50%)`
         
         circleText.appendChild(charElement)
+        charIndex++
       })
     }
 
