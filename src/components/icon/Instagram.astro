@@ -8,19 +8,42 @@ const {
 } = Astro.props
 ---
 
-<div class="w-full h-full rounded-lg relative" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); display: block !important;">
-  <svg
-    class={`absolute inset-0 w-full h-full ${className}`}
-    xmlns="http://www.w3.org/2000/svg"
-    aria-label="Instagram"
-    role="img"
-    viewBox="0 0 512 512"
-    style="display: block !important;"
-  >
-    <g fill="none" stroke="#ffffff" stroke-width="30">
-      <rect width="308" height="308" x="102" y="102" rx="81" />
-      <circle cx="256" cy="256" r="72" />
-      <circle cx="347" cy="165" r="6" />
-    </g>
-  </svg>
-</div>
+<svg
+  class={`theme-icon ${className}`}
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Instagram"
+  role="img"
+  viewBox="0 0 512 512"
+  fill="currentColor"
+  width="24"
+  height="24"
+>
+  <g fill="none" stroke="currentColor" stroke-width="30">
+    <rect width="308" height="308" x="102" y="102" rx="81" />
+    <circle cx="256" cy="256" r="72" />
+    <circle cx="347" cy="165" r="6" />
+  </g>
+</svg>
+
+<style>
+  .theme-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    color: var(--theme-text, #000000);
+    transition: color 0.3s ease;
+  }
+
+  .dark .theme-icon,
+  .dark-theme .theme-icon,
+  [data-theme="dark"] .theme-icon {
+    color: var(--theme-text, #ffffff);
+  }
+
+  .theme-icon:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+  }
+</style>
