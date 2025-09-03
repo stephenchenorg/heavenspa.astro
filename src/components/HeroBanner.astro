@@ -171,13 +171,13 @@ const t = createAstroT(Astro)
 <script>
   // 創建圓形文字效果
   document.addEventListener('DOMContentLoaded', () => {
-    const text = document.querySelector(".text p");
+    const text = document.querySelector<HTMLElement>(".text p");
     if (text) {
       const textContent = text.innerText;
       text.innerHTML = textContent
         .split("")
         .map(
-          (char, i) => `<span style="transform:rotate(${i * 10.3}deg)">${char}</span>`
+          (char: string, i: number) => `<span style="transform:rotate(${i * 10.3}deg)">${char}</span>`
         )
         .join("");
     }

@@ -207,73 +207,79 @@ const faqCategories = {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const faqCategories = document.querySelectorAll('.faq-category');
-  const faqQuestions = document.querySelectorAll('.faq-question');
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-button');
+  const faqCategories = document.querySelectorAll<HTMLElement>('.faq-category');
+  const faqQuestions = document.querySelectorAll<HTMLButtonElement>('.faq-question');
 
   // Initialize first tab as active
   if (tabButtons.length > 0 && faqCategories.length > 0) {
-    tabButtons[0].classList.add('active');
-    faqCategories[0].style.display = 'block';
+    tabButtons[0]?.classList.add('active');
+    if (faqCategories[0]) {
+      (faqCategories[0] as HTMLElement).style.display = 'block';
+    }
   }
 
   // Tab switching functionality
-  tabButtons.forEach(button => {
-    button.addEventListener('click', function() {
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', function(this: HTMLButtonElement) {
       const targetTab = this.getAttribute('data-tab');
 
       // Remove active class from all tabs
-      tabButtons.forEach(btn => {
+      tabButtons.forEach((btn) => {
         btn.classList.remove('active');
-        btn.style.backgroundColor = 'transparent';
-        btn.style.color = 'var(--theme-text)';
+        (btn as HTMLElement).style.backgroundColor = 'transparent';
+        (btn as HTMLElement).style.color = 'var(--theme-text)';
       });
 
       // Add active class to clicked tab
       this.classList.add('active');
-      this.style.backgroundColor = 'var(--color-primary-500)';
-      this.style.color = 'white';
+      (this as HTMLElement).style.backgroundColor = 'var(--color-primary-500)';
+      (this as HTMLElement).style.color = 'white';
 
       // Hide all FAQ categories
-      faqCategories.forEach(category => {
-        category.style.display = 'none';
+      faqCategories.forEach((category) => {
+        (category as HTMLElement).style.display = 'none';
       });
 
       // Show target category
-      const targetCategory = document.querySelector(`[data-category="${targetTab}"]`);
+      const targetCategory = document.querySelector<HTMLElement>(`[data-category="${targetTab}"]`);
       if (targetCategory) {
         targetCategory.style.display = 'block';
       }
 
       // Reset all FAQ accordions when switching tabs
-      const allAnswers = document.querySelectorAll('.faq-answer');
-      const allIcons = document.querySelectorAll('.faq-icon');
-      const allQuestionButtons = document.querySelectorAll('.faq-question');
+      const allAnswers = document.querySelectorAll<HTMLElement>('.faq-answer');
+      const allIcons = document.querySelectorAll<HTMLElement>('.faq-icon');
+      const allQuestionButtons = document.querySelectorAll<HTMLButtonElement>('.faq-question');
 
-      allQuestionButtons.forEach(q => q.setAttribute('aria-expanded', 'false'));
-      allAnswers.forEach(answer => answer.style.maxHeight = '0px');
-      allIcons.forEach(icon => icon.style.transform = 'rotate(0deg)');
+      allQuestionButtons.forEach((q) => q.setAttribute('aria-expanded', 'false'));
+      allAnswers.forEach((answer) => {
+        (answer as HTMLElement).style.maxHeight = '0px';
+      });
+      allIcons.forEach((icon) => {
+        (icon as HTMLElement).style.transform = 'rotate(0deg)';
+      });
     });
   });
 
   // FAQ accordion functionality
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', function() {
+  faqQuestions.forEach((question) => {
+    question.addEventListener('click', function(this: HTMLButtonElement) {
       const faqId = this.getAttribute('data-faq-id');
-      const faqAnswer = document.querySelector(`[data-faq-content="${faqId}"]`);
-      const faqIcon = this.querySelector('.faq-icon');
+      const faqAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${faqId}"]`);
+      const faqIcon = this.querySelector<HTMLElement>('.faq-icon');
       const isExpanded = this.getAttribute('aria-expanded') === 'true';
 
       // Get current category's questions only
-      const currentCategory = this.closest('.faq-category');
-      const currentCategoryQuestions = currentCategory.querySelectorAll('.faq-question');
+      const currentCategory = this.closest<HTMLElement>('.faq-category');
+      const currentCategoryQuestions = currentCategory?.querySelectorAll<HTMLButtonElement>('.faq-question');
 
       // Close all other FAQ items in current category
-      currentCategoryQuestions.forEach(otherQuestion => {
+      currentCategoryQuestions?.forEach((otherQuestion: HTMLButtonElement) => {
         if (otherQuestion !== this) {
           const otherFaqId = otherQuestion.getAttribute('data-faq-id');
-          const otherAnswer = document.querySelector(`[data-faq-content="${otherFaqId}"]`);
-          const otherIcon = otherQuestion.querySelector('.faq-icon');
+          const otherAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${otherFaqId}"]`);
+          const otherIcon = otherQuestion.querySelector<HTMLElement>('.faq-icon');
 
           otherQuestion.setAttribute('aria-expanded', 'false');
           if (otherAnswer) {
