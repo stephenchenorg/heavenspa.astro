@@ -189,12 +189,12 @@ const t = createAstroT(Astro)
       window.addEventListener('scroll', () => {
         const scrollY = window.scrollY
         if (scrollY > 0) {
-          // 添加漸層效果
-          heroTitle.style.background = 'linear-gradient(135deg, #D7AE54, #c4956c, #b8845a)'
-          heroTitle.style.webkitBackgroundClip = 'text'
-          heroTitle.style.backgroundClip = 'text'
-          heroTitle.style.webkitTextFillColor = 'transparent'
-          heroTitle.style.color = 'transparent'
+          // 使用 text-primary-600 顏色
+          heroTitle.style.background = 'none'
+          heroTitle.style.webkitBackgroundClip = 'initial'
+          heroTitle.style.backgroundClip = 'initial'
+          heroTitle.style.webkitTextFillColor = 'initial'
+          heroTitle.style.color = 'rgb(217, 174, 84)' // text-primary-600 equivalent
 
           // 添加慢脈衝動畫
           heroTitle.classList.add('animate-slow-pulse')

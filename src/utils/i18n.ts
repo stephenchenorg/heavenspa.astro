@@ -11,7 +11,7 @@ export const translations = {
       home: '首頁',
       news: '最新消息',
       courses: '服務項目',
-      team: '我們的團隊',
+      team: '服務團隊',
       products: '精油產品',
       guide: '顧客須知',
       faq: '常見問題',
