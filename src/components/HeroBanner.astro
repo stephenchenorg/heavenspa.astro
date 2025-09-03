@@ -70,15 +70,17 @@ const t = createAstroT(Astro)
 
   <!-- Circular Rotating Scroll Indicator - Right Side -->
   <div class="absolute right-8 bottom-8 z-10 animate-fade-in-up [animation-delay:1s] [animation-fill-mode:both]">
-    <div class="circle relative" style="width: 200px; height: 200px;">
-      <!-- Circular Text -->
-      <div class="text absolute w-full h-full" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">SCROLL TO EXPLORE</div>
-
-      <!-- Center Arrow -->
-      <div class="absolute inset-0 flex items-center justify-center">
-        <svg class="w-6 h-6 text-white/80 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="circle">
+      <!-- Center Logo/Arrow -->
+      <div class="logo">
+        <svg class="w-6 h-6 text-white/80 animate-bounce absolute inset-0 m-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
         </svg>
+      </div>
+      
+      <!-- Circular Text -->
+      <div class="text">
+        <p>SCROLL TO EXPLORE - </p>
       </div>
     </div>
   </div>
@@ -115,14 +117,32 @@ const t = createAstroT(Astro)
 
   .circle {
     position: relative;
+    width: 200px;
+    height: 200px;
     border-radius: 100vmax;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100vmax;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .text {
     position: absolute;
     width: 100%;
     height: 100%;
-    font-family: consolas, monospace;
+    font-family: consolas;
+    color: var(--theme-text-secondary, rgba(255,255,255,0.8));
     font-size: 17px;
     animation: textRotation 8s linear infinite;
   }
@@ -150,14 +170,17 @@ const t = createAstroT(Astro)
 </style>
 
 <script>
-  // 創建圓形文字效果 - 使用 YouTube 範例的方法
+  // 創建圓形文字效果
   document.addEventListener('DOMContentLoaded', () => {
-    const text = document.querySelector('.text') as HTMLElement
+    const text = document.querySelector(".text p");
     if (text) {
-      text.innerHTML = text.innerText
+      const textContent = text.innerText;
+      text.innerHTML = textContent
         .split("")
-        .map((char, i) => `<span style="transform:rotate(${i * 10.3}deg)">${char}</span>`)
-        .join("")
+        .map(
+          (char, i) => `<span style="transform:rotate(${i * 10.3}deg)">${char}</span>`
+        )
+        .join("");
     }
 
     // 滾動時改變文字顏色和漸層效果
