@@ -133,12 +133,12 @@ try {
   <SectionTitle title="課程介紹" subtitle="COURSE"/>
 
   <!-- Course Content -->
-  <div class="max-w-7xl mx-auto px-4">
+  <div class="max-w-7xl mx-auto px-4 h-[480px]">
     <div class="relative">
 
       <!-- Right Content - Image (Background) -->
-      <div class="lg:ml-[480px]">
-        <div class="relative h-[400px] lg:h-[600px] overflow-hidden rounded-3xl shadow-2xl">
+      <div class="lg:ml-[240px]">
+        <div class="relative h-[320px] lg:h-[480px] lg:max-w-[640px] overflow-hidden rounded-3xl shadow-2xl">
           <img
             src={courses[0]?.cover?.desktop || "https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg"}
             alt={courses[0]?.subtitle || "課程介紹"}
@@ -150,9 +150,9 @@ try {
       </div>
 
       <!-- Left Content - Course Card (Overlapping) -->
-      <div class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:z-10 mt-8 lg:mt-0 lg:w-[640px]">
+      <div class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:z-10 mt-8 lg:mt-0 w-[520px]">
         <div
-          class="bg-primary-600/80 backdrop-blur-sm rounded-3xl p-6 lg:p-8 text-center shadow-xl lg:h-[420px] flex flex-col justify-center">
+          class="bg-primary-600/80 backdrop-blur-sm rounded-3xl p-4 lg:p-6 text-center shadow-xl lg:h-[210px] flex flex-col justify-center">
           <!-- Course Cards Container -->
           <div class="relative overflow-hidden">
             <div class="flex transition-transform duration-500 ease-in-out" id="course-cards-container">
