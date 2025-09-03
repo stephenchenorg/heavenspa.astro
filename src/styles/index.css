@@ -101,7 +101,7 @@
   --theme-border: #f0f0f0;
   --theme-card-bg: #ffffff;
   --theme-hover-bg: #f8f9fa;
-  
+
   /* Mobile Menu Theme Variables */
   --theme-mobile-menu-bg: rgba(255, 255, 255, 0.95);
   --theme-mobile-menu-bg-gradient: linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.90));
@@ -121,7 +121,7 @@
   --theme-border: #333333;
   --theme-card-bg: #111111;
   --theme-hover-bg: #1a1a1a;
-  
+
   /* Mobile Menu Dark Theme Variables */
   --theme-mobile-menu-bg: rgba(0, 0, 0, 0.95);
   --theme-mobile-menu-bg-gradient: linear-gradient(to bottom right, rgba(0, 0, 0, 0.95), rgba(17, 17, 17, 0.90));
@@ -130,7 +130,7 @@
   --theme-mobile-nav-indicator: #D7AE54;
   --theme-mobile-section-bg: rgba(212, 175, 55, 0.1);
   --theme-mobile-section-border: rgba(212, 175, 55, 0.25);
-  
+
   /* Invert neutral colors for dark mode */
   --color-neutral-0: #000000;
   --color-neutral-50: #0a0a0a;
@@ -150,11 +150,11 @@
   .nav-item {
     @apply text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-transparent border-none cursor-pointer py-2 px-0.5 relative;
   }
-  
+
   .nav-underline {
     @apply absolute w-0 h-0.5 -bottom-0.5 left-0 bg-white transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)];
   }
-  
+
   .nav-item:hover .nav-underline,
   .nav-item.active .nav-underline {
     @apply w-full;
@@ -164,7 +164,7 @@
   .btn-primary {
     @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center bg-primary-500 text-white shadow-[2px_2px_5px_rgba(0,0,0,0.2)] backdrop-blur-[10px] opacity-80 hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
   }
-  
+
   .btn-secondary {
     @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center bg-white/90 text-[#2d3436] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
   }
@@ -177,7 +177,7 @@
   .mobile-nav-item {
     @apply block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-l-transparent transition-all duration-300 ease-in-out relative;
   }
-  
+
   .mobile-nav-item:hover {
     @apply pl-8;
     background-color: color-mix(in srgb, var(--color-primary-600) 10%, transparent);
@@ -189,7 +189,7 @@
     @apply absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full opacity-0 transition-all duration-300 ease-in-out;
     background-color: var(--color-secondary-500);
   }
-  
+
   .mobile-nav-item:hover .mobile-nav-indicator,
   .mobile-nav-item.active .mobile-nav-indicator {
     @apply opacity-100;
@@ -208,7 +208,7 @@
   .language-option {
     @apply block w-full py-3 px-4 border-none bg-transparent text-left cursor-pointer text-gray-700 text-sm transition-all duration-200 ease-linear border-l-[3px] border-l-transparent;
   }
-  
+
   .language-option:hover {
     @apply pl-5;
     background-color: color-mix(in srgb, var(--color-primary-600) 10%, transparent);
@@ -221,7 +221,7 @@
 
   /* Section Layout Pattern */
   .section-container {
-    @apply relative z-10 w-full min-h-screen flex flex-col justify-center pt-16 pb-4 px-6 lg:px-20 md:px-8 sm:px-6;
+    @apply relative z-10 w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16;
     background: var(--theme-bg, #ffffff);
     color: var(--theme-text, #000000);
   }
