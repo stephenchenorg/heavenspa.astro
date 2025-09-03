@@ -56,7 +56,10 @@ const t = createAstroT(Astro)
         <span class="text-xs tracking-wider">IG</span>
       </a>
       <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
-        <span class="text-xs tracking-wider">LI</span>
+        <span class="text-xs tracking-wider">Line</span>
+      </a>
+      <a href="#" class="text-white/40 hover:text-white transition-colors duration-300">
+        <span class="text-xs tracking-wider">Twitter</span>
       </a>
     </div>
   </div>
@@ -66,7 +69,7 @@ const t = createAstroT(Astro)
     <div class="circle relative" style="width: 200px; height: 200px;">
       <!-- Circular Text -->
       <div class="text absolute w-full h-full">SCROLL TO EXPLORE</div>
-      
+
       <!-- Center Arrow -->
       <div class="absolute inset-0 flex items-center justify-center">
         <svg class="w-6 h-6 text-white/80 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +169,7 @@ const t = createAstroT(Astro)
           heroTitle.style.backgroundClip = 'text'
           heroTitle.style.webkitTextFillColor = 'transparent'
           heroTitle.style.color = 'transparent'
-          
+
           // 添加慢脈衝動畫
           heroTitle.classList.add('animate-slow-pulse')
         } else {
@@ -176,7 +179,7 @@ const t = createAstroT(Astro)
           heroTitle.style.backgroundClip = 'initial'
           heroTitle.style.webkitTextFillColor = 'initial'
           heroTitle.style.color = 'var(--theme-text, #ffffff)'
-          
+
           // 移除慢脈衝動畫
           heroTitle.classList.remove('animate-slow-pulse')
         }
@@ -187,7 +190,7 @@ const t = createAstroT(Astro)
     document.addEventListener('themeChanged', (e: any) => {
       const theme = e.detail.theme
       const circleTextSpans = document.querySelectorAll('.circle-text .char')
-      
+
       circleTextSpans.forEach(span => {
         const htmlSpan = span as HTMLElement
         if (theme === 'dark') {
