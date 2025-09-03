@@ -162,11 +162,15 @@
 
   /* Button Patterns */
   .btn-primary {
-    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center bg-primary-500 text-white shadow-[2px_2px_5px_rgba(0,0,0,0.2)] backdrop-blur-[10px] opacity-80 hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
+    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center shadow-[2px_2px_5px_rgba(0,0,0,0.2)] backdrop-blur-[10px] opacity-80 hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
+    background-color: var(--color-primary-500);
+    color: var(--theme-bg);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center bg-white/90 text-[#2d3436] shadow-[2px_2px_5px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
+    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center shadow-[2px_2px_5px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
+    background-color: var(--theme-card-bg);
+    color: var(--theme-text);
   }
 
   .btn-brand {
