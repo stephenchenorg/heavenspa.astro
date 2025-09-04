@@ -14,11 +14,12 @@ export interface Banner {
 }
 
 export interface Props {
-  banner?: Banner
+  banners?: [Banner]
 }
 
-const { banner } = Astro.props
+const { banners } = Astro.props
 const t = createAstroT(Astro)
+console.log(2222, banners[0].image.desktop)
 
 const circleText = t('hero.scroll')
 const chars = circleText.split('')
@@ -27,9 +28,9 @@ const angleStep = 360 / chars.length
 
 <!-- Dark Modern Portfolio Hero Section -->
 <section
-  class="relative min-h-screen flex items-center justify-center overflow-hidden theme-section"
+  class="relative min-h-screen w-full flex items-center justify-center overflow-hidden theme-section"
   id="page-header"
-  style={`background: ${banner?.image?.desktop ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop}') center/cover no-repeat` : 'var(--theme-bg, #0a0a0a)'}`}
+  style={`background: ${banners?.[0]?.image?.desktop ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banners[0].image.desktop}') center center/cover no-repeat fixed` : 'var(--theme-bg, #0a0a0a)'}`}
 >
   <!-- Subtle texture background -->
   <div
