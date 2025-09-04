@@ -5,22 +5,35 @@ import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
-import type { CompanySetting } from '@/types'
 import { gql, graphQLAPI } from '@/api'
 
-const data: CompanySetting = await graphQLAPI(gql`
-    query myquery {
-      banners {
-        data {
-          image {
-            desktop
-            desktop_blur
-            mobile_blur
-            mobile
-          }
-        }
+const data = await graphQLAPI(gql`
+query Query {
+  courses {
+    data {
+      id
+      created_at
+      description
+      title
+      cover {
+        desktop
+        desktop_blur
+        mobile
+        mobile_blur
       }
     }
+  }
+  banners {
+    data {
+      image {
+        desktop
+        desktop_blur
+        mobile
+        mobile_blur
+      }
+    }
+  }
+}
 `)
 
 const meta = seoMeta({
@@ -30,11 +43,11 @@ const meta = seoMeta({
 
 <Layout meta={meta}>
   <!-- Hero Banner -->
-  <HeroBanner />
+  <HeroBanner banner={data.banner} />
 
   <TeamSection />
 
-  <CourseSection />
+  <CourseSection courses={data.courses} />
 
   <IndexNews />
 
