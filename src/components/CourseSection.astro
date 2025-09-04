@@ -13,9 +13,10 @@ export interface CourseCover {
 export interface Course {
   id: number
   title: string
+  subtitle: string
   description: string
-  cover: CourseCover
   created_at: string
+  cover: CourseCover
 }
 
 export interface Props {
@@ -28,54 +29,6 @@ const { courses: coursesProp } = Astro.props
 
 // 使用傳入的課程資料或預設資料
 let courses: Course[] = coursesProp?.data || [
-  {
-    id: 1,
-    title: 'combo1',
-    description: '專業的頭頸肩按摩服務，舒緩日常壓力',
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg',
-      mobile_blur: '',
-    },
-    created_at: '2024-06-01',
-  },
-  {
-    id: 2,
-    title: 'combo2',
-    description: '全方位的身心放鬆體驗',
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
-      mobile_blur: '',
-    },
-    created_at: '2024-06-02',
-  },
-  {
-    id: 3,
-    title: 'combo3',
-    description: '頂級護理與放鬆的完美結合',
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7honey-pouring-woman-s-naked-back-spa-salon.jpeg',
-      mobile_blur: '',
-    },
-    created_at: '2024-06-03',
-  },
-  {
-    id: 4,
-    title: 'combo4',
-    description: '最高級的奢華 SPA 體驗',
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
-      mobile_blur: '',
-    },
-    created_at: '2024-06-04',
-  },
 ]
 ---
 
@@ -104,7 +57,7 @@ let courses: Course[] = coursesProp?.data || [
       <!-- Left Content - Course Card (Overlapping) -->
       <div class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:z-10 mt-4 md:mt-8 lg:mt-0 w-[520px]">
         <div
-          class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-4 lg:p-6 text-center shadow-xl lg:h-[260px] flex flex-col justify-center"
+          class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-4 lg:p-6 text-center shadow-xl lg:h-[300px] flex flex-col justify-center"
         >
           <!-- Course Cards Container -->
           <div class="relative overflow-hidden">
@@ -116,10 +69,10 @@ let courses: Course[] = coursesProp?.data || [
                     <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide" data-course-title>
                       {course.title}
                     </h3>
-                    <!--<p class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed"-->
-                    <!--   data-course-subtitle>-->
-                    <!--  {course.subtitle}-->
-                    <!--</p>-->
+                    <p class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed"
+                       data-course-subtitle>
+                      {course.subtitle}
+                    </p>
 
                     <!-- CTA Button -->
                     <div class="pt-2 flex justify-center">
