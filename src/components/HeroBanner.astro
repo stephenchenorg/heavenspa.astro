@@ -45,9 +45,9 @@ const t = createAstroT(Astro)
     </div>
   </div>
 
-  <!-- Social Links - Left Side -->
-  <div class="absolute left-8 bottom-8 z-10 hidden md:block">
-    <div class="flex flex-col space-y-4">
+  <!-- Social Links - Left Side for Desktop, Left Bottom for Mobile -->
+  <div class="absolute left-4 bottom-4 md:left-8 md:bottom-8 z-10">
+    <div class="flex flex-col space-y-4 md:space-y-4 space-y-3">
       <a href="#" class="transition-colors duration-300 hover:opacity-70"
          style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
         <span class="text-xs tracking-wider">X</span>
@@ -64,23 +64,6 @@ const t = createAstroT(Astro)
          style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
         <span class="text-xs tracking-wider">Line</span>
       </a>
-    </div>
-  </div>
-
-  <!-- Circular Rotating Scroll Indicator - Right Side -->
-  <div class="absolute right-8 bottom-8 z-10 animate-fade-in-up [animation-delay:1s] [animation-fill-mode:both]">
-    <div class="circle">
-      <!-- Center Logo/Arrow -->
-      <div class="logo">
-        <svg class="w-6 h-6 text-white/80 animate-bounce absolute inset-0 m-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-        </svg>
-      </div>
-
-      <!-- Circular Text -->
-      <div class="text">
-        <p>SCROLL TO EXPLORE - </p>
-      </div>
     </div>
   </div>
 
@@ -105,66 +88,6 @@ const t = createAstroT(Astro)
 
   .animate-fade-in-up {
     animation: fadeInUp 1s ease both;
-  }
-
-  /* Circular rotating text */
-  @keyframes textRotation {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .circle {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 100vmax;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .logo {
-    position: absolute;
-    width: 140px;
-    height: 140px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 100vmax;
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .text {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    font-family: consolas;
-    color: var(--theme-text-secondary, rgba(255,255,255,0.8));
-    font-size: 17px;
-    animation: textRotation 8s linear infinite;
-  }
-
-  .text span {
-    position: absolute;
-    left: 50%;
-    font-size: 1.2em;
-    transform-origin: 0 100px;
-  }
-
-  /* Slower pulse animation */
-  @keyframes slowPulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-
-  .animate-slow-pulse {
-    animation: slowPulse 3s ease-in-out infinite;
   }
 </style>
 

@@ -46,7 +46,7 @@ const {
 ---
 
 <BaseLayout meta={meta}>
-  <div class="min-h-screen theme-aware-bg" style="background: var(--theme-bg, #0a0a0a); color: var(--theme-text, #ffffff);">
+  <div class="w-full" style="background: var(--theme-bg, #0a0a0a); color: var(--theme-text, #ffffff);">
     <Header companySetting={data.companySetting} />
 
     <slot />
@@ -54,10 +54,10 @@ const {
     <Footer companySetting={data.companySetting} />
 
     {(data.companySetting.phone_1 || data.companySetting.whatsapp_link || data.companySetting.line_link) && (
-      <FloatingContactSidebar
-        client:load
-        companySetting={data.companySetting}
-      />
+      <!--<FloatingContactSidebar-->
+      <!--  client:load-->
+      <!--  companySetting={data.companySetting}-->
+      <!--/>-->
     )}
   </div>
 

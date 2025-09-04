@@ -106,7 +106,9 @@ try {
   ]
 }
 ---
-<section class="section-container" id="team" data-section="team">
+<section class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16"
+         id="team"
+         data-section="team">
 
   <!-- 標題區 -->
   <SectionTitle title="服務團隊" subtitle="OUR TEAM"/>
@@ -284,7 +286,38 @@ try {
     </button>
   </div>
 
-  
+  <!-- Marquee Section -->
+  <div class="mt-16 overflow-hidden bg-gray-500/30">
+    <div class="py-4">
+      <div class="marquee-container">
+        <div class="marquee-content flex items-center space-x-8 animate-marquee">
+          <span class="text-white font-medium whitespace-nowrap">專業服務團隊</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">頂級 SPA 體驗</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">個人化服務</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">專業認證技師</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">舒適私密環境</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">全預約制服務</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">專業服務團隊</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">頂級 SPA 體驗</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">個人化服務</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">專業認證技師</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">舒適私密環境</span>
+          <span class="text-white/70">•</span>
+          <span class="text-white font-medium whitespace-nowrap">全預約制服務</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </section>
 
@@ -416,5 +449,31 @@ try {
   .carousel-dot.active {
     background-color: rgba(255, 255, 255, 0.8) !important;
     transform: scale(1.1);
+  }
+
+  /* Marquee Animation */
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .marquee-content {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Pause animation on hover */
+  .marquee-container:hover .marquee-content {
+    animation-play-state: paused;
   }
 </style>
