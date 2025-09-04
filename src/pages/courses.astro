@@ -5,7 +5,7 @@ import Layout from '@/layouts/Layout.astro'
 import Button from '../components/ui/Button.astro'
 
 const meta = seoMeta({
-  title: 'Heaven Spa - 課程介紹',
+  title: 'Heaven Spa - 服務介紹',
 })
 
 const courses = [
@@ -49,7 +49,7 @@ const courses = [
   <section class="page-header">
     <div class="header-content">
       <h1 class="main-title">COURSE</h1>
-      <h2 class="sub-title">課程介紹</h2>
+      <h2 class="sub-title">服務介紹</h2>
     </div>
   </section>
 
@@ -65,7 +65,7 @@ const courses = [
                 <h4 class="course-subtitle">{course.subtitle}</h4>
                 <p class="course-description">{course.description}</p>
                 <Button href={course.link}>
-                  課程介紹
+                  服務介紹
                   <span class="btn-arrow">
                     <ArrowRight size="28" class="card-button-btn-svg ml-4" />
                   </span>

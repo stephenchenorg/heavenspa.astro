@@ -2,7 +2,7 @@
   <section class="w-full min-h-screen flex flex-col justify-center items-center relative overflow-x-hidden bg-white py-16 px-8">
     <div class="w-full max-w-6xl mx-auto px-8 flex flex-col items-center">
       <div class="text-center mb-12 relative z-[100] py-4">
-        <h1 class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] mb-4">課程介紹</h1>
+        <h1 class="text-[3.5rem] lg:text-[3rem] md:text-[2.5rem] sm:text-[2rem] font-light text-black tracking-[6px] lg:tracking-[4px] md:tracking-[3px] sm:tracking-[2px] mb-4">服務介紹</h1>
         <h2 class="text-2xl md:text-xl sm:text-base text-neutral-600 font-normal tracking-[2px] uppercase">COURSE</h2>
       </div>
 
@@ -50,7 +50,7 @@
                   :href="course.link"
                   class="btn-brand inline-flex items-center no-underline"
                 >
-                  課程介紹 <span class="ml-2 transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+                  服務介紹 <span class="ml-2 transition-transform duration-300 group-hover:translate-x-1.5">→</span>
                 </a>
               </div>
             </div>

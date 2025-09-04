@@ -38,8 +38,8 @@ export const translations = {
     // Course Section
     course: {
       title: 'COURSE',
-      subtitle: '課程介紹',
-      button: '課程介紹',
+      subtitle: '服務介紹',
+      button: '服務介紹',
     },
 
     // Member Benefits
