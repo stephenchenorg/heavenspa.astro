@@ -69,13 +69,13 @@ const t = createAstroT(Astro)
 
   <!-- Rotating Circle Text - Bottom Right -->
   <div class="absolute right-4 bottom-4 md:right-8 md:bottom-8 z-10">
-    <div class="circle">
-      <div class="circle-icon">
-        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+    <div class="circle cursor-pointer" onclick="scrollToTeam()">
+      <div class="circle-icon md:bg-primary-500 md:rounded-full">
+        <svg class=" w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4"/>
         </svg>
       </div>
-      <div class="circle-text">
+      <div class="circle-text hidden md:block">
         <span>{t('hero.scroll')}</span>
       </div>
     </div>
@@ -113,6 +113,12 @@ const t = createAstroT(Astro)
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .circle:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
   }
 
   .circle-icon {
@@ -143,13 +149,24 @@ const t = createAstroT(Astro)
     left: 50%;
     font-size: 0.7rem;
     font-weight: 300;
-    transform-origin: 0 60px;
+    transform-origin: 0px 60px;
   }
 </style>
 
 <script>
   // 創建圓形文字效果
   document.addEventListener('DOMContentLoaded', () => {
+
+    window.scrollToTeam = function() {
+      const teamSection = document.getElementById('team')
+      if (teamSection) {
+        teamSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    }
+
     // Initialize rotating circle text
     const circleText = document.querySelector('.circle-text')
     if (circleText) {
