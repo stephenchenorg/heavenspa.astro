@@ -5,6 +5,7 @@ import { gql, graphQLAPI } from '@/api'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
+import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
 
 interface Props {
   // metadata
@@ -52,13 +53,10 @@ const {
 
     <Footer companySetting={data.companySetting} />
 
-    {/* Floating Contact Sidebar - currently disabled
-    (data.companySetting.phone_1 || data.companySetting.whatsapp_link || data.companySetting.line_link) && (
-      <FloatingContactSidebar
-        client:load
-        companySetting={data.companySetting}
-      />
-    ) */}
+    <FloatingContactSidebar
+      client:load
+      companySetting={data.companySetting}
+    />
   </div>
 
   <!-- Theme Controller -->
