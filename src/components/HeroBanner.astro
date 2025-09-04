@@ -19,7 +19,13 @@ export interface Props {
 
 const { banners } = Astro.props
 const t = createAstroT(Astro)
-console.log(2222, banners[0].image.desktop)
+console.log('=== HeroBanner Debug ===')
+console.log('banners prop:', banners)
+console.log('banners type:', typeof banners)
+console.log('banners length:', banners?.length)
+console.log('first banner:', banners?.[0])
+console.log('first banner image:', banners?.[0]?.image)
+console.log('desktop image:', banners?.[0]?.image?.desktop)
 
 const circleText = t('hero.scroll')
 const chars = circleText.split('')
@@ -30,7 +36,7 @@ const angleStep = 360 / chars.length
 <section
   class="relative min-h-screen w-full flex items-center justify-center overflow-hidden theme-section"
   id="page-header"
-  style={`background: ${banners?.[0]?.image?.desktop ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banners[0].image.desktop}') center center/cover no-repeat fixed` : 'var(--theme-bg, #0a0a0a)'}`}
+  style={`background: ${banners?.[0]?.image?.desktop ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banners[0].image.desktop}') center center/cover no-repeat` : 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(\'https://cs-studio-test.s3.amazonaws.com/heavenspa/staging/image/s7WV1wjP/portfolio-4.jpg\') center center/cover no-repeat'}; background-attachment: fixed;`}
 >
   <!-- Subtle texture background -->
   <div

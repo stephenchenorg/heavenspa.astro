@@ -37,6 +37,12 @@ query Query {
 }
 `)
 
+console.log('=== Index.astro Debug ===')
+console.log('GraphQL data:', JSON.stringify(data, null, 2))
+console.log('Banners data:', data.banners)
+console.log('Banners data type:', typeof data.banners)
+console.log('Banners data.data:', data.banners?.data)
+
 const meta = seoMeta({
   title: 'Heaven Spa - 極致放鬆體驗',
 })
