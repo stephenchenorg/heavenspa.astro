@@ -42,6 +42,11 @@ export const translations = {
       button: '服務介紹',
     },
 
+    // Courses Section
+    courses: {
+      'service-intro': '服務介紹',
+    },
+
     // Member Benefits
     benefits: {
       title: 'MEMBER BENEFITS',
@@ -131,6 +136,11 @@ export const translations = {
       title: 'COURSE',
       subtitle: 'Course Introduction',
       button: 'Learn More',
+    },
+
+    // Courses Section
+    courses: {
+      'service-intro': 'Service Introduction',
     },
 
     // Member Benefits
