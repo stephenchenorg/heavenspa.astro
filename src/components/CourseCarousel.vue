@@ -150,12 +150,11 @@ function prevSlide() {
 
 // 點擊測試
 function handleClick() {
-  console.log('CourseCarousel clicked!')
+  // Click handler - functionality can be added here if needed
 }
 
 // 拖拽功能
 function handleDragStart(e: MouseEvent | TouchEvent) {
-  console.log('CourseCarousel handleDragStart triggered:', e.type)
   isDragging.value = true
   startX.value = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
   initialTranslate.value = currentTranslate.value
@@ -168,7 +167,6 @@ function handleDragStart(e: MouseEvent | TouchEvent) {
 function handleDragMove(e: MouseEvent | TouchEvent) {
   if (!isDragging.value) return
 
-  console.log('CourseCarousel handleDragMove triggered:', e.type)
   e.preventDefault()
   const currentX = e instanceof MouseEvent ? e.clientX : e.touches[0].clientX
   const diff = currentX - startX.value
@@ -176,7 +174,6 @@ function handleDragMove(e: MouseEvent | TouchEvent) {
 }
 
 function handleDragEnd() {
-  console.log('CourseCarousel handleDragEnd triggered')
   if (!isDragging.value) return
 
   isDragging.value = false
@@ -205,8 +202,6 @@ function handleKeydown(e: KeyboardEvent) {
 }
 
 onMounted(() => {
-  console.log('CourseCarousel component mounted')
-  console.log('CarouselContainer ref:', carouselContainer.value)
   document.addEventListener('keydown', handleKeydown)
 })
 

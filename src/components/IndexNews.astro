@@ -147,7 +147,6 @@ try {
         <!-- 桌面和平板：網格布局 -->
         <div class="hidden sm:grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 gap-6 lg:gap-5 md:gap-6">
           {articles.map((article) => (
-            <!-- Card -->
             <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative" onclick={`window.location.href='/news/${article.id}'`}>
         <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-4 ">
           <!-- Background Image -->

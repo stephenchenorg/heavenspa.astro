@@ -53,12 +53,13 @@ const {
 
     <Footer companySetting={data.companySetting} />
 
-    {(data.companySetting.phone_1 || data.companySetting.whatsapp_link || data.companySetting.line_link) && (
-      <!--<FloatingContactSidebar-->
-      <!--  client:load-->
-      <!--  companySetting={data.companySetting}-->
-      <!--/>-->
-    )}
+    {/* Floating Contact Sidebar - currently disabled
+    (data.companySetting.phone_1 || data.companySetting.whatsapp_link || data.companySetting.line_link) && (
+      <FloatingContactSidebar
+        client:load
+        companySetting={data.companySetting}
+      />
+    ) */}
   </div>
 
   <!-- Theme Controller -->

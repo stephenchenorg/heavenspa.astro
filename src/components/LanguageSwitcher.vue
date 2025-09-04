@@ -31,7 +31,6 @@ function toggleLanguage() {
   const nextIndex = (currentIndex + 1) % locales.length
   const nextLocale = locales[nextIndex]
 
-  console.log('Switching from', currentLocale.value, 'to', nextLocale)
 
   // Update the reactive ref first
   currentLocale.value = nextLocale
@@ -87,7 +86,6 @@ onMounted(() => {
   // Get saved locale from localStorage/cookies
   currentLocale.value = getCurrentLocale()
 
-  console.log('Language switcher mounted, current locale:', currentLocale.value)
 
   // Set initial HTML lang attribute
   document.documentElement.setAttribute('lang', currentLocale.value)
