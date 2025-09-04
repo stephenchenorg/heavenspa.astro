@@ -26,7 +26,7 @@ export const translations = {
     hero: {
       embrace: '嚴格把關',
       yourself: '享天堂讓您置身天堂',
-      scroll: 'SCROLL TO EXPLORE',
+      scroll: 'SCROLL TO EXPLORE ',
     },
 
     // Team Section
