@@ -2,6 +2,7 @@
 // Member Benefits Section with Card Layout
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import {gql, graphQLAPI} from '../api'
+import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Article {
   id: number
@@ -134,6 +135,8 @@ try {
     id: index + 1,
   }))
 }
+
+const t = createAstroT(Astro)
 ---
 
 <section class="section-container" id="benefits" data-section="benefits">
@@ -339,7 +342,7 @@ try {
                 style="border-color: var(--theme-text); color: var(--theme-text);"
                 onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
                 onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
-          更多最新消息..
+            <span data-i18n="news.more-news">{t('news.more-news')}</span>
         </button>
       </div>
     </>

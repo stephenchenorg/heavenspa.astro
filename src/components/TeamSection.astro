@@ -1,6 +1,7 @@
 ---
 import { gql, graphQLAPI } from '@/api'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+import { createAstroT } from '@/utils/astro-i18n'
 
 // 定義 API 回應的類型
 export interface TeamCover {
@@ -105,6 +106,8 @@ try {
     },
   ]
 }
+
+const t = createAstroT(Astro)
 ---
 <section
   class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16"
@@ -308,7 +311,7 @@ try {
       onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
       onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');"
     >
-      更多服務團隊成員...
+<span data-i18n="team.more-members">{t('team.more-members')}</span>
     </button>
   </div>
 
