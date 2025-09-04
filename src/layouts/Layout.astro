@@ -54,13 +54,13 @@ const {
     <Footer companySetting={data.companySetting} />
 
     {(data.companySetting.phone_1 || data.companySetting.whatsapp_link || data.companySetting.line_link) && (
-      <FloatingContactSidebar 
-        client:load 
+      <FloatingContactSidebar
+        client:load
         companySetting={data.companySetting}
       />
     )}
   </div>
-  
+
   <!-- Theme Controller -->
   <!--<ThemeController />-->
 </BaseLayout>

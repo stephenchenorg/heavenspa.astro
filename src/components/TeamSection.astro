@@ -1,5 +1,5 @@
 ---
-import { gql, graphQLAPI } from '@/api'
+import {gql, graphQLAPI} from '@/api'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 
 // 定義 API 回應的類型
@@ -88,7 +88,7 @@ try {
     {
       id: 1,
       title: '專業團隊',
-      category: { title: '服務專員' },
+      category: {title: '服務專員'},
       cover: {
         desktop: '/images/default-team.jpg',
         desktop_blur: '/images/default-team-blur.jpg',
@@ -109,23 +109,26 @@ try {
 <section class="section-container" id="team" data-section="team">
 
   <!-- 標題區 -->
-  <SectionTitle title="服務團隊" subtitle="OUR TEAM" />
+  <SectionTitle title="服務團隊" subtitle="OUR TEAM"/>
 
   <!-- Airbnb 風格卡片網格 -->
   <div class="max-w-7xl mx-auto w-full">
     <!-- 桌面和平板：網格布局 -->
     <div class="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
       {teamMembers.map((member) => (
-        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2" onclick={`window.location.href='/team/${member.id}'`}>
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2"
+             onclick={`window.location.href='/team/${member.id}'`}>
           <!-- 圖片容器 -->
           <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
 
             <!-- 團隊成員照片轮播 -->
-            <div class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden" data-member-id={member.title}>
+            <div class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+                 data-member-id={member.title}>
               <div class="carousel-images absolute inset-0 backface-visibility-hidden">
                 {/* 主图片 */}
-                <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
-                  <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
+                <picture
+                  class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
+                  <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile}/>
                   <img
                     src={member.image?.desktop || member.cover?.desktop}
                     alt={member.title}
@@ -140,33 +143,37 @@ try {
                 {member.images && member.images.length > 0 && member.images
                   .filter(imageItem => !imageItem.is_default)
                   .map((imageItem, imgIndex) => (
-                  <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
-                    <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
-                    <img
-                      src={imageItem.image.desktop}
-                      alt={`${member.title} - Image ${imgIndex + 1}`}
-                      loading="lazy"
-                      onload="this.style.filter='none'"
-                      style="filter: blur(5px); transition: filter 0.3s ease;"
-                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </picture>
-                ))}
+                    <picture
+                      class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
+                      <source media="(max-width: 768px)" srcset={imageItem.image.mobile}/>
+                      <img
+                        src={imageItem.image.desktop}
+                        alt={`${member.title} - Image ${imgIndex + 1}`}
+                        loading="lazy"
+                        onload="this.style.filter='none'"
+                        style="filter: blur(5px); transition: filter 0.3s ease;"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </picture>
+                  ))}
               </div>
 
               {/* 轮播指示器 */}
               {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
                 <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-                  <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
+                  <div
+                    class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
                   {member.images.filter(imageItem => !imageItem.is_default).map((_) => (
-                    <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
+                    <div
+                      class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
                   ))}
                 </div>
               )}
             </div>
 
             <!-- 評級標籤 (左下角) -->
-            <div class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
+            <div
+              class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
               ⭐ {member.category.title}
             </div>
           </div>
@@ -175,7 +182,8 @@ try {
           <div class="space-y-1">
             <!-- 標題和評分 -->
             <div class="flex items-start justify-between">
-              <h3 class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2" style="color: var(--theme-text)">
+              <h3 class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2"
+                  style="color: var(--theme-text)">
                 {member.title}
               </h3>
             </div>
@@ -188,16 +196,19 @@ try {
     <div class="sm:hidden">
       <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
         {teamMembers.map((member) => (
-          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-80" onclick={`window.location.href='/team/${member.id}'`}>
+          <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-80"
+               onclick={`window.location.href='/team/${member.id}'`}>
             <!-- 圖片容器 -->
             <div class="relative w-80 h-80 rounded-xl overflow-hidden mb-4">
 
               <!-- 團隊成員照片轮播 -->
-              <div class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden" data-member-id={`${member.title}-mobile`}>
+              <div class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+                   data-member-id={`${member.title}-mobile`}>
                 <div class="carousel-images absolute inset-0 backface-visibility-hidden">
                   {/* 主图片 */}
-                  <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
-                    <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
+                  <picture
+                    class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
+                    <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile}/>
                     <img
                       src={member.image?.desktop || member.cover?.desktop}
                       alt={member.title}
@@ -212,33 +223,37 @@ try {
                   {member.images && member.images.length > 0 && member.images
                     .filter(imageItem => !imageItem.is_default)
                     .map((imageItem, imgIndex) => (
-                    <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
-                      <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
-                      <img
-                        src={imageItem.image.desktop}
-                        alt={`${member.title} - Image ${imgIndex + 1}`}
-                        loading="lazy"
-                        onload="this.style.filter='none'"
-                        style="filter: blur(5px); transition: filter 0.3s ease;"
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </picture>
-                  ))}
+                      <picture
+                        class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
+                        <source media="(max-width: 768px)" srcset={imageItem.image.mobile}/>
+                        <img
+                          src={imageItem.image.desktop}
+                          alt={`${member.title} - Image ${imgIndex + 1}`}
+                          loading="lazy"
+                          onload="this.style.filter='none'"
+                          style="filter: blur(5px); transition: filter 0.3s ease;"
+                          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </picture>
+                    ))}
                 </div>
 
                 {/* 轮播指示器 */}
                 {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
                   <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-                    <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
+                    <div
+                      class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
                     {member.images.filter(imageItem => !imageItem.is_default).map(() => (
-                      <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
+                      <div
+                        class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
                     ))}
                   </div>
                 )}
               </div>
 
               <!-- 評級標籤 (左下角) -->
-              <div class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
+              <div
+                class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
                 ⭐ {member.category.title}
               </div>
             </div>
@@ -247,7 +262,8 @@ try {
             <div class="space-y-1">
               <!-- 標題和評分 -->
               <div class="flex items-start justify-between">
-                <h3 class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2" style="color: var(--theme-text)">
+                <h3 class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2"
+                    style="color: var(--theme-text)">
                   {member.title}
                 </h3>
               </div>
@@ -267,125 +283,128 @@ try {
       顯示更多團隊成員
     </button>
   </div>
+
+  
+
 </section>
 
 <script>
-// 团队图片轮播功能
-document.addEventListener('DOMContentLoaded', function() {
-  // 初始化所有轮播容器
-  const carouselContainers = document.querySelectorAll('.carousel-container');
+  // 团队图片轮播功能
+  document.addEventListener('DOMContentLoaded', function () {
+    // 初始化所有轮播容器
+    const carouselContainers = document.querySelectorAll('.carousel-container');
 
-  carouselContainers.forEach(container => {
-    const slides = container.querySelectorAll('.carousel-slide');
-    const dots = container.querySelectorAll('.carousel-dot');
+    carouselContainers.forEach(container => {
+      const slides = container.querySelectorAll('.carousel-slide');
+      const dots = container.querySelectorAll('.carousel-dot');
 
-    if (slides.length <= 1) return; // 只有一张图片时不需要轮播
+      if (slides.length <= 1) return; // 只有一张图片时不需要轮播
 
-    let currentSlide = 0;
-    let autoSlideTimer: NodeJS.Timeout | null = null;
+      let currentSlide = 0;
+      let autoSlideTimer: NodeJS.Timeout | null = null;
 
-    // 显示指定的幻灯片
-    function showSlide(index: number) {
-      // 隐藏所有幻灯片
-      slides.forEach(slide => {
-        (slide as HTMLElement).style.opacity = '0';
-      });
+      // 显示指定的幻灯片
+      function showSlide(index: number) {
+        // 隐藏所有幻灯片
+        slides.forEach(slide => {
+          (slide as HTMLElement).style.opacity = '0';
+        });
 
-      // 重置所有指示器
-      dots.forEach(dot => {
-        dot.classList.remove('active');
-        (dot as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
-      });
+        // 重置所有指示器
+        dots.forEach(dot => {
+          dot.classList.remove('active');
+          (dot as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+        });
 
-      // 显示当前幻灯片
-      if (slides[index]) {
-        (slides[index] as HTMLElement).style.opacity = '1';
-      }
+        // 显示当前幻灯片
+        if (slides[index]) {
+          (slides[index] as HTMLElement).style.opacity = '1';
+        }
 
-      // 激活当前指示器
-      if (dots[index]) {
-        dots[index].classList.add('active');
-        (dots[index] as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
-      }
-    }
-
-    // 下一张幻灯片
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
-
-    // 自动轮播
-    function startAutoSlide() {
-      autoSlideTimer = setInterval(nextSlide, 3000); // 每3秒切换
-    }
-
-    function stopAutoSlide() {
-      if (autoSlideTimer) {
-        clearInterval(autoSlideTimer);
-        autoSlideTimer = null;
-      }
-    }
-
-    // 指示器点击事件
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        currentSlide = index;
-        showSlide(currentSlide);
-        stopAutoSlide();
-        startAutoSlide(); // 重新开始自动轮播
-      });
-    });
-
-    // 鼠标悬停时暂停轮播
-    container.addEventListener('mouseenter', stopAutoSlide);
-    container.addEventListener('mouseleave', startAutoSlide);
-
-    // 触摸事件支持（移动设备）
-    let startX = 0;
-    let isDragging = false;
-
-    container.addEventListener('touchstart', (e) => {
-      const touchEvent = e as TouchEvent;
-      startX = touchEvent.touches[0].clientX;
-      isDragging = true;
-      stopAutoSlide();
-    });
-
-    container.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-    });
-
-    container.addEventListener('touchend', (e) => {
-      if (!isDragging) return;
-
-      const touchEvent = e as TouchEvent;
-      const endX = touchEvent.changedTouches[0].clientX;
-      const diffX = startX - endX;
-
-      if (Math.abs(diffX) > 50) { // 最小滑动距离
-        if (diffX > 0) {
-          // 向左滑动，下一张
-          nextSlide();
-        } else {
-          // 向右滑动，上一张
-          currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
-          showSlide(currentSlide);
+        // 激活当前指示器
+        if (dots[index]) {
+          dots[index].classList.add('active');
+          (dots[index] as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
         }
       }
 
-      isDragging = false;
+      // 下一张幻灯片
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }
+
+      // 自动轮播
+      function startAutoSlide() {
+        autoSlideTimer = setInterval(nextSlide, 3000); // 每3秒切换
+      }
+
+      function stopAutoSlide() {
+        if (autoSlideTimer) {
+          clearInterval(autoSlideTimer);
+          autoSlideTimer = null;
+        }
+      }
+
+      // 指示器点击事件
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentSlide = index;
+          showSlide(currentSlide);
+          stopAutoSlide();
+          startAutoSlide(); // 重新开始自动轮播
+        });
+      });
+
+      // 鼠标悬停时暂停轮播
+      container.addEventListener('mouseenter', stopAutoSlide);
+      container.addEventListener('mouseleave', startAutoSlide);
+
+      // 触摸事件支持（移动设备）
+      let startX = 0;
+      let isDragging = false;
+
+      container.addEventListener('touchstart', (e) => {
+        const touchEvent = e as TouchEvent;
+        startX = touchEvent.touches[0].clientX;
+        isDragging = true;
+        stopAutoSlide();
+      });
+
+      container.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+      });
+
+      container.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+
+        const touchEvent = e as TouchEvent;
+        const endX = touchEvent.changedTouches[0].clientX;
+        const diffX = startX - endX;
+
+        if (Math.abs(diffX) > 50) { // 最小滑动距离
+          if (diffX > 0) {
+            // 向左滑动，下一张
+            nextSlide();
+          } else {
+            // 向右滑动，上一张
+            currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
+            showSlide(currentSlide);
+          }
+        }
+
+        isDragging = false;
+        startAutoSlide();
+      });
+
+      // 初始化显示第一张幻灯片
+      showSlide(0);
+
+      // 开始自动轮播
       startAutoSlide();
     });
-
-    // 初始化显示第一张幻灯片
-    showSlide(0);
-
-    // 开始自动轮播
-    startAutoSlide();
   });
-});
 </script>
 
 <style>

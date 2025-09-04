@@ -11,7 +11,7 @@
         class="group flex h-10 w-10 items-center justify-center rounded-full hover:scale-110 transition-all duration-300 sm:h-8 sm:w-8 bg-gradient-to-br from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-md hover:shadow-lg"
         aria-label="聯絡 LINE"
       >
-        <LineMessenger class-name="h-5 w-5 sm:h-4 sm:w-4 text-white" />
+        <LineMessenger class-name="h-5 w-5 sm:h-4 sm:w-4 text-white"/>
       </a>
     </div>
 
@@ -24,7 +24,7 @@
         class="group flex h-10 w-10 items-center justify-center rounded-full sm:h-8 sm:w-8 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-md hover:shadow-lg"
         aria-label="WhatsApp 聯絡"
       >
-        <WhatsApp class-name="h-5 w-5 sm:h-4 sm:w-4 text-white" />
+        <WhatsApp class-name="h-5 w-5 sm:h-4 sm:w-4 text-white"/>
       </a>
     </div>
 
@@ -35,14 +35,14 @@
         class="group flex h-10 w-10 items-center justify-center rounded-full shadow-md hover:shadow-lg sm:h-8 sm:w-8 hover:scale-110 transition-all duration-300 bg-gradient-to-br from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700"
         aria-label="電話聯絡"
       >
-        <PhoneCall class-name="h-5 w-5 sm:h-4 sm:w-4 text-white" />
+        <PhoneCall class-name="h-5 w-5 sm:h-4 sm:w-4 text-white"/>
       </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { LineMessenger, PhoneCall, WhatsApp } from '@/components/icon'
+import {LineMessenger, PhoneCall, WhatsApp} from '@/components/icon'
 
 interface CompanySetting {
   address_1?: string
@@ -68,5 +68,5 @@ interface Props {
   companySetting: CompanySetting
 }
 
-const { companySetting } = defineProps<Props>()
+const {companySetting} = defineProps<Props>()
 </script>
