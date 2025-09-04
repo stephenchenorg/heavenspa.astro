@@ -98,7 +98,7 @@ const t = createAstroT(Astro)
         </svg>
       </div>
       <div class="circle-text hidden md:block">
-        <span>{t('hero.scroll')}</span>
+        <p class="hidden">{t('hero.scroll')}</p>
       </div>
     </div>
   </div>
@@ -191,7 +191,7 @@ const t = createAstroT(Astro)
     // Initialize rotating circle text
     const circleText = document.querySelector('.circle-text')
     if (circleText) {
-      const textElement = circleText.querySelector('span')
+      const textElement = circleText.querySelector('p')
       if (textElement) {
         const text = textElement.textContent || ''
         const chars = text.split('')
@@ -200,7 +200,7 @@ const t = createAstroT(Astro)
         const angleStep = 360 / chars.length
 
         // Create HTML with individual spans for each character
-        textElement.innerHTML = chars
+        circleText.innerHTML = chars
           .map((char, i) => {
             const angle = i * angleStep
             return `<span style="transform: rotate(${angle}deg)">${char === ' ' ? '&nbsp;' : char}</span>`
