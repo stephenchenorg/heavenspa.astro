@@ -1,126 +1,126 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+import Layout from '@/layouts/Layout.astro'
 
 const meta = seoMeta({
   title: '常見問題 - Heaven Spa',
-  description: '查看 Heaven Spa 的常見問題解答，了解我們的服務、預約流程、政策等相關資訊。'
+  description: '查看 Heaven Spa 的常見問題解答，了解我們的服務、預約流程、政策等相關資訊。',
 })
 
 // 分類 FAQ 資料
 const faqCategories = {
-  '預約問題': [
+  預約問題: [
     {
       id: 'booking-1',
       question: '需要預約嗎？',
-      answer: '需要！本店採用全預約制服務系統，請使用官方 Line 預約系統或撥打服務專線預約。我們建議您提前預約以確保能安排到您理想的時段。'
+      answer: '需要！本店採用全預約制服務系統，請使用官方 Line 預約系統或撥打服務專線預約。我們建議您提前預約以確保能安排到您理想的時段。',
     },
     {
       id: 'booking-2',
       question: '可以指定服務人員嗎？',
-      answer: '可以的！透過官方 Line 預約系統，您可以查詢服務人員資訊或選擇不指定。我們會根據您的需求和時間安排最合適的專業人員為您服務。'
+      answer: '可以的！透過官方 Line 預約系統，您可以查詢服務人員資訊或選擇不指定。我們會根據您的需求和時間安排最合適的專業人員為您服務。',
     },
     {
       id: 'booking-3',
       question: '如何選擇預約時間/日期？',
-      answer: '請透過官方 Line 預約系統查詢可預約的時段和日期。系統會即時顯示可用時間，讓您方便選擇最適合的時段。'
+      answer: '請透過官方 Line 預約系統查詢可預約的時段和日期。系統會即時顯示可用時間，讓您方便選擇最適合的時段。',
     },
     {
       id: 'booking-4',
       question: '可以刷卡付費嗎？',
-      answer: 'Heaven Spa 目前僅接受現金付費，暫不接受信用卡服務。請您在享受服務後準備現金結帳，我們也提供會員儲值服務供您參考。'
+      answer: 'Heaven Spa 目前僅接受現金付費，暫不接受信用卡服務。請您在享受服務後準備現金結帳，我們也提供會員儲值服務供您參考。',
     },
     {
       id: 'booking-5',
       question: '可以取消或更改預約嗎？',
-      answer: '可以的！請提前24小時透過 Line 或電話通知我們。24小時內取消可能需要收取部分費用，無故不到將收取全額費用。為避免影響其他客人權益，請儘早告知異動。'
+      answer: '可以的！請提前24小時透過 Line 或電話通知我們。24小時內取消可能需要收取部分費用，無故不到將收取全額費用。為避免影響其他客人權益，請儘早告知異動。',
     },
     {
       id: 'booking-6',
       question: '預約後如何確認？',
-      answer: '預約成功後，我們會透過 Line 訊息或電話與您確認預約詳情。請保持通訊暢通，並在預約時間前15分鐘到店報到。'
-    }
+      answer: '預約成功後，我們會透過 Line 訊息或電話與您確認預約詳情。請保持通訊暢通，並在預約時間前15分鐘到店報到。',
+    },
   ],
-  'Spa問題': [
+  Spa問題: [
     {
       id: 'spa-1',
       question: 'Heaven Spa 提供什麼類型的 SPA？',
-      answer: 'Heaven Spa 的 SPA 結合了中式指壓和瑞典式精油按摩手法，提供身心靈全面的放鬆體驗。我們的療程融合東西方按摩精髓，為您帶來獨特的享受。'
+      answer: 'Heaven Spa 的 SPA 結合了中式指壓和瑞典式精油按摩手法，提供身心靈全面的放鬆體驗。我們的療程融合東西方按摩精髓，為您帶來獨特的享受。',
     },
     {
       id: 'spa-2',
       question: 'SPA 服務人員是男性還是女性？',
-      answer: '您可以從官方 Line 預約系統查詢服務人員資訊。針對女性客人選擇精油按摩，男性工作人員將採反穿浴衣方式提供服務，確保您的舒適感。'
+      answer: '您可以從官方 Line 預約系統查詢服務人員資訊。針對女性客人選擇精油按摩，男性工作人員將採反穿浴衣方式提供服務，確保您的舒適感。',
     },
     {
       id: 'spa-3',
       question: '精油按摩時需要換衣服嗎？',
-      answer: '為保護客人衛生與安全，精油按摩療程需更換我們提供的紙內褲。我們重視您的隱私和衛生，所有用品都是一次性且經過嚴格消毒。'
+      answer: '為保護客人衛生與安全，精油按摩療程需更換我們提供的紙內褲。我們重視您的隱私和衛生，所有用品都是一次性且經過嚴格消毒。',
     },
     {
       id: 'spa-4',
       question: '男性服務人員可以為女性客人服務嗎？',
-      answer: '可以的。針對女性客人選擇精油按摩，男性工作人員將採反穿浴衣方式提供服務，確保服務過程的專業性和舒適性。'
+      answer: '可以的。針對女性客人選擇精油按摩，男性工作人員將採反穿浴衣方式提供服務，確保服務過程的專業性和舒適性。',
     },
     {
       id: 'spa-5',
       question: '如何選擇 SPA 服務？',
-      answer: '我們最推薦2小時的「經典」療程。我們提供60/90/120分鐘療程，90分鐘以上含指壓和精油按摩，無需額外加價。專業顧問會根據您的需求推薦合適療程。'
+      answer: '我們最推薦2小時的「經典」療程。我們提供60/90/120分鐘療程，90分鐘以上含指壓和精油按摩，無需額外加價。專業顧問會根據您的需求推薦合適療程。',
     },
     {
       id: 'spa-6',
       question: '有提供盥洗設備嗎？',
-      answer: '目前我們沒有提供盥洗設備。不過我們使用法國進口芳療級精油，具有滋潤肌膚的效果，讓您在放鬆過程中同時保養肌膚。'
+      answer: '目前我們沒有提供盥洗設備。不過我們使用法國進口芳療級精油，具有滋潤肌膚的效果，讓您在放鬆過程中同時保養肌膚。',
     },
     {
       id: 'spa-7',
       question: '服務環境如何？',
-      answer: '我們提供私密、舒適的服務環境，採用全預約制確保您的隱私。每個房間都經過精心設計，配備專業按摩床和舒適的環境音樂。'
-    }
+      answer: '我們提供私密、舒適的服務環境，採用全預約制確保您的隱私。每個房間都經過精心設計，配備專業按摩床和舒適的環境音樂。',
+    },
   ],
-  '除毛服務': [
+  除毛服務: [
     {
       id: 'hair-removal-1',
       question: '使用什麼產品？',
-      answer: '我們精心選用各大品牌的蜜蠟產品，針對不同部位和肌膚類型選用最適合的產品，確保除毛效果的同時保護您的肌膚健康。'
+      answer: '我們精心選用各大品牌的蜜蠟產品，針對不同部位和肌膚類型選用最適合的產品，確保除毛效果的同時保護您的肌膚健康。',
     },
     {
       id: 'hair-removal-2',
       question: '除毛環境如何？',
-      answer: '請放心，Heaven Spa 採用全預約制，我們在安排時段時會優先考量您的隱私需求，提供獨立、私密的除毛環境。'
+      answer: '請放心，Heaven Spa 採用全預約制，我們在安排時段時會優先考量您的隱私需求，提供獨立、私密的除毛環境。',
     },
     {
       id: 'hair-removal-3',
       question: '多久除毛一次比較好？',
-      answer: '一般建議每3-4週進行一次除毛，讓毛髮長到適當長度（約0.5-1公分）再進行，這樣除毛效果最佳且較不易造成肌膚敏感。'
+      answer: '一般建議每3-4週進行一次除毛，讓毛髮長到適當長度（約0.5-1公分）再進行，這樣除毛效果最佳且較不易造成肌膚敏感。',
     },
     {
       id: 'hair-removal-4',
       question: '除毛前需要注意什麼？',
-      answer: '除毛前請避免使用刮毛刀，讓毛髮長到適當長度。當日請避免使用含酒精的保養品，並確保肌膚沒有傷口或過敏現象。'
+      answer: '除毛前請避免使用刮毛刀，讓毛髮長到適當長度。當日請避免使用含酒精的保養品，並確保肌膚沒有傷口或過敏現象。',
     },
     {
       id: 'hair-removal-5',
       question: '除毛後如何保養？',
-      answer: '除毛後24小時內避免泡澡、使用含香料的保養品和劇烈運動。建議使用溫和的保濕產品，並避免陽光直射除毛部位。'
+      answer: '除毛後24小時內避免泡澡、使用含香料的保養品和劇烈運動。建議使用溫和的保濕產品，並避免陽光直射除毛部位。',
     },
     {
       id: 'hair-removal-6',
       question: '哪些部位可以除毛？',
-      answer: '我們提供全身各部位除毛服務，包括臉部、腋下、手臂、腿部、比基尼線等。每個部位都有專業的除毛技術和適合的產品。'
+      answer: '我們提供全身各部位除毛服務，包括臉部、腋下、手臂、腿部、比基尼線等。每個部位都有專業的除毛技術和適合的產品。',
     },
     {
       id: 'hair-removal-7',
       question: '除毛會很痛嗎？',
-      answer: '疼痛感因人而異，我們的專業技師會使用適當的手法降低不適感。第一次除毛可能較有感覺，後續會逐漸適應並減少疼痛。'
+      answer: '疼痛感因人而異，我們的專業技師會使用適當的手法降低不適感。第一次除毛可能較有感覺，後續會逐漸適應並減少疼痛。',
     },
     {
       id: 'hair-removal-8',
       question: '敏感肌膚可以除毛嗎？',
-      answer: '可以的，但建議事先告知我們您的肌膚狀況。我們會選用適合敏感肌膚的溫和產品，並進行局部測試確保安全。'
-    }
-  ]
+      answer: '可以的，但建議事先告知我們您的肌膚狀況。我們會選用適合敏感肌膚的溫和產品，並進行局部測試確保安全。',
+    },
+  ],
 }
 ---
 
@@ -131,8 +131,10 @@ const faqCategories = {
 
     <!-- Tab Navigation -->
     <div class="max-w-4xl mx-auto mb-8">
-      <div class="flex flex-wrap justify-center gap-2 p-2 rounded-xl min-w-[600px]"
-           style="background-color: var(--color-neutral-100);">
+      <div
+        class="flex flex-wrap justify-center gap-2 p-2 rounded-xl min-w-[600px]"
+        style="background-color: var(--color-neutral-100);"
+      >
         <button
           class="tab-button px-6 py-3 rounded-lg font-medium transition-all duration-300 flex-1 min-w-0"
           data-tab="預約問題"
@@ -163,9 +165,11 @@ const faqCategories = {
         <div class="faq-category" data-category={category} style="display: none;">
           <!-- FAQ 手風琴 -->
           <div class="space-y-4">
-            {faqs.map((faq) => (
-              <div class="faq-item border rounded-lg overflow-hidden transition-all duration-300"
-                   style="border-color: var(--theme-border); background-color: var(--theme-card-bg);">
+            {faqs.map(faq => (
+              <div
+                class="faq-item border rounded-lg overflow-hidden transition-all duration-300"
+                style="border-color: var(--theme-border); background-color: var(--theme-card-bg);"
+              >
 
                 <!-- 問題標題 -->
                 <button
@@ -179,9 +183,13 @@ const faqCategories = {
                   </span>
 
                   <!-- 展開/收合圖示 -->
-                  <svg class="faq-icon w-5 h-5 transform transition-transform duration-200"
-                       fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                       style="color: var(--color-primary-600);">
+                  <svg
+                    class="faq-icon w-5 h-5 transform transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    style="color: var(--color-primary-600);"
+                  >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -206,114 +214,114 @@ const faqCategories = {
 </Layout>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-button');
-  const faqCategories = document.querySelectorAll<HTMLElement>('.faq-category');
-  const faqQuestions = document.querySelectorAll<HTMLButtonElement>('.faq-question');
+document.addEventListener('DOMContentLoaded', () => {
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-button')
+  const faqCategories = document.querySelectorAll<HTMLElement>('.faq-category')
+  const faqQuestions = document.querySelectorAll<HTMLButtonElement>('.faq-question')
 
   // Initialize first tab as active
   if (tabButtons.length > 0 && faqCategories.length > 0) {
-    tabButtons[0]?.classList.add('active');
+    tabButtons[0]?.classList.add('active')
     if (faqCategories[0]) {
-      (faqCategories[0] as HTMLElement).style.display = 'block';
+      (faqCategories[0] as HTMLElement).style.display = 'block'
     }
   }
 
   // Tab switching functionality
-  tabButtons.forEach((button) => {
-    button.addEventListener('click', function(this: HTMLButtonElement) {
-      const targetTab = this.getAttribute('data-tab');
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function (this: HTMLButtonElement) {
+      const targetTab = this.getAttribute('data-tab')
 
       // Remove active class from all tabs
-      tabButtons.forEach((btn) => {
+      tabButtons.forEach(btn => {
         btn.classList.remove('active');
         (btn as HTMLElement).style.backgroundColor = 'transparent';
-        (btn as HTMLElement).style.color = 'var(--theme-text)';
-      });
+        (btn as HTMLElement).style.color = 'var(--theme-text)'
+      })
 
       // Add active class to clicked tab
       this.classList.add('active');
       (this as HTMLElement).style.backgroundColor = 'var(--color-primary-500)';
-      (this as HTMLElement).style.color = 'white';
+      (this as HTMLElement).style.color = 'white'
 
       // Hide all FAQ categories
-      faqCategories.forEach((category) => {
-        (category as HTMLElement).style.display = 'none';
-      });
+      faqCategories.forEach(category => {
+        (category as HTMLElement).style.display = 'none'
+      })
 
       // Show target category
-      const targetCategory = document.querySelector<HTMLElement>(`[data-category="${targetTab}"]`);
+      const targetCategory = document.querySelector<HTMLElement>(`[data-category="${targetTab}"]`)
       if (targetCategory) {
-        targetCategory.style.display = 'block';
+        targetCategory.style.display = 'block'
       }
 
       // Reset all FAQ accordions when switching tabs
-      const allAnswers = document.querySelectorAll<HTMLElement>('.faq-answer');
-      const allIcons = document.querySelectorAll<HTMLElement>('.faq-icon');
-      const allQuestionButtons = document.querySelectorAll<HTMLButtonElement>('.faq-question');
+      const allAnswers = document.querySelectorAll<HTMLElement>('.faq-answer')
+      const allIcons = document.querySelectorAll<HTMLElement>('.faq-icon')
+      const allQuestionButtons = document.querySelectorAll<HTMLButtonElement>('.faq-question')
 
-      allQuestionButtons.forEach((q) => q.setAttribute('aria-expanded', 'false'));
-      allAnswers.forEach((answer) => {
-        (answer as HTMLElement).style.maxHeight = '0px';
-      });
-      allIcons.forEach((icon) => {
-        (icon as HTMLElement).style.transform = 'rotate(0deg)';
-      });
-    });
-  });
+      allQuestionButtons.forEach(q => q.setAttribute('aria-expanded', 'false'))
+      allAnswers.forEach(answer => {
+        (answer as HTMLElement).style.maxHeight = '0px'
+      })
+      allIcons.forEach(icon => {
+        (icon as HTMLElement).style.transform = 'rotate(0deg)'
+      })
+    })
+  })
 
   // FAQ accordion functionality
-  faqQuestions.forEach((question) => {
-    question.addEventListener('click', function(this: HTMLButtonElement) {
-      const faqId = this.getAttribute('data-faq-id');
-      const faqAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${faqId}"]`);
-      const faqIcon = this.querySelector<HTMLElement>('.faq-icon');
-      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', function (this: HTMLButtonElement) {
+      const faqId = this.getAttribute('data-faq-id')
+      const faqAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${faqId}"]`)
+      const faqIcon = this.querySelector<HTMLElement>('.faq-icon')
+      const isExpanded = this.getAttribute('aria-expanded') === 'true'
 
       // Get current category's questions only
-      const currentCategory = this.closest<HTMLElement>('.faq-category');
-      const currentCategoryQuestions = currentCategory?.querySelectorAll<HTMLButtonElement>('.faq-question');
+      const currentCategory = this.closest<HTMLElement>('.faq-category')
+      const currentCategoryQuestions = currentCategory?.querySelectorAll<HTMLButtonElement>('.faq-question')
 
       // Close all other FAQ items in current category
       currentCategoryQuestions?.forEach((otherQuestion: HTMLButtonElement) => {
         if (otherQuestion !== this) {
-          const otherFaqId = otherQuestion.getAttribute('data-faq-id');
-          const otherAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${otherFaqId}"]`);
-          const otherIcon = otherQuestion.querySelector<HTMLElement>('.faq-icon');
+          const otherFaqId = otherQuestion.getAttribute('data-faq-id')
+          const otherAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${otherFaqId}"]`)
+          const otherIcon = otherQuestion.querySelector<HTMLElement>('.faq-icon')
 
-          otherQuestion.setAttribute('aria-expanded', 'false');
+          otherQuestion.setAttribute('aria-expanded', 'false')
           if (otherAnswer) {
-            otherAnswer.style.maxHeight = '0px';
+            otherAnswer.style.maxHeight = '0px'
           }
           if (otherIcon) {
-            otherIcon.style.transform = 'rotate(0deg)';
+            otherIcon.style.transform = 'rotate(0deg)'
           }
         }
-      });
+      })
 
       // Toggle current FAQ item
       if (isExpanded) {
         // Collapse
-        this.setAttribute('aria-expanded', 'false');
+        this.setAttribute('aria-expanded', 'false')
         if (faqAnswer) {
-          faqAnswer.style.maxHeight = '0px';
+          faqAnswer.style.maxHeight = '0px'
         }
         if (faqIcon) {
-          faqIcon.style.transform = 'rotate(0deg)';
+          faqIcon.style.transform = 'rotate(0deg)'
         }
       } else {
         // Expand
-        this.setAttribute('aria-expanded', 'true');
+        this.setAttribute('aria-expanded', 'true')
         if (faqAnswer) {
-          faqAnswer.style.maxHeight = faqAnswer.scrollHeight + 'px';
+          faqAnswer.style.maxHeight = `${faqAnswer.scrollHeight}px`
         }
         if (faqIcon) {
-          faqIcon.style.transform = 'rotate(180deg)';
+          faqIcon.style.transform = 'rotate(180deg)'
         }
       }
-    });
-  });
-});
+    })
+  })
+})
 </script>
 
 <style>

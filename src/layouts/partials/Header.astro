@@ -1,8 +1,8 @@
 ---
-import type {CompanySettingData} from '@/types'
+import type { CompanySettingData } from '@/types'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import ThemeController from '@/components/ThemeController.astro'
-import {createAstroT} from '@/utils/astro-i18n'
+import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -82,7 +82,7 @@ const t = createAstroT(Astro)
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
   </button>
   <div class="hidden xl:flex items-center gap-4 nav-contact">
-    <LanguageSwitcher client:load/>
+    <LanguageSwitcher client:load />
     <ThemeController />
   </div>
 </nav>
@@ -145,7 +145,7 @@ const t = createAstroT(Astro)
     </nav>
     <div class="px-6 py-4 border-t border-b mobile-language-section" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
       <div class="flex justify-center items-center gap-4 mobile-language">
-        <LanguageSwitcher client:load/>
+        <LanguageSwitcher client:load />
         <ThemeController />
       </div>
     </div>

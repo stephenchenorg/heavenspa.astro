@@ -2,8 +2,8 @@
   <div class="language-switcher">
     <button
       class="w-12 h-12 rounded-full border-none bg-transparent flex items-center justify-center cursor-pointer transition-all duration-300 ease-in-out relative overflow-hidden hover:scale-110 active:scale-95 language-toggle"
-      @click="toggleLanguage"
       :title="`Switch to ${getNextLanguageName()}`"
+      @click="toggleLanguage"
     >
       <span class="text-sm font-medium tracking-wide language-text">
         {{ getCurrentLanguageCode() }}
@@ -30,20 +30,20 @@ function toggleLanguage() {
   const currentIndex = locales.indexOf(currentLocale.value)
   const nextIndex = (currentIndex + 1) % locales.length
   const nextLocale = locales[nextIndex]
-  
+
   console.log('Switching from', currentLocale.value, 'to', nextLocale)
-  
+
   // Update the reactive ref first
   currentLocale.value = nextLocale
-  
+
   // Set the locale (saves to localStorage and cookie)
   setLocale(nextLocale)
-  
+
   // Dispatch a custom event to update all text content
   document.dispatchEvent(new CustomEvent('languageChanged', {
-    detail: { locale: nextLocale }
+    detail: { locale: nextLocale },
   }))
-  
+
   // Update all translatable elements immediately
   updatePageLanguage(nextLocale)
 }
@@ -51,7 +51,7 @@ function toggleLanguage() {
 function getCurrentLanguageCode(): string {
   const codes = {
     'zh-tw': 'TW',
-    'en': 'EN'
+    en: 'EN',
   }
   return codes[currentLocale.value] || currentLocale.value.toUpperCase()
 }
@@ -66,7 +66,7 @@ function getNextLanguageName(): string {
 function updatePageLanguage(locale: Locale) {
   // Find all elements with data-i18n attributes and update them
   const translatableElements = document.querySelectorAll('[data-i18n]')
-  
+
   translatableElements.forEach(element => {
     const key = element.getAttribute('data-i18n')
     if (key) {
@@ -86,12 +86,12 @@ function updatePageLanguage(locale: Locale) {
 onMounted(() => {
   // Get saved locale from localStorage/cookies
   currentLocale.value = getCurrentLocale()
-  
+
   console.log('Language switcher mounted, current locale:', currentLocale.value)
-  
+
   // Set initial HTML lang attribute
   document.documentElement.setAttribute('lang', currentLocale.value)
-  
+
   // Listen for language change events from other components
   document.addEventListener('languageChanged', (e: any) => {
     currentLocale.value = e.detail.locale

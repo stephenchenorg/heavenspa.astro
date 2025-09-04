@@ -1,8 +1,8 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
-import { gql, graphQLAPI } from '@/api'
 import type { TeamMember } from '@/components/TeamSection.astro'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { gql, graphQLAPI } from '@/api'
+import Layout from '@/layouts/Layout.astro'
 
 export async function getStaticPaths() {
   try {
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
 
     return teamMembers.map((member: TeamMember & { id: number }) => ({
       params: { id: member.id.toString() },
-      props: { member }
+      props: { member },
     }))
   } catch (error) {
     console.error('Failed to fetch team data for static paths:', error)

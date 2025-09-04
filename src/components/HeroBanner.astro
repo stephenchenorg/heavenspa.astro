@@ -1,16 +1,20 @@
 ---
-import {createAstroT} from '@/utils/astro-i18n'
 import Button from '@/components/ui/Button.astro'
+import { createAstroT } from '@/utils/astro-i18n'
 
 const t = createAstroT(Astro)
 ---
 
 <!-- Dark Modern Portfolio Hero Section -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden theme-section" id="page-header"
-         style="background: var(--theme-bg, #0a0a0a)">
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden theme-section"
+  id="page-header"
+  style="background: var(--theme-bg, #0a0a0a)"
+>
   <!-- Subtle texture background -->
   <div
-    class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.02)_1px,_transparent_1px)] bg-[size:60px_60px]"></div>
+    class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.02)_1px,_transparent_1px)] bg-[size:60px_60px]"
+  ></div>
 
   <!-- Main Content -->
   <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
@@ -18,24 +22,30 @@ const t = createAstroT(Astro)
 
       <!-- Category Label -->
       <div class="animate-fade-in-up [animation-delay:0.2s] [animation-fill-mode:both]">
-        <span class="text-base tracking-[0.3em] uppercase font-light"
-              style="color: var(--theme-text-secondary, rgba(255,255,255,0.6))">
+        <span
+          class="text-base tracking-[0.3em] uppercase font-light"
+          style="color: var(--theme-text-secondary, rgba(255,255,255,0.6))"
+        >
           我們的故事
         </span>
       </div>
 
       <!-- Main Heading -->
       <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
-        <h1 class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
-            style="color: var(--theme-text, #ffffff)">
+        <h1
+          class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
+          style="color: var(--theme-text, #ffffff)"
+        >
           享天堂
         </h1>
       </div>
 
       <!-- Description -->
       <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
-        <p class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
-           style="color: var(--theme-text, rgba(255,255,255,0.8))">
+        <p
+          class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
+          style="color: var(--theme-text, rgba(255,255,255,0.8))"
+        >
           從場地、團隊到精油皆嚴格把關，享天堂讓您置身天堂
         </p>
         <a href="/booking">
@@ -48,20 +58,32 @@ const t = createAstroT(Astro)
   <!-- Social Links - Left Side for Desktop, Left Bottom for Mobile -->
   <div class="absolute left-4 bottom-4 md:left-8 md:bottom-8 z-10">
     <div class="flex flex-col space-y-4 md:space-y-4 space-y-3">
-      <a href="#" class="transition-colors duration-300 hover:opacity-70"
-         style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+      <a
+        href="#"
+        class="transition-colors duration-300 hover:opacity-70"
+        style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))"
+      >
         <span class="text-xs tracking-wider">X</span>
       </a>
-      <a href="#" class="transition-colors duration-300 hover:opacity-70"
-         style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+      <a
+        href="#"
+        class="transition-colors duration-300 hover:opacity-70"
+        style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))"
+      >
         <span class="text-xs tracking-wider">FB</span>
       </a>
-      <a href="#" class="transition-colors duration-300 hover:opacity-70"
-         style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+      <a
+        href="#"
+        class="transition-colors duration-300 hover:opacity-70"
+        style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))"
+      >
         <span class="text-xs tracking-wider">IG</span>
       </a>
-      <a href="#" class="transition-colors duration-300 hover:opacity-70"
-         style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+      <a
+        href="#"
+        class="transition-colors duration-300 hover:opacity-70"
+        style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))"
+      >
         <span class="text-xs tracking-wider">Line</span>
       </a>
     </div>
@@ -70,9 +92,9 @@ const t = createAstroT(Astro)
   <!-- Rotating Circle Text - Bottom Right -->
   <div class="absolute right-4 bottom-4 md:right-8 md:bottom-8 z-10">
     <div class="circle cursor-pointer" onclick="scrollToTeam()">
-      <div class="circle-icon md:bg-primary-500 md:rounded-full">
+      <div class="circle-icon bg-primary-500 rounded-full md:bg-transparent">
         <svg class=" w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4"/>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
         </svg>
       </div>
       <div class="circle-text hidden md:block">
@@ -156,14 +178,13 @@ const t = createAstroT(Astro)
 <script>
   // 創建圓形文字效果
   document.addEventListener('DOMContentLoaded', () => {
-
-    window.scrollToTeam = function() {
+    window.scrollToTeam = function () {
       const teamSection = document.getElementById('team')
       if (teamSection) {
         teamSection.scrollIntoView({
           behavior: 'smooth',
-          block: 'start'
-        })
+          block: 'start',
+      })
       }
     }
 
