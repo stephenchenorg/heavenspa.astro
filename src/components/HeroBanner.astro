@@ -187,7 +187,7 @@ const angleStep = 360 / chars.length
 <script>
   // 創建圓形文字效果
   document.addEventListener('DOMContentLoaded', () => {
-    window.scrollToTeam = function () {
+    (window as any).scrollToTeam = function () {
       const teamSection = document.getElementById('team')
       if (teamSection) {
         teamSection.scrollIntoView({
