@@ -3,6 +3,8 @@ import type { CompanySettingData } from '@/types'
 import Facebook from '@/components/icon/Facebook.astro'
 import Instagram from '@/components/icon/Instagram.astro'
 import Line from '@/components/icon/Line.astro'
+import Telegram from '@/components/icon/Telegram.astro'
+import Threads from '@/components/icon/Threads.astro'
 import X from '@/components/icon/X.astro'
 import Button from '@/components/ui/Button.astro'
 import { createAstroT } from '@/utils/astro-i18n'
@@ -80,6 +82,34 @@ const t = createAstroT(Astro)
             >
               <span class="social-icon">
                 <X />
+              </span>
+            </a>
+          )}
+          
+          {companySetting?.threads_link && (
+            <a
+              href={companySetting.threads_link}
+              class="social-link threads"
+              title="Threads"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="social-icon">
+                <Threads />
+              </span>
+            </a>
+          )}
+          
+          {companySetting?.tg_link && (
+            <a
+              href={companySetting.tg_link}
+              class="social-link telegram"
+              title="Telegram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="social-icon">
+                <Telegram />
               </span>
             </a>
           )}

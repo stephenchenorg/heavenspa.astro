@@ -1,0 +1,43 @@
+---
+export interface Props {
+  class?: string
+}
+
+const {
+  class: className = '',
+} = Astro.props
+---
+
+<svg
+  class={`theme-icon ${className}`}
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Threads"
+  role="img"
+  viewBox="0 0 512 512"
+  fill="currentColor"
+  width="48"
+  height="48"
+>
+  <path d="M331 142c-13-21-31-37-53-46-17-8-36-10-55-10-33 0-60 9-80 27-20 18-31 43-31 74v158c0 31 11 56 31 74 20 18 47 27 80 27 19 0 38-2 55-10 22-9 40-25 53-46 10-16 15-35 15-56v-32c0-21-5-40-15-56zm-75 90c-19 0-34-15-34-34s15-34 34-34 34 15 34 34-15 34-34 34zm0-52c-10 0-18 8-18 18s8 18 18 18 18-8 18-18-8-18-18-18z" />
+</svg>
+
+<style>
+  .theme-icon {
+    margin: 0;
+    padding: 0;
+    color: var(--theme-text, #000000);
+    transition: color 0.3s ease;
+  }
+
+  .dark .theme-icon,
+  .dark-theme .theme-icon,
+  [data-theme="dark"] .theme-icon {
+    color: var(--theme-text, #ffffff);
+  }
+
+  .theme-icon:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+  }
+</style>

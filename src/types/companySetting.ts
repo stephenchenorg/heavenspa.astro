@@ -10,6 +10,7 @@ export interface CompanySettingData {
   line_link: string
   whatsapp_link: string
   twitter_link: string
+  threads_link: string
   logo: string
   name: string
   phone_1: string
