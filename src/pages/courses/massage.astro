@@ -4,7 +4,7 @@ import Layout from '@/layouts/Layout.astro'
 
 const meta = seoMeta({
   title: 'Heaven Spa - 專業按摩課程',
-  description: '專業按摩課程培訓，從基礎手法到進階技巧，全面掌握按摩療法'
+  description: '專業按摩課程培訓，從基礎手法到進階技巧，全面掌握按摩療法',
 })
 
 // 課程詳細資訊
@@ -21,32 +21,32 @@ const courseData = {
       title: '基礎解剖學',
       duration: '2週',
       content: ['人體骨骼結構', '肌肉系統', '血液循環', '神經系統'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '瑞典式按摩',
       duration: '3週',
       content: ['基本手法', '推拿技巧', '穴位按摩', '力道控制'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '深層組織按摩',
       duration: '3週',
       content: ['深層放鬆', '疼痛緩解', '運動按摩', '復健技巧'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '熱石療法',
       duration: '2週',
       content: ['熱石運用', '溫度控制', '安全防護', '療程設計'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '芳香療法',
       duration: '2週',
       content: ['精油認識', '調配技巧', '按摩應用', '客戶諮詢'],
-      image: '/api/placeholder/400/300'
-    }
+      image: '/api/placeholder/400/300',
+    },
   ],
 
   features: [
@@ -55,7 +55,7 @@ const courseData = {
     '完整實習機會，累積實戰經驗',
     '課程結業證書，業界認可',
     '就業輔導服務，協助職涯發展',
-    '終身學習支援，持續技能提升'
+    '終身學習支援，持續技能提升',
   ],
 
   schedule: [
@@ -63,15 +63,15 @@ const courseData = {
     { day: '週二', time: '14:00-17:00', content: '實務練習' },
     { day: '週三', time: '09:00-12:00', content: '手法訓練' },
     { day: '週四', time: '14:00-17:00', content: '案例研討' },
-    { day: '週五', time: '09:00-12:00', content: '綜合練習' }
+    { day: '週五', time: '09:00-12:00', content: '綜合練習' },
   ],
 
   requirements: [
     '年滿18歲，具備基本中文閱讀能力',
     '對按摩療法有興趣與熱忱',
     '身體健康，無重大疾病',
-    '願意學習並遵守職業道德'
-  ]
+    '願意學習並遵守職業道德',
+  ],
 }
 ---
 
@@ -98,9 +98,9 @@ const courseData = {
   <section class="breadcrumb">
     <div class="container">
       <a href="/">首頁</a>
-      <span class="separator">></span>
+      <span class="separator">{'>'}</span>
       <a href="/courses">服務介紹</a>
-      <span class="separator">></span>
+      <span class="separator">{'>'}</span>
       <span class="current">專業按摩課程</span>
     </div>
   </section>
@@ -754,7 +754,7 @@ const courseData = {
     // AOS 動畫初始化 (如果需要的話)
     document.addEventListener('DOMContentLoaded', () => {
       // 可以在這裡添加滾動動畫或其他互動效果
-      console.log('按摩課程頁面載入完成')
+      // 按摩課程頁面載入完成
 })
 </script>
 </Layout>

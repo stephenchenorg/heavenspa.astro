@@ -4,7 +4,7 @@ import Layout from '@/layouts/Layout.astro'
 
 const meta = seoMeta({
   title: 'Heaven Spa - 專業除毛課程',
-  description: '專業除毛技術培訓，學習安全有效的除毛方法，包含雷射與傳統除毛技術'
+  description: '專業除毛技術培訓，學習安全有效的除毛方法，包含雷射與傳統除毛技術',
 })
 
 const courseData = {
@@ -20,27 +20,27 @@ const courseData = {
       title: '毛髮生理學',
       duration: '1週',
       content: ['毛髮結構', '生長週期', '影響因素', '膚質分析'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '蜜蠟除毛技術',
       duration: '3週',
       content: ['蜜蠟選擇', '操作技巧', '安全防護', '術後護理'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '雷射除毛原理',
       duration: '2週',
       content: ['雷射原理', '設備操作', '參數設定', '安全規範'],
-      image: '/api/placeholder/400/300'
+      image: '/api/placeholder/400/300',
     },
     {
       title: '電針除毛技術',
       duration: '1週',
       content: ['電針原理', '操作手法', '適用範圍', '注意事項'],
-      image: '/api/placeholder/400/300'
-    }
-  ]
+      image: '/api/placeholder/400/300',
+    },
+  ],
 }
 ---
 
@@ -67,9 +67,9 @@ const courseData = {
   <section class="breadcrumb">
     <div class="container">
       <a href="/">首頁</a>
-      <span class="separator">></span>
+      <span class="separator">{'>'}</span>
       <a href="/courses">服務介紹</a>
-      <span class="separator">></span>
+      <span class="separator">{'>'}</span>
       <span class="current">專業除毛課程</span>
     </div>
   </section>
@@ -113,7 +113,7 @@ const courseData = {
     <div class="container">
       <h2 class="text-5xl font-light mb-8 text-[#333]">課程內容</h2>
       <div class="modules-grid">
-        {courseData.modules.map((module) => (
+        {courseData.modules.map(module => (
           <div class="module-card">
             <div class="module-image">
               <img src={module.image} alt={module.title} />

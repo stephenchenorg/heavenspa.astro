@@ -238,17 +238,8 @@ const t = createAstroT(Astro)
     const mobileNavItems = document.querySelectorAll('.mobile-nav-item')
     const mobileMenu = mobileMenuOverlay?.querySelector('.mobile-menu')
 
-    console.log('Mobile menu elements check:', {
-      btn: !!mobileMenuBtnEl,
-      overlay: !!mobileMenuOverlay,
-      close: !!mobileMenuClose,
-      items: mobileNavItems.length,
-      windowWidth: window.innerWidth,
-    })
-
     // 開啟選單
     function openMobileMenu() {
-      console.log('Opening mobile menu')
       if (mobileMenuOverlay) {
         mobileMenuOverlay.classList.remove('opacity-0', 'invisible')
         mobileMenuOverlay.classList.add('opacity-100', 'visible')
@@ -275,7 +266,6 @@ const t = createAstroT(Astro)
 
     // 關閉選單
     function closeMobileMenu() {
-      console.log('Closing mobile menu')
       if (mobileMenuOverlay) {
         mobileMenuOverlay.classList.add('opacity-0', 'invisible')
         mobileMenuOverlay.classList.remove('opacity-100', 'visible')
@@ -304,7 +294,6 @@ const t = createAstroT(Astro)
     if (mobileMenuBtnEl) {
       // 方法1: addEventListener
       mobileMenuBtnEl.addEventListener('click', e => {
-        console.log('Button clicked via addEventListener')
         e.preventDefault()
         e.stopPropagation()
         openMobileMenu()
@@ -312,14 +301,12 @@ const t = createAstroT(Astro)
 
       // 方法2: ontouchstart (行動裝置)
       mobileMenuBtnEl.addEventListener('touchstart', e => {
-        console.log('Button touched via touchstart')
         e.preventDefault()
         openMobileMenu()
       })
 
       // 方法3: onclick 屬性作為備用
       mobileMenuBtnEl.onclick = function (e) {
-        console.log('Button clicked via onclick property')
         e.preventDefault()
         openMobileMenu()
         return false
@@ -362,7 +349,6 @@ const t = createAstroT(Astro)
 
     // 全域測試函數
     ;(window as any).testMobileMenu = function () {
-      console.log('Manual test - opening menu')
       openMobileMenu()
     }
   }
