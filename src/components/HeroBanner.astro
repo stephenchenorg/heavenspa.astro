@@ -3,6 +3,10 @@ import Button from '@/components/ui/Button.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 
 const t = createAstroT(Astro)
+
+const circleText = t('hero.scroll')
+const chars = circleText.split('')
+const angleStep = 360 / chars.length
 ---
 
 <!-- Dark Modern Portfolio Hero Section -->
@@ -98,7 +102,11 @@ const t = createAstroT(Astro)
         </svg>
       </div>
       <div class="circle-text hidden md:block">
-        <p class="hidden">{t('hero.scroll')}</p>
+        {chars.map((char, i) => (
+          <span style={`transform: rotate(${i * angleStep}deg)`}>
+            {char}
+          </span>
+        ))}
       </div>
     </div>
   </div>
@@ -126,6 +134,11 @@ const t = createAstroT(Astro)
     animation: fadeInUp 1s ease both;
   }
 
+  .circle:hover {
+    scale: 1.25;
+    opacity: 0.8;
+  }
+
   /* Rotating Circle Text Styles */
   .circle {
     position: relative;
@@ -135,12 +148,7 @@ const t = createAstroT(Astro)
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  .circle:hover {
-    transform: scale(1.05);
-    opacity: 0.8;
+    animation: fadeInUp 2s ease both;
   }
 
   .circle-icon {
@@ -173,6 +181,7 @@ const t = createAstroT(Astro)
     font-weight: 300;
     transform-origin: 0px 60px;
   }
+
 </style>
 
 <script>
@@ -185,27 +194,6 @@ const t = createAstroT(Astro)
           behavior: 'smooth',
           block: 'start',
       })
-      }
-    }
-
-    // Initialize rotating circle text
-    const circleText = document.querySelector('.circle-text')
-    if (circleText) {
-      const textElement = circleText.querySelector('p')
-      if (textElement) {
-        const text = textElement.textContent || ''
-        const chars = text.split('')
-
-        // Calculate the angle between each character
-        const angleStep = 360 / chars.length
-
-        // Create HTML with individual spans for each character
-        circleText.innerHTML = chars
-          .map((char, i) => {
-            const angle = i * angleStep
-            return `<span style="transform: rotate(${angle}deg)">${char === ' ' ? '&nbsp;' : char}</span>`
-          })
-          .join('')
       }
     }
 
