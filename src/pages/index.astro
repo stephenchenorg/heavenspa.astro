@@ -3,6 +3,7 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import CourseSection from '@/components/CourseSection.astro'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
+import IntroSection from '@/components/IntroSection.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
 import { gql, graphQLAPI } from '@/api'
@@ -51,6 +52,9 @@ const meta = seoMeta({
 <Layout meta={meta}>
   <!-- Hero Banner -->
   <HeroBanner banners={data.banners.data} />
+
+  <!-- Intro Section -->
+  <IntroSection />
 
   <TeamSection />
 

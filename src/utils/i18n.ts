@@ -103,8 +103,13 @@ export const translations = {
       'rights-reserved': '版權所有',
     },
 
+    // Intro Section
+    intro: {
+      headline: '致力成為世界一流的製造服務整合者與持續成長的永續經營企業',
+      description: '聚陽擁有嚴謹管理思維、豐富產業及行銷經驗、彈性產區佈局、創新設計研發、全球資訊整合，市場趨勢分析等多項能力，使聚陽成為台灣成衣界領航者，亦是美、日、歐、台各大服飾品牌與零售業者主要合作夥伴，在全球成衣產業價值鏈中取得關鍵地位。',
+    },
+
     // 其他
-    intro: 'intro',
     contact: 'CONTACT',
   },
   en: {
@@ -205,8 +210,13 @@ export const translations = {
       'rights-reserved': 'All Rights Reserved',
     },
 
+    // Intro Section
+    intro: {
+      headline: 'Committed to becoming a world-class manufacturing service integrator and a sustainable business enterprise with continuous growth',
+      description: 'With rigorous management thinking, rich industry and marketing experience, flexible regional layout, innovative design and development, global information integration, market trend analysis and other capabilities, we have become the leader in Taiwan\'s garment industry and the main partner of major fashion brands and retailers in the United States, Japan, Europe and Taiwan, occupying a key position in the global garment industry value chain.',
+    },
+
     // Others
-    intro: 'intro',
     contact: 'CONTACT',
   },
 } as const
