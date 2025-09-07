@@ -25,12 +25,12 @@ const t = createAstroT(Astro)
 
 <!-- 導航列 -->
 <nav
-  class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav"
+  class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav lg:justify-start"
   data-scrolled="false"
   style="background: var(--theme-nav-bg, transparent); color: var(--theme-nav-text, #000000);"
 >
-  <!-- Logo -->
-  <div class="nav-logo">
+  <!-- Logo - 25% width on lg+ -->
+  <div class="nav-logo lg:w-1/4 lg:flex-shrink-0">
     <a href="/" class="flex items-center h-full mr-4">
       {companySetting?.logo && (
         <img
@@ -41,8 +41,9 @@ const t = createAstroT(Astro)
       )}
     </a>
   </div>
-  <!-- Link -->
-  <div class="hidden xl:flex gap-6 items-center flex-nowrap overflow-hidden nav-menu">
+  
+  <!-- Link - 50% width on lg+ -->
+  <div class="hidden xl:flex gap-6 items-center justify-center flex-nowrap overflow-hidden nav-menu lg:w-1/2 lg:flex-shrink-0">
     <a href="/about" class="nav-item active" style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.about">{t('nav.about')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
@@ -80,8 +81,9 @@ const t = createAstroT(Astro)
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
   </button>
-  <!-- Action Div -->
-  <div class="hidden xl:flex items-center gap-4 nav-contact">
+  
+  <!-- Action Div - 25% width on lg+ -->
+  <div class="hidden xl:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
     <LanguageSwitcher client:load />
     <ThemeController />
     <ButtonBooking size="sm"/>
