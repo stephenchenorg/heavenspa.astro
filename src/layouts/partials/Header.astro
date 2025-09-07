@@ -29,6 +29,7 @@ const t = createAstroT(Astro)
   data-scrolled="false"
   style="background: var(--theme-nav-bg, transparent); color: var(--theme-nav-text, #000000);"
 >
+  <!-- Logo -->
   <div class="nav-logo">
     <a href="/" class="flex items-center h-full mr-4">
       {companySetting?.logo && (
@@ -40,6 +41,7 @@ const t = createAstroT(Astro)
       )}
     </a>
   </div>
+  <!-- Link -->
   <div class="hidden xl:flex gap-6 items-center flex-nowrap overflow-hidden nav-menu">
     <a href="/about" class="nav-item active" style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.about">{t('nav.about')}</span>
@@ -78,6 +80,7 @@ const t = createAstroT(Astro)
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
   </button>
+  <!-- Action Div -->
   <div class="hidden xl:flex items-center gap-4 nav-contact">
     <LanguageSwitcher client:load />
     <ThemeController />
