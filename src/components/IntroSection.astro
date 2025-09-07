@@ -39,7 +39,7 @@ const t = createAstroT(Astro)
 }
 
 .hnmoIs {
-    background-color: rgb(252, 167, 119);
+    background-color: var(--color-primary-400, rgb(252, 167, 119));
     position: relative;
     min-width: calc(800px + 100vh);
     overflow: hidden;
@@ -52,7 +52,7 @@ const t = createAstroT(Astro)
 }
 
 .irVGqj {
-    color: rgb(255, 255, 255);
+    color: var(--theme-text, rgb(255, 255, 255));
     font-size: 220px;
     line-height: 220px;
     display: flex;
@@ -88,14 +88,14 @@ const t = createAstroT(Astro)
     transform: translateX(-50%) translateY(-50%);
     transform-origin: center center;
     border-radius: 50%;
-    background: rgb(232, 232, 232);
+    background: var(--theme-card-bg, rgb(232, 232, 232));
 }
 
 .hrUILA .circle {
     height: 80vh;
     width: 80vh;
-    background: rgb(232, 232, 232);
-    color: rgb(67, 67, 67);
+    background: var(--theme-card-bg, rgb(232, 232, 232));
+    color: var(--theme-text, rgb(67, 67, 67));
     border-radius: 50%;
     position: relative;
     z-index: 3;
@@ -120,7 +120,7 @@ const t = createAstroT(Astro)
     transform: translateX(-50%) translateY(-50%);
     transform-origin: center center;
     border-radius: 50%;
-    background: rgb(232, 232, 232);
+    background: var(--theme-card-bg, rgb(232, 232, 232));
 }
 
 .hrUILA .circle div {
@@ -128,7 +128,7 @@ const t = createAstroT(Astro)
 }
 
 .hnmoIs {
-    background-color: rgb(252, 167, 119);
+    background-color: var(--color-primary-400, rgb(252, 167, 119));
     position: relative;
     min-width: calc(800px + 100vh);
     overflow: hidden;
@@ -136,13 +136,13 @@ const t = createAstroT(Astro)
 
 .hrUILA::before {
     z-index: 2;
-    background-color: rgba(235, 235, 235, 0.6);
+    background-color: var(--theme-hover-bg, rgba(235, 235, 235, 0.6));
     transition: transform 2s ease-out 0.3s;
 }
 
 .hrUILA::after {
     z-index: 1;
-    background-color: rgba(235, 235, 235, 0.2);
+    background-color: color-mix(in srgb, var(--theme-hover-bg, rgba(235, 235, 235, 0.2)) 30%, transparent);
     transition: transform 2s ease-out 0.6s;
 }
 
@@ -318,3 +318,28 @@ const t = createAstroT(Astro)
         right: 0;
     }
 } </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Apply theme-aware styling to intro section
+  const introSection = document.getElementById('intro')
+  
+  function updateIntroTheme() {
+    const isDark = document.body.classList.contains('dark-theme')
+    
+    if (introSection) {
+      // Update section background and text colors
+      introSection.style.background = `var(--theme-bg, ${isDark ? '#000000' : '#ffffff'})`
+      introSection.style.color = `var(--theme-text, ${isDark ? '#ffffff' : '#000000'})`
+    }
+  }
+
+  // Listen for theme change events
+  document.addEventListener('themeChanged', (event) => {
+    updateIntroTheme()
+  })
+
+  // Apply initial theme
+  updateIntroTheme()
+})
+</script>
