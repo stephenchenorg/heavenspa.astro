@@ -6,7 +6,7 @@ import Line from '@/components/icon/Line.astro'
 import Telegram from '@/components/icon/Telegram.astro'
 import Threads from '@/components/icon/Threads.astro'
 import X from '@/components/icon/X.astro'
-import Button from '@/components/ui/Button.astro'
+import ButtonBooking from '@/components/ButtonBooking.vue'
 import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Props {
@@ -30,9 +30,7 @@ const t = createAstroT(Astro)
     <!-- 社群媒體 -->
     <div class="footer-center">
       <div class="social-section-button">
-        <a href="/booking">
-          <Button><span data-i18n="buttons.book-now">{t('buttons.book-now')}</span></Button>
-        </a>
+        <ButtonBooking/>
       </div>
       <div class="social-section">
         <h4 class="social-title" data-i18n="footer.follow-us">{t('footer.follow-us')}</h4>
@@ -85,7 +83,7 @@ const t = createAstroT(Astro)
               </span>
             </a>
           )}
-          
+
           {companySetting?.threads_link && (
             <a
               href={companySetting.threads_link}
@@ -99,7 +97,7 @@ const t = createAstroT(Astro)
               </span>
             </a>
           )}
-          
+
           {companySetting?.tg_link && (
             <a
               href={companySetting.tg_link}

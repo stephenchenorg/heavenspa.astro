@@ -3,6 +3,7 @@ import type { CompanySettingData } from '@/types'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import ThemeController from '@/components/ThemeController.astro'
 import { createAstroT } from '@/utils/astro-i18n'
+import ButtonBooking from '@/components/ButtonBooking.vue'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -64,10 +65,6 @@ const t = createAstroT(Astro)
       <span data-i18n="nav.careers">{t('nav.careers')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="/booking" class="nav-item" style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.booking">{t('nav.booking')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
   </div>
 
   <!-- 手機版選單按鈕 -->
@@ -84,6 +81,7 @@ const t = createAstroT(Astro)
   <div class="hidden xl:flex items-center gap-4 nav-contact">
     <LanguageSwitcher client:load />
     <ThemeController />
+    <ButtonBooking/>
   </div>
 </nav>
 
@@ -138,15 +136,12 @@ const t = createAstroT(Astro)
         <span data-i18n="nav.careers">{t('nav.careers')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="/booking" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.booking">{t('nav.booking')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
     </nav>
     <div class="px-6 py-4 border-t border-b mobile-language-section" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
       <div class="flex justify-center items-center gap-4 mobile-language">
         <LanguageSwitcher client:load />
         <ThemeController />
+        <ButtonBooking />
       </div>
     </div>
     <div class="p-6 flex flex-col gap-4 flex-1 justify-end mobile-contact">
