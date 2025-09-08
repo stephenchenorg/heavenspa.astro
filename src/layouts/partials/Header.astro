@@ -42,8 +42,8 @@ const t = createAstroT(Astro)
     </a>
   </div>
   
-  <!-- Link - 50% width on lg+ -->
-  <div class="hidden xl:flex gap-6 items-center justify-center flex-nowrap overflow-hidden nav-menu lg:w-1/2 lg:flex-shrink-0">
+  <!-- Link - 50% width on lg+, hidden below lg -->
+  <div class="hidden lg:flex gap-6 items-center justify-center flex-nowrap overflow-hidden nav-menu lg:w-1/2 lg:flex-shrink-0">
     <a href="/about" class="nav-item active" style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.about">{t('nav.about')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
@@ -70,9 +70,9 @@ const t = createAstroT(Astro)
     </a>
   </div>
 
-  <!-- 手機版選單按鈕 -->
+  <!-- 手機版選單按鈕 - visible below lg -->
   <button
-    class="xl:!hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 bg-white/10 border border-white/20 rounded-lg p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn hover:bg-white/20"
+    class="lg:hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 bg-white/10 border border-white/20 rounded-lg p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn hover:bg-white/20"
     type="button"
     id="mobile-menu-btn"
     style="background: var(--theme-mobile-btn-bg, rgba(0,0,0,0.1)); border-color: var(--theme-mobile-btn-border, rgba(0,0,0,0.2));"
@@ -82,8 +82,8 @@ const t = createAstroT(Astro)
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
   </button>
   
-  <!-- Action Div - 25% width on lg+ -->
-  <div class="hidden xl:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
+  <!-- Action Div - 25% width on lg+, hidden below lg -->
+  <div class="hidden lg:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
     <LanguageSwitcher client:load />
     <ThemeController />
     <ButtonBooking size="sm"/>
