@@ -194,9 +194,9 @@ const angleStep = 360 / chars.length
         if (scrollY > 0) {
           // 使用 text-primary-600 顏色
           heroTitle.style.background = 'none'
-          heroTitle.style.webkitBackgroundClip = 'initial'
+          ;(heroTitle.style as any).webkitBackgroundClip = 'initial'
           heroTitle.style.backgroundClip = 'initial'
-          heroTitle.style.webkitTextFillColor = 'initial'
+          ;(heroTitle.style as any).webkitTextFillColor = 'initial'
           heroTitle.style.color = 'rgb(217, 174, 84)' // text-primary-600 equivalent
 
           // 添加慢脈衝動畫
@@ -204,9 +204,9 @@ const angleStep = 360 / chars.length
         } else {
           // 恢復原始顏色
           heroTitle.style.background = 'none'
-          heroTitle.style.webkitBackgroundClip = 'initial'
+          ;(heroTitle.style as any).webkitBackgroundClip = 'initial'
           heroTitle.style.backgroundClip = 'initial'
-          heroTitle.style.webkitTextFillColor = 'initial'
+          ;(heroTitle.style as any).webkitTextFillColor = 'initial'
           heroTitle.style.color = 'var(--theme-text, #ffffff)'
 
           // 移除慢脈衝動畫

@@ -158,7 +158,7 @@ const badgeClass = `inline-flex items-center gap-1 font-medium transition-all du
   )}
 </span>
 
-<script define:vars={{darkStyles}}>
+<script define:vars={{darkStyles}} is:inline>
   // Handle dark mode styles
   const updateBadgeStyles = () => {
     const badges = document.querySelectorAll('[data-variant]');
@@ -166,7 +166,7 @@ const badgeClass = `inline-flex items-center gap-1 font-medium transition-all du
     
     badges.forEach(badge => {
       const variant = badge.getAttribute('data-variant');
-      const isOutline = badge.getAttribute('data-outline') === 'true';
+      // const isOutline = badge.getAttribute('data-outline') === 'true';
       
       if (isDark && darkStyles[variant]) {
         const styles = darkStyles[variant];

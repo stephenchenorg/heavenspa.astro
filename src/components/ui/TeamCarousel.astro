@@ -22,7 +22,7 @@ const {
   onClick
 } = Astro.props
 
-const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9)}`
+const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2, 11)}`
 ---
 
 <a class={cardClass} onclick={onClick} href=`/team/${member.id}`>
@@ -122,32 +122,32 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9
       if (slides.length <= 1) return
 
       let currentSlide = 0
-      let autoSlideTimer = null
+      let autoSlideTimer: NodeJS.Timeout | null = null
 
       // 顯示指定的幻燈片
-      function showSlide(index) {
+      function showSlide(index: number) {
         // 隱藏所有幻燈片
         slides.forEach(slide => {
-          slide.style.opacity = '0'
+          (slide as HTMLElement).style.opacity = '0'
         })
 
         // 重置所有指示器
         dots.forEach(dot => {
           dot.classList.remove('active')
-          dot.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'
-          dot.style.transform = 'scale(1)'
+          ;(dot as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.5)'
+          ;(dot as HTMLElement).style.transform = 'scale(1)'
         })
 
         // 顯示當前幻燈片
         if (slides[index]) {
-          slides[index].style.opacity = '1'
+          (slides[index] as HTMLElement).style.opacity = '1'
         }
 
         // 激活當前指示器
         if (dots[index]) {
           dots[index].classList.add('active')
-          dots[index].style.backgroundColor = 'rgba(255, 255, 255, 0.9)'
-          dots[index].style.transform = 'scale(1.2)'
+          ;(dots[index] as HTMLElement).style.backgroundColor = 'rgba(255, 255, 255, 0.9)'
+          ;(dots[index] as HTMLElement).style.transform = 'scale(1.2)'
         }
       }
 
@@ -194,8 +194,9 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9
       let startX = 0
       let isDragging = false
 
-      container.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX
+      container.addEventListener('touchstart', (e: Event) => {
+        const touchEvent = e as TouchEvent
+        startX = touchEvent.touches[0].clientX
         isDragging = true
         stopAutoSlide()
       })
@@ -205,10 +206,11 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9
         e.preventDefault()
       })
 
-      container.addEventListener('touchend', (e) => {
+      container.addEventListener('touchend', (e: Event) => {
         if (!isDragging) return
 
-        const endX = e.changedTouches[0].clientX
+        const touchEvent = e as TouchEvent
+        const endX = touchEvent.changedTouches[0].clientX
         const diffX = startX - endX
 
         if (Math.abs(diffX) > 50) { // 最小滑動距離
@@ -226,9 +228,9 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9
       })
 
       // 點擊容器切換到下一張
-      container.addEventListener('click', (e) => {
+      container.addEventListener('click', (e: Event) => {
         // 如果點擊的是指示器，則不執行切換
-        if (e.target.classList.contains('carousel-dot')) return
+        if (e.target && (e.target as HTMLElement).classList.contains('carousel-dot')) return
         
         nextSlide()
         stopAutoSlide()

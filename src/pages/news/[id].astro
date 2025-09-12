@@ -1,5 +1,5 @@
 ---
-import type { TeamMember } from '@/components/TeamSection.astro'
+import type { TeamMember } from '@/types'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { gql, graphQLAPI } from '@/api'
 import Layout from '@/layouts/Layout.astro'
@@ -50,8 +50,8 @@ export async function getStaticPaths() {
   }
 }
 
-const { id } = Astro.params
-const { member } = Astro.props as { member: TeamMember & { id: number } }
+// const { id } = Astro.params
+// const { member } = Astro.props as { member: TeamMember & { id: number } }
 
 const meta = seoMeta({
   title: `Heaven Spa`,

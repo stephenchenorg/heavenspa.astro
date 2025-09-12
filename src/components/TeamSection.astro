@@ -198,21 +198,24 @@ const t = createAstroT(Astro)
       if (slides.length <= 1) return // 只有一張時不需要輪播
       
       let currentIndex = 0
-      let mobileAutoTimer = null
+      let mobileAutoTimer: NodeJS.Timeout | null = null
       
       // 更新輪播位置
       function updateCarouselPosition() {
         const translateX = -currentIndex * 100
-        track.style.transform = `translateX(${translateX}%)`
+        if (track) {
+          (track as HTMLElement).style.transform = `translateX(${translateX}%)`
+        }
         
         // 更新指示器
         dots.forEach((dot, index) => {
+          const dotElement = dot as HTMLElement
           if (index === currentIndex) {
-            dot.style.opacity = '1'
-            dot.style.transform = 'scale(1.2)'
+            dotElement.style.opacity = '1'
+            dotElement.style.transform = 'scale(1.2)'
           } else {
-            dot.style.opacity = '0.3'
-            dot.style.transform = 'scale(1)'
+            dotElement.style.opacity = '0.3'
+            dotElement.style.transform = 'scale(1)'
           }
         })
       }
@@ -273,16 +276,18 @@ const t = createAstroT(Astro)
       let touchStartX = 0
       let touchIsDragging = false
       
-      mobileCarousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX
+      mobileCarousel.addEventListener('touchstart', (e: Event) => {
+        const touchEvent = e as TouchEvent
+        touchStartX = touchEvent.touches[0].clientX
         touchIsDragging = true
         stopMobileAutoSlide()
       })
       
-      mobileCarousel.addEventListener('touchend', (e) => {
+      mobileCarousel.addEventListener('touchend', (e: Event) => {
         if (!touchIsDragging) return
         
-        const touchEndX = e.changedTouches[0].clientX
+        const touchEvent = e as TouchEvent
+        const touchEndX = touchEvent.changedTouches[0].clientX
         const diffX = touchStartX - touchEndX
         
         // 檢測滑動距離

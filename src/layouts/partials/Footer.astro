@@ -6,7 +6,6 @@ import Line from '@/components/icon/Line.astro'
 import Telegram from '@/components/icon/Telegram.astro'
 import Threads from '@/components/icon/Threads.astro'
 import X from '@/components/icon/X.astro'
-import ButtonBooking from '@/components/ButtonBooking.vue'
 import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Props {
@@ -22,117 +21,160 @@ const {
 const t = createAstroT(Astro)
 ---
 
-<footer class="modern-footer">
-  <div class="footer-container">
-    <div class="footer-grid">
+<footer class="relative overflow-hidden bg-[var(--theme-bg,#ffffff)] text-[var(--theme-text,#000000)] border-t border-[var(--theme-border,#e5e5e5)] pt-16 pb-8 before:absolute before:inset-0 before:bg-gradient-to-br before:from-[rgba(212,175,55,0.05)] before:to-[rgba(212,175,55,0.02)] before:pointer-events-none">
+  <div class="relative z-10 px-4 md:px-8 lg:px-16 lg:max-w-[1400px] lg:mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-6 lg:gap-12 mb-12 text-center lg:text-left">
       
       <!-- 左側：公司資訊 -->
-      <div class="footer-column company-info">
-        <div class="company-logo">
-          <div class="logo-text">{companySetting?.name}</div>
-          <div class="logo-subtitle">HEAVEN SPA</div>
+      <div class="animate-fadeInUp lg:pr-8">
+        <div class="mb-6">
+          <div class="text-2xl md:text-3xl font-bold text-[var(--color-primary-600,#c4a428)] mb-1 tracking-wide">{companySetting?.name}</div>
+          <div class="text-base font-medium text-[var(--theme-text-secondary,#666666)] tracking-[2px] uppercase">HEAVEN SPA</div>
         </div>
-        <p class="company-description">
+        <p class="text-sm md:text-base leading-relaxed text-[var(--theme-text-secondary,#666666)] mb-8 max-w-md mx-auto lg:mx-0">
           專業的身心靈放鬆體驗，結合傳統與現代技術，為您提供最優質的 SPA 服務。在這裡找到內心的平靜與身體的舒緩。
         </p>
-        <div class="contact-info">
-          <div class="contact-item">
-            <span class="contact-icon">📞</span>
-            <a href={`tel:${companySetting?.phone_1}`}>{companySetting?.phone_1}</a>
+        <div class="flex flex-col gap-4 max-w-md mx-auto lg:mx-0">
+          <div class="flex items-center justify-center lg:justify-start gap-3 text-sm">
+            <span class="text-base opacity-80">📞</span>
+            <a href={`tel:${companySetting?.phone_1}`} class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">{companySetting?.phone_1}</a>
           </div>
-          <div class="contact-item">
-            <span class="contact-icon">📍</span>
-            <a href={`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`} target="_blank" rel="noopener noreferrer">{companySetting?.address_1}</a>
+          <div class="flex items-center justify-center lg:justify-start gap-3 text-sm">
+            <span class="text-base opacity-80">📍</span>
+            <a href={`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`} target="_blank" rel="noopener noreferrer" class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">{companySetting?.address_1}</a>
           </div>
-          <div class="contact-item">
-            <span class="contact-icon">🕒</span>
-            <span data-i18n="footer.business-hours-time">{t('footer.business-hours-time')}</span>
+          <div class="flex items-center justify-center lg:justify-start gap-3 text-sm">
+            <span class="text-base opacity-80">🕒</span>
+            <span data-i18n="footer.business-hours-time" class="text-[var(--theme-text,#000000)]">{t('footer.business-hours-time')}</span>
           </div>
-          <div class="contact-item">
-            <span class="contact-icon">✉️</span>
-            <a href={`mailto:${companySetting?.email_1}`}>{companySetting?.email_1}</a>
+          <div class="flex items-center justify-center lg:justify-start gap-3 text-sm">
+            <span class="text-base opacity-80">✉️</span>
+            <a href={`mailto:${companySetting?.email_1}`} class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">{companySetting?.email_1}</a>
           </div>
         </div>
       </div>
 
       <!-- 服務項目 -->
-      <div class="footer-column services-links">
-        <h4 class="footer-title">服務項目</h4>
-        <ul class="footer-links">
-          <li><a href="/services">關於我們</a></li>
-          <li><a href="/services">按摩服務</a></li>
-          <li><a href="/services">美容護理</a></li>
-          <li><a href="/services">身體療程</a></li>
-          <li><a href="/booking">線上預約</a></li>
-          <li><a href="/contact">聯絡我們</a></li>
+      <div class="animate-fadeInUp animation-delay-200">
+        <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">服務項目</h4>
+        <ul class="space-y-3 grid grid-cols-2 md:grid-cols-1 gap-2 md:gap-0">
+          <li><a href="/services" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            關於我們
+          </a></li>
+          <li><a href="/services" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            按摩服務
+          </a></li>
+          <li><a href="/services" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            美容護理
+          </a></li>
+          <li><a href="/services" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            身體療程
+          </a></li>
+          <li><a href="/booking" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            線上預約
+          </a></li>
+          <li><a href="/contact" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            聯絡我們
+          </a></li>
         </ul>
       </div>
 
       <!-- 社群媒體 -->
-      <div class="footer-column social-column">
-        <h4 class="footer-title">社群媒體</h4>
-        <ul class="footer-links">
+      <div class="animate-fadeInUp animation-delay-400">
+        <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">社群媒體</h4>
+        <ul class="space-y-3 flex flex-wrap justify-center md:flex-col md:justify-start gap-4 md:gap-0 md:space-y-3">
           {companySetting?.fb_link && (
             <li>
-              <a href={companySetting.fb_link} class="social-link" target="_blank" rel="noopener noreferrer" title="Facebook">
-                <Facebook />
-                <span>Facebook</span>
+              <a href={companySetting.fb_link} class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" title="Facebook">
+                <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
+                  <Facebook />
+                </div>
+                <span class="font-normal tracking-wide">Facebook</span>
               </a>
             </li>
           )}
           {companySetting?.ig_link && (
             <li>
-              <a href={companySetting.ig_link} class="social-link" target="_blank" rel="noopener noreferrer" title="Instagram">
-                <Instagram />
-                <span>Instagram</span>
+              <a href={companySetting.ig_link} class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" title="Instagram">
+                <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
+                  <Instagram />
+                </div>
+                <span class="font-normal tracking-wide">Instagram</span>
               </a>
             </li>
           )}
           {companySetting?.line_link && (
             <li>
-              <a href={companySetting.line_link} class="social-link" target="_blank" rel="noopener noreferrer" title="Line">
-                <Line />
-                <span>Line</span>
+              <a href={companySetting.line_link} class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" title="Line">
+                <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
+                  <Line />
+                </div>
+                <span class="font-normal tracking-wide">Line</span>
               </a>
             </li>
           )}
           {companySetting?.twitter_link && (
             <li>
-              <a href={companySetting.twitter_link} class="social-link" target="_blank" rel="noopener noreferrer" title="Twitter">
-                <X />
-                <span>Twitter</span>
+              <a href={companySetting.twitter_link} class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" title="Twitter">
+                <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
+                  <X />
+                </div>
+                <span class="font-normal tracking-wide">Twitter</span>
               </a>
             </li>
           )}
           {companySetting?.tg_link && (
             <li>
-              <a href={companySetting.tg_link} class="social-link" target="_blank" rel="noopener noreferrer" title="Telegram">
-                <Telegram />
-                <span>Telegram</span>
+              <a href={companySetting.tg_link} class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" title="Telegram">
+                <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
+                  <Telegram />
+                </div>
+                <span class="font-normal tracking-wide">Telegram</span>
               </a>
             </li>
           )}
           {companySetting?.threads_link && (
             <li>
-              <a href={companySetting.threads_link} class="social-link" target="_blank" rel="noopener noreferrer" title="Threads">
-                <Threads />
-                <span>Threads</span>
+              <a href={companySetting.threads_link} class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105" target="_blank" rel="noopener noreferrer" title="Threads">
+                <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
+                  <Threads />
+                </div>
+                <span class="font-normal tracking-wide">Threads</span>
               </a>
             </li>
           )}
         </ul>
-      </div>      <!-- 法律與政策 -->
-      <div class="footer-column legal-column">
-        <h4 class="footer-title">法律與政策</h4>
-        <ul class="footer-links">
-          <li><a href="/privacy">隱私政策</a></li>
-          <li><a href="/terms">服務條款</a></li>
-          <li><a href="/presskit">媒體資料</a></li>
+      </div>
+      
+      <!-- 法律與政策 -->
+      <div class="animate-fadeInUp animation-delay-600">
+        <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">法律與政策</h4>
+        <ul class="space-y-3 grid grid-cols-1 gap-2 md:gap-0">
+          <li><a href="/privacy" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            隱私政策
+          </a></li>
+          <li><a href="/terms" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            服務條款
+          </a></li>
+          <li><a href="/presskit" class="group flex items-center justify-center md:justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+            媒體資料
+          </a></li>
         </ul>
       </div>
-    </div>    <!-- 底部版權資訊 -->
-    <div class="footer-bottom">
-      <div class="footer-bottom-content">
+    </div>
+    
+    <!-- 底部版權資訊 -->
+    <div class="border-t border-[var(--theme-border,#e5e5e5)] pt-8 text-center">
+      <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-8 text-sm text-[var(--theme-text-secondary,#666666)]">
         <p>&copy; Heaven Spa 2024.</p>
         <p>位於台北，台灣。</p>
       </div>
@@ -140,302 +182,34 @@ const t = createAstroT(Astro)
   </div>
 
   <style>
-    .modern-footer {
-      background: var(--theme-bg, #ffffff);
-      color: var(--theme-text, #000000);
-      border-top: 1px solid var(--theme-border, #e5e5e5);
-      padding: 4rem 0 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .modern-footer::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.02) 100%);
-      pointer-events: none;
-    }
-
-    .footer-container {
-      max-width: none;
-      margin: 0;
-      padding: 0 1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    @media (min-width: 768px) {
-      .footer-container {
-        padding: 0 2rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .footer-container {
-        padding: 0 4rem;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer-column h3,
-    .footer-column h4 {
-      margin: 0 0 1.5rem 0;
-      font-weight: 600;
-      color: var(--theme-text, #000000);
-    }
-
-    .footer-column h3 {
-      font-size: 1.8rem;
-      color: var(--color-primary-600, #c4a428);
-    }
-
-    .footer-column h4 {
-      font-size: 1.2rem;
-      letter-spacing: 0.5px;
-    }
-
-    .footer-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--theme-text, #000000);
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* 公司資訊區域 */
-    .company-info {
-      padding-right: 2rem;
-    }
-
-    .company-logo {
-      margin-bottom: 1.5rem;
-    }
-
-    .logo-text {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--color-primary-600, #c4a428);
-      margin-bottom: 0.25rem;
-      letter-spacing: 0.5px;
-    }
-
-    .logo-subtitle {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--theme-text-secondary, #666666);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .company-description {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--theme-text-secondary, #666666);
-      margin-bottom: 2rem;
-    }
-
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-    }
-
-    .contact-icon {
-      font-size: 1rem;
-      opacity: 0.8;
-    }
-
-    .contact-item a {
-      color: var(--theme-text, #000000);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .contact-item a:hover {
-      color: var(--color-primary-600, #c4a428);
-    }
-
-    /* 連結列表 */
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-links li {
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-links a {
-      color: var(--theme-text-secondary, #666666);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-    }
-
-    .footer-links a::before {
-      content: '→';
-      margin-right: 0.5rem;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: all 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--color-primary-600, #c4a428);
-      transform: translateX(5px);
-    }
-
-    .footer-links a:hover::before {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* 社群媒體連結特殊樣式 */
-    .footer-links a.social-link {
-      gap: 0.5rem;
-    }
-
-    .footer-links a.social-link::before {
-      display: none;
-    }
-
-    .footer-links a.social-link svg {
-      width: 16px;
-      height: 16px;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-    }
-
-    .footer-links a.social-link:hover svg {
-      transform: scale(1.1);
-    }
-
-    .footer-links a.social-link span {
-      font-weight: 400;
-      letter-spacing: 0.3px;
-    }
-
-    /* 底部區域 */
-    .footer-bottom {
-      border-top: 1px solid var(--theme-border, #e5e5e5);
-      padding-top: 2rem;
-      text-align: center;
-    }
-
-    .footer-bottom-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      font-size: 0.85rem;
-      color: var(--theme-text-secondary, #666666);
-    }
-
-    .footer-bottom-content p {
-      margin: 0;
-    }
-
-    /* 響應式設計 */
-    @media (max-width: 1024px) {
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .company-info {
-        padding-right: 0;
-      }
-
-      .footer-links a.social-link svg {
-        width: 18px;
-        height: 18px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .modern-footer {
-        padding: 3rem 0 1.5rem;
-      }
-
-      .footer-grid {
-        gap: 2rem;
-      }
-
-      .footer-bottom-content {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .modern-footer {
-        padding: 2rem 0 1rem;
-      }
-
-      .footer-grid {
-        gap: 1.5rem;
-      }
-
-      .company-info h3 {
-        font-size: 1.5rem;
-      }
-
-      .company-description {
-        font-size: 0.9rem;
-      }
-    }
-
     /* 深色模式適配 */
-    .dark-theme .modern-footer {
-      background: var(--theme-bg, #000000);
-      color: var(--theme-text, #ffffff);
+    .dark-theme footer {
+      background: var(--theme-bg, #000000) !important;
+      color: var(--theme-text, #ffffff) !important;
     }
 
-    .dark-theme .modern-footer::before {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+    .dark-theme footer::before {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%) !important;
     }
 
     /* 深色模式下的社群媒體圖示 */
-    .dark-theme .footer-links a.social-link svg {
+    .dark-theme footer svg {
       fill: #ffffff;
       color: #ffffff;
     }
 
-    .dark-theme .footer-links a.social-link svg path {
+    .dark-theme footer svg path {
       fill: #ffffff;
     }
 
     /* 深色模式下的懸停效果 */
-    .dark-theme .footer-links a.social-link:hover svg {
-      fill: var(--color-primary-400, #d4af37);
-      color: var(--color-primary-400, #d4af37);
+    .dark-theme footer a:hover svg {
+      fill: var(--color-primary-400, #d4af37) !important;
+      color: var(--color-primary-400, #d4af37) !important;
     }
 
-    .dark-theme .footer-links a.social-link:hover svg path {
-      fill: var(--color-primary-400, #d4af37);
+    .dark-theme footer a:hover svg path {
+      fill: var(--color-primary-400, #d4af37) !important;
     }
 
     /* 動畫效果 */
@@ -450,16 +224,20 @@ const t = createAstroT(Astro)
       }
     }
 
-    .footer-column {
+    .animate-fadeInUp {
       animation: fadeInUp 0.6s ease forwards;
     }
 
-    .footer-column:nth-child(2) {
+    .animation-delay-200 {
       animation-delay: 0.2s;
     }
 
-    .footer-column:nth-child(3) {
+    .animation-delay-400 {
       animation-delay: 0.4s;
+    }
+
+    .animation-delay-600 {
+      animation-delay: 0.6s;
     }
   </style>
 </footer>
