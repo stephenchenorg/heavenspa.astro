@@ -1,0 +1,15 @@
+---
+import { seoMeta } from '@stephenchenorg/astro/page'
+import Layout from '@/layouts/Layout.astro'
+import BadgeDemo from '@/components/ui/BadgeDemo.astro'
+
+const meta = seoMeta({
+  title: 'Badge Demo - Heaven Spa',
+})
+---
+
+<Layout meta={meta}>
+  <main class="section-container pt-32 min-h-screen">
+    <BadgeDemo />
+  </main>
+</Layout>

@@ -2,48 +2,7 @@
 import { gql, graphQLAPI } from '@/api'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createAstroT } from '@/utils/astro-i18n'
-
-// 定義 API 回應的類型
-export interface TeamCover {
-  desktop: string
-  desktop_blur: string
-  mobile: string
-  mobile_blur: string
-}
-
-export interface TeamImage {
-  desktop: string
-  desktop_blur: string
-  mobile: string
-  mobile_blur: string
-}
-
-export interface TeamImageItem {
-  created_at: string
-  id: number
-  image: TeamImage
-  updated_at: string
-  is_default: boolean
-}
-
-export interface TeamCategory {
-  title: string
-}
-
-export interface TeamMember {
-  id: number
-  title: string
-  category: TeamCategory
-  cover: TeamCover
-  images: TeamImageItem[]
-  image: TeamImage
-}
-
-export interface TeamsResponse {
-  teams: {
-    data: TeamMember[]
-  }
-}
+import type { TeamMember, TeamsResponse } from '@/types'
 
 // GraphQL 查詢與錯誤處理
 let teamMembers: TeamMember[] = []
@@ -71,6 +30,13 @@ try {
             desktop_blur
             mobile
             mobile_blur
+          }
+          tags {
+            data {
+              id
+              title
+              slug
+            }
           }
           title
           category {
@@ -103,6 +69,7 @@ try {
         mobile: '/images/default-team-mobile.jpg',
         mobile_blur: '/images/default-team-mobile-blur.jpg',
       },
+      tags: { data: [] },
     },
   ]
 }

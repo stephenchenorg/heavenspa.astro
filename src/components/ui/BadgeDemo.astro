@@ -1,0 +1,127 @@
+---
+import Badge from './Badge.astro'
+---
+
+<div class="space-y-8 p-6">
+  <!-- Badge 標題 -->
+  <div class="text-center">
+    <h2 class="text-2xl font-bold mb-2">Badge Components</h2>
+    <p class="text-gray-600 dark:text-gray-400">各種樣式的 Badge 標籤組件</p>
+  </div>
+
+  <!-- 基本樣式 -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">基本樣式</h3>
+    <div class="flex flex-wrap gap-3">
+      <Badge variant="default">Default</Badge>
+      <Badge variant="primary">Primary</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Badge variant="success">Success</Badge>
+      <Badge variant="warning">Warning</Badge>
+      <Badge variant="danger">Danger</Badge>
+      <Badge variant="info">Info</Badge>
+    </div>
+  </section>
+
+  <!-- 輪廓樣式 -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">輪廓樣式</h3>
+    <div class="flex flex-wrap gap-3">
+      <Badge variant="default" outline>Default</Badge>
+      <Badge variant="primary" outline>Primary</Badge>
+      <Badge variant="secondary" outline>Secondary</Badge>
+      <Badge variant="success" outline>Success</Badge>
+      <Badge variant="warning" outline>Warning</Badge>
+      <Badge variant="danger" outline>Danger</Badge>
+      <Badge variant="info" outline>Info</Badge>
+    </div>
+  </section>
+
+  <!-- 尺寸變化 -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">尺寸變化</h3>
+    <div class="flex items-center flex-wrap gap-3">
+      <Badge variant="primary" size="small">Small</Badge>
+      <Badge variant="primary" size="medium">Medium</Badge>
+      <Badge variant="primary" size="large">Large</Badge>
+    </div>
+  </section>
+
+  <!-- 圓角樣式 -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">圓角樣式</h3>
+    <div class="flex flex-wrap gap-3">
+      <Badge variant="success" rounded={false}>方形</Badge>
+      <Badge variant="success" rounded={true}>圓形</Badge>
+    </div>
+  </section>
+
+  <!-- 可關閉樣式 -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">可關閉樣式</h3>
+    <div class="flex flex-wrap gap-3">
+      <Badge variant="primary" dismissible>可關閉 Primary</Badge>
+      <Badge variant="success" dismissible>可關閉 Success</Badge>
+      <Badge variant="warning" dismissible>可關閉 Warning</Badge>
+      <Badge variant="danger" dismissible>可關閉 Danger</Badge>
+    </div>
+  </section>
+
+  <!-- 實際應用範例 -->
+  <section>
+    <h3 class="text-lg font-semibold mb-4">實際應用範例</h3>
+    <div class="space-y-4">
+      <!-- 狀態標籤 -->
+      <div class="p-4 border rounded-lg">
+        <h4 class="font-medium mb-2">服務狀態</h4>
+        <div class="flex flex-wrap gap-2">
+          <Badge variant="success" size="small">營業中</Badge>
+          <Badge variant="warning" size="small">即將結束</Badge>
+          <Badge variant="danger" size="small">已結束</Badge>
+          <Badge variant="info" size="small">即將開始</Badge>
+        </div>
+      </div>
+
+      <!-- 分類標籤 -->
+      <div class="p-4 border rounded-lg">
+        <h4 class="font-medium mb-2">服務分類</h4>
+        <div class="flex flex-wrap gap-2">
+          <Badge variant="primary" outline>芳療</Badge>
+          <Badge variant="secondary" outline>按摩</Badge>
+          <Badge variant="info" outline>護膚</Badge>
+          <Badge variant="success" outline>養生</Badge>
+        </div>
+      </div>
+
+      <!-- 數量標籤 -->
+      <div class="p-4 border rounded-lg">
+        <h4 class="font-medium mb-2">通知數量</h4>
+        <div class="flex flex-wrap gap-4">
+          <div class="flex items-center gap-2">
+            <span>訊息</span>
+            <Badge variant="danger" size="small" rounded>3</Badge>
+          </div>
+          <div class="flex items-center gap-2">
+            <span>預約</span>
+            <Badge variant="success" size="small" rounded>12</Badge>
+          </div>
+          <div class="flex items-center gap-2">
+            <span>通知</span>
+            <Badge variant="warning" size="small" rounded>5</Badge>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* 確保 Badge 在深色模式下也能正常顯示 */
+  section {
+    @apply border-b border-gray-200 dark:border-gray-700 pb-6;
+  }
+  
+  section:last-child {
+    @apply border-b-0;
+  }
+</style>
