@@ -33,7 +33,7 @@ export const translations = {
     team: {
       title: 'Our Team.',
       description: '同樣的色彩可以喚起不同的情感，或對不同的個人和文化具有各種意義。',
-      'more-members': '更多服務團隊成員...',
+      'more-members': '查看所有團隊成員...',
     },
 
     // Course Section
