@@ -1,79 +1,12 @@
 ---
-import { gql, graphQLAPI } from '@/api'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import ImageCarousel from '@/components/ui/ImageCarousel.astro'
 import { createAstroT } from '@/utils/astro-i18n'
-import type { TeamMember, TeamsResponse } from '@/types'
+import { getWeeklyRecommended } from '@/api/teams'
+import type { TeamMember } from '@/types'
 
-// GraphQL 查詢與錯誤處理
-let teamMembers: TeamMember[] = []
-
-try {
-  const teamsData: TeamsResponse = await graphQLAPI(gql`
-    query MyQuery {
-      teams(sort_by: "asc", sort_column: "sort", slug_tags:"weekly-recommended") {
-        data {
-          id
-          images {
-            created_at
-            id
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
-            updated_at
-            is_default
-          }
-          image {
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          tags {
-            data {
-              id
-              title
-              slug
-            }
-          }
-          title
-          category {
-            title
-          }
-        }
-      }
-    }
-  `)
-
-  teamMembers = teamsData.teams.data || []
-} catch (error) {
-  console.error('Failed to fetch team data:', error)
-  // 如果 API 失敗，提供預設資料
-  teamMembers = [
-    {
-      id: 1,
-      title: '專業團隊',
-      category: { title: '服務專員' },
-      cover: {
-        desktop: '/images/default-team.jpg',
-        desktop_blur: '/images/default-team-blur.jpg',
-        mobile: '/images/default-team-mobile.jpg',
-        mobile_blur: '/images/default-team-mobile-blur.jpg',
-      },
-      images: [],
-      image: {
-        desktop: '/images/default-team.jpg',
-        desktop_blur: '/images/default-team-blur.jpg',
-        mobile: '/images/default-team-mobile.jpg',
-        mobile_blur: '/images/default-team-mobile-blur.jpg',
-      },
-      tags: { data: [] },
-    },
-  ]
-}
+// 獲取本週推薦團隊成員
+const teamMembers: TeamMember[] = await getWeeklyRecommended()
 
 const t = createAstroT(Astro)
 ---

@@ -47,3 +47,11 @@ export interface TeamsResponse {
     data: TeamMember[]
   }
 }
+
+export interface TagsResponse {
+  tags: {
+    from?: string
+    to?: string
+    data: TeamTag[]
+  }
+}
