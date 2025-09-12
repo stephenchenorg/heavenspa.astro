@@ -25,7 +25,7 @@ const {
 const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9)}`
 ---
 
-<div class={cardClass} onclick={onClick}>
+<a class={cardClass} onclick={onClick} href=`/team/${member.id}`>
   <div class={imageClass} data-member-id={uniqueId}>
     <!-- 主圖片 -->
     <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
@@ -106,7 +106,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9
       </div>
     )}
   </div>
-</div>
+</a>
 
 <script>
   // 團隊輪播功能
