@@ -1,57 +1,61 @@
 ---
-import type { TeamMember } from '@/components/TeamSection.astro'
+import type { TeamMember } from '@/types'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { gql, graphQLAPI } from '@/api'
 import Layout from '@/layouts/Layout.astro'
-
-export async function getStaticPaths() {
-  try {
-    const teamsData = await graphQLAPI(gql`
-      query MyQuery {
-        teams(sort_by: "asc", sort_column: "sort") {
-          data {
-            id
-            title
-            category {
-              title
-            }
-            images {
-              created_at
-              id
-              image {
-                desktop
-                desktop_blur
-                mobile
-                mobile_blur
-              }
-              updated_at
-              is_default
-            }
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
-          }
-        }
-      }
-    `)
-
-    const teamMembers = teamsData.teams.data || []
-
-    return teamMembers.map((member: TeamMember & { id: number }) => ({
-      params: { id: member.id.toString() },
-      props: { member },
-    }))
-  } catch (error) {
-    console.error('Failed to fetch team data for static paths:', error)
-    return []
-  }
-}
+import Badge from '@/components/ui/Badge.astro'
 
 const { id } = Astro.params
-const { member } = Astro.props as { member: TeamMember & { id: number } }
+if (!id || isNaN(Number(id))) {
+    return Astro.rewrite('/404')
+}
+
+const teamData = await graphQLAPI(gql`
+  query MyQuery {
+    team(id: ${Number(id)}) {
+      id
+      title
+      image {
+        desktop
+        desktop_blur
+        mobile
+        mobile_blur
+      }
+      images {
+        image {
+          desktop
+          desktop_blur
+          mobile
+          mobile_blur
+        }
+        is_default
+      }
+      content
+      og_description
+      og_title
+      seo_body
+      seo_json_ld
+      seo_keyword
+      sort
+      tags {
+        data {
+          key
+          slug
+          title
+        }
+      }
+    }
+  }
+`).catch(error => {
+  console.error('GraphQL Request Error:', error);
+  return null;
+});
+
+console.log(teamData);
+if (!teamData) {
+  return Astro.rewrite('/404');
+}
+const team = teamData.team;
 
 const meta = seoMeta({
   title: `Heaven Spa`,
@@ -60,8 +64,116 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <main class="section-container pt-32">
+  <main class="section-container pt-24 md:pt-32 pb-16">
+    <div class="flex flex-col lg:flex-row items-start gap-8 lg:gap-12 max-w-7xl mx-auto px-4">
+    {/* 左側：頭貼與多圖輪播 */}
+    <div class="flex flex-col items-center w-full md:w-1/2 lg:w-2/5">
+      {/* 左側輪播區域 */}
+      <div class="relative w-full aspect-square max-w-md mx-auto overflow-hidden rounded-2xl border border-gray-200 shadow-lg bg-white">
+        <button type="button" class="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200" onclick="carouselPrev()" aria-label="上一張">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <img id="carousel-img" src={team.images[0]?.image?.desktop || '/placeholder.jpg'} alt="作品圖1" class="w-full h-full object-cover select-none transition-all duration-300" loading="lazy" />
+        <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-md transition-all duration-200" onclick="carouselNext()" aria-label="下一張">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" id="carousel-dots">
+          {team.images.map((image: any, idx: number) => (
+            <button type="button" class={"w-2.5 h-2.5 rounded-full transition-all duration-200 "+(idx === 0 ? 'bg-white shadow-lg' : 'bg-white/60 hover:bg-white/80')} data-idx={idx} onclick={`carouselThumb(${idx})`}></button>
+          ))}
+        </div>
+        <script type="module" is:inline define:vars={{teamImages: team.images.map((img: any) => img.image?.desktop).filter(Boolean)}}>
+          document.addEventListener('DOMContentLoaded', () => {
+            let currentIndex = 0;
+            const imgElement = document.getElementById('carousel-img');
+            const dotElements = document.querySelectorAll('#carousel-dots button');
+            const thumbElements = document.querySelectorAll('#carousel-thumbs img');
 
-    <h1 class="flex justify-center font-bold text-7xl">團隊成員介紹頁面，施工中</h1>
+            function updateCarousel() {
+              if (imgElement && teamImages[currentIndex]) {
+                imgElement.src = teamImages[currentIndex];
+                imgElement.alt = `作品圖${currentIndex + 1}`;
+              }
+              
+              // 更新指示點
+              dotElements.forEach((dot, index) => {
+                if (index === currentIndex) {
+                  dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-200 bg-white shadow-lg';
+                } else {
+                  dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-200 bg-white/60 hover:bg-white/80';
+                }
+              });
+              
+              // 更新縮圖
+              thumbElements.forEach((thumb, index) => {
+                if (index === currentIndex) {
+                  thumb.className = 'w-16 h-16 object-cover rounded-lg border-2 mx-1 cursor-pointer transition-all duration-200 border-blue-500 ring-2 ring-blue-200';
+                } else {
+                  thumb.className = 'w-16 h-16 object-cover rounded-lg border-2 mx-1 cursor-pointer transition-all duration-200 border-gray-200 hover:border-gray-300';
+                }
+              });
+            }
+
+            window.carouselPrev = () => {
+              currentIndex = (currentIndex - 1 + teamImages.length) % teamImages.length;
+              updateCarousel();
+            };
+
+            window.carouselNext = () => {
+              currentIndex = (currentIndex + 1) % teamImages.length;
+              updateCarousel();
+            };
+
+            window.carouselThumb = (index) => {
+              currentIndex = index;
+              updateCarousel();
+            };
+
+            // 初始化輪播
+            updateCarousel();
+
+            // 自動輪播（可選）
+            if (teamImages.length > 1) {
+              setInterval(() => {
+                currentIndex = (currentIndex + 1) % teamImages.length;
+                updateCarousel();
+              }, 5000);
+            }
+          });
+        </script>
+      </div>
+      {/* 預覽圖列 */}
+      <div id="carousel-thumbs" class="flex flex-wrap justify-center gap-2 mt-4 max-w-md">
+        {team.images.map((img: any, idx: number) => (
+          <img 
+            src={img.image?.desktop} 
+            alt={`縮圖${idx+1}`} 
+            class={"w-16 h-16 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 "+(idx===0?'border-blue-500 ring-2 ring-blue-200':'border-gray-200 hover:border-gray-300')} 
+            onclick={`carouselThumb(${idx})`} 
+            loading="lazy" 
+          />
+        ))}
+      </div>
+      
+      {/* 標籤 */}
+      {team.tags?.data?.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-20 w-full max-w-md">
+          {team.tags.data.map((tag: any) => (
+            <Badge variant="primary" title={tag.title} />
+          ))}
+        </div>
+      )}
+    </div>
+
+    {/* 右側：成員資訊與內容 */}
+    <div class="flex-1 flex flex-col items-start max-w-2xl">
+      <h1 class="font-bold text-3xl md:text-4xl mb-3 leading-tight" style="color: var(--theme-text)">{team?.title}</h1>
+      {team.category?.title && (
+        <div class="text-lg mb-4 font-medium" style="color: var(--theme-text-secondary)">{team.category.title}</div>
+      )}
+      {/* 內容 */}
+      <div class="w-full prose prose-lg max-w-none leading-relaxed rounded-xl p-6 shadow-sm border mt-4" style="color: var(--theme-text); background-color: var(--theme-card-bg); border-color: var(--theme-border)" set:html={team.content || '這位成員目前沒有詳細介紹。'}></div>
+    </div>
+    </div>
   </main>
 </Layout>

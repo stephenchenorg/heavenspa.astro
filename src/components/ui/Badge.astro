@@ -24,17 +24,17 @@ const sizeClasses = {
   large: 'px-4 py-2 text-base',
 }
 
-// Variant classes
+// Variant classes using CSS custom properties
 const variantClasses = {
   default: outline 
-    ? 'bg-transparent border border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300'
-    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
+    ? 'bg-transparent border text-primary-700 dark:text-primary-300'
+    : 'text-primary-800 dark:text-primary-200',
   primary: outline
-    ? 'bg-transparent border border-blue-500 text-blue-600 dark:text-blue-400'
-    : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+    ? 'bg-transparent border text-primary-600 dark:text-primary-400'
+    : 'text-primary-800 dark:text-primary-200',
   secondary: outline
-    ? 'bg-transparent border border-gray-500 text-gray-600 dark:text-gray-400'
-    : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+    ? 'bg-transparent border text-neutral-600 dark:text-neutral-400'
+    : 'text-neutral-800 dark:text-neutral-200',
   success: outline
     ? 'bg-transparent border border-green-500 text-green-600 dark:text-green-400'
     : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
@@ -45,15 +45,104 @@ const variantClasses = {
     ? 'bg-transparent border border-red-500 text-red-600 dark:text-red-400'
     : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
   info: outline
-    ? 'bg-transparent border border-cyan-500 text-cyan-600 dark:text-cyan-400'
-    : 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200',
+    ? 'bg-transparent border border-blue-500 text-blue-600 dark:text-blue-400'
+    : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+}
+
+// Custom styles using CSS variables
+const customStyles = {
+  default: outline 
+    ? { 
+        borderColor: 'var(--color-primary-500)', 
+        color: 'var(--color-primary-700)',
+        '--tw-border-opacity': '1'
+      }
+    : { 
+        backgroundColor: 'var(--color-primary-100)', 
+        color: 'var(--color-primary-800)' 
+      },
+  primary: outline
+    ? { 
+        borderColor: 'var(--color-primary-500)', 
+        color: 'var(--color-primary-600)',
+        '--tw-border-opacity': '1'
+      }
+    : { 
+        backgroundColor: 'var(--color-primary-100)', 
+        color: 'var(--color-primary-800)' 
+      },
+  secondary: outline
+    ? { 
+        borderColor: 'var(--color-neutral-500)', 
+        color: 'var(--color-neutral-600)',
+        '--tw-border-opacity': '1'
+      }
+    : { 
+        backgroundColor: 'var(--color-neutral-200)', 
+        color: 'var(--color-neutral-800)' 
+      },
+  success: outline
+    ? { borderColor: '#10b981', color: '#059669', '--tw-border-opacity': '1' }
+    : { backgroundColor: '#dcfce7', color: '#166534' },
+  warning: outline
+    ? { borderColor: '#f59e0b', color: '#d97706', '--tw-border-opacity': '1' }
+    : { backgroundColor: '#fef3c7', color: '#92400e' },
+  danger: outline
+    ? { borderColor: '#ef4444', color: '#dc2626', '--tw-border-opacity': '1' }
+    : { backgroundColor: '#fee2e2', color: '#991b1b' },
+  info: outline
+    ? { borderColor: '#3b82f6', color: '#2563eb', '--tw-border-opacity': '1' }
+    : { backgroundColor: '#dbeafe', color: '#1e40af' },
+}
+
+// Dark mode styles
+const darkStyles = {
+  default: outline 
+    ? { 
+        borderColor: 'var(--color-primary-400)', 
+        color: 'var(--color-primary-300)' 
+      }
+    : { 
+        backgroundColor: 'var(--color-primary-900)', 
+        color: 'var(--color-primary-200)' 
+      },
+  primary: outline
+    ? { 
+        borderColor: 'var(--color-primary-400)', 
+        color: 'var(--color-primary-400)' 
+      }
+    : { 
+        backgroundColor: 'var(--color-primary-900)', 
+        color: 'var(--color-primary-200)' 
+      },
+  secondary: outline
+    ? { 
+        borderColor: 'var(--color-neutral-400)', 
+        color: 'var(--color-neutral-400)' 
+      }
+    : { 
+        backgroundColor: 'var(--color-neutral-700)', 
+        color: 'var(--color-neutral-200)' 
+      },
+  success: outline
+    ? { borderColor: '#34d399', color: '#6ee7b7' }
+    : { backgroundColor: '#064e3b', color: '#a7f3d0' },
+  warning: outline
+    ? { borderColor: '#fbbf24', color: '#fde047' }
+    : { backgroundColor: '#78350f', color: '#fef3c7' },
+  danger: outline
+    ? { borderColor: '#f87171', color: '#fca5a5' }
+    : { backgroundColor: '#7f1d1d', color: '#fecaca' },
+  info: outline
+    ? { borderColor: '#60a5fa', color: '#93c5fd' }
+    : { backgroundColor: '#1e3a8a', color: '#dbeafe' },
 }
 
 const roundedClass = rounded ? 'rounded-full' : 'rounded'
 const badgeClass = `inline-flex items-center gap-1 font-medium transition-all duration-200 ${sizeClasses[size]} ${variantClasses[variant]} ${roundedClass}`
 ---
 
-<span class={badgeClass}>
+<span class={badgeClass} style={customStyles[variant]} data-variant={variant} data-outline={outline}>
   <slot>{title}</slot>
   {dismissible && (
     <button 
@@ -68,3 +157,31 @@ const badgeClass = `inline-flex items-center gap-1 font-medium transition-all du
     </button>
   )}
 </span>
+
+<script define:vars={{darkStyles}}>
+  // Handle dark mode styles
+  const updateBadgeStyles = () => {
+    const badges = document.querySelectorAll('[data-variant]');
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    badges.forEach(badge => {
+      const variant = badge.getAttribute('data-variant');
+      const isOutline = badge.getAttribute('data-outline') === 'true';
+      
+      if (isDark && darkStyles[variant]) {
+        const styles = darkStyles[variant];
+        Object.assign(badge.style, styles);
+      }
+    });
+  };
+
+  // Update on theme change
+  document.addEventListener('DOMContentLoaded', updateBadgeStyles);
+  
+  // Listen for theme changes
+  const observer = new MutationObserver(updateBadgeStyles);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>
