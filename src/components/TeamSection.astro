@@ -51,7 +51,7 @@ let teamMembers: TeamMember[] = []
 try {
   const teamsData: TeamsResponse = await graphQLAPI(gql`
     query MyQuery {
-      teams(sort_by: "asc", sort_column: "sort") {
+      teams(sort_by: "asc", sort_column: "sort", slug_tags:"weekly-recommended") {
         data {
           id
           images {
@@ -116,7 +116,7 @@ const t = createAstroT(Astro)
 >
 
   <!-- 標題區 -->
-  <SectionTitle title="服務團隊" subtitle="OUR TEAM" />
+  <SectionTitle title="本週推薦" subtitle="RECOMMENDED" />
 
   <!-- Airbnb 風格卡片網格 -->
   <div class="max-w-7xl mx-auto w-full">
