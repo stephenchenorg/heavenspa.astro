@@ -1,0 +1,189 @@
+---
+import type { TeamMember } from '@/types'
+
+export interface Props {
+  member: TeamMember
+  uniqueId?: string
+  containerClass?: string
+}
+
+const {
+  member,
+  uniqueId = `carousel-${member.id}-${Math.random().toString(36).substr(2, 9)}`,
+  containerClass = "carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+} = Astro.props
+---
+
+<div class={containerClass} data-member-id={uniqueId}>
+  <div class="carousel-images absolute inset-0 backface-visibility-hidden">
+    {/* 主圖片 */}
+    <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
+      <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
+      <img
+        src={member.image?.desktop || member.cover?.desktop}
+        alt={member.title}
+        loading="lazy"
+        onload="this.style.filter='none'"
+        style="filter: blur(5px); transition: filter 0.3s ease;"
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </picture>
+
+    {/* 輪播圖片 - 排除is_default=true的圖片 */}
+    {member.images && member.images.length > 0 && member.images
+      .filter(imageItem => !imageItem.is_default)
+      .map((imageItem, imgIndex) => (
+        <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
+          <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
+          <img
+            src={imageItem.image.desktop}
+            alt={`${member.title} - Image ${imgIndex + 1}`}
+            loading="lazy"
+            onload="this.style.filter='none'"
+            style="filter: blur(5px); transition: filter 0.3s ease;"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </picture>
+      ))}
+  </div>
+
+  {/* 輪播指示器 */}
+  {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
+    <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+      <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
+      {member.images.filter(imageItem => !imageItem.is_default).map(() => (
+        <div class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"></div>
+      ))}
+    </div>
+  )}
+</div>
+
+<script>
+  // 圖片輪播功能
+  document.addEventListener('DOMContentLoaded', () => {
+    // 初始化所有輪播容器
+    const carouselContainers = document.querySelectorAll('.carousel-container')
+
+    carouselContainers.forEach(container => {
+      const slides = container.querySelectorAll('.carousel-slide')
+      const dots = container.querySelectorAll('.carousel-dot')
+      
+      // 如果只有一張圖片，不需要輪播
+      if (slides.length <= 1) return
+
+      let currentSlide = 0
+      let autoSlideTimer = null
+
+      // 顯示指定的幻燈片
+      function showSlide(index) {
+        // 隱藏所有幻燈片
+        slides.forEach(slide => {
+          slide.style.opacity = '0'
+        })
+
+        // 重置所有指示器
+        dots.forEach(dot => {
+          dot.classList.remove('active')
+          dot.style.backgroundColor = 'rgba(255, 255, 255, 0.4)'
+        })
+
+        // 顯示當前幻燈片
+        if (slides[index]) {
+          slides[index].style.opacity = '1'
+        }
+
+        // 激活當前指示器
+        if (dots[index]) {
+          dots[index].classList.add('active')
+          dots[index].style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
+        }
+      }
+
+      // 下一張幻燈片
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length
+        showSlide(currentSlide)
+      }
+
+      // 自動輪播
+      function startAutoSlide() {
+        autoSlideTimer = setInterval(nextSlide, 3000) // 每3秒切換
+      }
+
+      function stopAutoSlide() {
+        if (autoSlideTimer) {
+          clearInterval(autoSlideTimer)
+          autoSlideTimer = null
+        }
+      }
+
+      // 指示器點擊事件
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentSlide = index
+          showSlide(currentSlide)
+          stopAutoSlide()
+          startAutoSlide() // 重新開始自動輪播
+        })
+      })
+
+      // 滑鼠懸停時暫停輪播
+      container.addEventListener('mouseenter', stopAutoSlide)
+      container.addEventListener('mouseleave', startAutoSlide)
+
+      // 觸摸事件支援（移動設備）
+      let startX = 0
+      let isDragging = false
+
+      container.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX
+        isDragging = true
+        stopAutoSlide()
+      })
+
+      container.addEventListener('touchmove', e => {
+        if (!isDragging) return
+        e.preventDefault()
+      })
+
+      container.addEventListener('touchend', e => {
+        if (!isDragging) return
+
+        const endX = e.changedTouches[0].clientX
+        const diffX = startX - endX
+
+        if (Math.abs(diffX) > 50) { // 最小滑動距離
+          if (diffX > 0) {
+            // 向左滑動，下一張
+            nextSlide()
+          } else {
+            // 向右滑動，上一張
+            currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1
+            showSlide(currentSlide)
+          }
+        }
+
+        isDragging = false
+        startAutoSlide()
+      })
+
+      // 初始化顯示第一張幻燈片
+      showSlide(0)
+
+      // 開始自動輪播
+      startAutoSlide()
+    })
+  })
+</script>
+
+<style>
+  .backface-visibility-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .carousel-dot.active {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    transform: scale(1.1);
+  }
+</style>

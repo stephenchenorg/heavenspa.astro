@@ -1,6 +1,7 @@
 ---
 import { gql, graphQLAPI } from '@/api'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+import ImageCarousel from '@/components/ui/ImageCarousel.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 import type { TeamMember, TeamsResponse } from '@/types'
 
@@ -96,62 +97,12 @@ const t = createAstroT(Astro)
         >
           <!-- 圖片容器 -->
           <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
-
             <!-- 團隊成員照片轮播 -->
-            <div
-              class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
-              data-member-id={member.title}
-            >
-              <div class="carousel-images absolute inset-0 backface-visibility-hidden">
-                {/* 主图片 */}
-                <picture
-                  class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out"
-                >
-                  <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
-                  <img
-                    src={member.image?.desktop || member.cover?.desktop}
-                    alt={member.title}
-                    loading="lazy"
-                    onload="this.style.filter='none'"
-                    style="filter: blur(5px); transition: filter 0.3s ease;"
-                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </picture>
-
-                {/* 轮播图片 - 排除is_default=true的图片 */}
-                {member.images && member.images.length > 0 && member.images
-                  .filter(imageItem => !imageItem.is_default)
-                  .map((imageItem, imgIndex) => (
-                    <picture
-                      class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
-                    >
-                      <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
-                      <img
-                        src={imageItem.image.desktop}
-                        alt={`${member.title} - Image ${imgIndex + 1}`}
-                        loading="lazy"
-                        onload="this.style.filter='none'"
-                        style="filter: blur(5px); transition: filter 0.3s ease;"
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </picture>
-                  ))}
-              </div>
-
-              {/* 轮播指示器 */}
-              {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
-                <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-                  <div
-                    class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"
-                  ></div>
-                  {member.images.filter(imageItem => !imageItem.is_default).map(_ => (
-                    <div
-                      class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"
-                    ></div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ImageCarousel 
+              member={member} 
+              uniqueId={member.title}
+              containerClass="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+            />
 
             <!-- 評級標籤 (左下角) -->
             <div
@@ -193,62 +144,12 @@ const t = createAstroT(Astro)
               >
                 <!-- 圖片容器 -->
                 <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
-
                   <!-- 團隊成員照片轮播 -->
-                  <div
-                    class="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
-                    data-member-id={`${member.title}-mobile`}
-                  >
-                    <div class="carousel-images absolute inset-0 backface-visibility-hidden">
-                      {/* 主图片 */}
-                      <picture
-                        class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out"
-                      >
-                        <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
-                        <img
-                          src={member.image?.desktop || member.cover?.desktop}
-                          alt={member.title}
-                          loading="lazy"
-                          onload="this.style.filter='none'"
-                          style="filter: blur(5px); transition: filter 0.3s ease;"
-                          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </picture>
-
-                      {/* 轮播图片 - 排除is_default=true的图片 */}
-                      {member.images && member.images.length > 0 && member.images
-                        .filter(imageItem => !imageItem.is_default)
-                        .map((imageItem, imgIndex) => (
-                          <picture
-                            class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
-                          >
-                            <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
-                            <img
-                              src={imageItem.image.desktop}
-                              alt={`${member.title} - Image ${imgIndex + 1}`}
-                              loading="lazy"
-                              onload="this.style.filter='none'"
-                              style="filter: blur(5px); transition: filter 0.3s ease;"
-                              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                          </picture>
-                        ))}
-                    </div>
-
-                    {/* 轮播指示器 */}
-                    {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
-                      <div class="carousel-dots absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-                        <div
-                          class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/80 cursor-pointer transition-all duration-200 hover:scale-125 active"
-                        ></div>
-                        {member.images.filter(imageItem => !imageItem.is_default).map(() => (
-                          <div
-                            class="carousel-dot w-1.5 h-1.5 rounded-full bg-white/40 cursor-pointer transition-all duration-200 hover:bg-white/60 hover:scale-125"
-                          ></div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <ImageCarousel 
+                    member={member} 
+                    uniqueId={`${member.title}-mobile`}
+                    containerClass="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+                  />
 
                   <!-- 評級標籤 (左下角) -->
                   <div
@@ -351,121 +252,8 @@ const t = createAstroT(Astro)
 </section>
 
 <script>
-  // 团队图片轮播功能
+  // 手機版整體輪播功能
   document.addEventListener('DOMContentLoaded', () => {
-    // 初始化所有轮播容器
-    const carouselContainers = document.querySelectorAll('.carousel-container')
-
-  carouselContainers.forEach(container => {
-      const slides = container.querySelectorAll('.carousel-slide')
-    const dots = container.querySelectorAll('.carousel-dot')
-
-    if (slides.length <= 1) return // 只有一张图片时不需要轮播
-
-    let currentSlide = 0
-    let autoSlideTimer = null
-
-    // 显示指定的幻灯片
-    function showSlide(index) {
-        // 隐藏所有幻灯片
-        slides.forEach(slide => {
-          slide.style.opacity = '0'
-      })
-
-      // 重置所有指示器
-      dots.forEach(dot => {
-          dot.classList.remove('active');
-          dot.style.backgroundColor = 'rgba(255, 255, 255, 0.4)'
-      })
-
-      // 显示当前幻灯片
-      if (slides[index]) {
-          slides[index].style.opacity = '1'
-      }
-
-        // 激活当前指示器
-        if (dots[index]) {
-          dots[index].classList.add('active');
-          dots[index].style.backgroundColor = 'rgba(255, 255, 255, 0.8)'
-      }
-      }
-
-      // 下一张幻灯片
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length
-      showSlide(currentSlide)
-    }
-
-      // 自动轮播
-      function startAutoSlide() {
-        autoSlideTimer = setInterval(nextSlide, 3000) // 每3秒切换
-    }
-
-      function stopAutoSlide() {
-        if (autoSlideTimer) {
-          clearInterval(autoSlideTimer)
-        autoSlideTimer = null
-      }
-      }
-
-      // 指示器点击事件
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          currentSlide = index
-        showSlide(currentSlide)
-        stopAutoSlide()
-        startAutoSlide() // 重新开始自动轮播
-      })
-    })
-
-    // 鼠标悬停时暂停轮播
-    container.addEventListener('mouseenter', stopAutoSlide)
-    container.addEventListener('mouseleave', startAutoSlide)
-
-    // 触摸事件支持（移动设备）
-    let startX = 0
-    let isDragging = false
-
-    container.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX
-      isDragging = true
-      stopAutoSlide()
-    })
-
-    container.addEventListener('touchmove', e => {
-        if (!isDragging) return
-      e.preventDefault()
-    })
-
-    container.addEventListener('touchend', e => {
-        if (!isDragging) return
-
-      const endX = e.changedTouches[0].clientX
-      const diffX = startX - endX
-
-      if (Math.abs(diffX) > 50) { // 最小滑动距离
-          if (diffX > 0) {
-            // 向左滑动，下一张
-            nextSlide()
-        } else {
-            // 向右滑动，上一张
-            currentSlide = currentSlide === 0 ? slides.length - 1 : currentSlide - 1
-          showSlide(currentSlide)
-        }
-        }
-
-        isDragging = false
-      startAutoSlide()
-    })
-
-    // 初始化显示第一张幻灯片
-    showSlide(0)
-
-    // 开始自动轮播
-    startAutoSlide()
-  })
-
-    // 手機版整體輪播功能
     const mobileCarousel = document.querySelector('.mobile-team-carousel')
     if (mobileCarousel) {
       const track = mobileCarousel.querySelector('.mobile-carousel-track')
@@ -597,11 +385,6 @@ const t = createAstroT(Astro)
   .backface-visibility-hidden {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-  }
-
-  .carousel-dot.active {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    transform: scale(1.1);
   }
 
   /* Marquee Animation */
