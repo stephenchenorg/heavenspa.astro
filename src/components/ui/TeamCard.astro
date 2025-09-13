@@ -1,0 +1,53 @@
+---
+import ImageCarousel from '@/components/ui/ImageCarousel.astro'
+import type { TeamMember } from '@/types'
+
+interface Props {
+  member: TeamMember
+  uniqueId: string
+  isMobile?: boolean
+}
+
+const { member, uniqueId, isMobile = false } = Astro.props
+---
+<div
+  class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2"
+  onclick={`window.location.href='/team/${member.id}'`}
+>
+  <!-- 圖片容器 -->
+  <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
+    <!-- 團隊成員照片轮播 -->
+    <ImageCarousel
+      member={member}
+      uniqueId={uniqueId}
+      containerClass="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+    />
+
+    <!-- 評級標籤 (左下角) -->
+    <div
+      class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm"
+    >
+      ⭐ {member.category.title}
+    </div>
+  </div>
+
+  <!-- 卡片資訊 -->
+  <div class="space-y-1">
+    <!-- 標題和評分 -->
+    <div class="flex items-start justify-between">
+      <h3
+        class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2"
+        style="color: var(--theme-text)"
+      >
+        {member.title}
+      </h3>
+    </div>
+  </div>
+</div>
+
+<style>
+  .backface-visibility-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+</style>

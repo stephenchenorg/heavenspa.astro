@@ -496,6 +496,14 @@ const t = createAstroT(Astro)
         // 如果點擊在下拉選單外面，才關閉選單
         if (!dropdown.contains(e.target as Node)) {
           dropdown.classList.remove('active')
+
+          // 強制隱藏下拉選單內容
+          if (content) {
+            const htmlContent = content as HTMLElement
+            htmlContent.style.opacity = '0'
+            htmlContent.style.visibility = 'hidden'
+            htmlContent.style.transform = 'translateY(-10px)'
+          }
         }
       })
 
@@ -503,8 +511,17 @@ const t = createAstroT(Astro)
       const dropdownLinks = dropdown.querySelectorAll('.dropdown-link')
       dropdownLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-          e.stopPropagation() // 阻止事件冒泡到父層
-          console.log('Dropdown link clicked:', (e.target as HTMLElement).textContent)
+          // 點擊連結後關閉下拉選單
+          dropdown.classList.remove('active')
+
+          // 強制隱藏下拉選單內容
+          if (content) {
+            const htmlContent = content as HTMLElement
+            htmlContent.style.opacity = '0'
+            htmlContent.style.visibility = 'hidden'
+            htmlContent.style.transform = 'translateY(-10px)'
+          }
+
           // 讓連結正常導航，不阻止預設行為
         })
       })
@@ -513,6 +530,14 @@ const t = createAstroT(Astro)
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           dropdown.classList.remove('active')
+
+          // 強制隱藏下拉選單內容
+          if (content) {
+            const htmlContent = content as HTMLElement
+            htmlContent.style.opacity = '0'
+            htmlContent.style.visibility = 'hidden'
+            htmlContent.style.transform = 'translateY(-10px)'
+          }
         }
       })
     }

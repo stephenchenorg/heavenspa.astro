@@ -1,6 +1,6 @@
 ---
 import SectionTitle from '@/components/ui/SectionTitle.astro'
-import ImageCarousel from '@/components/ui/ImageCarousel.astro'
+import TeamCard from '@/components/ui/TeamCard.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 import { getWeeklyRecommended } from '@/api/teams'
 import type { TeamMember } from '@/types'
@@ -24,40 +24,10 @@ const t = createAstroT(Astro)
     <!-- 桌面和平板：網格布局 -->
     <div class="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
       {teamMembers.map(member => (
-        <div
-          class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2"
-          onclick={`window.location.href='/team/${member.id}'`}
-        >
-          <!-- 圖片容器 -->
-          <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
-            <!-- 團隊成員照片轮播 -->
-            <ImageCarousel 
-              member={member} 
-              uniqueId={member.title}
-              containerClass="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
-            />
-
-            <!-- 評級標籤 (左下角) -->
-            <div
-              class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm"
-            >
-              ⭐ {member.category.title}
-            </div>
-          </div>
-
-          <!-- 卡片資訊 -->
-          <div class="space-y-1">
-            <!-- 標題和評分 -->
-            <div class="flex items-start justify-between">
-              <h3
-                class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2"
-                style="color: var(--theme-text)"
-              >
-                {member.title}
-              </h3>
-            </div>
-          </div>
-        </div>
+        <TeamCard
+          member={member}
+          uniqueId={member.title}
+        />
       ))}
     </div>
 
@@ -71,39 +41,12 @@ const t = createAstroT(Astro)
               class="mobile-carousel-slide w-full flex-shrink-0 px-4"
               data-slide={memberIndex}
             >
-              <div
-                class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 mx-auto max-w-sm"
-                onclick={`window.location.href='/team/${member.id}'`}
-              >
-                <!-- 圖片容器 -->
-                <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4">
-                  <!-- 團隊成員照片轮播 -->
-                  <ImageCarousel 
-                    member={member} 
-                    uniqueId={`${member.title}-mobile`}
-                    containerClass="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
-                  />
-
-                  <!-- 評級標籤 (左下角) -->
-                  <div
-                    class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm"
-                  >
-                    ⭐ {member.category.title}
-                  </div>
-                </div>
-
-                <!-- 卡片資訊 -->
-                <div class="space-y-1">
-                  <!-- 標題和評分 -->
-                  <div class="flex items-start justify-between">
-                    <h3
-                      class="text-base font-semibold leading-tight line-clamp-1 flex-1 mr-2"
-                      style="color: var(--theme-text)"
-                    >
-                      {member.title}
-                    </h3>
-                  </div>
-                </div>
+              <div class="mx-auto max-w-sm">
+                <TeamCard
+                  member={member}
+                  uniqueId={`${member.title}-mobile`}
+                  isMobile={true}
+                />
               </div>
             </div>
           ))}
@@ -320,11 +263,6 @@ const t = createAstroT(Astro)
 </script>
 
 <style>
-  .backface-visibility-hidden {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
   /* Marquee Animation */
   .marquee-container {
     width: 100%;
