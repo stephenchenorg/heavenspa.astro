@@ -2,7 +2,7 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import SectionTitle from "../../components/ui/SectionTitle.astro";
-import TeamCarousel from "../../components/ui/TeamCarousel.astro";
+import TeamCard from "../../components/ui/TeamCard.astro";
 import { gql, graphQLAPI } from '@/api'
 import type { TeamMember, TeamsResponse, TagsResponse, TeamTag } from '@/types'
 
@@ -136,12 +136,9 @@ const meta = seoMeta({
       {teamMembers && teamMembers.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           { teamMembers.map((member) => (
-            <TeamCarousel 
-              member={member} 
-              showBadges={true} 
-              showHoverMask={true}
-              cardClass="p-4 group cursor-pointer w-full h-120"
-              imageClass="carousel-container w-full h-120 bg-blue-200 mt-4 relative overflow-hidden"
+            <TeamCard
+              member={member}
+              uniqueId={`team-${member.id}`}
             />
           )) }
         </div>
