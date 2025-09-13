@@ -41,7 +41,7 @@ const t = createAstroT(Astro)
       )}
     </a>
   </div>
-  
+
   <!-- Link - 50% width on lg+, hidden below lg -->
   <div class="hidden lg:flex gap-6 items-center justify-center flex-nowrap overflow-visible nav-menu lg:w-1/2 lg:flex-shrink-0">
     <a href="/about" class="nav-item active" style="color: var(--theme-nav-text, #000000);">
@@ -73,7 +73,7 @@ const t = createAstroT(Astro)
         </svg>
         <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
       </button>
-      
+
       <!-- 全新的下拉選單 -->
       <div class="dropdown-content">
         <a href="/joinUs/careers" class="dropdown-link">
@@ -84,6 +84,11 @@ const t = createAstroT(Astro)
         </a>
       </div>
     </div>
+    <!-- 異業合作 -->
+    <a href="/business-partnership" class="nav-item" style="color: var(--theme-nav-text, #000000);">
+      <span data-i18n="nav.business_partnership">異業合作</span>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
+    </a>
   </div>
 
   <!-- 手機版選單按鈕 - visible below lg -->
@@ -97,7 +102,7 @@ const t = createAstroT(Astro)
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
     <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
   </button>
-  
+
   <!-- Action Div - 25% width on lg+, hidden below lg -->
   <div class="hidden lg:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
     <LanguageSwitcher client:load />
@@ -153,6 +158,11 @@ const t = createAstroT(Astro)
         <span data-i18n="nav.faq">{t('nav.faq')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
+      <!-- 異業合作 -->
+      <a href="/business-partnership" class="mobile-nav-item" style="color: var(--theme-mobile-nav-text, #D7AE54);">
+        <span data-i18n="nav.business_partnership">異業合作</span>
+        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
+      </a>
       <!-- 加入我們 - 手機版子選單 -->
       <div class="mobile-nav-dropdown">
         <div class="mobile-nav-item mobile-dropdown-toggle cursor-pointer flex justify-between items-center" style="color: var(--theme-mobile-nav-text, #D7AE54);">
@@ -162,7 +172,7 @@ const t = createAstroT(Astro)
           </svg>
           <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
         </div>
-        
+
         <!-- 子選單項目 -->
         <div class="mobile-nav-submenu max-h-0 overflow-hidden transition-all duration-300 ease-out">
           <a href="/joinUs/careers" class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
@@ -405,7 +415,7 @@ const t = createAstroT(Astro)
       button.addEventListener('click', (e) => {
         e.preventDefault()
         e.stopPropagation()
-        
+
         const isActive = dropdown.classList.contains('active')
 
         // 關閉其他可能開啟的下拉選單
@@ -414,7 +424,7 @@ const t = createAstroT(Astro)
             other.classList.remove('active')
           }
         })
-        
+
         // 切換當前下拉選單
         if (isActive) {
           dropdown.classList.remove('active')
@@ -445,18 +455,18 @@ const t = createAstroT(Astro)
             htmlContent.style.minWidth = '180px'
             htmlContent.style.marginTop = '10px'
             htmlContent.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)'
-            
+
             // 檢查深色模式並應用適當樣式
-            const isDarkMode = document.documentElement.classList.contains('dark') || 
+            const isDarkMode = document.documentElement.classList.contains('dark') ||
                              document.documentElement.getAttribute('data-theme') === 'dark'
-            
+
             if (isDarkMode) {
               htmlContent.style.background = '#1f2937'
               htmlContent.style.borderColor = '#374151'
             }
 
             // 嘗試用 setAttribute 強制設定
-            htmlContent.setAttribute('style', 
+            htmlContent.setAttribute('style',
               'opacity: 1 !important; ' +
               'visibility: visible !important; ' +
               'transform: translateY(0px) !important; ' +
@@ -473,14 +483,14 @@ const t = createAstroT(Astro)
               'display: block !important;'
             )
           }
-          
+
           // 強制檢查內容是否可見
           if (content) {
             getComputedStyle(content)
           }
         }
       })
-      
+
       // 點擊其他地方關閉下拉選單
       document.addEventListener('click', (e) => {
         // 如果點擊在下拉選單外面，才關閉選單
@@ -488,7 +498,7 @@ const t = createAstroT(Astro)
           dropdown.classList.remove('active')
         }
       })
-      
+
       // 確保下拉選單內的連結點擊正常工作
       const dropdownLinks = dropdown.querySelectorAll('.dropdown-link')
       dropdownLinks.forEach(link => {
@@ -498,7 +508,7 @@ const t = createAstroT(Astro)
           // 讓連結正常導航，不阻止預設行為
         })
       })
-      
+
       // ESC 鍵關閉下拉選單
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -512,14 +522,14 @@ const t = createAstroT(Astro)
     mobileDropdownToggles.forEach(toggle => {
       const submenu = toggle.nextElementSibling as HTMLElement
       const icon = toggle.querySelector('.mobile-dropdown-icon') as HTMLElement
-      
+
       if (submenu && icon) {
         toggle.addEventListener('click', (e) => {
           e.preventDefault()
           e.stopPropagation()
-          
+
           const isOpen = submenu.style.maxHeight && submenu.style.maxHeight !== '0px'
-          
+
           if (isOpen) {
             // 收起子選單
             submenu.style.maxHeight = '0px'
@@ -550,7 +560,7 @@ const t = createAstroT(Astro)
     ;(window as any).testMobileMenu = function () {
       openMobileMenu()
     }
-    
+
     // 測試新的簡潔下拉選單
     ;(window as any).testSimpleDropdown = function () {
       const dropdown = document.querySelector('.simple-dropdown')
@@ -609,7 +619,7 @@ const t = createAstroT(Astro)
   border-radius: 8px !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
   z-index: 9999 !important;
-  
+
   /* 默認隱藏 */
   opacity: 0 !important;
   visibility: hidden !important;
@@ -700,7 +710,7 @@ const t = createAstroT(Astro)
   --theme-header-bg: rgba(255, 255, 255, 0.95);
   --theme-header-text: #000000;
   --theme-header-border: rgba(0, 0, 0, 0.1);
-  
+
   /* 子選單變數 */
   --theme-submenu-bg: rgba(255, 255, 255, 0.98);
   --theme-submenu-text: #000000;
@@ -715,7 +725,7 @@ const t = createAstroT(Astro)
   --theme-header-bg: rgba(30, 30, 30, 0.95);
   --theme-header-text: #ffffff;
   --theme-header-border: rgba(255, 255, 255, 0.2);
-  
+
   /* 子選單變數 */
   --theme-submenu-bg: rgba(30, 30, 30, 0.98);
   --theme-submenu-text: #ffffff;
@@ -764,14 +774,14 @@ const t = createAstroT(Astro)
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
   z-index: 9999 !important;
   overflow: visible !important;
-  
+
   /* 預設隱藏 */
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
   transform: translateY(-10px) !important;
   transition: all 0.2s ease !important;
-  
+
   /* 強制尺寸，確保可見 */
   width: 200px !important;
   height: auto !important;
