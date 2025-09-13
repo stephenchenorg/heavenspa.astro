@@ -66,8 +66,8 @@ const t = createAstroT(Astro)
     </a>
     <!-- 加入我們 - 全新簡潔設計 -->
     <div class="simple-dropdown relative">
-      <button type="button" class="nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0" style="color: var(--theme-nav-text, #000000);">
-        <span data-i18n="nav.careers">{t('nav.careers')}</span>
+      <button type="button" class="nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 text-lg font-medium tracking-wide" style="color: var(--theme-nav-text, #000000);">
+        <span data-i18n="nav.careers" class="text-lg font-medium tracking-wide">{t('nav.careers')}</span>
         <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
@@ -76,11 +76,11 @@ const t = createAstroT(Astro)
 
       <!-- 全新的下拉選單 -->
       <div class="dropdown-content">
-        <a href="/joinUs/careers" class="dropdown-link">
-          <span data-i18n="nav.recruitment">{t('nav.recruitment')}</span>
+        <a href="/joinUs/careers" class="dropdown-link text-lg font-medium tracking-wide">
+          <span data-i18n="nav.recruitment" class="text-lg font-medium tracking-wide">{t('nav.recruitment')}</span>
         </a>
-        <a href="/joinUs/training" class="dropdown-link">
-          <span data-i18n="nav.training">{t('nav.training')}</span>
+        <a href="/joinUs/training" class="dropdown-link text-lg font-medium tracking-wide">
+          <span data-i18n="nav.training" class="text-lg font-medium tracking-wide">{t('nav.training')}</span>
         </a>
       </div>
     </div>
@@ -642,7 +642,9 @@ const t = createAstroT(Astro)
   padding: 14px 18px !important;
   color: #374151 !important;
   text-decoration: none !important;
-  font-size: 14px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.025em !important;
   line-height: 1.4 !important;
   border-bottom: 1px solid #f1f5f9 !important;
   transition: all 0.2s ease !important;
