@@ -29,9 +29,9 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
   <div class={imageClass} data-member-id={uniqueId}>
     <!-- 主圖片 -->
     <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
-      <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
+      <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover} />
       <img
-        src={member.image?.desktop || member.cover?.desktop || '/images/default-team.jpg'}
+        src={member.image?.desktop || member.cover || '/images/default-team.jpg'}
         alt={member.title}
         loading="lazy"
         onload="this.style.filter='none'"
@@ -66,18 +66,16 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
     )}
 
     <!-- Badge 標籤 (可選) -->
-    {showBadges && member.tags && member.tags.data && member.tags.data.length > 0 && (
+    {showBadges && (
       <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-        {member.tags.data.map(tag => (
-          <Badge title={tag.title} variant="primary" size="small"/>
-        ))}
+        <Badge title={member.job || '成員'} variant="primary" size="small"/>
       </div>
     )}
 
     <!-- 評級標籤 (可選，用於 TeamSection 風格) -->
     {showRating && (
       <div class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm">
-        ⭐ {member.category.title}
+        ⭐ {member.job || '專業成員'}
       </div>
     )}
 
@@ -89,7 +87,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
             {member.title}
           </h3>
           <p class="text-white/90 text-lg font-medium drop-shadow">
-            {member.category.title}
+            {member.job || '專業成員'}
           </p>
         </div>
       </div>

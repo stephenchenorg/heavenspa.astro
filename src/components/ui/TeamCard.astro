@@ -4,11 +4,10 @@ import type { TeamMember } from '@/types'
 
 interface Props {
   member: TeamMember
-  uniqueId: string
-  isMobile?: boolean
+  uniqueId?: string
 }
 
-const { member, uniqueId, isMobile = false } = Astro.props
+const { member, uniqueId } = Astro.props
 ---
 <div
   class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 w-full h-full"

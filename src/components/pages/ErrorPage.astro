@@ -1,6 +1,6 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import Button from '@/components/ui/Button.vue'
+import Button from '@/components/ui/Button.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 
 interface Props {
@@ -33,7 +33,7 @@ const meta = seoMeta({
           </p>
         )}
         {goBack && (
-          <Button href="/" shape="square" variant="primary">回首頁</Button>
+          <Button href="/" variant="primary">回首頁</Button>
         )}
       </div>
     </div>

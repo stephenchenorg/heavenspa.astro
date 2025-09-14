@@ -18,9 +18,9 @@ const {
   <div class="carousel-images absolute inset-0 backface-visibility-hidden">
     {/* 主圖片 */}
     <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
-      <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover?.mobile} />
+      <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover} />
       <img
-        src={member.image?.desktop || member.cover?.desktop}
+        src={member.image?.desktop || member.cover}
         alt={member.title}
         loading="lazy"
         onload="this.style.filter='none'"
