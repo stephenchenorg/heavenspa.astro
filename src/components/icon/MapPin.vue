@@ -1,0 +1,36 @@
+<template>
+  <svg
+    :width="size"
+    :height="size"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    class="map-pin-icon"
+    :class="className"
+  >
+    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+  </svg>
+</template>
+
+<script setup lang="ts">
+interface Props {
+  size?: string | number;
+  className?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+  size: 18,
+  className: ''
+});
+</script>
+
+<style scoped>
+.map-pin-icon {
+  color: var(--theme-text, #000000);
+  transition: all 0.3s ease;
+}
+
+.map-pin-icon:hover {
+  color: var(--color-primary-600, #c4a428);
+  transform: scale(1.1);
+}
+</style>

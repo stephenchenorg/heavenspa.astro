@@ -17,14 +17,18 @@
       <!-- 聯絡資訊 -->
       <div class="gap-4 grid md:grid-cols-1 grid-cols-2">
         <div class="flex items-center justify-start gap-3 text-sm">
-          <span class="text-base opacity-80">📞</span>
+          <div class="text-base opacity-80">
+            <Phone size="16" />
+          </div>
           <a :href="`tel:${companySetting?.phone_1}`"
              class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
             {{ companySetting?.phone_1 }}
           </a>
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
-          <span class="text-base opacity-80">📍</span>
+          <div class="text-base opacity-80">
+            <MapPin size="16" />
+          </div>
           <a :href="`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`"
              target="_blank" rel="noopener noreferrer"
              class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
@@ -32,20 +36,26 @@
           </a>
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
-          <span class="text-base opacity-80">✉️</span>
+          <div class="text-base opacity-80">
+            <Email size="16" />
+          </div>
           <a :href="`mailto:${companySetting?.email_1}`"
              class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
             {{ companySetting?.email_1 }}
           </a>
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
-          <span class="text-base opacity-80">🕒</span>
+          <div class="text-base opacity-80">
+            <Clock size="16" />
+          </div>
           <span class="text-[var(--theme-text,#000000)]">
             {{ companySetting?.business_hours || '' }}
           </span>
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
-          <span class="text-base opacity-80">＄</span>
+          <div class="text-base opacity-80">
+            <CreditCard size="16" />
+          </div>
           <span class="text-[var(--theme-text,#000000)]">
             {{ companySetting?.payment_method }}
           </span>
@@ -226,6 +236,11 @@ import Line from '@/components/icon/Line.vue'
 import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
+import Phone from '@/components/icon/Phone.vue'
+import MapPin from '@/components/icon/MapPin.vue'
+import Email from '@/components/icon/Email.vue'
+import Clock from '@/components/icon/Clock.vue'
+import CreditCard from '@/components/icon/CreditCard.vue'
 import { getCurrentLocale, t } from '@/utils/i18n'
 
 const companySetting = ref<CompanySettingData | null>(null)
