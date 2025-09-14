@@ -1,0 +1,68 @@
+---
+import type { ApiResponse } from '@/types'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import Layout from "../../layouts/Layout.astro";
+import SectionTitle from "../ui/SectionTitle.astro";
+import { gql,graphQLAPI } from "../../api";
+import Prose from '@/components/ui/Prose.vue'
+
+interface Props {
+  path: string
+}
+
+interface PageData {
+  page: {
+    id: string
+    title: string
+    key: string
+    fields: Array<{
+      content: string
+      image?: {
+        desktop?: string
+        desktop_blur?: string
+        mobile?: string
+        mobile_blur?: string
+      }
+    }>
+  }
+}
+
+
+const data = await graphQLAPI<PageData>(gql`
+  query MyQuery {
+    page(key: "${Astro.props.path}") {
+      id
+      title
+      key
+      fields {
+        content
+        image {
+          desktop
+          desktop_blur
+          mobile
+          mobile_blur
+        }
+      }
+    }
+  }
+  `)
+
+console.log("data.page?.fields?.content",)
+const meta = seoMeta({
+  title: data.page?.title,
+  description: data.page?.key,
+})
+---
+
+<Layout meta={meta}>
+  <main class="section-container pt-32 min-h-screen">
+    <!-- 標題區 -->
+    <SectionTitle title={data.page?.title} subtitle={data.page?.key} />
+
+    <div class="min-w-6xl mx-auto">
+      <article class="mt-12">
+        <Prose content={data.page?.fields[0]?.content || ''} />
+      </article>
+    </div>
+  </main>
+</Layout>

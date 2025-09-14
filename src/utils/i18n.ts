@@ -22,6 +22,7 @@ export const translations = {
       training: '技術培訓',
       booking: '立即預約',
       contact: '聯繫我們',
+      business_partnership: '異業合作',
     },
 
     // Hero Banner
@@ -131,6 +132,7 @@ export const translations = {
       training: 'Technical Training',
       booking: 'Book Now',
       contact: 'Contact Us',
+      business_partnership: 'Business Partnership',
     },
 
     // Hero Banner

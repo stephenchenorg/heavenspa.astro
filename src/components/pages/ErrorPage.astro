@@ -1,0 +1,41 @@
+---
+import { seoMeta } from '@stephenchenorg/astro/page'
+import Button from '@/components/ui/Button.vue'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+interface Props {
+  status: number
+  title: string
+  description?: string
+  goBack?: boolean
+}
+
+const { status, title, description, goBack } = Astro.props
+
+const meta = seoMeta({
+  title: `${title} - ${status} 錯誤`,
+})
+---
+
+<BaseLayout meta={meta}>
+  <section class="min-h-screen flex justify-center items-center bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+      <div class="mx-auto max-w-screen-sm text-center">
+        <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-500">
+          {status}
+        </h1>
+        <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">
+          {title}
+        </p>
+        {!description && (
+          <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
+            {description}
+          </p>
+        )}
+        {goBack && (
+          <Button href="/" shape="square" variant="primary">回首頁</Button>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

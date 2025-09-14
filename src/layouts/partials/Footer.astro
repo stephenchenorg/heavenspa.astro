@@ -65,37 +65,42 @@ const t = createAstroT(Astro)
                 <!-- 服務項目 -->
                 <div class="animate-fadeInUp animation-delay-200">
                     <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">
-                        服務項目</h4>
+                        {t('nav.services')}</h4>
                     <ul class="space-y-3 grid grid-cols-1 md:gap-0">
-                        <li><a href="/services"
+                        <li><a href="/about"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            關於我們
+                            {t('nav.about')}
                         </a></li>
                         <li><a href="/services"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            按摩服務
+                            {t('nav.services')}
                         </a></li>
-                        <li><a href="/services"
+                        <li><a href="/team"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            美容護理
+                            {t('nav.team')}
                         </a></li>
-                        <li><a href="/services"
+                        <li><a href="/news"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            身體療程
+                            {t('nav.news')}
                         </a></li>
-                        <li><a href="/booking"
+                        <li><a href="/faq"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            線上預約
+                            {t('nav.faq')}
                         </a></li>
-                        <li><a href="/contact"
+                        <li><a href="/joinUs/careers"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            聯絡我們
+                            {t('nav.careers')}
+                        </a></li>
+                        <li><a href="/business-partnership"
+                               class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+                            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+                            {t('nav.business_partnership')}
                         </a></li>
                     </ul>
                 </div>
@@ -194,11 +199,6 @@ const t = createAstroT(Astro)
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
                             服務條款
-                        </a></li>
-                        <li><a href="/presskit"
-                               class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
-                            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            媒體資料
                         </a></li>
                     </ul>
                 </div>

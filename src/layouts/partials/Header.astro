@@ -96,7 +96,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
     </div>
     <!-- 異業合作 -->
     <a href="/business-partnership" class={`nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.business_partnership">異業合作</span>
+      <span data-i18n="nav.business_partnership">{t('nav.business_partnership')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
   </div>
@@ -170,7 +170,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       </a>
       <!-- 異業合作 -->
       <a href="/business-partnership" class={`mobile-nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.business_partnership">異業合作</span>
+        <span data-i18n="nav.business_partnership">{t('nav.business_partnership')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
       <!-- 加入我們 - 手機版子選單 -->
