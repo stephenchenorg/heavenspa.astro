@@ -106,25 +106,25 @@ const t = createAstroT(Astro)
   </div>
 </section>
 
-<script>
+<script define:vars={{ memberCount: teamMembers.length }}>
   // 響應式輪播功能
   document.addEventListener('DOMContentLoaded', () => {
-    const carousel = document.querySelector('.team-carousel') as HTMLElement
+    const carousel = document.querySelector('.team-carousel')
     if (!carousel) return
 
-    const track = carousel.querySelector('.carousel-track') as HTMLElement
-    const slides = carousel.querySelectorAll('.carousel-slide') as NodeListOf<HTMLElement>
-    const dotsContainer = carousel.querySelector('.carousel-dots') as HTMLElement
-    const prevBtn = carousel.querySelector('.carousel-prev') as HTMLElement
-    const nextBtn = carousel.querySelector('.carousel-next') as HTMLElement
+    const track = carousel.querySelector('.carousel-track')
+    const slides = carousel.querySelectorAll('.carousel-slide')
+    const dotsContainer = carousel.querySelector('.carousel-dots')
+    const prevBtn = carousel.querySelector('.carousel-prev')
+    const nextBtn = carousel.querySelector('.carousel-next')
     
     if (!track || slides.length <= 1) return
     
     let currentIndex = 0
-    let autoTimer: NodeJS.Timeout | null = null
+    let autoTimer = null
     
     // 取得目前螢幕大小對應的每頁顯示數量
-    function getSlidesPerView(): number {
+    function getSlidesPerView() {
       const width = window.innerWidth
       if (width >= 1024) return 3 // lg: 大螢幕顯示3張
       if (width >= 768) return 2  // md: 中螢幕顯示2張
@@ -132,11 +132,12 @@ const t = createAstroT(Astro)
     }
     
     // 計算總頁數
-    function getTotalPages(): number {
+    function getTotalPages() {
       const slidesPerView = getSlidesPerView()
-      const totalPages = Math.ceil(slides.length / slidesPerView)
-      console.log(`螢幕寬度: ${window.innerWidth}px, 每頁顯示: ${slidesPerView}張, 總卡片: ${slides.length}張, 總頁數: ${totalPages}頁`)
-      return totalPages
+      // 使用實際的團隊成員筆數而不是 DOM slide 數量
+      return Math.ceil(memberCount / slidesPerView)
+      // console.log(`螢幕寬度: ${window.innerWidth}px, 每頁顯示: ${slidesPerView}筆, 總筆數: ${memberCount}筆, 總頁數: ${totalPages}頁`)
+      // return totalPages
     }
     
     // 創建指示器
@@ -177,7 +178,7 @@ const t = createAstroT(Astro)
       track.style.transform = `translateX(${translateX}%)`
       
       // 更新指示器
-      const dots = dotsContainer.querySelectorAll('.carousel-dot') as NodeListOf<HTMLElement>
+      const dots = dotsContainer.querySelectorAll('.carousel-dot')
       dots.forEach((dot, index) => {
         if (index === currentIndex) {
           dot.style.opacity = '1'
@@ -236,13 +237,13 @@ const t = createAstroT(Astro)
     let touchStartX = 0
     let touchIsDragging = false
     
-    carousel.addEventListener('touchstart', (e: TouchEvent) => {
+    carousel.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX
       touchIsDragging = true
       stopAutoSlide()
     })
     
-    carousel.addEventListener('touchend', (e: TouchEvent) => {
+    carousel.addEventListener('touchend', (e) => {
       if (!touchIsDragging) return
       
       const touchEndX = e.changedTouches[0].clientX
