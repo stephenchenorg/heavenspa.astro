@@ -47,7 +47,6 @@ const data = await graphQLAPI<PageData>(gql`
   }
   `)
 
-console.log("data.page?.fields?.content",)
 const meta = seoMeta({
   title: data.page?.title,
   description: data.page?.key,
