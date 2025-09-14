@@ -4,9 +4,13 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import FAQ from '@/components/FAQ.astro'
 import { getFaqList } from '@/api/faq'
+import { createAstroT } from '@/utils/astro-i18n'
+
+// 建立翻譯函式
+const t = createAstroT(Astro)
 
 const meta = seoMeta({
-  title: '常見問題 - Heaven Spa',
+  title: t('faq.title') + ' - Heaven Spa',
   description: '查看 Heaven Spa 的常見問題解答，了解我們的服務、預約流程、政策等相關資訊。',
 })
 
@@ -37,9 +41,9 @@ interface FaqCategory {
 
 // 定義 FAQ 分類資料
 const faqCategories: FaqCategory[] = [
-  { id: FaqType.RESERVATION, title: '預約問題' },
-  { id: FaqType.SPA, title: 'Spa問題' },
-  { id: FaqType.HAIR_REMOVAL, title: '除毛服務' },
+  { id: FaqType.RESERVATION, title: t('faq.categories.reservation') },
+  { id: FaqType.SPA, title: t('faq.categories.spa') },
+  { id: FaqType.HAIR_REMOVAL, title: t('faq.categories.hair_removal') },
 ]
 
 // 獲取網址參數中的分類 ID
@@ -83,7 +87,7 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 <Layout meta={meta}>
   <main class="section-container pt-32 min-h-screen">
     <!-- 標題區 -->
-    <SectionTitle title="常見問題" subtitle="FAQ" />
+    <SectionTitle title={t('faq.title')} subtitle={t('faq.subtitle')} />
 
     <!-- Tab Navigation -->
     {faqCategories.length > 1 && (
@@ -93,16 +97,16 @@ if (selectedCategory && selectedCategoryData.length > 0) {
             class="overflow-x-auto scrollbar-hide"
             style=" border-radius: 12px; padding: 8px;"
           >
-            <div class="flex gap-2 justify-center min-w-max">
+            <div class="flex gap-2 justify-center min-w-max" id="faq-tabs">
               {faqCategories.map(category => (
-                <a
-                  href={`/faq?category_id=${category.id}`}
-                  class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 ${selectedCategory?.id === category.id ? 'active' : ''}`}
+                <button
+                  type="button"
+                  class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedCategory?.id === category.id ? 'active' : ''}`}
                   data-category-id={category.id}
                   style={selectedCategory?.id === category.id ? "background-color: var(--color-primary-500); color: white;" : "background-color: var(--color-neutral-100); color: var(--theme-text);"}
                 >
                   {category.title}
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -112,46 +116,271 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 
     <!-- 使用 FAQ 組件 -->
     <div class="max-w-6xl mx-auto w-full">
-      {Object.keys(faqData).length > 0 && Object.values(faqData).some(faqs => faqs.length > 0) ? (
-        <FAQ faqData={faqData} />
-      ) : (
-        <div class="text-center py-16">
-          <div class="max-w-md mx-auto">
-            <div class="mb-6">
-              <svg 
-                class="mx-auto h-16 w-16 opacity-30" 
-                style="color: var(--theme-text-secondary);"
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="1.5" 
-                  d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-                />
-              </svg>
-            </div>
-            <h3 
-              class="text-xl font-medium mb-2" 
-              style="color: var(--theme-text);"
-            >
-              暫無內容
-            </h3>
-            <p 
-              class="text-sm leading-relaxed" 
-              style="color: var(--theme-text-secondary);"
-            >
-              目前此分類下沒有常見問題資料，<br/>
-              請稍後再試或選擇其他分類。
-            </p>
+      <!-- Loading 狀態 -->
+      <div id="faq-loading" class="hidden text-center py-16">
+        <div class="max-w-md mx-auto">
+          <div class="mb-6">
+            <div class="animate-spin mx-auto h-16 w-16 border-4 border-gray-200 border-t-4 border-t-blue-500 rounded-full"></div>
           </div>
+          <p class="text-lg" style="color: var(--theme-text-secondary);">載入中...</p>
         </div>
-      )}
+      </div>
+
+      <!-- FAQ 內容 -->
+      <div id="faq-content">
+        {Object.keys(faqData).length > 0 && Object.values(faqData).some(faqs => faqs.length > 0) ? (
+          <FAQ faqData={faqData} />
+        ) : (
+          <div class="text-center py-16">
+            <div class="max-w-md mx-auto">
+              <div class="mb-6">
+                <svg 
+                  class="mx-auto h-16 w-16 opacity-30" 
+                  style="color: var(--theme-text-secondary);"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="1.5" 
+                    d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                  />
+                </svg>
+              </div>
+              <h3 
+                class="text-xl font-medium mb-2" 
+                style="color: var(--theme-text);"
+              >
+                {t('faq.empty.title')}
+              </h3>
+              <p 
+                class="text-sm leading-relaxed" 
+                style="color: var(--theme-text-secondary);"
+              >
+                {t('faq.empty.description')}
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  // FAQ 分類資料（傳遞到客戶端）
+  const faqCategories = [
+    { id: 10, title: '預約問題' },
+    { id: 20, title: 'Spa問題' },
+    { id: 30, title: '除毛服務' },
+  ];
+
+  // 當前選中的分類 ID
+  let currentCategoryId = new URLSearchParams(window.location.search).get('category_id') || '10';
+
+  // 初始化事件監聽器
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabContainer = document.getElementById('faq-tabs');
+    const faqContent = document.getElementById('faq-content');
+    const faqLoading = document.getElementById('faq-loading');
+
+    if (!tabContainer || !faqContent || !faqLoading) return;
+
+    // 為每個標籤添加點擊事件
+    tabContainer.addEventListener('click', async function(e) {
+      const button = e.target.closest('.tab-item');
+      if (!button) return;
+
+      const categoryId = button.getAttribute('data-category-id');
+      if (!categoryId || categoryId === currentCategoryId) return;
+
+      // 更新 URL
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set('category_id', categoryId);
+      window.history.pushState({}, '', newUrl);
+
+      // 更新當前分類 ID
+      currentCategoryId = categoryId;
+
+      // 更新標籤樣式
+      updateTabStyles(categoryId);
+
+      // 載入新內容
+      await loadFaqContent(categoryId);
+    });
+
+    // 監聽瀏覽器前進/後退按鈕
+    window.addEventListener('popstate', function() {
+      const categoryId = new URLSearchParams(window.location.search).get('category_id') || '10';
+      if (categoryId !== currentCategoryId) {
+        currentCategoryId = categoryId;
+        updateTabStyles(categoryId);
+        loadFaqContent(categoryId);
+      }
+    });
+  });
+
+  // 更新標籤樣式
+  function updateTabStyles(activeCategoryId) {
+    const tabs = document.querySelectorAll('.tab-item');
+    tabs.forEach(tab => {
+      const isActive = tab.getAttribute('data-category-id') === activeCategoryId;
+      tab.classList.toggle('active', isActive);
+      
+      if (isActive) {
+        tab.style.backgroundColor = 'var(--color-primary-500)';
+        tab.style.color = 'white';
+      } else {
+        tab.style.backgroundColor = 'var(--color-neutral-100)';
+        tab.style.color = 'var(--theme-text)';
+      }
+    });
+  }
+
+  // 載入 FAQ 內容
+  async function loadFaqContent(categoryId) {
+    const faqContent = document.getElementById('faq-content');
+    const faqLoading = document.getElementById('faq-loading');
+
+    if (!faqContent || !faqLoading) return;
+
+    try {
+      // 顯示載入狀態
+      faqContent.style.display = 'none';
+      faqLoading.style.display = 'block';
+      faqLoading.classList.remove('hidden');
+
+      // 獲取當前語言
+      const currentLocale = document.documentElement.lang || 'zh-tw';
+
+      // 發送 API 請求
+      const response = await fetch(`/api/faq?category_id=${categoryId}&lang=${currentLocale}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch FAQ data');
+      }
+
+      const faqData = await response.json();
+
+      // 更新內容
+      if (faqData && faqData.length > 0) {
+        renderFaqContent(faqData, categoryId);
+      } else {
+        renderEmptyState();
+      }
+
+    } catch (error) {
+      console.error('Error loading FAQ content:', error);
+      renderErrorState();
+    } finally {
+      // 隱藏載入狀態
+      faqLoading.style.display = 'none';
+      faqLoading.classList.add('hidden');
+      faqContent.style.display = 'block';
+    }
+  }
+
+  // 渲染 FAQ 內容
+  function renderFaqContent(faqData, categoryId) {
+    const faqContent = document.getElementById('faq-content');
+    if (!faqContent) return;
+
+    const category = faqCategories.find(cat => cat.id.toString() === categoryId);
+    const categoryTitle = category ? category.title : '常見問題';
+
+    const html = `
+      <div class="space-y-4">
+        <h2 class="text-2xl font-bold mb-6" style="color: var(--theme-text);">${categoryTitle}</h2>
+        ${faqData.map(faq => `
+          <div class="border border-gray-200 rounded-lg overflow-hidden">
+            <button 
+              class="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 faq-question"
+              onclick="toggleFaq(this)"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="text-lg font-medium pr-4" style="color: var(--theme-text);">${faq.title}</h3>
+                <svg class="w-5 h-5 transform transition-transform duration-200 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </button>
+            <div class="faq-answer px-6 pb-4 hidden">
+              <div class="prose" style="color: var(--theme-text-secondary);">${faq.content}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    faqContent.innerHTML = html;
+  }
+
+  // 渲染空狀態
+  function renderEmptyState() {
+    const faqContent = document.getElementById('faq-content');
+    if (!faqContent) return;
+
+    faqContent.innerHTML = `
+      <div class="text-center py-16">
+        <div class="max-w-md mx-auto">
+          <div class="mb-6">
+            <svg 
+              class="mx-auto h-16 w-16 opacity-30" 
+              style="color: var(--theme-text-secondary);"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="1.5" 
+                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium mb-2" style="color: var(--theme-text);">暫無內容</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--theme-text-secondary);">目前此分類下沒有常見問題資料，請稍後再試或選擇其他分類。</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // 渲染錯誤狀態
+  function renderErrorState() {
+    const faqContent = document.getElementById('faq-content');
+    if (!faqContent) return;
+
+    faqContent.innerHTML = `
+      <div class="text-center py-16">
+        <div class="max-w-md mx-auto">
+          <h3 class="text-xl font-medium mb-2" style="color: var(--theme-text);">載入失敗</h3>
+          <p class="text-sm leading-relaxed" style="color: var(--theme-text-secondary);">無法載入常見問題資料，請重新整理頁面或稍後再試。</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // 切換 FAQ 項目
+  function toggleFaq(button) {
+    const answer = button.nextElementSibling;
+    const icon = button.querySelector('.faq-icon');
+    
+    if (!answer || !icon) return;
+
+    const isOpen = !answer.classList.contains('hidden');
+    
+    if (isOpen) {
+      answer.classList.add('hidden');
+      icon.style.transform = 'rotate(0deg)';
+    } else {
+      answer.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    }
+  }
+</script>
 
 <style>
   <style>

@@ -164,6 +164,16 @@ export const translations = {
     faq: {
       title: '常見問題',
       subtitle: 'FAQ',
+      categories: {
+        reservation: '預約問題',
+        spa: 'Spa問題',
+        hair_removal: '除毛服務',
+        recruitment: '人才招募',
+      },
+      empty: {
+        title: '暫無內容',
+        description: '目前此分類下沒有常見問題資料，請稍後再試或選擇其他分類。',
+      },
     },
 
     // 其他
@@ -328,6 +338,16 @@ export const translations = {
     faq: {
       title: 'Frequently Asked Questions',
       subtitle: 'FAQ',
+      categories: {
+        reservation: 'Reservation',
+        spa: 'Spa Services',
+        hair_removal: 'Hair Removal',
+        recruitment: 'Recruitment',
+      },
+      empty: {
+        title: 'No Content Available',
+        description: 'There are currently no FAQ items in this category. Please try again later or select another category.',
+      },
     },
 
     // Others
