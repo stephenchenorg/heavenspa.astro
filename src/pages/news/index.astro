@@ -1,21 +1,479 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
+import {gql, graphQLAPI} from '@/api'
+import { createAstroT } from '@/utils/astro-i18n'
+
+export interface Article {
+  id?: number
+  title: string
+  cover: string
+  content: string
+  ended_at?: string
+  started_at?: string
+  date?: string
+  year?: string
+  month?: string
+}
+
+export interface ArticlesResponse {
+  articles: {
+    data: Article[]
+    has_more_pages: boolean
+    last_page: number
+    per_page: number
+    to: number
+    total: number
+    from: number
+  }
+}
+
+let articles: Article[] = []
+
+// 假資料 - 建立24個項目來測試分頁
+const articlesSeeder: Article[] = Array.from({length: 24}, (_, index) => ({
+  id: index + 1,
+  title: `新聞標題 ${index + 1}`,
+  cover: [
+    'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg',
+    'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
+    'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg'
+  ][Math.floor(Math.random() * 3)],
+  content: [
+    '體驗頂級 SPA 服務，享受身心靈的完美放鬆時刻。我們的專業療程師將為您提供個人化的護理服務，讓您在繁忙的生活中找到內心的平靜與和諧。',
+    '全新推出的芳香療法課程，結合了東方傳統按摩技術與現代護膚科學，為您打造獨一無二的美容體驗。每一次的療程都是一場心靈的洗禮。',
+    '限時特惠活動現正進行中！預約我們的招牌療程可享受八折優惠，同時還贈送價值千元的精油護理套組，數量有限，預約從速。',
+    '專業團隊為您量身定制護理方案，從肌膚分析到療程規劃，每一個細節都經過精心設計，確保您獲得最佳的護理效果和舒適的體驗感受。'
+  ][Math.floor(Math.random() * 4)],
+  started_at: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
+  ended_at: Math.random() > 0.7 ? `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}` : undefined
+})).map(article => {
+  const createdDate = new Date(article.started_at || new Date())
+  return {
+    ...article,
+    date: createdDate.getDate().toString().padStart(2, '0'),
+    year: createdDate.getFullYear().toString(),
+    month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
+  }
+})
+
+try {
+  const articlesData: ArticlesResponse = await graphQLAPI(gql`
+    query MyQuery {
+      articles{
+        data {
+          content
+          cover
+          ended_at
+          title
+        }
+        has_more_pages
+        last_page
+        per_page
+        to
+        total
+        from
+      }
+    }
+  `)
+
+  // 將 API 資料轉換為 Article 格式
+  const apiArticles = (articlesData.articles.data || []).map((article: Article, index: number) => {
+    const createdDate = new Date()
+    return {
+      id: index + 1,
+      title: article.title,
+      cover: article.cover,
+      content: article.content,
+      ended_at: article.ended_at,
+      started_at: createdDate.toISOString(),
+      date: createdDate.getDate().toString().padStart(2, '0'),
+      year: createdDate.getFullYear().toString(),
+      month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
+    }
+  })
+
+  // 如果 API 有資料就使用 API 資料，否則使用假資料
+  if (apiArticles.length > 0) {
+    articles = apiArticles
+  } else {
+    articles = articlesSeeder
+  }
+} catch (error) {
+  console.error('Failed to fetch articles data:', error)
+  // 如果 API 失敗，使用假資料
+  articles = articlesSeeder
+}
+
+const t = createAstroT(Astro)
 
 const meta = seoMeta({
   title: '最新消息 - Heaven Spa',
+  description: '了解 Heaven Spa 的最新消息、促銷活動和健康資訊，掌握最新動態，享受專屬優惠。',
 })
+
+
 ---
 
 <Layout meta={meta}>
-  <main class="pt-32 pb-16 px-4 max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold text-center mb-8 text-white">
+  <main class="pt-32 pb-16 px-4 max-w-7xl mx-auto bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white transition-colors duration-300">
       最新消息
     </h1>
 
-    <!-- Page content will be added here -->
-    <div class="text-center text-gray-600">
-      <p>最新消息內容即將推出...</p>
+    <!-- 搜尋器 (裝飾用) -->
+    <div class="mb-8 max-w-md mx-auto">
+      <div class="relative">
+        <input 
+          type="text" 
+          placeholder="搜尋新聞..." 
+          class="w-full px-4 py-3 pl-12 bg-gray-50 dark:bg-white/10 backdrop-blur-sm border border-gray-300 dark:border-white/30 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300"
+          disabled
+        />
+        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-white/70 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
     </div>
+
+    <!-- 新聞網格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
+      {articles.slice(0, 12).map((article) => (
+        <div class="group cursor-pointer transition-all duration-300 hover:-translate-y-2 relative bg-gray-50 dark:bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-lg hover:shadow-lg dark:hover:shadow-2xl w-full">
+          <a href={`/news/${article.id}`} class="block">
+            <!-- 上半部：封面圖 -->
+            <div class="relative w-full h-48 overflow-hidden">
+              <!-- Background Image -->
+              <div class="absolute inset-0 bg-cover bg-center"
+                   style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}>
+              </div>
+              <!-- Base Overlay for better text readability -->
+              <div class="absolute inset-0 bg-black/20"></div>
+              <!-- Hover Overlay -->
+              <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              <!-- Date Badge -->
+              <div class="absolute top-3 right-3 bg-primary-500 text-center rounded-lg p-2 shadow-lg">
+                <span class="block text-white/90 text-xs font-light">{article.year}</span>
+                <span class="block text-white text-lg font-medium">{article.month}</span>
+              </div>
+
+              <!-- Category Badge -->
+              <div class="absolute top-3 left-3">
+                <span class="bg-white/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium border border-white/40 text-white shadow-lg">
+                  新聞
+                </span>
+              </div>
+
+              <!-- VIEW MORE Button Overlay -->
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="bg-white/90 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
+                  <span>查看詳情</span>
+                  <span>→</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 下半部：標題和資訊 -->
+            <div class="p-4 space-y-3">
+              <!-- Title -->
+              <div class="space-y-2">
+                <h3 class="text-lg font-bold leading-tight tracking-wide text-gray-900 dark:text-white line-clamp-2 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300">
+                  {article.title}
+                </h3>
+                <div class="w-12 h-0.5 bg-gradient-to-r from-primary-500 to-transparent rounded-full"></div>
+              </div>
+
+              <!-- Content Summary -->
+              <div class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3 min-h-[3.6rem] transition-colors duration-300">
+                {article.content ? (article.content.length > 50 ? article.content.substring(0, 50) + '...' : article.content) : '暫無內容摘要...'}
+              </div>
+
+              <!-- Date and CTA -->
+              <div class="flex items-center justify-between pt-2">
+                <div class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                  <span>{new Date(article.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
+                </div>
+                <div class="flex items-center space-x-1 text-sm font-medium text-primary-500 dark:text-primary-400 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors duration-300">
+                  <span>詳情</span>
+                  <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <!-- 分頁器 -->
+    <div class="flex justify-center items-center space-x-2">
+      {Array.from({ length: Math.ceil(articles.length / 12) }, (_, i) => (
+        <button class={`px-3 py-2 rounded-lg border transition-all duration-300 ${
+          i === 0 
+            ? 'bg-primary-500 border-primary-500 text-white shadow-md' 
+            : 'border-gray-300 dark:border-white/30 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20'
+        }`}>
+          {i + 1}
+        </button>
+      ))}
+    </div>
+
+    <!-- 無搜尋結果 -->
+      </main>
+
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</Layout>
   </main>
+
+  <script define:vars={{ articles }}>
+    const ITEMS_PER_PAGE = 12;
+    let currentPage = 1;
+    let filteredArticles = [...articles];
+
+    // 渲染新聞卡片
+    function renderNewsCard(article) {
+      // 截取內容前50個字
+      const truncateContent = (content, maxLength = 50) => {
+        if (!content) return '暫無內容摘要...';
+        if (content.length <= maxLength) return content;
+        return content.substring(0, maxLength) + '...';
+      };
+
+      return `
+        <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10"
+             onclick="window.location.href='/news/${article.id}'">
+          
+          <!-- 上半部：封面圖 -->
+          <div class="relative w-full h-48 overflow-hidden">
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-cover bg-center"
+                 style="background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')"></div>
+            <!-- Base Overlay for better text readability -->
+            <div class="absolute inset-0 bg-black/20"></div>
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            <!-- Date Badge -->
+            <div class="absolute top-3 right-3 bg-primary-500 text-center rounded-lg p-2 shadow-lg">
+              <span class="block text-white/90 text-xs font-light">${article.year}</span>
+              <span class="block text-white text-lg font-medium">${article.month}</span>
+            </div>
+
+            <!-- Category Badge -->
+            <div class="absolute top-3 left-3">
+              <span class="bg-white/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium border border-white/40 text-white shadow-lg">
+                新聞
+              </span>
+            </div>
+
+            <!-- VIEW MORE Button Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="bg-white/90 backdrop-blur-sm text-gray-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
+                <span>查看詳情</span>
+                <span>→</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下半部：標題和資訊 -->
+          <div class="p-4 space-y-3">
+            <!-- Title -->
+            <div class="space-y-2">
+              <h3 class="text-lg font-bold leading-tight tracking-wide text-gray-900 dark:text-white line-clamp-2 group-hover:text-primary-500 dark:group-hover:text-primary-400 transition-colors duration-300">
+                ${article.title}
+              </h3>
+              <div class="w-12 h-0.5 bg-gradient-to-r from-primary-500 to-transparent rounded-full"></div>
+            </div>
+
+            <!-- Content Summary -->
+            <div class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3 min-h-[3.6rem] transition-colors duration-300">
+              ${truncateContent(article.content)}
+            </div>
+
+            <!-- Date and CTA -->
+            <div class="flex items-center justify-between pt-2">
+              <div class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                <span>${new Date(article.started_at).toLocaleDateString('zh-TW')}</span>
+              </div>
+              <div class="flex items-center space-x-1 text-sm font-medium text-primary-500 dark:text-primary-400 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors duration-300">
+                <span>詳情</span>
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 渲染新聞網格
+    function renderNewsGrid() {
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const endIndex = startIndex + ITEMS_PER_PAGE;
+      const pageArticles = filteredArticles.slice(startIndex, endIndex);
+      
+      const newsGrid = document.getElementById('newsGrid');
+      const noResults = document.getElementById('noResults');
+
+      console.log('渲染網格:', {
+        pageArticles: pageArticles.length,
+        totalFiltered: filteredArticles.length,
+        currentPage
+      });
+
+      if (pageArticles.length === 0) {
+        newsGrid.innerHTML = '';
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+        newsGrid.innerHTML = pageArticles.map(renderNewsCard).join('');
+        
+        // 確保網格樣式正確
+        newsGrid.style.display = 'grid';
+        console.log('網格HTML長度:', newsGrid.innerHTML.length);
+      }
+    }
+
+    // 渲染分頁器
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+      const pagination = document.getElementById('pagination');
+      
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+
+      let paginationHTML = '';
+
+      // Previous button
+      paginationHTML += `
+        <button onclick="changePage(${currentPage - 1})" 
+                ${currentPage === 1 ? 'disabled' : ''} 
+                class="px-3 py-2 rounded-lg border border-gray-300 dark:border-white/30 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 dark:hover:bg-white/20 transition-all duration-300">
+          ‹
+        </button>
+      `;
+
+      // Page numbers
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          paginationHTML += `
+            <button onclick="changePage(${i})" 
+                    class="px-3 py-2 rounded-lg border transition-all duration-300 ${
+                      i === currentPage 
+                        ? 'bg-primary-500 border-primary-500 text-white shadow-md' 
+                        : 'border-gray-300 dark:border-white/30 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20'
+                    }">
+              ${i}
+            </button>
+          `;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          paginationHTML += `<span class="px-2 text-gray-500 dark:text-white/70 transition-colors duration-300">…</span>`;
+        }
+      }
+
+      // Next button
+      paginationHTML += `
+        <button onclick="changePage(${currentPage + 1})" 
+                ${currentPage === totalPages ? 'disabled' : ''} 
+                class="px-3 py-2 rounded-lg border border-gray-300 dark:border-white/30 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 dark:hover:bg-white/20 transition-all duration-300">
+          ›
+        </button>
+      `;
+
+      pagination.innerHTML = paginationHTML;
+    }
+
+    // 改變頁面
+    function changePage(page) {
+      const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+      if (page < 1 || page > totalPages) return;
+      
+      currentPage = page;
+      renderNewsGrid();
+      renderPagination();
+      
+      // 滾動到頂部
+      document.getElementById('newsGrid').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 搜尋功能
+    function handleSearch() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      
+      if (searchTerm === '') {
+        filteredArticles = [...articles];
+      } else {
+        filteredArticles = articles.filter(article => 
+          article.title.toLowerCase().includes(searchTerm) ||
+          (article.content && article.content.toLowerCase().includes(searchTerm))
+        );
+      }
+      
+      currentPage = 1;
+      renderNewsGrid();
+      renderPagination();
+    }
+
+    // 綁定搜尋事件
+    document.getElementById('searchInput').addEventListener('input', handleSearch);
+
+    // 初始化
+    renderNewsGrid();
+    renderPagination();
+
+    // 全域函式
+    window.changePage = changePage;
+  </script>
+
+  <style>
+    #newsGrid {
+      display: grid !important;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 768px) {
+      #newsGrid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      #newsGrid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
 </Layout>
