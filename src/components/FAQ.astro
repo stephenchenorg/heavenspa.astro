@@ -24,44 +24,44 @@ const { faqData } = Astro.props
       <!-- FAQ 手風琴 -->
       <div class="space-y-4">
         {faqs.map(faq => (
-          <div
-            class="faq-item overflow-hidden transition-all duration-300"
-          >
-
-            <!-- 問題標題 -->
+          <div class="faq-item overflow-hidden transition-all duration-300">
+            <!-- 整個 FAQ 項目作為 button -->
             <button
-              class="faq-question w-full px-6 py-4 text-left flex items-center justify-between transition-all duration-200 border-b border-transparent"
+              class="faq-button w-full text-left transition-all duration-200 border-b"
               style="border-bottom-color: var(--color-primary-500);"
               data-faq-id={faq.id}
               aria-expanded="false"
             >
-              <span class="text-xl font-semibold pr-4" style="color: var(--theme-text);">
-                {faq.question}
-              </span>
+              <!-- 問題標題 -->
+              <div class="faq-question pr-6 py-4 flex items-center justify-between">
+                <span class="text-2xl font-semibold" style="color: var(--theme-text);">
+                  {faq.question}
+                </span>
 
-              <!-- 展開/收合圖示 -->
-              <svg
-                class="faq-icon w-5 h-5 transform transition-transform duration-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                style="color: var(--color-primary-600);"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+                <!-- 展開/收合圖示 -->
+                <svg
+                  class="faq-icon w-5 h-5 transform transition-transform duration-200 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  style="color: var(--color-primary-600);"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
 
-            <!-- 答案內容 -->
-            <div class="faq-answer overflow-hidden transition-all duration-300 max-h-0 border-b border-transparent" style="border-bottom-color: transparent;" data-faq-content={faq.id}>
-              <div class="px-6 pb-4 pt-2">
-                <div class="prose prose-sm max-w-none" style="color: var(--theme-text-secondary);">
-                  <p class="mb-3 leading-relaxed typewriter-text" data-full-text={faq.answer}>
-                    <span class="typewriter-content"></span>
-                    <span class="typewriter-cursor">|</span>
-                  </p>
+              <!-- 答案內容 -->
+              <div class="faq-answer overflow-hidden transition-all duration-300 max-h-0" data-faq-content={faq.id}>
+                <div class="px-6 pb-4 pt-2 border-b border-transparent" style="border-bottom-color: transparent;">
+                  <div class="prose prose-sm max-w-none" style="color: var(--theme-text-secondary);">
+                    <p class="mb-3 leading-relaxed typewriter-text" data-full-text={faq.answer}>
+                      <span class="typewriter-content"></span>
+                      <span class="typewriter-cursor">|</span>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </button>
           </div>
         ))}
       </div>
@@ -71,7 +71,7 @@ const { faqData } = Astro.props
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const faqQuestions = document.querySelectorAll<HTMLButtonElement>('.faq-question')
+  const faqButtons = document.querySelectorAll<HTMLButtonElement>('.faq-button')
 
   // Typewriter effect variables
   let currentTypewriterInterval: ReturnType<typeof setInterval> | null = null
@@ -141,37 +141,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-
   // FAQ accordion functionality
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', function (this: HTMLButtonElement) {
+  faqButtons.forEach(button => {
+    button.addEventListener('click', function (this: HTMLButtonElement) {
       const faqId = this.getAttribute('data-faq-id')
-      const faqAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${faqId}"]`)
+      const faqAnswer = this.querySelector<HTMLElement>('.faq-answer')
+      const answerContent = this.querySelector<HTMLElement>('.faq-answer > div')
       const faqIcon = this.querySelector<HTMLElement>('.faq-icon')
       const isExpanded = this.getAttribute('aria-expanded') === 'true'
 
       // Stop any active typewriter when switching sections
       stopTypewriter()
 
-      // Get current category's questions only
+      // Get current category's buttons only
       const currentCategory = this.closest<HTMLElement>('.faq-category')
-      const currentCategoryQuestions = currentCategory?.querySelectorAll<HTMLButtonElement>('.faq-question')
+      const currentCategoryButtons = currentCategory?.querySelectorAll<HTMLButtonElement>('.faq-button')
 
       // Close all other FAQ items in current category and reset their typewriters
-      currentCategoryQuestions?.forEach((otherQuestion: HTMLButtonElement) => {
-        if (otherQuestion !== this) {
-          const otherFaqId = otherQuestion.getAttribute('data-faq-id')
-          const otherAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${otherFaqId}"]`)
-          const otherIcon = otherQuestion.querySelector<HTMLElement>('.faq-icon')
-          const otherTypewriter = otherAnswer?.querySelector<HTMLElement>('.typewriter-text')
+      currentCategoryButtons?.forEach((otherButton: HTMLButtonElement) => {
+        if (otherButton !== this) {
+          const otherAnswer = otherButton.querySelector<HTMLElement>('.faq-answer')
+          const otherAnswerContent = otherButton.querySelector<HTMLElement>('.faq-answer > div')
+          const otherIcon = otherButton.querySelector<HTMLElement>('.faq-icon')
+          const otherTypewriter = otherButton.querySelector<HTMLElement>('.typewriter-text')
 
-          otherQuestion.setAttribute('aria-expanded', 'false')
-          // Show border when collapsed
-          otherQuestion.style.borderBottomColor = 'var(--color-primary-500)'
+          otherButton.setAttribute('aria-expanded', 'false')
+          // Show button border when collapsed, hide answer content border
+          otherButton.style.borderBottomColor = 'var(--color-primary-500)'
           if (otherAnswer) {
             otherAnswer.style.maxHeight = '0px'
-            // Hide content border when collapsed
-            otherAnswer.style.borderBottomColor = 'transparent'
+          }
+          if (otherAnswerContent) {
+            otherAnswerContent.style.borderBottomColor = 'transparent'
           }
           if (otherIcon) {
             otherIcon.style.transform = 'rotate(0deg)'
@@ -186,33 +187,33 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isExpanded) {
         // Collapse
         this.setAttribute('aria-expanded', 'false')
-        // Show border when collapsed
+        // Show button border when collapsed, hide answer content border
         this.style.borderBottomColor = 'var(--color-primary-500)'
         if (faqAnswer) {
           faqAnswer.style.maxHeight = '0px'
-          // Hide content border when collapsed
-          faqAnswer.style.borderBottomColor = 'transparent'
-          const typewriter = faqAnswer.querySelector<HTMLElement>('.typewriter-text')
-          if (typewriter) {
-            resetTypewriter(typewriter)
-          }
+        }
+        if (answerContent) {
+          answerContent.style.borderBottomColor = 'transparent'
         }
         if (faqIcon) {
           faqIcon.style.transform = 'rotate(0deg)'
         }
+        const typewriter = this.querySelector<HTMLElement>('.typewriter-text')
+        if (typewriter) {
+          resetTypewriter(typewriter)
+        }
       } else {
         // Expand
         this.setAttribute('aria-expanded', 'true')
-        // Hide border when expanded
+        // Hide button border when expanded, show answer content border
         this.style.borderBottomColor = 'transparent'
-        if (faqAnswer) {
-          // First expand the container
+        if (faqAnswer && answerContent) {
+          // First expand the container and show answer content border
           faqAnswer.style.maxHeight = `${faqAnswer.scrollHeight}px`
-          // Show content border when expanded
-          faqAnswer.style.borderBottomColor = 'var(--color-primary-500)'
+          answerContent.style.borderBottomColor = 'var(--color-primary-500)'
 
           // Then start typewriter effect
-          const typewriter = faqAnswer.querySelector<HTMLElement>('.typewriter-text')
+          const typewriter = this.querySelector<HTMLElement>('.typewriter-text')
           if (typewriter) {
             const fullText = typewriter.getAttribute('data-full-text') || ''
             setTimeout(() => {
@@ -234,15 +235,17 @@ document.addEventListener('DOMContentLoaded', () => {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  .faq-question:focus {
-    outline: 2px solid var(--color-primary-500);
-    outline-offset: 2px;
+  .faq-button {
+    transition: border-bottom-color 0.3s ease;
   }
 
   .faq-answer {
     transition: max-height 0.3s ease-out;
   }
 
+  .faq-answer > div {
+    transition: border-bottom-color 0.3s ease;
+  }
 
   /* Dark theme adaptations */
   .dark-theme .faq-item:hover {

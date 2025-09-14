@@ -128,13 +128,13 @@ const careersFaqData: FaqCategories = {
                 </div>
             </div>
             <!--表單和地圖區塊-->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 ">
                 <!-- 表單 -->
-                <div class="order-2 lg:order-1">
+                <div class="">
                     <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.resume">{t('careers.contact.resume')}</h4>
                     <CareersForm client:load />
                 </div>
-                <div class="order-1 lg:order-2">
+                <div class="">
                     <!-- Google Maps -->
                     <div class="mb-6 lg:mb-0">
                         <p class="font-medium mb-3 text-base sm:text-lg" style="color: var(--theme-text);" data-i18n="careers.mapTitle">{t('careers.mapTitle')}</p>
@@ -181,12 +181,11 @@ const careersFaqData: FaqCategories = {
                     <!--    </div>-->
                     <!--</div>-->
                 </div>
-            </div>
-
+            </div>ㄑ
             <!-- FAQ 區塊 -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(--color-primary-200);">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
                 <!--上方區塊-->
-                <div class="order-1 lg:order-1">
+                <div>
                     <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6" data-i18n="careers.headline">標題文案</h2>
                     <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">副標題文案</p>
                     <ul class="grid space-y-2 my-4 text-sm sm:text-base">
@@ -196,7 +195,7 @@ const careersFaqData: FaqCategories = {
                     </ul>
                     <p class="text-sm sm:text-base" data-i18n="careers.conclusion">{t('careers.conclusion')}</p>
                 </div>
-                <div class="order-2 lg:order-2">
+                <div>
                     <FAQ faqData={careersFaqData} />
                 </div>
             </div>
