@@ -11,255 +11,280 @@ const teamMembers: TeamMember[] = await getWeeklyRecommended()
 const t = createAstroT(Astro)
 ---
 <section
-  class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16"
+  class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]"
   id="team"
   data-section="team"
 >
-
   <!-- 標題區 -->
   <SectionTitle title="本週推薦" subtitle="RECOMMENDED" />
 
-  <!-- Airbnb 風格卡片網格 -->
-  <div class="max-w-7xl mx-auto w-full">
-    <!-- 桌面和平板：網格布局 -->
-    <div class="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6">
-      {teamMembers.map(member => (
-        <TeamCard
-          member={member}
-          uniqueId={member.title}
-        />
-      ))}
-    </div>
-
-    <!-- 手機版：整體輪播布局 -->
-    <div class="sm:hidden">
-      <div class="mobile-team-carousel relative overflow-hidden">
-        <!-- 輪播容器 -->
-        <div class="mobile-carousel-track flex transition-transform duration-500 ease-out">
-          {teamMembers.map((member, memberIndex) => (
-            <div
-              class="mobile-carousel-slide w-full flex-shrink-0 px-4"
-              data-slide={memberIndex}
-            >
-              <div class="mx-auto max-w-sm">
-                <TeamCard
-                  member={member}
-                  uniqueId={`${member.title}-mobile`}
-                  isMobile={true}
-                />
-              </div>
+  <!-- 響應式輪播 -->
+  <div class="max-w-7xl mx-auto w-full mt-8">
+    <div class="team-carousel relative overflow-hidden">
+      <!-- 輪播容器 -->
+      <div class="carousel-track flex transition-transform duration-500 ease-out">
+        {teamMembers.map((member, memberIndex) => (
+          <div
+            class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
+            data-slide={memberIndex}
+          >
+            <div class="px-2">
+              <TeamCard
+                member={member}
+                uniqueId={`${member.title}-${memberIndex}`}
+              />
             </div>
-          ))}
-        </div>
-
-        <!-- 輪播指示器 -->
-        <div class="mobile-carousel-dots flex justify-center mt-4 gap-2">
-          {teamMembers.map((_, index) => (
-            <button
-              class="mobile-dot w-2.5 h-2.5 rounded-full transition-all duration-300 hover:scale-110"
-              style="background-color: var(--theme-text); opacity: 0.3; transform: scale(1);"
-              data-slide={index}
-            ></button>
-          ))}
-        </div>
-
-        <!-- 導航按鈕 -->
-        <button
-          class="mobile-carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95"
-          style="background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px);"
-        >
-          ←
-        </button>
-        <button
-          class="mobile-carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95"
-          style="background-color: rgba(0,0,0,0.6); backdrop-filter: blur(8px);"
-        >
-          →
-        </button>
+          </div>
+        ))}
       </div>
+
+      <!-- 輪播指示器 -->
+      <div class="carousel-dots flex justify-center mt-6 gap-2">
+        <!-- 指示器會由 JavaScript 動態生成 -->
+      </div>
+
+      <!-- 導航按鈕 -->
+      <button
+        class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
+        aria-label="上一頁"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
+        aria-label="下一頁"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
   </div>
 
   <!-- 查看更多按鈕 -->
   <div class="mt-12 max-w-7xl mx-auto w-full">
     <button
-      class="px-6 py-3 border rounded-lg font-medium transition-all duration-200 hover:scale-105"
-      style="border-color: var(--theme-text); color: var(--theme-text); background-color: transparent;"
-      onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
-      onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');"
+      class="px-6 py-3 border-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 border-[var(--theme-text)] text-[var(--theme-text)] bg-transparent hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)]"
     >
-<span data-i18n="team.more-members">{t('team.more-members')}</span>
+      <span data-i18n="team.more-members">{t('team.more-members')}</span>
     </button>
   </div>
 
   <!-- Marquee Section -->
-  <div class="mt-16 overflow-hidden bg-gray-500/30">
+  <div class="mt-16 overflow-hidden bg-[var(--color-primary-600)]/30">
     <div class="py-4">
       <div class="marquee-container">
-        <div class="marquee-content flex items-center space-x-8 animate-marquee">
-          <span class="text-white font-medium whitespace-nowrap">專業服務團隊</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">頂級 SPA 體驗</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">個人化服務</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">專業認證技師</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">舒適私密環境</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">全預約制服務</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">專業服務團隊</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">頂級 SPA 體驗</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">個人化服務</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">專業認證技師</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">舒適私密環境</span>
-          <span class="text-white/70">•</span>
-          <span class="text-white font-medium whitespace-nowrap">全預約制服務</span>
+        <div class="marquee-content flex items-center space-x-8">
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業服務團隊</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">頂級 SPA 體驗</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">個人化服務</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業認證技師</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">舒適私密環境</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">全預約制服務</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業服務團隊</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">頂級 SPA 體驗</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">個人化服務</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業認證技師</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">舒適私密環境</span>
+          <span class="text-[var(--theme-text)]/70">•</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">全預約制服務</span>
         </div>
       </div>
     </div>
   </div>
-
 </section>
 
 <script>
-  // 手機版整體輪播功能
+  // 響應式輪播功能
   document.addEventListener('DOMContentLoaded', () => {
-    const mobileCarousel = document.querySelector('.mobile-team-carousel')
-    if (mobileCarousel) {
-      const track = mobileCarousel.querySelector('.mobile-carousel-track')
-      const slides = mobileCarousel.querySelectorAll('.mobile-carousel-slide')
-      const dots = mobileCarousel.querySelectorAll('.mobile-dot')
-      const prevBtn = mobileCarousel.querySelector('.mobile-carousel-prev')
-      const nextBtn = mobileCarousel.querySelector('.mobile-carousel-next')
-      
-      if (slides.length <= 1) return // 只有一張時不需要輪播
-      
-      let currentIndex = 0
-      let mobileAutoTimer: NodeJS.Timeout | null = null
-      
-      // 更新輪播位置
-      function updateCarouselPosition() {
-        const translateX = -currentIndex * 100
-        if (track) {
-          (track as HTMLElement).style.transform = `translateX(${translateX}%)`
-        }
-        
-        // 更新指示器
-        dots.forEach((dot, index) => {
-          const dotElement = dot as HTMLElement
-          if (index === currentIndex) {
-            dotElement.style.opacity = '1'
-            dotElement.style.transform = 'scale(1.2)'
-          } else {
-            dotElement.style.opacity = '0.3'
-            dotElement.style.transform = 'scale(1)'
-          }
-        })
-      }
-      
-      // 下一張
-      function nextMobileSlide() {
-        currentIndex = (currentIndex + 1) % slides.length
-        updateCarouselPosition()
-      }
-      
-      // 上一張
-      function prevMobileSlide() {
-        currentIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1
-        updateCarouselPosition()
-      }
-      
-      // 自動輪播
-      function startMobileAutoSlide() {
-        if (mobileAutoTimer) {
-          clearInterval(mobileAutoTimer)
-        }
-        mobileAutoTimer = setInterval(() => {
-          nextMobileSlide()
-        }, 5000) // 每5秒切換
-      }
-      
-      function stopMobileAutoSlide() {
-        if (mobileAutoTimer) {
-          clearInterval(mobileAutoTimer)
-          mobileAutoTimer = null
-        }
-      }
-      
-      // 按鈕事件
-      nextBtn?.addEventListener('click', () => {
-        nextMobileSlide()
-        stopMobileAutoSlide()
-        startMobileAutoSlide()
-      })
-      
-      prevBtn?.addEventListener('click', () => {
-        prevMobileSlide()
-        stopMobileAutoSlide()
-        startMobileAutoSlide()
-      })
-      
-      // 指示器點擊
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          currentIndex = index
-          updateCarouselPosition()
-          stopMobileAutoSlide()
-          startMobileAutoSlide()
-        })
-      })
-      
-      // 觸控滑動支援
-      let touchStartX = 0
-      let touchIsDragging = false
-      
-      mobileCarousel.addEventListener('touchstart', (e: Event) => {
-        const touchEvent = e as TouchEvent
-        touchStartX = touchEvent.touches[0].clientX
-        touchIsDragging = true
-        stopMobileAutoSlide()
-      })
-      
-      mobileCarousel.addEventListener('touchend', (e: Event) => {
-        if (!touchIsDragging) return
-        
-        const touchEvent = e as TouchEvent
-        const touchEndX = touchEvent.changedTouches[0].clientX
-        const diffX = touchStartX - touchEndX
-        
-        // 檢測滑動距離
-        if (Math.abs(diffX) > 50) {
-          if (diffX > 0) {
-            // 向左滑動，下一張
-            nextMobileSlide()
-          } else {
-            // 向右滑動，上一張
-            prevMobileSlide()
-          }
-        }
-        
-        touchIsDragging = false
-        startMobileAutoSlide()
-      })
-      
-      updateCarouselPosition()
-      
-      // 延遲啟動自動輪播，確保頁面完全載入
-      setTimeout(() => {
-        startMobileAutoSlide()
-      }, 1000)
-      
-      // 暫停/恢復自動輪播
-      mobileCarousel.addEventListener('mouseenter', stopMobileAutoSlide)
-      mobileCarousel.addEventListener('mouseleave', startMobileAutoSlide)
+    const carousel = document.querySelector('.team-carousel') as HTMLElement
+    if (!carousel) return
+
+    const track = carousel.querySelector('.carousel-track') as HTMLElement
+    const slides = carousel.querySelectorAll('.carousel-slide') as NodeListOf<HTMLElement>
+    const dotsContainer = carousel.querySelector('.carousel-dots') as HTMLElement
+    const prevBtn = carousel.querySelector('.carousel-prev') as HTMLElement
+    const nextBtn = carousel.querySelector('.carousel-next') as HTMLElement
+    
+    if (!track || slides.length <= 1) return
+    
+    let currentIndex = 0
+    let autoTimer: NodeJS.Timeout | null = null
+    
+    // 取得目前螢幕大小對應的每頁顯示數量
+    function getSlidesPerView(): number {
+      const width = window.innerWidth
+      if (width >= 1024) return 3 // lg: 大螢幕顯示3張
+      if (width >= 768) return 2  // md: 中螢幕顯示2張
+      return 1 // sm: 小螢幕顯示1張
     }
-})
+    
+    // 計算總頁數
+    function getTotalPages(): number {
+      const slidesPerView = getSlidesPerView()
+      const totalPages = Math.ceil(slides.length / slidesPerView)
+      console.log(`螢幕寬度: ${window.innerWidth}px, 每頁顯示: ${slidesPerView}張, 總卡片: ${slides.length}張, 總頁數: ${totalPages}頁`)
+      return totalPages
+    }
+    
+    // 創建指示器
+    function createDots() {
+      const totalPages = getTotalPages()
+      dotsContainer.innerHTML = ''
+      
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button')
+        dot.className = 'carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 bg-[var(--theme-text)] opacity-30'
+        dot.setAttribute('data-slide', i.toString())
+        dot.setAttribute('aria-label', `第 ${i + 1} 頁`)
+        
+        dot.addEventListener('click', () => {
+          currentIndex = i
+          updateCarouselPosition()
+          resetAutoSlide()
+        })
+        
+        dotsContainer.appendChild(dot)
+      }
+    }
+    
+    // 更新輪播位置
+    function updateCarouselPosition() {
+      const slidesPerView = getSlidesPerView()
+      const totalPages = getTotalPages()
+      
+      // 確保 currentIndex 不超過總頁數
+      if (currentIndex >= totalPages) {
+        currentIndex = 0
+      }
+      
+      // 計算位移：每頁移動的距離是 slidesPerView 個 slide 的寬度
+      const slideWidth = 100 / slidesPerView
+      const translateX = -currentIndex * slideWidth * slidesPerView
+      
+      track.style.transform = `translateX(${translateX}%)`
+      
+      // 更新指示器
+      const dots = dotsContainer.querySelectorAll('.carousel-dot') as NodeListOf<HTMLElement>
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.style.opacity = '1'
+          dot.style.transform = 'scale(1.2)'
+        } else {
+          dot.style.opacity = '0.3'
+          dot.style.transform = 'scale(1)'
+        }
+      })
+    }
+    
+    // 下一頁
+    function nextSlide() {
+      const totalPages = getTotalPages()
+      currentIndex = (currentIndex + 1) % totalPages
+      updateCarouselPosition()
+    }
+    
+    // 上一頁
+    function prevSlide() {
+      const totalPages = getTotalPages()
+      currentIndex = currentIndex === 0 ? totalPages - 1 : currentIndex - 1
+      updateCarouselPosition()
+    }
+    
+    // 自動輪播
+    function startAutoSlide() {
+      if (autoTimer) clearInterval(autoTimer)
+      autoTimer = setInterval(nextSlide, 5000) // 每5秒切換
+    }
+    
+    function stopAutoSlide() {
+      if (autoTimer) {
+        clearInterval(autoTimer)
+        autoTimer = null
+      }
+    }
+    
+    function resetAutoSlide() {
+      stopAutoSlide()
+      startAutoSlide()
+    }
+    
+    // 按鈕事件
+    nextBtn?.addEventListener('click', () => {
+      nextSlide()
+      resetAutoSlide()
+    })
+    
+    prevBtn?.addEventListener('click', () => {
+      prevSlide()
+      resetAutoSlide()
+    })
+    
+    // 觸控滑動支援
+    let touchStartX = 0
+    let touchIsDragging = false
+    
+    carousel.addEventListener('touchstart', (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX
+      touchIsDragging = true
+      stopAutoSlide()
+    })
+    
+    carousel.addEventListener('touchend', (e: TouchEvent) => {
+      if (!touchIsDragging) return
+      
+      const touchEndX = e.changedTouches[0].clientX
+      const diffX = touchStartX - touchEndX
+      
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          nextSlide()
+        } else {
+          prevSlide()
+        }
+      }
+      
+      touchIsDragging = false
+      startAutoSlide()
+    })
+    
+    // 響應式處理
+    function handleResize() {
+      const totalPages = getTotalPages()
+      // 如果當前索引超過新的總頁數，重置到第一頁
+      if (currentIndex >= totalPages) {
+        currentIndex = 0
+      }
+      createDots()
+      updateCarouselPosition()
+    }
+    
+    // 初始化
+    createDots()
+    updateCarouselPosition()
+    
+    // 監聽視窗大小變化
+    window.addEventListener('resize', handleResize)
+    
+    // 延遲啟動自動輪播
+    setTimeout(startAutoSlide, 1000)
+    
+    // 滑鼠懸停暫停
+    carousel.addEventListener('mouseenter', stopAutoSlide)
+    carousel.addEventListener('mouseleave', startAutoSlide)
+  })
 </script>
 
 <style>
@@ -287,5 +312,10 @@ const t = createAstroT(Astro)
   /* Pause animation on hover */
   .marquee-container:hover .marquee-content {
     animation-play-state: paused;
+  }
+
+  /* 確保輪播在不同螢幕大小下正確顯示 */
+  .carousel-slide {
+    box-sizing: border-box;
   }
 </style>
