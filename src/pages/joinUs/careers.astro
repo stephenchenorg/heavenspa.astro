@@ -2,10 +2,15 @@
 import {seoMeta} from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import SectionTitle from "@/components/ui/SectionTitle.astro"
-import CareersForm from '@/components/joinUs/CareersForm.vue'
+import CareersForm from '@/components/joinUs/careersForm.vue'
+import { createAstroT } from '@/utils/astro-i18n'
+import { getCompanySetting } from '@/api/companySetting'
+const companySetting = await getCompanySetting()
+
+const t = createAstroT(Astro)
 
 const meta = seoMeta({
-    title: '人才招募 - Heaven Spa',
+    title: `${t('careers.title')} - Heaven Spa`,
 })
 
 ---
@@ -13,7 +18,12 @@ const meta = seoMeta({
 <Layout meta={meta}>
     <main class="section-container pt-32 min-h-screen">
         <!-- 標題區 -->
-        <SectionTitle title="人才招募" subtitle="Contact Us"/>
+        <SectionTitle 
+            title={t('careers.title')} 
+            subtitle={t('careers.subtitle')}
+            titleI18n="careers.title"
+            subtitleI18n="careers.subtitle"
+        />
 
         <!-- Page content will be added here -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,22 +31,22 @@ const meta = seoMeta({
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                 <!--上方區塊-->
                 <div class="order-1 lg:order-1">
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6">不要猶豫與我們聯繫。</h2>
-                    <p class="text-neutral-400 text-sm sm:text-base mb-4">誠徵指油壓Spa夥伴 (無經驗可，有經驗佳)</p>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6" data-i18n="careers.headline">{t('careers.headline')}</h2>
+                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">{t('careers.description')}</p>
                     <ul class="grid space-y-2 my-4 text-sm sm:text-base">
-                        <li>✔ 如果你熱愛自由、享受生活</li>
-                        <li>✔ 如果你對生活有理想與抱負</li>
-                        <li>✔ 如果你不怕吃苦</li>
-                        <li>✔ 如果你講究生活</li>
-                        <li>✔ 如果你作事細心</li>
-                        <li>✔ 如果你認真負責</li>
+                        <li>✔ <span data-i18n="careers.requirements.freedom">{t('careers.requirements.freedom')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.dreams">{t('careers.requirements.dreams')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.hardwork">{t('careers.requirements.hardwork')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.quality">{t('careers.requirements.quality')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.detail">{t('careers.requirements.detail')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.responsibility">{t('careers.requirements.responsibility')}</span></li>
                     </ul>
-                    <p class="text-sm sm:text-base">――你就是我們要的人選之人</p>
+                    <p class="text-sm sm:text-base" data-i18n="careers.conclusion">{t('careers.conclusion')}</p>
                 </div>
                 <div class="order-2 lg:order-2">
-                    <h3 class="text-xl sm:text-2xl font-bold mb-4" style="color: var(--theme-text);">聯絡我們</h3>
-                    <p class="mb-6 text-sm sm:text-base" style="color: var(--theme-text-secondary);">
-                        歡迎您加入我們的團隊！如有任何疑問，請隨時與我們聯繫。
+                    <h3 class="text-xl sm:text-2xl font-bold mb-4" style="color: var(--theme-text);" data-i18n="careers.contact.title">{t('careers.contact.title')}</h3>
+                    <p class="mb-6 text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.description">
+                        {t('careers.contact.description')}
                     </p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                         <!-- Say Hello -->
@@ -56,17 +66,19 @@ const meta = seoMeta({
                                     </div>
                                 </div>
                             </div>
-                            <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);">Say Hello</h4>
+                            <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div>
-                                    <a href="mailto:careers@heavenspa.com"
+                                    <a href=`mailto:${companySetting.email_1}`
                                        class="hover:underline transition-all duration-300 text-sm sm:text-base break-all"
                                        style="color: var(--color-primary-500);">
-                                        careers@heavenspa.com
+                                        {companySetting.email_1}
                                     </a>
                                 </div>
-                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);">
-                                    0987-654-321
+                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.phone">
+                                    <a href=`tel:${companySetting.phone_1}` >
+                                        {companySetting.phone_1}
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -80,13 +92,15 @@ const meta = seoMeta({
                                     <path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602"></path>
                                 </svg>
                             </div>
-                            <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);">Location</h4>
+                            <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.location">{t('careers.contact.location')}</h4>
                             <div class="space-y-1 sm:space-y-2">
-                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);">
-                                    台北市中山區復興北路123號
+                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.address">
+                                    <a href={`https://maps.google.com/?q=${encodeURIComponent(companySetting.address_1 || '')}`}
+                                       target="_blank" rel="noopener noreferrer"
+                                       >{companySetting?.address_1}</a>
                                 </div>
-                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);">
-                                    週一至週日 10:00 - 22:00
+                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.hours">
+                                    {t('careers.contact.hours')}
                                 </div>
                             </div>
                         </div>
@@ -102,7 +116,7 @@ const meta = seoMeta({
                 <div class="order-1 lg:order-2">
                     <!-- Google Maps -->
                     <div class="mb-6 lg:mb-0">
-                        <p class="font-medium mb-3 text-base sm:text-lg" style="color: var(--theme-text);">我們的位置</p>
+                        <p class="font-medium mb-3 text-base sm:text-lg" style="color: var(--theme-text);" data-i18n="careers.mapTitle">{t('careers.mapTitle')}</p>
                         <div class="rounded-lg overflow-hidden" style="border: 2px solid var(--theme-border);">
                             <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.287123999033!2d121.5258937!3d25.058255700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96bfd60fe63%3A0x54b492f3bcf5fd83!2z5Lqr5aSp5aCCIFNwYSBpbiBIZWF2ZW4gLSBTcGHmjInmkakv5a6i6KO95YyW6YGL5YuV5oyJ5pGpL-eUt-Wjq-eGseign-mZpOavmw!5e0!3m2!1szh-TW!2stw!4v1757748821828!5m2!1szh-TW!2stw"
