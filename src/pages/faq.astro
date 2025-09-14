@@ -77,22 +77,24 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 
     <!-- Tab Navigation -->
     {faqCategories.length > 1 && (
-      <div class="max-w-4xl mx-auto mb-8 px-4">
-        <div 
-          class="tab-scroll-container overflow-x-auto scrollbar-hide flex justify-center"
-          style="background-color: var(--color-neutral-100); border-radius: 12px; padding: 8px;"
-        >
-          <div class="flex gap-2">
-            {faqCategories.map(category => (
-              <a
-                href={`/faq?category_id=${category.id}`}
-                class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline ${selectedCategory?.id === category.id ? 'active' : ''}`}
-                data-category-id={category.id}
-                style={selectedCategory?.id === category.id ? "background-color: var(--color-primary-500); color: white;" : "color: var(--theme-text);"}
-              >
-                {category.title}
-              </a>
-            ))}
+      <div class="w-full mb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+          <div 
+            class="overflow-x-auto scrollbar-hide"
+            style=" border-radius: 12px; padding: 8px;"
+          >
+            <div class="flex gap-2 justify-center min-w-max">
+              {faqCategories.map(category => (
+                <a
+                  href={`/faq?category_id=${category.id}`}
+                  class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 ${selectedCategory?.id === category.id ? 'active' : ''}`}
+                  data-category-id={category.id}
+                  style={selectedCategory?.id === category.id ? "background-color: var(--color-primary-500); color: white;" : "background-color: var(--color-neutral-100); color: var(--theme-text);"}
+                >
+                  {category.title}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -110,7 +112,6 @@ if (selectedCategory && selectedCategoryData.length > 0) {
   .tab-item {
     transition: all 0.3s ease;
     text-decoration: none !important;
-    flex-shrink: 0; /* 防止壓縮 */
   }
 
   .tab-item:hover {
@@ -123,12 +124,6 @@ if (selectedCategory && selectedCategoryData.length > 0) {
     box-shadow: 0 4px 12px rgba(var(--color-primary-500-rgb), 0.3);
   }
 
-  /* 滾動容器樣式 */
-  .tab-scroll-container {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-  }
-
   /* 隱藏滾動條 */
   .scrollbar-hide {
     scrollbar-width: none; /* Firefox */
@@ -139,23 +134,29 @@ if (selectedCategory && selectedCategoryData.length > 0) {
     display: none; /* WebKit */
   }
 
-  /* 手機端 - 如果內容超出就允許滾動 */
+  /* 滾動容器優化 */
+  .scrollbar-hide {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* 響應式調整 */
   @media (max-width: 640px) {
-    .tab-scroll-container {
-      justify-content: flex-start !important; /* 小螢幕時靠左對齊方便滾動 */
-    }
-    
     .tab-item {
-      padding: 8px 16px;
+      padding: 8px 12px !important;
       font-size: 14px;
       min-width: 80px;
     }
+    
+    /* 小螢幕時內容靠左，方便滾動 */
+    .flex.justify-center {
+      justify-content: flex-start !important;
+    }
   }
 
-  /* 平板和桌面端保持居中 */
   @media (min-width: 641px) {
     .tab-item {
-      padding: 10px 20px;
+      padding: 10px 20px !important;
     }
   }
 </style>
