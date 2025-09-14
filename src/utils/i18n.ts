@@ -160,6 +160,12 @@ export const translations = {
       },
     },
 
+    // FAQ Section
+    faq: {
+      title: '常見問題',
+      subtitle: 'FAQ',
+    },
+
     // 其他
     contact: 'CONTACT',
   },
@@ -316,6 +322,12 @@ export const translations = {
         successMessage: 'Application submitted successfully! We will contact you soon.',
         errorMessage: 'Submission failed, please try again later.',
       },
+    },
+
+    // FAQ Section
+    faq: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'FAQ',
     },
 
     // Others

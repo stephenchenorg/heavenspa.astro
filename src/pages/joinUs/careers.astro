@@ -3,6 +3,7 @@ import {seoMeta} from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import SectionTitle from "@/components/ui/SectionTitle.astro"
 import CareersForm from '@/components/joinUs/careersForm.vue'
+import FAQ, { type FaqCategories } from '@/components/FAQ.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 import { getCompanySetting } from '@/api/companySetting'
 import { getLocaleFromRequest } from '@/utils/astro-i18n'
@@ -15,6 +16,22 @@ const t = createAstroT(Astro)
 const meta = seoMeta({
     title: `${t('careers.title')} - Heaven Spa`,
 })
+
+// 定義 FAQ 資料
+const careersFaqData: FaqCategories = {
+  徵才問題: [
+    {
+      id: 'booking-1',
+      question: '如何加入享天堂團隊',
+      answer: 'heavenspa999@gamil.com或填寫簡易履歷表',
+    },
+    {
+      id: 'booking-2',
+      question: '多久知道會知道自己符合資格？',
+      answer: '人事部門初步審核履歷，若資格符合將於7日內與您聯繫 !',
+    },
+  ],
+}
 
 ---
 
@@ -163,6 +180,24 @@ const meta = seoMeta({
                     <!--        </a>-->
                     <!--    </div>-->
                     <!--</div>-->
+                </div>
+            </div>
+
+            <!-- FAQ 區塊 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(--color-primary-200);">
+                <!--上方區塊-->
+                <div class="order-1 lg:order-1">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6" data-i18n="careers.headline">標題文案</h2>
+                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">副標題文案</p>
+                    <ul class="grid space-y-2 my-4 text-sm sm:text-base">
+                        <li>✔ <span data-i18n="careers.requirements.freedom">文案內容1</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.freedom">文案內容2</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.freedom">文案內容3</span></li>
+                    </ul>
+                    <p class="text-sm sm:text-base" data-i18n="careers.conclusion">{t('careers.conclusion')}</p>
+                </div>
+                <div class="order-2 lg:order-2">
+                    <FAQ faqData={careersFaqData} />
                 </div>
             </div>
         </div>

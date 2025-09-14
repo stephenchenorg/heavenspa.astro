@@ -1,0 +1,272 @@
+---
+// FAQ 內容區組件
+export interface FaqItem {
+  id: string
+  question: string
+  answer: string
+}
+
+export interface FaqCategories {
+  [key: string]: FaqItem[]
+}
+
+interface Props {
+  faqData: FaqCategories
+}
+
+const { faqData } = Astro.props
+---
+
+<!-- FAQ 內容區 -->
+<div class="w-full">
+  {Object.entries(faqData).map(([category, faqs]) => (
+    <div class="faq-category mb-12" data-category={category}>
+      <!-- FAQ 手風琴 -->
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <div
+            class="faq-item overflow-hidden transition-all duration-300"
+          >
+
+            <!-- 問題標題 -->
+            <button
+              class="faq-question w-full px-6 py-4 text-left flex items-center justify-between transition-all duration-200 border-b border-transparent"
+              style="border-bottom-color: var(--color-primary-500);"
+              data-faq-id={faq.id}
+              aria-expanded="false"
+            >
+              <span class="text-xl font-semibold pr-4" style="color: var(--theme-text);">
+                {faq.question}
+              </span>
+
+              <!-- 展開/收合圖示 -->
+              <svg
+                class="faq-icon w-5 h-5 transform transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                style="color: var(--color-primary-600);"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <!-- 答案內容 -->
+            <div class="faq-answer overflow-hidden transition-all duration-300 max-h-0 border-b border-transparent" style="border-bottom-color: transparent;" data-faq-content={faq.id}>
+              <div class="px-6 pb-4 pt-2">
+                <div class="prose prose-sm max-w-none" style="color: var(--theme-text-secondary);">
+                  <p class="mb-3 leading-relaxed typewriter-text" data-full-text={faq.answer}>
+                    <span class="typewriter-content"></span>
+                    <span class="typewriter-cursor">|</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const faqQuestions = document.querySelectorAll<HTMLButtonElement>('.faq-question')
+
+  // Typewriter effect variables
+  let currentTypewriterInterval: ReturnType<typeof setInterval> | null = null
+  let isTypewriterActive = false
+
+  // Typewriter effect function
+  function startTypewriter(textElement: HTMLElement, fullText: string, onComplete?: () => void) {
+    // Stop any existing typewriter
+    stopTypewriter()
+
+    const contentSpan = textElement.querySelector('.typewriter-content') as HTMLElement
+    const cursor = textElement.querySelector('.typewriter-cursor') as HTMLElement
+
+    if (!contentSpan || !cursor) return
+
+    // Reset content and show cursor
+    contentSpan.textContent = ''
+    cursor.style.opacity = '1'
+    cursor.style.animation = 'blink 1s infinite'
+    isTypewriterActive = true
+
+    let currentIndex = 0
+
+    currentTypewriterInterval = setInterval(() => {
+      if (!isTypewriterActive) {
+        clearInterval(currentTypewriterInterval!)
+        currentTypewriterInterval = null
+        return
+      }
+
+      if (currentIndex < fullText.length) {
+        contentSpan.textContent = fullText.substring(0, currentIndex + 1)
+        currentIndex++
+      } else {
+        // Typing complete
+        clearInterval(currentTypewriterInterval!)
+        currentTypewriterInterval = null
+        isTypewriterActive = false
+
+        // Hide cursor after completion
+        setTimeout(() => {
+          cursor.style.opacity = '0'
+          cursor.style.animation = 'none'
+        }, 1000)
+
+        if (onComplete) onComplete()
+      }
+    }, 60) // 60ms per character
+  }
+
+  function stopTypewriter() {
+    if (currentTypewriterInterval) {
+      clearInterval(currentTypewriterInterval)
+      currentTypewriterInterval = null
+    }
+    isTypewriterActive = false
+  }
+
+  function resetTypewriter(textElement: HTMLElement) {
+    const contentSpan = textElement.querySelector('.typewriter-content') as HTMLElement
+    const cursor = textElement.querySelector('.typewriter-cursor') as HTMLElement
+
+    if (contentSpan) contentSpan.textContent = ''
+    if (cursor) {
+      cursor.style.opacity = '0'
+      cursor.style.animation = 'none'
+    }
+  }
+
+
+  // FAQ accordion functionality
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', function (this: HTMLButtonElement) {
+      const faqId = this.getAttribute('data-faq-id')
+      const faqAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${faqId}"]`)
+      const faqIcon = this.querySelector<HTMLElement>('.faq-icon')
+      const isExpanded = this.getAttribute('aria-expanded') === 'true'
+
+      // Stop any active typewriter when switching sections
+      stopTypewriter()
+
+      // Get current category's questions only
+      const currentCategory = this.closest<HTMLElement>('.faq-category')
+      const currentCategoryQuestions = currentCategory?.querySelectorAll<HTMLButtonElement>('.faq-question')
+
+      // Close all other FAQ items in current category and reset their typewriters
+      currentCategoryQuestions?.forEach((otherQuestion: HTMLButtonElement) => {
+        if (otherQuestion !== this) {
+          const otherFaqId = otherQuestion.getAttribute('data-faq-id')
+          const otherAnswer = document.querySelector<HTMLElement>(`[data-faq-content="${otherFaqId}"]`)
+          const otherIcon = otherQuestion.querySelector<HTMLElement>('.faq-icon')
+          const otherTypewriter = otherAnswer?.querySelector<HTMLElement>('.typewriter-text')
+
+          otherQuestion.setAttribute('aria-expanded', 'false')
+          // Show border when collapsed
+          otherQuestion.style.borderBottomColor = 'var(--color-primary-500)'
+          if (otherAnswer) {
+            otherAnswer.style.maxHeight = '0px'
+            // Hide content border when collapsed
+            otherAnswer.style.borderBottomColor = 'transparent'
+          }
+          if (otherIcon) {
+            otherIcon.style.transform = 'rotate(0deg)'
+          }
+          if (otherTypewriter) {
+            resetTypewriter(otherTypewriter)
+          }
+        }
+      })
+
+      // Toggle current FAQ item
+      if (isExpanded) {
+        // Collapse
+        this.setAttribute('aria-expanded', 'false')
+        // Show border when collapsed
+        this.style.borderBottomColor = 'var(--color-primary-500)'
+        if (faqAnswer) {
+          faqAnswer.style.maxHeight = '0px'
+          // Hide content border when collapsed
+          faqAnswer.style.borderBottomColor = 'transparent'
+          const typewriter = faqAnswer.querySelector<HTMLElement>('.typewriter-text')
+          if (typewriter) {
+            resetTypewriter(typewriter)
+          }
+        }
+        if (faqIcon) {
+          faqIcon.style.transform = 'rotate(0deg)'
+        }
+      } else {
+        // Expand
+        this.setAttribute('aria-expanded', 'true')
+        // Hide border when expanded
+        this.style.borderBottomColor = 'transparent'
+        if (faqAnswer) {
+          // First expand the container
+          faqAnswer.style.maxHeight = `${faqAnswer.scrollHeight}px`
+          // Show content border when expanded
+          faqAnswer.style.borderBottomColor = 'var(--color-primary-500)'
+
+          // Then start typewriter effect
+          const typewriter = faqAnswer.querySelector<HTMLElement>('.typewriter-text')
+          if (typewriter) {
+            const fullText = typewriter.getAttribute('data-full-text') || ''
+            setTimeout(() => {
+              startTypewriter(typewriter, fullText)
+            }, 300) // Wait for expand animation
+          }
+        }
+        if (faqIcon) {
+          faqIcon.style.transform = 'rotate(180deg)'
+        }
+      }
+    })
+  })
+})
+</script>
+
+<style>
+  .faq-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-question:focus {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  .faq-answer {
+    transition: max-height 0.3s ease-out;
+  }
+
+
+  /* Dark theme adaptations */
+  .dark-theme .faq-item:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Typewriter effect styles */
+  .typewriter-cursor {
+    opacity: 0;
+    color: var(--color-primary-500);
+    font-weight: normal;
+    margin-left: 1px;
+  }
+
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .typewriter-text {
+    min-height: 1.5em; /* Prevent layout shift during typing */
+  }
+</style>
