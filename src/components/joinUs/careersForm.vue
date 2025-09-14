@@ -3,26 +3,26 @@
     <form @submit.prevent="submitForm" class="space-y-4 sm:space-y-6" :style="{ color: 'var(--theme-text)' }">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.name">
-            {{ tReactive('careers.form.name') }}
+          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+            中文姓名
           </label>
           <input
             v-model="form.name"
             type="text"
-            :placeholder="tReactive('careers.form.namePlaceholder')"
+            placeholder="請輸入中文姓名"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
           />
         </div>
         <div>
-          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.phone">
-            {{ tReactive('careers.form.phone') }}
+          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+            行動電話
           </label>
           <input
             v-model="form.phone"
             type="tel"
-            :placeholder="tReactive('careers.form.phonePlaceholder')"
+            placeholder="0912-345-678"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -32,13 +32,13 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.height">
-            {{ tReactive('careers.form.height') }}
+          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+            身高 (cm)
           </label>
           <input
             v-model="form.height"
             type="number"
-            :placeholder="tReactive('careers.form.heightPlaceholder')"
+            placeholder="160"
             required
             min="100"
             max="250"
@@ -47,13 +47,13 @@
           />
         </div>
         <div>
-          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.weight">
-            {{ tReactive('careers.form.weight') }}
+          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+            體重 (kg)
           </label>
           <input
             v-model="form.weight"
             type="number"
-            :placeholder="tReactive('careers.form.weightPlaceholder')"
+            placeholder="50"
             required
             min="30"
             max="200"
@@ -65,8 +65,8 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.birthday">
-            {{ tReactive('careers.form.birthday') }}
+          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+            出生年月日
           </label>
           <input
             v-model="form.birthday"
@@ -77,13 +77,13 @@
           />
         </div>
         <div>
-          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.social">
-            {{ tReactive('careers.form.social') }}
+          <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+            FB/IG 帳號
           </label>
           <input
             v-model="form.social"
             type="text"
-            :placeholder="tReactive('careers.form.socialPlaceholder')"
+            placeholder="請輸入 Facebook 或 Instagram 帳號"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -92,13 +92,13 @@
       </div>
 
       <div>
-        <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.email">
-          {{ tReactive('careers.form.email') }}
+        <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+          電子信箱
         </label>
         <input
           v-model="form.email"
           type="email"
-          :placeholder="tReactive('careers.form.emailPlaceholder')"
+          placeholder="example@email.com"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -106,13 +106,13 @@
       </div>
 
       <div>
-        <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }" data-i18n="careers.form.address">
-          {{ tReactive('careers.form.address') }}
+        <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
+          居住地址
         </label>
         <input
           v-model="form.address"
           type="text"
-          :placeholder="tReactive('careers.form.addressPlaceholder')"
+          placeholder="請輸入完整地址"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -125,8 +125,8 @@
         class="w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg text-sm sm:text-base"
         :style="buttonStyle"
       >
-        <span v-if="!isSubmitting" data-i18n="careers.form.submit">{{ tReactive('careers.form.submit') }}</span>
-        <span v-else data-i18n="careers.form.submitting">{{ tReactive('careers.form.submitting') }}</span>
+        <span v-if="!isSubmitting">提交申請</span>
+        <span v-else>處理中...</span>
       </button>
     </form>
 
@@ -139,7 +139,7 @@
           </svg>
         </div>
         <div class="ml-3">
-          <p class="text-sm font-medium" data-i18n="careers.form.successMessage">{{ tReactive('careers.form.successMessage') }}</p>
+          <p class="text-sm font-medium">申請已成功提交！我們會盡快與您聯繫。</p>
         </div>
       </div>
     </div>
@@ -161,8 +161,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
-import { getCurrentLocale, t } from '@/utils/i18n'
+import { computed, onMounted, reactive, ref } from 'vue'
 
 // 表單資料
 const form = reactive({
@@ -182,12 +181,6 @@ const showSuccess = ref(false)
 const showError = ref(false)
 const errorMessage = ref('')
 const currentTheme = ref('light')
-const currentLocale = ref(getCurrentLocale())
-
-// 響應式翻譯函數
-const tReactive = (key: string): string => {
-  return t(key, currentLocale.value)
-}
 
 // 樣式計算
 const inputStyle = computed(() => ({
@@ -264,18 +257,10 @@ onMounted(() => {
   // 監聽主題變化事件
   document.addEventListener('themeChanged', updateTheme)
   
-  // 監聽語言變化事件
-  document.addEventListener('languageChanged', (e: any) => {
-    currentLocale.value = e.detail.locale
-  })
-})
-
-// 組件卸載時清理事件監聽器
-onUnmounted(() => {
-  document.removeEventListener('themeChanged', updateTheme)
-  document.removeEventListener('languageChanged', (e: any) => {
-    currentLocale.value = e.detail.locale
-  })
+  // 組件卸載時清理事件監聽器
+  return () => {
+    document.removeEventListener('themeChanged', updateTheme)
+  }
 })
 </script>
 

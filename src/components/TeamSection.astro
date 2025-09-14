@@ -2,12 +2,11 @@
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'
 import { createAstroT } from '@/utils/astro-i18n'
-import { getWeeklyRecommended } from '@/api/teams'
+import { getAllTeams } from '@/api/teams'
 import type { TeamMember } from '@/types'
 
-// 獲取本週推薦團隊成員
-const teamMembers: TeamMember[] = await getWeeklyRecommended()
-
+// 獲取前六筆團隊成員
+const teamMembers: TeamMember[] = (await getAllTeams()).slice(0, 6)
 const t = createAstroT(Astro)
 ---
 <section

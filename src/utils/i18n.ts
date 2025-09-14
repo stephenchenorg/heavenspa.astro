@@ -98,7 +98,6 @@ export const translations = {
     footer: {
       address: '地址',
       'business-hours': '營業時間',
-      'business-hours-time': 'AM 10:00~AM 00:00 (最後收客時間)',
       'contact-info': '聯繫資訊',
       phone: '電話',
       email: '電子信箱',
@@ -135,9 +134,7 @@ export const translations = {
         description: '歡迎您加入我們的團隊！如有任何疑問，請隨時與我們聯繫。',
         sayHello: 'Say Hello',
         location: 'Location',
-        address: '台北市中山區復興北路123號',
-        hours: '週一至週日 10:00 - 22:00',
-        phone: '0987-654-321',
+        resume: '個人簡歷',
       },
       mapTitle: '我們的位置',
       form: {
@@ -259,7 +256,6 @@ export const translations = {
     footer: {
       address: 'Address',
       'business-hours': 'Business Hours',
-      'business-hours-time': 'AM 10:00~AM 00:00 (Last Appointment)',
       'contact-info': 'Contact Information',
       phone: 'Phone',
       email: 'Email',
@@ -296,9 +292,7 @@ export const translations = {
         description: 'Welcome to join our team! If you have any questions, please feel free to contact us at any time.',
         sayHello: 'Say Hello',
         location: 'Location',
-        address: '123 Fuxing N Rd, Zhongshan District, Taipei City',
-        hours: 'Monday to Sunday 10:00 - 22:00',
-        phone: '0987-654-321',
+        resume: 'Resume',
       },
       mapTitle: 'Our Location',
       form: {

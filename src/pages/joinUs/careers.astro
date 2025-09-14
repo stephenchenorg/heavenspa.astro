@@ -5,7 +5,10 @@ import SectionTitle from "@/components/ui/SectionTitle.astro"
 import CareersForm from '@/components/joinUs/careersForm.vue'
 import { createAstroT } from '@/utils/astro-i18n'
 import { getCompanySetting } from '@/api/companySetting'
-const companySetting = await getCompanySetting()
+import { getLocaleFromRequest } from '@/utils/astro-i18n'
+
+const locale = getLocaleFromRequest(Astro.request)
+const companySetting = await getCompanySetting(locale)
 
 const t = createAstroT(Astro)
 
@@ -26,7 +29,7 @@ const meta = seoMeta({
         />
 
         <!-- Page content will be added here -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl lg:mx-auto px-4 sm:px-6 lg:px-8">
             <!-- 聯絡資訊區 -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                 <!--上方區塊-->
@@ -100,7 +103,7 @@ const meta = seoMeta({
                                        >{companySetting?.address_1}</a>
                                 </div>
                                 <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.hours">
-                                    {t('careers.contact.hours')}
+                                    {companySetting?.business_hours}
                                 </div>
                             </div>
                         </div>
@@ -111,6 +114,7 @@ const meta = seoMeta({
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16">
                 <!-- 表單 -->
                 <div class="order-2 lg:order-1">
+                    <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.resume">{t('careers.contact.resume')}</h4>
                     <CareersForm client:load />
                 </div>
                 <div class="order-1 lg:order-2">

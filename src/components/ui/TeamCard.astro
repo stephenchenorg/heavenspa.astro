@@ -22,13 +22,6 @@ const { member, uniqueId, isMobile = false } = Astro.props
       uniqueId={uniqueId}
       containerClass="carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
     />
-
-    <!-- 評級標籤 (左下角) -->
-    <div
-      class="absolute bottom-3 left-3 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm"
-    >
-      ⭐ {member.category.title}
-    </div>
   </div>
 
   <!-- 卡片資訊 -->
