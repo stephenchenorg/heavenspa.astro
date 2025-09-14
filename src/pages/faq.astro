@@ -102,7 +102,43 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 
     <!-- 使用 FAQ 組件 -->
     <div class="max-w-6xl mx-auto w-full">
-      <FAQ faqData={faqData} />
+      {Object.keys(faqData).length > 0 && Object.values(faqData).some(faqs => faqs.length > 0) ? (
+        <FAQ faqData={faqData} />
+      ) : (
+        <div class="text-center py-16">
+          <div class="max-w-md mx-auto">
+            <div class="mb-6">
+              <svg 
+                class="mx-auto h-16 w-16 opacity-30" 
+                style="color: var(--theme-text-secondary);"
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="1.5" 
+                  d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                />
+              </svg>
+            </div>
+            <h3 
+              class="text-xl font-medium mb-2" 
+              style="color: var(--theme-text);"
+            >
+              暫無內容
+            </h3>
+            <p 
+              class="text-sm leading-relaxed" 
+              style="color: var(--theme-text-secondary);"
+            >
+              目前此分類下沒有常見問題資料，<br/>
+              請稍後再試或選擇其他分類。
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   </main>
 </Layout>
