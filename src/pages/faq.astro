@@ -67,35 +67,6 @@ if (selectedCategory && selectedCategoryData.length > 0) {
     question: faq.title,
     answer: faq.content
   }))
-} else {
-  // 如果無法獲取分類，使用備用資料
-  faqData['常見問題'] = [
-    {
-      id: 'fallback-1',
-      question: '需要預約嗎？',
-      answer: '是的，本店採用全預約制服務系統。請透過官方 Line 或電話提前預約，以確保能為您安排最佳的服務時段。'
-    },
-    {
-      id: 'fallback-2',
-      question: 'Heaven Spa 提供什麼類型的服務？',
-      answer: '我們提供專業的 SPA 按摩服務，結合中式指壓和精油按摩技法，以及專業除毛服務，為您帶來全面的身心放鬆體驗。'
-    },
-    {
-      id: 'fallback-3',
-      question: '如何聯繫預約？',
-      answer: '您可以透過官方 Line 預約系統或撥打我們的服務專線進行預約。我們的專業顧問會協助您選擇最適合的服務項目和時間。'
-    },
-    {
-      id: 'fallback-4',
-      question: '付費方式有哪些？',
-      answer: '目前我們接受現金付費，暫不提供信用卡服務。我們也提供會員儲值服務，讓您享受更便利的付費體驗。'
-    },
-    {
-      id: 'fallback-5',
-      question: '服務環境如何？',
-      answer: '我們提供私密、舒適的服務環境，每個房間都經過精心設計，確保您的隱私和舒適感。所有設施都定期消毒，維持最高的衛生標準。'
-    }
-  ]
 }
 ---
 
@@ -106,21 +77,23 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 
     <!-- Tab Navigation -->
     {faqCategories.length > 1 && (
-      <div class="max-w-4xl mx-auto mb-8">
-        <div
-          class="flex flex-wrap justify-center gap-2 p-2 rounded-xl min-w-[600px]"
-          style="background-color: var(--color-neutral-100);"
+      <div class="max-w-4xl mx-auto mb-8 px-4">
+        <div 
+          class="tab-scroll-container overflow-x-auto scrollbar-hide flex justify-center"
+          style="background-color: var(--color-neutral-100); border-radius: 12px; padding: 8px;"
         >
-          {faqCategories.map(category => (
-            <a
-              href={`/faq?category_id=${category.id}`}
-              class={`tab-button px-6 py-3 rounded-lg font-medium transition-all duration-300 flex-1 min-w-0 text-center no-underline ${selectedCategory?.id === category.id ? 'active' : ''}`}
-              data-category-id={category.id}
-              style={selectedCategory?.id === category.id ? "background-color: var(--color-primary-500); color: white;" : "color: var(--theme-text);"}
-            >
-              {category.title}
-            </a>
-          ))}
+          <div class="flex gap-2">
+            {faqCategories.map(category => (
+              <a
+                href={`/faq?category_id=${category.id}`}
+                class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline ${selectedCategory?.id === category.id ? 'active' : ''}`}
+                data-category-id={category.id}
+                style={selectedCategory?.id === category.id ? "background-color: var(--color-primary-500); color: white;" : "color: var(--theme-text);"}
+              >
+                {category.title}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     )}
@@ -133,26 +106,57 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 </Layout>
 
 <style>
-  .tab-button {
+  <style>
+  .tab-item {
     transition: all 0.3s ease;
     text-decoration: none !important;
+    flex-shrink: 0; /* 防止壓縮 */
   }
 
-  .tab-button:hover:not(.active) {
-    background-color: var(--color-primary-100);
+  .tab-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .tab-button.active {
-    background-color: var(--color-primary-500);
-    color: white !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  .tab-item.active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--color-primary-500-rgb), 0.3);
   }
 
-  /* Responsive tabs for mobile */
+  /* 滾動容器樣式 */
+  .tab-scroll-container {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* 隱藏滾動條 */
+  .scrollbar-hide {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* 手機端 - 如果內容超出就允許滾動 */
   @media (max-width: 640px) {
-    .tab-button {
-      font-size: 0.875rem;
-      padding: 0.75rem 1rem;
+    .tab-scroll-container {
+      justify-content: flex-start !important; /* 小螢幕時靠左對齊方便滾動 */
+    }
+    
+    .tab-item {
+      padding: 8px 16px;
+      font-size: 14px;
+      min-width: 80px;
     }
   }
+
+  /* 平板和桌面端保持居中 */
+  @media (min-width: 641px) {
+    .tab-item {
+      padding: 10px 20px;
+    }
+  }
+</style>
 </style>
