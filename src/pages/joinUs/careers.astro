@@ -65,7 +65,7 @@ try {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                 <!--上方區塊-->
                 <div class="order-1 lg:order-1">
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6" data-i18n="careers.headline">{t('careers.headline')}</h2>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.headline">{t('careers.headline')}</h2>
                     <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">{t('careers.description')}</p>
                     <ul class="grid space-y-2 my-4 text-sm sm:text-base">
                         <li>✔ <span data-i18n="careers.requirements.freedom">{t('careers.requirements.freedom')}</span></li>
@@ -78,7 +78,7 @@ try {
                     <p class="text-sm sm:text-base" data-i18n="careers.conclusion">{t('careers.conclusion')}</p>
                 </div>
                 <div class="order-2 lg:order-2">
-                    <h3 class="text-xl sm:text-2xl font-bold mb-4" style="color: var(--theme-text);" data-i18n="careers.contact.title">{t('careers.contact.title')}</h3>
+                    <h3 class="text-xl sm:text-2xl font-normal mb-4 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.title">{t('careers.contact.title')}</h3>
                     <p class="mb-6 text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.description">
                         {t('careers.contact.description')}
                     </p>
@@ -100,7 +100,7 @@ try {
                                     </div>
                                 </div>
                             </div>
-                            <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
+                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div>
                                     <a href=`mailto:${companySetting.email_1}`
@@ -126,7 +126,7 @@ try {
                                     <path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602"></path>
                                 </svg>
                             </div>
-                            <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.location">{t('careers.contact.location')}</h4>
+                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.location">{t('careers.contact.location')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.address">
                                     <a href={`https://maps.google.com/?q=${encodeURIComponent(companySetting.address_1 || '')}`}
@@ -145,13 +145,13 @@ try {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 ">
                 <!-- 表單 -->
                 <div class="">
-                    <h4 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3" style="color: var(--theme-text);" data-i18n="careers.contact.resume">{t('careers.contact.resume')}</h4>
+                    <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.resume">{t('careers.contact.resume')}</h4>
                     <CareersForm client:load />
                 </div>
                 <div class="">
                     <!-- Google Maps -->
                     <div class="mb-6 lg:mb-0">
-                        <p class="font-medium mb-3 text-base sm:text-lg" style="color: var(--theme-text);" data-i18n="careers.mapTitle">{t('careers.mapTitle')}</p>
+                        <p class="font-normal mb-3 text-base sm:text-lg tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.mapTitle">{t('careers.mapTitle')}</p>
                         <div class="rounded-lg overflow-hidden" style="border: 2px solid var(--theme-border);">
                             <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.287123999033!2d121.5258937!3d25.058255700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96bfd60fe63%3A0x54b492f3bcf5fd83!2z5Lqr5aSp5aCCIFNwYSBpbiBIZWF2ZW4gLSBTcGHmjInmkakv5a6i6KO95YyW6YGL5YuV5oyJ5pGpL-eUt-Wjq-eGseign-mZpOavmw!5e0!3m2!1szh-TW!2stw!4v1757748821828!5m2!1szh-TW!2stw"
@@ -200,7 +200,7 @@ try {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
                 <!--上方區塊-->
                 <div>
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 lg:mb-6" data-i18n="careers.headline">標題文案</h2>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.headline">標題文案</h2>
                     <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">副標題文案</p>
                     <ul class="grid space-y-2 my-4 text-sm sm:text-base">
                         <li>✔ <span data-i18n="careers.requirements.freedom">文案內容1</span></li>
@@ -232,7 +232,7 @@ try {
                                     </svg>
                                 </div>
                                 <h3
-                                    class="text-lg font-medium mb-2"
+                                    class="text-lg font-normal mb-2 tracking-[2px]"
                                     style="color: var(--theme-text);"
                                 >
                                     暫無徵才問題
