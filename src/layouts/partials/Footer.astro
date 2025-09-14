@@ -49,14 +49,19 @@ const t = createAstroT(Astro)
                            class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">{companySetting?.address_1}</a>
                     </div>
                     <div class="flex items-center justify-start gap-3 text-sm">
-                        <span class="text-base opacity-80">🕒</span>
-                        <span data-i18n="footer.business-hours-time"
-                              class="text-[var(--theme-text,#000000)]">{t('footer.business-hours-time')}</span>
-                    </div>
-                    <div class="flex items-center justify-start gap-3 text-sm">
                         <span class="text-base opacity-80">✉️</span>
                         <a href={`mailto:${companySetting?.email_1}`}
                            class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">{companySetting?.email_1}</a>
+                    </div>
+                    <div class="flex items-center justify-start gap-3 text-sm">
+                        <span class="text-base opacity-80">🕒</span>
+                        <span data-i18n="footer.business-hours-time"
+                              class="text-[var(--theme-text,#000000)]">{companySetting?.business_hours || '' }</span>
+                    </div>
+                    <div class="flex items-center justify-start gap-3 text-sm">
+                        <span class="text-base opacity-80">＄</span>
+                        <span data-i18n="footer.business-hours-time"
+                              class="text-[var(--theme-text,#000000)]">{companySetting?.payment_method}</span>
                     </div>
                 </div>
             </div>
@@ -187,19 +192,19 @@ const t = createAstroT(Astro)
 
                 <!-- 法律與政策 -->
                 <div class="animate-fadeInUp animation-delay-600">
-                    <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">
-                        法律與政策</h4>
+                    <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider" data-i18n="footer.legal-policies">
+                        {t('footer.legal-policies')}</h4>
                     <ul class="space-y-3 grid grid-cols-1 gap-2 md:gap-0">
                         <li><a href="/privacy"
                                class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
                             <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                            隱私政策
+                            <span data-i18n="footer.privacy-policy">{t('footer.privacy-policy')}</span>
                         </a></li>
-                        <!--<li><a href="/terms"-->
-                        <!--       class="group flex items-center justify-start text-sm text-[var(&#45;&#45;theme-text-secondary,#666666)] hover:text-[var(&#45;&#45;color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">-->
-                        <!--    <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>-->
-                        <!--    服務條款-->
-                        <!--</a></li>-->
+                        <li><a href="/terms"
+                               class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1">
+                            <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+                            <span data-i18n="footer.terms-of-service">{t('footer.terms-of-service')}</span>
+                        </a></li>
                     </ul>
                 </div>
             </div>

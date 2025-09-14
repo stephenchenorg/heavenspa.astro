@@ -104,6 +104,9 @@ export const translations = {
       email: '電子信箱',
       'follow-us': '關注我們',
       'rights-reserved': '版權所有',
+      'legal-policies': '法律與政策',
+      'privacy-policy': '隱私政策',
+      'terms-of-service': '服務條款',
     },
 
     // Intro Section
@@ -262,6 +265,9 @@ export const translations = {
       email: 'Email',
       'follow-us': 'Follow Us',
       'rights-reserved': 'All Rights Reserved',
+      'legal-policies': 'Legal & Policies',
+      'privacy-policy': 'Privacy Policy',
+      'terms-of-service': 'Terms of Service',
     },
 
     // Intro Section

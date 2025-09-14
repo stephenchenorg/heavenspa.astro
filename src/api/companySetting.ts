@@ -26,6 +26,8 @@ export async function getCompanySetting() {
       phone_2
       tg_link
       vat
+      payment_method
+      business_hours
     }
   }
 `)

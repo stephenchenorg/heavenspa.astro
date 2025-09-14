@@ -17,6 +17,8 @@ export interface CompanySettingData {
   phone_2: string
   tg_link: string
   vat: string
+  payment_method: string
+  business_hours: string
 }
 
 export interface CompanySetting {
