@@ -209,7 +209,7 @@ const t = createAstroT(Astro)
 
 </section>
 
-<script define:vars={{ articleCount: articles.length }}>
+<script is:inline define:vars={{ articleCount: articles.length }}>
   // 響應式輪播功能
   document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.news-carousel')

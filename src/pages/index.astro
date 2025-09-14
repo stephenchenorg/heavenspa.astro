@@ -5,7 +5,6 @@ import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
-import { gql, graphQLAPI } from '@/api'
 
 // 暫時使用 Mock 資料 (開發用)
 // TODO: 恢復 GraphQL API 呼叫
@@ -13,7 +12,7 @@ const data = {
   courses: {
     data: [
       {
-        id: 'mock_course_1',
+        id: 1,
         title: '深層放鬆按摩',
         subtitle: '專業按摩服務',
         description: '採用專業手法，幫助您放鬆身心',
@@ -26,7 +25,7 @@ const data = {
         }
       },
       {
-        id: 'mock_course_2',
+        id: 2,
         title: 'SPA 水療護理',
         subtitle: '頂級 SPA 體驗',
         description: '享受頂級的水療護理服務',

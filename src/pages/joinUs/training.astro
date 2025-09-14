@@ -1,13 +1,7 @@
 ---
 import {seoMeta} from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
-import {createAstroT} from '@/utils/astro-i18n'
-import {getCompanySetting} from '@/api/companySetting'
-import {getLocaleFromRequest} from '@/utils/astro-i18n'
 
-const locale = getLocaleFromRequest(Astro.request)
-const companySetting = await getCompanySetting(locale)
-const t = createAstroT(Astro)
 const meta = seoMeta({
     title: `技能培訓 - Heaven Spa`,
 })
@@ -415,13 +409,6 @@ const meta = seoMeta({
         });
         
         // Theme toggle function (can be called from theme toggle button)
-        function toggleTheme(): void {
-            const isDark = document.documentElement.classList.contains('dark');
-            const newTheme = !isDark ? 'dark' : 'light';
-            
-            document.documentElement.classList.toggle('dark', !isDark);
-            localStorage.setItem('theme', newTheme);
-        }
     </script>
 
     <!-- Preserve animation styles for elements with data-animate-in -->

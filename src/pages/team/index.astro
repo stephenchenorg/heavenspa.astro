@@ -22,12 +22,13 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <main class="section-container pt-32 min-h-screen bg-[var(--theme-bg,#ffffff)] text-[var(--theme-text,#1f2937)]">
+  <main class="section-container pt-32 min-h-screen">
+
     <!-- 標題區 -->
     <SectionTitle title="服務團隊" subtitle="OUR TEAM" />
 
     <!-- 團隊成員網格 -->
-    <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto w-full">
       {teamMembers && teamMembers.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {teamMembers.map((member) => (

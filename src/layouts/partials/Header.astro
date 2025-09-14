@@ -515,7 +515,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       // 確保下拉選單內的連結點擊正常工作
       const dropdownLinks = dropdown.querySelectorAll('.dropdown-link')
       dropdownLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', () => {
           // 點擊連結後關閉下拉選單
           dropdown.classList.remove('active')
 
