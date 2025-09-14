@@ -156,7 +156,7 @@
               <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
                 <X size="16" />
               </div>
-              <span class="font-normal tracking-wide">X</span>
+              <span class="font-normal tracking-wide">Twitter</span>
             </a>
           </li>
           <li v-if="companySetting?.tg_link">
@@ -218,15 +218,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { getCurrentLocale, t } from '@/utils/i18n'
 import type { CompanySettingData } from '@/types'
+import { onMounted, onUnmounted, ref } from 'vue'
 import Facebook from '@/components/icon/Facebook.vue'
 import Instagram from '@/components/icon/Instagram.vue'
 import Line from '@/components/icon/Line.vue'
-import X from '@/components/icon/X.vue'
 import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
+import X from '@/components/icon/X.vue'
+import { getCurrentLocale, t } from '@/utils/i18n'
 
 const companySetting = ref<CompanySettingData | null>(null)
 
