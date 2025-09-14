@@ -4,30 +4,43 @@ import { gql, graphQLAPI } from './index'
 export async function getAllTeams(): Promise<TeamMember[]> {
   try {
     const { teams } = await graphQLAPI<TeamsResponse>(gql`
-      query GetAllTeams {
+      query MyQuery {
         teams(sort_by: "asc", sort_column: "sort") {
           data {
+            content
             id
-            job
             images {
-              created_at
-              id
               image {
                 desktop
                 desktop_blur
                 mobile
                 mobile_blur
               }
-              updated_at
-              is_default
+              id
             }
+            job
+            title
             image {
               desktop
               desktop_blur
               mobile
               mobile_blur
             }
-            title
+            cover
+            monday_end
+            monday_start
+            tuesday_end
+            tuesday_start
+            wednesday_end
+            wednesday_start
+            thursday_start
+            thursday_end
+            sunday_start
+            sunday_end
+            saturday_end
+            saturday_start
+            friday_start
+            friday_end
           }
         }
       }

@@ -2,6 +2,7 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import Badge from '@/components/ui/Badge.astro'
+import Schedule from '@/components/ui/Schedule.astro'
 import { getAllTeams } from '@/api/teams'
 import type { TeamMember } from '@/types'
 
@@ -145,7 +146,16 @@ const mainImage = teamMember.image?.desktop || validImages[0]?.image?.desktop ||
 
         <!-- 內容區塊 -->
         <div class="w-full prose prose-lg max-w-none leading-relaxed rounded-xl p-6 shadow-sm border-2 mt-4 bg-[var(--theme-card-bg,#ffffff)] border-[var(--theme-border,#e5e7eb)] text-[var(--theme-text,#1f2937)]">
-          <p>這位成員目前沒有詳細介紹。</p>
+          {teamMember.content ? (
+            <div set:html={teamMember.content} />
+          ) : (
+            <p>這位成員目前沒有詳細介紹。</p>
+          )}
+        </div>
+
+        <!-- 工作時間表 -->
+        <div class="w-full mt-6">
+          <Schedule teamMember={teamMember} />
         </div>
       </div>
     </div>

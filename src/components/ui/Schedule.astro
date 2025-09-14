@@ -1,0 +1,57 @@
+---
+import type { TeamMember } from '@/types'
+
+interface Props {
+  teamMember: TeamMember
+}
+
+const { teamMember } = Astro.props
+
+const weekDays = [
+  { key: 'monday', label: '星期一' },
+  { key: 'tuesday', label: '星期二' },
+  { key: 'wednesday', label: '星期三' },
+  { key: 'thursday', label: '星期四' },
+  { key: 'friday', label: '星期五' },
+  { key: 'saturday', label: '星期六' },
+  { key: 'sunday', label: '星期日' },
+]
+
+function getWorkingHours(day: string, member: TeamMember) {
+  const startTime = member[`${day}_start` as keyof TeamMember] as string
+  const endTime = member[`${day}_end` as keyof TeamMember] as string
+
+  if (!startTime || !endTime) {
+    return null
+  }
+
+  return { start: startTime, end: endTime }
+}
+---
+
+<div class="w-full bg-[var(--theme-card-bg,#ffffff)] border-2 border-[var(--theme-border,#e5e7eb)] rounded-xl p-6 shadow-sm">
+  <h3 class="text-lg font-semibold mb-4 text-[var(--theme-text,#1f2937)]">
+    工作時間
+  </h3>
+
+  <div class="space-y-3">
+    {weekDays.map((day) => {
+      const hours = getWorkingHours(day.key, teamMember)
+
+      return (
+        <div class="flex justify-between items-center py-2 px-3 rounded-lg bg-[var(--theme-bg,#ffffff)] border border-[var(--theme-border,#e5e7eb)]">
+          <span class="font-medium text-[var(--theme-text,#1f2937)]">
+            {day.label}
+          </span>
+          <span class="text-[var(--theme-text-secondary,#6b7280)]">
+            {hours ? (
+              `${hours.start} - ${hours.end}`
+            ) : (
+              <span class="text-[var(--theme-text-muted,#9ca3af)]">休息</span>
+            )}
+          </span>
+        </div>
+      )
+    })}
+  </div>
+</div>
