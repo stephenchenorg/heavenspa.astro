@@ -7,6 +7,54 @@ import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
 import { gql, graphQLAPI } from '@/api'
 
+// 暫時使用 Mock 資料 (開發用)
+// TODO: 恢復 GraphQL API 呼叫
+const data = {
+  courses: {
+    data: [
+      {
+        id: 'mock_course_1',
+        title: '深層放鬆按摩',
+        subtitle: '專業按摩服務',
+        description: '採用專業手法，幫助您放鬆身心',
+        created_at: '2024-01-01',
+        cover: {
+          desktop: '/images/courses/massage-1.jpg',
+          desktop_blur: '',
+          mobile: '/images/courses/massage-1.jpg',
+          mobile_blur: ''
+        }
+      },
+      {
+        id: 'mock_course_2',
+        title: 'SPA 水療護理',
+        subtitle: '頂級 SPA 體驗',
+        description: '享受頂級的水療護理服務',
+        created_at: '2024-01-01',
+        cover: {
+          desktop: '/images/courses/spa-1.jpg',
+          desktop_blur: '',
+          mobile: '/images/courses/spa-1.jpg',
+          mobile_blur: ''
+        }
+      }
+    ]
+  },
+  banners: {
+    data: [
+      {
+        image: {
+          desktop: '/images/hero/banner-1.jpg',
+          desktop_blur: '',
+          mobile: '/images/hero/banner-1.jpg',
+          mobile_blur: ''
+        }
+      }
+    ]
+  }
+}
+
+/*
 const data = await graphQLAPI(gql`
 query Query {
   courses {
@@ -36,6 +84,7 @@ query Query {
   }
 }
 `)
+*/
 
 const meta = seoMeta({
   title: 'Heaven Spa - 極致放鬆體驗',
