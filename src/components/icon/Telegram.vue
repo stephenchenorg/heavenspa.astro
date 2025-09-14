@@ -4,10 +4,11 @@
     :height="size"
     viewBox="0 0 24 24"
     fill="currentColor"
-    class="facebook-icon"
+    class="telegram-icon"
     :class="className"
+    v-bind="$attrs"
   >
-    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
   </svg>
 </template>
 
@@ -24,12 +25,12 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <style scoped>
-.facebook-icon {
+.telegram-icon {
   color: var(--theme-text, #000000);
   transition: all 0.3s ease;
 }
 
-.facebook-icon:hover {
+.telegram-icon:hover {
   color: var(--color-primary-600, #c4a428);
   transform: scale(1.1);
 }
