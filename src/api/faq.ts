@@ -32,26 +32,27 @@ export async function getFaqCategories(lang?: string) {
   return categories
 }
 
-export async function getFaqList(categoryId = 1, lang?: string) {
-  const cacheKey = `${categoryId}-${lang || 'default'}`
+export async function getFaqList(type = 10, lang?: string) {
+  const cacheKey = `${type}-${lang || 'default'}`
 
   if (faqCache.has(cacheKey)) {
     return faqCache.get(cacheKey)
   }
 
   const res = await graphQLAPI(gql`
-    query GetFaqList($categoryId: Int!, $sortBy: String!, $sortColumn: String!) {
-      faqs(sort_by: $sortBy, sort_column: $sortColumn, category_id: $categoryId) {
+    query GetFaqList($type: Int!, $sortBy: String!, $sortColumn: String!) {
+      faqs(sort_by: $sortBy, sort_column: $sortColumn, type: $type) {
         data {
           id
           content
           title
+          status
         }
       }
     }
   `, {
     variables: {
-      categoryId,
+      type,
       sortBy: "asc",
       sortColumn: "sort"
     }

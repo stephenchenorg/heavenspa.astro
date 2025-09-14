@@ -15,6 +15,8 @@ export interface TeamImage {
 
 export interface TeamImageItem {
   id: number
+  created_at: string
+  is_default: boolean
   image: TeamImage
 }
 
@@ -26,6 +28,11 @@ export interface TeamMember {
   images: TeamImageItem[]
   image: TeamImage
   cover?: string
+  // 基本資訊欄位
+  age?: number
+  height?: number
+  weight?: number
+  years?: number
   // 營業時間欄位
   monday_start?: string
   monday_end?: string
@@ -41,6 +48,16 @@ export interface TeamMember {
   saturday_end?: string
   sunday_start?: string
   sunday_end?: string
+  // SEO 相關欄位
+  og_description?: string
+  og_image?: string
+  og_title?: string
+  seo_body?: string
+  seo_description?: string
+  seo_head?: string
+  seo_json_ld?: string
+  seo_keyword?: string
+  seo_title?: string
 }
 
 export interface TeamsResponse {

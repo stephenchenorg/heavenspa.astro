@@ -3,10 +3,11 @@ import {seoMeta} from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import SectionTitle from "@/components/ui/SectionTitle.astro"
 import CareersForm from '@/components/joinUs/careersForm.vue'
-import FAQ, { type FaqCategories } from '@/components/FAQ.astro'
+import FAQ from '@/components/FAQ.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 import { getCompanySetting } from '@/api/companySetting'
 import { getLocaleFromRequest } from '@/utils/astro-i18n'
+import { getFaqList } from '@/api/faq'
 
 const locale = getLocaleFromRequest(Astro.request)
 const companySetting = await getCompanySetting(locale)
@@ -17,20 +18,35 @@ const meta = seoMeta({
     title: `${t('careers.title')} - Heaven Spa`,
 })
 
-// 定義 FAQ 資料
-const careersFaqData: FaqCategories = {
-  徵才問題: [
-    {
-      id: 'booking-1',
-      question: '如何加入享天堂團隊',
-      answer: 'heavenspa999@gamil.com或填寫簡易履歷表',
-    },
-    {
-      id: 'booking-2',
-      question: '多久知道會知道自己符合資格？',
-      answer: '人事部門初步審核履歷，若資格符合將於7日內與您聯繫 !',
-    },
-  ],
+// 定義類型
+interface FaqItem {
+  id: string
+  question: string
+  answer: string
+}
+
+interface ApiFaqItem {
+  id: number
+  title: string
+  content: string
+  status: number
+}
+
+// 獲取徵才問題 FAQ 資料 (type = 40)
+let careersFaqData: Record<string, FaqItem[]> = {}
+
+try {
+  const apiData: ApiFaqItem[] = await getFaqList(40, locale)
+
+  if (apiData && apiData.length > 0) {
+    careersFaqData['徵才問題'] = apiData.map((faq: ApiFaqItem) => ({
+      id: `careers-faq-${faq.id}`,
+      question: faq.title,
+      answer: faq.content
+    }))
+  }
+} catch (error) {
+  console.error('Error fetching careers FAQ data:', error)
 }
 
 ---
@@ -196,7 +212,43 @@ const careersFaqData: FaqCategories = {
                     <p class="text-sm sm:text-base" data-i18n="careers.conclusion">{t('careers.conclusion')}</p>
                 </div>
                 <div>
-                    <FAQ faqData={careersFaqData} />
+                    {Object.keys(careersFaqData).length > 0 && Object.values(careersFaqData).some(faqs => faqs.length > 0) ? (
+                        <FAQ faqData={careersFaqData} />
+                    ) : (
+                        <div class="text-center py-8">
+                            <div class="max-w-md mx-auto">
+                                <div class="mb-4">
+                                    <svg
+                                        class="mx-auto h-12 w-12 opacity-30"
+                                        style="color: var(--theme-text-secondary);"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="1.5"
+                                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                                        />
+                                    </svg>
+                                </div>
+                                <h3
+                                    class="text-lg font-medium mb-2"
+                                    style="color: var(--theme-text);"
+                                >
+                                    暫無徵才問題
+                                </h3>
+                                <p
+                                    class="text-sm leading-relaxed"
+                                    style="color: var(--theme-text-secondary);"
+                                >
+                                    目前沒有徵才相關的常見問題，<br/>
+                                    請稍後再試或直接聯繫我們。
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

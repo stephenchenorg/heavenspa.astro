@@ -5,135 +5,72 @@ import {gql, graphQLAPI} from '../api'
 import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Article {
-  id: number
+  id?: number
   title: string
-  category: ArticleCategory
-  cover: Cover
-  started_at: string
+  cover: string
+  content: string
+  ended_at?: string
+  started_at?: string
   date?: string
   year?: string
   month?: string
-}
-export interface ArticleCategory {
-  title: string
-}
-export interface Cover {
-  desktop: string
-  desktop_blur: string
-  mobile: string
-  mobile_blur: string
 }
 
 export interface ArticlesResponse {
   articles: {
     data: Article[]
+    has_more_pages: boolean
+    last_page: number
+    per_page: number
+    to: number
+    total: number
+    from: number
   }
 }
 let articles: Article[] = []
 
-// 假資料 - 可以設為空陣列來測試無資料狀態
-const articlesSeeder: Article[] = [
-  {
-    id: 0,
-    title: 'Happy Mother\'s Day',
-    started_at: '2025-05-01',
-    category: {title: '限定母親節限定活動'},
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg',
-      mobile_blur: '',
-    },
-    date: '01',
-    year: '2025',
-    month: '05',
-  },
-  {
-    id: 0,
-    title: '優惠活動',
-    started_at: '2024-10-01',
-    category: {title: 'Special Offer'},
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7female-model-having-massage-spa.jpeg',
-      mobile_blur: '',
-    },
-    date: '01',
-    year: '2024',
-    month: '10',
-  },
-  {
-    id: 0,
-    title: 'Hama 壽星關好禮',
-    started_at: '2024-06-01',
-    category: {title: '會員專屬'},
-    cover: {
-      desktop: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
-      desktop_blur: '',
-      mobile: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7woman-spa-center.jpeg',
-      mobile_blur: '',
-    },
-    date: '01',
-    year: '2024',
-    month: '06',
-  },
-]
-
 try {
   const articlesData: ArticlesResponse = await graphQLAPI(gql`
     query MyQuery {
-      articles(is_newest:true, sort_by: "asc", sort_column: "sort") {
+      articles{
         data {
           id
-          cover {
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
+          content
+          cover
+          ended_at
           title
-          started_at
-          category {
-            title
-          }
         }
+        has_more_pages
+        last_page
+        per_page
+        to
+        total
+        from
       }
     }
   `)
 
-  // 將 API 資料轉換為 Benefit 格式
-  const apiArticles = (articlesData.articles.data || []).map((article: Article) => {
-    const createdDate = new Date(article.started_at)
+  // 將 API 資料轉換為 Article 格式
+  const apiArticles = (articlesData.articles.data || []).map((article: Article, index: number) => {
+    const createdDate = new Date()
     return {
-      id: article.id,
+      id: article.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
       title: article.title,
-      started_at: article.started_at,
+      cover: article.cover,
+      content: article.content,
+      ended_at: article.ended_at,
+      started_at: createdDate.toISOString(),
       date: createdDate.getDate().toString().padStart(2, '0'),
       year: createdDate.getFullYear().toString(),
       month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
-      category: article.category,
-      cover: article.cover,
     }
   })
 
-  // 如果 API 有資料就使用 API 資料，否則使用假資料
-  if (apiArticles.length > 0) {
-    articles = apiArticles
-  } else {
-    // 沒有資料時使用假資料，並為其添加唯一 ID
-    articles = articlesSeeder.map((article, index) => ({
-      ...article,
-      id: index + 1,
-    }))
-  }
+  articles = apiArticles.slice(0, 6) // 只取前6筆資料
 } catch (error) {
-  console.error('Failed to fetch team data:', error)
-  // 如果 API 失敗，提供預設資料，並為其添加唯一 ID
-  articles = articlesSeeder.map((article, index) => ({
-    ...article,
-    id: index + 1,
-  }))
+  console.error('Failed to fetch articles data:', error)
+  // 如果 API 失敗，設定為空陣列
+  articles = []
 }
 
 const t = createAstroT(Astro)
@@ -144,73 +81,63 @@ const t = createAstroT(Astro)
   <!-- 標題區 -->
   <SectionTitle title="最新消息" subtitle="News"/>
 
-  <!-- Benefits Cards Grid -->
-  <div class="max-w-7xl mx-auto w-full">
+  <!-- 響應式輪播 -->
+  <div class="max-w-7xl mx-auto w-full mt-8">
     {articles.length > 0 ? (
-      <>
-        <!-- 桌面和平板：網格布局 -->
-        <div class="hidden sm:grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 gap-6 lg:gap-5 md:gap-6">
-          {articles.map(article => (
-            <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative"
-                 onclick={`window.location.href='/news/${article.id}'`}>
-              <div class="relative w-[400px] h-[400px] rounded-xl overflow-hidden mb-4 ">
-                <!-- Background Image -->
-                <div class="absolute inset-0 bg-cover bg-center"
-                     style={`background-image: url('${article.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}></div>
-                <!-- Base Overlay for better text readability -->
-                <div class="absolute inset-0 bg-black/30"></div>
-                <!-- Hover Overlay -->
-                <div
-                  class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="news-carousel relative overflow-hidden">
+        <!-- 輪播容器 -->
+        <div class="carousel-track flex transition-transform duration-500 ease-out">
+          {articles.map((article, articleIndex) => (
+            <div
+              class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
+              data-slide={articleIndex}
+            >
+              <div class="px-2">
+                <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative"
+                     onclick={`window.location.href='/news/${article.id}'`}>
+                  <div class="relative w-full h-[400px] rounded-xl overflow-hidden mb-4">
+                    <!-- Background Image -->
+                    <div class="absolute inset-0 bg-cover bg-center"
+                         style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}></div>
+                    <!-- Base Overlay for better text readability -->
+                    <div class="absolute inset-0 bg-black/30"></div>
+                    <!-- Hover Overlay -->
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <!-- Date Badge -->
-                <div class="absolute top-0 right-0 p-2 bg-[#D7AE54] text-center opacity-80">
-                  <span class="block text-white/80 text-sm font-light">{article.year}</span>
-                  <span class="block text-white text-4xl font-light">{article.month}</span>
-                </div>
-
-                <!-- Content -->
-                <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
-                  <div class="flex flex-col space-y-3">
-                    <!-- 新增優惠標籤 -->
-                    <div class="flex items-center space-x-2">
-                <span
-                  class="bg-white/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium border border-white/40 text-white shadow-lg">
-                  {article.category?.title}
-                </span>
+                    <!-- Date Badge -->
+                    <div class="absolute top-0 right-0 p-2 bg-[#D7AE54] text-center opacity-80">
+                      <span class="block text-white/80 text-sm font-light">{article.year}</span>
+                      <span class="block text-white text-4xl font-light">{article.month}</span>
                     </div>
 
-                    <!-- 標題 -->
-                    <div class="space-y-1">
-                      <h3 class="text-xl lg:text-2xl font-bold leading-tight tracking-wide text-white"
-                          style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 1px 1px 3px rgba(0,0,0,0.9);">
-                        {article.title}
-                      </h3>
-                      <div
-                        class="w-12 h-0.5 bg-gradient-to-r from-white to-transparent rounded-full opacity-80 shadow-sm"></div>
+                    <!-- Content -->
+                    <div class="absolute inset-0 p-6 flex flex-col justify-between text-white">
+                      <div class="flex flex-col space-y-3">
+                        <!-- 標題 -->
+                        <div class="space-y-1">
+                          <h3 class="text-xl lg:text-2xl font-bold leading-tight tracking-wide text-white"
+                              style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 1px 1px 3px rgba(0,0,0,0.9);">
+                            {article.title}
+                          </h3>
+                          <div class="w-12 h-0.5 bg-gradient-to-r from-white to-transparent rounded-full opacity-80 shadow-sm"></div>
+                        </div>
+                      </div>
+
+                      <!-- 底部行動召喚 -->
+                      <div class="flex items-center justify-between">
+                        <div class="text-xs opacity-75">
+                          <span>發布日期 {new Date(article.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
+                        </div>
+                      </div>
                     </div>
 
-                    <!-- 簡短描述 -->
-                    <!--<p class="text-sm opacity-90 font-light leading-relaxed max-w-xs">-->
-                    <!--  體驗頂級 SPA 服務，享受身心靈的完美放鬆時刻-->
-                    <!--</p>-->
-                  </div>
-
-                  <!-- 底部行動召喚 -->
-                  <div class="flex items-center justify-between">
-                    <div class="text-xs opacity-75">
-                      <span>有效期至 {new Date(article.started_at).toLocaleDateString('zh-TW')}</span>
+                    <!-- VIEW MORE Button Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
+                        <span>VIEW MORE</span>
+                        <span>→</span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-
-                <!-- VIEW MORE Button Overlay -->
-                <div
-                  class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div
-                    class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
-                    <span>VIEW MORE</span>
-                    <span>→</span>
                   </div>
                 </div>
               </div>
@@ -218,80 +145,29 @@ const t = createAstroT(Astro)
           ))}
         </div>
 
-        <!-- 手機版：水平滾動布局 -->
-        <div class="sm:hidden">
-          <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-6 px-6">
-            {articles.map(article => (
-              <div
-                class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 flex-shrink-0 w-[300px] h-[300px] relative"
-                onclick={`window.location.href='/news/${article.id}'`}>
-                <div
-                  class="relative w-full h-full rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-amber-100 to-amber-200">
-                  <div class="absolute inset-0 bg-cover bg-center"
-                       style={`background-image: url('${article.cover?.mobile || article.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}></div>
-                  <!-- Base Overlay for better text readability -->
-                  <div class="absolute inset-0 bg-black/30"></div>
-                  <!-- Hover Overlay -->
-                  <div
-                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  <div class="absolute top-0 right-0 p-2 bg-[#D7AE54] text-center opacity-80">
-                    <span class="block text-white/80 text-sm font-light">{article.year}</span>
-                    <span class="block text-white text-4xl font-light">{article.month}</span>
-                  </div>
-
-                  <div class="absolute inset-0 p-4 flex flex-col justify-between text-white">
-                    <div class="flex flex-col space-y-2">
-                      <!-- 手機版標籤 -->
-                      <div class="flex items-center space-x-2">
-                  <span
-                    class="bg-white/30 backdrop-blur-md px-2 py-0.5 rounded-full text-xs font-medium border border-white/40 text-white shadow-lg">
-                    {article.category?.title || '限時優惠'}
-                  </span>
-                      </div>
-
-                      <!-- 手機版標題 -->
-                      <div class="space-y-1">
-                        <h3 class="text-lg font-bold leading-tight tracking-wide text-white"
-                            style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 1px 1px 3px rgba(0,0,0,0.9);">
-                          {article.title}
-                        </h3>
-                        <div
-                          class="w-8 h-0.5 bg-gradient-to-r from-white to-transparent rounded-full opacity-80 shadow-sm"></div>
-                      </div>
-                    </div>
-
-                    <!-- 手機版底部行動召喚 -->
-                    <div class="flex items-center justify-between">
-                      <div class="text-xs opacity-75">
-                        <span>{new Date(article.started_at).toLocaleDateString('zh-TW')}</span>
-                      </div>
-                      <div class="flex items-center space-x-1 text-sm font-medium">
-                        <span>詳情</span>
-                        <svg class="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-300"
-                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Mobile VIEW MORE Button Overlay -->
-                  <div
-                    class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div
-                      class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
-                      <span>VIEW MORE</span>
-                      <span>→</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-          </div>
+        <!-- 輪播指示器 -->
+        <div class="carousel-dots flex justify-center mt-6 gap-2">
+          <!-- 指示器會由 JavaScript 動態生成 -->
         </div>
-      </>
+
+        <!-- 導航按鈕 -->
+        <button
+          class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
+          aria-label="上一頁"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
+          aria-label="下一頁"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
     ) : (
       <div class="flex flex-col items-center justify-center py-16 px-4">
         <div class="text-center max-w-md mx-auto">
@@ -321,31 +197,201 @@ const t = createAstroT(Astro)
 
   <!-- 只在有資料時顯示的按鈕區域 -->
   {articles.length > 0 && (
-    <>
-      <!-- Navigation Controls (like in the reference) -->
-      <div class="flex justify-center mt-8 space-x-4">
-        <button
-          class="w-12 h-12 border-2 border-primary-600 bg-white rounded-full flex items-center justify-center text-primary-600 transition-all duration-300 hover:bg-primary-600 hover:text-white">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </button>
-        <button
-          class="w-12 h-12 border-2 border-primary-600 bg-white rounded-full flex items-center justify-center text-primary-600 transition-all duration-300 hover:bg-primary-600 hover:text-white">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </button>
-      </div>
-      <div class="mt-12 max-w-7xl mx-auto w-full">
-        <button class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200"
-                style="border-color: var(--theme-text); color: var(--theme-text);"
-                onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
-                onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
-            <span data-i18n="news.more-news">{t('news.more-news')}</span>
-        </button>
-      </div>
-    </>
+    <div class="mt-12 max-w-7xl mx-auto w-full">
+      <button class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200"
+              style="border-color: var(--theme-text); color: var(--theme-text);"
+              onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
+              onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
+          <span data-i18n="news.more-news">{t('news.more-news')}</span>
+      </button>
+    </div>
   )}
 
 </section>
+
+<script define:vars={{ articleCount: articles.length }}>
+  // 響應式輪播功能
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.news-carousel')
+    if (!carousel) return
+
+    const track = carousel.querySelector('.carousel-track')
+    const slides = carousel.querySelectorAll('.carousel-slide')
+    const dotsContainer = carousel.querySelector('.carousel-dots')
+    const prevBtn = carousel.querySelector('.carousel-prev')
+    const nextBtn = carousel.querySelector('.carousel-next')
+
+    if (!track || slides.length <= 1) return
+
+    let currentIndex = 0
+    let autoTimer = null
+
+    // 取得目前螢幕大小對應的每頁顯示數量
+    function getSlidesPerView() {
+      const width = window.innerWidth
+      if (width >= 1024) return 3 // lg: 大螢幕顯示3張
+      if (width >= 768) return 2  // md: 中螢幕顯示2張
+      return 1 // sm: 小螢幕顯示1張
+    }
+
+    // 計算總頁數
+    function getTotalPages() {
+      const slidesPerView = getSlidesPerView()
+      // 使用實際的文章數量而不是 DOM slide 數量
+      return Math.ceil(articleCount / slidesPerView)
+    }
+
+    // 創建指示器
+    function createDots() {
+      const totalPages = getTotalPages()
+      dotsContainer.innerHTML = ''
+
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button')
+        dot.className = 'carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 bg-[var(--theme-text)] opacity-30'
+        dot.setAttribute('data-slide', i.toString())
+        dot.setAttribute('aria-label', `第 ${i + 1} 頁`)
+
+        dot.addEventListener('click', () => {
+          currentIndex = i
+          updateCarouselPosition()
+          resetAutoSlide()
+        })
+
+        dotsContainer.appendChild(dot)
+      }
+    }
+
+    // 更新輪播位置
+    function updateCarouselPosition() {
+      const slidesPerView = getSlidesPerView()
+      const totalPages = getTotalPages()
+
+      // 確保 currentIndex 不超過總頁數
+      if (currentIndex >= totalPages) {
+        currentIndex = 0
+      }
+
+      // 計算位移：每頁移動的距離是 slidesPerView 個 slide 的寬度
+      const slideWidth = 100 / slidesPerView
+      const translateX = -currentIndex * slideWidth * slidesPerView
+
+      track.style.transform = `translateX(${translateX}%)`
+
+      // 更新指示器
+      const dots = dotsContainer.querySelectorAll('.carousel-dot')
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.style.opacity = '1'
+          dot.style.transform = 'scale(1.2)'
+        } else {
+          dot.style.opacity = '0.3'
+          dot.style.transform = 'scale(1)'
+        }
+      })
+    }
+
+    // 下一頁
+    function nextSlide() {
+      const totalPages = getTotalPages()
+      currentIndex = (currentIndex + 1) % totalPages
+      updateCarouselPosition()
+    }
+
+    // 上一頁
+    function prevSlide() {
+      const totalPages = getTotalPages()
+      currentIndex = currentIndex === 0 ? totalPages - 1 : currentIndex - 1
+      updateCarouselPosition()
+    }
+
+    // 自動輪播
+    function startAutoSlide() {
+      if (autoTimer) clearInterval(autoTimer)
+      autoTimer = setInterval(nextSlide, 5000) // 每5秒切換
+    }
+
+    function stopAutoSlide() {
+      if (autoTimer) {
+        clearInterval(autoTimer)
+        autoTimer = null
+      }
+    }
+
+    function resetAutoSlide() {
+      stopAutoSlide()
+      startAutoSlide()
+    }
+
+    // 按鈕事件
+    nextBtn?.addEventListener('click', () => {
+      nextSlide()
+      resetAutoSlide()
+    })
+
+    prevBtn?.addEventListener('click', () => {
+      prevSlide()
+      resetAutoSlide()
+    })
+
+    // 觸控滑動支援
+    let touchStartX = 0
+    let touchIsDragging = false
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX
+      touchIsDragging = true
+      stopAutoSlide()
+    })
+
+    carousel.addEventListener('touchend', (e) => {
+      if (!touchIsDragging) return
+
+      const touchEndX = e.changedTouches[0].clientX
+      const diffX = touchStartX - touchEndX
+
+      if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          nextSlide()
+        } else {
+          prevSlide()
+        }
+      }
+
+      touchIsDragging = false
+      startAutoSlide()
+    })
+
+    // 響應式處理
+    function handleResize() {
+      const totalPages = getTotalPages()
+      // 如果當前索引超過新的總頁數，重置到第一頁
+      if (currentIndex >= totalPages) {
+        currentIndex = 0
+      }
+      createDots()
+      updateCarouselPosition()
+    }
+
+    // 初始化
+    createDots()
+    updateCarouselPosition()
+
+    // 監聽視窗大小變化
+    window.addEventListener('resize', handleResize)
+
+    // 延遲啟動自動輪播
+    setTimeout(startAutoSlide, 1000)
+
+    // 滑鼠懸停暫停
+    carousel.addEventListener('mouseenter', stopAutoSlide)
+    carousel.addEventListener('mouseleave', startAutoSlide)
+  })
+</script>
+
+<style>
+  /* 確保輪播在不同螢幕大小下正確顯示 */
+  .carousel-slide {
+    box-sizing: border-box;
+  }
+</style>

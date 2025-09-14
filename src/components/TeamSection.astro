@@ -5,7 +5,7 @@ import { createAstroT } from '@/utils/astro-i18n'
 import { getAllTeams } from '@/api/teams'
 import type { TeamMember } from '@/types'
 
-// 獲取前六筆團隊成員
+// 獲取前六筆團隊成員ㄔ
 const teamMembers: TeamMember[] = (await getAllTeams()).slice(0, 6)
 const t = createAstroT(Astro)
 ---
@@ -105,7 +105,7 @@ const t = createAstroT(Astro)
   </div>
 </section>
 
-<script define:vars={{ memberCount: teamMembers.length }}>
+<script is:inline define:vars={{ memberCount: teamMembers.length }}>
   // 響應式輪播功能
   document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.team-carousel')

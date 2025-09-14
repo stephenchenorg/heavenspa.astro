@@ -10,13 +10,15 @@ export async function getAllTeams(): Promise<TeamMember[]> {
             content
             id
             images {
+              created_at
+              id
               image {
                 desktop
                 desktop_blur
                 mobile
                 mobile_blur
               }
-              id
+              is_default
             }
             job
             title
@@ -27,6 +29,10 @@ export async function getAllTeams(): Promise<TeamMember[]> {
               mobile_blur
             }
             cover
+            age
+            height
+            weight
+            years
             monday_end
             monday_start
             tuesday_end
@@ -41,6 +47,15 @@ export async function getAllTeams(): Promise<TeamMember[]> {
             saturday_start
             friday_start
             friday_end
+            og_description
+            og_image
+            og_title
+            seo_body
+            seo_description
+            seo_head
+            seo_json_ld
+            seo_keyword
+            seo_title
           }
         }
       }
@@ -49,5 +64,68 @@ export async function getAllTeams(): Promise<TeamMember[]> {
   } catch (error) {
     console.error('Failed to fetch all teams:', error)
     return []
+  }
+}
+
+export async function getTeamMember(id: number): Promise<TeamMember | null> {
+  try {
+    const { team } = await graphQLAPI<{ team: TeamMember }>(gql`
+      query MyQuery {
+        team(id: ${id}) {
+          cover
+          content
+          age
+          image {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          images {
+            created_at
+            id
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+            is_default
+          }
+          job
+          monday_end
+          monday_start
+          og_description
+          og_image
+          og_title
+          saturday_end
+          saturday_start
+          seo_body
+          seo_description
+          seo_head
+          seo_json_ld
+          seo_keyword
+          seo_title
+          sunday_end
+          sunday_start
+          thursday_end
+          thursday_start
+          title
+          tuesday_end
+          tuesday_start
+          wednesday_end
+          wednesday_start
+          weight
+          years
+          height
+          friday_start
+          friday_end
+        }
+      }
+    `)
+    return team || null
+  } catch (error) {
+    console.error(`Failed to fetch team member with id ${id}:`, error)
+    return null
   }
 }

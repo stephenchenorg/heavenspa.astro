@@ -3,7 +3,7 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import FAQ from '@/components/FAQ.astro'
-import { getFaqList, getFaqCategories } from '@/api/faq'
+import { getFaqList } from '@/api/faq'
 
 const meta = seoMeta({
   title: '常見問題 - Heaven Spa',
@@ -23,34 +23,44 @@ interface ApiFaqItem {
   content: string
 }
 
+enum FaqType {
+  RESERVATION = 10,
+  SPA = 20,
+  HAIR_REMOVAL = 30,
+  RECRUITMENT = 40
+}
+
 interface FaqCategory {
   id: number
   title: string
 }
+
+// 定義 FAQ 分類資料
+const faqCategories: FaqCategory[] = [
+  { id: FaqType.RESERVATION, title: '預約問題' },
+  { id: FaqType.SPA, title: 'Spa問題' },
+  { id: FaqType.HAIR_REMOVAL, title: '除毛服務' },
+]
 
 // 獲取網址參數中的分類 ID
 const url = new URL(Astro.request.url)
 const categoryId = url.searchParams.get('category_id')
 const selectedCategoryId = categoryId ? parseInt(categoryId) : null
 
-let faqCategories: FaqCategory[] = []
 let selectedCategoryData: ApiFaqItem[] = []
 let selectedCategory: FaqCategory | null = null
 
 try {
-  // 獲取分類列表
-  faqCategories = await getFaqCategories()
-  
   // 如果有指定分類 ID，載入該分類的資料
-  if (selectedCategoryId && faqCategories.length > 0) {
+  if (selectedCategoryId) {
     selectedCategory = faqCategories.find(cat => cat.id === selectedCategoryId) || null
     if (selectedCategory) {
       selectedCategoryData = await getFaqList(selectedCategoryId)
     }
   }
-  
+
   // 如果沒有指定分類或找不到分類，使用第一個分類
-  if (!selectedCategory && faqCategories.length > 0) {
+  if (!selectedCategory) {
     selectedCategory = faqCategories[0]
     selectedCategoryData = await getFaqList(selectedCategory.id)
   }
