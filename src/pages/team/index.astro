@@ -1,102 +1,20 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
-import SectionTitle from "../../components/ui/SectionTitle.astro";
-import TeamCard from "../../components/ui/TeamCard.astro";
-import { gql, graphQLAPI } from '@/api'
-import type { TeamMember, TeamsResponse, TagsResponse, TeamTag } from '@/types'
+import SectionTitle from "../../components/ui/SectionTitle.astro"
+import TeamCard from "../../components/ui/TeamCard.astro"
+import { getAllTeams } from '@/api/teams'
+import type { TeamMember } from '@/types'
 
-// 取得 URL 參數
-const url = Astro.url
-const selectedTagSlug = url.searchParams.get('slug_tags') || null
-
-// GraphQL 查詢與錯誤處理
+// 獲取所有團隊成員
 let teamMembers: TeamMember[] = []
-let teamTags: TeamTag[] = []
 
 try {
-  // 定義查詢
-  const GET_ALL_TEAMS = gql`
-    query GetAllTeams {
-      teams(sort_by: "asc", sort_column: "sort") {
-        data {
-          id
-          images {
-            created_at
-            id
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
-            updated_at
-            is_default
-          }
-          image {
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          tags {
-            data {
-              id
-              title
-              slug
-            }
-          }
-          title
-          category {
-            title
-          }
-        }
-      }
-    }
-  `
-
-
-  const GET_TAGS = gql`
-    query GetTags {
-      tags(type: "team") {
-        from
-        to
-        data {
-          id
-          title
-          slug
-        }
-      }
-    }
-  `
-
-  // 執行查詢 - 總是獲取所有團隊成員和標籤
-  const [teamsData, tagsData] = await Promise.all([
-    graphQLAPI(GET_ALL_TEAMS) as Promise<TeamsResponse>,
-    graphQLAPI(GET_TAGS) as Promise<TagsResponse>
-  ])
-
-  // 獲取所有團隊成員
-  const allTeamMembers = teamsData.teams.data || []
-  teamTags = tagsData.tags.data || []
-
-  // 前端篩選：如果有選擇標籤，過濾團隊成員
-  if (selectedTagSlug) {
-    teamMembers = allTeamMembers.filter(member =>
-      member.tags?.data?.some(tag => tag.slug === selectedTagSlug)
-    )
-  } else {
-    teamMembers = allTeamMembers
-  }
-
-  console.log("selectedTagSlug >> ", selectedTagSlug)
-  console.log("allTeamMembers >> ", allTeamMembers.length)
-  console.log("filtered teamMembers >> ", teamMembers.length)
-  console.log("teamTags >> ", teamTags)
+  teamMembers = await getAllTeams()
+  console.log("teamMembers >> ", teamMembers.length)
 } catch (error) {
-  console.error('Failed to fetch data:', error)
+  console.error('Failed to fetch team members:', error)
 }
-
 
 const meta = seoMeta({
   title: '服務團隊 - Heaven Spa',
@@ -104,52 +22,29 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <main class="section-container pt-32 min-h-screen">
+  <main class="section-container pt-32 min-h-screen bg-[var(--theme-bg,#ffffff)] text-[var(--theme-text,#1f2937)]">
     <!-- 標題區 -->
     <SectionTitle title="服務團隊" subtitle="OUR TEAM" />
 
-    <!-- Tab Navigation -->
-    <div class="max-w-4xl mx-auto mb-8">
-      <div
-          class="flex flex-wrap justify-center gap-2 p-2 rounded-xl min-w-[600px]"
-          style="background-color: var(--color-neutral-100);"
-      >
-        <a
-          href="/team"
-          class={`tab-button px-6 py-3 rounded-lg font-medium transition-all duration-300 flex-1 min-w-0 text-center block${!selectedTagSlug ? ' active' : ''}`}
-          style={!selectedTagSlug ? "background-color: var(--color-primary-500); color: white;" : "color: var(--theme-text);"}
-        >
-          全部
-        </a>
-        {teamTags && teamTags.map((tag) => (
-          <a
-            href={`/team?slug_tags=${tag.slug}`}
-            class={`tab-button px-6 py-3 rounded-lg font-medium transition-all duration-300 flex-1 min-w-0 text-center block${selectedTagSlug === tag.slug ? ' active' : ''}`}
-            style={selectedTagSlug === tag.slug ? "background-color: var(--color-primary-500); color: white;" : "color: var(--theme-text);"}
-          >
-            {tag.title}
-          </a>
-        ))}
-      </div>
-    </div>
-    <div class="min-w-6xl mx-auto">
+    <!-- 團隊成員網格 -->
+    <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
       {teamMembers && teamMembers.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          { teamMembers.map((member) => (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {teamMembers.map((member) => (
             <TeamCard
               member={member}
               uniqueId={`team-${member.id}`}
             />
-          )) }
+          ))}
         </div>
       ) : (
         <div class="text-center py-16">
           <div class="max-w-md mx-auto">
-            <h3 class="text-lg font-medium text-gray-900 mb-2" style="color: var(--theme-text);">
+            <h3 class="text-lg font-medium mb-2 text-[var(--theme-text,#1f2937)]">
               暫無資料
             </h3>
-            <p class="text-gray-500" style="color: var(--theme-text-secondary);">
-              目前沒有符合條件的團隊成員資訊
+            <p class="text-[var(--theme-text-secondary,#6b7280)]">
+              目前沒有團隊成員資訊
             </p>
           </div>
         </div>
@@ -157,28 +52,3 @@ const meta = seoMeta({
     </div>
   </main>
 </Layout>
-
-<style>
-  .tab-button {
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-
-  .tab-button:hover:not(.active) {
-    background-color: var(--color-primary-100);
-  }
-
-  .tab-button.active {
-    background-color: var(--color-primary-500);
-    color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Responsive tabs for mobile */
-  @media (max-width: 640px) {
-    .tab-button {
-      font-size: 0.875rem;
-      padding: 0.75rem 1rem;
-    }
-  }
-</style>
