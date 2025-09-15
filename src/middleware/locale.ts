@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'astro:middleware'
-import type { Locale } from '@/utils/i18n'
-import { defaultLocale } from '@/utils/i18n'
+
+type Locale = 'zh-tw' | 'en'
+const defaultLocale: Locale = 'zh-tw'
 
 export const locale = defineMiddleware(async (context, next) => {
   const url = new URL(context.request.url)

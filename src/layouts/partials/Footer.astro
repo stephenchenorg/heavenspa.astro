@@ -1,11 +1,7 @@
 ---
-<<<<<<< HEAD
 import DynamicFooter from '@/components/DynamicFooter.vue'
-=======
 import type { CompanySettingData } from '@/types'
 import Clock from '@/components/icon/Clock.vue'
-
-// Icons from unplugin-icons
 
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
@@ -17,25 +13,23 @@ import Phone from '@/components/icon/Phone.vue'
 import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
-<<<<<<< HEAD
->>>>>>> 4b24745840b0d08e49c055c897cc4c46c9f4dd90
-=======
 import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
->>>>>>> 4ff0ce3fa7d124c8cd30fe5e834c181592051674
 
 export interface Props {
     class?: astroHTML.JSX.HTMLAttributes['class']
+    companySetting?: CompanySettingData | null
 }
+const {
+    companySetting = null,
+} = Astro.props
 ---
 
 <footer class="relative overflow-hidden bg-[var(--theme-bg,#ffffff)] text-[var(--theme-text,#000000)] border-t border-[var(--theme-border,#e5e5e5)] pt-16 pb-8 before:absolute before:inset-0 before:bg-gradient-to-br before:from-[rgba(212,175,55,0.05)] before:to-[rgba(212,175,55,0.02)] before:pointer-events-none">
     <div class="relative z-10 px-4 md:px-8 lg:px-16 lg:max-w-[1400px] lg:mx-auto">
-<<<<<<< HEAD
         <!-- 使用動態 Vue 組件處理所有內容 -->
-        <DynamicFooter client:load />
-=======
+        <!--<DynamicFooter client:load />-->
         <div class="grid md:grid-cols-2 grid-cols-1 gap-y-8 pb-8">
             <!-- 左側：公司資訊 -->
             <div class="animate-fadeInUp lg:pr-8 grid grid-cols-1 lg:max-w-md">
@@ -335,7 +329,6 @@ export interface Props {
                 <p>位於台北，台灣。</p>
             </div>
         </div>
->>>>>>> 4b24745840b0d08e49c055c897cc4c46c9f4dd90
     </div>
 
     <style>

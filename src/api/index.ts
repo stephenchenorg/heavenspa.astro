@@ -1,6 +1,7 @@
-import type { Locale } from '@/utils/i18n'
 import { createGraphQLAPI } from '@stephenchenorg/astro/api'
-import { defaultLocale, getCurrentLocale as getI18nCurrentLocale } from '@/utils/i18n'
+
+type Locale = 'zh-tw' | 'en'
+const defaultLocale: Locale = 'zh-tw'
 
 // GraphQL API 客戶端
 const baseGraphQLAPI = createGraphQLAPI({
