@@ -1,20 +1,9 @@
 ---
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+// Course Section with SPA Design Style
+import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createNestedT } from '@/utils/i18n'
 const t = await createNestedT()
->>>>>>> 4b24745840b0d08e49c055c897cc4c46c9f4dd90
-// Course Section with SPA Design Style
-import SectionTitle from '@/components/ui/SectionTitle.astro'
-import { createAstroT } from '@/utils/astro-i18n'
-=======
-// Course Section with SPA Design Style
-import SectionTitle from '@/components/ui/SectionTitle.astro'
-import { createNestedT } from '@/utils/i18n'
 
-const t = await createNestedT()
->>>>>>> 4ff0ce3fa7d124c8cd30fe5e834c181592051674
 
 // 定義 API 回應的類型
 export interface CourseCover {
@@ -40,7 +29,6 @@ export interface Props {
 }
 
 const { courses: coursesProp } = Astro.props
-const t = createAstroT(Astro)
 
 // 使用傳入的課程資料或預設資料
 let courses: Course[] = coursesProp?.data || [
