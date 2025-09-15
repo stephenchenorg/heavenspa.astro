@@ -1,4 +1,5 @@
 import netlify from '@astrojs/netlify'
+import vue from '@astrojs/vue'
 import i18n from '@astrolicious/i18n'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
@@ -11,6 +12,7 @@ export default defineConfig({
     devFeatures: false,
   }),
   integrations: [
+    vue(),
     i18n({
       defaultLocale: 'zh-TW',
       locales: ['zh-TW', 'en'],

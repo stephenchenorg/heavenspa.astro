@@ -1,16 +1,12 @@
 ---
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { getCompanySetting } from '@/api/companySetting'
-import { setRequestLocals } from '@/api/index'
 import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
 
-// middleware 已經設定了 Astro.locals.locale
-setRequestLocals(Astro.locals)
-// 明確傳遞語系參數給 API，避免跨請求污染
-const companySetting = await getCompanySetting((Astro.locals as any).locale)
+const companySetting = await getCompanySetting()
 
 interface Props {
   // metadata
