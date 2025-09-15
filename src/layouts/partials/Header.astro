@@ -1,6 +1,7 @@
 ---
 import type { CompanySettingData } from '@/types'
-import { t } from 'i18n:astro'
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'

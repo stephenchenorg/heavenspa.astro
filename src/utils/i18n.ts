@@ -1,106 +1,145 @@
-export type Locale = 'zh-tw' | 'en'
+import { getLocale } from 'i18n:astro'
 
-export const defaultLocale: Locale = 'zh-tw'
-export const locales: Locale[] = ['zh-tw', 'en']
-
-// 檢測瀏覽器語言
-export function detectBrowserLocale(): Locale {
-  if (typeof window === 'undefined') return defaultLocale
-
-  // 獲取用戶的語言偏好列表
-  const languages = window.navigator.languages || [window.navigator.language]
-
-  for (const lang of languages) {
-    const normalizedLang = lang.toLowerCase()
-
-    // 檢測各種中文變體
-    if (
-      normalizedLang.includes('zh-tw') || // 繁體中文 (台灣)
-      normalizedLang.includes('zh-hk') || // 繁體中文 (香港)
-      normalizedLang.includes('zh-mo') || // 繁體中文 (澳門)
-      normalizedLang.includes('zh-hant') || // 繁體中文
-      normalizedLang === 'zh-tw' ||
-      normalizedLang === 'zh-hk' ||
-      normalizedLang === 'zh-mo'
-    ) {
-      return 'zh-tw'
-    }
-
-    // 簡體中文也映射到繁體中文（根據你的需求調整）
-    if (
-      normalizedLang.includes('zh-cn') || // 簡體中文 (中國)
-      normalizedLang.includes('zh-sg') || // 簡體中文 (新加坡)
-      normalizedLang.includes('zh-hans') || // 簡體中文
-      normalizedLang === 'zh-cn' ||
-      normalizedLang === 'zh-sg' ||
-      normalizedLang === 'zh' // 通用中文
-    ) {
-      return 'zh-tw' // 或者你可以改為 'zh-cn' 如果你支援簡體
-    }
-
-    // 檢測英文
-    if (normalizedLang.includes('en')) {
-      return 'en'
-    }
-  }
-
-  return defaultLocale
+// 語系資料類型定義
+type NestedTranslation = {
+  [key: string]: string | NestedTranslation
 }
 
-// 獲取當前語言
-export function getCurrentLocale(): Locale {
-  if (typeof window === 'undefined') return defaultLocale
+// 動態載入語系資料
+async function loadTranslations(locale: string): Promise<NestedTranslation> {
+  try {
+    if (locale === 'zh-TW') {
+      return await import('@/locales/zh-TW/index.json').then(m => m.default)
+    } else if (locale === 'en') {
+      return await import('@/locales/en/index.json').then(m => m.default)
+    }
 
-  // 1. 檢查 cookies (最高優先級 - 用戶手動選擇)
-  const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-    const [key, value] = cookie.trim().split('=')
-    acc[key] = decodeURIComponent(value || '')
-    return acc
-  }, {} as Record<string, string>)
-
-  const storedInCookie = cookies.locale as Locale
-  if (storedInCookie && locales.includes(storedInCookie)) {
-    return storedInCookie
+    // 預設回傳中文
+    return await import('@/locales/zh-TW/index.json').then(m => m.default)
+  } catch (error) {
+    console.error('Failed to load translations:', error)
+    return {}
   }
-
-  // 2. 檢查 localStorage (向後兼容，但優先級較低)
-  const storedInLS = localStorage.getItem('locale') as Locale
-  if (storedInLS && locales.includes(storedInLS)) {
-    // 如果 localStorage 有值但 cookie 沒有，將值同步到 cookie
-    setLocale(storedInLS)
-    return storedInLS
-  }
-
-  // 3. 檢測瀏覽器預設語言 (第二優先級)
-  return detectBrowserLocale()
 }
 
-// 設置語言
-export function setLocale(locale: Locale): void {
-  if (typeof window === 'undefined') return
+// 遞迴取得嵌套物件的值
+function getNestedValue(obj: NestedTranslation, path: string[]): string | NestedTranslation | undefined {
+  if (path.length === 0) return obj
 
-  // 設定 localStorage
-  localStorage.setItem('locale', locale)
+  const [first, ...rest] = path
+  const value = obj[first]
 
-  // 設定 cookie (讓服務器端也能讀取)
-  const expires = new Date()
-  expires.setTime(expires.getTime() + (365 * 24 * 60 * 60 * 1000)) // 1年
-  const cookieString = `locale=${locale}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
-  document.cookie = cookieString
+  if (value === undefined) return undefined
+  if (typeof value === 'string' && rest.length === 0) return value
+  if (typeof value === 'object' && rest.length > 0) {
+    return getNestedValue(value, rest)
+  }
 
-  // 強制重新檢查 cookie 是否設定成功（用於調試）
-  console.warn('Language set to:', locale)
-  console.warn('Cookie set:', document.cookie.includes(`locale=${locale}`))
-
-  // 觸發自定義事件通知語言變更
-  window.dispatchEvent(new CustomEvent('localechange', { detail: locale }))
+  return value
 }
 
-// 獲取語言顯示名稱
-export function getLocaleName(locale: Locale): string {
-  const names = {
-    'zh-tw': '繁體中文',
-    en: 'English',
+// 創建嵌套的翻譯函數
+export async function createNestedT() {
+  const locale = getLocale()
+  const translations = await loadTranslations(locale)
+
+  // 回傳一個物件，可以用鏈式方法或函數呼叫方式使用
+  function createProxy(currentObj: NestedTranslation, currentPath: string[] = []): any {
+    return new Proxy(() => {}, {
+      get(target, prop: string) {
+        const newPath = [...currentPath, prop]
+        const value = getNestedValue(translations, newPath)
+
+        if (typeof value === 'string') {
+          return value
+        } else if (typeof value === 'object') {
+          return createProxy(value, newPath)
+        }
+
+        return undefined
+      },
+
+      apply(target, thisArg, args: [string?]) {
+        if (args.length > 0 && typeof args[0] === 'string') {
+          // 支持 t('nav.home') 的用法
+          const path = args[0].split('.')
+          const value = getNestedValue(translations, path)
+          return typeof value === 'string' ? value : args[0]
+        }
+
+        // 如果沒有參數，回傳當前路徑的值
+        const value = getNestedValue(translations, currentPath)
+        return typeof value === 'string' ? value : ''
+      }
+    })
   }
-  return names[locale]
+
+  return createProxy(translations)
+}
+
+// 簡化版本，直接支持路徑查詢
+export async function nt(key: string): Promise<string> {
+  const locale = getLocale()
+  const translations = await loadTranslations(locale)
+  const path = key.split('.')
+  const value = getNestedValue(translations, path)
+  return typeof value === 'string' ? value : key
+}
+
+// 預載入翻譯資料的版本（適合在元件中使用）
+export class NestedTranslator {
+  private translations: NestedTranslation = {}
+
+  constructor(translations: NestedTranslation) {
+    this.translations = translations
+  }
+
+  // 鏈式語法：nt.nav.home
+  get nav() { return this.createProxy(this.translations.nav as NestedTranslation, ['nav']) }
+  get hero() { return this.createProxy(this.translations.hero as NestedTranslation, ['hero']) }
+  get team() { return this.createProxy(this.translations.team as NestedTranslation, ['team']) }
+  get schedule() { return this.createProxy(this.translations.schedule as NestedTranslation, ['schedule']) }
+  get course() { return this.createProxy(this.translations.course as NestedTranslation, ['course']) }
+  get courses() { return this.createProxy(this.translations.courses as NestedTranslation, ['courses']) }
+  get news() { return this.createProxy(this.translations.news as NestedTranslation, ['news']) }
+  get benefits() { return this.createProxy(this.translations.benefits as NestedTranslation, ['benefits']) }
+  get buttons() { return this.createProxy(this.translations.buttons as NestedTranslation, ['buttons']) }
+  get footer() { return this.createProxy(this.translations.footer as NestedTranslation, ['footer']) }
+  get intro() { return this.createProxy(this.translations.intro as NestedTranslation, ['intro']) }
+  get careers() { return this.createProxy(this.translations.careers as NestedTranslation, ['careers']) }
+  get faq() { return this.createProxy(this.translations.faq as NestedTranslation, ['faq']) }
+
+  // 函數語法：nt('nav.home')
+  t(key: string): string {
+    const path = key.split('.')
+    const value = getNestedValue(this.translations, path)
+    return typeof value === 'string' ? value : key
+  }
+
+  private createProxy(obj: NestedTranslation, path: string[]): any {
+    return new Proxy(() => {}, {
+      get(target, prop: string) {
+        const value = obj[prop]
+        if (typeof value === 'string') {
+          return value
+        } else if (typeof value === 'object') {
+          return this.createProxy(value, [...path, prop])
+        }
+        return undefined
+      },
+
+      apply(target, thisArg, args) {
+        // 當作為函數呼叫時，回傳物件本身的字串值或空字串
+        if (typeof obj === 'string') return obj
+        return ''
+      }
+    })
+  }
+}
+
+// 創建翻譯器實例
+export async function createTranslator(): Promise<NestedTranslator> {
+  const locale = getLocale()
+  const translations = await loadTranslations(locale)
+  return new NestedTranslator(translations)
 }

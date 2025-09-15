@@ -1,6 +1,7 @@
 ---
 import type { TeamMember } from '@/types'
-import { t } from 'i18n:astro'
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
 import { getAllTeams } from '@/api/teams'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'

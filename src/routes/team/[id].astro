@@ -1,7 +1,8 @@
 ---
 import type { TeamMember } from '@/types'
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { t } from 'i18n:astro'
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
 import { getTeamMember } from '@/api/teams'
 import Schedule from '@/components/ui/Schedule.astro'
 import Layout from '@/layouts/Layout.astro'

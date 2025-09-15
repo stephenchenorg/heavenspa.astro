@@ -1,9 +1,11 @@
 ---
 import type { CompanySettingData } from '@/types'
-import { t } from 'i18n:astro'
-// Icons from unplugin-icons
-import Clock from '@/components/icon/Clock.vue'
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
 
+// Icons from unplugin-icons
+
+import Clock from '@/components/icon/Clock.vue'
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
 import Facebook from '@/components/icon/Facebook.vue'
@@ -114,7 +116,7 @@ const {
                 <!-- 服務項目 -->
                 <div class="animate-fadeInUp animation-delay-200">
                     <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">
-                        <span data-i18n="nav.services">{t('nav_home1')}</span>
+                        <span data-i18n="nav.services">{t('nav.home')}</span>
                     </h4>
                     <ul class="space-y-3 grid grid-cols-1 md:gap-0">
                         <li>
