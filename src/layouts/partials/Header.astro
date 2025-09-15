@@ -1,7 +1,6 @@
 ---
 import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
-import HeaderContent from '@/components/HeaderContent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import ThemeController from '@/components/ThemeController.astro'
 import { createAstroT } from '@/utils/astro-i18n'
@@ -42,8 +41,22 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 >
   <!-- Logo - 25% width on lg+ -->
   <div class="nav-logo lg:w-1/4 lg:flex-shrink-0">
-    <!-- 使用動態 Vue 組件處理 Logo -->
-    <HeaderContent client:load />
+    <div class="flex items-center">
+      <a
+        href="/"
+        class="flex items-center space-x-2 transition-all duration-300 group"
+      >
+        {companySetting?.logo ? (
+          <img
+            src={companySetting.logo}
+            alt={companySetting.name || 'Logo'}
+            class="h-10 w-auto sm:h-12 transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <span class="text-xl font-bold">{companySetting?.name}</span>
+        )}
+      </a>
+    </div>
   </div>
 
   <!-- Link - 50% width on lg+, hidden below lg -->
