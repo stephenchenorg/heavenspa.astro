@@ -48,23 +48,23 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
   <!-- Link - 50% width on lg+, hidden below lg -->
   <div class="hidden lg:flex gap-6 items-center justify-center flex-nowrap overflow-visible nav-menu lg:w-1/2 lg:flex-shrink-0">
-    <a href="/about" class={`nav-item ${isActive('/about') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
+    <a href="/src/routes/about" class={`nav-item ${isActive('/about') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.about">{t('nav.about')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="/news" class={`nav-item ${isActive('/news') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
+    <a href="/src/routes/news" class={`nav-item ${isActive('/news') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.news">{t('nav.news')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="/services" class={`nav-item ${isActive('/services') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
+    <a href="/src/routes/services" class={`nav-item ${isActive('/services') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.services">{t('nav.services')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="/team" class={`nav-item ${isActive('/team') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
+    <a href="/src/routes/team" class={`nav-item ${isActive('/team') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.team">{t('nav.team')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
-    <a href="/faq" class={`nav-item ${isActive('/faq') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
+    <a href="/src/routes/faq" class={`nav-item ${isActive('/faq') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.faq">{t('nav.faq')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
@@ -80,16 +80,16 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
       <!-- 全新的下拉選單 -->
       <div class="dropdown-content">
-        <a href="/joinUs/careers" class="dropdown-link text-lg font-medium tracking-wide">
+        <a href="/src/routes/joinUs/careers" class="dropdown-link text-lg font-medium tracking-wide">
           <span data-i18n="nav.recruitment" class="text-lg font-medium tracking-wide">{t('nav.recruitment')}</span>
         </a>
-        <a href="/joinUs/training" class="dropdown-link text-lg font-medium tracking-wide">
+        <a href="/src/routes/joinUs/training" class="dropdown-link text-lg font-medium tracking-wide">
           <span data-i18n="nav.training" class="text-lg font-medium tracking-wide">{t('nav.training')}</span>
         </a>
       </div>
     </div>
     <!-- 異業合作 -->
-    <a href="/business-partnership" class={`nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
+    <a href="/src/routes/business-partnership" class={`nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
       <span data-i18n="nav.business_partnership">{t('nav.business_partnership')}</span>
       <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </a>
@@ -142,28 +142,28 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       </button>
     </div>
     <nav class="pt-8 pb-4 overflow-y-auto mobile-nav">
-      <a href="/about" class={`mobile-nav-item ${isActive('/about') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <a href="/src/routes/about" class={`mobile-nav-item ${isActive('/about') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span data-i18n="nav.about">{t('nav.about')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="/news" class={`mobile-nav-item ${isActive('/news') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <a href="/src/routes/news" class={`mobile-nav-item ${isActive('/news') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span data-i18n="nav.news">{t('nav.news')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="/services" class={`mobile-nav-item ${isActive('/services') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <a href="/src/routes/services" class={`mobile-nav-item ${isActive('/services') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span data-i18n="nav.services">{t('nav.services')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="/team" class={`mobile-nav-item ${isActive('/team') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <a href="/src/routes/team" class={`mobile-nav-item ${isActive('/team') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span data-i18n="nav.team">{t('nav.team')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
-      <a href="/faq" class={`mobile-nav-item ${isActive('/faq') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <a href="/src/routes/faq" class={`mobile-nav-item ${isActive('/faq') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span data-i18n="nav.faq">{t('nav.faq')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
       <!-- 異業合作 -->
-      <a href="/business-partnership" class={`mobile-nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <a href="/src/routes/business-partnership" class={`mobile-nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
         <span data-i18n="nav.business_partnership">{t('nav.business_partnership')}</span>
         <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
       </a>
@@ -179,10 +179,10 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
         <!-- 子選單項目 -->
         <div class="mobile-nav-submenu max-h-0 overflow-hidden transition-all duration-300 ease-out">
-          <a href="/joinUs/careers" class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
+          <a href="/src/routes/joinUs/careers" class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
             <span data-i18n="nav.recruitment">{t('nav.recruitment')}</span>
           </a>
-          <a href="/joinUs/training" class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
+          <a href="/src/routes/joinUs/training" class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
             <span data-i18n="nav.training">{t('nav.training')}</span>
           </a>
         </div>
