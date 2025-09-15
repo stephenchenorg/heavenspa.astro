@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "social_media": "Social Media",
-    "about": "About Us",
+    "about": "About",
     "news": "News",
     "services": "Services",
     "courses": "Services",
@@ -15,7 +15,7 @@
     "training": "Technical Training",
     "booking": "Book Now",
     "contact": "Contact Us",
-    "business_partnership": "Business Partnership"
+    "business_partnership": "Partnership"
   },
   "hero": {
     "embrace": "EMBRACE",

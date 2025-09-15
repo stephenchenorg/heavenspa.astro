@@ -188,10 +188,12 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       </div>
     </nav>
     <div class="px-6 py-4 border-t border-b mobile-language-section" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
-      <div class="flex justify-center items-center gap-4 mobile-language">
-        <LanguageSwitcher />
-        <ThemeController />
-        <ButtonBooking />
+      <div class="flex flex-col items-center gap-3 mobile-language">
+        <div class="flex items-center gap-4">
+          <LanguageSwitcher />
+          <ThemeController />
+        </div>
+        <ButtonBooking size="lg"/>
       </div>
     </div>
     <div class="p-6 flex flex-col gap-4 flex-1 justify-end mobile-contact">
