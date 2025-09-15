@@ -1,0 +1,15 @@
+{
+  "name": {
+    "required": "姓名 是必填"
+  },
+  "email": {
+    "required": "電子信箱 是必填",
+    "email": "必須是有效的 E-mail 格式"
+  },
+  "title": {
+    "required": "標題 是必填"
+  },
+  "content": {
+    "required": "內容 是必填"
+  }
+}

@@ -1,18 +1,16 @@
 ---
-import {seoMeta} from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
-import SectionTitle from "@/components/ui/SectionTitle.astro"
-import CareersForm from '@/components/joinUs/careersForm.vue'
-import FAQ from '@/components/FAQ.astro'
-import { createAstroT } from '@/utils/astro-i18n'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { t } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
-import { getLocaleFromRequest } from '@/utils/astro-i18n'
 import { getFaqList } from '@/api/faq'
+import FAQ from '@/components/FAQ.astro'
+import CareersForm from '@/components/joinUs/careersForm.vue'
+import SectionTitle from '@/components/ui/SectionTitle.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getLocaleFromRequest } from '@/utils/astro-i18n'
 
 const locale = getLocaleFromRequest(Astro.request)
 const companySetting = await getCompanySetting(locale)
-
-const t = createAstroT(Astro)
 
 const meta = seoMeta({
     title: `${t('careers.title')} - Heaven Spa`,
@@ -33,7 +31,7 @@ interface ApiFaqItem {
 }
 
 // 獲取徵才問題 FAQ 資料 (type = 40)
-let careersFaqData: Record<string, FaqItem[]> = {}
+const careersFaqData: Record<string, FaqItem[]> = {}
 
 try {
   const apiData: ApiFaqItem[] = await getFaqList(40, locale)
@@ -42,7 +40,7 @@ try {
     careersFaqData['徵才問題'] = apiData.map((faq: ApiFaqItem) => ({
       id: `careers-faq-${faq.id}`,
       question: faq.title,
-      answer: faq.content
+      answer: faq.content,
     }))
   }
 } catch (error) {
@@ -54,9 +52,9 @@ try {
 <Layout meta={meta}>
     <main class="section-container pt-32 min-h-screen">
         <!-- 標題區 -->
-        <SectionTitle 
-            title={t('careers.title')} 
-            subtitle={t('careers.subtitle')}
+        <SectionTitle
+          title={t('careers.title')}
+          subtitle={t('careers.subtitle')}
         />
 
         <!-- Page content will be added here -->
@@ -87,14 +85,25 @@ try {
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
                             <div class="mb-3 sm:mb-4">
                                 <div class="relative">
-                                    <svg class="w-6 h-6 sm:w-8 sm:h-8 mb-2" style="color: var(--color-primary-500);"
-                                         fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                         fill-rule="evenodd" clip-rule="evenodd">
+                                    <svg
+                                      class="w-6 h-6 sm:w-8 sm:h-8 mb-2"
+                                      style="color: var(--color-primary-500);"
+                                      fill="currentColor"
+                                      viewBox="0 0 24 24"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill-rule="evenodd"
+                                      clip-rule="evenodd"
+                                    >
                                         <path d="M24 21h-24v-18h24v18zm-23-16.477v15.477h22v-15.477l-10.999 10-11.001-10zm21.089-.523h-20.176l10.088 9.171 10.088-9.171z"></path>
                                     </svg>
                                     <div class="absolute top-0 left-0">
-                                        <svg class="w-3 h-3 sm:w-4 sm:h-4" style="color: var(--color-primary-500);"
-                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                        <svg
+                                          class="w-3 h-3 sm:w-4 sm:h-4"
+                                          style="color: var(--color-primary-500);"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          viewBox="0 0 24 24"
+                                          fill="currentColor"
+                                        >
                                             <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3.445 17.827c-3.684 1.684-9.401-9.43-5.8-11.308l1.053-.519 1.746 3.409-1.042.513c-1.095.587 1.185 5.04 2.305 4.497l1.032-.505 1.76 3.397-1.054.516z"></path>
                                         </svg>
                                     </div>
@@ -103,14 +112,16 @@ try {
                             <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div>
-                                    <a href=`mailto:${companySetting.email_1}`
-                                       class="hover:underline transition-all duration-300 text-sm sm:text-base break-all"
-                                       style="color: var(--color-primary-500);">
+                                    <a
+                                      href=`mailto:${companySetting.email_1}`
+                                      class="hover:underline transition-all duration-300 text-sm sm:text-base break-all"
+                                      style="color: var(--color-primary-500);"
+                                    >
                                         {companySetting.email_1}
                                     </a>
                                 </div>
                                 <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.phone">
-                                    <a href=`tel:${companySetting.phone_1}` >
+                                    <a href=`tel:${companySetting.phone_1}`>
                                         {companySetting.phone_1}
                                     </a>
                                 </div>
@@ -120,18 +131,26 @@ try {
                         <!-- Location -->
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
                             <div class="mb-3 sm:mb-4">
-                                <svg class="w-6 h-6 sm:w-8 sm:h-8 mb-2" style="color: var(--color-primary-500);" fill="currentColor"
-                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
-                                     clip-rule="evenodd">
+                                <svg
+                                  class="w-6 h-6 sm:w-8 sm:h-8 mb-2"
+                                  style="color: var(--color-primary-500);"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                >
                                     <path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602"></path>
                                 </svg>
                             </div>
                             <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.location">{t('careers.contact.location')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.address">
-                                    <a href={`https://maps.google.com/?q=${encodeURIComponent(companySetting.address_1 || '')}`}
-                                       target="_blank" rel="noopener noreferrer"
-                                       >{companySetting?.address_1}</a>
+                                    <a
+                                      href={`https://maps.google.com/?q=${encodeURIComponent(companySetting.address_1 || '')}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >{companySetting?.address_1}</a>
                                 </div>
                                 <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.hours">
                                     {companySetting?.business_hours}
@@ -154,15 +173,16 @@ try {
                         <p class="font-normal mb-3 text-base sm:text-lg tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.mapTitle">{t('careers.mapTitle')}</p>
                         <div class="rounded-lg overflow-hidden" style="border: 2px solid var(--theme-border);">
                             <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.287123999033!2d121.5258937!3d25.058255700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96bfd60fe63%3A0x54b492f3bcf5fd83!2z5Lqr5aSp5aCCIFNwYSBpbiBIZWF2ZW4gLSBTcGHmjInmkakv5a6i6KO95YyW6YGL5YuV5oyJ5pGpL-eUt-Wjq-eGseign-mZpOavmw!5e0!3m2!1szh-TW!2stw!4v1757748821828!5m2!1szh-TW!2stw"
-                                    width="100%"
-                                    height="250"
-                                    class="sm:h-80 lg:h-96"
-                                    style="border:0;"
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"
-                                    title="Heaven Spa 位置地圖">
+                              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.287123999033!2d121.5258937!3d25.058255700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96bfd60fe63%3A0x54b492f3bcf5fd83!2z5Lqr5aSp5aCCIFNwYSBpbiBIZWF2ZW4gLSBTcGHmjInmkakv5a6i6KO95YyW6YGL5YuV5oyJ5pGpL-eUt-Wjq-eGseign-mZpOavmw!5e0!3m2!1szh-TW!2stw!4v1757748821828!5m2!1szh-TW!2stw"
+                              width="100%"
+                              height="250"
+                              class="sm:h-80 lg:h-96"
+                              style="border:0;"
+                              allowfullscreen=""
+                              loading="lazy"
+                              referrerpolicy="no-referrer-when-downgrade"
+                              title="Heaven Spa 位置地圖"
+                            >
                             </iframe>
                         </div>
                     </div>
@@ -217,31 +237,31 @@ try {
                             <div class="max-w-md mx-auto">
                                 <div class="mb-4">
                                     <svg
-                                        class="mx-auto h-12 w-12 opacity-30"
-                                        style="color: var(--theme-text-secondary);"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
+                                      class="mx-auto h-12 w-12 opacity-30"
+                                      style="color: var(--theme-text-secondary);"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
                                     >
                                         <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="1.5"
-                                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="1.5"
+                                          d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
                                         />
                                     </svg>
                                 </div>
                                 <h3
-                                    class="text-lg font-normal mb-2 tracking-[2px]"
-                                    style="color: var(--theme-text);"
+                                  class="text-lg font-normal mb-2 tracking-[2px]"
+                                  style="color: var(--theme-text);"
                                 >
                                     暫無徵才問題
                                 </h3>
                                 <p
-                                    class="text-sm leading-relaxed"
-                                    style="color: var(--theme-text-secondary);"
+                                  class="text-sm leading-relaxed"
+                                  style="color: var(--theme-text-secondary);"
                                 >
-                                    目前沒有徵才相關的常見問題，<br/>
+                                    目前沒有徵才相關的常見問題，<br />
                                     請稍後再試或直接聯繫我們。
                                 </p>
                             </div>
@@ -252,5 +272,3 @@ try {
         </div>
     </main>
 </Layout>
-
-

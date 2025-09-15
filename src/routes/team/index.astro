@@ -1,21 +1,20 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
-import SectionTitle from "../../components/ui/SectionTitle.astro"
-import TeamCard from "../../components/ui/TeamCard.astro"
-import { getAllTeams } from '@/api/teams'
 import type { TeamMember } from '@/types'
-import { createAstroT } from '@/utils/astro-i18n'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { t } from 'i18n:astro'
+import { getAllTeams } from '@/api/teams'
+import Layout from '@/layouts/Layout.astro'
+import SectionTitle from '../../components/ui/SectionTitle.astro'
+import TeamCard from '../../components/ui/TeamCard.astro'
 
 // 建立翻譯函式
-const t = createAstroT(Astro)
 
 // 獲取所有團隊成員
 let teamMembers: TeamMember[] = []
 
 try {
   teamMembers = await getAllTeams((Astro.locals as any).locale)
-  console.log("teamMembers >> ", teamMembers.length)
+  console.warn('teamMembers >> ', teamMembers.length)
 } catch (error) {
   console.error('Failed to fetch team members:', error)
 }
@@ -26,7 +25,7 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <main class="section-container pt-32 min-h-screen">
+  <main class="relative z-10 w-full min-h-screen px-4 md:px-6 lg:px-8" style="background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000); padding-top: 120px; padding-bottom: 40px;">
 
     <!-- 標題區 -->
     <SectionTitle title={t('team.sectionTitle')} subtitle={t('team.sectionSubtitle')} />
@@ -35,7 +34,7 @@ const meta = seoMeta({
     <div class="max-w-6xl mx-auto w-full">
       {teamMembers && teamMembers.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {teamMembers.map((member) => (
+          {teamMembers.map(member => (
             <TeamCard
               member={member}
               uniqueId={`team-${member.id}`}

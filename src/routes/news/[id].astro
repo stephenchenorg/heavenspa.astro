@@ -1,0 +1,292 @@
+---
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { gql, graphQLAPI } from '@/api'
+import Layout from '@/layouts/Layout.astro'
+
+interface Props {
+    id: string
+}
+
+interface ArticleData {
+    article: {
+        id: string
+        title: string
+        content: string
+        cover: string
+        ended_at?: string
+        started_at?: string
+    }
+}
+
+const { id } = Astro.params
+
+if (!id || Number.isNaN(Number(id))) {
+    return Astro.rewrite('/404')
+}
+
+const articleId = Number.parseInt(id)
+
+let data: ArticleData
+
+try {
+    data = await graphQLAPI<ArticleData>(gql`
+        query GetArticle($id: Int!) {
+            article(id: $id) {
+                id
+                title
+                content
+                cover
+                ended_at
+                started_at
+            }
+        }
+    `, { variables: { id: articleId } })
+
+    if (!data?.article) {
+        return Astro.rewrite('/404')
+    }
+} catch (error) {
+    return Astro.rewrite('/404')
+}
+
+const meta = seoMeta({
+    title: `${data.article.title} - Heaven Spa`,
+    description: data.article.content ? data.article.content.replace(/<[^>]*>/g, '').substring(0, 160) : '了解 Heaven Spa 的最新消息',
+})
+---
+
+<Layout meta={meta}>
+    <main class="min-h-screen">
+        <!-- Hero Banner -->
+        <section class="relative h-96 md:h-[500px] lg:h-[600px] overflow-hidden">
+            <!-- Background Image -->
+            <div class="absolute inset-0">
+                <img
+                  src={data.article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
+                  alt={data.article.title}
+                  class="w-full h-full object-cover"
+                />
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 h-full flex items-center justify-center">
+                <div class="text-center text-white px-4 max-w-4xl">
+                    <!-- Title -->
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                        {data.article.title}
+                    </h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section
+          class="section-container pt-16 pb-20"
+          style="background-color: var(--theme-bg); color: var(--theme-text);"
+        >
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Breadcrumb Navigation -->
+                <nav class="mb-8">
+                    <ol class="flex items-center space-x-2 text-sm" style="color: var(--theme-text-secondary);">
+                        <li><a
+                          href="/"
+                          class="transition-colors hover:underline"
+                          style="color: var(--theme-text-secondary);"
+                            >首頁</a></li>
+                        <li><span style="color: var(--theme-text-muted);">/</span></li>
+                        <li><a
+                          href="/news"
+                          class="transition-colors hover:underline"
+                          style="color: var(--theme-text-secondary);"
+                            >最新消息</a></li>
+                        <li><span style="color: var(--theme-text-muted);">/</span></li>
+                        <li
+                          class="truncate max-w-xs"
+                          style="color: var(--theme-text);"
+                        >{data.article.title || '新聞詳情'}</li>
+                    </ol>
+                </nav>
+
+                <!-- Article Body -->
+                <div class="w-full prose prose-lg max-w-none leading-relaxed mt-4 overflow-hidden break-words" id="article-wrapper">
+                  {data.article.content ? (
+                      <div id="article-content" set:html={data.article.content}></div>
+                  ) : (
+                      <p style="color: var(--theme-text-secondary);">此文章目前沒有內容。</p>
+                  )}
+                    <!-- Date Section -->
+                    <div class="mt-8 pt-6 border-t" style="border-color: var(--theme-border);">
+                        <div
+                          class="flex items-center justify-center space-x-4 text-sm md:text-base"
+                          style="color: var(--theme-text-secondary);"
+                        >
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    ></path>
+                                </svg>
+                                <span>發布日期: {new Date(data.article.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
+                            </div>
+                            {data.article.ended_at && (
+                              <>
+                                <span style="color: var(--theme-text-muted);">•</span>
+                                <div class="flex items-center space-x-2">
+                                    <span>截止日期: {new Date(data.article.ended_at).toLocaleDateString('zh-TW')}</span>
+                                </div>
+                              </>
+                            )}
+                        </div>
+                    </div>
+
+                    <!-- Back to News Button -->
+                    <div class="mt-12 pt-8 border-t" style="border-color: var(--theme-border);">
+                        <div class="flex justify-center">
+                            <a
+                              href="/news"
+                              class="inline-flex items-center space-x-2 transition-colors duration-300 group px-6 py-3 text-white rounded-lg shadow-sm font-medium"
+                              style="background-color: var(--color-primary-500);"
+                            >
+                                <svg
+                                  class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M15 19l-7-7 7-7"
+                                    ></path>
+                                </svg>
+                                <span>返回新聞列表</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </main>
+
+    <script>
+      // 主題感知的內容處理函數
+      function processArticleContentForTheme() {
+        const articleContent = document.getElementById('article-content')
+        if (!articleContent) return
+
+        // 檢測當前主題
+        const isDarkMode = document.body.classList.contains('dark-theme') ||
+                           document.documentElement.classList.contains('dark') ||
+                           document.documentElement.getAttribute('data-theme') === 'dark'
+
+        console.log('Current theme:', isDarkMode ? 'dark' : 'light')
+
+        // 處理所有元素
+        const allElements = articleContent.querySelectorAll('*')
+
+        allElements.forEach(element => {
+          const htmlElement = element as HTMLElement
+          const computedStyle = window.getComputedStyle(htmlElement)
+          const inlineStyle = htmlElement.getAttribute('style') || ''
+
+          // 檢查是否有明確設定的文字顏色
+          const hasInlineTextColor = /color\s*:\s*[^;]+/i.test(inlineStyle)
+          const hasInlineBgColor = /background[^:]*:\s*[^;]*(?:#[0-9a-f]{3,6}|rgb|rgba|hsl|hsla|[a-z]+)/i.test(inlineStyle)
+
+          // 檢查父元素是否有設定顏色（繼承檢查）
+          function hasColorInheritance(element: HTMLElement): boolean {
+            let parent = element.parentElement
+            while (parent && parent !== articleContent) {
+              const parentStyle = parent.getAttribute('style') || ''
+              if (/color\s*:\s*[^;]+/i.test(parentStyle)) {
+                return true
+              }
+              parent = parent.parentElement
+            }
+            return false
+          }
+
+          // 只處理沒有明確設定顏色且沒有繼承顏色的元素
+          if (!hasInlineTextColor && !hasColorInheritance(htmlElement)) {
+            if (isDarkMode) {
+              // 黑暗模式：設為白色文字
+              htmlElement.style.color = 'var(--theme-text, #ffffff)'
+            } else {
+              // 淺色模式：設為黑色文字
+              htmlElement.style.color = 'var(--theme-text, #000000)'
+            }
+          }
+
+          // 處理背景色 - 只處理明確的白色/黑色背景
+          if (hasInlineBgColor) {
+            let modifiedStyle = inlineStyle
+
+            if (isDarkMode) {
+              // 黑暗模式：將白色背景改為暗色
+              modifiedStyle = modifiedStyle
+                .replace(/background[^:]*:\s*[^;]*#ffffff[^;]*/gi, (match) =>
+                  match.replace(/#ffffff/gi, 'var(--theme-bg, #1a1a1a)'))
+                .replace(/background[^:]*:\s*[^;]*rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)[^;]*/gi, (match) =>
+                  match.replace(/rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)/gi, 'var(--theme-bg, #1a1a1a)'))
+                .replace(/background[^:]*:\s*[^;]*\bwhite\b[^;]*/gi, (match) =>
+                  match.replace(/\bwhite\b/gi, 'var(--theme-bg, #1a1a1a)'))
+            } else {
+              // 淺色模式：將黑色背景改為亮色
+              modifiedStyle = modifiedStyle
+                .replace(/background[^:]*:\s*[^;]*#000000[^;]*/gi, (match) =>
+                  match.replace(/#000000/gi, 'var(--theme-bg, #ffffff)'))
+                .replace(/background[^:]*:\s*[^;]*rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)[^;]*/gi, (match) =>
+                  match.replace(/rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)/gi, 'var(--theme-bg, #ffffff)'))
+                .replace(/background[^:]*:\s*[^;]*\bblack\b[^;]*/gi, (match) =>
+                  match.replace(/\bblack\b/gi, 'var(--theme-bg, #ffffff)'))
+            }
+
+            if (modifiedStyle !== inlineStyle) {
+              htmlElement.setAttribute('style', modifiedStyle)
+            }
+          }
+        })
+      }
+
+      // 監聽主題變化
+      function observeThemeChanges() {
+        // 使用 MutationObserver 監聽 body 類名變化
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' &&
+                (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme')) {
+              processArticleContentForTheme()
+            }
+          })
+        })
+
+        // 監聽 body 和 html 的屬性變化
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class', 'data-theme'] })
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] })
+
+        // 監聽自定義主題變化事件
+        document.addEventListener('themeChanged', processArticleContentForTheme)
+        document.addEventListener('theme-change', processArticleContentForTheme)
+      }
+
+      // 頁面載入完成後執行
+      document.addEventListener('DOMContentLoaded', () => {
+        // 延遲執行以確保主題已正確載入
+        setTimeout(() => {
+          processArticleContentForTheme()
+          observeThemeChanges()
+        }, 100)
+      })
+
+      // 如果頁面已經載入完成
+      if (document.readyState === 'complete') {
+        setTimeout(() => {
+          processArticleContentForTheme()
+          observeThemeChanges()
+        }, 100)
+      }
+    </script>
+</Layout>

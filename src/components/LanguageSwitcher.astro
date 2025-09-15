@@ -1,0 +1,101 @@
+---
+import { getLocale, getLocales, switchLocalePath } from 'i18n:astro'
+
+const currentLocale = getLocale()
+const locales = getLocales()
+
+// 語言名稱對照表
+const localeNames: Record<string, string> = {
+  'zh-TW': '中文',
+  en: 'English',
+}
+
+const currentLanguageName = localeNames[currentLocale] || currentLocale
+
+// 生成語系連結
+const localeLinks = locales.map(locale => ({
+  locale,
+  name: localeNames[locale] || locale,
+  href: switchLocalePath(locale),
+}))
+---
+
+<div class="simple-dropdown language-switcher">
+  <button
+    type="button"
+    class="dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 text-lg font-medium tracking-wide"
+    style="color: var(--theme-text)"
+    title={`Current language: ${currentLanguageName}`}
+  >
+    <!-- Globe Icon -->
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+    </svg>
+    <span class="text-lg font-medium tracking-wide">{currentLanguageName}</span>
+    <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+
+  <div class="dropdown-content">
+    {localeLinks.map(locale => (
+      <a
+        href={locale.href}
+        class={`dropdown-link ${locale.locale === currentLocale ? 'current-menu-item' : ''}`}
+        data-locale={locale.locale}
+      >
+        {locale.name}
+      </a>
+    ))}
+  </div>
+</div>
+
+<script>
+  function initLanguageSwitcher() {
+    const languageSwitcher = document.querySelector('.language-switcher')
+    if (!languageSwitcher) return
+
+    const dropdownBtn = languageSwitcher.querySelector('.dropdown-btn')
+    const dropdownContent = languageSwitcher.querySelector('.dropdown-content')
+
+    if (!dropdownBtn || !dropdownContent) return
+
+    let isDropdownOpen = false
+
+    function toggleDropdown() {
+      isDropdownOpen = !isDropdownOpen
+      languageSwitcher?.classList.toggle('active', isDropdownOpen)
+    }
+
+    function closeDropdown() {
+      isDropdownOpen = false
+      languageSwitcher?.classList.remove('active')
+    }
+
+    dropdownBtn.addEventListener('click', e => {
+      e.preventDefault()
+      e.stopPropagation()
+      toggleDropdown()
+    })
+
+    document.addEventListener('click', e => {
+      if (!languageSwitcher.contains(e.target as Node)) {
+        closeDropdown()
+      }
+    })
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeDropdown()
+    })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSwitcher)
+  } else {
+    initLanguageSwitcher()
+  }
+
+  document.addEventListener('astro:page-load', initLanguageSwitcher)
+</script>
