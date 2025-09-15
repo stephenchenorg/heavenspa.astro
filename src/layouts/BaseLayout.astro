@@ -2,7 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { createCompanySetting } from '@stephenchenorg/astro/company-setting'
 import siteConfig from '@/site.config'
-import { getLocaleFromRequest } from '@/utils/astro-i18n'
+import { getLocale } from 'i18n:astro'
 import GAScript from './partials/GAScript.astro'
 import '@/styles/index.css'
 
@@ -30,8 +30,8 @@ const companySetting = createCompanySetting({
 const ga4TrackingId = siteConfig.ga4TrackingId
 
 // 獲取當前語言
-const currentLocale = getLocaleFromRequest(Astro.request)
-const htmlLang = currentLocale === 'zh-tw' ? 'zh-Hant-TW' : 'en-US'
+const currentLocale = getLocale()
+const htmlLang = currentLocale === 'zh-TW' ? 'zh-Hant-TW' : 'en-US'
 ---
 
 <!doctype html>

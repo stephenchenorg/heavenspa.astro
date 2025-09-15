@@ -7,9 +7,9 @@ import FAQ from '@/components/FAQ.astro'
 import CareersForm from '@/components/joinUs/careersForm.vue'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getLocaleFromRequest } from '@/utils/astro-i18n'
+import { getLocale } from 'i18n:astro'
 
-const locale = getLocaleFromRequest(Astro.request)
+const locale = getLocale()
 const companySetting = await getCompanySetting(locale)
 
 const meta = seoMeta({
