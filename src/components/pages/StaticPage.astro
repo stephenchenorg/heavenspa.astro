@@ -59,7 +59,7 @@ const meta = seoMeta({
 
     <div class="min-w-6xl mx-auto">
       <article class="mt-12">
-        <Prose content={data.page?.fields[0]?.content || ''} />
+        <Prose sourceDoc={data.page?.fields[0]?.content || ''} />
       </article>
     </div>
   </main>
