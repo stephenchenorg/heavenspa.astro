@@ -170,123 +170,123 @@ const meta = seoMeta({
                 </div>
         </section>
     </main>
-</Layout>
 
-<script>
-  // 主題感知的內容處理函數
-  function processArticleContentForTheme() {
-    const articleContent = document.getElementById('article-content')
-    if (!articleContent) return
+    <script>
+      // 主題感知的內容處理函數
+      function processArticleContentForTheme() {
+        const articleContent = document.getElementById('article-content')
+        if (!articleContent) return
 
-    // 檢測當前主題
-    const isDarkMode = document.body.classList.contains('dark-theme') ||
-                       document.documentElement.classList.contains('dark') ||
-                       document.documentElement.getAttribute('data-theme') === 'dark'
+        // 檢測當前主題
+        const isDarkMode = document.body.classList.contains('dark-theme') ||
+                           document.documentElement.classList.contains('dark') ||
+                           document.documentElement.getAttribute('data-theme') === 'dark'
 
-    console.log('Current theme:', isDarkMode ? 'dark' : 'light')
+        console.log('Current theme:', isDarkMode ? 'dark' : 'light')
 
-    // 處理所有元素
-    const allElements = articleContent.querySelectorAll('*')
+        // 處理所有元素
+        const allElements = articleContent.querySelectorAll('*')
 
-    allElements.forEach(element => {
-      const htmlElement = element as HTMLElement
-      const computedStyle = window.getComputedStyle(htmlElement)
-      const inlineStyle = htmlElement.getAttribute('style') || ''
+        allElements.forEach(element => {
+          const htmlElement = element as HTMLElement
+          const computedStyle = window.getComputedStyle(htmlElement)
+          const inlineStyle = htmlElement.getAttribute('style') || ''
 
-      // 檢查是否有明確設定的文字顏色
-      const hasInlineTextColor = /color\s*:\s*[^;]+/i.test(inlineStyle)
-      const hasInlineBgColor = /background[^:]*:\s*[^;]*(?:#[0-9a-f]{3,6}|rgb|rgba|hsl|hsla|[a-z]+)/i.test(inlineStyle)
+          // 檢查是否有明確設定的文字顏色
+          const hasInlineTextColor = /color\s*:\s*[^;]+/i.test(inlineStyle)
+          const hasInlineBgColor = /background[^:]*:\s*[^;]*(?:#[0-9a-f]{3,6}|rgb|rgba|hsl|hsla|[a-z]+)/i.test(inlineStyle)
 
-      // 檢查父元素是否有設定顏色（繼承檢查）
-      function hasColorInheritance(element: HTMLElement): boolean {
-        let parent = element.parentElement
-        while (parent && parent !== articleContent) {
-          const parentStyle = parent.getAttribute('style') || ''
-          if (/color\s*:\s*[^;]+/i.test(parentStyle)) {
-            return true
+          // 檢查父元素是否有設定顏色（繼承檢查）
+          function hasColorInheritance(element: HTMLElement): boolean {
+            let parent = element.parentElement
+            while (parent && parent !== articleContent) {
+              const parentStyle = parent.getAttribute('style') || ''
+              if (/color\s*:\s*[^;]+/i.test(parentStyle)) {
+                return true
+              }
+              parent = parent.parentElement
+            }
+            return false
           }
-          parent = parent.parentElement
-        }
-        return false
+
+          // 只處理沒有明確設定顏色且沒有繼承顏色的元素
+          if (!hasInlineTextColor && !hasColorInheritance(htmlElement)) {
+            if (isDarkMode) {
+              // 黑暗模式：設為白色文字
+              htmlElement.style.color = 'var(--theme-text, #ffffff)'
+            } else {
+              // 淺色模式：設為黑色文字
+              htmlElement.style.color = 'var(--theme-text, #000000)'
+            }
+          }
+
+          // 處理背景色 - 只處理明確的白色/黑色背景
+          if (hasInlineBgColor) {
+            let modifiedStyle = inlineStyle
+
+            if (isDarkMode) {
+              // 黑暗模式：將白色背景改為暗色
+              modifiedStyle = modifiedStyle
+                .replace(/background[^:]*:\s*[^;]*#ffffff[^;]*/gi, (match) =>
+                  match.replace(/#ffffff/gi, 'var(--theme-bg, #1a1a1a)'))
+                .replace(/background[^:]*:\s*[^;]*rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)[^;]*/gi, (match) =>
+                  match.replace(/rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)/gi, 'var(--theme-bg, #1a1a1a)'))
+                .replace(/background[^:]*:\s*[^;]*\bwhite\b[^;]*/gi, (match) =>
+                  match.replace(/\bwhite\b/gi, 'var(--theme-bg, #1a1a1a)'))
+            } else {
+              // 淺色模式：將黑色背景改為亮色
+              modifiedStyle = modifiedStyle
+                .replace(/background[^:]*:\s*[^;]*#000000[^;]*/gi, (match) =>
+                  match.replace(/#000000/gi, 'var(--theme-bg, #ffffff)'))
+                .replace(/background[^:]*:\s*[^;]*rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)[^;]*/gi, (match) =>
+                  match.replace(/rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)/gi, 'var(--theme-bg, #ffffff)'))
+                .replace(/background[^:]*:\s*[^;]*\bblack\b[^;]*/gi, (match) =>
+                  match.replace(/\bblack\b/gi, 'var(--theme-bg, #ffffff)'))
+            }
+
+            if (modifiedStyle !== inlineStyle) {
+              htmlElement.setAttribute('style', modifiedStyle)
+            }
+          }
+        })
       }
 
-      // 只處理沒有明確設定顏色且沒有繼承顏色的元素
-      if (!hasInlineTextColor && !hasColorInheritance(htmlElement)) {
-        if (isDarkMode) {
-          // 黑暗模式：設為白色文字
-          htmlElement.style.color = 'var(--theme-text, #ffffff)'
-        } else {
-          // 淺色模式：設為黑色文字
-          htmlElement.style.color = 'var(--theme-text, #000000)'
-        }
+      // 監聽主題變化
+      function observeThemeChanges() {
+        // 使用 MutationObserver 監聽 body 類名變化
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' &&
+                (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme')) {
+              processArticleContentForTheme()
+            }
+          })
+        })
+
+        // 監聽 body 和 html 的屬性變化
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class', 'data-theme'] })
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] })
+
+        // 監聽自定義主題變化事件
+        document.addEventListener('themeChanged', processArticleContentForTheme)
+        document.addEventListener('theme-change', processArticleContentForTheme)
       }
 
-      // 處理背景色 - 只處理明確的白色/黑色背景
-      if (hasInlineBgColor) {
-        let modifiedStyle = inlineStyle
-
-        if (isDarkMode) {
-          // 黑暗模式：將白色背景改為暗色
-          modifiedStyle = modifiedStyle
-            .replace(/background[^:]*:\s*[^;]*#ffffff[^;]*/gi, (match) =>
-              match.replace(/#ffffff/gi, 'var(--theme-bg, #1a1a1a)'))
-            .replace(/background[^:]*:\s*[^;]*rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)[^;]*/gi, (match) =>
-              match.replace(/rgb\(\s*255\s*,\s*255\s*,\s*255\s*\)/gi, 'var(--theme-bg, #1a1a1a)'))
-            .replace(/background[^:]*:\s*[^;]*\bwhite\b[^;]*/gi, (match) =>
-              match.replace(/\bwhite\b/gi, 'var(--theme-bg, #1a1a1a)'))
-        } else {
-          // 淺色模式：將黑色背景改為亮色
-          modifiedStyle = modifiedStyle
-            .replace(/background[^:]*:\s*[^;]*#000000[^;]*/gi, (match) =>
-              match.replace(/#000000/gi, 'var(--theme-bg, #ffffff)'))
-            .replace(/background[^:]*:\s*[^;]*rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)[^;]*/gi, (match) =>
-              match.replace(/rgb\(\s*0\s*,\s*0\s*,\s*0\s*\)/gi, 'var(--theme-bg, #ffffff)'))
-            .replace(/background[^:]*:\s*[^;]*\bblack\b[^;]*/gi, (match) =>
-              match.replace(/\bblack\b/gi, 'var(--theme-bg, #ffffff)'))
-        }
-
-        if (modifiedStyle !== inlineStyle) {
-          htmlElement.setAttribute('style', modifiedStyle)
-        }
-      }
-    })
-  }
-
-  // 監聽主題變化
-  function observeThemeChanges() {
-    // 使用 MutationObserver 監聽 body 類名變化
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' &&
-            (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme')) {
+      // 頁面載入完成後執行
+      document.addEventListener('DOMContentLoaded', () => {
+        // 延遲執行以確保主題已正確載入
+        setTimeout(() => {
           processArticleContentForTheme()
-        }
+          observeThemeChanges()
+        }, 100)
       })
-    })
 
-    // 監聽 body 和 html 的屬性變化
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class', 'data-theme'] })
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] })
-
-    // 監聽自定義主題變化事件
-    document.addEventListener('themeChanged', processArticleContentForTheme)
-    document.addEventListener('theme-change', processArticleContentForTheme)
-  }
-
-  // 頁面載入完成後執行
-  document.addEventListener('DOMContentLoaded', () => {
-    // 延遲執行以確保主題已正確載入
-    setTimeout(() => {
-      processArticleContentForTheme()
-      observeThemeChanges()
-    }, 100)
-  })
-
-  // 如果頁面已經載入完成
-  if (document.readyState === 'complete') {
-    setTimeout(() => {
-      processArticleContentForTheme()
-      observeThemeChanges()
-    }, 100)
-  }
-</script>
+      // 如果頁面已經載入完成
+      if (document.readyState === 'complete') {
+        setTimeout(() => {
+          processArticleContentForTheme()
+          observeThemeChanges()
+        }, 100)
+      }
+    </script>
+</Layout>
