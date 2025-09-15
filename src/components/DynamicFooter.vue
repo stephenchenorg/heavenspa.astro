@@ -69,9 +69,9 @@
       </div>
     </div>
 
-    <!-- 右側：導航和社群 -->
+    <!-- 右側：服務項目, 社群媒體, 法律與政策 -->
     <div class="grid grid-cols-3">
-      <!-- 服務項目 -->
+      <!-- 服務項目 Section -->
       <div class="animate-fadeInUp animation-delay-200">
         <h4 class="text-lg font-semibold text-[var(--color-primary-600,#c4a428)] mb-6 uppercase tracking-wider">
           <span data-i18n="nav.services">{{ t('nav.services') }}</span>
