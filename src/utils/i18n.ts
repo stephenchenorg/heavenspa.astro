@@ -134,7 +134,7 @@ export const translations = {
       'follow-us': '關注我們',
       'rights-reserved': '版權所有',
       'legal-policies': '法律與政策',
-      'privacy-policy': '隱私政策',
+      'privacy-policy': '隱私權政策',
       'terms-of-service': '服務條款',
     },
 
