@@ -80,9 +80,12 @@
           <li>
             <a
               href="/about"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
+              class="group flex items-center justify-start text-sm transition-all duration-300 hover:translate-x-1"
+              style="color: var(--theme-nav-text, #000000);"
+              @mouseover="$event.target.style.color = 'var(--color-primary-600, #c4a428)'"
+              @mouseout="$event.target.style.color = 'var(--theme-nav-text, #000000)'"
             >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
+              <span class="opacity-0 group-hover:opacity-100 w-0 group-hover:w-auto group-hover:mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0 overflow-hidden text-[var(--color-primary-600,#c4a428)]">→</span>
               <span data-i18n="nav.about">{{ t('nav.about') }}</span>
             </a>
           </li>
