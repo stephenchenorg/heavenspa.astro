@@ -1,7 +1,7 @@
 import { getLocale } from 'i18n:astro'
 
 // 語系資料類型定義
-type NestedTranslation = {
+interface NestedTranslation {
   [key: string]: string | NestedTranslation
 }
 
@@ -519,7 +519,7 @@ export async function createNestedT() {
         // 如果沒有參數，回傳當前路徑的值
         const value = getNestedValue(translations, currentPath)
         return typeof value === 'string' ? value : ''
-      }
+      },
     })
   }
 
@@ -603,7 +603,7 @@ export class NestedTranslator {
         // 當作為函數呼叫時，回傳物件本身的字串值或空字串
         if (typeof obj === 'string') return obj
         return ''
-      }
+      },
     })
   }
 }

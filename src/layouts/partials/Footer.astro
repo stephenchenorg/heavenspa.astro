@@ -3,12 +3,10 @@
 import DynamicFooter from '@/components/DynamicFooter.vue'
 =======
 import type { CompanySettingData } from '@/types'
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
+import Clock from '@/components/icon/Clock.vue'
 
 // Icons from unplugin-icons
 
-import Clock from '@/components/icon/Clock.vue'
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
 import Facebook from '@/components/icon/Facebook.vue'
@@ -19,7 +17,13 @@ import Phone from '@/components/icon/Phone.vue'
 import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
+<<<<<<< HEAD
 >>>>>>> 4b24745840b0d08e49c055c897cc4c46c9f4dd90
+=======
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
+>>>>>>> 4ff0ce3fa7d124c8cd30fe5e834c181592051674
 
 export interface Props {
     class?: astroHTML.JSX.HTMLAttributes['class']
@@ -190,7 +194,7 @@ export interface Props {
                 <!-- 社群媒體 -->
                 <div class="animate-fadeInUp animation-delay-400">
                     <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">
-                        { t('nav_about_us') }
+                        { t('nav.social_media') }
                     </h4>
                     <ul class="space-y-3 grid grid-cols-1 md:gap-0">
                         {companySetting?.fb_link && (

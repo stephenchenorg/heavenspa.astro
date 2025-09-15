@@ -1,11 +1,12 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 // 建立翻譯函式
 

@@ -2,12 +2,19 @@
 <<<<<<< HEAD
 =======
 import type { TeamMember } from '@/types'
+<<<<<<< HEAD
 import { createNestedT } from '@/utils/i18n'
 const t = await createNestedT()
 >>>>>>> 4b24745840b0d08e49c055c897cc4c46c9f4dd90
 import ImageCarousel from '@/components/ui/ImageCarousel.astro'
 import type { TeamMember } from '@/types'
 import { createAstroT } from '@/utils/astro-i18n'
+=======
+import ImageCarousel from '@/components/ui/ImageCarousel.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
+>>>>>>> 4ff0ce3fa7d124c8cd30fe5e834c181592051674
 
 interface Props {
   member: TeamMember
