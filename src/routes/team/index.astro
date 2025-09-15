@@ -3,12 +3,12 @@ import type { TeamMember } from '@/types'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getAllTeams } from '@/api/teams'
 import Layout from '@/layouts/Layout.astro'
-import { createAstroT } from '@/utils/astro-i18n'
+import { t } from 'i18n:astro'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 import TeamCard from '../../components/ui/TeamCard.astro'
 
 // 建立翻譯函式
-const t = createAstroT(Astro)
+
 
 // 獲取所有團隊成員
 let teamMembers: TeamMember[] = []

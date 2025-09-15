@@ -11,7 +11,7 @@ import { createAstroT, getLocaleFromRequest } from '@/utils/astro-i18n'
 const locale = getLocaleFromRequest(Astro.request)
 const companySetting = await getCompanySetting(locale)
 
-const t = createAstroT(Astro)
+
 
 const meta = seoMeta({
     title: `${t('careers.title')} - Heaven Spa`,

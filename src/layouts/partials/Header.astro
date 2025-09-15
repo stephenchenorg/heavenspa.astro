@@ -3,7 +3,7 @@ import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import ThemeController from '@/components/ThemeController.astro'
-import { createAstroT } from '@/utils/astro-i18n'
+import { t } from 'i18n:astro'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -15,7 +15,7 @@ const {
 } = Astro.props
 
 // 翻譯函數
-const t = createAstroT(Astro)
+
 
 // 獲取當前路徑並判斷哪個導航項目為 active
 const currentPath = Astro.url.pathname

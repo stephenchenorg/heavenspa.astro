@@ -4,10 +4,10 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import { getTeamMember } from '@/api/teams'
 import Schedule from '@/components/ui/Schedule.astro'
 import Layout from '@/layouts/Layout.astro'
-import { createAstroT } from '@/utils/astro-i18n'
+import { t } from 'i18n:astro'
 
 // 建立翻譯函式
-const t = createAstroT(Astro)
+
 
 // 獲取 ID 參數
 const { id } = Astro.params

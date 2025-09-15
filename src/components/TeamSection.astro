@@ -3,11 +3,11 @@ import type { TeamMember } from '@/types'
 import { getAllTeams } from '@/api/teams'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'
-import { createAstroT } from '@/utils/astro-i18n'
+import { t } from 'i18n:astro'
 
 // 獲取前六筆團隊成員ㄔ
 const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).locale)).slice(0, 6)
-const t = createAstroT(Astro)
+
 ---
 <section
   class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]"

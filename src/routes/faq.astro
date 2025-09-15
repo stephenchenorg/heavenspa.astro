@@ -4,10 +4,10 @@ import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import { createAstroT } from '@/utils/astro-i18n'
+import { t } from 'i18n:astro'
 
 // 建立翻譯函式
-const t = createAstroT(Astro)
+
 
 const meta = seoMeta({
   title: `${t('faq.title')} - Heaven Spa`,
