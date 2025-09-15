@@ -86,23 +86,23 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
             loading="lazy"
           />
 
-          {validImages.length > 1 && (
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" id="carousel-dots">
-              {validImages.map((_, idx) => (
-                <button
-                  type="button"
-                  class={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
-                    idx === 0
-                      ? 'bg-[var(--color-primary-500,#3b82f6)] shadow-lg'
-                      : 'bg-[var(--theme-card-bg,#ffffff)]/60 hover:bg-[var(--theme-card-bg,#ffffff)]/80'
-                  }`}
-                  data-idx={idx}
-                  onclick={`carouselThumb(${idx})`}
-                >
-                </button>
-              ))}
-            </div>
-          )}
+          <!--{validImages.length > 1 && (-->
+          <!--  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" id="carousel-dots">-->
+          <!--    {validImages.map((_, idx) => (-->
+          <!--      <button-->
+          <!--        type="button"-->
+          <!--        class={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${-->
+          <!--          idx === 0-->
+          <!--            ? 'bg-[var(&#45;&#45;color-primary-500,#3b82f6)] shadow-lg'-->
+          <!--            : 'bg-[var(&#45;&#45;theme-card-bg,#ffffff)]/60 hover:bg-[var(&#45;&#45;theme-card-bg,#ffffff)]/80'-->
+          <!--        }`}-->
+          <!--        data-idx={idx}-->
+          <!--        onclick={`carouselThumb(${idx})`}-->
+          <!--      >-->
+          <!--      </button>-->
+          <!--    ))}-->
+          <!--  </div>-->
+          <!--)}-->
         </div>
 
         <!-- 縮圖預覽 -->
