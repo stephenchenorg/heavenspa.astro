@@ -18,7 +18,7 @@
       <div class="gap-4 grid md:grid-cols-1 grid-cols-2">
         <div class="flex items-center justify-start gap-3 text-sm">
           <div class="text-base opacity-80">
-            <Phone size="16" />
+            <Phone size="20" />
           </div>
           <a
             :href="`tel:${companySetting?.phone_1}`"
@@ -29,7 +29,7 @@
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
           <div class="text-base opacity-80">
-            <MapPin size="16" />
+            <MapPin size="20" />
           </div>
           <a
             :href="`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`"
@@ -41,7 +41,7 @@
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
           <div class="text-base opacity-80">
-            <Email size="16" />
+            <Email size="20" />
           </div>
           <a
             :href="`mailto:${companySetting?.email_1}`"
@@ -52,7 +52,7 @@
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
           <div class="text-base opacity-80">
-            <Clock size="16" />
+            <Clock size="20" />
           </div>
           <span class="text-[var(--theme-text,#000000)]">
             {{ companySetting?.business_hours || '' }}
@@ -60,7 +60,7 @@
         </div>
         <div class="flex items-center justify-start gap-3 text-sm">
           <div class="text-base opacity-80">
-            <CreditCard size="16" />
+            <CreditCard size="20" />
           </div>
           <span class="text-[var(--theme-text,#000000)]">
             {{ companySetting?.payment_method }}
@@ -73,7 +73,7 @@
     <div class="grid grid-cols-3">
       <!-- 服務項目 -->
       <div class="animate-fadeInUp animation-delay-200">
-        <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">
+        <h4 class="text-lg font-semibold text-[var(--color-primary-600,#c4a428)] mb-6 uppercase tracking-wider">
           <span data-i18n="nav.services">{{ t('nav.services') }}</span>
         </h4>
         <ul class="space-y-3 grid grid-cols-1 md:gap-0">
@@ -145,7 +145,7 @@
 
       <!-- 社群媒體 -->
       <div class="animate-fadeInUp animation-delay-400">
-        <h4 class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider">
+        <h4 class="text-lg font-semibold text-[var(--color-primary-600,#c4a428)] mb-6 uppercase tracking-wider">
           社群媒體
         </h4>
         <ul class="space-y-3 grid grid-cols-1 md:gap-0">
@@ -180,7 +180,7 @@
               target="_blank" rel="noopener noreferrer" title="Line"
             >
               <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                <Line size="16" />
+                <Line size="18" />
               </div>
               <span class="font-normal tracking-wide">Line</span>
             </a>
@@ -192,7 +192,7 @@
               target="_blank" rel="noopener noreferrer" title="X (Twitter)"
             >
               <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                <X size="16" />
+                <X size="18" />
               </div>
               <span class="font-normal tracking-wide">Twitter</span>
             </a>
@@ -204,7 +204,7 @@
               target="_blank" rel="noopener noreferrer" title="Telegram"
             >
               <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                <Telegram size="16" />
+                <Telegram size="18" />
               </div>
               <span class="font-normal tracking-wide">Telegram</span>
             </a>
@@ -216,7 +216,7 @@
               target="_blank" rel="noopener noreferrer" title="Threads"
             >
               <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                <Threads size="16" />
+                <Threads size="20" />
               </div>
               <span class="font-normal tracking-wide">Threads</span>
             </a>
@@ -227,7 +227,7 @@
       <!-- 法律與政策 -->
       <div class="animate-fadeInUp animation-delay-600">
         <h4
-          class="text-lg font-semibold text-[var(--theme-text,#000000)] mb-6 uppercase tracking-wider"
+          class="text-lg font-semibold text-[var(--color-primary-600,#c4a428)] mb-6 uppercase tracking-wider"
           data-i18n="footer.legal-policies"
         >
           {{ t('footer.legal-policies') }}
