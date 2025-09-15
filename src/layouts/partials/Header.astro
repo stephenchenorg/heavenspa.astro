@@ -96,14 +96,13 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
   <!-- 手機版選單按鈕 - visible below lg -->
   <button
-    class="lg:hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 bg-white/10 border border-white/20 rounded-lg p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn hover:bg-white/20"
+    class="lg:hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn"
     type="button"
     id="mobile-menu-btn"
-    style="background: var(--theme-mobile-btn-bg, rgba(0,0,0,0.1)); border-color: var(--theme-mobile-btn-border, rgba(0,0,0,0.2));"
   >
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-nav-text, #000000);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
+    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
   </button>
 
   <!-- Action Div - 25% width on lg+, hidden below lg -->
@@ -260,8 +259,6 @@ const isCareersActive = currentPath.startsWith('/joinUs')
         root.style.setProperty('--theme-nav-bg', 'transparent')
         root.style.setProperty('--theme-nav-text', '#ffffff')
         root.style.setProperty('--theme-nav-scrolled-bg', 'rgba(0,0,0,0.8)')
-        root.style.setProperty('--theme-mobile-btn-bg', 'rgba(255,255,255,0.1)')
-        root.style.setProperty('--theme-mobile-btn-border', 'rgba(255,255,255,0.2)')
         root.style.setProperty('--theme-mobile-nav-text', '#ffffff')
         root.style.setProperty('--theme-mobile-nav-indicator', '#ffffff')
         // 子選單主題
@@ -275,8 +272,6 @@ const isCareersActive = currentPath.startsWith('/joinUs')
         root.style.setProperty('--theme-nav-bg', 'transparent')
         root.style.setProperty('--theme-nav-text', '#000000')
         root.style.setProperty('--theme-nav-scrolled-bg', 'rgba(255,255,255,0.9)')
-        root.style.setProperty('--theme-mobile-btn-bg', 'rgba(0,0,0,0.1)')
-        root.style.setProperty('--theme-mobile-btn-border', 'rgba(0,0,0,0.2)')
         root.style.setProperty('--theme-mobile-nav-text', '#D7AE54')
         root.style.setProperty('--theme-mobile-nav-indicator', '#D7AE54')
         // 子選單主題
