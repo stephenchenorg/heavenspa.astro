@@ -12,12 +12,11 @@ export function graphQLAPI<
   query: any,
   options?: { variables?: TVariables, locale?: string }
 ): Promise<TData> {
-  console.warn(getLocale())
   return baseGraphQLAPI<TData, TVariables>(query, {
     variables: options?.variables,
     fetchOptions: {
       headers: {
-        'Accept-Language': getLocale().replace('-', '_'),
+        'Content-Language': getLocale().replace('-', '_'),
       },
     },
   })
