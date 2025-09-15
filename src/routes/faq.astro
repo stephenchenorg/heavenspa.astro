@@ -1,6 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { t } from 'i18n:astro'
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
