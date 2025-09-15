@@ -143,3 +143,80 @@ export async function createTranslator(): Promise<NestedTranslator> {
   const translations = await loadTranslations(locale)
   return new NestedTranslator(translations)
 }
+
+// Vue 元件用的函數
+export type Locale = 'zh-TW' | 'en'
+export const locales: Locale[] = ['zh-TW', 'en']
+export const defaultLocale: Locale = 'zh-TW'
+
+// 獲取當前語系（瀏覽器環境）
+export function getCurrentLocale(): Locale {
+  if (typeof window === 'undefined') return defaultLocale
+
+  // 1. 檢查 URL 參數
+  const urlParams = new URLSearchParams(window.location.search)
+  const langParam = urlParams.get('lang')
+  if (langParam === 'zh-tw' || langParam === 'zh-TW') return 'zh-TW'
+  if (langParam === 'en') return 'en'
+
+  // 2. 檢查 cookies
+  const match = document.cookie.match(/(?:^|;\s*)locale=([^;]+)/)
+  if (match) {
+    if (match[1] === 'zh-tw' || match[1] === 'zh-TW') return 'zh-TW'
+    if (match[1] === 'en') return 'en'
+  }
+
+  // 3. 瀏覽器語言
+  const browserLang = navigator.language.toLowerCase()
+  if (browserLang.includes('zh')) return 'zh-TW'
+  if (browserLang.includes('en')) return 'en'
+
+  return defaultLocale
+}
+
+// 設置語系
+export function setLocale(locale: Locale): void {
+  if (typeof window === 'undefined') return
+
+  // 設定 cookie
+  const expires = new Date()
+  expires.setTime(expires.getTime() + (365 * 24 * 60 * 60 * 1000)) // 1年
+  const cookieString = `locale=${locale}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
+  document.cookie = cookieString
+
+  // 觸發自定義事件通知語言變更
+  window.dispatchEvent(new CustomEvent('localechange', { detail: locale }))
+}
+
+// 獲取語言顯示名稱
+export function getLocaleName(locale: Locale): string {
+  const names = {
+    'zh-TW': '繁體中文',
+    'en': 'English',
+  }
+  return names[locale]
+}
+
+// Vue 元件用的翻譯函數
+let translationsCache: { [key: string]: NestedTranslation } = {}
+
+export async function initTranslations() {
+  const locale = getCurrentLocale()
+  if (!translationsCache[locale]) {
+    translationsCache[locale] = await loadTranslations(locale)
+  }
+}
+
+export function t(key: string): string {
+  const locale = getCurrentLocale()
+  const translations = translationsCache[locale]
+
+  if (!translations) {
+    console.warn(`Translations not loaded for locale: ${locale}`)
+    return key
+  }
+
+  const path = key.split('.')
+  const value = getNestedValue(translations, path)
+  return typeof value === 'string' ? value : key
+}
