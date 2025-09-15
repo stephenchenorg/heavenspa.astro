@@ -77,72 +77,13 @@
           <span data-i18n="nav.services">{{ t('nav.services') }}</span>
         </h4>
         <ul class="space-y-3 grid grid-cols-1 md:gap-0">
-          <li>
-            <a
-              href="/about"
-              class="group flex items-center justify-start text-sm transition-all duration-300 hover:translate-x-1"
-              style="color: var(--theme-nav-text, #000000);"
-              @mouseover="$event.target.style.color = 'var(--color-primary-600, #c4a428)'"
-              @mouseout="$event.target.style.color = 'var(--theme-nav-text, #000000)'"
-            >
-              <span class="opacity-0 group-hover:opacity-100 w-0 group-hover:w-auto group-hover:mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0 overflow-hidden text-[var(--color-primary-600,#c4a428)]">→</span>
-              <span data-i18n="nav.about">{{ t('nav.about') }}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/services"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-            >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-              <span data-i18n="nav.services">{{ t('nav.services') }}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/team"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-            >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-              <span data-i18n="nav.team">{{ t('nav.team') }}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/news"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-            >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-              <span data-i18n="nav.news">{{ t('nav.news') }}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/faq"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-            >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-              <span data-i18n="nav.faq">{{ t('nav.faq') }}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/joinUs/careers"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-            >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-              <span data-i18n="nav.careers">{{ t('nav.careers') }}</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/business-partnership"
-              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-            >
-              <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-              <span data-i18n="nav.business_partnership">{{ t('nav.business_partnership') }}</span>
-            </a>
-          </li>
+          <FooterLink href="/about" :text="t('nav.about')" />
+          <FooterLink href="/services" :text="t('nav.services')" />
+          <FooterLink href="/team" :text="t('nav.team')" />
+          <FooterLink href="/news" :text="t('nav.news')" />
+          <FooterLink href="/faq" :text="t('nav.faq')" />
+          <FooterLink href="/joinUs/careers" :text="t('nav.careers')" />
+          <FooterLink href="/business-partnership" :text="t('nav.business_partnership')" />
         </ul>
       </div>
 
@@ -270,6 +211,7 @@
 <script setup lang="ts">
 import type { CompanySettingData } from '@/types'
 import { onMounted, onUnmounted, ref } from 'vue'
+import FooterLink from '@/components/ui/FooterLink.vue'
 import Clock from '@/components/icon/Clock.vue'
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
