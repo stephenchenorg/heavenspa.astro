@@ -1,9 +1,9 @@
 ---
 import type { CompanySettingData } from '@/types'
 import { t } from 'i18n:astro'
-
 // Icons from unplugin-icons
 import Clock from '@/components/icon/Clock.vue'
+
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
 import Facebook from '@/components/icon/Facebook.vue'
@@ -14,6 +14,7 @@ import Phone from '@/components/icon/Phone.vue'
 import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
+import { createAstroT } from '@/utils/astro-i18n'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']

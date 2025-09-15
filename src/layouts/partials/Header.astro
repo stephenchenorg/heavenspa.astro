@@ -1,7 +1,7 @@
 ---
 import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'
 import { t } from 'i18n:astro'
 
@@ -122,7 +122,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
   <!-- Action Div - 25% width on lg+, hidden below lg -->
   <div class="hidden lg:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
-    <LanguageSwitcher client:load />
+    <LanguageSwitcher />
     <ThemeController />
     <ButtonBooking size="sm" />
   </div>
@@ -203,7 +203,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
     </nav>
     <div class="px-6 py-4 border-t border-b mobile-language-section" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
       <div class="flex justify-center items-center gap-4 mobile-language">
-        <LanguageSwitcher client:load />
+        <LanguageSwitcher />
         <ThemeController />
         <ButtonBooking />
       </div>
