@@ -1,10 +1,10 @@
 ---
-import {seoMeta} from '@stephenchenorg/astro/page'
-import {getFaqList} from '@/api/faq'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import {createNestedT} from '@/utils/i18n'
+import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
@@ -42,9 +42,9 @@ interface FaqCategory {
 
 // 定義 FAQ 分類資料
 const faqCategories: FaqCategory[] = [
-  {id: FaqType.RESERVATION, title: t('faq.categories.reservation')},
-  {id: FaqType.SPA, title: t('faq.categories.spa')},
-  {id: FaqType.HAIR_REMOVAL, title: t('faq.categories.hair_removal')},
+  { id: FaqType.RESERVATION, title: t('faq.categories.reservation') },
+  { id: FaqType.SPA, title: t('faq.categories.spa') },
+  { id: FaqType.HAIR_REMOVAL, title: t('faq.categories.hair_removal') },
 ]
 
 // 獲取網址參數中的分類 ID
@@ -88,7 +88,7 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 <Layout meta={meta}>
   <main class="section-container pt-32 min-h-screen">
     <!-- 標題區 -->
-    <SectionTitle title={t('faq.title')} subtitle={t('faq.subtitle')}/>
+    <SectionTitle title={t('faq.title')} subtitle={t('faq.subtitle')} />
 
     <!-- Tab Navigation -->
     {faqCategories.length > 1 && (
@@ -122,7 +122,8 @@ if (selectedCategory && selectedCategoryData.length > 0) {
         <div class="max-w-md mx-auto">
           <div class="mb-6">
             <div
-              class="animate-spin mx-auto h-16 w-16 border-4 border-gray-200 border-t-4 border-t-blue-500 rounded-full"></div>
+              class="animate-spin mx-auto h-16 w-16 border-4 border-gray-200 border-t-4 border-t-blue-500 rounded-full"
+            ></div>
           </div>
           <p class="text-lg" style="color: var(--theme-text-secondary);">載入中...</p>
         </div>
@@ -131,7 +132,7 @@ if (selectedCategory && selectedCategoryData.length > 0) {
       <!-- FAQ 內容 -->
       <div id="faq-content">
         {Object.keys(faqData).length > 0 && Object.values(faqData).some(faqs => faqs.length > 0) ? (
-          <FAQ faqData={faqData}/>
+          <FAQ faqData={faqData} />
         ) : (
           <div class="text-center py-16">
             <div class="max-w-md mx-auto">
@@ -174,9 +175,9 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 <script>
   // FAQ categories data
   const faqCategories = [
-    {id: 10, title: '預約問題'},
-    {id: 20, title: 'Spa問題'},
-    {id: 30, title: '除毛服務'},
+    { id: 10, title: '預約問題' },
+    { id: 20, title: 'Spa問題' },
+    { id: 30, title: '除毛服務' },
   ]
 
   // Current selected category ID
