@@ -412,7 +412,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
     const content = dropdown?.querySelector('.dropdown-content')
 
     if (!dropdown || !button) {
-
+      return
     } else {
       // 點擊按鈕切換下拉選單
       button.addEventListener('click', e => {

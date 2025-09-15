@@ -1,16 +1,16 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getFaqList } from '@/api/faq'
+import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import FAQ from '@/components/FAQ.astro'
-import { getFaqList } from '@/api/faq'
 import { createAstroT } from '@/utils/astro-i18n'
 
 // 建立翻譯函式
 const t = createAstroT(Astro)
 
 const meta = seoMeta({
-  title: t('faq.title') + ' - Heaven Spa',
+  title: `${t('faq.title')} - Heaven Spa`,
   description: '查看 Heaven Spa 的常見問題解答，了解我們的服務、預約流程、政策等相關資訊。',
 })
 
@@ -31,7 +31,7 @@ enum FaqType {
   RESERVATION = 10,
   SPA = 20,
   HAIR_REMOVAL = 30,
-  RECRUITMENT = 40
+  RECRUITMENT = 40,
 }
 
 interface FaqCategory {
@@ -49,7 +49,7 @@ const faqCategories: FaqCategory[] = [
 // 獲取網址參數中的分類 ID
 const url = new URL(Astro.request.url)
 const categoryId = url.searchParams.get('category_id')
-const selectedCategoryId = categoryId ? parseInt(categoryId) : null
+const selectedCategoryId = categoryId ? Number.parseInt(categoryId) : null
 
 let selectedCategoryData: ApiFaqItem[] = []
 let selectedCategory: FaqCategory | null = null
@@ -79,7 +79,7 @@ if (selectedCategory && selectedCategoryData.length > 0) {
   faqData[selectedCategory.title] = selectedCategoryData.map((faq: ApiFaqItem) => ({
     id: `faq-${faq.id}`,
     question: faq.title,
-    answer: faq.content
+    answer: faq.content,
   }))
 }
 ---
@@ -93,7 +93,7 @@ if (selectedCategory && selectedCategoryData.length > 0) {
     {faqCategories.length > 1 && (
       <div class="w-full mb-8 px-4">
         <div class="max-w-4xl mx-auto">
-          <div 
+          <div
             class="overflow-x-auto scrollbar-hide"
             style=" border-radius: 12px; padding: 8px;"
           >
@@ -103,7 +103,7 @@ if (selectedCategory && selectedCategoryData.length > 0) {
                   type="button"
                   class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedCategory?.id === category.id ? 'active' : ''}`}
                   data-category-id={category.id}
-                  style={selectedCategory?.id === category.id ? "background-color: var(--color-primary-500); color: white;" : "background-color: var(--color-neutral-100); color: var(--theme-text);"}
+                  style={selectedCategory?.id === category.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
                 >
                   {category.title}
                 </button>
@@ -134,29 +134,29 @@ if (selectedCategory && selectedCategoryData.length > 0) {
           <div class="text-center py-16">
             <div class="max-w-md mx-auto">
               <div class="mb-6">
-                <svg 
-                  class="mx-auto h-16 w-16 opacity-30" 
+                <svg
+                  class="mx-auto h-16 w-16 opacity-30"
                   style="color: var(--theme-text-secondary);"
-                  fill="none" 
-                  stroke="currentColor" 
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round" 
-                    stroke-width="1.5" 
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
                     d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
                   />
                 </svg>
               </div>
-              <h3 
-                class="text-xl font-medium mb-2" 
+              <h3
+                class="text-xl font-medium mb-2"
                 style="color: var(--theme-text);"
               >
                 {t('faq.empty.title')}
               </h3>
-              <p 
-                class="text-sm leading-relaxed" 
+              <p
+                class="text-sm leading-relaxed"
                 style="color: var(--theme-text-secondary);"
               >
                 {t('faq.empty.description')}
@@ -170,17 +170,17 @@ if (selectedCategory && selectedCategoryData.length > 0) {
 </Layout>
 
 <script>
-  // FAQ 分類資料（傳遞到客戶端）
+  // FAQ categories data
   const faqCategories = [
     { id: 10, title: '預約問題' },
     { id: 20, title: 'Spa問題' },
     { id: 30, title: '除毛服務' },
   ]
 
-// 當前選中的分類 ID
+// Current selected category ID
 let currentCategoryId = new URLSearchParams(window.location.search).get('category_id') || '10'
 
-// 初始化事件監聽器
+// Initialize event listeners
 document.addEventListener('DOMContentLoaded', () => {
   const tabContainer = document.getElementById('faq-tabs')
   const faqContent = document.getElementById('faq-content')
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2 class="text-2xl font-bold mb-6" style="color: var(--theme-text);">${categoryTitle}</h2>
         ${faqData.map((faq: any) => `
           <div class="border border-gray-200 rounded-lg overflow-hidden">
-            <button 
+            <button
               class="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors duration-200 faq-question"
               onclick="toggleFaq(this)"
             >
@@ -326,17 +326,17 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="text-center py-16">
       <div class="max-w-md mx-auto">
         <div class="mb-6">
-          <svg 
-            class="mx-auto h-16 w-16 opacity-30" 
+          <svg
+            class="mx-auto h-16 w-16 opacity-30"
             style="color: var(--theme-text-secondary);"
-            fill="none" 
-            stroke="currentColor" 
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="1.5" 
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
               d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
             />
           </svg>
@@ -383,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <style>
-  <style>
   .tab-item {
     transition: all 0.3s ease;
     text-decoration: none !important;
@@ -422,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
       font-size: 14px;
       min-width: 80px;
     }
-    
+
     /* 小螢幕時內容靠左，方便滾動 */
     .flex.justify-center {
       justify-content: flex-start !important;
@@ -434,5 +433,4 @@ document.addEventListener('DOMContentLoaded', () => {
       padding: 10px 20px !important;
     }
   }
-</style>
 </style>
