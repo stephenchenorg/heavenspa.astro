@@ -11,16 +11,19 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue'
+import { computed } from 'vue'
+import { createNestedT } from '@/utils/i18n'
+
+const props = withDefaults(defineProps<Props>(), {
+  size: 'md',
+})
+
+const t = await createNestedT()
 
 // Vue component for booking button with single size prop and theme awareness
 interface Props {
   size?: 'sm' | 'md' | 'lg'
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  size: 'md',
-})
 
 // Responsive size configurations - one size prop controls all breakpoints
 const sizeConfigs = {
