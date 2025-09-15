@@ -12,11 +12,11 @@ const {
 } = Astro.props
 ---
 
-<div class={`mb-12 text-left max-w-7xl mx-auto w-full ${className}`}>
-  <h2 class="mb-2 lg:text-[3rem] md:text-[2.5rem] text-[2rem] font-light lg:tracking-[4px] md:tracking-[3px] tracking-[2px] text-[var(--theme-text,#000000)]">
+<div class={`text-left max-w-7xl mx-auto w-full py-8 mb-12 ${className}`}>
+  <h2 class="mb-4 lg:text-[3rem] md:text-[2.5rem] text-[2rem] font-light lg:tracking-[4px] md:tracking-[3px] tracking-[2px] text-[var(--theme-text,#000000)] lg:leading-[3.2rem] md:leading-[2.8rem] leading-[2.2rem]">
     {title}
   </h2>
-  <h3 class="lg:text-2xl md:text-xl text-base font-normal tracking-[2px] uppercase mb-4 text-[var(--theme-text-secondary,#666666)]">
+  <h3 class="lg:text-2xl md:text-xl text-base font-normal tracking-[2px] uppercase text-[var(--theme-text-secondary,#666666)]">
     {subtitle}
   </h3>
 </div>
