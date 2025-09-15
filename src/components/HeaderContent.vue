@@ -10,16 +10,16 @@
         :src="companySetting.logo"
         :alt="companySetting.name || 'Logo'"
         class="h-10 w-auto sm:h-12 transition-transform duration-300 group-hover:scale-105"
-      />
+      >
       <span v-else class="text-xl font-bold">{{ companySetting?.name }}</span>
     </a>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getCurrentLocale } from '@/utils/i18n'
 import type { CompanySettingData } from '@/types'
+import { onMounted, ref } from 'vue'
+import { getCurrentLocale } from '@/utils/i18n'
 
 const companySetting = ref<CompanySettingData | null>(null)
 

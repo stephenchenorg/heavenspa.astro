@@ -352,7 +352,7 @@ export const translations = {
     careers: {
       title: 'Recruitment',
       subtitle: 'Contact Us',
-      headline: "Don't hesitate to contact us.",
+      headline: 'Don\'t hesitate to contact us.',
       description: 'Recruiting oil pressure spa partners (no experience required, experience preferred)',
       requirements: {
         freedom: 'If you love freedom and enjoy life',
@@ -514,8 +514,8 @@ export function setLocale(locale: Locale): void {
   document.cookie = cookieString
 
   // 強制重新檢查 cookie 是否設定成功（用於調試）
-  console.log('Language set to:', locale)
-  console.log('Cookie set:', document.cookie.includes(`locale=${locale}`))
+  console.warn('Language set to:', locale)
+  console.warn('Cookie set:', document.cookie.includes(`locale=${locale}`))
 
   // 觸發自定義事件通知語言變更
   window.dispatchEvent(new CustomEvent('localechange', { detail: locale }))

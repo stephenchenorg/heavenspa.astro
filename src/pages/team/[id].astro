@@ -1,9 +1,9 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
-import Schedule from '@/components/ui/Schedule.astro'
-import { getTeamMember } from '@/api/teams'
 import type { TeamMember } from '@/types'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getTeamMember } from '@/api/teams'
+import Schedule from '@/components/ui/Schedule.astro'
+import Layout from '@/layouts/Layout.astro'
 import { createAstroT } from '@/utils/astro-i18n'
 
 // 建立翻譯函式
@@ -63,7 +63,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
                 aria-label="上一張"
               >
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path d="M15 18l-6-6 6-6"/>
+                  <path d="M15 18l-6-6 6-6" />
                 </svg>
               </button>
               <button
@@ -73,7 +73,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
                 aria-label="下一張"
               >
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path d="M9 18l6-6-6-6"/>
+                  <path d="M9 18l6-6-6-6" />
                 </svg>
               </button>
           )}
@@ -111,7 +111,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
             {validImages.map((img, idx) => (
               <img
                 src={img.image?.desktop}
-                alt={`${t('team.thumbnail')}${idx+1}`}
+                alt={`${t('team.thumbnail')}${idx + 1}`}
                 class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm ${
                   idx === 0
                     ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
@@ -142,7 +142,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
           <div>
             <h4 class="text-lg font-semibold mb-4 text-[var(--theme-text,#1f2937)] flex items-center gap-2">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               {t('team.schedule')}
             </h4>
@@ -151,14 +151,15 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
 
           <!-- 個人資訊 -->
           {(teamMember.height || teamMember.weight || teamMember.years || teamMember.age) && (
+            <>
               <!-- 分隔線 -->
               <div class="border-t border-[var(--theme-border,#e5e7eb)]"></div>
 
               <div>
                 <h4 class="text-lg font-semibold mb-4 text-[var(--theme-text,#1f2937)] flex items-center gap-2">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
                   </svg>
                   {t('team.personalInfo')}
                 </h4>
@@ -189,6 +190,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
                   )}
                 </div>
               </div>
+            </>
           )}
 
           <!-- 分隔線 -->
@@ -198,7 +200,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
           <div>
             <h4 class="text-lg font-semibold mb-4 text-[var(--theme-text,#1f2937)] flex items-center gap-2">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
               {t('team.introduction')}
             </h4>
@@ -225,7 +227,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
           class="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
         >
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M18 6L6 18M6 6l12 12"/>
+            <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
         <img
@@ -249,128 +251,128 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
 
   <!-- 燈箱和輪播功能 JavaScript -->
   {validImages.length > 0 && (
-    <script type="module" is:inline define:vars={{teamImages: validImages.map(img => img.image?.desktop).filter(Boolean), allImages: validImages}}>
+    <script type="module" is:inline define:vars={{ teamImages: validImages.map(img => img.image?.desktop).filter(Boolean), allImages: validImages }}>
       document.addEventListener('DOMContentLoaded', () => {
-        let currentIndex = 0;
-        let lightboxIndex = 0;
-        const imgElement = document.getElementById('carousel-img');
-        const dotElements = document.querySelectorAll('#carousel-dots button');
-        const thumbElements = document.querySelectorAll('#carousel-thumbs img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxDots = document.querySelectorAll('#lightbox-dots button');
+        let currentIndex = 0
+  let lightboxIndex = 0
+  const imgElement = document.getElementById('carousel-img')
+  const dotElements = document.querySelectorAll('#carousel-dots button')
+  const thumbElements = document.querySelectorAll('#carousel-thumbs img')
+  const lightbox = document.getElementById('lightbox')
+  const lightboxImg = document.getElementById('lightbox-img')
+  const lightboxDots = document.querySelectorAll('#lightbox-dots button')
 
-        // 輪播功能
-        function updateCarousel() {
+  // 輪播功能
+  function updateCarousel() {
           if (imgElement && teamImages[currentIndex]) {
-            imgElement.src = teamImages[currentIndex];
-            imgElement.alt = `作品圖${currentIndex + 1}`;
-          }
+            imgElement.src = teamImages[currentIndex]
+      imgElement.alt = `作品圖${currentIndex + 1}`
+    }
 
           // 更新指示點
           dotElements.forEach((dot, index) => {
             if (index === currentIndex) {
-              dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-200 bg-[var(--color-primary-500,#3b82f6)] shadow-lg';
-            } else {
-              dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-200 bg-[var(--theme-card-bg,#ffffff)]/60 hover:bg-[var(--theme-card-bg,#ffffff)]/80';
-            }
-          });
+              dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-200 bg-[var(--color-primary-500,#3b82f6)] shadow-lg'
+      } else {
+              dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-200 bg-[var(--theme-card-bg,#ffffff)]/60 hover:bg-[var(--theme-card-bg,#ffffff)]/80'
+      }
+          })
 
-          // 更新縮圖
-          thumbElements.forEach((thumb, index) => {
+    // 更新縮圖
+    thumbElements.forEach((thumb, index) => {
             if (index === currentIndex) {
-              thumb.className = 'w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]';
-            } else {
-              thumb.className = 'w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md';
-            }
-          });
-        }
+              thumb.className = 'w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
+      } else {
+              thumb.className = 'w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
+      }
+          })
+  }
 
         // 燈箱功能
         function updateLightbox() {
           if (lightboxImg && allImages[lightboxIndex]) {
-            lightboxImg.src = allImages[lightboxIndex].image?.desktop || allImages[lightboxIndex].image?.mobile;
-            lightboxImg.alt = `作品 ${lightboxIndex + 1}`;
-          }
+            lightboxImg.src = allImages[lightboxIndex].image?.desktop || allImages[lightboxIndex].image?.mobile
+      lightboxImg.alt = `作品 ${lightboxIndex + 1}`
+    }
 
           // 更新燈箱指示點
           lightboxDots.forEach((dot, index) => {
             if (index === lightboxIndex) {
-              dot.className = 'w-3 h-3 rounded-full bg-white transition-all duration-200';
-            } else {
-              dot.className = 'w-3 h-3 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-200';
-            }
-          });
-        }
+              dot.className = 'w-3 h-3 rounded-full bg-white transition-all duration-200'
+      } else {
+              dot.className = 'w-3 h-3 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-200'
+      }
+          })
+  }
 
         // 全域函式
         window.carouselPrev = () => {
-          currentIndex = (currentIndex - 1 + teamImages.length) % teamImages.length;
-          updateCarousel();
-        };
+          currentIndex = (currentIndex - 1 + teamImages.length) % teamImages.length
+    updateCarousel()
+  }
 
-        window.carouselNext = () => {
-          currentIndex = (currentIndex + 1) % teamImages.length;
-          updateCarousel();
-        };
+      window.carouselNext = () => {
+          currentIndex = (currentIndex + 1) % teamImages.length
+    updateCarousel()
+  }
 
-        window.carouselThumb = (index) => {
-          currentIndex = index;
-          updateCarousel();
-        };
+      window.carouselThumb = index => {
+          currentIndex = index
+    updateCarousel()
+  }
 
-        window.openLightbox = (index) => {
-          lightboxIndex = index;
-          lightbox.classList.remove('hidden');
-          lightbox.classList.add('flex');
-          updateLightbox();
-          document.body.style.overflow = 'hidden';
-        };
+      window.openLightbox = index => {
+          lightboxIndex = index
+    lightbox.classList.remove('hidden')
+    lightbox.classList.add('flex')
+    updateLightbox()
+    document.body.style.overflow = 'hidden'
+  }
 
-        window.closeLightbox = () => {
-          lightbox.classList.add('hidden');
-          lightbox.classList.remove('flex');
-          document.body.style.overflow = 'auto';
-        };
+      window.closeLightbox = () => {
+          lightbox.classList.add('hidden')
+    lightbox.classList.remove('flex')
+    document.body.style.overflow = 'auto'
+  }
 
-        window.showLightboxImage = (index) => {
-          lightboxIndex = index;
-          updateLightbox();
-        };
+      window.showLightboxImage = index => {
+          lightboxIndex = index
+    updateLightbox()
+  }
 
-        // 鍵盤控制
-        document.addEventListener('keydown', (e) => {
+      // 鍵盤控制
+      document.addEventListener('keydown', e => {
           if (lightbox.classList.contains('flex')) {
             if (e.key === 'Escape') {
-              window.closeLightbox();
-            } else if (e.key === 'ArrowLeft') {
-              lightboxIndex = (lightboxIndex - 1 + allImages.length) % allImages.length;
-              updateLightbox();
-            } else if (e.key === 'ArrowRight') {
-              lightboxIndex = (lightboxIndex + 1) % allImages.length;
-              updateLightbox();
-            }
+              window.closeLightbox()
+      } else if (e.key === 'ArrowLeft') {
+              lightboxIndex = (lightboxIndex - 1 + allImages.length) % allImages.length
+        updateLightbox()
+      } else if (e.key === 'ArrowRight') {
+              lightboxIndex = (lightboxIndex + 1) % allImages.length
+        updateLightbox()
+      }
           }
-        });
+        })
 
-        // 點擊背景關閉燈箱
-        lightbox?.addEventListener('click', (e) => {
+  // 點擊背景關閉燈箱
+  lightbox?.addEventListener('click', e => {
           if (e.target === lightbox) {
-            window.closeLightbox();
-          }
-        });
+            window.closeLightbox()
+    }
+        })
 
-        // 初始化
-        if (teamImages.length > 1) {
-          updateCarousel();
-          
-          // 自動輪播（可選）
-          setInterval(() => {
-            currentIndex = (currentIndex + 1) % teamImages.length;
-            updateCarousel();
-          }, 5000);
-        }
-      });
-    </script>
+  // 初始化
+  if (teamImages.length > 1) {
+          updateCarousel()
+
+    // 自動輪播（可選）
+    setInterval(() => {
+            currentIndex = (currentIndex + 1) % teamImages.length
+      updateCarousel()
+    }, 5000)
+  }
+      })
+  </script>
   )}
 </Layout>

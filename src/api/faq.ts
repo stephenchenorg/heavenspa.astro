@@ -1,8 +1,8 @@
 import { gql, graphQLAPI } from '@/api/index'
 
 // 使用 Map 來存儲不同語言的快取
-let faqCache = new Map<string, any>()
-let categoryCache = new Map<string, any>()
+const faqCache = new Map<string, any>()
+const categoryCache = new Map<string, any>()
 
 export async function getFaqCategories(lang?: string) {
   const cacheKey = lang || 'default'
@@ -22,10 +22,10 @@ export async function getFaqCategories(lang?: string) {
     }
   `, {
     variables: {
-      sortBy: "asc",
-      sortColumn: "sort"
+      sortBy: 'asc',
+      sortColumn: 'sort',
     },
-    locale: lang
+    locale: lang,
   })
 
   const categories = res.faqCategories?.data || []
@@ -54,10 +54,10 @@ export async function getFaqList(type = 10, lang?: string) {
   `, {
     variables: {
       type,
-      sortBy: "asc",
-      sortColumn: "sort"
+      sortBy: 'asc',
+      sortColumn: 'sort',
     },
-    locale: lang
+    locale: lang,
   })
 
   const faqList = res.faqs?.data || []

@@ -30,7 +30,7 @@ const { courses: coursesProp } = Astro.props
 const t = createAstroT(Astro)
 
 // 使用傳入的課程資料或預設資料
-let courses: Course[] = coursesProp?.data || [
+const courses: Course[] = coursesProp?.data || [
 ]
 ---
 
@@ -71,8 +71,10 @@ let courses: Course[] = coursesProp?.data || [
                     <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide" data-course-title>
                       {course.title}
                     </h3>
-                    <p class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed"
-                       data-course-subtitle>
+                    <p
+                      class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed"
+                      data-course-subtitle
+                    >
                       {course.subtitle}
                     </p>
 

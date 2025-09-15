@@ -13,14 +13,14 @@
 
 <script setup lang="ts">
 interface Props {
-  size?: string | number;
-  className?: string;
+  size?: string | number
+  className?: string
 }
 
 withDefaults(defineProps<Props>(), {
   size: 18,
-  className: ''
-});
+  className: '',
+})
 </script>
 
 <style scoped>

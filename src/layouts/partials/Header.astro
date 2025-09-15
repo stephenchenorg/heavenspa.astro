@@ -1,10 +1,10 @@
 ---
 import type { CompanySettingData } from '@/types'
+import ButtonBooking from '@/components/ButtonBooking.vue'
+import HeaderContent from '@/components/HeaderContent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import ThemeController from '@/components/ThemeController.astro'
-import HeaderContent from '@/components/HeaderContent.vue'
 import { createAstroT } from '@/utils/astro-i18n'
-import ButtonBooking from '@/components/ButtonBooking.vue'
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
@@ -20,7 +20,7 @@ const t = createAstroT(Astro)
 
 // 獲取當前路徑並判斷哪個導航項目為 active
 const currentPath = Astro.url.pathname
-const isActive = (path: string) => {
+function isActive(path: string) {
   if (path === '/') return currentPath === '/'
   return currentPath.startsWith(path)
 }
@@ -44,7 +44,6 @@ const isCareersActive = currentPath.startsWith('/joinUs')
   <div class="nav-logo lg:w-1/4 lg:flex-shrink-0">
     <!-- 使用動態 Vue 組件處理 Logo -->
     <HeaderContent client:load />
-    </a>
   </div>
 
   <!-- Link - 50% width on lg+, hidden below lg -->
@@ -112,7 +111,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
   <div class="hidden lg:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
     <LanguageSwitcher client:load />
     <ThemeController />
-    <ButtonBooking size="sm"/>
+    <ButtonBooking size="sm" />
   </div>
 </nav>
 
@@ -415,9 +414,8 @@ const isCareersActive = currentPath.startsWith('/joinUs')
     if (!dropdown || !button) {
 
     } else {
-
       // 點擊按鈕切換下拉選單
-      button.addEventListener('click', (e) => {
+      button.addEventListener('click', e => {
         e.preventDefault()
         e.stopPropagation()
 
@@ -497,7 +495,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       })
 
       // 點擊其他地方關閉下拉選單
-      document.addEventListener('click', (e) => {
+      document.addEventListener('click', e => {
         // 如果點擊在下拉選單外面，才關閉選單
         if (!dropdown.contains(e.target as Node)) {
           dropdown.classList.remove('active')
@@ -532,7 +530,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       })
 
       // ESC 鍵關閉下拉選單
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
           dropdown.classList.remove('active')
 
@@ -554,7 +552,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       const icon = toggle.querySelector('.mobile-dropdown-icon') as HTMLElement
 
       if (submenu && icon) {
-        toggle.addEventListener('click', (e) => {
+        toggle.addEventListener('click', e => {
           e.preventDefault()
           e.stopPropagation()
 
@@ -566,7 +564,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
             icon.style.transform = 'rotate(0deg)'
           } else {
             // 展開子選單
-            submenu.style.maxHeight = submenu.scrollHeight + 'px'
+            submenu.style.maxHeight = `${submenu.scrollHeight}px`
             icon.style.transform = 'rotate(180deg)'
           }
         })

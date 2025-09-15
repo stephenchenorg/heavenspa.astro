@@ -11,11 +11,11 @@ const props = defineProps({
     default: null,
   },
 })
-console.log('22223123123')
+console.warn('22223123123')
 const element = ref(null)
-console.log(element.value, '2222')
+console.warn(element.value, '2222')
 onMounted(() => {
-  console.log(element.value, '2222')
+  console.warn(element.value, '2222')
   if (!element.value) return
 
   const shadowHost = computed(

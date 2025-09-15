@@ -19,13 +19,13 @@ export interface Props {
 
 const { banners } = Astro.props
 const t = createAstroT(Astro)
-console.log('=== HeroBanner Debug ===')
-console.log('banners prop:', banners)
-console.log('banners type:', typeof banners)
-console.log('banners length:', banners?.length)
-console.log('first banner:', banners?.[0])
-console.log('first banner image:', banners?.[0]?.image)
-console.log('desktop image:', banners?.[0]?.image?.desktop)
+console.warn('=== HeroBanner Debug ===')
+console.warn('banners prop:', banners)
+console.warn('banners type:', typeof banners)
+console.warn('banners length:', banners?.length)
+console.warn('first banner:', banners?.[0])
+console.warn('first banner image:', banners?.[0]?.image)
+console.warn('desktop image:', banners?.[0]?.image?.desktop)
 
 const circleText = t('hero.scroll')
 const chars = circleText.split('')

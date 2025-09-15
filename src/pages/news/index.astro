@@ -1,8 +1,8 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { gql, graphQLAPI } from '@/api'
 import Layout from '@/layouts/Layout.astro'
-import {gql, graphQLAPI} from '@/api'
-import SectionTitle from "../../components/ui/SectionTitle.astro";
+import SectionTitle from '../../components/ui/SectionTitle.astro'
 
 export interface Article {
   id?: number
@@ -80,14 +80,12 @@ const meta = seoMeta({
   description: '了解 Heaven Spa 的最新消息、促銷活動和健康資訊，掌握最新動態，享受專屬優惠。',
 })
 
-
 ---
 
 <Layout meta={meta}>
   <main class="section-container pt-32 min-h-screen">
     <!-- 標題區 -->
     <SectionTitle title="最新消息" subtitle="NEWS" />
-
 
     <div class="max-w-6xl mx-auto w-full">
 
@@ -109,14 +107,16 @@ const meta = seoMeta({
 
       <!-- 新聞網格 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
-        {articles.slice(0, 12).map((article) => (
+        {articles.slice(0, 12).map(article => (
           <div class="group cursor-pointer transition-all duration-300 hover:-translate-y-2 relative backdrop-blur-sm rounded-lg overflow-hidden border shadow-sm hover:shadow-lg w-full" style="background-color: var(--theme-card-bg); border-color: var(--theme-border);">
             <a href={`/news/${article.id}`} class="block">
               <!-- 上半部：封面圖 -->
               <div class="relative w-full h-60 overflow-hidden">
                 <!-- Background Image -->
-                <div class="absolute inset-0 bg-cover bg-center"
-                     style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}>
+                <div
+                  class="absolute inset-0 bg-cover bg-center"
+                  style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}
+                >
                 </div>
                 <!-- Base Overlay for better text readability -->
                 <div class="absolute inset-0 bg-black/20"></div>
@@ -145,11 +145,11 @@ const meta = seoMeta({
                 <!-- Content Summary -->
                 <div class="text-sm leading-relaxed line-clamp-3 min-h-[3.6rem] transition-colors duration-300" style="color: var(--theme-text-secondary);">
                   {(() => {
-                    if (!article.content) return '暫無內容摘要...';
+                    if (!article.content) return '暫無內容摘要...'
                     // 移除 HTML 標籤
-                    const textContent = article.content.replace(/<[^>]*>/g, '');
+                    const textContent = article.content.replace(/<[^>]*>/g, '')
                     // 截取前50個字
-                    return textContent.length > 50 ? textContent.substring(0, 50) + '...' : textContent;
+                    return textContent.length > 50 ? `${textContent.substring(0, 50)}...` : textContent
                   })()}
                 </div>
 
@@ -174,11 +174,12 @@ const meta = seoMeta({
       <!-- 分頁器 -->
       <div class="flex justify-center items-center space-x-2">
         {Array.from({ length: Math.ceil(articles.length / 12) }, (_, i) => (
-          <button class="px-3 py-2 rounded-lg border transition-all duration-300"
-                  style={i === 0
-                    ? "background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;"
-                    : "border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);"
-                  }>
+          <button
+            class="px-3 py-2 rounded-lg border transition-all duration-300"
+            style={i === 0
+                    ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                    : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+          >
             {i + 1}
           </button>
         ))}
@@ -194,7 +195,7 @@ const meta = seoMeta({
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    
+
     .line-clamp-3 {
       display: -webkit-box;
       -webkit-line-clamp: 3;

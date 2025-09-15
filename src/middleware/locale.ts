@@ -1,5 +1,5 @@
-import { defineMiddleware } from 'astro:middleware'
 import type { Locale } from '@/utils/i18n'
+import { defineMiddleware } from 'astro:middleware'
 import { defaultLocale } from '@/utils/i18n'
 
 export const locale = defineMiddleware(async (context, next) => {
@@ -12,19 +12,19 @@ export const locale = defineMiddleware(async (context, next) => {
   // 1. URL 參數有最高優先級
   if (langParam && (langParam === 'zh-tw' || langParam === 'en')) {
     locale = langParam as Locale
-    context.cookies.set('locale', locale, { 
-      path: '/', 
+    context.cookies.set('locale', locale, {
+      path: '/',
       httpOnly: false, // 允許客戶端 JavaScript 讀取
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 365 // 1年
+      maxAge: 60 * 60 * 24 * 365, // 1年
     })
-    console.log('Locale middleware - 從 URL 參數設定語言:', locale)
+    console.warn('Locale middleware - 從 URL 參數設定語言:', locale)
   } else {
     // 2. 從 cookies 獲取
     const cookieLocale = context.cookies.get('locale')?.value as Locale
     if (cookieLocale && (cookieLocale === 'zh-tw' || cookieLocale === 'en')) {
       locale = cookieLocale
-      console.log('Locale middleware - 從 cookie 獲取語言:', locale)
+      console.warn('Locale middleware - 從 cookie 獲取語言:', locale)
     } else {
       // 3. 從 Accept-Language 標頭獲取
       const acceptLanguage = context.request.headers.get('accept-language')
@@ -44,14 +44,14 @@ export const locale = defineMiddleware(async (context, next) => {
           }
         }
       }
-      console.log('Locale middleware - 從瀏覽器語言設定:', locale)
+      console.warn('Locale middleware - 從瀏覽器語言設定:', locale)
     }
   }
 
   // 設定到 context.locals 供其他地方使用
   context.locals.locale = locale
 
-  console.log('Locale middleware - 最終語言設定:', locale)
+  console.warn('Locale middleware - 最終語言設定:', locale)
 
   const response = await next()
 

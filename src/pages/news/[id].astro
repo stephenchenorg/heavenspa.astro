@@ -1,7 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { gql, graphQLAPI } from '@/api'
 import Layout from '@/layouts/Layout.astro'
-import {gql, graphQLAPI} from '@/api'
 
 export interface Article {
   id?: number
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
   let articles: Article[] = []
 
   try {
-    console.log('Fetching articles data from API...')
+    console.warn('Fetching articles data from API...')
     const articlesData: ArticlesResponse = await graphQLAPI(gql`
       query MyQuery {
         articles{
@@ -75,16 +75,16 @@ export async function getStaticPaths() {
     articles = []
   }
 
-  const paths = articles.map((article) => {
+  const paths = articles.map(article => {
     const pathId = article.id!.toString()
-    console.log(`Creating path for article ID: ${pathId}`)
+    console.warn(`Creating path for article ID: ${pathId}`)
     return {
       params: { id: pathId },
-      props: { article }
+      props: { article },
     }
   })
 
-  console.log('All generated paths:', paths.map(p => p.params.id))
+  console.warn('All generated paths:', paths.map(p => p.params.id))
   return paths
 }
 
@@ -113,8 +113,8 @@ const meta = seoMeta({
     <section class="relative h-96 md:h-[500px] lg:h-[600px] overflow-hidden">
       <!-- Background Image -->
       <div class="absolute inset-0">
-        <img 
-          src={currentArticle.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'} 
+        <img
+          src={currentArticle.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
           alt={currentArticle.title}
           class="w-full h-full object-cover"
         />
@@ -177,8 +177,11 @@ const meta = seoMeta({
         <!-- Back to News Button -->
         <div class="mt-12 pt-8 border-t" style="border-color: var(--theme-border);">
           <div class="flex justify-center">
-            <a href="/news"
-               class="inline-flex items-center space-x-2 transition-colors duration-300 group px-6 py-3 text-white rounded-lg shadow-sm font-medium" style="background-color: var(--color-primary-500);">
+            <a
+              href="/news"
+              class="inline-flex items-center space-x-2 transition-colors duration-300 group px-6 py-3 text-white rounded-lg shadow-sm font-medium"
+              style="background-color: var(--color-primary-500);"
+            >
               <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
               </svg>
@@ -193,58 +196,58 @@ const meta = seoMeta({
 
 <script>
   // 監聽主題變化事件
-  document.addEventListener('themeChanged', (event) => {
-    updateArticleContent((event as CustomEvent).detail.theme);
-  });
+  document.addEventListener('themeChanged', event => {
+    updateArticleContent((event as CustomEvent).detail.theme)
+})
 
   // 頁面加載時也執行一次
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-      const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-      updateArticleContent(currentTheme);
-    }, 100);
-  });
+      const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light'
+    updateArticleContent(currentTheme)
+  }, 100)
+})
 
   function updateArticleContent(theme: string) {
-    const articleContent = document.getElementById('article-content');
-    const articleWrapper = document.getElementById('article-wrapper');
-    if (!articleContent) return;
+    const articleContent = document.getElementById('article-content')
+  const articleWrapper = document.getElementById('article-wrapper')
+  if (!articleContent) return
 
-    // 設定文章區塊背景色
-    if (articleWrapper) {
+  // 設定文章區塊背景色
+  if (articleWrapper) {
       if (theme === 'dark') {
-        articleWrapper.style.backgroundColor = 'var(--theme-bg)';
-      } else {
-        articleWrapper.style.backgroundColor = 'var(--theme-bg)';
-      }
+        articleWrapper.style.backgroundColor = 'var(--theme-bg)'
+    } else {
+        articleWrapper.style.backgroundColor = 'var(--theme-bg)'
+    }
     }
 
     // 獲取文章內容中的所有元素
-    const elements = articleContent.querySelectorAll('*');
+    const elements = articleContent.querySelectorAll('*')
 
-    elements.forEach(element => {
+  elements.forEach(element => {
       // 檢查原始 HTML 中是否有內聯顏色設定
-      const originalStyle = element.getAttribute('style') || '';
-      const hasOriginalColor = originalStyle.includes('color:');
+      const originalStyle = element.getAttribute('style') || ''
+    const hasOriginalColor = originalStyle.includes('color:')
 
-      // 處理背景色
-      if (originalStyle.includes('background')) {
+    // 處理背景色
+    if (originalStyle.includes('background')) {
         if (theme === 'dark') {
           // 黑夜模式：將白色背景替換為黑色
           if (originalStyle.includes('rgb(255, 255, 255)') || originalStyle.includes('#ffffff') || originalStyle.includes('white')) {
             const newStyle = originalStyle
               .replace(/background:[^;]*rgb\(255,\s*255,\s*255\)[^;]*/gi, 'background: rgb(0, 0, 0)')
-              .replace(/background:[^;]*#ffffff[^;]*/gi, 'background: #000000');
-            element.setAttribute('style', newStyle);
-          }
+              .replace(/background:[^;]*#ffffff[^;]*/gi, 'background: #000000')
+          element.setAttribute('style', newStyle)
+        }
         } else {
           // 白天模式：將黑色背景替換為白色
           if (originalStyle.includes('rgb(0, 0, 0)') || originalStyle.includes('#000000') || originalStyle.includes('black')) {
             const newStyle = originalStyle
               .replace(/background:[^;]*rgb\(0,\s*0,\s*0\)[^;]*/gi, 'background: rgb(255, 255, 255)')
-              .replace(/background:[^;]*#000000[^;]*/gi, 'background: #ffffff');
-            element.setAttribute('style', newStyle);
-          }
+              .replace(/background:[^;]*#000000[^;]*/gi, 'background: #ffffff')
+          element.setAttribute('style', newStyle)
+        }
         }
       }
 
@@ -252,14 +255,13 @@ const meta = seoMeta({
       if (!hasOriginalColor) {
         if (theme === 'dark') {
           // 黑夜模式設為白色
-          (element as HTMLElement).style.color = '#ffffff';
-        } else {
+          (element as HTMLElement).style.color = '#ffffff'
+      } else {
           // 白天模式設為黑色
-          (element as HTMLElement).style.color = '#000000';
-        }
+          (element as HTMLElement).style.color = '#000000'
+      }
       }
       // 原始 HTML 中有設定顏色的元素完全不改變
-    });
-  }
+    })
+}
 </script>
-

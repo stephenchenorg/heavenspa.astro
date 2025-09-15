@@ -1,11 +1,11 @@
 ---
 import type { PageMeta } from '@stephenchenorg/astro/page'
+import { getCompanySetting } from '@/api/companySetting'
+import { setRequestLocals } from '@/api/index'
+import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
-import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
-import { getCompanySetting } from '@/api/companySetting'
-import { setRequestLocals } from '@/api/index'
 
 // middleware 已經設定了 Astro.locals.locale
 setRequestLocals(Astro.locals)
@@ -48,15 +48,15 @@ const {
     // 檢查 URL 是否包含 lang 參數
     const url = new URL(window.location.href)
     const hasLangParam = url.searchParams.has('lang')
-    
+
     if (hasLangParam) {
       // 移除 lang 參數
       url.searchParams.delete('lang')
-      
+
       // 使用 history.replaceState 更新 URL，不會觸發頁面重新載入
       window.history.replaceState({}, '', url.toString())
-      
-      console.log('語系參數已從 URL 中清理')
+
+      console.warn('語系參數已從 URL 中清理')
     }
   </script>
 </BaseLayout>

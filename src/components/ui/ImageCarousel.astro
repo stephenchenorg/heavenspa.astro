@@ -10,7 +10,7 @@ export interface Props {
 const {
   member,
   uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2, 11)}`,
-  containerClass = "carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden"
+  containerClass = 'carousel-container relative w-full h-full overflow-hidden backface-visibility-hidden',
 } = Astro.props
 ---
 
@@ -67,7 +67,7 @@ const {
     carouselContainers.forEach(container => {
       const slides = container.querySelectorAll('.carousel-slide')
       const dots = container.querySelectorAll('.carousel-dot')
-      
+
       // 如果只有一張圖片，不需要輪播
       if (slides.length <= 1) return
 

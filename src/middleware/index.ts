@@ -6,7 +6,7 @@ import { originCheck } from './originCheck'
 
 export const onRequest = sequence(
   originCheck,
-  locale,  // 在 guest 和 auth 之前處理語言
+  locale, // 在 guest 和 auth 之前處理語言
   guest,
   auth,
 )

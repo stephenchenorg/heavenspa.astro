@@ -1,6 +1,6 @@
 ---
-import Badge from './Badge.astro'
 import type { TeamMember } from '@/types'
+import Badge from './Badge.astro'
 
 export interface Props {
   member: TeamMember
@@ -19,7 +19,7 @@ const {
   showRating = false,
   cardClass = 'p-4 group cursor-pointer w-full h-120',
   imageClass = 'carousel-container w-full h-64 relative overflow-hidden',
-  onClick
+  onClick,
 } = Astro.props
 
 const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2, 11)}`
@@ -68,7 +68,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
     <!-- Badge 標籤 (可選) -->
     {showBadges && (
       <div class="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-        <Badge title={member.job || '成員'} variant="primary" size="small"/>
+        <Badge title={member.job || '成員'} variant="primary" size="small" />
       </div>
     )}
 
@@ -115,7 +115,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
     carouselContainers.forEach(container => {
       const slides = container.querySelectorAll('.carousel-slide')
       const dots = container.querySelectorAll('.carousel-dot')
-      
+
       // 如果只有一張圖片，不需要輪播
       if (slides.length <= 1) return
 
@@ -175,7 +175,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
 
       // 指示器點擊事件
       dots.forEach((dot, index) => {
-        dot.addEventListener('click', (e) => {
+        dot.addEventListener('click', e => {
           e.stopPropagation()
           currentSlide = index
           showSlide(currentSlide)
@@ -199,7 +199,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
         stopAutoSlide()
       })
 
-      container.addEventListener('touchmove', (e) => {
+      container.addEventListener('touchmove', e => {
         if (!isDragging) return
         e.preventDefault()
       })
@@ -229,7 +229,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
       container.addEventListener('click', (e: Event) => {
         // 如果點擊的是指示器，則不執行切換
         if (e.target && (e.target as HTMLElement).classList.contains('carousel-dot')) return
-        
+
         nextSlide()
         stopAutoSlide()
         startAutoSlide()
@@ -237,7 +237,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
 
       // 初始化顯示第一張幻燈片
       showSlide(0)
-      
+
       // 開始自動輪播
       startAutoSlide()
     })
@@ -271,7 +271,7 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
     .group:hover {
       transform: translateY(-4px);
     }
-    
+
     .carousel-dots {
       bottom: 8px !important;
     }

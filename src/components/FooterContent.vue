@@ -2,23 +2,29 @@
   <div class="gap-4 grid md:grid-cols-1 grid-cols-2">
     <div class="flex items-center justify-start gap-3 text-sm">
       <span class="text-base opacity-80">📞</span>
-      <a :href="`tel:${companySetting?.phone_1}`"
-         class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+      <a
+        :href="`tel:${companySetting?.phone_1}`"
+        class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300"
+      >
         {{ companySetting?.phone_1 }}
       </a>
     </div>
     <div class="flex items-center justify-start gap-3 text-sm">
       <span class="text-base opacity-80">📍</span>
-      <a :href="`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`"
-         target="_blank" rel="noopener noreferrer"
-         class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+      <a
+        :href="`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`"
+        target="_blank" rel="noopener noreferrer"
+        class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300"
+      >
         {{ companySetting?.address_1 }}
       </a>
     </div>
     <div class="flex items-center justify-start gap-3 text-sm">
       <span class="text-base opacity-80">✉️</span>
-      <a :href="`mailto:${companySetting?.email_1}`"
-         class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+      <a
+        :href="`mailto:${companySetting?.email_1}`"
+        class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300"
+      >
         {{ companySetting?.email_1 }}
       </a>
     </div>
@@ -38,9 +44,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getCurrentLocale } from '@/utils/i18n'
 import type { CompanySettingData } from '@/types'
+import { onMounted, ref } from 'vue'
+import { getCurrentLocale } from '@/utils/i18n'
 
 const companySetting = ref<CompanySettingData | null>(null)
 

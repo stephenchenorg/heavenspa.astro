@@ -323,10 +323,10 @@ const t = createAstroT(Astro)
 document.addEventListener('DOMContentLoaded', () => {
   // Apply theme-aware styling to intro section
   const introSection = document.getElementById('intro')
-  
+
   function updateIntroTheme() {
     const isDark = document.body.classList.contains('dark-theme')
-    
+
     if (introSection) {
       // Update section background and text colors
       introSection.style.background = `var(--theme-bg, ${isDark ? '#000000' : '#ffffff'})`
