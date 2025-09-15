@@ -5,19 +5,23 @@ import SectionTitle from "../../components/ui/SectionTitle.astro"
 import TeamCard from "../../components/ui/TeamCard.astro"
 import { getAllTeams } from '@/api/teams'
 import type { TeamMember } from '@/types'
+import { createAstroT } from '@/utils/astro-i18n'
+
+// 建立翻譯函式
+const t = createAstroT(Astro)
 
 // 獲取所有團隊成員
 let teamMembers: TeamMember[] = []
 
 try {
-  teamMembers = await getAllTeams()
+  teamMembers = await getAllTeams((Astro.locals as any).locale)
   console.log("teamMembers >> ", teamMembers.length)
 } catch (error) {
   console.error('Failed to fetch team members:', error)
 }
 
 const meta = seoMeta({
-  title: '服務團隊 - Heaven Spa',
+  title: t('team.pageTitle'),
 })
 ---
 
@@ -25,7 +29,7 @@ const meta = seoMeta({
   <main class="section-container pt-32 min-h-screen">
 
     <!-- 標題區 -->
-    <SectionTitle title="服務團隊" subtitle="OUR TEAM" />
+    <SectionTitle title={t('team.sectionTitle')} subtitle={t('team.sectionSubtitle')} />
 
     <!-- 團隊成員網格 -->
     <div class="max-w-6xl mx-auto w-full">
@@ -42,10 +46,10 @@ const meta = seoMeta({
         <div class="text-center py-16">
           <div class="max-w-md mx-auto">
             <h3 class="text-lg font-medium mb-2 text-[var(--theme-text,#1f2937)]">
-              暫無資料
+              {t('team.noData')}
             </h3>
             <p class="text-[var(--theme-text-secondary,#6b7280)]">
-              目前沒有團隊成員資訊
+              {t('team.noDataDescription')}
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import type { TeamMember, TeamsResponse } from '@/types'
 import { gql, graphQLAPI } from './index'
 
-export async function getAllTeams(): Promise<TeamMember[]> {
+export async function getAllTeams(lang?: string): Promise<TeamMember[]> {
   try {
     const { teams } = await graphQLAPI<TeamsResponse>(gql`
       query MyQuery {
@@ -59,7 +59,7 @@ export async function getAllTeams(): Promise<TeamMember[]> {
           }
         }
       }
-    `)
+    `, { locale: lang })
     return teams.data || []
   } catch (error) {
     console.error('Failed to fetch all teams:', error)
@@ -67,7 +67,7 @@ export async function getAllTeams(): Promise<TeamMember[]> {
   }
 }
 
-export async function getTeamMember(id: number): Promise<TeamMember | null> {
+export async function getTeamMember(id: number, lang?: string): Promise<TeamMember | null> {
   try {
     const { team } = await graphQLAPI<{ team: TeamMember }>(gql`
       query MyQuery {
@@ -122,7 +122,7 @@ export async function getTeamMember(id: number): Promise<TeamMember | null> {
           friday_end
         }
       }
-    `)
+    `, { locale: lang })
     return team || null
   } catch (error) {
     console.error(`Failed to fetch team member with id ${id}:`, error)

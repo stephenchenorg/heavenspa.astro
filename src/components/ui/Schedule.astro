@@ -1,5 +1,6 @@
 ---
 import type { TeamMember } from '@/types'
+import { createAstroT } from '@/utils/astro-i18n'
 
 interface Props {
   teamMember: TeamMember
@@ -7,14 +8,17 @@ interface Props {
 
 const { teamMember } = Astro.props
 
+// 建立翻譯函式
+const t = createAstroT(Astro)
+
 const weekDays = [
-  { key: 'monday', label: '星期一' },
-  { key: 'tuesday', label: '星期二' },
-  { key: 'wednesday', label: '星期三' },
-  { key: 'thursday', label: '星期四' },
-  { key: 'friday', label: '星期五' },
-  { key: 'saturday', label: '星期六' },
-  { key: 'sunday', label: '星期日' },
+  { key: 'monday', label: t('schedule.monday') },
+  { key: 'tuesday', label: t('schedule.tuesday') },
+  { key: 'wednesday', label: t('schedule.wednesday') },
+  { key: 'thursday', label: t('schedule.thursday') },
+  { key: 'friday', label: t('schedule.friday') },
+  { key: 'saturday', label: t('schedule.saturday') },
+  { key: 'sunday', label: t('schedule.sunday') },
 ]
 
 function getWorkingHours(day: string, member: TeamMember) {
@@ -25,7 +29,28 @@ function getWorkingHours(day: string, member: TeamMember) {
     return null
   }
 
-  return { start: startTime, end: endTime }
+  // 提取時間部分 (HH:MM)，移除日期部分
+  const formatTime = (timeString: string) => {
+    if (!timeString) return ''
+    
+    // 如果是完整的日期時間格式，提取時間部分
+    if (timeString.includes('T') || timeString.includes(' ')) {
+      const date = new Date(timeString)
+      return date.toLocaleTimeString('en-GB', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      })
+    }
+    
+    // 如果已經是時間格式 (HH:MM)，直接返回
+    return timeString
+  }
+
+  return { 
+    start: formatTime(startTime), 
+    end: formatTime(endTime) 
+  }
 }
 ---
 
@@ -42,7 +67,7 @@ function getWorkingHours(day: string, member: TeamMember) {
           {hours ? (
             `${hours.start} - ${hours.end}`
           ) : (
-            <span class="text-[var(--theme-text-muted,#9ca3af)]">休息</span>
+            <span class="text-[var(--theme-text-muted,#9ca3af)]">{t('schedule.rest')}</span>
           )}
         </span>
       </div>

@@ -34,9 +34,19 @@ function toggleLanguage() {
   // Set the locale (saves to localStorage and cookie)
   setLocale(nextLocale)
 
-  // Reload the page to get fresh SSR content with new language
-  // This ensures API calls are made with the correct language headers
-  window.location.reload()
+  // 確保語系變更事件被觸發
+  document.dispatchEvent(new CustomEvent('languageChanged', { 
+    detail: { locale: nextLocale } 
+  }))
+
+  // 使用 URL 參數來確保 middleware 能立即識別新語系
+  // 這樣 middleware 會以最高優先級處理 URL 參數中的語系設定
+  const url = new URL(window.location.href)
+  url.searchParams.set('lang', nextLocale)
+  
+  // 直接導航到帶有語系參數的 URL
+  // 這確保 middleware 會立即使用正確的語系
+  window.location.href = url.toString()
 }
 
 function getCurrentLanguageCode(): string {

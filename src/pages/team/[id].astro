@@ -2,9 +2,12 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import Schedule from '@/components/ui/Schedule.astro'
-import Badge from '@/components/ui/Badge.astro'
 import { getTeamMember } from '@/api/teams'
 import type { TeamMember } from '@/types'
+import { createAstroT } from '@/utils/astro-i18n'
+
+// 建立翻譯函式
+const t = createAstroT(Astro)
 
 // 獲取 ID 參數
 const { id } = Astro.params
@@ -16,7 +19,7 @@ if (!id || isNaN(Number(id))) {
 let teamMember: TeamMember | null = null
 
 try {
-  teamMember = await getTeamMember(Number(id))
+  teamMember = await getTeamMember(Number(id), (Astro.locals as any).locale)
 
   if (!teamMember) {
     return Astro.rewrite('/404')
@@ -51,9 +54,8 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
       <!-- 左側：圖片輪播 -->
       <div class="flex flex-col items-center w-full lg:w-5/12">
         <!-- 主圖輪播區域 -->
-        <div class="relative w-full aspect-[4/5] max-w-lg mx-auto overflow-hidden rounded-2xl border-2 shadow-lg bg-[var(--theme-card-bg,#ffffff)] border-[var(--theme-border,#e5e7eb)]">
+        <div class="relative w-full aspect-square max-w-lg mx-auto overflow-hidden border-2 shadow-lg bg-[var(--theme-card-bg,#ffffff)] border-[var(--theme-border,#e5e7eb)]">
           {validImages.length > 1 && (
-            <>
               <button
                 type="button"
                 class="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-[var(--theme-card-bg,#ffffff)]/90 hover:bg-[var(--theme-card-bg,#ffffff)] rounded-full p-2 shadow-md transition-all duration-200 text-[var(--theme-text,#1f2937)]"
@@ -74,7 +76,6 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
                   <path d="M9 18l6-6-6-6"/>
                 </svg>
               </button>
-            </>
           )}
 
           <img
@@ -110,7 +111,7 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
             {validImages.map((img, idx) => (
               <img
                 src={img.image?.desktop}
-                alt={`縮圖${idx+1}`}
+                alt={`${t('team.thumbnail')}${idx+1}`}
                 class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm ${
                   idx === 0
                     ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
@@ -127,20 +128,12 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
 
       <!-- 右側：成員資訊 -->
       <div class="flex-1 flex flex-col items-start lg:w-7/12">
-        <h1 class="font-bold text-3xl md:text-4xl mb-3 leading-tight text-[var(--theme-text,#1f2937)]">
+        <h1 class="font-bold text-3xl md:text-4xl mb-6 leading-tight text-[var(--theme-text,#1f2937)]">
           {teamMember.title}
+          {teamMember.job && (
+            <span class="text-lg font-normal text-[var(--theme-text-secondary,#6b7280)]">  {teamMember.job}</span>
+          )}
         </h1>
-
-        <!-- 工作職位標籤 -->
-        {teamMember.job && teamMember.job !== '職位待更新' && (
-          <div class="mb-6">
-            <Badge
-              variant="primary"
-              size="small"
-              title={teamMember.job}
-            />
-          </div>
-        )}
 
         <!-- 整合資訊區塊 -->
         <div class="w-full rounded-xl p-6 shadow-sm border-2 bg-[var(--theme-card-bg,#ffffff)] border-[var(--theme-border,#e5e7eb)] text-[var(--theme-text,#1f2937)] space-y-6">
@@ -151,50 +144,52 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              工作班表
+              {t('team.schedule')}
             </h4>
             <Schedule teamMember={teamMember} />
           </div>
 
-          <!-- 分隔線 -->
-          <div class="border-t border-[var(--theme-border,#e5e7eb)]"></div>
-
           <!-- 個人資訊 -->
-          <div>
-            <h4 class="text-lg font-semibold mb-4 text-[var(--theme-text,#1f2937)] flex items-center gap-2">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
-              個人資訊
-            </h4>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div class="text-center p-3 bg-[var(--theme-bg,#ffffff)] rounded-lg border border-[var(--theme-border,#e5e7eb)]">
-                <div class="text-sm text-[var(--theme-text-secondary,#6b7280)] mb-1">身高</div>
-                <div class="text-lg font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.height ? `${teamMember.height} cm` : '待更新'}</div>
-              </div>
-              <div class="text-center p-3 bg-[var(--theme-bg,#ffffff)] rounded-lg border border-[var(--theme-border,#e5e7eb)]">
-                <div class="text-sm text-[var(--theme-text-secondary,#6b7280)] mb-1">體重</div>
-                <div class="text-lg font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.weight ? `${teamMember.weight} kg` : '待更新'}</div>
-              </div>
-              <div class="text-center p-3 bg-[var(--theme-bg,#ffffff)] rounded-lg border border-[var(--theme-border,#e5e7eb)]">
-                <div class="text-sm text-[var(--theme-text-secondary,#6b7280)] mb-1">年資</div>
-                <div class="text-lg font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.years ? `${teamMember.years} 年` : '待更新'}</div>
-              </div>
-              <div class="text-center p-3 bg-[var(--theme-bg,#ffffff)] rounded-lg border border-[var(--theme-border,#e5e7eb)]">
-                <div class="text-sm text-[var(--theme-text-secondary,#6b7280)] mb-1">年齡</div>
-                <div class="text-lg font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.age ? `${teamMember.age} 歲` : '待更新'}</div>
-              </div>
-            </div>
-            {teamMember.height && teamMember.weight && (
-              <div class="mt-4 text-center p-3 bg-[var(--theme-bg,#ffffff)] rounded-lg border border-[var(--theme-border,#e5e7eb)]">
-                <div class="text-sm text-[var(--theme-text-secondary,#6b7280)] mb-1">BMI 指數</div>
-                <div class="text-lg font-semibold text-[var(--theme-text,#1f2937)]">
-                  {((Number(teamMember.weight) / Math.pow(Number(teamMember.height) / 100, 2)).toFixed(1))}
+          {(teamMember.height || teamMember.weight || teamMember.years || teamMember.age) && (
+              <!-- 分隔線 -->
+              <div class="border-t border-[var(--theme-border,#e5e7eb)]"></div>
+
+              <div>
+                <h4 class="text-lg font-semibold mb-4 text-[var(--theme-text,#1f2937)] flex items-center gap-2">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  {t('team.personalInfo')}
+                </h4>
+                <div class="space-y-3">
+                  {teamMember.height && (
+                    <div class="flex justify-between items-center py-2">
+                      <span class="text-[var(--theme-text-secondary,#6b7280)]">{t('team.height')}</span>
+                      <span class="font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.height} cm</span>
+                    </div>
+                  )}
+                  {teamMember.weight && (
+                    <div class="flex justify-between items-center py-2">
+                      <span class="text-[var(--theme-text-secondary,#6b7280)]">{t('team.weight')}</span>
+                      <span class="font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.weight} kg</span>
+                    </div>
+                  )}
+                  {teamMember.years && (
+                    <div class="flex justify-between items-center py-2">
+                      <span class="text-[var(--theme-text-secondary,#6b7280)]">{t('team.experience')}</span>
+                      <span class="font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.years} {t('team.years')}</span>
+                    </div>
+                  )}
+                  {teamMember.age && (
+                    <div class="flex justify-between items-center py-2">
+                      <span class="text-[var(--theme-text-secondary,#6b7280)]">{t('team.age')}</span>
+                      <span class="font-semibold text-[var(--theme-text,#1f2937)]">{teamMember.age} {t('team.yearsOld')}</span>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
-          </div>
+          )}
 
           <!-- 分隔線 -->
           <div class="border-t border-[var(--theme-border,#e5e7eb)]"></div>
@@ -205,13 +200,13 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
               </svg>
-              自我介紹
+              {t('team.introduction')}
             </h4>
             <div class="prose prose-lg max-w-none leading-relaxed">
               {teamMember.content ? (
                 <div set:html={teamMember.content} />
               ) : (
-                <p class="text-[var(--theme-text-secondary,#6b7280)]">這位成員目前沒有詳細介紹。</p>
+                <p class="text-[var(--theme-text-secondary,#6b7280)]">{t('team.noIntroduction')}</p>
               )}
             </div>
           </div>

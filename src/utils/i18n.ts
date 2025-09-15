@@ -37,6 +37,36 @@ export const translations = {
       title: 'Our Team.',
       description: '同樣的色彩可以喚起不同的情感，或對不同的個人和文化具有各種意義。',
       'more-members': '查看所有團隊成員',
+      pageTitle: '服務團隊 - Heaven Spa',
+      sectionTitle: '服務團隊',
+      sectionSubtitle: 'OUR TEAM',
+      noData: '暫無資料',
+      noDataDescription: '目前沒有團隊成員資訊',
+      schedule: '工作班表',
+      personalInfo: '個人資訊',
+      height: '身高',
+      weight: '體重',
+      experience: '年資',
+      age: '年齡',
+      years: '年',
+      yearsOld: '歲',
+      bmi: 'BMI 指數',
+      introduction: '自我介紹',
+      noIntroduction: '這位成員目前沒有詳細介紹。',
+      thumbnail: '縮圖',
+      viewDetails: '前往查看',
+    },
+
+    // Schedule Section
+    schedule: {
+      monday: '星期一',
+      tuesday: '星期二',
+      wednesday: '星期三',
+      thursday: '星期四',
+      friday: '星期五',
+      saturday: '星期六',
+      sunday: '星期日',
+      rest: '休息',
     },
 
     // Course Section
@@ -211,6 +241,36 @@ export const translations = {
       title: 'Our Team.',
       description: 'The same color can evoke different emotions, or have various meanings to different individuals and cultures.',
       'more-members': 'More...',
+      pageTitle: 'Service Team - Heaven Spa',
+      sectionTitle: 'Service Team',
+      sectionSubtitle: 'OUR TEAM',
+      noData: 'No Data',
+      noDataDescription: 'Currently no team member information available',
+      schedule: 'Work Schedule',
+      personalInfo: 'Personal Information',
+      height: 'Height',
+      weight: 'Weight',
+      experience: 'Experience',
+      age: 'Age',
+      years: 'years',
+      yearsOld: 'years old',
+      bmi: 'BMI Index',
+      introduction: 'Self Introduction',
+      noIntroduction: 'This member currently has no detailed introduction.',
+      thumbnail: 'Thumbnail',
+      viewDetails: 'View Details',
+    },
+
+    // Schedule Section
+    schedule: {
+      monday: 'Monday',
+      tuesday: 'Tuesday',
+      wednesday: 'Wednesday',
+      thursday: 'Thursday',
+      friday: 'Friday',
+      saturday: 'Saturday',
+      sunday: 'Sunday',
+      rest: 'Rest',
     },
 
     // Course Section
@@ -452,6 +512,10 @@ export function setLocale(locale: Locale): void {
   expires.setTime(expires.getTime() + (365 * 24 * 60 * 60 * 1000)) // 1年
   const cookieString = `locale=${locale}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
   document.cookie = cookieString
+
+  // 強制重新檢查 cookie 是否設定成功（用於調試）
+  console.log('Language set to:', locale)
+  console.log('Cookie set:', document.cookie.includes(`locale=${locale}`))
 
   // 觸發自定義事件通知語言變更
   window.dispatchEvent(new CustomEvent('localechange', { detail: locale }))

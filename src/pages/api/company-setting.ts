@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro'
 import { getCompanySetting } from '@/api/companySetting'
 
-export const GET: APIRoute = async ({ url }) => {
+export const GET: APIRoute = async ({ url, locals }) => {
   try {
     const searchParams = new URL(url).searchParams
-    const lang = searchParams.get('lang') || undefined
+    // 優先使用 URL 參數中的 lang，否則使用 middleware 設定的語系
+    const lang = searchParams.get('lang') || (locals as any).locale || undefined
 
     const companySetting = await getCompanySetting(lang)
 

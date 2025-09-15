@@ -6,7 +6,7 @@ import { getAllTeams } from '@/api/teams'
 import type { TeamMember } from '@/types'
 
 // 獲取前六筆團隊成員ㄔ
-const teamMembers: TeamMember[] = (await getAllTeams()).slice(0, 6)
+const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).locale)).slice(0, 6)
 const t = createAstroT(Astro)
 ---
 <section

@@ -9,7 +9,8 @@ import { setRequestLocals } from '@/api/index'
 
 // middleware 已經設定了 Astro.locals.locale
 setRequestLocals(Astro.locals)
-const companySetting = await getCompanySetting()
+// 明確傳遞語系參數給 API，避免跨請求污染
+const companySetting = await getCompanySetting((Astro.locals as any).locale)
 
 interface Props {
   // metadata
@@ -41,4 +42,21 @@ const {
 
   <!-- Theme Controller -->
   <!--<ThemeController />-->
+
+  <!-- 清理語系切換後的 URL 參數 -->
+  <script>
+    // 檢查 URL 是否包含 lang 參數
+    const url = new URL(window.location.href)
+    const hasLangParam = url.searchParams.has('lang')
+    
+    if (hasLangParam) {
+      // 移除 lang 參數
+      url.searchParams.delete('lang')
+      
+      // 使用 history.replaceState 更新 URL，不會觸發頁面重新載入
+      window.history.replaceState({}, '', url.toString())
+      
+      console.log('語系參數已從 URL 中清理')
+    }
+  </script>
 </BaseLayout>

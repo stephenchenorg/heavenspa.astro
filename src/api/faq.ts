@@ -24,7 +24,8 @@ export async function getFaqCategories(lang?: string) {
     variables: {
       sortBy: "asc",
       sortColumn: "sort"
-    }
+    },
+    locale: lang
   })
 
   const categories = res.faqCategories?.data || []
@@ -55,7 +56,8 @@ export async function getFaqList(type = 10, lang?: string) {
       type,
       sortBy: "asc",
       sortColumn: "sort"
-    }
+    },
+    locale: lang
   })
 
   const faqList = res.faqs?.data || []

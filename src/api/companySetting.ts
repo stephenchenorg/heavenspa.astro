@@ -35,7 +35,7 @@ export async function getCompanySetting(lang?: string) {
       business_hours
     }
   }
-`)
+`, { locale: lang })
   cache.set(cacheKey, res.companySetting)
   return res.companySetting
 }
