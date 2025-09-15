@@ -1,8 +1,9 @@
 ---
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
 // Course Section with SPA Design Style
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 // 定義 API 回應的類型
 export interface CourseCover {

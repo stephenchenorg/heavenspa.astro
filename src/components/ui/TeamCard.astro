@@ -1,8 +1,9 @@
 ---
 import type { TeamMember } from '@/types'
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
 import ImageCarousel from '@/components/ui/ImageCarousel.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 interface Props {
   member: TeamMember

@@ -1,8 +1,9 @@
 ---
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
 // Wellness Button Component
 import Button from '@/components/ui/Button.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 export interface Props {
   href?: string

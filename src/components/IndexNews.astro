@@ -1,9 +1,10 @@
 ---
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
 // Member Benefits Section with Card Layout
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+import { createNestedT } from '@/utils/i18n'
 import { gql, graphQLAPI } from '../api'
+
+const t = await createNestedT()
 
 export interface Article {
   id?: number

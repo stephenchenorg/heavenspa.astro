@@ -1,14 +1,15 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
+import { getLocale } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import CareersForm from '@/components/joinUs/careersForm.vue'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getLocale } from 'i18n:astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 const locale = getLocale()
 const companySetting = await getCompanySetting(locale)

@@ -1,10 +1,11 @@
 ---
 import type { CompanySettingData } from '@/types'
-import { createNestedT } from '@/utils/i18n'
-const t = await createNestedT()
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']
