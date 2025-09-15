@@ -16,8 +16,8 @@ export const GET: APIRoute = async ({ url }) => {
       })
     }
 
-    const categoryIdNum = parseInt(categoryId)
-    if (isNaN(categoryIdNum)) {
+    const categoryIdNum = Number.parseInt(categoryId)
+    if (Number.isNaN(categoryIdNum)) {
       return new Response(JSON.stringify({ error: 'Invalid category ID' }), {
         status: 400,
         headers: {
@@ -38,7 +38,7 @@ export const GET: APIRoute = async ({ url }) => {
     })
   } catch (error) {
     console.error('Error fetching FAQ data:', error)
-    
+
     return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: {

@@ -31,30 +31,30 @@ function getWorkingHours(day: string, member: TeamMember) {
   // 提取時間部分 (HH:MM)，移除日期部分
   const formatTime = (timeString: string) => {
     if (!timeString) return ''
-    
+
     // 如果是完整的日期時間格式，提取時間部分
     if (timeString.includes('T') || timeString.includes(' ')) {
       const date = new Date(timeString)
-      return date.toLocaleTimeString('en-GB', { 
-        hour: '2-digit', 
+      return date.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
         minute: '2-digit',
-        hour12: false 
+        hour12: false,
       })
     }
-    
+
     // 如果已經是時間格式 (HH:MM)，直接返回
     return timeString
   }
 
-  return { 
-    start: formatTime(startTime), 
-    end: formatTime(endTime) 
+  return {
+    start: formatTime(startTime),
+    end: formatTime(endTime),
   }
 }
 ---
 
 <div class="space-y-2">
-  {weekDays.map((day) => {
+  {weekDays.map(day => {
     const hours = getWorkingHours(day.key, teamMember)
 
     return (

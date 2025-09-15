@@ -1,7 +1,7 @@
 ---
 
-import { createNestedT } from '@/utils/i18n'
 import Button from '@/components/ui/Button.astro'
+import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
@@ -21,13 +21,6 @@ export interface Props {
 }
 
 const { banners } = Astro.props
-console.log('=== HeroBanner Debug ===')
-console.log('banners prop:', banners)
-console.log('banners type:', typeof banners)
-console.log('banners length:', banners?.length)
-console.log('first banner:', banners?.[0])
-console.log('first banner image:', banners?.[0]?.image)
-console.log('desktop image:', banners?.[0]?.image?.desktop)
 
 const circleText = t('hero.scroll')
 const chars = circleText.split('')
@@ -93,7 +86,7 @@ const angleStep = 360 / chars.length
         </svg>
       </div>
       <div class="circle-text hidden md:block">
-        {chars.map((char, i) => (
+        {chars.map((char: string, i: number) => (
           <span style={`transform: rotate(${i * angleStep}deg)`}>
             {char}
           </span>

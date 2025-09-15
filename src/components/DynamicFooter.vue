@@ -211,7 +211,6 @@
 <script setup lang="ts">
 import type { CompanySettingData } from '@/types'
 import { onMounted, onUnmounted, ref } from 'vue'
-import FooterLink from '@/components/ui/FooterLink.vue'
 import Clock from '@/components/icon/Clock.vue'
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
@@ -223,6 +222,7 @@ import Phone from '@/components/icon/Phone.vue'
 import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
+import FooterLink from '@/components/ui/FooterLink.vue'
 import { getCurrentLocale, t } from '@/utils/i18n'
 
 const companySetting = ref<CompanySettingData | null>(null)
@@ -231,13 +231,10 @@ const companySetting = ref<CompanySettingData | null>(null)
 async function fetchCompanySetting() {
   try {
     const locale = getCurrentLocale()
-    console.log('Fetching company setting for locale:', locale)
-
     const response = await fetch(`/api/company-setting?lang=${locale}`)
     if (response.ok) {
       const data = await response.json()
       companySetting.value = data
-      console.log('Company setting updated:', data)
     } else {
       console.error('Failed to fetch company setting:', response.status)
     }
@@ -248,7 +245,6 @@ async function fetchCompanySetting() {
 
 // 監聽語言變更事件
 function handleLocaleChange(event: CustomEvent) {
-  console.log('Language changed to:', event.detail)
   fetchCompanySetting()
 }
 

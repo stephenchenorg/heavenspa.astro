@@ -1,9 +1,9 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from "../../layouts/Layout.astro";
-import SectionTitle from "../ui/SectionTitle.astro";
-import { gql,graphQLAPI } from "../../api";
 import Prose from '@/components/ui/Prose.vue'
+import { gql, graphQLAPI } from '../../api'
+import Layout from '../../layouts/Layout.astro'
+import SectionTitle from '../ui/SectionTitle.astro'
 
 interface Props {
   path: string
@@ -25,7 +25,6 @@ interface PageData {
     }>
   }
 }
-
 
 const data = await graphQLAPI<PageData>(gql`
   query MyQuery {
@@ -59,7 +58,7 @@ const meta = seoMeta({
 
     <div class="min-w-6xl mx-auto">
       <article class="mt-12">
-        <Prose sourceDoc={data.page?.fields[0]?.content || ''} client:load/>
+        <Prose sourceDoc={data.page?.fields[0]?.content || ''} client:load />
       </article>
     </div>
   </main>

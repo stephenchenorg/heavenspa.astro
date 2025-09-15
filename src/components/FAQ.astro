@@ -80,10 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set the full text immediately
     contentSpan.textContent = fullText
-    
+
     // Add fade-in animation class
     contentSpan.classList.add('block-fade-in')
-    
+
     // Call completion callback after animation
     setTimeout(() => {
       if (onComplete) onComplete()
@@ -102,14 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Helper function to adjust container height dynamically
   function adjustAnswerHeight(answerElement: HTMLElement) {
     if (!answerElement) return
-    
+
     // Set to auto to allow full content display
     answerElement.style.maxHeight = 'none'
-    
+
     // Force a reflow to get accurate measurements
-    answerElement.scrollHeight
+    void answerElement.scrollHeight
     answerElement.style.maxHeight = '0px'
-    
+
     // Trigger reflow and set to auto for full content display
     requestAnimationFrame(() => {
       answerElement.style.maxHeight = 'none' // Allow full height expansion
@@ -185,10 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (faqAnswer && answerContent) {
           // Show answer content border first
           answerContent.style.borderBottomColor = 'var(--color-primary-500)'
-          
+
           // Add expanded class for full height display
           faqAnswer.classList.add('expanded')
-          
+
           // Use the helper function to adjust height properly
           adjustAnswerHeight(faqAnswer)
 

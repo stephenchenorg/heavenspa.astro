@@ -1,9 +1,9 @@
 ---
 // Member Benefits Section with Card Layout
 import SectionTitle from '@/components/ui/SectionTitle.astro'
-import {gql, graphQLAPI} from '../api'
 // Member Benefits Section with Card Layout
 import { createNestedT } from '@/utils/i18n'
+import { gql, graphQLAPI } from '../api'
 
 const t = await createNestedT()
 
@@ -81,7 +81,7 @@ try {
 <section class="section-container" id="benefits" data-section="benefits">
 
   <!-- 標題區 -->
-  <SectionTitle title="最新消息" subtitle="News"/>
+  <SectionTitle title="最新消息" subtitle="News" />
 
   <!-- 響應式輪播 -->
   <div class="max-w-7xl mx-auto w-full mt-8">
@@ -95,12 +95,16 @@ try {
               data-slide={articleIndex}
             >
               <div class="px-2">
-                <div class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative"
-                     onclick={`window.location.href='/news/${article.id}'`}>
+                <div
+                  class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative"
+                  onclick={`window.location.href='/news/${article.id}'`}
+                >
                   <div class="relative w-full h-[400px] rounded-xl overflow-hidden mb-4">
                     <!-- Background Image -->
-                    <div class="absolute inset-0 bg-cover bg-center"
-                         style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}></div>
+                    <div
+                      class="absolute inset-0 bg-cover bg-center"
+                      style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}
+                    ></div>
                     <!-- Base Overlay for better text readability -->
                     <div class="absolute inset-0 bg-black/30"></div>
                     <!-- Hover Overlay -->
@@ -117,8 +121,10 @@ try {
                       <div class="flex flex-col space-y-3">
                         <!-- 標題 -->
                         <div class="space-y-1">
-                          <h3 class="text-xl lg:text-2xl font-bold leading-tight tracking-wide text-white"
-                              style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 1px 1px 3px rgba(0,0,0,0.9);">
+                          <h3
+                            class="text-xl lg:text-2xl font-bold leading-tight tracking-wide text-white"
+                            style="text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 1px 1px 3px rgba(0,0,0,0.9);"
+                          >
                             {article.title}
                           </h3>
                           <div class="w-12 h-0.5 bg-gradient-to-r from-white to-transparent rounded-full opacity-80 shadow-sm"></div>
@@ -175,10 +181,19 @@ try {
         <div class="text-center max-w-md mx-auto">
           <!-- 圖示 -->
           <div class="mb-6">
-            <svg class="w-20 h-20 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m13-8v.01M6 8v.01"></path>
+            <svg
+              class="w-20 h-20 mx-auto text-gray-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m13-8v.01M6 8v.01"
+              ></path>
             </svg>
           </div>
 
@@ -200,10 +215,12 @@ try {
   <!-- 只在有資料時顯示的按鈕區域 -->
   {articles.length > 0 && (
     <div class="mt-12 max-w-7xl mx-auto w-full">
-      <button class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200"
-              style="border-color: var(--theme-text); color: var(--theme-text);"
-              onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
-              onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');">
+      <button
+        class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200"
+        style="border-color: var(--theme-text); color: var(--theme-text);"
+        onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
+        onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');"
+      >
           <span data-i18n="news.more-news">{t('news.more-news')}</span>
       </button>
     </div>
@@ -232,7 +249,7 @@ try {
     function getSlidesPerView() {
       const width = window.innerWidth
       if (width >= 1024) return 3 // lg: 大螢幕顯示3張
-      if (width >= 768) return 2  // md: 中螢幕顯示2張
+      if (width >= 768) return 2 // md: 中螢幕顯示2張
       return 1 // sm: 小螢幕顯示1張
     }
 
@@ -340,13 +357,13 @@ try {
     let touchStartX = 0
     let touchIsDragging = false
 
-    carousel.addEventListener('touchstart', (e) => {
+    carousel.addEventListener('touchstart', e => {
       touchStartX = e.touches[0].clientX
       touchIsDragging = true
       stopAutoSlide()
     })
 
-    carousel.addEventListener('touchend', (e) => {
+    carousel.addEventListener('touchend', e => {
       if (!touchIsDragging) return
 
       const touchEndX = e.changedTouches[0].clientX

@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 為每個標籤添加點擊事件
   tabContainer.addEventListener('click', async e => {
-    const button = e.target?.closest('.tab-item')
+    const button = (e.target as HTMLElement)?.closest('.tab-item')
     if (!button) return
 
     const categoryId = button.getAttribute('data-category-id')

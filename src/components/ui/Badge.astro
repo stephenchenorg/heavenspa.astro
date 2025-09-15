@@ -26,7 +26,7 @@ const sizeClasses = {
 
 // Variant classes using CSS custom properties
 const variantClasses = {
-  default: outline 
+  default: outline
     ? 'bg-transparent border text-primary-700 dark:text-primary-300'
     : 'text-primary-800 dark:text-primary-200',
   primary: outline
@@ -51,35 +51,35 @@ const variantClasses = {
 
 // Custom styles using CSS variables
 const customStyles = {
-  default: outline 
-    ? { 
-        borderColor: 'var(--color-primary-500)', 
+  default: outline
+    ? {
+        borderColor: 'var(--color-primary-500)',
         color: 'var(--color-primary-700)',
-        '--tw-border-opacity': '1'
+        '--tw-border-opacity': '1',
       }
-    : { 
-        backgroundColor: 'var(--color-primary-100)', 
-        color: 'var(--color-primary-800)' 
+    : {
+        backgroundColor: 'var(--color-primary-100)',
+        color: 'var(--color-primary-800)',
       },
   primary: outline
-    ? { 
-        borderColor: 'var(--color-primary-500)', 
+    ? {
+        borderColor: 'var(--color-primary-500)',
         color: 'var(--color-primary-600)',
-        '--tw-border-opacity': '1'
+        '--tw-border-opacity': '1',
       }
-    : { 
-        backgroundColor: 'var(--color-primary-100)', 
-        color: 'var(--color-primary-800)' 
+    : {
+        backgroundColor: 'var(--color-primary-100)',
+        color: 'var(--color-primary-800)',
       },
   secondary: outline
-    ? { 
-        borderColor: 'var(--color-neutral-500)', 
+    ? {
+        borderColor: 'var(--color-neutral-500)',
         color: 'var(--color-neutral-600)',
-        '--tw-border-opacity': '1'
+        '--tw-border-opacity': '1',
       }
-    : { 
-        backgroundColor: 'var(--color-neutral-200)', 
-        color: 'var(--color-neutral-800)' 
+    : {
+        backgroundColor: 'var(--color-neutral-200)',
+        color: 'var(--color-neutral-800)',
       },
   success: outline
     ? { borderColor: '#10b981', color: '#059669', '--tw-border-opacity': '1' }
@@ -97,32 +97,32 @@ const customStyles = {
 
 // Dark mode styles
 const darkStyles = {
-  default: outline 
-    ? { 
-        borderColor: 'var(--color-primary-400)', 
-        color: 'var(--color-primary-300)' 
+  default: outline
+    ? {
+        borderColor: 'var(--color-primary-400)',
+        color: 'var(--color-primary-300)',
       }
-    : { 
-        backgroundColor: 'var(--color-primary-900)', 
-        color: 'var(--color-primary-200)' 
+    : {
+        backgroundColor: 'var(--color-primary-900)',
+        color: 'var(--color-primary-200)',
       },
   primary: outline
-    ? { 
-        borderColor: 'var(--color-primary-400)', 
-        color: 'var(--color-primary-400)' 
+    ? {
+        borderColor: 'var(--color-primary-400)',
+        color: 'var(--color-primary-400)',
       }
-    : { 
-        backgroundColor: 'var(--color-primary-900)', 
-        color: 'var(--color-primary-200)' 
+    : {
+        backgroundColor: 'var(--color-primary-900)',
+        color: 'var(--color-primary-200)',
       },
   secondary: outline
-    ? { 
-        borderColor: 'var(--color-neutral-400)', 
-        color: 'var(--color-neutral-400)' 
+    ? {
+        borderColor: 'var(--color-neutral-400)',
+        color: 'var(--color-neutral-400)',
       }
-    : { 
-        backgroundColor: 'var(--color-neutral-700)', 
-        color: 'var(--color-neutral-200)' 
+    : {
+        backgroundColor: 'var(--color-neutral-700)',
+        color: 'var(--color-neutral-200)',
       },
   success: outline
     ? { borderColor: '#34d399', color: '#6ee7b7' }
@@ -145,8 +145,8 @@ const badgeClass = `inline-flex items-center gap-1 font-medium transition-all du
 <span class={badgeClass} style={customStyles[variant]} data-variant={variant} data-outline={outline}>
   <slot>{title}</slot>
   {dismissible && (
-    <button 
-      type="button" 
+    <button
+      type="button"
       class="ml-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-0.5 transition-colors duration-200"
       onclick="this.parentElement.remove()"
       aria-label="關閉"
@@ -158,30 +158,30 @@ const badgeClass = `inline-flex items-center gap-1 font-medium transition-all du
   )}
 </span>
 
-<script define:vars={{darkStyles}} is:inline>
+<script define:vars={{ darkStyles }} is:inline>
   // Handle dark mode styles
-  const updateBadgeStyles = () => {
-    const badges = document.querySelectorAll('[data-variant]');
-    const isDark = document.documentElement.classList.contains('dark');
-    
-    badges.forEach(badge => {
-      const variant = badge.getAttribute('data-variant');
-      // const isOutline = badge.getAttribute('data-outline') === 'true';
-      
-      if (isDark && darkStyles[variant]) {
-        const styles = darkStyles[variant];
-        Object.assign(badge.style, styles);
-      }
-    });
-  };
+  function updateBadgeStyles() {
+  const badges = document.querySelectorAll('[data-variant]')
+  const isDark = document.documentElement.classList.contains('dark')
+
+  badges.forEach(badge => {
+    const variant = badge.getAttribute('data-variant')
+    // const isOutline = badge.getAttribute('data-outline') === 'true';
+
+    if (isDark && darkStyles[variant]) {
+      const styles = darkStyles[variant]
+      Object.assign(badge.style, styles)
+    }
+  })
+}
 
   // Update on theme change
-  document.addEventListener('DOMContentLoaded', updateBadgeStyles);
-  
-  // Listen for theme changes
-  const observer = new MutationObserver(updateBadgeStyles);
-  observer.observe(document.documentElement, {
+  document.addEventListener('DOMContentLoaded', updateBadgeStyles)
+
+// Listen for theme changes
+const observer = new MutationObserver(updateBadgeStyles)
+observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['class']
-  });
+    attributeFilter: ['class'],
+})
 </script>

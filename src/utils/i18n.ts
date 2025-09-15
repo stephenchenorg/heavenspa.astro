@@ -44,9 +44,9 @@ export async function createNestedT() {
   const translations = await loadTranslations(locale)
 
   // 回傳一個物件，可以用鏈式方法或函數呼叫方式使用
-  function createProxy(currentObj: NestedTranslation, currentPath: string[] = []): any {
+  function createProxy(_currentObj: NestedTranslation, currentPath: string[] = []): any {
     return new Proxy(() => {}, {
-      get(target, prop: string) {
+      get(_target, prop: string) {
         const newPath = [...currentPath, prop]
         const value = getNestedValue(translations, newPath)
 
@@ -59,7 +59,7 @@ export async function createNestedT() {
         return undefined
       },
 
-      apply(target, thisArg, args: [string?]) {
+      apply(_target, _thisArg, args: [string?]) {
         if (args.length > 0 && typeof args[0] === 'string') {
           // 支持 t('nav.home') 的用法
           const path = args[0].split('.')
@@ -70,7 +70,7 @@ export async function createNestedT() {
         // 如果沒有參數，回傳當前路徑的值
         const value = getNestedValue(translations, currentPath)
         return typeof value === 'string' ? value : ''
-      }
+      },
     })
   }
 
@@ -118,7 +118,7 @@ export class NestedTranslator {
 
   private createProxy(obj: NestedTranslation, path: string[]): any {
     return new Proxy(() => {}, {
-      get(target, prop: string) {
+      get: (_target, prop: string) => {
         const value = obj[prop]
         if (typeof value === 'string') {
           return value
@@ -128,11 +128,11 @@ export class NestedTranslator {
         return undefined
       },
 
-      apply(target, thisArg, args) {
+      apply(_target, _thisArg, _args) {
         // 當作為函數呼叫時，回傳物件本身的字串值或空字串
         if (typeof obj === 'string') return obj
         return ''
-      }
+      },
     })
   }
 }
@@ -192,13 +192,13 @@ export function setLocale(locale: Locale): void {
 export function getLocaleName(locale: Locale): string {
   const names = {
     'zh-TW': '繁體中文',
-    'en': 'English',
+    en: 'English',
   }
   return names[locale]
 }
 
 // Vue 元件用的翻譯函數
-let translationsCache: { [key: string]: NestedTranslation } = {}
+const translationsCache: { [key: string]: NestedTranslation } = {}
 
 export async function initTranslations() {
   const locale = getCurrentLocale()
@@ -212,7 +212,6 @@ export function t(key: string): string {
   const translations = translationsCache[locale]
 
   if (!translations) {
-    console.warn(`Translations not loaded for locale: ${locale}`)
     return key
   }
 

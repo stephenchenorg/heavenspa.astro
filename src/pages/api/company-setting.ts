@@ -19,7 +19,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
     console.error('Company Setting API Error:', error)
 
     return new Response(JSON.stringify({
-      error: 'Failed to fetch company setting'
+      error: 'Failed to fetch company setting',
     }), {
       status: 500,
       headers: {

@@ -1,7 +1,7 @@
 <template>
   <li>
     <a
-      :href="href"
+      :href
       class="group flex items-center justify-start text-sm transition-all duration-300 hover:translate-x-1 hover:text-[var(--color-primary-600,#c4a428)]"
       style="color: var(--theme-nav-text, #000000);"
     >

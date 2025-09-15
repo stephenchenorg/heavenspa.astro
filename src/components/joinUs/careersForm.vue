@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="submitForm" class="space-y-4 sm:space-y-6" :style="{ color: 'var(--theme-text)' }">
+    <form class="space-y-4 sm:space-y-6" :style="{ color: 'var(--theme-text)' }" @submit.prevent="submitForm">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
@@ -13,7 +13,7 @@
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
-          />
+          >
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
@@ -26,7 +26,7 @@
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
-          />
+          >
         </div>
       </div>
 
@@ -44,7 +44,7 @@
             max="250"
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
-          />
+          >
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
@@ -59,7 +59,7 @@
             max="200"
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
-          />
+          >
         </div>
       </div>
 
@@ -74,7 +74,7 @@
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
-          />
+          >
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
@@ -87,7 +87,7 @@
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
-          />
+          >
         </div>
       </div>
 
@@ -102,7 +102,7 @@
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
-        />
+        >
       </div>
 
       <div>
@@ -116,7 +116,7 @@
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
-        />
+        >
       </div>
 
       <button
@@ -186,16 +186,16 @@ const currentTheme = ref('light')
 const inputStyle = computed(() => ({
   background: 'var(--theme-bg)',
   color: 'var(--theme-text)',
-  border: currentTheme.value === 'dark' ? '1px solid #444444' : '1px solid #e5e7eb'
+  border: currentTheme.value === 'dark' ? '1px solid #444444' : '1px solid #e5e7eb',
 }))
 
 const buttonStyle = computed(() => ({
   background: 'var(--color-primary-500)',
-  color: 'var(--theme-bg)'
+  color: 'var(--theme-bg)',
 }))
 
 // 提交表單
-const submitForm = async () => {
+async function submitForm() {
   isSubmitting.value = true
   showSuccess.value = false
   showError.value = false
@@ -206,7 +206,7 @@ const submitForm = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(form)
+      body: JSON.stringify(form),
     })
 
     const result = await response.json()
@@ -218,17 +218,16 @@ const submitForm = async () => {
     // 成功
     showSuccess.value = true
     resetForm()
-    
+
     // 5秒後隱藏成功訊息
     setTimeout(() => {
       showSuccess.value = false
     }, 5000)
-
   } catch (error) {
     console.error('提交錯誤:', error)
     errorMessage.value = error instanceof Error ? error.message : '提交失敗，請稍後再試。'
     showError.value = true
-    
+
     // 5秒後隱藏錯誤訊息
     setTimeout(() => {
       showError.value = false
@@ -239,24 +238,24 @@ const submitForm = async () => {
 }
 
 // 重置表單
-const resetForm = () => {
+function resetForm() {
   Object.keys(form).forEach(key => {
     form[key as keyof typeof form] = ''
   })
 }
 
 // 更新主題
-const updateTheme = () => {
+function updateTheme() {
   currentTheme.value = document.body.classList.contains('dark-theme') ? 'dark' : 'light'
 }
 
 // 監聽主題變化
 onMounted(() => {
   updateTheme()
-  
+
   // 監聽主題變化事件
   document.addEventListener('themeChanged', updateTheme)
-  
+
   // 組件卸載時清理事件監聽器
   return () => {
     document.removeEventListener('themeChanged', updateTheme)
