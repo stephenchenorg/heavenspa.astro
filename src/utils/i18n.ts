@@ -1,7 +1,7 @@
 import { getLocale } from 'i18n:astro'
 
 // 語系資料類型定義
-type NestedTranslation = {
+interface NestedTranslation {
   [key: string]: string | NestedTranslation
 }
 
