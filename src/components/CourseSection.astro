@@ -1,7 +1,7 @@
 ---
+import { t } from 'i18n:astro'
 // Course Section with SPA Design Style
 import SectionTitle from '@/components/ui/SectionTitle.astro'
-import { t } from 'i18n:astro'
 
 // 定義 API 回應的類型
 export interface CourseCover {
@@ -27,7 +27,6 @@ export interface Props {
 }
 
 const { courses: coursesProp } = Astro.props
-
 
 // 使用傳入的課程資料或預設資料
 const courses: Course[] = coursesProp?.data || [

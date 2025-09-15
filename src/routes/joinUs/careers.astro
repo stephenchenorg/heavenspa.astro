@@ -1,17 +1,16 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { t } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import CareersForm from '@/components/joinUs/careersForm.vue'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import { createAstroT, getLocaleFromRequest } from '@/utils/astro-i18n'
+import { getLocaleFromRequest } from '@/utils/astro-i18n'
 
 const locale = getLocaleFromRequest(Astro.request)
 const companySetting = await getCompanySetting(locale)
-
-
 
 const meta = seoMeta({
     title: `${t('careers.title')} - Heaven Spa`,

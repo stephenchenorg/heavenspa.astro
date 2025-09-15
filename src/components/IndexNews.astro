@@ -1,7 +1,7 @@
 ---
+import { t } from 'i18n:astro'
 // Member Benefits Section with Card Layout
 import SectionTitle from '@/components/ui/SectionTitle.astro'
-import { t } from 'i18n:astro'
 import { gql, graphQLAPI } from '../api'
 
 export interface Article {
@@ -72,7 +72,6 @@ try {
   // 如果 API 失敗，設定為空陣列
   articles = []
 }
-
 
 ---
 
