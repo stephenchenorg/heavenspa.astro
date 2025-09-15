@@ -1,5 +1,5 @@
 <template>
-  <div id="prose" ref="element" class="prose h-[2000px] w-[1500px]" />
+  <div ref="element" />
 </template>
 
 <script setup lang="ts">
@@ -11,12 +11,11 @@ const props = defineProps({
     default: null,
   },
 })
-console.log('22223123123')
-const element = ref(null)
-console.log(element.value, '2222')
+
+const element = ref<HTMLElement | null>(null)
+
 onMounted(() => {
-  console.log(element.value, '2222')
-  if (!element.value) return
+  if (!element.value || !props.sourceDoc) return
 
   const shadowHost = computed(
     () =>

@@ -50,6 +50,8 @@ const meta = seoMeta({
   title: data.page?.title,
   description: data.page?.key,
 })
+
+console.log(data.page?.fields[0]?.content)
 ---
 
 <Layout meta={meta}>
@@ -59,7 +61,7 @@ const meta = seoMeta({
 
     <div class="min-w-6xl mx-auto">
       <article class="mt-12">
-        <Prose sourceDoc={data.page?.fields[0]?.content || ''} />
+        <Prose sourceDoc={data.page?.fields[0]?.content || ''} client:load/>
       </article>
     </div>
   </main>
