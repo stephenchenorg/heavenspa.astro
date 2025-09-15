@@ -31,19 +31,12 @@ function toggleLanguage() {
   const nextIndex = (currentIndex + 1) % locales.length
   const nextLocale = locales[nextIndex]
 
-  // Update the reactive ref first
-  currentLocale.value = nextLocale
-
   // Set the locale (saves to localStorage and cookie)
   setLocale(nextLocale)
 
-  // Dispatch a custom event to update all text content
-  document.dispatchEvent(new CustomEvent('languageChanged', {
-    detail: { locale: nextLocale },
-  }))
-
-  // Update all translatable elements immediately
-  updatePageLanguage(nextLocale)
+  // Reload the page to get fresh SSR content with new language
+  // This ensures API calls are made with the correct language headers
+  window.location.reload()
 }
 
 function getCurrentLanguageCode(): string {

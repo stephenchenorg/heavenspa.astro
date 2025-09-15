@@ -5,10 +5,11 @@ import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
 import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
 import { getCompanySetting } from '@/api/companySetting'
-import { getLocaleFromRequest } from '@/utils/astro-i18n'
+import { setRequestLocals } from '@/api/index'
 
-const locale = getLocaleFromRequest(Astro.request)
-const companySetting = await getCompanySetting(locale)
+// middleware 已經設定了 Astro.locals.locale
+setRequestLocals(Astro.locals)
+const companySetting = await getCompanySetting()
 
 interface Props {
   // metadata
