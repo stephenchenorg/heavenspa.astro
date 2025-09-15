@@ -1,6 +1,8 @@
 <template>
   <a
-    href="/booking"
+    href="https://page.line.me/284pgmle?openQrModal=true"
+    target="_blank"
+    rel="noopener noreferrer"
     :class="buttonClasses"
     :style="themeStyles"
   >
@@ -9,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed} from 'vue'
 
 // Vue component for booking button with single size prop and theme awareness
 interface Props {
