@@ -66,7 +66,17 @@
     "service-intro": "服務介紹"
   },
   "news": {
-    "more-news": "更多最新消息.."
+    "more-news": "更多最新消息..",
+    "title": "最新消息",
+    "detail": "新聞詳情",
+    "loading": "內容載入中...",
+    "publishDate": "發布日期:",
+    "endDate": "截止日期:",
+    "backToNews": "返回新聞列表",
+    "breadcrumb": {
+      "home": "首頁",
+      "news": "最新消息"
+    }
   },
   "benefits": {
     "title": "MEMBER BENEFITS",

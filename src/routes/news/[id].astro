@@ -2,6 +2,9 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { gql, graphQLAPI } from '@/api'
 import Layout from '@/layouts/Layout.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
 
 export interface Article {
   id?: number
@@ -116,11 +119,11 @@ const meta = seoMeta({
         <!-- Breadcrumb Navigation -->
         <nav class="mb-8">
           <ol class="flex items-center space-x-2 text-sm" style="color: var(--theme-text-secondary);">
-            <li><a href="/" class="transition-colors hover:underline" style="color: var(--theme-text-secondary);">首頁</a></li>
+            <li><a href="/" class="transition-colors hover:underline" style="color: var(--theme-text-secondary);">{t('news.breadcrumb.home')}</a></li>
             <li><span style="color: var(--theme-text-muted);">/</span></li>
-            <li><a href="/news" class="transition-colors hover:underline" style="color: var(--theme-text-secondary);">最新消息</a></li>
+            <li><a href="/news" class="transition-colors hover:underline" style="color: var(--theme-text-secondary);">{t('news.breadcrumb.news')}</a></li>
             <li><span style="color: var(--theme-text-muted);">/</span></li>
-            <li class="truncate max-w-xs" style="color: var(--theme-text);">{currentArticle.title || '新聞詳情'}</li>
+            <li class="truncate max-w-xs" style="color: var(--theme-text);">{currentArticle.title || t('news.detail')}</li>
           </ol>
         </nav>
 
@@ -129,7 +132,7 @@ const meta = seoMeta({
           {currentArticle.content ? (
             <div id="article-content" set:html={currentArticle.content}></div>
           ) : (
-            <p style="color: var(--theme-text-secondary);">內容載入中...</p>
+            <p style="color: var(--theme-text-secondary);">{t('news.loading')}</p>
           )}
         </div>
 
@@ -137,16 +140,16 @@ const meta = seoMeta({
         <div class="mt-8 pt-6 border-t" style="border-color: var(--theme-border);">
           <div class="flex items-center justify-center space-x-4 text-sm md:text-base" style="color: var(--theme-text-secondary);">
             <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
               </svg>
-              <span>發布日期: {new Date(currentArticle.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
+              <span class="leading-none">{t('news.publishDate')} {new Date(currentArticle.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
             </div>
             {currentArticle.ended_at && (
               <>
-                <span style="color: var(--theme-text-muted);">•</span>
+                <span class="leading-none flex items-center" style="color: var(--theme-text-muted);">•</span>
                 <div class="flex items-center space-x-2">
-                  <span>截止日期: {new Date(currentArticle.ended_at).toLocaleDateString('zh-TW')}</span>
+                  <span class="leading-none">{t('news.endDate')} {new Date(currentArticle.ended_at).toLocaleDateString('zh-TW')}</span>
                 </div>
               </>
             )}
@@ -154,7 +157,7 @@ const meta = seoMeta({
         </div>
 
         <!-- Back to News Button -->
-        <div class="mt-12 pt-8 border-t" style="border-color: var(--theme-border);">
+        <div class="mt-6 pt-8 border-t" style="border-color: var(--theme-border);">
           <div class="flex justify-center">
             <a
               href="/news"
@@ -164,7 +167,7 @@ const meta = seoMeta({
               <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
               </svg>
-              <span>返回新聞列表</span>
+              <span>{t('news.backToNews')}</span>
             </a>
           </div>
         </div>
