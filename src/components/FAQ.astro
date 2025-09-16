@@ -44,9 +44,9 @@ const { faqs } = Astro.props
                 />
             </svg>
         </button>
-        <div id={`faq-body-${faq.id}`} class="overflow-hidden max-h-0 transition-[max-height] duration-500 ease-out">
+        <div id={`faq-body-${faq.id}`} class="overflow-hidden max-h-0">
             <div class="px-6 pb-6 pt-2">
-                <div class="faq-content-inner opacity-0 translate-y-2 transition-all duration-300 delay-100 leading-relaxed" set:html={faq.content}></div>
+                <div class="faq-content-inner opacity-0 leading-relaxed" data-content={faq.content}></div>
             </div>
         </div>
     </div>
@@ -74,72 +74,178 @@ const { faqs } = Astro.props
     document.addEventListener('DOMContentLoaded', () => {
         const toggles = document.querySelectorAll('.faq-toggle')
 
-        // 平滑展開函數
+        // 優化的打字機效果函數
+        function typewriterEffect(element: HTMLElement, text: string, speed: number = 25) {
+            element.innerHTML = ''
+            let i = 0
+
+            // 創建文字容器和游標
+            const textContainer = document.createElement('span')
+            const cursor = document.createElement('span')
+            cursor.textContent = '|'
+            cursor.style.cssText = `
+                animation: blink 1s infinite;
+                color: var(--color-primary-600, #c4a428);
+                font-weight: bold;
+                margin-left: 1px;
+            `
+
+            element.appendChild(textContainer)
+            element.appendChild(cursor)
+
+            function type() {
+                if (i < text.length) {
+                    const char = text.charAt(i)
+                    textContainer.textContent += char
+                    i++
+
+                    // 使用 requestAnimationFrame 讓打字更流暢
+                    const nextSpeed = (char === '。' || char === '，' || char === '！' || char === '？') ? speed * 2 : speed
+                    setTimeout(() => requestAnimationFrame(type), nextSpeed)
+                } else {
+                    // 打字完成，游標淡出
+                    setTimeout(() => {
+                        if (element.contains(cursor)) {
+                            cursor.animate(
+                                [{ opacity: 1 }, { opacity: 0 }],
+                                { duration: 500, easing: 'ease-out', fill: 'forwards' }
+                            ).addEventListener('finish', () => {
+                                if (element.contains(cursor)) {
+                                    element.removeChild(cursor)
+                                }
+                            })
+                        }
+                    }, 1000)
+                }
+            }
+
+            // 立即開始打字
+            requestAnimationFrame(type)
+        }
+
+        // 將 HTML 轉為純文字
+        function stripHtml(html: string): string {
+            const tmp = document.createElement('div')
+            tmp.innerHTML = html
+            return tmp.textContent || ''
+        }
+
+        // 使用 Web Animations API 實現更流暢的動畫
         function smoothExpand(element: HTMLElement) {
             const content = element.querySelector('.faq-content-inner') as HTMLElement
 
-            // 獲取自然高度
+            // 計算目標高度
+            if (content) {
+                const htmlContent = content.getAttribute('data-content') || ''
+                const plainText = stripHtml(htmlContent)
+                content.textContent = plainText
+                content.style.opacity = '0'
+            }
+
             element.style.maxHeight = 'none'
-            const height = element.scrollHeight
+            const targetHeight = element.scrollHeight
             element.style.maxHeight = '0px'
 
-            // 強制重新渲染
-            void element.offsetHeight
+            // 清空內容準備打字機效果
+            if (content) {
+                content.innerHTML = ''
+            }
 
-            // 動畫展開
-            requestAnimationFrame(() => {
-                element.style.maxHeight = `${height}px`
+            // 使用 Web Animations API
+            const expandAnimation = element.animate(
+                [
+                    { maxHeight: '0px' },
+                    { maxHeight: `${targetHeight}px` },
+            ],
+                {
+                    duration: 500,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                    fill: 'forwards',
+            }
+            )
 
-                // 內容滑入動畫
-                setTimeout(() => {
-                    if (content) {
-                        content.style.opacity = '1'
-                        content.style.transform = 'translateY(0)'
+            // 同時進行內容淡入和打字機效果
+            expandAnimation.addEventListener('finish', () => {
+                if (content) {
+                    // 內容淡入
+                    const fadeInAnimation = content.animate(
+                        [
+                            { opacity: 0 },
+                            { opacity: 1 },
+                    ],
+                        {
+                            duration: 200,
+                            easing: 'ease-out',
+                            fill: 'forwards',
                     }
-                }, 150)
+                    )
 
-                // 動畫完成後設置為 auto 以支持動態內容
-                setTimeout(() => {
-                    element.style.maxHeight = 'none'
-                }, 500)
+                    // 開始打字機效果
+                    const htmlContent = content.getAttribute('data-content') || ''
+                    const plainText = stripHtml(htmlContent)
+                    typewriterEffect(content, plainText, 20)
+                }
             })
         }
 
-        // 平滑收合函數
+        // 使用 Web Animations API 實現收合動畫
         function smoothCollapse(element: HTMLElement) {
             const content = element.querySelector('.faq-content-inner') as HTMLElement
+            const currentHeight = element.scrollHeight
 
-            // 內容滑出動畫
+            // 內容淡出
             if (content) {
-                content.style.opacity = '0'
-                content.style.transform = 'translateY(-8px)'
+                content.animate(
+                    [
+                        { opacity: 1 },
+                        { opacity: 0 },
+                ],
+                    {
+                        duration: 150,
+                        easing: 'ease-out',
+                        fill: 'forwards',
+                }
+                )
+
+                // 清空內容
+                setTimeout(() => {
+                    content.innerHTML = ''
+                }, 150)
             }
 
-            // 設置當前高度
-            const height = element.scrollHeight
-            element.style.maxHeight = `${height}px`
-
-            // 強制重新渲染
-            void element.offsetHeight
-
-            // 動畫收合
-            setTimeout(() => {
-                element.style.maxHeight = '0px'
-            }, 100)
+            // 高度收合動畫
+            const collapseAnimation = element.animate(
+                [
+                    { maxHeight: `${currentHeight}px` },
+                    { maxHeight: '0px' },
+            ],
+                {
+                    duration: 350,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                    fill: 'forwards',
+            }
+            )
         }
+
+        // 添加狀態追蹤
+        const expandedStates = new Map()
 
         toggles.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target')
                 if (!targetId) return
                 const target = document.getElementById(targetId)
-                const isExpanded = target && target.style.maxHeight !== '0px' && target.style.maxHeight !== ''
+                const isExpanded = expandedStates.get(targetId) || false
 
                 // 關閉其他項目
                 document.querySelectorAll('#faq-accordion div[id^=\'faq-body-\']').forEach(el => {
                     const element = el as HTMLElement
-                    if (element.id !== targetId && element.style.maxHeight !== '0px') {
+                    const elementId = element.id
+
+                    if (elementId !== targetId && expandedStates.get(elementId)) {
                         smoothCollapse(element)
+                        expandedStates.set(elementId, false)
+
                         const otherBtn = el.previousElementSibling
                         if (otherBtn && otherBtn.querySelector) {
                             const otherSvg = otherBtn.querySelector('svg')
@@ -157,10 +263,12 @@ const { faqs } = Astro.props
                     if (isExpanded) {
                         // 收合
                         smoothCollapse(target)
+                        expandedStates.set(targetId, false)
                         if (svg) svg.style.transform = 'rotate(0deg)'
                     } else {
                         // 展開
                         smoothExpand(target)
+                        expandedStates.set(targetId, true)
                         if (svg) svg.style.transform = 'rotate(180deg)'
                     }
                 }
@@ -170,8 +278,25 @@ const { faqs } = Astro.props
 </script>
 
 <style>
-    /* 只保留 will-change 優化 */
+    /* 內容優化 */
     .faq-content-inner {
-        will-change: opacity, transform;
+        will-change: opacity;
+    }
+
+    /* 游標閃爍動畫 */
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+
+    /* 游標淡出動畫 */
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+
+    /* 手風琴容器優化 */
+    #faq-accordion > div {
+        will-change: auto;
     }
 </style>
