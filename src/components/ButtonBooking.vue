@@ -6,7 +6,7 @@
     :class="buttonClasses"
     :style="themeStyles"
   >
-    <span data-i18n="buttons.book-now">立即預約</span>
+    <span data-i18n="buttons.book-now">{{ t('buttons.book-now') }}</span>
   </a>
 </template>
 
