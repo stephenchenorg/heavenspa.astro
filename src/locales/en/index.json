@@ -47,6 +47,14 @@
     "thumbnail": "Thumbnail",
     "viewDetails": "VIEW MORE"
   },
+  "marquee": {
+    "marquee1": "Professional Service Team",
+    "marquee2": "Luxury SPA Experience",
+    "marquee3": "Personalized Services",
+    "marquee4": "Certified Professional Therapists",
+    "marquee5": "Comfortable & Private Environment",
+    "marquee6": "Reservation-Only Service"
+  },
   "schedule": {
     "monday": "Monday",
     "tuesday": "Tuesday",

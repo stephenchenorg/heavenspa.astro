@@ -47,6 +47,14 @@
     "thumbnail": "縮圖",
     "viewDetails": "前往查看"
   },
+  "marquee": {
+    "marquee1": "專業服務團隊",
+    "marquee2": "頂級 SPA 體驗",
+    "marquee3": "個人化服務",
+    "marquee4": "專業認證技師",
+    "marquee5": "舒適私密環境",
+    "marquee6": "全預約制服務"
+  },
   "schedule": {
     "monday": "星期一",
     "tuesday": "星期二",

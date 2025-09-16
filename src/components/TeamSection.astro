@@ -7,7 +7,7 @@ import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
-// 獲取前六筆團隊成員ㄔ
+// 獲取前六筆團隊成員
 const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).locale)).slice(0, 6)
 ---
 <section
@@ -77,29 +77,29 @@ const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).local
     <div class="py-4">
       <div class="marquee-container">
         <div class="marquee-content flex items-center space-x-8">
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業服務團隊</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee1')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">頂級 SPA 體驗</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee2')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">個人化服務</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee3')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業認證技師</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee4')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">舒適私密環境</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee5')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">全預約制服務</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee6')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業服務團隊</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee1')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">頂級 SPA 體驗</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee2')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">個人化服務</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee3')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">專業認證技師</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee4')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">舒適私密環境</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee5')}</span>
           <span class="text-[var(--theme-text)]/70">•</span>
-          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">全預約制服務</span>
+          <span class="text-[var(--theme-text)] font-medium whitespace-nowrap">{ t('marquee.marquee6')}</span>
         </div>
       </div>
     </div>
