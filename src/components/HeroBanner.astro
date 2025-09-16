@@ -1,5 +1,4 @@
 ---
-
 import Button from '@/components/ui/Button.astro'
 import { createNestedT } from '@/utils/i18n'
 
@@ -13,6 +12,11 @@ export interface BannerImage {
 }
 
 export interface Banner {
+  id: string
+  title: string
+  sub_title: string
+  cta_link: string
+  cta_title: string
   image: BannerImage
 }
 
@@ -27,61 +31,106 @@ const chars = circleText.split('')
 const angleStep = 360 / chars.length
 ---
 
-<!-- Dark Modern Portfolio Hero Section -->
+<!-- Hero Banner Section -->
 <section
   class="relative min-h-screen w-full flex items-center justify-center overflow-hidden theme-section"
   id="page-header"
-  style={`background: ${banners?.[0]?.image?.desktop ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banners[0].image.desktop}') center center/cover no-repeat` : 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(\'https://cs-studio-test.s3.amazonaws.com/heavenspa/staging/image/s7WV1wjP/portfolio-4.jpg\') center center/cover no-repeat'}; background-attachment: fixed;`}
 >
   <!-- Subtle texture background -->
   <div
     class="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.02)_1px,_transparent_1px)] bg-[size:60px_60px]"
   ></div>
 
-  <!-- Main Content -->
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="text-center space-y-12">
+  <!-- Banner Content (Background + Content combined) -->
+  {banners && banners.length > 0 ? (
+    banners.map((banner, index) => (
+      <div
+        class={`banner-slide absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+        data-slide={index}
+        style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop}') center center/cover no-repeat; background-attachment: fixed;`}
+      >
+        <!-- Main Content -->
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
+          <div class="text-center space-y-12">
+            <!-- Main Heading -->
+            <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
+              <h1
+                class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
+                style="color: var(--theme-text, #ffffff)"
+              >
+                {banner.title}
+              </h1>
+            </div>
 
-      <!-- Category Label -->
-      <div class="animate-fade-in-up [animation-delay:0.2s] [animation-fill-mode:both]">
-        <span
-          class="text-base tracking-[0.3em] uppercase font-light"
-          style="color: var(--theme-text-secondary, rgba(255,255,255,0.6))"
-        >
-          {t('hero.span-title')}
-        </span>
+            <!-- Description -->
+            <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
+              <p
+                class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
+                style="color: var(--theme-text, rgba(255,255,255,0.8))"
+              >
+                {banner.sub_title}
+              </p>
+              { banner.cta_link && (
+                  <a href={banner.cta_link} target="_blank" rel="noopener noreferrer">
+                    <Button><span>{banner.cta_title}</span></Button>
+                  </a>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!-- Main Heading -->
-      <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
-        <h1
-          class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
-          style="color: var(--theme-text, #ffffff)"
-        >
-          享天堂
-        </h1>
-      </div>
-
-      <!-- Description -->
-      <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
-        <p
-          class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
-          style="color: var(--theme-text, rgba(255,255,255,0.8))"
-        >
-          {t('hero.subtitle')}
-        </p>
-        <a href="https://page.line.me/284pgmle?openQrModal=true" target="_blank" rel="noopener noreferrer">
-          <Button><span data-i18n="buttons.book-now">{t('buttons.book-now')}</span></Button>
-        </a>
+    ))
+  ) : (
+    <!-- Fallback Content -->
+    <div
+      class="banner-slide absolute inset-0 flex items-center justify-center opacity-100"
+      style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://cs-studio-test.s3.amazonaws.com/heavenspa/staging/image/s7WV1wjP/portfolio-4.jpg') center center/cover no-repeat; background-attachment: fixed;"
+    >
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center space-y-12">
+          <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
+            <h1
+              class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
+              style="color: var(--theme-text, #ffffff)"
+            >
+              享天堂
+            </h1>
+          </div>
+          <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
+            <p
+              class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
+              style="color: var(--theme-text, rgba(255,255,255,0.8))"
+            >
+              {t('hero.subtitle')}
+            </p>
+            <a href="https://page.line.me/284pgmle?openQrModal=true" target="_blank" rel="noopener noreferrer">
+              <Button><span>{t('buttons.book-now')}</span></Button>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  )}
+
+  <!-- Carousel Controls (only show if multiple banners) -->
+  {banners && banners.length > 1 && (
+    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20">
+      <div class="flex space-x-3">
+        {banners.map((_, index) => (
+          <button
+            class={`carousel-dot w-3 h-3 rounded-full transition-all duration-300 ${index === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}`}
+            data-slide-to={index}
+          ></button>
+        ))}
+      </div>
+    </div>
+  )}
 
   <!-- Rotating Circle Text - Bottom Right -->
   <div class="absolute right-4 bottom-4 md:right-8 md:bottom-8 z-10">
     <div class="circle cursor-pointer" onclick="scrollToTeam()">
       <div class="circle-icon">
-        <svg class=" w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
         </svg>
       </div>
@@ -116,6 +165,20 @@ const angleStep = 360 / chars.length
 
   .animate-fade-in-up {
     animation: fadeInUp 1s ease both;
+  }
+
+  /* Banner Slide Styles */
+  .banner-slide {
+    will-change: opacity;
+  }
+
+  .carousel-dot {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .carousel-dot:hover {
+    transform: scale(1.1);
   }
 
   .circle:hover {
@@ -165,52 +228,98 @@ const angleStep = 360 / chars.length
     font-weight: 300;
     transform-origin: 0px 60px;
   }
-
 </style>
 
 <script>
-  // 創建圓形文字效果
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize scrollToTeam function
     (window as any).scrollToTeam = function () {
       const teamSection = document.getElementById('team')
       if (teamSection) {
         teamSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
-      })
+        })
       }
     }
 
-    // 滾動時改變文字顏色和漸層效果
+    // Carousel functionality
+    const slides = document.querySelectorAll('.banner-slide')
+    const dots = document.querySelectorAll('.carousel-dot')
+    let currentSlide = 0
+    let autoSlideInterval: number
+
+    // Handle scroll effects for title
     const heroTitle = document.querySelector('h1') as HTMLElement
     if (heroTitle) {
       window.addEventListener('scroll', () => {
         const scrollY = window.scrollY
         if (scrollY > 0) {
-          // 使用 text-primary-600 顏色
-          heroTitle.style.background = 'none'
-          ;(heroTitle.style as any).webkitBackgroundClip = 'initial'
-          heroTitle.style.backgroundClip = 'initial'
-          ;(heroTitle.style as any).webkitTextFillColor = 'initial'
-          heroTitle.style.color = 'rgb(217, 174, 84)' // text-primary-600 equivalent
-
-          // 添加慢脈衝動畫
+          heroTitle.style.color = 'rgb(217, 174, 84)'
           heroTitle.classList.add('animate-slow-pulse')
         } else {
-          // 恢復原始顏色
-          heroTitle.style.background = 'none'
-          ;(heroTitle.style as any).webkitBackgroundClip = 'initial'
-          heroTitle.style.backgroundClip = 'initial'
-          ;(heroTitle.style as any).webkitTextFillColor = 'initial'
           heroTitle.style.color = 'var(--theme-text, #ffffff)'
-
-          // 移除慢脈衝動畫
           heroTitle.classList.remove('animate-slow-pulse')
         }
       })
     }
 
-    // 處理主題變更事件
+    // Only run carousel if multiple slides
+    if (slides.length <= 1) {
+      return
+    }
+
+    function showSlide(index: number) {
+      // Update banner slides
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('opacity-100', i === index)
+        slide.classList.toggle('opacity-0', i !== index)
+      })
+
+      // Update dots
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-white', i === index)
+        dot.classList.toggle('scale-125', i === index)
+        dot.classList.toggle('bg-white/50', i !== index)
+        dot.classList.toggle('scale-100', i !== index)
+      })
+
+      currentSlide = index
+    }
+
+    function nextSlide() {
+      const nextIndex = (currentSlide + 1) % slides.length
+      showSlide(nextIndex)
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(nextSlide, 5000)
+    }
+
+    function stopAutoSlide() {
+      clearInterval(autoSlideInterval)
+    }
+
+    // Dot click handlers
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        stopAutoSlide()
+        showSlide(index)
+        startAutoSlide()
+      })
+    })
+
+    // Start auto-slide
+    startAutoSlide()
+
+    // Pause on hover
+    const heroSection = document.getElementById('page-header')
+    if (heroSection) {
+      heroSection.addEventListener('mouseenter', stopAutoSlide)
+      heroSection.addEventListener('mouseleave', startAutoSlide)
+    }
+
+    // Theme change handler
     document.addEventListener('themeChanged', (e: any) => {
       const theme = e.detail.theme
       const circleTextSpans = document.querySelectorAll('.circle-text span')
@@ -225,7 +334,6 @@ const angleStep = 360 / chars.length
         }
       })
 
-      // Update icon color
       if (circleIcon) {
         const svgElement = circleIcon as SVGElement
         if (theme === 'dark') {

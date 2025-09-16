@@ -1,13 +1,37 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getBanners } from '@/api/banners'
 import CourseSection from '@/components/CourseSection.astro'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
 
-// 暫時使用 Mock 資料 (開發用)
-// TODO: 恢復 GraphQL API 呼叫
+// 獲取 banners 資料
+let banners = []
+try {
+  banners = await getBanners()
+} catch (error) {
+  console.error('Error fetching banners:', error)
+  // 使用 fallback 資料
+  banners = [
+    {
+      id: '1',
+      title: 'Heaven Spa',
+      sub_title: '極致放鬆體驗',
+      cta_title: '立即預約',
+      cta_link: '/booking',
+      image: {
+        desktop: '/images/hero/banner-1.jpg',
+        desktop_blur: '',
+        mobile: '/images/hero/banner-1.jpg',
+        mobile_blur: '',
+      },
+    },
+  ]
+}
+
+// 暫時使用 Mock 資料 (開發用) - courses
 const data = {
   courses: {
     data: [
@@ -34,18 +58,6 @@ const data = {
           desktop: '/images/courses/spa-1.jpg',
           desktop_blur: '',
           mobile: '/images/courses/spa-1.jpg',
-          mobile_blur: '',
-        },
-      },
-    ],
-  },
-  banners: {
-    data: [
-      {
-        image: {
-          desktop: '/images/hero/banner-1.jpg',
-          desktop_blur: '',
-          mobile: '/images/hero/banner-1.jpg',
           mobile_blur: '',
         },
       },
@@ -92,7 +104,7 @@ const meta = seoMeta({
 
 <Layout meta={meta}>
   <!-- Hero Banner -->
-  <HeroBanner banners={data.banners.data} />
+  <HeroBanner banners={banners} />
 
   <!--<IntroSection />-->
 
