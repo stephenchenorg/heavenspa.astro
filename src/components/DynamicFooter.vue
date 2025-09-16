@@ -209,8 +209,6 @@
 </template>
 
 <script setup lang="ts">
-import type { CompanySettingData } from '@/types'
-import { onMounted, onUnmounted, ref } from 'vue'
 import Clock from '@/components/icon/Clock.vue'
 import CreditCard from '@/components/icon/CreditCard.vue'
 import Email from '@/components/icon/Email.vue'
@@ -223,41 +221,10 @@ import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
 import FooterLink from '@/components/ui/FooterLink.vue'
-import { getCurrentLocale, t } from '@/utils/i18n'
+import { t } from '@/utils/i18n'
 
-const companySetting = ref<CompanySettingData | null>(null)
+const t = await createNestedT()
 
-// 獲取公司設定
-async function fetchCompanySetting() {
-  try {
-    const locale = getCurrentLocale()
-    const response = await fetch(`/api/company-setting?lang=${locale}`)
-    if (response.ok) {
-      const data = await response.json()
-      companySetting.value = data
-    } else {
-      console.error('Failed to fetch company setting:', response.status)
-    }
-  } catch (error) {
-    console.error('Failed to fetch company setting:', error)
-  }
-}
-
-// 監聽語言變更事件
-function handleLocaleChange(event: CustomEvent) {
-  fetchCompanySetting()
-}
-
-onMounted(() => {
-  fetchCompanySetting()
-
-  // 監聽自定義語言變更事件
-  window.addEventListener('localechange', handleLocaleChange as EventListener)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('localechange', handleLocaleChange as EventListener)
-})
 
 const year = new Date().getFullYear()
 </script>
