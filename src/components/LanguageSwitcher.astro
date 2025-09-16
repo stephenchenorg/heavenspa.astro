@@ -27,7 +27,6 @@ const displayText = isZhTW ? 'TW' : 'En'
     if (toggleButton) {
       toggleButton.addEventListener('click', () => {
         const currentLocale = toggleButton.getAttribute('data-current-locale')
-        console.log('currentLocale', currentLocale)
         const newLocale = currentLocale === 'zh-TW' ? 'en' : 'zh-TW'
 
         // 取得現在的網址

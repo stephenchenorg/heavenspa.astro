@@ -377,22 +377,13 @@ const isEnglish = currentPath.startsWith('/en')
     const button = dropdown?.querySelector('.dropdown-btn')
     const content = dropdown?.querySelector('.dropdown-content')
 
-    console.log('Dropdown debug:', { dropdown, button, content })
-
-    if (!dropdown || !button) {
-      console.log('Dropdown elements not found', { dropdown, button })
-    } else {
-      console.log('Dropdown elements found successfully')
-
+    if (dropdown && button) {
       // 點擊按鈕切換下拉選單
       button.addEventListener('click', e => {
         e.preventDefault()
         e.stopPropagation()
 
-        console.log('Dropdown button clicked')
-
         const isActive = dropdown.classList.contains('active')
-        console.log('Dropdown is active:', isActive)
 
         // 關閉其他可能開啟的下拉選單
         document.querySelectorAll('.simple-dropdown.active').forEach(other => {
@@ -404,10 +395,8 @@ const isEnglish = currentPath.startsWith('/en')
         // 切換當前下拉選單
         if (isActive) {
           dropdown.classList.remove('active')
-          console.log('Dropdown closed')
         } else {
           dropdown.classList.add('active')
-          console.log('Dropdown opened')
         }
       })
 
