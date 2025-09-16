@@ -8,28 +8,7 @@ import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
 
 // 獲取 banners 資料
-let banners = []
-try {
-  banners = await getBanners()
-} catch (error) {
-  console.error('Error fetching banners:', error)
-  // 使用 fallback 資料
-  banners = [
-    {
-      id: '1',
-      title: 'Heaven Spa',
-      sub_title: '極致放鬆體驗',
-      cta_title: '立即預約',
-      cta_link: '/booking',
-      image: {
-        desktop: '/images/hero/banner-1.jpg',
-        desktop_blur: '',
-        mobile: '/images/hero/banner-1.jpg',
-        mobile_blur: '',
-      },
-    },
-  ]
-}
+const banners = await getBanners()
 
 // 暫時使用 Mock 資料 (開發用) - courses
 const data = {
