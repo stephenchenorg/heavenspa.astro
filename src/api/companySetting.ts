@@ -1,15 +1,6 @@
 import { gql, graphQLAPI } from '@/api/index'
 
-// 使用 Map 來存儲不同語言的快取
-const cache = new Map<string, any>()
-
-export async function getCompanySetting(lang?: string) {
-  const cacheKey = lang || 'default'
-
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey)
-  }
-
+export async function getCompanySetting() {
   const res = await graphQLAPI(gql`
   query GetCompanySetting {
     companySetting {
@@ -35,7 +26,6 @@ export async function getCompanySetting(lang?: string) {
       business_hours
     }
   }
-`, { locale: lang })
-  cache.set(cacheKey, res.companySetting)
+`)
   return res.companySetting
 }

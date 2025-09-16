@@ -183,8 +183,13 @@
     },
     "empty": {
       "title": "暫無內容",
-      "description": "目前此分類下沒有常見問題資料，請稍後再試或選擇其他分類。"
-    }
+      "description": "目前暫無內容常見問題資料。"
+    },
+    "error": {
+      "title": "載入失敗",
+      "description": "無法載入常見問題資料，請重新整理頁面或稍後再試。"
+    },
+    "loading": "載入中..."
   },
   "contact": "CONTACT"
 }

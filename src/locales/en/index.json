@@ -184,7 +184,12 @@
     "empty": {
       "title": "No Content Available",
       "description": "There are currently no FAQ items in this category. Please try again later or select another category."
-    }
+    },
+    "error": {
+      "title": "Loading Failed",
+      "description": "Unable to load FAQ data. Please refresh the page or try again later."
+    },
+    "loading": "Loading..."
   },
   "contact": "CONTACT"
 }

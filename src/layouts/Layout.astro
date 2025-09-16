@@ -6,10 +6,7 @@ import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
-
-// 使用 @astrolicious/i18n 的 getLocale() 函數
-const locale = getLocale()
-const companySetting = await getCompanySetting(locale)
+const companySetting = await getCompanySetting()
 
 interface Props {
   // metadata
