@@ -1,6 +1,6 @@
 import { gql, graphQLAPI } from '@/api/index'
 
-export async function getFaqList(type = 10, lang?: string) {
+export async function getFaqList(type = 10) {
   const res = await graphQLAPI(gql`
     query GetFaqList($type: Int!, $sortBy: String!, $sortColumn: String!) {
       faqs(sort_by: $sortBy, sort_column: $sortColumn, type: $type) {

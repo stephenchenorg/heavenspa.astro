@@ -1,6 +1,5 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { getLocale } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
@@ -11,7 +10,6 @@ import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
-const locale = getLocale()
 const companySetting = await getCompanySetting()
 
 const meta = seoMeta({

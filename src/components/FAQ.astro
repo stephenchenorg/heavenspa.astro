@@ -75,8 +75,8 @@ const { faqs } = Astro.props
         const toggles = document.querySelectorAll('.faq-toggle')
 
         // 平滑展開函數
-        function smoothExpand(element) {
-            const content = element.querySelector('.faq-content-inner')
+        function smoothExpand(element: HTMLElement) {
+            const content = element.querySelector('.faq-content-inner') as HTMLElement
 
             // 獲取自然高度
             element.style.maxHeight = 'none'
@@ -106,8 +106,8 @@ const { faqs } = Astro.props
         }
 
         // 平滑收合函數
-        function smoothCollapse(element) {
-            const content = element.querySelector('.faq-content-inner')
+        function smoothCollapse(element: HTMLElement) {
+            const content = element.querySelector('.faq-content-inner') as HTMLElement
 
             // 內容滑出動畫
             if (content) {
@@ -131,13 +131,15 @@ const { faqs } = Astro.props
         toggles.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target')
+                if (!targetId) return
                 const target = document.getElementById(targetId)
                 const isExpanded = target && target.style.maxHeight !== '0px' && target.style.maxHeight !== ''
 
                 // 關閉其他項目
                 document.querySelectorAll('#faq-accordion div[id^=\'faq-body-\']').forEach(el => {
-                    if (el.id !== targetId && el.style.maxHeight !== '0px') {
-                        smoothCollapse(el)
+                    const element = el as HTMLElement
+                    if (element.id !== targetId && element.style.maxHeight !== '0px') {
+                        smoothCollapse(element)
                         const otherBtn = el.previousElementSibling
                         if (otherBtn && otherBtn.querySelector) {
                             const otherSvg = otherBtn.querySelector('svg')

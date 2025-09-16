@@ -5,7 +5,6 @@ export const GET: APIRoute = async ({ url }) => {
   try {
     const searchParams = url.searchParams
     const categoryId = searchParams.get('category_id')
-    const lang = searchParams.get('lang') || 'zh-tw'
 
     if (!categoryId) {
       return new Response(JSON.stringify({ error: 'Category ID is required' }), {
@@ -27,7 +26,7 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     // 獲取 FAQ 資料
-    const faqData = await getFaqList(categoryIdNum, lang)
+    const faqData = await getFaqList(categoryIdNum)
 
     return new Response(JSON.stringify(faqData), {
       status: 200,
