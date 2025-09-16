@@ -8,34 +8,50 @@ const isZhTW = currentLocale === 'zh-TW'
 const displayText = isZhTW ? 'TW' : 'En'
 ---
 
-<div class="language-switcher">
+<div class="language-switcher flex">
   <button
     type="button"
-    id="language-toggle"
+    id="language-toggle-tw"
     class="flex items-center text-md font-medium tracking-wide transition-colors duration-200 hover:opacity-80 bg-transparent border-none cursor-pointer"
-    style="color: var(--theme-text)"
+    style={`color: ${currentLocale === 'zh-TW' ? 'var(--color-primary-600, #c4a428)' : 'var(--theme-text)'}`}
     data-current-locale={currentLocale}
+    data-target-locale="zh-TW"
   >
-    {displayText}
+    繁中
+  </button>
+  <!--空格-->
+  <span style="color: var(--theme-text)">&nbsp; / &nbsp;</span>
+  <button
+      type="button"
+      id="language-toggle-en"
+      class="flex items-center text-md font-medium tracking-wide transition-colors duration-200 hover:opacity-80 bg-transparent border-none cursor-pointer"
+      style={`color: ${currentLocale === 'en' ? 'var(--color-primary-600, #c4a428)' : 'var(--theme-text)'}`}
+      data-current-locale={currentLocale}
+      data-target-locale="en"
+  >
+    EN
   </button>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById('language-toggle')
+    const toggleButtons = document.querySelectorAll('[id^="language-toggle-"]')
 
-    if (toggleButton) {
-      toggleButton.addEventListener('click', () => {
-        const currentLocale = toggleButton.getAttribute('data-current-locale')
-        const newLocale = currentLocale === 'zh-TW' ? 'en' : 'zh-TW'
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetLocale = button.getAttribute('data-target-locale')
+        const currentLocale = button.getAttribute('data-current-locale')
 
-        // 取得現在的網址
-        if (newLocale === 'en') {
-            window.location.href = `/en${window.location.pathname}`
+        // 如果點擊的是當前語言，不做任何動作
+        if (targetLocale === currentLocale) return
+
+        // 根據目標語言決定跳轉
+        if (targetLocale === 'en') {
+          window.location.href = `/en${window.location.pathname}`
         } else {
           window.location.href = window.location.pathname.replace('/en', '')
         }
       })
-    }
+    })
   })
 </script>
