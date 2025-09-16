@@ -56,4 +56,68 @@ const {
       window.history.replaceState({}, '', url.toString())
     }
   </script>
+
+  <!-- 全域連結處理器 - 自動為內部連結添加正確的語言路徑 -->
+  <script>
+    /**
+     * 全域連結處理器 - 自動為內部連結添加語言感知路徑
+     */
+    function initGlobalLinkHandler() {
+      // 檢查當前語言版本
+      const currentPath = window.location.pathname
+      const isEnglish = currentPath.startsWith('/en')
+
+      // 找到所有內部連結（沒有被手動設定 getLocalePath 的）
+      const internalLinks = document.querySelectorAll('a[href^="/"]')
+
+      internalLinks.forEach(link => {
+        const href = link.getAttribute('href')
+
+        // 跳過已經有正確語言前綴的連結
+        if (isEnglish && href.startsWith('/en/')) return
+        if (!isEnglish && !href.startsWith('/en/')) return
+
+        // 跳過外部連結和特殊連結
+        if (href.startsWith('//') || href.startsWith('mailto:') || href.startsWith('tel:')) return
+
+        // 自動處理語言路徑
+        if (isEnglish && !href.startsWith('/en/')) {
+          // 英文版：為沒有 /en 前綴的連結添加前綴
+          link.setAttribute('href', `/en${href}`)
+        } else if (!isEnglish && href.startsWith('/en/')) {
+          // 中文版：移除 /en 前綴
+          link.setAttribute('href', href.replace('/en', ''))
+        }
+      })
+    }
+
+    // 在 DOM 載入完成後執行
+    document.addEventListener('DOMContentLoaded', initGlobalLinkHandler)
+
+    // 在 Astro 頁面切換後也執行
+    document.addEventListener('astro:page-load', initGlobalLinkHandler)
+
+    // 監聽動態內容變更
+    const observer = new MutationObserver((mutations) => {
+      let shouldUpdate = false
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node
+              if (element.tagName === 'A' || element.querySelector('a')) {
+                shouldUpdate = true
+              }
+            }
+          })
+        }
+      })
+      if (shouldUpdate) {
+        setTimeout(initGlobalLinkHandler, 100)
+      }
+    })
+
+    // 開始觀察
+    observer.observe(document.body, { childList: true, subtree: true })
+  </script>
 </BaseLayout>

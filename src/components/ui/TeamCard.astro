@@ -13,9 +13,9 @@ interface Props {
 const { member, uniqueId } = Astro.props
 
 ---
-<div
+<a
   class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 w-full h-full"
-  onclick={`window.location.href='/team/${member.id}'`}
+  href={`/team/${member.id}`}
 >
   <!-- 圖片容器 -->
   <div class="relative w-full aspect-square overflow-hidden mb-4 bg-[var(--theme-border,#e5e7eb)]">
@@ -52,7 +52,7 @@ const { member, uniqueId } = Astro.props
       </h3>
     </div>
   </div>
-</div>
+</a>
 
 <style>
   .backface-visibility-hidden {
