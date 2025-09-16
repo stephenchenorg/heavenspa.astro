@@ -1,80 +1,12 @@
 ---
-// Member Benefits Section with Card Layout
-import SectionTitle from '@/components/ui/SectionTitle.astro'
-// Member Benefits Section with Card Layout
+import { getArticles } from '@/api/articles'
 import { createNestedT } from '@/utils/i18n'
-import { gql, graphQLAPI } from '../api'
+import SectionTitle from './ui/SectionTitle.astro'
 
 const t = await createNestedT()
 
-export interface Article {
-  id?: number
-  title: string
-  cover: string
-  content: string
-  ended_at?: string
-  started_at?: string
-  date?: string
-  year?: string
-  month?: string
-}
-
-export interface ArticlesResponse {
-  articles: {
-    data: Article[]
-    has_more_pages: boolean
-    last_page: number
-    per_page: number
-    to: number
-    total: number
-    from: number
-  }
-}
-let articles: Article[] = []
-
-try {
-  const articlesData: ArticlesResponse = await graphQLAPI(gql`
-    query MyQuery {
-      articles{
-        data {
-          id
-          content
-          cover
-          ended_at
-          title
-        }
-        has_more_pages
-        last_page
-        per_page
-        to
-        total
-        from
-      }
-    }
-  `)
-
-  // 將 API 資料轉換為 Article 格式
-  const apiArticles = (articlesData.articles.data || []).map((article: Article, index: number) => {
-    const createdDate = new Date()
-    return {
-      id: article.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
-      title: article.title,
-      cover: article.cover,
-      content: article.content,
-      ended_at: article.ended_at,
-      started_at: createdDate.toISOString(),
-      date: createdDate.getDate().toString().padStart(2, '0'),
-      year: createdDate.getFullYear().toString(),
-      month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
-    }
-  })
-
-  articles = apiArticles.slice(0, 6) // 只取前6筆資料
-} catch (error) {
-  console.error('Failed to fetch articles data:', error)
-  // 如果 API 失敗，設定為空陣列
-  articles = []
-}
+let articles = await getArticles()
+articles = articles.slice(0, 6) // 只取前6筆資料
 
 ---
 
@@ -132,11 +64,13 @@ try {
                       </div>
 
                       <!-- 底部行動召喚 -->
-                      <div class="flex items-center justify-between">
-                        <div class="text-xs opacity-75">
-                          <span>發布日期 {new Date(article.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
-                        </div>
-                      </div>
+                      { article.started_at && (
+                          <div class="flex items-center justify-betㄙween">
+                            <div class="text-xs opacity-75">
+                              <span>{t('news.publishDate')} {article.started_at}</span>
+                            </div>
+                          </div>
+                      )}
                     </div>
 
                     <!-- VIEW MORE Button Overlay -->

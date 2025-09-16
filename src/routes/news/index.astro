@@ -1,82 +1,13 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { gql, graphQLAPI } from '@/api'
+import { getArticles } from '@/api/articles'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
-export interface Article {
-  id?: number
-  title: string
-  cover: string
-  content: string
-  ended_at?: string
-  started_at?: string
-  date?: string
-  year?: string
-  month?: string
-}
-
-export interface ArticlesResponse {
-  articles: {
-    data: Article[]
-    has_more_pages: boolean
-    last_page: number
-    per_page: number
-    to: number
-    total: number
-    from: number
-  }
-}
-
-let articles: Article[] = []
-
-try {
-  const articlesData: ArticlesResponse = await graphQLAPI(gql`
-    query MyQuery {
-      articles{
-        data {
-          id
-          content
-          cover
-          ended_at
-          title
-        }
-        has_more_pages
-        last_page
-        per_page
-        to
-        total
-        from
-      }
-    }
-  `)
-
-  // 將 API 資料轉換為 Article 格式
-  const apiArticles = (articlesData.articles.data || []).map((article: Article, index: number) => {
-    const createdDate = new Date()
-    return {
-      id: article.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
-      title: article.title,
-      cover: article.cover,
-      content: article.content,
-      ended_at: article.ended_at,
-      started_at: createdDate.toISOString(),
-      date: createdDate.getDate().toString().padStart(2, '0'),
-      year: createdDate.getFullYear().toString(),
-      month: (createdDate.getMonth() + 1).toString().padStart(2, '0'),
-    }
-  })
-
-  // 使用 API 資料
-  articles = apiArticles
-} catch (error) {
-  console.error('Failed to fetch articles data:', error)
-  // 如果 API 失敗，設定為空陣列
-  articles = []
-}
+const articles = await getArticles()
 
 const meta = seoMeta({
   title: '最新消息 - Heaven Spa',
@@ -160,11 +91,13 @@ const meta = seoMeta({
 
                 <!-- Date and CTA -->
                 <div class="flex items-center justify-between pt-2">
-                  <div class="text-sm transition-colors duration-300" style="color: var(--theme-text-muted);">
-                    <span>{new Date(article.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
-                  </div>
+                  { article.started_at && (
+                      <div class="text-sm transition-colors duration-300" style="color: var(--theme-text-muted);">
+                        <span>article.started_at</span>
+                      </div>
+                  )}
                   <div class="flex items-center space-x-1 text-sm font-medium transition-colors duration-300" style="color: var(--color-primary-500);">
-                    <span>詳情</span>
+                    <span>{ t('news.detail') }</span>
                     <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
