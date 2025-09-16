@@ -12,22 +12,22 @@ const {
   text,
   isActive = false,
   variant = 'desktop',
-  i18nKey
+  i18nKey,
 } = Astro.props
 
 const baseClasses = {
   desktop: `nav-item ${isActive ? 'active' : ''}`,
-  mobile: `mobile-nav-item ${isActive ? 'active' : ''}`
+  mobile: `mobile-nav-item ${isActive ? 'active' : ''}`,
 }
 
 const styles = {
-  desktop: 'color: var(--theme-nav-text, #000000); font-size: 16px;',
-  mobile: 'color: var(--theme-mobile-nav-text, #D7AE54); font-size: 16px;'
+  desktop: 'color: var(--theme-nav-text, #000000); font-size: clamp(14px, 1.2vw, 18px);',
+  mobile: 'color: var(--theme-mobile-nav-text, #D7AE54); font-size: 18px;',
 }
 
 const underlineStyles = {
   desktop: 'background: var(--theme-nav-text, #000000);',
-  mobile: 'background: var(--theme-mobile-nav-indicator, #D7AE54);'
+  mobile: 'background: var(--theme-mobile-nav-indicator, #D7AE54);',
 }
 ---
 

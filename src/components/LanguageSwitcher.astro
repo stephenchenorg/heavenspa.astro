@@ -5,14 +5,14 @@ const currentLocale = getLocale()
 
 // 根據當前語系決定顯示文字
 const isZhTW = currentLocale === 'zh-TW'
-const displayText = isZhTW ? '繁中' : 'En'
+const displayText = isZhTW ? 'TW' : 'En'
 ---
 
 <div class="language-switcher">
   <button
     type="button"
     id="language-toggle"
-    class="flex items-center text-lg font-medium tracking-wide transition-colors duration-200 hover:opacity-80 bg-transparent border-none cursor-pointer"
+    class="flex items-center text-md font-medium tracking-wide transition-colors duration-200 hover:opacity-80 bg-transparent border-none cursor-pointer"
     style="color: var(--theme-text)"
     data-current-locale={currentLocale}
   >
@@ -27,11 +27,11 @@ const displayText = isZhTW ? '繁中' : 'En'
     if (toggleButton) {
       toggleButton.addEventListener('click', () => {
         const currentLocale = toggleButton.getAttribute('data-current-locale')
-        console.log("currentLocale",currentLocale)
+        console.log('currentLocale', currentLocale)
         const newLocale = currentLocale === 'zh-TW' ? 'en' : 'zh-TW'
 
         // 取得現在的網址
-        if(newLocale === 'en'){
+        if (newLocale === 'en') {
             window.location.href = `/en${window.location.pathname}`
         } else {
           window.location.href = window.location.pathname.replace('/en', '')

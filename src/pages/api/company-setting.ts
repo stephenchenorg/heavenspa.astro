@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { getCompanySetting } from '@/api/companySetting'
 
-export const GET: APIRoute = async ({ url }) => {
+export const GET: APIRoute = async () => {
   try {
     const companySetting = await getCompanySetting()
     return new Response(JSON.stringify(companySetting), {

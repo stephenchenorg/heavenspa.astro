@@ -3,8 +3,8 @@ import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import HeaderContent from '@/components/HeaderContent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
-import NavLink from '@/components/ui/NavLink.astro'
 import ThemeController from '@/components/ThemeController.astro'
+import NavLink from '@/components/ui/NavLink.astro'
 import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
@@ -27,68 +27,77 @@ function isActive(path: string) {
 
 // 特殊處理 careers 相關頁面
 const isCareersActive = currentPath.startsWith('/joinUs')
+
+// 檢查當前語言，英文版使用手機版樣式
+const isEnglish = currentPath.startsWith('/en')
 ---
 
 <!-- 導航列 -->
 <nav
-  class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav lg:justify-start"
+  class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav"
   data-scrolled="false"
   style="background: var(--theme-nav-bg, transparent); color: var(--theme-nav-text, #000000);"
 >
-  <!-- Logo - 25% width on lg+ -->
-  <div class="nav-logo lg:w-1/4 lg:flex-shrink-0">
+  <!-- Logo - flexible width -->
+  <div class="nav-logo flex-shrink-0">
     <!-- 使用動態 Vue 組件處理 Logo -->
     <HeaderContent client:load />
   </div>
 
-  <!-- Link - 50% width on lg+, hidden below lg -->
-  <div class="hidden lg:flex gap-6 items-center justify-center flex-nowrap overflow-visible nav-menu lg:w-1/2 lg:flex-shrink-0">
-    <NavLink href="/about" text={t('nav.about')} isActive={isActive('/about')} variant="desktop" i18nKey="nav.about" />
-    <NavLink href="/news" text={t('nav.news')} isActive={isActive('/news')} variant="desktop" i18nKey="nav.news" />
-    <NavLink href="/services" text={t('nav.services')} isActive={isActive('/services')} variant="desktop" i18nKey="nav.services" />
-    <NavLink href="/team" text={t('nav.team')} isActive={isActive('/team')} variant="desktop" i18nKey="nav.team" />
-    <NavLink href="/faq" text={t('nav.faq')} isActive={isActive('/faq')} variant="desktop" i18nKey="nav.faq" />
-    <!-- 加入我們 - 全新簡潔設計 -->
-    <div class="simple-dropdown relative">
-      <button type="button" class={`nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 text-lg font-medium tracking-wide ${isCareersActive ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-        <span data-i18n="nav.careers" class="text-lg font-medium tracking-wide">{t('nav.careers')}</span>
-        <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-        <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-      </button>
+  <!-- Link - flexible width, hidden below lg and hidden if English -->
+  {!isEnglish && (
+    <div class="hidden lg:flex gap-2 xl:gap-4 items-center justify-center flex-nowrap nav-menu flex-1 min-w-0 overflow-visible">
+      <NavLink href="/about" text={t('nav.about')} isActive={isActive('/about')} variant="desktop" i18nKey="nav.about" />
+      <NavLink href="/news" text={t('nav.news')} isActive={isActive('/news')} variant="desktop" i18nKey="nav.news" />
+      <NavLink href="/services" text={t('nav.services')} isActive={isActive('/services')} variant="desktop" i18nKey="nav.services" />
+      <NavLink href="/team" text={t('nav.team')} isActive={isActive('/team')} variant="desktop" i18nKey="nav.team" />
+      <NavLink href="/faq" text={t('nav.faq')} isActive={isActive('/faq')} variant="desktop" i18nKey="nav.faq" />
+      <!-- 加入我們 - 全新簡潔設計 -->
+      <div class="simple-dropdown relative">
+        <button type="button" class={`nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 font-medium tracking-wide ${isCareersActive ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000); font-size: clamp(14px, 1.2vw, 18px);">
+          <span data-i18n="nav.careers" class="font-medium tracking-wide">{t('nav.careers')}</span>
+          <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+          <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
+        </button>
 
-      <!-- 全新的下拉選單 -->
-      <div class="dropdown-content">
-        <a href="/joinUs/careers" class="dropdown-link text-lg font-medium tracking-wide">
-          <span data-i18n="nav.recruitment" class="text-lg font-medium tracking-wide">{t('nav.recruitment')}</span>
-        </a>
-        <a href="/joinUs/training" class="dropdown-link text-lg font-medium tracking-wide">
-          <span data-i18n="nav.training" class="text-lg font-medium tracking-wide">{t('nav.training')}</span>
-        </a>
+        <!-- 全新的下拉選單 -->
+        <div class="dropdown-content">
+          <a href="/joinUs/careers" class="dropdown-link">
+            <span data-i18n="nav.recruitment">{t('nav.recruitment')}</span>
+          </a>
+          <a href="/joinUs/training" class="dropdown-link">
+            <span data-i18n="nav.training">{t('nav.training')}</span>
+          </a>
+        </div>
       </div>
+      <!-- 異業合作 -->
+      <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="desktop" i18nKey="nav.business_partnership" />
     </div>
-    <!-- 異業合作 -->
-    <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="desktop" i18nKey="nav.business_partnership" />
+  )}
+
+  <!-- Right side container -->
+  <div class="flex items-center gap-2 xl:gap-4 flex-shrink-0">
+    <!-- Action Div - visible on desktop -->
+    <div class="hidden lg:flex items-center gap-1 xl:gap-2">
+      <LanguageSwitcher />
+      <ThemeController />
+      <ButtonBooking size="sm" />
+    </div>
+
+    <!-- 手機版選單按鈕 - visible below lg or if English -->
+    <button
+      class={`${isEnglish ? 'flex' : 'lg:hidden'} flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn`}
+      type="button"
+      id="mobile-menu-btn"
+    >
+      <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
+      <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
+      <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
+    </button>
   </div>
 
-  <!-- 手機版選單按鈕 - visible below lg -->
-  <button
-    class="lg:hidden flex flex-col gap-1 justify-center items-center cursor-pointer w-11 h-11 p-2 z-[10000] relative transition-all duration-300 ease-in-out mobile-menu-btn"
-    type="button"
-    id="mobile-menu-btn"
-  >
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
-    <span class="w-6 h-0.5 transition-all duration-300 ease-in-out rounded-sm block" style="background: var(--theme-text, #000000);"></span>
-  </button>
-
-  <!-- Action Div - 25% width on lg+, hidden below lg -->
-  <div class="hidden lg:flex items-center justify-end gap-4 nav-contact lg:w-1/4 lg:flex-shrink-0">
-    <LanguageSwitcher />
-    <ThemeController />
-    <ButtonBooking size="sm" />
-  </div>
 </nav>
 
 <!-- 手機版選單彈出層 -->
@@ -146,7 +155,8 @@ const isCareersActive = currentPath.startsWith('/joinUs')
         </div>
       </div>
     </nav>
-    <div class="px-6 py-4 border-t border-b mobile-language-section" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
+
+    <div class={`px-6 py-4 border-t border-b mobile-language-section ${isEnglish ? 'lg:hidden' : ''}`} style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
       <div class="flex flex-col items-center gap-3 mobile-language">
         <div class="flex items-center gap-4">
           <LanguageSwitcher />
@@ -367,15 +377,22 @@ const isCareersActive = currentPath.startsWith('/joinUs')
     const button = dropdown?.querySelector('.dropdown-btn')
     const content = dropdown?.querySelector('.dropdown-content')
 
+    console.log('Dropdown debug:', { dropdown, button, content })
+
     if (!dropdown || !button) {
-      return
+      console.log('Dropdown elements not found', { dropdown, button })
     } else {
+      console.log('Dropdown elements found successfully')
+
       // 點擊按鈕切換下拉選單
       button.addEventListener('click', e => {
         e.preventDefault()
         e.stopPropagation()
 
+        console.log('Dropdown button clicked')
+
         const isActive = dropdown.classList.contains('active')
+        console.log('Dropdown is active:', isActive)
 
         // 關閉其他可能開啟的下拉選單
         document.querySelectorAll('.simple-dropdown.active').forEach(other => {
@@ -387,66 +404,10 @@ const isCareersActive = currentPath.startsWith('/joinUs')
         // 切換當前下拉選單
         if (isActive) {
           dropdown.classList.remove('active')
-
-          // 強制隱藏 - 使用內聯樣式
-          if (content) {
-            const htmlContent = content as HTMLElement
-            htmlContent.style.opacity = '0'
-            htmlContent.style.visibility = 'hidden'
-            htmlContent.style.transform = 'translateY(-10px)'
-          }
+          console.log('Dropdown closed')
         } else {
           dropdown.classList.add('active')
-
-          // 強制顯示 - 使用內聯樣式覆蓋任何衝突
-          if (content) {
-            const htmlContent = content as HTMLElement
-            htmlContent.style.opacity = '1'
-            htmlContent.style.visibility = 'visible'
-            htmlContent.style.transform = 'translateY(0px)'
-            htmlContent.style.position = 'absolute'
-            htmlContent.style.top = '100%'
-            htmlContent.style.left = '0'
-            htmlContent.style.zIndex = '9999'
-            htmlContent.style.background = 'white'
-            htmlContent.style.border = '1px solid #e2e8f0'
-            htmlContent.style.borderRadius = '8px'
-            htmlContent.style.minWidth = '180px'
-            htmlContent.style.marginTop = '10px'
-            htmlContent.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)'
-
-            // 檢查深色模式並應用適當樣式
-            const isDarkMode = document.documentElement.classList.contains('dark') ||
-                             document.documentElement.getAttribute('data-theme') === 'dark'
-
-            if (isDarkMode) {
-              htmlContent.style.background = '#1f2937'
-              htmlContent.style.borderColor = '#374151'
-            }
-
-            // 嘗試用 setAttribute 強制設定
-            htmlContent.setAttribute('style',
-              'opacity: 1 !important; ' +
-              'visibility: visible !important; ' +
-              'transform: translateY(0px) !important; ' +
-              'position: absolute !important; ' +
-              'top: 100% !important; ' +
-              'left: 0 !important; ' +
-              'z-index: 9999 !important; ' +
-              'background: white !important; ' +
-              'border: 1px solid #e2e8f0 !important; ' +
-              'border-radius: 8px !important; ' +
-              'min-width: 180px !important; ' +
-              'margin-top: 10px !important; ' +
-              'box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important; ' +
-              'display: block !important;'
-            )
-          }
-
-          // 強制檢查內容是否可見
-          if (content) {
-            getComputedStyle(content)
-          }
+          console.log('Dropdown opened')
         }
       })
 
@@ -455,14 +416,6 @@ const isCareersActive = currentPath.startsWith('/joinUs')
         // 如果點擊在下拉選單外面，才關閉選單
         if (!dropdown.contains(e.target as Node)) {
           dropdown.classList.remove('active')
-
-          // 強制隱藏下拉選單內容
-          if (content) {
-            const htmlContent = content as HTMLElement
-            htmlContent.style.opacity = '0'
-            htmlContent.style.visibility = 'hidden'
-            htmlContent.style.transform = 'translateY(-10px)'
-          }
         }
       })
 
@@ -472,16 +425,6 @@ const isCareersActive = currentPath.startsWith('/joinUs')
         link.addEventListener('click', () => {
           // 點擊連結後關閉下拉選單
           dropdown.classList.remove('active')
-
-          // 強制隱藏下拉選單內容
-          if (content) {
-            const htmlContent = content as HTMLElement
-            htmlContent.style.opacity = '0'
-            htmlContent.style.visibility = 'hidden'
-            htmlContent.style.transform = 'translateY(-10px)'
-          }
-
-          // 讓連結正常導航，不阻止預設行為
         })
       })
 
@@ -489,14 +432,6 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
           dropdown.classList.remove('active')
-
-          // 強制隱藏下拉選單內容
-          if (content) {
-            const htmlContent = content as HTMLElement
-            htmlContent.style.opacity = '0'
-            htmlContent.style.visibility = 'hidden'
-            htmlContent.style.transform = 'translateY(-10px)'
-          }
         }
       })
     }
@@ -594,27 +529,30 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
 .simple-dropdown .dropdown-content {
   position: absolute !important;
-  top: 100% !important;
+  top: calc(100% + 10px) !important;
   left: 0 !important;
-  margin-top: 10px !important;
   min-width: 180px !important;
+  max-width: 220px !important;
   background: white !important;
   border: 1px solid #e2e8f0 !important;
   border-radius: 8px !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
   z-index: 9999 !important;
+  overflow: visible !important;
 
   /* 默認隱藏 */
   opacity: 0 !important;
   visibility: hidden !important;
   transform: translateY(-10px) !important;
   transition: all 0.2s ease !important;
+  pointer-events: none !important;
 }
 
 .simple-dropdown.active .dropdown-content {
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateY(0) !important;
+  pointer-events: auto !important;
 }
 
 .simple-dropdown.active .dropdown-icon {
@@ -623,10 +561,10 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
 .dropdown-link {
   display: block !important;
-  padding: 14px 18px !important;
+  padding: 12px 16px !important;
   color: #374151 !important;
   text-decoration: none !important;
-  font-size: 18px !important;
+  font-size: clamp(14px, 1.2vw, 16px) !important;
   font-weight: 500 !important;
   letter-spacing: 0.025em !important;
   line-height: 1.4 !important;
