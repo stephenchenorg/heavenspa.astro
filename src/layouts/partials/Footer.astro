@@ -47,7 +47,7 @@ const {
                 </p>
 
                 <!-- 聯絡資訊 -->
-                <div class="gap-4 grid md:grid-cols-1 grid-cols-2">
+                <div class="gap-4 grid grid-cols-1 ">
                     <div class="flex items-center justify-start gap-3 text-sm">
                         <div class="text-base opacity-80">
                             <Phone size="20" />
@@ -87,17 +87,13 @@ const {
                         <div class="text-base opacity-80">
                             <Clock size="20" />
                         </div>
-                        <span class="text-[var(--theme-text,#000000)]">
-            {companySetting?.business_hours || ''}
-          </span>
+                        <span class="text-[var(--theme-text,#000000)]">{companySetting?.business_hours || ''}</span>
                     </div>
                     <div class="flex items-center justify-start gap-3 text-sm">
                         <div class="text-base opacity-80">
                             <CreditCard size="20" />
                         </div>
-                        <span class="text-[var(--theme-text,#000000)]">
-            {companySetting?.payment_method}
-          </span>
+                        <span class="text-[var(--theme-text,#000000)]">{companySetting?.payment_method}</span>
                     </div>
                 </div>
             </div>

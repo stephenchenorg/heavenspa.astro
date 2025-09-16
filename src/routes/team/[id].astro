@@ -52,6 +52,17 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
 <Layout meta={meta}>
   <main class="section-container pt-24 md:pt-32 pb-16 bg-[var(--theme-bg,#ffffff)] text-[var(--theme-text,#1f2937)]">
     <div class="flex flex-col lg:flex-row items-start gap-6 lg:gap-8 max-w-6xl mx-auto px-4 sm:px-6">
+
+      <!-- 手機版標題 -->
+      <div class="block lg:hidden w-full ">
+        <h1 class="font-bold text-3xl md:text-4xl leading-tight text-[var(--theme-text,#1f2937)]">
+          {teamMember.title}
+          {teamMember.job && (
+            <span class="text-lg font-normal text-[var(--theme-text-secondary,#6b7280)]">  {teamMember.job}</span>
+          )}
+        </h1>
+      </div>
+
       <!-- 左側：圖片輪播 -->
       <div class="flex flex-col items-center w-full lg:w-5/12">
         <!-- 主圖輪播區域 -->
@@ -131,7 +142,8 @@ const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.i
 
       <!-- 右側：成員資訊 -->
       <div class="flex-1 flex flex-col items-start lg:w-7/12">
-        <h1 class="font-bold text-3xl md:text-4xl mb-6 leading-tight text-[var(--theme-text,#1f2937)]">
+        <!-- 桌面版标题（隐藏在手机版） -->
+        <h1 class="hidden lg:block font-bold text-3xl md:text-4xl mb-6 leading-tight text-[var(--theme-text,#1f2937)]">
           {teamMember.title}
           {teamMember.job && (
             <span class="text-lg font-normal text-[var(--theme-text-secondary,#6b7280)]">  {teamMember.job}</span>
