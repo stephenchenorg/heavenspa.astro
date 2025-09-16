@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Home",
-    "social_media": "Social Media",
+    "social-media": "Social Media",
     "about": "About",
     "news": "News",
     "services": "Services",
@@ -20,7 +20,9 @@
   "hero": {
     "embrace": "EMBRACE",
     "yourself": "YOURSELF",
-    "scroll": "SCROLL TO EXPLORE"
+    "scroll": "SCROLL TO EXPLORE",
+    "subtitle": "From venues, teams to essential oils, you can enjoy heaven and let you be in paradise",
+    "span-title": "Our Story"
   },
   "team": {
     "title": "Our Team.",
@@ -43,7 +45,7 @@
     "introduction": "Self Introduction",
     "noIntroduction": "This member currently has no detailed introduction.",
     "thumbnail": "Thumbnail",
-    "viewDetails": "View Details"
+    "viewDetails": "VIEW MORE"
   },
   "schedule": {
     "monday": "Monday",
