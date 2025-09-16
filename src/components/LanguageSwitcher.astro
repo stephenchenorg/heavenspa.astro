@@ -1,27 +1,42 @@
 ---
-import { getLocale, switchLocalePath } from 'i18n:astro'
+import { getLocale } from 'i18n:astro'
 
 const currentLocale = getLocale()
 
-// 生成語系連結
-const zhLink = switchLocalePath('zh-TW')
-const enLink = switchLocalePath('en')
+// 根據當前語系決定顯示文字
+const isZhTW = currentLocale === 'zh-TW'
+const displayText = isZhTW ? '繁中' : 'En'
 ---
 
-<div class="language-switcher flex items-center text-lg font-medium tracking-wide">
-  <a
-    href={zhLink}
-    class="transition-colors duration-200"
-    style={currentLocale === 'zh-TW' ? 'color: var(--color-primary-500)' : 'color: var(--theme-text)'}
+<div class="language-switcher">
+  <button
+    type="button"
+    id="language-toggle"
+    class="flex items-center text-lg font-medium tracking-wide transition-colors duration-200 hover:opacity-80 bg-transparent border-none cursor-pointer"
+    style="color: var(--theme-text)"
+    data-current-locale={currentLocale}
   >
-    繁中
-  </a>
-  <span class="mx-1" style="color: var(--theme-text)">/</span>
-  <a
-    href={enLink}
-    class="transition-colors duration-200"
-    style={currentLocale === 'en' ? 'color: var(--color-primary-500)' : 'color: var(--theme-text)'}
-  >
-    En
-  </a>
+    {displayText}
+  </button>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('language-toggle')
+
+    if (toggleButton) {
+      toggleButton.addEventListener('click', () => {
+        const currentLocale = toggleButton.getAttribute('data-current-locale')
+        console.log("currentLocale",currentLocale)
+        const newLocale = currentLocale === 'zh-TW' ? 'en' : 'zh-TW'
+
+        // 取得現在的網址
+        if(newLocale === 'en'){
+            window.location.href = `/en${window.location.pathname}`
+        } else {
+          window.location.href = window.location.pathname.replace('/en', '')
+        }
+      })
+    }
+  })
+</script>

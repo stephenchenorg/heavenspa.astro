@@ -3,6 +3,7 @@ import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import HeaderContent from '@/components/HeaderContent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
+import NavLink from '@/components/ui/NavLink.astro'
 import ThemeController from '@/components/ThemeController.astro'
 import { createNestedT } from '@/utils/i18n'
 
@@ -28,11 +29,6 @@ function isActive(path: string) {
 const isCareersActive = currentPath.startsWith('/joinUs')
 ---
 
-<!-- 滾動進度指示器 -->
-<!--<div class="fixed top-0 left-0 w-full h-1 bg-white/10 z-[10000]">-->
-<!--  <div class="h-full bg-gradient-to-r from-[#c48b6e] to-[#d4a574] w-0 transition-all duration-100 ease-linear"></div>-->
-<!--</div>-->
-
 <!-- 導航列 -->
 <nav
   class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav lg:justify-start"
@@ -47,26 +43,11 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
   <!-- Link - 50% width on lg+, hidden below lg -->
   <div class="hidden lg:flex gap-6 items-center justify-center flex-nowrap overflow-visible nav-menu lg:w-1/2 lg:flex-shrink-0">
-    <a href="/about" class={`nav-item ${isActive('/about') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.about">{t('nav.about')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
-    <a href="/news" class={`nav-item ${isActive('/news') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.news">{t('nav.news')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
-    <a href="/services" class={`nav-item ${isActive('/services') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.services">{t('nav.services')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
-    <a href="/team" class={`nav-item ${isActive('/team') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.team">{t('nav.team')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
-    <a href="/faq" class={`nav-item ${isActive('/faq') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.faq">{t('nav.faq')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
+    <NavLink href="/about" text={t('nav.about')} isActive={isActive('/about')} variant="desktop" i18nKey="nav.about" />
+    <NavLink href="/news" text={t('nav.news')} isActive={isActive('/news')} variant="desktop" i18nKey="nav.news" />
+    <NavLink href="/services" text={t('nav.services')} isActive={isActive('/services')} variant="desktop" i18nKey="nav.services" />
+    <NavLink href="/team" text={t('nav.team')} isActive={isActive('/team')} variant="desktop" i18nKey="nav.team" />
+    <NavLink href="/faq" text={t('nav.faq')} isActive={isActive('/faq')} variant="desktop" i18nKey="nav.faq" />
     <!-- 加入我們 - 全新簡潔設計 -->
     <div class="simple-dropdown relative">
       <button type="button" class={`nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 text-lg font-medium tracking-wide ${isCareersActive ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
@@ -88,10 +69,7 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       </div>
     </div>
     <!-- 異業合作 -->
-    <a href="/business-partnership" class={`nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000);">
-      <span data-i18n="nav.business_partnership">{t('nav.business_partnership')}</span>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
-    </a>
+    <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="desktop" i18nKey="nav.business_partnership" />
   </div>
 
   <!-- 手機版選單按鈕 - visible below lg -->
@@ -140,31 +118,13 @@ const isCareersActive = currentPath.startsWith('/joinUs')
       </button>
     </div>
     <nav class="pt-8 pb-4 overflow-y-auto mobile-nav">
-      <a href="/about" class={`mobile-nav-item ${isActive('/about') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.about">{t('nav.about')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
-      <a href="/news" class={`mobile-nav-item ${isActive('/news') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.news">{t('nav.news')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
-      <a href="/services" class={`mobile-nav-item ${isActive('/services') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.services">{t('nav.services')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
-      <a href="/team" class={`mobile-nav-item ${isActive('/team') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.team">{t('nav.team')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
-      <a href="/faq" class={`mobile-nav-item ${isActive('/faq') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.faq">{t('nav.faq')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
+      <NavLink href="/about" text={t('nav.about')} isActive={isActive('/about')} variant="mobile" i18nKey="nav.about" />
+      <NavLink href="/news" text={t('nav.news')} isActive={isActive('/news')} variant="mobile" i18nKey="nav.news" />
+      <NavLink href="/services" text={t('nav.services')} isActive={isActive('/services')} variant="mobile" i18nKey="nav.services" />
+      <NavLink href="/team" text={t('nav.team')} isActive={isActive('/team')} variant="mobile" i18nKey="nav.team" />
+      <NavLink href="/faq" text={t('nav.faq')} isActive={isActive('/faq')} variant="mobile" i18nKey="nav.faq" />
       <!-- 異業合作 -->
-      <a href="/business-partnership" class={`mobile-nav-item ${isActive('/business-partnership') ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
-        <span data-i18n="nav.business_partnership">{t('nav.business_partnership')}</span>
-        <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
-      </a>
+      <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="mobile" i18nKey="nav.business_partnership" />
       <!-- 加入我們 - 手機版子選單 -->
       <div class="mobile-nav-dropdown">
         <div class={`mobile-nav-item mobile-dropdown-toggle cursor-pointer flex justify-between items-center ${isCareersActive ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
