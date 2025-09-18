@@ -28,14 +28,14 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <main class="min-h-screen pt-20">
+  <main class="min-h-screen pt-32" style="background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000);">
     <!-- Hero Banner -->
-    <section class="relative h-48 md:h-64 overflow-hidden">
-      <div class="absolute inset-0">
+    <section class="relative aspect-[1920/600] overflow-hidden">
+      <div class="absolute inset-0 ">
         <img
           src={article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
           alt={article.title}
-          class="w-full h-full object-cover"
+          class="object-cover w-full h-full"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/10"></div>
       </div>

@@ -81,7 +81,7 @@ const careersDropdown = {
 
   <!-- Link - flexible width, hidden below lg and hidden if English -->
   {!isEnglish && (
-    <div class="hidden lg:flex gap-2 xl:gap-4 items-center justify-center flex-nowrap nav-menu flex-1 min-w-0 overflow-visible">
+    <div class="hidden lg:flex gap-2 xl:gap-4 items-center justify-center flex-nowrap nav-menu absolute left-1/2 transform -translate-x-1/2 z-10">
       {navItems.map((item) => (
         <NavLink href={item.href} text={item.text} isActive={isActive(item.href)} variant="desktop" i18nKey={item.i18nKey} />
       ))}
@@ -99,7 +99,7 @@ const careersDropdown = {
   <!-- Right side container -->
   <div class="flex items-center gap-2 xl:gap-4 flex-shrink-0">
     <!-- Action Div - visible on desktop -->
-    <div class="hidden lg:flex items-center gap-1 xl:gap-2">
+    <div class="hidden lg:flex items-center gap-1 xl:gap-2 ">
       <LanguageSwitcher />
       <ThemeController />
       <ButtonBooking size="sm" />

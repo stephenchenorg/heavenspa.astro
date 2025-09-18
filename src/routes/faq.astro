@@ -52,9 +52,10 @@ try {
 ---
 
 <Layout meta={meta}>
-  <main class="section-container min-h-screen">
+  <main class="section-container">
     <!-- 標題區 -->
     <SectionTitle title={t('faq.title')} subtitle={t('faq.subtitle')} />
+    <div class="max-w-6xl mx-auto w-full">
 
     <!-- Tab Navigation -->
     {faqCategories.length > 1 && (
@@ -98,6 +99,7 @@ try {
       <div id="faq-content">
         <FAQ faqs={faqs} client:load />
       </div>
+    </div>
     </div>
   </main>
 </Layout>

@@ -5,9 +5,9 @@ import { createNestedT } from '@/utils/i18n'
 const t = await createNestedT()
 
 export interface BannerImage {
-  desktop: string
+  desktop: string // 建議尺寸: 1920x1080px (16:9 比例，可搭配視差滾動)
   desktop_blur: string
-  mobile: string
+  mobile: string // 建議尺寸: 1080x810px (4:3 比例，適合手機)
   mobile_blur: string
 }
 
@@ -33,7 +33,7 @@ const angleStep = 360 / chars.length
 
 <!-- Hero Banner Section -->
 <section
-  class="relative min-h-screen w-full flex items-center justify-center overflow-hidden theme-section"
+  class="relative w-full flex items-center justify-center overflow-hidden theme-section aspect-[1920/1080]"
   id="page-header"
 >
   <!-- Subtle texture background -->
@@ -83,7 +83,7 @@ const angleStep = 360 / chars.length
   ) : (
     <div
       class="banner-slide absolute inset-0 flex items-center justify-center opacity-100"
-      style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://cs-studio-test.s3.amazonaws.com/heavenspa/staging/image/s7WV1wjP/portfolio-4.jpg') center center/cover no-repeat; background-attachment: fixed;"
+      style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1') center center/cover no-repeat; background-attachment: fixed;"
     >
       <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center space-y-12">
