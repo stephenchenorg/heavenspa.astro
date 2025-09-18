@@ -21,6 +21,7 @@
     "embrace": "EMBRACE",
     "yourself": "YOURSELF",
     "scroll": "SCROLL TO EXPLORE",
+    "title": "HAVEN SPA",
     "subtitle": "From venues, teams to essential oils, you can enjoy heaven and let you be in paradise",
     "span-title": "Our Story"
   },
@@ -74,7 +75,7 @@
     "service-intro": "Service Introduction"
   },
   "news": {
-    "more-news": "More...",
+    "more-news": "More",
     "title": "News",
     "detail": "Detail",
     "loading": "Loading content...",
@@ -128,7 +129,7 @@
     "email": "Email",
     "follow-us": "Follow Us",
     "rights-reserved": "All Rights Reserved",
-    "legal-policies": "Legal & Policies",
+    "terms": "Terms",
     "privacy-policy": "Privacy Policy",
     "terms-of-service": "Terms of Service"
   },

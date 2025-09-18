@@ -21,6 +21,7 @@
     "embrace": "嚴格把關",
     "yourself": "享天堂讓您置身天堂",
     "scroll": "SCROLL TO EXPLORE ",
+    "title": "享天堂",
     "subtitle": "從場地、團隊到精油皆嚴格把關，享天堂讓您置身天堂",
     "span-title": "我們的故事"
   },
@@ -74,7 +75,7 @@
     "service-intro": "服務介紹"
   },
   "news": {
-    "more-news": "更多最新消息..",
+    "more-news": "更多最新消息",
     "title": "最新消息",
     "detail": "新聞詳情",
     "loading": "內容載入中...",
@@ -128,7 +129,7 @@
     "email": "電子信箱",
     "follow-us": "關注我們",
     "rights-reserved": "版權所有",
-    "legal-policies": "法律與政策",
+    "terms": "條款",
     "privacy-policy": "隱私政策",
     "terms-of-service": "服務條款"
   },

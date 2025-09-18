@@ -48,18 +48,15 @@ const {
 
                 <!-- 聯絡資訊 -->
                 <div class="gap-4 grid grid-cols-1 ">
-                    <div class="flex items-center justify-start gap-3 text-sm">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <Phone size="20" />
                         </div>
-                        <a
-                          href={`tel:${companySetting?.phone_1}`}
-                          class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300"
-                        >
+                        <a href={`tel:${companySetting?.phone_1}`}>
                             {companySetting?.phone_1}
                         </a>
                     </div>
-                    <div class="flex items-center justify-start gap-3 text-sm">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <MapPin size="20" />
                         </div>
@@ -67,33 +64,31 @@ const {
                           href={`https://maps.google.com/?q=${encodeURIComponent(companySetting?.address_1 || '')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300"
                         >
                             {companySetting?.address_1}
                         </a>
                     </div>
-                    <div class="flex items-center justify-start gap-3 text-sm">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <Email size="20" />
                         </div>
                         <a
                           href={`mailto:${companySetting?.email_1}`}
-                          class="text-[var(--theme-text,#000000)] hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300"
                         >
                             {companySetting?.email_1}
                         </a>
                     </div>
-                    <div class="flex items-center justify-start gap-3 text-sm">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <Clock size="20" />
                         </div>
-                        <span class="text-[var(--theme-text,#000000)]">{companySetting?.business_hours || ''}</span>
+                        <span>{companySetting?.business_hours || ''}</span>
                     </div>
-                    <div class="flex items-center justify-start gap-3 text-sm">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <CreditCard size="20" />
                         </div>
-                        <span class="text-[var(--theme-text,#000000)]">{companySetting?.payment_method}</span>
+                        <span>{companySetting?.payment_method}</span>
                     </div>
                 </div>
             </div>
@@ -226,29 +221,13 @@ const {
                     <h4
                       class="nowrap break-keep md:h-10 h-4 font-semibold text-[var(--color-primary-600,#c4a428)] mb-6 uppercase tracking-wider"
                       style="font-size: clamp(14px, 1.2vw, 18px);"
-                      data-i18n="footer.legal-policies"
+                      data-i18n="footer.terms"
                     >
-                        {t('footer.legal-policies')}
+                        {t('footer.terms')}
                     </h4>
                     <ul class="space-y-3 grid grid-cols-1 gap-2 md:gap-0">
-                        <li>
-                            <a
-                              href="/privacy"
-                              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-                            >
-                                <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                                <span data-i18n="footer.privacy-policy">{t('footer.privacy-policy')}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                              href="/terms"
-                              class="group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:translate-x-1"
-                            >
-                                <span class="opacity-0 group-hover:opacity-100 mr-2 transition-all duration-300 transform -translate-x-3 group-hover:translate-x-0">→</span>
-                                <span data-i18n="footer.terms-of-service">{t('footer.terms-of-service')}</span>
-                            </a>
-                        </li>
+                        <FooterLink href="/privacy" text={t('footer.privacy-policy')} />
+                        <FooterLink href="/terms" text={t('footer.terms-of-service')} />
                     </ul>
                 </div>
             </div>
