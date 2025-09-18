@@ -3,6 +3,7 @@ import { gql, graphQLAPI } from '@/api/index'
 export interface Article {
   id: number
   title: string
+  author: string
   cover: string
   content: string
   ended_at: string
@@ -35,6 +36,7 @@ export async function getArticles(): Promise<Article[]> {
           cover
           ended_at
           title
+          author
           started_at
           created_at
         }
@@ -56,6 +58,7 @@ export async function getArticles(): Promise<Article[]> {
     return {
       id: article.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
       title: article.title,
+      author: article.author,
       cover: article.cover,
       content: article.content,
       ended_at: article.ended_at,
@@ -73,6 +76,7 @@ export async function getArticle(id: string): Promise<Article> {
         article(id: $id) {
           id
           title
+          author
           content
           cover
           ended_at
@@ -90,6 +94,7 @@ export async function getArticle(id: string): Promise<Article> {
   return {
     id: res.article.id,
     title: res.article.title,
+    author: res.article.author,
     cover: res.article.cover,
     content: res.article.content,
     ended_at: res.article.ended_at,
