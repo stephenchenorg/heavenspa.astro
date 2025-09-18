@@ -1,0 +1,59 @@
+---
+export interface Props {
+  text: string
+  isActive?: boolean
+  variant?: 'desktop' | 'mobile'
+  i18nKey?: string
+  items: Array<{
+    href: string
+    text: string
+    i18nKey?: string
+  }>
+}
+
+const {
+  text,
+  isActive = false,
+  variant = 'desktop',
+  i18nKey,
+  items = []
+} = Astro.props
+---
+
+{variant === 'desktop' ? (
+  <div class="simple-dropdown relative">
+    <button type="button" class={`nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 font-medium tracking-wide ${isActive ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000); font-size: clamp(14px, 1.2vw, 18px);">
+      <span data-i18n={i18nKey} class="font-medium tracking-wide">{text}</span>
+      <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
+    </button>
+
+    <div class="dropdown-content">
+      {items.map((item) => (
+        <a href={item.href} class="dropdown-link">
+          <span data-i18n={item.i18nKey}>{item.text}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+) : (
+  <div class="mobile-nav-dropdown">
+    <div class={`mobile-nav-item mobile-dropdown-toggle cursor-pointer flex justify-between items-center ${isActive ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54);">
+      <span data-i18n={i18nKey}>{text}</span>
+      <svg class="mobile-dropdown-icon w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+      <div class="mobile-nav-indicator" style="background: var(--theme-mobile-nav-indicator, #D7AE54);"></div>
+    </div>
+
+    <div class="mobile-nav-submenu max-h-0 overflow-hidden transition-all duration-300 ease-out">
+      {items.map((item) => (
+        <a href={item.href} class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
+          <span data-i18n={item.i18nKey}>{item.text}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
