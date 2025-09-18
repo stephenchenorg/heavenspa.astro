@@ -30,6 +30,25 @@ const isCareersActive = currentPath.startsWith('/joinUs')
 
 // 檢查當前語言，英文版使用手機版樣式
 const isEnglish = currentPath.startsWith('/en')
+
+// 共用導航配置
+const navItems = [
+  { href: "/about", text: t('nav.about'), i18nKey: "nav.about" },
+  { href: "/news", text: t('nav.news'), i18nKey: "nav.news" },
+  { href: "/services", text: t('nav.services'), i18nKey: "nav.services" },
+  { href: "/team", text: t('nav.team'), i18nKey: "nav.team" },
+  { href: "/faq", text: t('nav.faq'), i18nKey: "nav.faq" }
+]
+
+const careersDropdown = {
+  text: t('nav.careers'),
+  isActive: isCareersActive,
+  i18nKey: "nav.careers",
+  items: [
+    { href: "/joinUs/careers", text: t('nav.recruitment'), i18nKey: "nav.recruitment" },
+    { href: "/joinUs/training", text: t('nav.training'), i18nKey: "nav.training" }
+  ]
+}
 ---
 
 <!-- 導航列 -->
@@ -63,23 +82,16 @@ const isEnglish = currentPath.startsWith('/en')
   <!-- Link - flexible width, hidden below lg and hidden if English -->
   {!isEnglish && (
     <div class="hidden lg:flex gap-2 xl:gap-4 items-center justify-center flex-nowrap nav-menu flex-1 min-w-0 overflow-visible">
-      <NavLink href="/about" text={t('nav.about')} isActive={isActive('/about')} variant="desktop" i18nKey="nav.about" />
-      <NavLink href="/news" text={t('nav.news')} isActive={isActive('/news')} variant="desktop" i18nKey="nav.news" />
-      <NavLink href="/services" text={t('nav.services')} isActive={isActive('/services')} variant="desktop" i18nKey="nav.services" />
-      <NavLink href="/team" text={t('nav.team')} isActive={isActive('/team')} variant="desktop" i18nKey="nav.team" />
-      <NavLink href="/faq" text={t('nav.faq')} isActive={isActive('/faq')} variant="desktop" i18nKey="nav.faq" />
-      <!-- 加入我們 - 全新簡潔設計 -->
+      {navItems.map((item) => (
+        <NavLink href={item.href} text={item.text} isActive={isActive(item.href)} variant="desktop" i18nKey={item.i18nKey} />
+      ))}
       <DropdownNav
-        text={t('nav.careers')}
-        isActive={isCareersActive}
+        text={careersDropdown.text}
+        isActive={careersDropdown.isActive}
         variant="desktop"
-        i18nKey="nav.careers"
-        items={[
-          { href: "/joinUs/careers", text: t('nav.recruitment'), i18nKey: "nav.recruitment" },
-          { href: "/joinUs/training", text: t('nav.training'), i18nKey: "nav.training" }
-        ]}
+        i18nKey={careersDropdown.i18nKey}
+        items={careersDropdown.items}
       />
-      <!-- 異業合作 -->
       <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="desktop" i18nKey="nav.business_partnership" />
     </div>
   )}
@@ -134,23 +146,16 @@ const isEnglish = currentPath.startsWith('/en')
       </button>
     </div>
     <nav class="pt-8 pb-4 overflow-y-auto mobile-nav">
-      <NavLink href="/about" text={t('nav.about')} isActive={isActive('/about')} variant="mobile" i18nKey="nav.about" />
-      <NavLink href="/news" text={t('nav.news')} isActive={isActive('/news')} variant="mobile" i18nKey="nav.news" />
-      <NavLink href="/services" text={t('nav.services')} isActive={isActive('/services')} variant="mobile" i18nKey="nav.services" />
-      <NavLink href="/team" text={t('nav.team')} isActive={isActive('/team')} variant="mobile" i18nKey="nav.team" />
-      <NavLink href="/faq" text={t('nav.faq')} isActive={isActive('/faq')} variant="mobile" i18nKey="nav.faq" />
-      <!-- 加入我們 - 手機版子選單 -->
+      {navItems.map((item) => (
+        <NavLink href={item.href} text={item.text} isActive={isActive(item.href)} variant="mobile" i18nKey={item.i18nKey} />
+      ))}
       <DropdownNav
-        text={t('nav.careers')}
-        isActive={isCareersActive}
+        text={careersDropdown.text}
+        isActive={careersDropdown.isActive}
         variant="mobile"
-        i18nKey="nav.careers"
-        items={[
-          { href: "/joinUs/careers", text: t('nav.recruitment'), i18nKey: "nav.recruitment" },
-          { href: "/joinUs/training", text: t('nav.training'), i18nKey: "nav.training" }
-        ]}
+        i18nKey={careersDropdown.i18nKey}
+        items={careersDropdown.items}
       />
-      <!-- 異業合作 -->
       <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="mobile" i18nKey="nav.business_partnership" />
     </nav>
 
