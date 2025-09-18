@@ -248,7 +248,7 @@
 
   /* Section Layout Pattern */
   .section-container {
-    @apply relative z-10 w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16;
+    @apply relative z-10 w-full min-h-[80vh] flex flex-col justify-center pt-40 pb-32 px-4;
     background: var(--theme-bg, #ffffff);
     color: var(--theme-text, #000000);
   }
