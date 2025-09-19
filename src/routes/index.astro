@@ -1,6 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getBanners } from '@/api/banners'
+import { getCourse } from '@/api/cousrse'
 import CourseSection from '@/components/CourseSection.astro'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
@@ -9,72 +10,7 @@ import Layout from '@/layouts/Layout.astro'
 
 // 獲取 banners 資料
 const banners = await getBanners()
-
-// 暫時使用 Mock 資料 (開發用) - courses
-const data = {
-  courses: {
-    data: [
-      {
-        id: 1,
-        title: '深層放鬆按摩',
-        subtitle: '專業按摩服務',
-        description: '採用專業手法，幫助您放鬆身心',
-        created_at: '2024-01-01',
-        cover: {
-          desktop: '/images/courses/massage-1.jpg',
-          desktop_blur: '',
-          mobile: '/images/courses/massage-1.jpg',
-          mobile_blur: '',
-        },
-      },
-      {
-        id: 2,
-        title: 'SPA 水療護理',
-        subtitle: '頂級 SPA 體驗',
-        description: '享受頂級的水療護理服務',
-        created_at: '2024-01-01',
-        cover: {
-          desktop: '/images/courses/spa-1.jpg',
-          desktop_blur: '',
-          mobile: '/images/courses/spa-1.jpg',
-          mobile_blur: '',
-        },
-      },
-    ],
-  },
-}
-
-/*
-const data = await graphQLAPI(gql`
-query Query {
-  courses {
-    data {
-      id
-      title
-      subtitle
-      description
-      created_at
-      cover {
-        desktop
-        desktop_blur
-        mobile
-        mobile_blur
-      }
-    }
-  }
-  banners {
-    data {
-      image {
-        desktop
-        desktop_blur
-        mobile
-        mobile_blur
-      }
-    }
-  }
-}
-`)
-*/
+const course = await getCourse()
 
 const meta = seoMeta({
   title: 'Heaven Spa - 極致放鬆體驗',
@@ -89,7 +25,7 @@ const meta = seoMeta({
 
   <TeamSection />
 
-  <CourseSection courses={data.courses} />
+  <CourseSection courses={course} />
 
   <IndexNews />
 

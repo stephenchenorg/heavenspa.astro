@@ -1,382 +1,348 @@
 ---
-// Course Section with SPA Design Style
 import SectionTitle from '@/components/ui/SectionTitle.astro'
-import { createNestedT } from '@/utils/i18n'
+import {createNestedT} from '@/utils/i18n'
 
 const t = await createNestedT()
-
-// 定義 API 回應的類型
-export interface CourseCover {
-  desktop: string
-  desktop_blur: string
-  mobile: string
-  mobile_blur: string
-}
-
-export interface Course {
-  id: number
-  title: string
-  subtitle: string
-  description: string
-  created_at: string
-  cover: CourseCover
-}
-
-export interface Props {
-  courses?: {
-    data: Course[]
-  }
-}
-
-const { courses: coursesProp } = Astro.props
-
-// 使用傳入的課程資料或預設資料
-const courses: Course[] = coursesProp?.data || [
-]
+const {courses} = Astro.props
+console.log("courses",courses)
 ---
 
-<section
-  class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]"
-  id="courses"
-  data-section="courses"
->
+<section class="section-container-index" id="courses" data-section="courses">
+    <!-- Section Title -->
+    <SectionTitle title="服務項目" subtitle="Services"/>
 
-  <!-- Section Title -->
-  <SectionTitle title="服務項目" subtitle="Services" />
-
-  <!-- Course Content -->
-  <div class="max-w-7xl mx-auto w-full mt-8">
-    <div class="relative">
-
-      <!-- Right Content - Image (Background) -->
-      <div class="lg:ml-[480px]">
-        <div class="relative h-[320px] lg:h-[480px] lg:max-w-[640px] overflow-hidden rounded-3xl shadow-2xl">
-          <img
-            src={courses[0]?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
-            alt={courses[0]?.subtitle || t('courses.service-intro')}
-            class="w-full h-full object-cover transition-transform duration-700"
-            id="course-image"
-            loading="lazy"
-          />
-        </div>
-      </div>
-
-      <!-- Left Content - Course Card (Overlapping) -->
-      <div class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:z-10 mt-4 md:mt-8 lg:mt-0 md:w-[520px] w-full">
-        <div
-          class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-4 lg:p-6 text-center shadow-xl lg:h-[300px] flex flex-col justify-center"
-        >
-          <!-- Course Cards Container -->
-          <div class="relative overflow-hidden">
-            <div class="flex transition-transform duration-500 ease-in-out" id="course-cards-container">
-
-              {courses.map((course, index) => (
-                <div class="min-w-full" data-course={index.toString()}>
-                  <div class="space-y-4">
-                    <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide" data-course-title>
-                      {course.title}
-                    </h3>
-                    <p
-                      class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed"
-                      data-course-subtitle
-                    >
-                      {course.subtitle}
-                    </p>
-
-                    <!-- CTA Button -->
-                    <div class="pt-2 flex justify-center">
-                      <button
-                        class="group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground px-8 py-3 rounded-full text-base font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2"
-                      >
-                        <span data-i18n="courses.service-intro">{t('courses.service-intro')}</span>
-                        <svg
-                          class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                          viewBox="0 0 320 512"
-                          fill="currentColor"
-                        >
-                          <path
-                            d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
-                          />
-                        </svg>
-                      </button>
+    <!-- Course Content -->
+    <div class="max-w-7xl w-full mt-8">
+        <div class="relative">
+            {courses && courses.map((course, index) => (
+                <!-- Right Content - Image (Background) -->
+                    <div class="lg:ml-[480px]">
+                        <div class="relative h-[320px] lg:h-[480px] lg:max-w-[640px] overflow-hidden rounded-3xl shadow-2xl">
+                            <img
+                                    src={course?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
+                                    alt={course?.subtitle || t('courses.service-intro')}
+                                    class="w-full h-full object-cover transition-transform duration-700"
+                                    id="course-image"
+                                    loading="lazy"
+                            />
+                        </div>
                     </div>
-                  </div>
-                </div>
-              ))}
 
-            </div>
-          </div>
+                <!-- Left Content - Course Card (Overlapping) -->
+                    <div class="lg:absolute lg:left-0 lg:top-1/2 lg:-translate-y-1/2 lg:z-10 mt-4 md:mt-8 lg:mt-0 md:w-[520px] w-full">
+                        <div
+                                class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-4 lg:p-6 text-center shadow-xl lg:h-[300px] flex flex-col justify-center"
+                        >
+                            <!-- Course Cards Container -->
+                            <div class="relative overflow-hidden">
+                                <div class="flex transition-transform duration-500 ease-in-out"
+                                     id="course-cards-container">
+                                    <div class="min-w-full" data-course={index.toString()}>
+                                        <div class="space-y-4">
+                                            <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide"
+                                                data-course-title>
+                                                {course.title}
+                                            </h3>
+                                            <p
+                                                    class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed"
+                                                    data-course-subtitle
+                                            >
+                                                {course.subtitle}
+                                            </p>
 
-          <!-- Navigation Controls -->
-          <div class="flex items-center justify-center space-x-4 mt-4">
-            <button
-              class="w-12 h-12 border-2 border-white dark:border-gray-900 bg-white/90 dark:bg-gray-900/90 rounded-full flex items-center justify-center text-gray-900 dark:text-white transition-all duration-300 hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed"
-              id="prev-course"
-            >
-              <svg class="w-6 h-6 transform scale-x-[-1]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 12c0-2.21 1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4H7c-2.21 0-4-1.79-4-4zm2 0c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2s-.9-2-2-2H7c-1.1 0-2 .9-2 2z" />
-                <ellipse cx="9" cy="12" rx="1.5" ry="1" />
-              </svg>
-            </button>
-            <button
-              class="w-12 h-12 border-2 border-white dark:border-gray-900 bg-white/90 dark:bg-gray-900/90 rounded-full flex items-center justify-center text-gray-900 dark:text-white transition-all duration-300 hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed"
-              id="next-course"
-            >
-              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 12c0-2.21 1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4H7c-2.21 0-4-1.79-4-4zm2 0c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2s-.9-2-2-2H7c-1.1 0-2 .9-2 2z" />
-                <ellipse cx="15" cy="12" rx="1.5" ry="1" />
-              </svg>
-            </button>
-          </div>
+                                            <!-- CTA Button -->
+                                            <div class="pt-2 flex justify-center">
+                                                <button
+                                                        class="group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground px-8 py-3 rounded-full text-base font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2"
+                                                >
+                                                    <span data-i18n="courses.service-intro">{t('courses.service-intro')}</span>
+                                                    <svg
+                                                            class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                                            viewBox="0 0 320 512"
+                                                            fill="currentColor"
+                                                    >
+                                                        <path
+                                                                d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+                                                        />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- Navigation Controls -->
+                            <div class="flex items-center justify-center space-x-4 mt-4">
+                                <button
+                                        class="w-12 h-12 border-2 border-white dark:border-gray-900 bg-white/90 dark:bg-gray-900/90 rounded-full flex items-center justify-center text-gray-900 dark:text-white transition-all duration-300 hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed"
+                                        id="prev-course"
+                                >
+                                    <svg class="w-6 h-6 transform scale-x-[-1]" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 12c0-2.21 1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4H7c-2.21 0-4-1.79-4-4zm2 0c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2s-.9-2-2-2H7c-1.1 0-2 .9-2 2z"/>
+                                        <ellipse cx="9" cy="12" rx="1.5" ry="1"/>
+                                    </svg>
+                                </button>
+                                <button
+                                        class="w-12 h-12 border-2 border-white dark:border-gray-900 bg-white/90 dark:bg-gray-900/90 rounded-full flex items-center justify-center text-gray-900 dark:text-white transition-all duration-300 hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-white hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed"
+                                        id="next-course"
+                                >
+                                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M3 12c0-2.21 1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4H7c-2.21 0-4-1.79-4-4zm2 0c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2s-.9-2-2-2H7c-1.1 0-2 .9-2 2z"/>
+                                        <ellipse cx="15" cy="12" rx="1.5" ry="1"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            ) ?? (
+                <p class="text-center text-gray-500 dark:text-gray-400">No courses available at the moment.</p>
+            ))}
         </div>
-      </div>
-
     </div>
-  </div>
 </section>
 
-<script is:inline define:vars={{ courses }}>
-  // Course data from API
-  // @ts-ignore - courses is passed from Astro define:vars
-  const coursesData = courses || []
+<script is:inline define:vars={{courses}}>
+    // Course data from API
+    // @ts-ignore - courses is passed from Astro define:vars
+    const coursesData = courses || []
 
-  let currentCourseIndex = 0
+    let currentCourseIndex = 0
 
-  // DOM ready
-  document.addEventListener('DOMContentLoaded', () => {
-    const prevButton = document.getElementById('prev-course')
-    const nextButton = document.getElementById('next-course')
-    const courseImage = document.getElementById('course-image')
-    const cardsContainer = document.getElementById('course-cards-container')
+    // DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+        const prevButton = document.getElementById('prev-course')
+        const nextButton = document.getElementById('next-course')
+        const courseImage = document.getElementById('course-image')
+        const cardsContainer = document.getElementById('course-cards-container')
 
-    // Update course display
-    function updateCourse(index) {
-      const course = coursesData[index]
-      if (!course) return
+        // Update course display
+        function updateCourse(index) {
+            const course = coursesData[index]
+            if (!course) return
 
-      // Update image
-      if (courseImage) {
-        courseImage.src = course.cover?.desktop || course.image || ''
-        courseImage.alt = course.subtitle
-      }
+            // Update image
+            if (courseImage) {
+                courseImage.src = course.cover?.desktop || course.image || ''
+                courseImage.alt = course.subtitle
+            }
 
-      // Slide cards container
-      if (cardsContainer) {
-        const translateX = -100 * index
-        cardsContainer.style.transform = `translateX(${translateX}%)`
-      }
+            // Slide cards container
+            if (cardsContainer) {
+                const translateX = -100 * index
+                cardsContainer.style.transform = `translateX(${translateX}%)`
+            }
 
-      // Update navigation buttons
-      if (prevButton) {
-        prevButton.disabled = index === 0
-      }
-      if (nextButton) {
-        nextButton.disabled = index === coursesData.length - 1
-      }
-    }
-
-    // Navigation events
-    if (prevButton) {
-      prevButton.addEventListener('click', () => {
-        if (currentCourseIndex > 0) {
-          currentCourseIndex--
-          updateCourse(currentCourseIndex)
-        }
-      })
-    }
-
-    if (nextButton) {
-      nextButton.addEventListener('click', () => {
-        if (currentCourseIndex < coursesData.length - 1) {
-          currentCourseIndex++
-          updateCourse(currentCourseIndex)
-        }
-      })
-    }
-
-    // Touch/Swipe functionality for mobile
-    let startX = 0
-    let currentX = 0
-    let isDragging = false
-
-    if (cardsContainer) {
-      // Touch events
-      cardsContainer.addEventListener('touchstart', e => {
-        startX = e.touches[0].clientX
-        isDragging = true
-        cardsContainer.style.transition = 'none'
-      })
-
-      cardsContainer.addEventListener('touchmove', e => {
-        if (!isDragging) return
-        currentX = e.touches[0].clientX
-        const diff = currentX - startX
-        const currentTranslate = -100 * currentCourseIndex
-        const newTranslate = currentTranslate + (diff / cardsContainer.offsetWidth) * 100
-        cardsContainer.style.transform = `translateX(${newTranslate}%)`
-      })
-
-      cardsContainer.addEventListener('touchend', () => {
-        if (!isDragging) return
-        isDragging = false
-        cardsContainer.style.transition = 'transform 0.5s ease-in-out'
-
-        const diff = currentX - startX
-        const threshold = 50
-
-        if (diff > threshold && currentCourseIndex > 0) {
-          currentCourseIndex--
-        } else if (diff < -threshold && currentCourseIndex < coursesData.length - 1) {
-          currentCourseIndex++
+            // Update navigation buttons
+            if (prevButton) {
+                prevButton.disabled = index === 0
+            }
+            if (nextButton) {
+                nextButton.disabled = index === coursesData.length - 1
+            }
         }
 
+        // Navigation events
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                if (currentCourseIndex > 0) {
+                    currentCourseIndex--
+                    updateCourse(currentCourseIndex)
+                }
+            })
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                if (currentCourseIndex < coursesData.length - 1) {
+                    currentCourseIndex++
+                    updateCourse(currentCourseIndex)
+                }
+            })
+        }
+
+        // Touch/Swipe functionality for mobile
+        let startX = 0
+        let currentX = 0
+        let isDragging = false
+
+        if (cardsContainer) {
+            // Touch events
+            cardsContainer.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX
+                isDragging = true
+                cardsContainer.style.transition = 'none'
+            })
+
+            cardsContainer.addEventListener('touchmove', e => {
+                if (!isDragging) return
+                currentX = e.touches[0].clientX
+                const diff = currentX - startX
+                const currentTranslate = -100 * currentCourseIndex
+                const newTranslate = currentTranslate + (diff / cardsContainer.offsetWidth) * 100
+                cardsContainer.style.transform = `translateX(${newTranslate}%)`
+            })
+
+            cardsContainer.addEventListener('touchend', () => {
+                if (!isDragging) return
+                isDragging = false
+                cardsContainer.style.transition = 'transform 0.5s ease-in-out'
+
+                const diff = currentX - startX
+                const threshold = 50
+
+                if (diff > threshold && currentCourseIndex > 0) {
+                    currentCourseIndex--
+                } else if (diff < -threshold && currentCourseIndex < coursesData.length - 1) {
+                    currentCourseIndex++
+                }
+
+                updateCourse(currentCourseIndex)
+            })
+
+            // Mouse events for desktop
+            cardsContainer.addEventListener('mousedown', e => {
+                startX = e.clientX
+                isDragging = true
+                cardsContainer.style.transition = 'none'
+                cardsContainer.style.cursor = 'grabbing'
+            })
+
+            cardsContainer.addEventListener('mousemove', e => {
+                if (!isDragging) return
+                e.preventDefault()
+                currentX = e.clientX
+                const diff = currentX - startX
+                const currentTranslate = -100 * currentCourseIndex
+                const newTranslate = currentTranslate + (diff / cardsContainer.offsetWidth) * 100
+                cardsContainer.style.transform = `translateX(${newTranslate}%)`
+            })
+
+            cardsContainer.addEventListener('mouseup', () => {
+                if (!isDragging) return
+                isDragging = false
+                cardsContainer.style.transition = 'transform 0.5s ease-in-out'
+                cardsContainer.style.cursor = 'grab'
+
+                const diff = currentX - startX
+                const threshold = 50
+
+                if (diff > threshold && currentCourseIndex > 0) {
+                    currentCourseIndex--
+                } else if (diff < -threshold && currentCourseIndex < coursesData.length - 1) {
+                    currentCourseIndex++
+                }
+
+                updateCourse(currentCourseIndex)
+            })
+
+            cardsContainer.addEventListener('mouseleave', () => {
+                if (isDragging) {
+                    isDragging = false
+                    cardsContainer.style.transition = 'transform 0.5s ease-in-out'
+                    cardsContainer.style.cursor = 'grab'
+                    updateCourse(currentCourseIndex)
+                }
+            })
+
+            // Set initial cursor
+            cardsContainer.style.cursor = 'grab'
+        }
+
+        // Auto-play functionality
+        let autoPlayInterval
+        const startAutoPlay = () => {
+            autoPlayInterval = setInterval(() => {
+                currentCourseIndex = (currentCourseIndex + 1) % coursesData.length
+                updateCourse(currentCourseIndex)
+            }, 5000)
+        }
+
+        const stopAutoPlay = () => {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval)
+            }
+        }
+
+        // Start auto-play
+        startAutoPlay()
+
+        // Pause auto-play on hover
+        const courseSection = document.getElementById('courses')
+        if (courseSection) {
+            courseSection.addEventListener('mouseenter', stopAutoPlay)
+            courseSection.addEventListener('mouseleave', startAutoPlay)
+        }
+
+        // Initialize
         updateCourse(currentCourseIndex)
-      })
-
-      // Mouse events for desktop
-      cardsContainer.addEventListener('mousedown', e => {
-        startX = e.clientX
-        isDragging = true
-        cardsContainer.style.transition = 'none'
-        cardsContainer.style.cursor = 'grabbing'
-      })
-
-      cardsContainer.addEventListener('mousemove', e => {
-        if (!isDragging) return
-        e.preventDefault()
-        currentX = e.clientX
-        const diff = currentX - startX
-        const currentTranslate = -100 * currentCourseIndex
-        const newTranslate = currentTranslate + (diff / cardsContainer.offsetWidth) * 100
-        cardsContainer.style.transform = `translateX(${newTranslate}%)`
-      })
-
-      cardsContainer.addEventListener('mouseup', () => {
-        if (!isDragging) return
-        isDragging = false
-        cardsContainer.style.transition = 'transform 0.5s ease-in-out'
-        cardsContainer.style.cursor = 'grab'
-
-        const diff = currentX - startX
-        const threshold = 50
-
-        if (diff > threshold && currentCourseIndex > 0) {
-          currentCourseIndex--
-        } else if (diff < -threshold && currentCourseIndex < coursesData.length - 1) {
-          currentCourseIndex++
-        }
-
-        updateCourse(currentCourseIndex)
-      })
-
-      cardsContainer.addEventListener('mouseleave', () => {
-        if (isDragging) {
-          isDragging = false
-          cardsContainer.style.transition = 'transform 0.5s ease-in-out'
-          cardsContainer.style.cursor = 'grab'
-          updateCourse(currentCourseIndex)
-        }
-      })
-
-      // Set initial cursor
-      cardsContainer.style.cursor = 'grab'
-    }
-
-    // Auto-play functionality
-    let autoPlayInterval
-    const startAutoPlay = () => {
-      autoPlayInterval = setInterval(() => {
-        currentCourseIndex = (currentCourseIndex + 1) % coursesData.length
-        updateCourse(currentCourseIndex)
-      }, 5000)
-    }
-
-    const stopAutoPlay = () => {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval)
-      }
-    }
-
-    // Start auto-play
-    startAutoPlay()
-
-    // Pause auto-play on hover
-    const courseSection = document.getElementById('courses')
-    if (courseSection) {
-      courseSection.addEventListener('mouseenter', stopAutoPlay)
-      courseSection.addEventListener('mouseleave', startAutoPlay)
-    }
-
-    // Initialize
-    updateCourse(currentCourseIndex)
-  })
+    })
 </script>
 
 <style>
-  /* Smooth transitions for all elements */
-  #course-image {
-    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Course cards container */
-  #course-cards-container {
-    transition: transform 0.5s ease-in-out;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-
-  /* Individual course cards */
-  .course-card {
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  .course-card:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Button hover effects */
-  button:hover {
-    transform: translateY(-1px);
-  }
-
-  /* Disable text selection during drag */
-  .no-select {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-
-  /* Animation for content changes */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+    /* Smooth transitions for all elements */
+    #course-image {
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  /* Touch-friendly navigation buttons */
-  @media (max-width: 768px) {
-    #prev-course,
-    #next-course {
-      width: 44px;
-      height: 44px;
-      touch-action: manipulation;
+    /* Course cards container */
+    #course-cards-container {
+        transition: transform 0.5s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
     }
-  }
+
+    /* Individual course cards */
+    .course-card {
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .course-card:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Button hover effects */
+    button:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Disable text selection during drag */
+    .no-select {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    /* Animation for content changes */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Touch-friendly navigation buttons */
+    @media (max-width: 768px) {
+        #prev-course,
+        #next-course {
+            width: 44px;
+            height: 44px;
+            touch-action: manipulation;
+        }
+    }
 </style>

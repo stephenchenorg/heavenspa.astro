@@ -11,8 +11,7 @@ const t = await createNestedT()
 // 獲取前六筆團隊成員
 const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).locale)).slice(0, 6)
 ---
-<section
-  class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]"
+<section class="section-container-index"
   id="team"
   data-section="team"
 >

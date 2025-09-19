@@ -253,6 +253,10 @@
     color: var(--theme-text, #000000);
   }
 
+  .section-container-index {
+    @apply relative w-full min-h-[80vh] py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]
+  }
+
   /* Card Patterns */
   .course-card {
     @apply bg-[color:var(--color-surface-overlay)] backdrop-blur-[10px] text-center flex flex-col justify-center items-center gap-4 relative;
