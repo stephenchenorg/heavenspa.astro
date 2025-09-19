@@ -1,10 +1,14 @@
 ---
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import {createNestedT} from '@/utils/i18n'
-import type { Course } from '@/types/course'
+import type { Course } from '@/api/courses'
+
+interface Props {
+  courses: Course[]
+}
 
 const t = await createNestedT()
-const { courses }: { courses: Course[] } = Astro.props
+const { courses } = Astro.props as Props
 console.log("courses",courses)
 ---
 
@@ -15,7 +19,7 @@ console.log("courses",courses)
     <!-- Course Content -->
     <div class="max-w-7xl w-full mt-8">
         <div class="relative">
-            {courses.map((course: course, index: number) => (
+            {courses.map((course: Course, index: number) => (
                 <!-- Right Content - Image (Background) -->
                     <div class="lg:ml-[480px]">
                         <div class="relative h-[320px] lg:h-[480px] lg:max-w-[640px] overflow-hidden rounded-3xl shadow-2xl">
