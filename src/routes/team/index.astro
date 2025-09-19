@@ -13,6 +13,14 @@ const t = await createNestedT()
 
 // 獲取所有團隊成員
 let teamMembers: TeamMember[] = []
+const types = [
+  { id: 10, title: '全部' },
+  { id: 20, title: '今日可預約 / Today Available' },
+  { id: 30, title: '團隊一覽 / Masseurs' },
+  { id: 40, title: '新人 / Coming Now' },
+  { id: 50, title: '本週推薦 / Recommended' },
+]
+const selectedCategoryId = 10
 
 try {
   teamMembers = await getAllTeams((Astro.locals as any).locale)
@@ -34,6 +42,30 @@ const meta = seoMeta({
 
     <!-- 團隊成員網格 -->
     <div class="max-w-6xl mx-auto w-full">
+      <!-- Tab Navigation -->
+      {types.length > 1 && (
+          <div class="w-full mb-8 px-4">
+            <div class="max-w-4xl mx-auto">
+              <div
+                  class="overflow-x-auto scrollbar-hide"
+                  style=" border-radius: 12px; padding: 8px;"
+              >
+                <div class="flex gap-2 justify-center min-w-max">
+                  {types.map(category => (
+                      <a
+                          href={`?category_id=${category.id}`}
+                          class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedCategoryId == category.id ? 'active' : ''}`}
+                          style={selectedCategoryId === category.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                      >
+                        {category.title}
+                      </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+      )}
+
       {teamMembers && teamMembers.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {teamMembers.map(member => (
