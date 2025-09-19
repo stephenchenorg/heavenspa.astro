@@ -37,5 +37,5 @@ export async function getCourse(): Promise<Course[]> {
     }
   `)
 
-  return res.course?.data || []
+  return res.courses?.data || []
 }

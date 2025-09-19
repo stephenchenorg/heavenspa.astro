@@ -10,7 +10,7 @@ import Layout from '@/layouts/Layout.astro'
 
 // 獲取 banners 資料
 const banners = await getBanners()
-const course = await getCourse()
+const courses = await getCourse()
 
 const meta = seoMeta({
   title: 'Heaven Spa - 極致放鬆體驗',
@@ -25,7 +25,7 @@ const meta = seoMeta({
 
   <TeamSection />
 
-  <CourseSection courses={course} />
+  <CourseSection courses={courses} />
 
   <IndexNews />
 
