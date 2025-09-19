@@ -82,6 +82,28 @@
     "publishDate": "Published:",
     "endDate": "End Date:",
     "backToNews": "Back to News List",
+    "relatedArticles": "Related Articles",
+    "tags": "Tags",
+    "noRelatedArticles": "No related articles available",
+    "bookingTitle": "Book Now",
+    "bookingDescription": "Want to experience our professional services? Contact us now to book your exclusive time.",
+    "phoneBooking": "Phone Booking",
+    "onlineBooking": "Online Booking",
+    "fallbackTags": {
+      "beauty": "Beauty Care",
+      "health": "Healthy Living"
+    },
+    "errors": {
+      "notFound": "Article Not Found",
+      "notFoundContent": "<p>Sorry, the article you requested does not exist or has been removed.</p><p>Please return to the news list to view other articles.</p>",
+      "defaultDescription": "Learn about Heaven Spa's latest news"
+    },
+    "navigation": {
+      "previousArticle": "Previous",
+      "nextArticle": "Next",
+      "noPrevious": "No previous article",
+      "noNext": "No next article"
+    },
     "breadcrumb": {
       "home": "Home",
       "news": "News"

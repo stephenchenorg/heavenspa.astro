@@ -21,6 +21,34 @@ export interface Article {
   tags?: {
     data: Tags[]
   }
+  images?: Array<{
+    image: {
+      desktop: string
+      desktop_blur: string
+      mobile: string
+      mobile_blur: string
+    }
+  }>
+  next?: {
+    id: number
+    title: string
+    image: {
+      desktop: string
+      desktop_blur: string
+      mobile: string
+      mobile_blur: string
+    }
+  }
+  prev?: {
+    id: number
+    title: string
+    image: {
+      desktop: string
+      desktop_blur: string
+      mobile: string
+      mobile_blur: string
+    }
+  }
 }
 
 export interface ArticlesResponse {
@@ -56,6 +84,14 @@ export async function getArticles(): Promise<Article[]> {
               key
             }
           }
+          images {
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+          }
         }
         has_more_pages
         last_page
@@ -85,6 +121,7 @@ export async function getArticles(): Promise<Article[]> {
       year: d.getFullYear().toString(),
       month: (d.getMonth() + 1).toString().padStart(2, '0'),
       tags: article.tags,
+      images: article.images,
     }
   })
 }
@@ -107,6 +144,14 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
               title
               slug
               key
+            }
+          }
+          images {
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
             }
           }
         }
@@ -143,8 +188,55 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
       year: d.getFullYear().toString(),
       month: (d.getMonth() + 1).toString().padStart(2, '0'),
       tags: article.tags,
+      images: article.images,
     }
   })
+}
+
+export async function getAdjacentArticles(currentId: number): Promise<{previous: Article | null, next: Article | null}> {
+  const res = await graphQLAPI(gql`
+    query GetAdjacentArticles($currentId: Int!) {
+      previousArticle: article(where: { id: { _lt: $currentId } }, orderBy: { id: desc }, first: 1) {
+        id
+        title
+        cover
+        started_at
+        created_at
+      }
+      nextArticle: article(where: { id: { _gt: $currentId } }, orderBy: { id: asc }, first: 1) {
+        id
+        title
+        cover
+        started_at
+        created_at
+      }
+    }
+  `, {
+    variables: { currentId: currentId },
+  })
+
+  const formatArticle = (article: any) => {
+    if (!article) return null
+    const createdDate = article.started_at || article.created_at
+    const normalized = createdDate?.replace(' ', 'T') || createdDate
+    const d = new Date(normalized)
+
+    return {
+      id: article.id,
+      title: article.title,
+      cover: article.cover,
+      started_at: d.toISOString(),
+      created_at: d.toISOString(),
+      date: d.getDate().toString().padStart(2, '0'),
+      year: d.getFullYear().toString(),
+      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+    }
+  }
+
+  return {
+    previous: formatArticle(res.previousArticle),
+    next: formatArticle(res.nextArticle),
+  }
 }
 
 export async function getArticle(id: string): Promise<Article> {
@@ -165,6 +257,34 @@ export async function getArticle(id: string): Promise<Article> {
               title
               slug
               key
+            }
+          }
+          images {
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+          }
+          next {
+            id
+            title
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+          }
+          prev {
+            id
+            title
+            image {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
             }
           }
         }
@@ -189,5 +309,8 @@ export async function getArticle(id: string): Promise<Article> {
     year: d.getFullYear().toString(),
     month: (d.getMonth() + 1).toString().padStart(2, '0'),
     tags: res.article.tags,
+    images: res.article.images,
+    next: res.article.next,
+    prev: res.article.prev,
   }
 }

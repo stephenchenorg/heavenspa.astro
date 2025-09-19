@@ -82,6 +82,28 @@
     "publishDate": "發布日期:",
     "endDate": "截止日期:",
     "backToNews": "返回新聞列表",
+    "relatedArticles": "相關文章",
+    "tags": "標籤",
+    "noRelatedArticles": "目前沒有相關文章",
+    "bookingTitle": "立即預約",
+    "bookingDescription": "想要體驗我們的專業服務嗎？現在就聯繫我們預約您的專屬時光。",
+    "phoneBooking": "電話預約",
+    "onlineBooking": "線上預約",
+    "fallbackTags": {
+      "beauty": "美容保養",
+      "health": "健康生活"
+    },
+    "errors": {
+      "notFound": "文章未找到",
+      "notFoundContent": "<p>很抱歉，您請求的文章不存在或已被移除。</p><p>請返回新聞列表頁面查看其他文章。</p>",
+      "defaultDescription": "了解 Heaven Spa 的最新消息"
+    },
+    "navigation": {
+      "previousArticle": "上一篇",
+      "nextArticle": "下一篇",
+      "noPrevious": "沒有上一篇文章",
+      "noNext": "沒有下一篇文章"
+    },
     "breadcrumb": {
       "home": "首頁",
       "news": "最新消息"
