@@ -1,5 +1,11 @@
 import { gql, graphQLAPI } from '@/api/index'
 
+export interface Tags {
+  id: string
+  title: string
+  slug: string
+  key: string
+}
 export interface Article {
   id: number
   title: string
@@ -12,6 +18,9 @@ export interface Article {
   date?: string
   year?: string
   month?: string
+  tags?: {
+    data: Tags[]
+  }
 }
 
 export interface ArticlesResponse {
@@ -39,6 +48,14 @@ export async function getArticles(): Promise<Article[]> {
           author
           started_at
           created_at
+          tags {
+            data {
+              id
+              title
+              slug
+              key
+            }
+          }
         }
         has_more_pages
         last_page
@@ -67,9 +84,69 @@ export async function getArticles(): Promise<Article[]> {
       date: d.getDate().toString().padStart(2, '0'),
       year: d.getFullYear().toString(),
       month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      tags: article.tags,
     }
   })
 }
+export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
+  const res = await graphQLAPI(gql`
+    query GetRelatedArticles($intersectTags: [Int!], $unionTags: [Int!],) {
+      articles(intersect_tags: $intersectTags, union_tags: $unionTags) {
+        data {
+          id
+          content
+          cover
+          ended_at
+          title
+          author
+          started_at
+          created_at
+          tags {
+            data {
+              id
+              title
+              slug
+              key
+            }
+          }
+        }
+        has_more_pages
+        last_page
+        per_page
+        to
+        total
+        from
+      }
+    }
+  `, {
+    variables: {
+      intersectTags: tagIds,
+      unionTags: tagIds,
+    },
+  })
+
+  // 將 API 資料轉換為 Article 格式
+  return (res.articles.data || []).map((article: Article, index: number) => {
+    const createdDate = article.started_at || article.created_at
+    const normalized = createdDate?.replace(' ', 'T') || createdDate
+    const d = new Date(normalized)
+    return {
+      id: article.id || (index + 1),
+      title: article.title,
+      author: article.author,
+      cover: article.cover,
+      content: article.content,
+      ended_at: article.ended_at,
+      started_at: d.toISOString().slice(0, 10),
+      created_at: d.toISOString().slice(0, 10),
+      date: d.getDate().toString().padStart(2, '0'),
+      year: d.getFullYear().toString(),
+      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      tags: article.tags,
+    }
+  })
+}
+
 export async function getArticle(id: string): Promise<Article> {
   const res = await graphQLAPI(gql`
     query GetArticle($id: Int!) {
@@ -82,6 +159,14 @@ export async function getArticle(id: string): Promise<Article> {
           ended_at
           started_at
           created_at
+          tags {
+            data {
+              id
+              title
+              slug
+              key
+            }
+          }
         }
       }
   `, {
@@ -103,5 +188,6 @@ export async function getArticle(id: string): Promise<Article> {
     date: d.getDate().toString().padStart(2, '0'),
     year: d.getFullYear().toString(),
     month: (d.getMonth() + 1).toString().padStart(2, '0'),
+    tags: res.article.tags,
   }
 }
