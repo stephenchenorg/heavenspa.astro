@@ -3,6 +3,7 @@ import type { TeamMember } from '@/types'
 import { getAllTeams } from '@/api/teams'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'
+import Carousel from '@/components/ui/Carousel.astro'
 import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
@@ -20,47 +21,25 @@ const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).local
 
   <!-- 響應式輪播 -->
   <div class="max-w-7xl mx-auto w-full mt-8">
-    <div class="team-carousel relative overflow-hidden">
-      <!-- 輪播容器 -->
-      <div class="carousel-track flex transition-transform duration-500 ease-out">
-        {teamMembers.map((member, memberIndex) => (
-          <div
-            class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
-            data-slide={memberIndex}
-          >
-            <div class="px-2">
-              <TeamCard
-                member={member}
-                uniqueId={`${member.title}-${memberIndex}`}
-              />
-            </div>
+    <Carousel
+      itemCount={teamMembers.length}
+      uniqueId="team"
+      autoPlayInterval={5000}
+    >
+      {teamMembers.map((member, memberIndex) => (
+        <div
+          class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
+          data-slide={memberIndex}
+        >
+          <div class="px-2">
+            <TeamCard
+              member={member}
+              uniqueId={`${member.title}-${memberIndex}`}
+            />
           </div>
-        ))}
-      </div>
-
-      <!-- 輪播指示器 -->
-      <div class="carousel-dots flex justify-center mt-6 p-4 gap-2">
-        <!-- 指示器會由 JavaScript 動態生成 -->
-      </div>
-
-      <!-- 導航按鈕 -->
-      <button
-        class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
-        aria-label="上一頁"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center text-white z-10 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
-        aria-label="下一頁"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
+        </div>
+      ))}
+    </Carousel>
   </div>
 
   <!-- 查看更多按鈕 -->
@@ -106,187 +85,6 @@ const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).local
   </div>
 </section>
 
-<script is:inline define:vars={{ memberCount: teamMembers.length }}>
-  // 響應式輪播功能
-  document.addEventListener('DOMContentLoaded', () => {
-    const carousel = document.querySelector('.team-carousel')
-    if (!carousel) return
-
-    const track = carousel.querySelector('.carousel-track')
-    const slides = carousel.querySelectorAll('.carousel-slide')
-    const dotsContainer = carousel.querySelector('.carousel-dots')
-    const prevBtn = carousel.querySelector('.carousel-prev')
-    const nextBtn = carousel.querySelector('.carousel-next')
-
-    if (!track || slides.length <= 1) return
-
-    let currentIndex = 0
-    let autoTimer = null
-
-    // 取得目前螢幕大小對應的每頁顯示數量
-    function getSlidesPerView() {
-      const width = window.innerWidth
-      if (width >= 1024) return 3 // lg: 大螢幕顯示3張
-      if (width >= 768) return 2 // md: 中螢幕顯示2張
-      return 1 // sm: 小螢幕顯示1張
-    }
-
-    // 計算總頁數
-    function getTotalPages() {
-      const slidesPerView = getSlidesPerView()
-      // 使用實際的團隊成員筆數而不是 DOM slide 數量
-      return Math.ceil(memberCount / slidesPerView)
-      // console.log(`螢幕寬度: ${window.innerWidth}px, 每頁顯示: ${slidesPerView}筆, 總筆數: ${memberCount}筆, 總頁數: ${totalPages}頁`)
-      // return totalPages
-    }
-
-    // 創建指示器
-    function createDots() {
-      const totalPages = getTotalPages()
-      dotsContainer.innerHTML = ''
-
-      for (let i = 0; i < totalPages; i++) {
-        const dot = document.createElement('button')
-        dot.className = 'carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 bg-[var(--theme-text)] opacity-30'
-        dot.setAttribute('data-slide', i.toString())
-        dot.setAttribute('aria-label', `第 ${i + 1} 頁`)
-
-        dot.addEventListener('click', () => {
-          currentIndex = i
-          updateCarouselPosition()
-          resetAutoSlide()
-        })
-
-        dotsContainer.appendChild(dot)
-      }
-    }
-
-    // 更新輪播位置
-    function updateCarouselPosition() {
-      const slidesPerView = getSlidesPerView()
-      const totalPages = getTotalPages()
-
-      // 確保 currentIndex 不超過總頁數
-      if (currentIndex >= totalPages) {
-        currentIndex = 0
-      }
-
-      // 計算位移：每頁移動的距離是 slidesPerView 個 slide 的寬度
-      const slideWidth = 100 / slidesPerView
-      const translateX = -currentIndex * slideWidth * slidesPerView
-
-      track.style.transform = `translateX(${translateX}%)`
-
-      // 更新指示器
-      const dots = dotsContainer.querySelectorAll('.carousel-dot')
-      dots.forEach((dot, index) => {
-        if (index === currentIndex) {
-          dot.style.opacity = '1'
-          dot.style.transform = 'scale(1.2)'
-        } else {
-          dot.style.opacity = '0.3'
-          dot.style.transform = 'scale(1)'
-        }
-      })
-    }
-
-    // 下一頁
-    function nextSlide() {
-      const totalPages = getTotalPages()
-      currentIndex = (currentIndex + 1) % totalPages
-      updateCarouselPosition()
-    }
-
-    // 上一頁
-    function prevSlide() {
-      const totalPages = getTotalPages()
-      currentIndex = currentIndex === 0 ? totalPages - 1 : currentIndex - 1
-      updateCarouselPosition()
-    }
-
-    // 自動輪播
-    function startAutoSlide() {
-      if (autoTimer) clearInterval(autoTimer)
-      autoTimer = setInterval(nextSlide, 5000) // 每5秒切換
-    }
-
-    function stopAutoSlide() {
-      if (autoTimer) {
-        clearInterval(autoTimer)
-        autoTimer = null
-      }
-    }
-
-    function resetAutoSlide() {
-      stopAutoSlide()
-      startAutoSlide()
-    }
-
-    // 按鈕事件
-    nextBtn?.addEventListener('click', () => {
-      nextSlide()
-      resetAutoSlide()
-    })
-
-    prevBtn?.addEventListener('click', () => {
-      prevSlide()
-      resetAutoSlide()
-    })
-
-    // 觸控滑動支援
-    let touchStartX = 0
-    let touchIsDragging = false
-
-    carousel.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX
-      touchIsDragging = true
-      stopAutoSlide()
-    })
-
-    carousel.addEventListener('touchend', e => {
-      if (!touchIsDragging) return
-
-      const touchEndX = e.changedTouches[0].clientX
-      const diffX = touchStartX - touchEndX
-
-      if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          nextSlide()
-        } else {
-          prevSlide()
-        }
-      }
-
-      touchIsDragging = false
-      startAutoSlide()
-    })
-
-    // 響應式處理
-    function handleResize() {
-      const totalPages = getTotalPages()
-      // 如果當前索引超過新的總頁數，重置到第一頁
-      if (currentIndex >= totalPages) {
-        currentIndex = 0
-      }
-      createDots()
-      updateCarouselPosition()
-    }
-
-    // 初始化
-    createDots()
-    updateCarouselPosition()
-
-    // 監聽視窗大小變化
-    window.addEventListener('resize', handleResize)
-
-    // 延遲啟動自動輪播
-    setTimeout(startAutoSlide, 1000)
-
-    // 滑鼠懸停暫停
-    carousel.addEventListener('mouseenter', stopAutoSlide)
-    carousel.addEventListener('mouseleave', startAutoSlide)
-  })
-</script>
 
 <style>
   /* Marquee Animation */
@@ -315,8 +113,4 @@ const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).local
     animation-play-state: paused;
   }
 
-  /* 確保輪播在不同螢幕大小下正確顯示 */
-  .carousel-slide {
-    box-sizing: border-box;
-  }
 </style>
