@@ -16,7 +16,7 @@ const {
   isActive = false,
   variant = 'desktop',
   i18nKey,
-  items = []
+  items = [],
 } = Astro.props
 ---
 
@@ -31,7 +31,7 @@ const {
     </button>
 
     <div class="dropdown-content">
-      {items.map((item) => (
+      {items.map(item => (
         <a href={item.href} class="dropdown-link">
           <span data-i18n={item.i18nKey}>{item.text}</span>
         </a>
@@ -49,7 +49,7 @@ const {
     </div>
 
     <div class="mobile-nav-submenu max-h-0 overflow-hidden transition-all duration-300 ease-out">
-      {items.map((item) => (
+      {items.map(item => (
         <a href={item.href} class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
           <span data-i18n={item.i18nKey}>{item.text}</span>
         </a>

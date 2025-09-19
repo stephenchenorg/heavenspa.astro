@@ -193,7 +193,7 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
   })
 }
 
-export async function getAdjacentArticles(currentId: number): Promise<{previous: Article | null, next: Article | null}> {
+export async function getAdjacentArticles(currentId: number): Promise<{ previous: Article | null, next: Article | null }> {
   const res = await graphQLAPI(gql`
     query GetAdjacentArticles($currentId: Int!) {
       previousArticle: article(where: { id: { _lt: $currentId } }, orderBy: { id: desc }, first: 1) {
@@ -212,7 +212,7 @@ export async function getAdjacentArticles(currentId: number): Promise<{previous:
       }
     }
   `, {
-    variables: { currentId: currentId },
+    variables: { currentId },
   })
 
   const formatArticle = (article: any) => {
@@ -224,7 +224,10 @@ export async function getAdjacentArticles(currentId: number): Promise<{previous:
     return {
       id: article.id,
       title: article.title,
+      author: article.author,
       cover: article.cover,
+      content: article.content,
+      ended_at: article.ended_at,
       started_at: d.toISOString(),
       created_at: d.toISOString(),
       date: d.getDate().toString().padStart(2, '0'),

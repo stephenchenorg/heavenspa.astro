@@ -3,8 +3,8 @@ import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'
-import NavLink from '@/components/ui/NavLink.astro'
 import DropdownNav from '@/components/ui/DropdownNav.astro'
+import NavLink from '@/components/ui/NavLink.astro'
 import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
@@ -33,21 +33,21 @@ const isEnglish = currentPath.startsWith('/en')
 
 // 共用導航配置
 const navItems = [
-  { href: "/about", text: t('nav.about'), i18nKey: "nav.about" },
-  { href: "/news", text: t('nav.news'), i18nKey: "nav.news" },
-  { href: "/services", text: t('nav.services'), i18nKey: "nav.services" },
-  { href: "/team", text: t('nav.team'), i18nKey: "nav.team" },
-  { href: "/faq", text: t('nav.faq'), i18nKey: "nav.faq" }
+  { href: '/about', text: t('nav.about'), i18nKey: 'nav.about' },
+  { href: '/news', text: t('nav.news'), i18nKey: 'nav.news' },
+  { href: '/services', text: t('nav.services'), i18nKey: 'nav.services' },
+  { href: '/team', text: t('nav.team'), i18nKey: 'nav.team' },
+  { href: '/faq', text: t('nav.faq'), i18nKey: 'nav.faq' },
 ]
 
 const careersDropdown = {
   text: t('nav.careers'),
   isActive: isCareersActive,
-  i18nKey: "nav.careers",
+  i18nKey: 'nav.careers',
   items: [
-    { href: "/joinUs/careers", text: t('nav.recruitment'), i18nKey: "nav.recruitment" },
-    { href: "/joinUs/training", text: t('nav.training'), i18nKey: "nav.training" }
-  ]
+    { href: '/joinUs/careers', text: t('nav.recruitment'), i18nKey: 'nav.recruitment' },
+    { href: '/joinUs/training', text: t('nav.training'), i18nKey: 'nav.training' },
+  ],
 }
 ---
 
@@ -61,15 +61,15 @@ const careersDropdown = {
   <div class="nav-logo flex-shrink-0">
     <div class="flex items-center">
       <a
-          href="/"
-          class="flex items-center space-x-2 transition-all duration-300 group"
+        href="/"
+        class="flex items-center space-x-2 transition-all duration-300 group"
       >
         { companySetting?.logo ? (
               <img
-                  src={companySetting?.logo}
-                  alt={companySetting?.name || 'Logo'}
-                  class="h-10 w-auto sm:h-12 transition-transform duration-300 group-hover:scale-105"
-              >
+                src={companySetting?.logo}
+                alt={companySetting?.name || 'Logo'}
+                class="h-10 w-auto sm:h-12 transition-transform duration-300 group-hover:scale-105"
+>
           )
           : (
             <span class="text-xl font-bold">{ companySetting?.name }</span>
@@ -82,7 +82,7 @@ const careersDropdown = {
   <!-- Link - flexible width, hidden below lg and hidden if English -->
   {!isEnglish && (
     <div class="hidden lg:flex gap-2 xl:gap-4 items-center justify-center flex-nowrap nav-menu absolute left-1/2 transform -translate-x-1/2 z-10">
-      {navItems.map((item) => (
+      {navItems.map(item => (
         <NavLink href={item.href} text={item.text} isActive={isActive(item.href)} variant="desktop" i18nKey={item.i18nKey} />
       ))}
       <DropdownNav
@@ -146,7 +146,7 @@ const careersDropdown = {
       </button>
     </div>
     <nav class="pt-8 pb-4 overflow-y-auto mobile-nav">
-      {navItems.map((item) => (
+      {navItems.map(item => (
         <NavLink href={item.href} text={item.text} isActive={isActive(item.href)} variant="mobile" i18nKey={item.i18nKey} />
       ))}
       <DropdownNav

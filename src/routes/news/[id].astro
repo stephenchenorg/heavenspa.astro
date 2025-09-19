@@ -23,7 +23,7 @@ const article = await getArticle(id) || defaultArticle
 
 // 獲取相關文章
 const tagIds = article.tags?.data?.map(tag => Number(tag.id)) || []
-const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds, 3) : []
+const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : []
 
 // 過濾掉當前文章
 const filteredRelatedArticles = relatedArticles.filter(relatedArticle => relatedArticle.id !== article.id)
@@ -292,9 +292,9 @@ const meta = seoMeta({
         document.addEventListener('DOMContentLoaded', () => {
             const carouselTrack = document.querySelector('.carousel-track')
             const slides = document.querySelectorAll('.carousel-slide')
-            const prevButton = document.querySelector('.carousel-prev')
-            const nextButton = document.querySelector('.carousel-next')
-            const dotsContainer = document.getElementById('carousel-dots')
+            const prevButton = document.querySelector('.banner-prev') as HTMLElement | null
+            const nextButton = document.querySelector('.banner-next') as HTMLElement | null
+            const dotsContainer = document.querySelector('.dots-container') as HTMLElement | null
 
             if (!carouselTrack || slides.length === 0) return
 
@@ -303,6 +303,8 @@ const meta = seoMeta({
 
             // Generate dots dynamically based on slide count
             function generateDots() {
+                if (!dotsContainer) return
+
                 dotsContainer.innerHTML = ''
                 for (let i = 0; i < totalSlides; i++) {
                     const dot = document.createElement('button')
@@ -373,7 +375,7 @@ const meta = seoMeta({
             // Dots event listeners are now handled in generateDots function
 
             // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
+            document.addEventListener('keydown', e => {
                 if (e.key === 'ArrowLeft') prevSlide()
                 if (e.key === 'ArrowRight') nextSlide()
             })
