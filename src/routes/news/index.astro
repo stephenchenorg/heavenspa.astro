@@ -4,6 +4,7 @@ import { getArticles } from '@/api/articles'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import Button from '@/components/ui/Button.astro'
 
 const t = await createNestedT()
 
@@ -58,12 +59,13 @@ const meta = seoMeta({
                 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 <!-- VIEW MORE Button Overlay -->
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div class="backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none" style="background-color: var(--theme-card-bg); color: var(--theme-text);">
-                    <span>{t('buttons.view-more')}</span>
-                    <span>→</span>
-                  </div>
-                </div>
+                <Button
+                    variant="ghost"
+                    text={t('buttons.view-more')}
+                    size="small"
+                    icon="→"
+                    wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
               </div>
 
               <!-- 下半部：標題和資訊 -->

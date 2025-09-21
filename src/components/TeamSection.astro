@@ -5,6 +5,7 @@ import Carousel from '@/components/ui/Carousel.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'
 import { createNestedT } from '@/utils/i18n'
+import Button from '@/components/ui/Button.astro'
 
 const t = await createNestedT()
 
@@ -43,11 +44,7 @@ const teamMembers: TeamMember[] = (await getAllTeams((Astro.locals as any).local
 
   <!-- 查看更多按鈕 -->
   <div class="mt-12 max-w-7xl mx-auto w-full">
-    <button
-      class="px-6 py-3 border-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 border-[var(--theme-text)] text-[var(--theme-text)] bg-transparent hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)]"
-    >
-      <span data-i18n="team.more-members">{t('team.more-members')}</span>
-    </button>
+    <Button href="/team" variant="outline" size="medium" text={t('team.more-members')} />
   </div>
 
   <!-- Marquee Section -->

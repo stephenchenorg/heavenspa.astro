@@ -3,6 +3,7 @@ import { getArticles } from '@/api/articles'
 import { createNestedT } from '@/utils/i18n'
 import Carousel from './ui/Carousel.astro'
 import SectionTitle from './ui/SectionTitle.astro'
+import Button from '@/components/ui/Button.astro'
 
 const t = await createNestedT()
 
@@ -76,12 +77,13 @@ articles = articles.slice(0, 6) // 只取前6筆資料
                   </div>
 
                   <!-- VIEW MORE Button Overlay -->
-                  <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div class="bg-white/90 backdrop-blur-sm text-neutral-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors duration-200 flex items-center space-x-2 shadow-lg pointer-events-none">
-                      <span>{t('buttons.view-more')}</span>
-                      <span>→</span>
-                    </div>
-                  </div>
+                  <Button
+                      variant="ghost"
+                      text={t('buttons.view-more')}
+                      size="small"
+                      icon="→"
+                      wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
                 </div>
               </div>
             </div>
@@ -127,14 +129,7 @@ articles = articles.slice(0, 6) // 只取前6筆資料
   <!-- 只在有資料時顯示的按鈕區域 -->
   {articles.length > 0 && (
     <div class="mt-12 max-w-7xl mx-auto w-full">
-      <button
-        class="px-6 py-3 border rounded-lg font-medium transition-colors duration-200"
-        style="border-color: var(--theme-text); color: var(--theme-text);"
-        onmouseover="this.style.backgroundColor=getComputedStyle(document.documentElement).getPropertyValue('--theme-text'); this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-bg');"
-        onmouseout="this.style.backgroundColor='transparent'; this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--theme-text');"
-      >
-          <span data-i18n="news.more-news">{t('news.more-news')}</span>
-      </button>
+      <Button href="/news" variant="outline" size="medium" text={t('news.more-news')} />
     </div>
   )}
 

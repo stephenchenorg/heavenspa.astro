@@ -2,9 +2,11 @@
 export interface Props {
   href?: string
   onclick?: string
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline'
   size?: 'small' | 'medium' | 'large'
-  children?: any
+  text?: string
+  icon?: string
+  wrapperClass?: string
 }
 
 const {
@@ -12,30 +14,42 @@ const {
   onclick,
   variant = 'primary',
   size = 'large',
+  text,
+  icon,
+  wrapperClass,
 } = Astro.props
 
 // Size variants
 const sizeClasses = {
-  small: 'px-4 py-2 text-sm w-[120px]',
-  medium: 'px-6 py-3 text-sm w-[160px]',
-  large: 'px-8 py-4 text-base w-[209px]',
+  small: 'px-4 py-2 text-sm min:w-[120px] w-auto',
+  medium: 'px-6 py-3 text-sm min:w-[160px] w-auto',
+  large: 'px-8 py-4 text-base min:w-[209px] w-auto',
 }
 
-// Variant classes using centralized design tokens
+// Variant classes
 const variantClasses = {
   primary: 'btn-primary',
   secondary: 'btn-secondary',
+  ghost: 'bg-white/90 backdrop-blur-sm text-neutral-800 rounded-full text-sm font-medium hover:bg-white shadow-lg',
+  outline:
+    'border rounded-lg font-medium transition-colors duration-200 border-[var(--theme-text)] text-[var(--theme-text)] hover:bg-[var(--theme-text)] hover:text-[var(--theme-bg)]',
 }
 
 const buttonClass = `${sizeClasses[size]} ${variantClasses[variant]}`
 ---
 
-{href ? (
-  <a href={href} class={buttonClass}>
-    <slot />
-  </a>
-) : (
-  <button class={buttonClass} onclick={onclick}>
-    <slot />
-  </button>
-)}
+<div class={wrapperClass}>
+  {href ? (
+    <a href={href} class={buttonClass} rel="noopener noreferrer">
+      {text ? <span>{text}</span> : null}
+      {icon ? <span>{icon}</span> : null}
+      <slot />
+    </a>
+  ) : (
+    <button class={buttonClass} onclick={onclick}>
+      {text ? <span>{text}</span> : null}
+      {icon ? <span>{icon}</span> : null}
+      <slot />
+    </button>
+  )}
+</div>
