@@ -162,17 +162,14 @@
   "careers": {
     "title": "人才招募",
     "subtitle": "Contact Us",
-    "headline": "不要猶豫與我們聯繫。",
-    "description": "誠徵指油壓Spa夥伴 (無經驗可，有經驗佳)",
+    "headline": "職務內容",
+    "description": "可彈性排班，完善抽成制度",
     "requirements": {
-      "freedom": "如果你熱愛自由、享受生活",
-      "dreams": "如果你對生活有理想與抱負",
-      "hardwork": "如果你不怕吃苦",
-      "quality": "如果你講究生活",
-      "detail": "如果你作事細心",
-      "responsibility": "如果你認真負責"
+      "requirement1": "全身指壓按摩／精油SPA按摩",
+      "requirement2": "顧客接待與體驗引導",
+      "requirement3": "環境維持與清潔整理",
+      "requirement4": "——無經驗提供專業技術培訓"
     },
-    "conclusion": "――你就是我們要的人選之人",
     "contact": {
       "title": "聯絡我們",
       "description": "歡迎您加入我們的團隊！如有任何疑問，請隨時與我們聯繫。",

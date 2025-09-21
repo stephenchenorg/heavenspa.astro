@@ -1,15 +1,41 @@
 <template>
   <div>
+    <!-- 成功訊息 -->
+    <div v-if="showSuccess" class="mb-4 p-4 rounded-lg bg-green-100 border border-green-400 text-green-700" style="z-index: 1000; position: relative;">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium">{{ t('careers.form.successMessage') }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- 錯誤訊息 -->
+    <div v-if="showError" class="mb-4 p-4 rounded-lg bg-red-100 border border-red-400 text-red-700">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium">{{ t('careers.form.errorMessage') }}</p>
+        </div>
+      </div>
+    </div>
     <form class="space-y-4 sm:space-y-6" :style="{ color: 'var(--theme-text)' }" @submit.prevent="submitForm">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            中文姓名
+            {{ t('careers.form.name') }}
           </label>
           <input
             v-model="form.name"
             type="text"
-            placeholder="請輸入中文姓名"
+            :placeholder="t('careers.form.namePlaceholder')"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -17,12 +43,12 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            行動電話
+            {{ t('careers.form.phone') }}
           </label>
           <input
             v-model="form.phone"
             type="tel"
-            placeholder="0912-345-678"
+            :placeholder="t('careers.form.phonePlaceholder')"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -33,12 +59,12 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            身高 (cm)
+            {{ t('careers.form.height') }}
           </label>
           <input
             v-model="form.height"
             type="number"
-            placeholder="160"
+            :placeholder="t('careers.form.heightPlaceholder')"
             required
             min="100"
             max="250"
@@ -48,12 +74,12 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            體重 (kg)
+            {{ t('careers.form.weight') }}
           </label>
           <input
             v-model="form.weight"
             type="number"
-            placeholder="50"
+            :placeholder="t('careers.form.weightPlaceholder')"
             required
             min="30"
             max="200"
@@ -66,7 +92,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            出生年月日
+            {{ t('careers.form.birthday') }}
           </label>
           <input
             v-model="form.birthday"
@@ -78,12 +104,12 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            FB/IG 帳號
+            {{ t('careers.form.social') }}
           </label>
           <input
             v-model="form.social"
             type="text"
-            placeholder="請輸入 Facebook 或 Instagram 帳號"
+            :placeholder="t('careers.form.socialPlaceholder')"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -93,12 +119,12 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          電子信箱
+          {{ t('careers.form.email') }}
         </label>
         <input
           v-model="form.email"
           type="email"
-          placeholder="example@email.com"
+          :placeholder="t('careers.form.emailPlaceholder')"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -107,12 +133,12 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          居住地址
+          {{ t('careers.form.address') }}
         </label>
         <input
           v-model="form.address"
           type="text"
-          placeholder="請輸入完整地址"
+          :placeholder="t('careers.form.addressPlaceholder')"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -125,43 +151,19 @@
         class="w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg text-sm sm:text-base"
         :style="buttonStyle"
       >
-        <span v-if="!isSubmitting">提交申請</span>
-        <span v-else>處理中...</span>
+        <span v-if="!isSubmitting">{{ t('careers.form.submit') }}</span>
+        <span v-else>{{ t('careers.form.submitting') }}</span>
       </button>
     </form>
-
-    <!-- 成功訊息 -->
-    <div v-if="showSuccess" class="mt-4 p-4 rounded-lg bg-green-100 border border-green-400 text-green-700">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-        </div>
-        <div class="ml-3">
-          <p class="text-sm font-medium">申請已成功提交！我們會盡快與您聯繫。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 錯誤訊息 -->
-    <div v-if="showError" class="mt-4 p-4 rounded-lg bg-red-100 border border-red-400 text-red-700">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-          </svg>
-        </div>
-        <div class="ml-3">
-          <p class="text-sm font-medium">{{ errorMessage }}</p>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
+import { initTranslations, t } from '@/utils/i18n'
+
+// 初始化翻譯
+await initTranslations()
 
 // 表單資料
 const form = reactive({
@@ -179,7 +181,6 @@ const form = reactive({
 const isSubmitting = ref(false)
 const showSuccess = ref(false)
 const showError = ref(false)
-const errorMessage = ref('')
 const currentTheme = ref('light')
 
 // 樣式計算
@@ -216,7 +217,9 @@ async function submitForm() {
     }
 
     // 成功
+    console.log('Form submitted successfully!')
     showSuccess.value = true
+    console.log('showSuccess set to:', showSuccess.value)
     resetForm()
 
     // 5秒後隱藏成功訊息
@@ -225,7 +228,6 @@ async function submitForm() {
     }, 5000)
   } catch (error) {
     console.error('提交錯誤:', error)
-    errorMessage.value = error instanceof Error ? error.message : '提交失敗，請稍後再試。'
     showError.value = true
 
     // 5秒後隱藏錯誤訊息

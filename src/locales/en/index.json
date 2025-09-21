@@ -162,17 +162,14 @@
   "careers": {
     "title": "Recruitment",
     "subtitle": "Contact Us",
-    "headline": "Don't hesitate to contact us.",
-    "description": "Recruiting oil pressure spa partners (no experience required, experience preferred)",
+    "headline": "Job content",
+    "description": "Flexible scheduling and perfect commission system",
     "requirements": {
-      "freedom": "If you love freedom and enjoy life",
-      "dreams": "If you have ideals and aspirations for life",
-      "hardwork": "If you are not afraid of hardship",
-      "quality": "If you value quality of life",
-      "detail": "If you are meticulous in your work",
-      "responsibility": "If you are serious and responsible"
+      "requirement1": "Full body massage/essence oil SPA massage",
+      "requirement2": "Customer reception and experience guidance",
+      "requirement3": "Environmental maintenance and cleaning",
+      "requirement4": "——Provide professional technical training without experience"
     },
-    "conclusion": "――You are the person we are looking for",
     "contact": {
       "title": "Contact Us",
       "description": "Welcome to join our team! If you have any questions, please feel free to contact us at any time.",
