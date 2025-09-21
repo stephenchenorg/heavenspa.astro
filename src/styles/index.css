@@ -179,7 +179,9 @@
   }
 
   .nav-item:hover .nav-underline,
-  .nav-item.active .nav-underline {
+  .nav-item.active .nav-underline,
+  .simple-dropdown:hover .nav-underline,
+  .simple-dropdown.active .nav-underline {
     @apply w-full;
   }
 

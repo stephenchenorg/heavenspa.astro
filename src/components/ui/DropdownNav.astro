@@ -21,14 +21,14 @@ const {
 ---
 
 {variant === 'desktop' ? (
-  <div class="simple-dropdown relative">
-    <button type="button" class={`nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 font-medium tracking-wide ${isActive ? 'active' : ''}`} style="color: var(--theme-nav-text, #000000); font-size: clamp(14px, 1.2vw, 18px);">
+  <div class={`simple-dropdown relative py-2 px-0.5 ${isActive ? 'active' : ''}`}>
+    <button type="button" class="nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 font-medium tracking-wide" style="color: var(--theme-nav-text, #000000); font-size: clamp(14px, 1.2vw, 18px);">
       <span data-i18n={i18nKey} class="font-medium tracking-wide">{text}</span>
       <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
       </svg>
-      <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
     </button>
+    <div class="nav-underline" style="background: var(--theme-nav-text, #000000);"></div>
 
     <div class="dropdown-content">
       {items.map(item => (
