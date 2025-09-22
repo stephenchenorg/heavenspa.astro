@@ -109,6 +109,37 @@
       "news": "最新消息"
     }
   },
+  "partnerships": {
+    "more-news": "更多異業合作",
+    "title": "異業合作",
+    "detail": "異業合作詳情",
+    "loading": "內容載入中...",
+    "publishDate": "發布日期:",
+    "endDate": "截止日期:",
+    "backToNews": "返回異業合作列表",
+    "relatedPartnerships": "相關異業合作",
+    "tags": "標籤",
+    "noRelatedPartnerships": "目前沒有相關異業合作",
+    "bookingTitle": "立即預約",
+    "bookingDescription": "想要體驗我們的專業服務嗎？現在就聯繫我們預約您的專屬時光。",
+    "phoneBooking": "電話預約",
+    "onlineBooking": "線上預約",
+    "errors": {
+      "notFound": "異業合作未找到",
+      "notFoundContent": "<p>很抱歉，您請求的異業合作不存在或已被移除。</p><p>請返回新聞列表頁面查看其他異業合作。</p>",
+      "defaultDescription": "了解 Heaven Spa 的異業合作"
+    },
+    "navigation": {
+      "previousPartnership": "上一篇",
+      "nextPartnership": "下一篇",
+      "noPrevious": "沒有上一篇異業合作",
+      "noNext": "沒有下一篇異業合作"
+    },
+    "breadcrumb": {
+      "home": "首頁",
+      "news": "最新消息"
+    }
+  },
   "benefits": {
     "title": "MEMBER BENEFITS",
     "subtitle": "會員禮遇",
