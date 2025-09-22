@@ -22,7 +22,7 @@ const {
 // 獲取當前路徑來判斷子選單項目是否為 active
 const currentPath = Astro.url.pathname
 function isItemActive(href: string) {
-  return currentPath === href || currentPath.startsWith(href + '/')
+  return currentPath === href || currentPath.startsWith(`${href}/`)
 }
 ---
 
