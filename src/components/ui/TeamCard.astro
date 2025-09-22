@@ -2,7 +2,7 @@
 import type { TeamMember } from '@/types'
 import ImageCarousel from '@/components/ui/ImageCarousel.astro'
 import { createNestedT } from '@/utils/i18n'
-import Button from "./Button.astro";
+import Button from './Button.astro'
 
 const t = await createNestedT()
 
@@ -36,11 +36,11 @@ const { member, uniqueId } = Astro.props
         )}
       </div>
       <Button
-          variant="ghost"
-          text={t('buttons.view-more')}
-          size="small"
-          icon="→"
-          wrapperClass="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        variant="ghost"
+        text={t('buttons.view-more')}
+        size="small"
+        icon="→"
+        wrapperClass="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       />
     </div>
   </div>

@@ -1,10 +1,10 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getArticles } from '@/api/articles'
+import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import Button from '@/components/ui/Button.astro'
 
 const t = await createNestedT()
 
@@ -60,11 +60,11 @@ const meta = seoMeta({
 
                 <!-- VIEW MORE Button Overlay -->
                 <Button
-                    variant="ghost"
-                    text={t('buttons.view-more')}
-                    size="small"
-                    icon="→"
-                    wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  variant="ghost"
+                  text={t('buttons.view-more')}
+                  size="small"
+                  icon="→"
+                  wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
               </div>
 

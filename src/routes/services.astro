@@ -49,7 +49,7 @@ const services = [
             class={`group relative flex h-full items-end overflow-hidden ${
               index === 1 ? 'md:border-x border-white/10' : ''
             }`}
-            key={service.title}
+            :key={service.title}
           >
             <img
               src={service.image}

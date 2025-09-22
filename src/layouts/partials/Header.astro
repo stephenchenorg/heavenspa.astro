@@ -550,9 +550,16 @@ const careersDropdown = {
   transform: rotate(180deg) !important;
 }
 
+/* 當前頁面狀態樣式 */
+.simple-dropdown.is-current-page .nav-underline {
+  width: 100% !important;
+}
+
 .dropdown-link {
   display: block !important;
   padding: 12px 16px !important;
+  position: relative !important;
+  border-left: 3px solid transparent !important;
   color: #374151 !important;
   text-decoration: none !important;
   font-size: clamp(14px, 1.2vw, 16px) !important;
@@ -574,18 +581,14 @@ const careersDropdown = {
   border-top-right-radius: 8px;
 }
 
-.dropdown-link:hover {
+.dropdown-link:hover,
+.dropdown-link.active {
   background-color: #f8fafc !important;
   color: #D7AE54 !important;
+  border-left: 3px solid #D7AE54 !important;
+  padding-left: 19px !important;
 }
 
-/* 確保下拉選單連結 hover 效果 */
-.simple-dropdown .dropdown-content .dropdown-link:hover {
-  background-color: #f8fafc !important;
-  color: #D7AE54 !important;
-  transition: all 0.2s ease !important;
-  border-left: 3px solid #D7AE54 !important;
-}
 
 /* 深色模式樣式 */
 .dark .simple-dropdown .dropdown-content,
@@ -604,20 +607,16 @@ const careersDropdown = {
 
 .dark .dropdown-link:hover,
 .dark-theme .dropdown-link:hover,
-[data-theme="dark"] .dropdown-link:hover {
+[data-theme="dark"] .dropdown-link:hover,
+.dark .dropdown-link.active,
+.dark-theme .dropdown-link.active,
+[data-theme="dark"] .dropdown-link.active {
   background-color: transparent !important;
   color: #D7AE54 !important;
+  border-left: 3px solid #D7AE54 !important;
+  padding-left: 19px !important;
 }
 
-/* 深色模式下拉選單 hover 效果 */
-.dark .simple-dropdown .dropdown-content .dropdown-link:hover,
-.dark-theme .simple-dropdown .dropdown-content .dropdown-link:hover,
-[data-theme="dark"] .simple-dropdown .dropdown-content .dropdown-link:hover {
-  background-color: transparent !important;
-  color: #D7AE54 !important;
-  transition: all 0.2s ease !important;
-  border-left: 3px solid #D7AE54 !important;
-}
 
 /* CSS 變數定義 */
 :root {
@@ -846,9 +845,17 @@ header .nav-dropdown .nav-submenu-item,
   margin-left: 1rem;
 }
 
-.mobile-nav-subitem:hover {
+.mobile-nav-subitem {
+  border-left: 3px solid transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.mobile-nav-subitem:hover,
+.mobile-nav-subitem.active {
   background-color: var(--theme-mobile-submenu-hover-bg, rgba(215, 174, 84, 0.1)) !important;
   opacity: 1 !important;
+  border-left: 3px solid #D7AE54 !important;
+  padding-left: 2.5rem !important;
 }
 
 /* 響應式調整 */

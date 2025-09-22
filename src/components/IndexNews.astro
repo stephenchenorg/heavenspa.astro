@@ -1,9 +1,9 @@
 ---
 import { getArticles } from '@/api/articles'
+import Button from '@/components/ui/Button.astro'
 import { createNestedT } from '@/utils/i18n'
 import Carousel from './ui/Carousel.astro'
 import SectionTitle from './ui/SectionTitle.astro'
-import Button from '@/components/ui/Button.astro'
 
 const t = await createNestedT()
 
@@ -78,11 +78,11 @@ articles = articles.slice(0, 6) // 只取前6筆資料
 
                   <!-- VIEW MORE Button Overlay -->
                   <Button
-                      variant="ghost"
-                      text={t('buttons.view-more')}
-                      size="small"
-                      icon="→"
-                      wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    variant="ghost"
+                    text={t('buttons.view-more')}
+                    size="small"
+                    icon="→"
+                    wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               </div>

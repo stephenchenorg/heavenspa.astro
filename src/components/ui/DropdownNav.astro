@@ -18,10 +18,16 @@ const {
   i18nKey,
   items = [],
 } = Astro.props
+
+// 獲取當前路徑來判斷子選單項目是否為 active
+const currentPath = Astro.url.pathname
+function isItemActive(href: string) {
+  return currentPath === href || currentPath.startsWith(href + '/')
+}
 ---
 
 {variant === 'desktop' ? (
-  <div class={`simple-dropdown relative py-2 px-0.5 ${isActive ? 'active' : ''}`}>
+  <div class={`simple-dropdown relative py-2 px-0.5 ${isActive ? 'is-current-page' : ''}`}>
     <button type="button" class="nav-item dropdown-btn cursor-pointer flex items-center bg-transparent border-none p-0 font-medium tracking-wide" style="color: var(--theme-nav-text, #000000); font-size: clamp(14px, 1.2vw, 18px);">
       <span data-i18n={i18nKey} class="font-medium tracking-wide">{text}</span>
       <svg class="dropdown-icon w-4 h-4 ml-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,7 +38,7 @@ const {
 
     <div class="dropdown-content">
       {items.map(item => (
-        <a href={item.href} class="dropdown-link">
+        <a href={item.href} class={`dropdown-link ${isItemActive(item.href) ? 'active' : ''}`}>
           <span data-i18n={item.i18nKey}>{item.text}</span>
         </a>
       ))}
@@ -50,7 +56,7 @@ const {
 
     <div class="mobile-nav-submenu max-h-0 overflow-hidden transition-all duration-300 ease-out">
       {items.map(item => (
-        <a href={item.href} class="mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200" style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
+        <a href={item.href} class={`mobile-nav-subitem block py-3 pl-8 pr-4 transition-colors duration-200 ${isItemActive(item.href) ? 'active' : ''}`} style="color: var(--theme-mobile-nav-text, #D7AE54); opacity: 0.8;">
           <span data-i18n={item.i18nKey}>{item.text}</span>
         </a>
       ))}

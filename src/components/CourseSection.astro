@@ -1,11 +1,10 @@
 ---
+import type { Course } from '@/api/courses'
 // Course Section with SPA Design Style
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createNestedT } from '@/utils/i18n'
-import type { Course } from '@/api/courses'
 
 const t = await createNestedT()
-
 
 interface Props {
   courses: Course[]
