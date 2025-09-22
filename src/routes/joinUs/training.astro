@@ -13,59 +13,78 @@ const meta = seoMeta({
 
 
 <Layout meta={meta}>
-    <main class="relative z-10 w-full min-h-screen px-4 md:px-6 lg:px-8 body-main"
-          style=" background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000); padding-top: 120px; padding-bottom: 40px;">
+    <main class="relative z-10 w-full min-h-screen text-[color:var(--theme-text,#000000)] pt-[120px]">
         <!-- 標題區 -->
-        <SectionTitle title={t('team.sectionTitle')} subtitle={t('team.sectionSubtitle')}/>
+        <SectionTitle title="人才招募" subtitle="Training"/>
 
-        <!-- Main Content -->
-        <div class="main_part max-w-screen-2xl mx-auto p-0">
-            <!-- Main Training Content -->
-            <div class="box_container w-full max-w-screen-2xl mx-auto font-[Microsoft_JhengHei] text-neutral-900 dark:text-neutral-100">
+        <div class="relative min-h-screen bg-[url('https://pic03.eapple.com.tw/yonghe32/bg.jpg')] bg-center bg-no-repeat bg-cover bg-fixed">
+            <!-- Main Content -->
+            <div class="main_part mx-auto p-0">
+                <!-- Main Training Content -->
+                <div class="box_container w-full mx-auto font-[Microsoft_JhengHei] text-neutral-900">
 
                     <!-- Section 1: Introduction -->
-                    <div class="cabg01 bg-cover bg-center pt-[100px] bg-[url('https://pic03.eapple.com.tw/yonghe32/cbg_01.jpg')] relative">
+                    <div class="cabg01 relative bg-cover bg-center pt-[72px] md:pt-[100px] pb-16 lg:pb-0 bg-[url('https://pic03.eapple.com.tw/yonghe32/cbg_01.jpg')]">
                         <!-- Dark mode overlay -->
                         <div class="absolute inset-0 "></div>
 
-                        <dl class="cabg01_1 relative z-10 pl-[3%] ml-auto max-w-[calc(1640px+3%)] flex justify-end items-stretch">
-                            <dt class="w-[600px] flex flex-wrap justify-start items-center content-between">
-                                <section data-animate-in="left" data-detect-repeat="N" class="in-view my-[5%]" style="background: none !important; color:none !important;">
+                        <dl class="cabg01_1 z-10 ml-auto max-w-[calc(1640px+3%)] flex flex-col md:flex-col lg:flex-row lg:justify-end items-stretch">
+                            <dt class="w-full lg:w-[600px] flex flex-col lg:flex-wrap lg:justify-start lg:items-center lg:content-between  order-1 md:order-1 lg:order-1">
+                                <!-- 手機版區塊1: cla_01.png 圖片 -->
+                                <section data-animate-in="left" data-detect-repeat="N" class="in-view my-8 lg:my-[5%] text-center lg:text-left bg-transparent">
                                     <img
                                             src="https://pic03.eapple.com.tw/yonghe32/cla_01.png"
                                             alt="培訓介紹"
-                                            class="w-auto max-w-full"
+                                            class="w-auto max-w-[300px] sm:max-w-full mx-auto lg:mx-0"
                                     />
-                                    <figure class="flex justify-start items-stretch mt-5">
-                                        <a
-                                                href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
-                                                class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full transition-colors duration-300"
-                                        >
-                                            培訓服務介紹
-                                        </a>
-                                        <a
-                                                href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
-                                                class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full ml-3 transition-colors duration-300"
-                                        >
-                                            培訓課程選項
-                                        </a>
-                                    </figure>
                                 </section>
 
-                                <p class="py-14 relative z-10">
-                                <div class="absolute left-[30%] top-0 w-[1230px] h-full bg-white/50 dark:bg-white/30 -translate-x-1/2 -z-10 rounded-tr-[200px]"></div>
-                                <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/cla_000.png"
-                                        alt="一對一教學"
-                                        class="w-auto max-w-full"
-                                />
-                                <span class="block mt-5 text-lg max-w-[390px] text-neutral-800 dark:text-neutral-200">
-                                            一對一的教學方式不僅能最大程度地發揮效益，還能確保學習的效果和效率
-                                        </span>
-                                </p>
-                            </dt>
+                                <!-- 手機版區塊2&3: 培訓服務介紹 & 培訓課程選項按鈕 (同一行) -->
+                                <div class="my-8 lg:hidden text-center flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center items-center [&_a+a]:ml-2 sm:[&_a+a]:ml-0">
+                                    <a
+                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
+                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold rounded-full transition-colors duration-300"
+                                    >
+                                        培訓服務介紹
+                                    </a>
+                                    <a
+                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
+                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full transition-colors duration-300"
+                                    >
+                                        培訓課程選項
+                                    </a>
+                                </div>
 
-                            <dd class="leading-[0]">
+                                <!-- 電腦版按鈕組合 (隱藏在手機版) -->
+                                <figure class="hidden lg:flex justify-start items-stretch mt-5 mb-8 [&_a]:text-base [&_a]:lg:text-base [&_a]:px-2 [&_a]:lg:px-4">
+                                    <a
+                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
+                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold rounded-full transition-colors duration-300"
+                                    >
+                                        培訓服務介紹
+                                    </a>
+                                    <a
+                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
+                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full ml-3 transition-colors duration-300"
+                                    >
+                                        培訓課程選項
+                                    </a>
+                                </figure>
+                                <!-- 手機版區塊4: 因材施教內容 + 背景圖 -->
+                                <div class="py-14 lg:flex-1 lg:flex lg:flex-col lg:justify-center lg:pt-14 lg:pb-0 relative z-10 text-center lg:text-left">
+                                    <div class="absolute left-1/2 lg:left-[30%] top-0 w-full lg:w-[1230px] h-full bg-white/50 dark:bg-white/30 -translate-x-1/2 -z-10 rounded-lg lg:rounded-tr-[200px]"></div>
+                                    <img
+                                            src="https://pic03.eapple.com.tw/yonghe32/cla_000.png"
+                                            alt="一對一教學"
+                                            class="w-auto max-w-full mx-auto lg:mx-0"
+                                    />
+                                    <span class="block mt-5 text-lg max-w-[390px] text-neutral-900 mx-auto lg:mx-0">
+                                        一對一的教學方式不僅能最大程度地發揮效益，還能確保學習的效果和效率
+                                    </span>
+                                </div>
+
+                            </dt>
+                            <dd class="leading-[0] order-2 md:order-2 lg:order-2 text-center lg:text-left">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_01.png"
                                         alt="培訓圖片1"
@@ -82,20 +101,20 @@ const meta = seoMeta({
 
                     <!-- Section 2: Course Selection -->
                     <div class="cabg02 py-[100px]  transition-colors duration-300">
-                        <dl class="cabg02_1 w-[97%] max-w-[1635px] ml-auto flex justify-between items-stretch lg:flex-row flex-col">
+                        <dl class="cabg02_1 w-[95%] md:w-[97%] max-w-[1635px] mx-auto flex justify-between items-stretch lg:flex-row flex-col">
                             <dt data-animate-in="left" data-detect-repeat="N"
-                                class="in-view w-full lg:w-[613px] mb-12 lg:mb-0">
+                                class="in-view w-full md:w-auto lg:w-[613px] mb-8 md:mb-12 lg:mb-0">
                                 <h4 class="flex justify-start items-center text-2xl leading-tight pl-5 pb-3 border-b border-neutral-300 dark:border-neutral-600">
                                     <img
                                             src="https://pic03.eapple.com.tw/yonghe32/ser_02.png"
                                             alt="課程圖標"
                                             class="w-8 h-8 mr-3"
                                     />
-                                    <p class="text-primary-300 font-semibold">課程選擇</p>
+                                    <p class="text-neutral-900 font-semibold">課程選擇</p>
                                 </h4>
 
                                 <figure class="pt-5 px-5">
-                                    <p class="mb-6 text-neutral-700 dark:text-neutral-300">
+                                    <p class="mb-6 text-neutral-900">
                                         課程費用
                                         <span class="inline-block">
                                                 <a
@@ -108,46 +127,46 @@ const meta = seoMeta({
                                             </span>
                                     </p>
 
-                                    <h6 class="text-lg pl-3 border-l-4 border-primary-600 my-4 leading-tight text-neutral-900 dark:text-neutral-100">
+                                    <h6 class="text-lg pl-3 border-l-4 border-primary-600 dark:border-primary-400 my-4 leading-tight text-neutral-900">
                                         個人化定製專屬訓練課表
                                     </h6>
 
                                     <div class="flex justify-start items-start mb-4">
-                                        <b class="mr-3 text-neutral-800 dark:text-neutral-200">課程費用含</b>
-                                        <div class="leading-relaxed text-neutral-700 dark:text-neutral-300">
+                                        <b class="mr-3 text-neutral-900">課程費用含</b>
+                                        <div class="leading-relaxed text-neutral-900">
                                             拔罐組<br/>結業證書一式
                                         </div>
                                     </div>
 
-                                    <ul class="bg-white/70 dark:bg-neutral-700/70 p-4 max-w-[500px] rounded-lg mb-6">
+                                    <ul class="bg-white/90 dark:bg-neutral-800/90 p-4 max-w-[500px] rounded-lg mb-6 shadow-sm">
                                         <li class="flex justify-start items-start mb-2">
-                                            <span class="w-2 h-2 bg-neutral-600 dark:bg-neutral-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                            <span class="w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                             <span class="text-neutral-800 dark:text-neutral-200">一對一專人 1H 免費課程諮詢</span>
                                         </li>
                                         <li class="flex justify-start items-start mb-2">
-                                            <span class="w-2 h-2 bg-neutral-600 dark:bg-neutral-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                            <span class="w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                             <span class="text-neutral-800 dark:text-neutral-200">依個人學術技能及欲強化技能項目需求</span>
                                         </li>
                                         <li class="flex justify-start items-start mb-2">
-                                            <span class="w-2 h-2 bg-neutral-600 dark:bg-neutral-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                            <span class="w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                             <span class="text-neutral-800 dark:text-neutral-200">依諮詢內容，安排專屬老師一對一全程教學 (師徒概念)</span>
                                         </li>
                                         <li class="flex justify-start items-start">
-                                            <span class="w-2 h-2 bg-neutral-600 dark:bg-neutral-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                            <span class="w-2 h-2 bg-primary-600 dark:bg-primary-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
                                             <span class="text-neutral-800 dark:text-neutral-200">結業後，提供免費線上文字諮詢</span>
                                         </li>
                                     </ul>
 
-                                    <h6 class="text-lg pl-3 border-l-4 border-primary-600 my-4 leading-tight text-neutral-900 dark:text-neutral-100">
+                                    <h6 class="text-lg pl-3 border-l-4 border-primary-600 dark:border-primary-400 my-4 leading-tight text-neutral-900">
                                         師資陣容
                                     </h6>
 
-                                    <ul class="bg-white/70 dark:bg-neutral-700/70 p-4 max-w-[500px] rounded-lg">
+                                    <ul class="bg-white/90 dark:bg-neutral-800/90 p-4 max-w-[500px] rounded-lg shadow-sm">
                                         <li class="mb-2 text-neutral-800 dark:text-neutral-200">
-                                            <b>尤文傑 - </b>品牌執行長
+                                            <b class="text-primary-700 dark:text-primary-300">尤文傑 - </b>品牌執行長
                                         </li>
                                         <li class="text-neutral-800 dark:text-neutral-200">
-                                            <b>陳昕楷 - </b>品牌總經理
+                                            <b class="text-primary-700 dark:text-primary-300">陳昕楷 - </b>品牌總經理
                                         </li>
                                     </ul>
                                 </figure>
@@ -163,47 +182,47 @@ const meta = seoMeta({
                         </dl>
 
                         <!-- Features Grid -->
-                        <ul class="cabg02_2 flex justify-center items-stretch max-w-[1360px] mx-auto mt-[72px] text-center lg:flex-row flex-wrap">
-                            <li data-animate-in="down" data-detect-repeat="N" class="in-view w-full lg:w-1/4 p-4">
+                        <ul class="cabg02_2 flex justify-center items-stretch max-w-[1360px] mx-auto mt-12 min-[600px]:mt-16 lg:mt-[72px] text-center min-[600px]:flex-row lg:flex-row flex-wrap gap-4 min-[600px]:gap-6 lg:gap-8">
+                            <li data-animate-in="down" data-detect-repeat="N" class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_03.png"
                                         alt="肌肉路徑學識"
                                         class="mx-auto mb-4 max-w-full h-auto"
                                 />
-                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-800 dark:text-neutral-200">
+                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-900">
                                     人體肌肉路徑學識概念強化
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/4 p-4 lg:border-l border-white dark:border-neutral-600">
+                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_04.png"
                                         alt="按摩技法"
                                         class="mx-auto mb-4 max-w-full h-auto"
                                 />
-                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-800 dark:text-neutral-200">
+                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-900">
                                     徒手、指壓、掌壓、肘壓技法
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/4 p-4 lg:border-l border-white dark:border-neutral-600">
+                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_05.png"
                                         alt="精油技法"
                                         class="mx-auto mb-4 max-w-full h-auto"
                                 />
-                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-800 dark:text-neutral-200">
+                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-900">
                                     精油、指推、長推、肘推技法
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/4 p-4 lg:border-l border-white dark:border-neutral-600">
+                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_06.png"
                                         alt="拔罐技法"
                                         class="mx-auto mb-4 max-w-full h-auto"
                                 />
-                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-800 dark:text-neutral-200">
+                                <p class="max-w-[200px] mx-auto leading-tight text-neutral-900">
                                     拔罐、走罐、刮痧、 肌群伸展等技法
                                 </p>
                             </li>
@@ -215,23 +234,23 @@ const meta = seoMeta({
                         <!-- Dark mode overlay -->
                         <div class="absolute inset-0 bg-black/30 dark:bg-black/50"></div>
 
-                        <dl class="cabg03_1 relative z-10 w-[97%] max-w-[1615px] mx-auto flex justify-between items-stretch lg:flex-row-reverse flex-col">
-                            <dd class="w-full lg:w-auto self-stretch mb-8 lg:mb-0">
+                        <dl class="cabg03_1 relative z-10 w-[95%] md:w-[97%] max-w-[1615px] mx-auto flex justify-between items-stretch md:flex-row lg:flex-row flex-col">
+                            <dt data-animate-in="left" data-detect-repeat="N" class="in-view w-full md:w-1/2 lg:w-auto mb-6 md:mb-8 lg:mb-0">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_07.jpg"
                                         alt="美式整復"
                                         class="object-cover w-full min-h-full rounded-lg"
                                 />
-                            </dd>
+                            </dt>
 
-                            <dt data-animate-in="right" data-detect-repeat="N" class="in-view w-full lg:w-auto">
-                                <h4 class="flex justify-start items-center text-2xl leading-tight pl-5 pb-3 border-b border-primary-400/50">
+                            <dd data-animate-in="right" data-detect-repeat="N" class="in-view w-full md:w-1/2 lg:w-auto self-stretch">
+                                <h4 class="flex justify-start items-center text-2xl leading-tight pl-5 pb-3 border-b border-white/50">
                                     <img
                                             src="https://pic03.eapple.com.tw/yonghe32/ser_02.png"
                                             alt="美式整復圖標"
                                             class="w-8 h-8 mr-3"
                                     />
-                                    <p class="text-primary-300 font-semibold">美式整復運動調理按摩</p>
+                                    <p class="text-white font-semibold">美式整復運動調理按摩</p>
                                 </h4>
 
                                 <figure class="pt-5 pl-5">
@@ -248,7 +267,7 @@ const meta = seoMeta({
                                             </span>
                                     </p>
 
-                                    <h6 class="text-lg pl-3 border-l-4 border-primary-400 my-4 leading-tight">
+                                    <h6 class="text-lg pl-3 border-l-4 border-white/70 my-4 leading-tight">
                                         個人化定製專屬訓練課表
                                     </h6>
 
@@ -278,7 +297,7 @@ const meta = seoMeta({
                                         </li>
                                     </ul>
 
-                                    <h6 class="text-lg pl-3 border-l-4 border-primary-400 my-4 leading-tight">
+                                    <h6 class="text-lg pl-3 border-l-4 border-white/70 my-4 leading-tight">
                                         師資陣容
                                     </h6>
 
@@ -293,8 +312,8 @@ const meta = seoMeta({
                         </dl>
 
                         <!-- Advanced Features Grid -->
-                        <ul class="cabg03_2 flex justify-center items-stretch max-w-[1360px] mx-auto mt-[72px] text-center lg:flex-row flex-wrap">
-                            <li data-animate-in="down" data-detect-repeat="N" class="in-view w-full lg:w-1/5 p-4">
+                        <ul class="cabg03_2 flex justify-center items-stretch max-w-[1360px] mx-auto mt-12 min-[600px]:mt-16 lg:mt-[72px] text-center min-[600px]:flex-row lg:flex-row flex-wrap gap-4 min-[600px]:gap-6 lg:gap-8">
+                            <li data-animate-in="down" data-detect-repeat="N" class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_08.png"
                                         alt="評估教學"
@@ -305,7 +324,7 @@ const meta = seoMeta({
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/5 p-4 lg:border-l border-white/30">
+                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_09.png"
                                         alt="運動按摩"
@@ -316,7 +335,7 @@ const meta = seoMeta({
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/5 p-4 lg:border-l border-white/30">
+                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_10.png"
                                         alt="軟組織放鬆"
@@ -327,7 +346,7 @@ const meta = seoMeta({
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/5 p-4 lg:border-l border-white/30">
+                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_11.png"
                                         alt="整復調理"
@@ -338,7 +357,7 @@ const meta = seoMeta({
                                 </p>
                             </li>
                             <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/5 p-4 lg:border-l border-white/30">
+                                class="in-view w-full lg:w-1/5 p-4 lg:border-l border-neutral-400">
                                 <img
                                         src="https://pic03.eapple.com.tw/yonghe32/ca_12.png"
                                         alt="拔罐伸展"
@@ -355,47 +374,17 @@ const meta = seoMeta({
                             <a
                                     href="https://line.me/R/ti/p/%40026zdunp"
                                     target="_blank"
-                                    class="group block w-96 mx-auto relative overflow-hidden text-center z-10 text-primary-400 hover:text-white py-[44px] px-[3%] transition-all duration-500"
+                                    class="group block w-64 md:w-72 lg:w-80 mx-auto relative overflow-hidden text-center z-10 text-primary-600 dark:text-primary-400 hover:text-white py-3 md:py-4 px-8 md:px-12 transition-all duration-500"
                             >
-                                <div class="absolute inset-0 border border-primary-600 rounded-full -z-10 group-hover:bg-primary-600 transition-all duration-500 transform scale-100 group-hover:scale-110"></div>
+                                <div class="absolute inset-0 border border-primary-600 dark:border-primary-400 rounded-[40px] -z-10 group-hover:bg-primary-600 dark:group-hover:bg-primary-500 transition-all duration-500 transform scale-100 group-hover:scale-110"></div>
                                 <span class="text-xl font-semibold">立即預約體驗</span>
                             </a>
                         </div>
                     </div>
                 </div>
-        </div>
-
-        <!-- Other Promotions -->
-        <ul class="other_promotion flex flex-wrap justify-center gap-4 mt-[48px] mb-8">
-            <li class="slowAnimation transform transition-transform duration-300 hover:scale-105">
-                <a
-                        href="?group_id=852&amp;id=3629&amp;title_id=10681&amp;page="
-                        class="block bg-white dark:bg-neutral-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 text-center border border-neutral-200 dark:border-neutral-700"
-                >
-                    <div class="pmtTitle">
-                        <span class="text-primary-600 dark:text-primary-400 text-sm font-medium">技能培訓</span>
-                        <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 mt-2">培訓計畫</h3>
-                    </div>
-                </a>
-            </li>
-            <li class="slowAnimation transform transition-transform duration-300 hover:scale-105">
-                <a
-                        href="?group_id=852&amp;id=3630&amp;title_id=10681&amp;page="
-                        class="block bg-white dark:bg-neutral-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 text-center border border-neutral-200 dark:border-neutral-700"
-                >
-                    <div class="pmtTitle">
-                        <span class="text-primary-600 dark:text-primary-400 text-sm font-medium">技能培訓</span>
-                        <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 mt-2">培訓選項</h3>
-                    </div>
-                </a>
-            </li>
-        </ul>
-
-        <!-- Pagination -->
-        <ul class="page flex justify-center items-center gap-2 my-[40px]"></ul>
+            </div>
         </div>
     </main>
-    <script src="https://pic03.eapple.com.tw/yk_js_web/scrollfade.js"></script>
 
     <!-- Add theme toggle and animations -->
     <script>
@@ -437,8 +426,11 @@ const meta = seoMeta({
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        (entry.target as HTMLElement).style.opacity = '1';
-                        (entry.target as HTMLElement).style.transform = 'translate3d(0, 0, 0)'
+                        const element = entry.target as HTMLElement;
+                        element.style.opacity = '1';
+                        element.style.transform = 'translate3d(0, 0, 0)';
+                        // 確保不添加背景色
+                        element.style.background = 'transparent';
                     }
                 })
             }, observerOptions)
@@ -452,101 +444,4 @@ const meta = seoMeta({
         // Theme toggle function (can be called from theme toggle button)
     </script>
 
-    <!-- Preserve animation styles for elements with data-animate-in -->
-    <style>
-
-        .body-main::before{
-            content: ' ';
-            position: fixed;
-            z-index: -1;
-            inset: 0;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-image: url(https://pic03.eapple.com.tw/yonghe32/bg.jpg);
-        }
-        [data-animate-in] {
-            opacity: 0;
-            transition: transform 0.8s ease, opacity 0.8s ease;
-        }
-
-        [data-animate-in="up"] {
-            transform: translate3d(0, 20%, 0);
-        }
-
-        [data-animate-in="left"] {
-            transform: translate3d(-30%, 0, 0);
-        }
-
-        [data-animate-in="right"] {
-            transform: translate3d(30%, 0, 0);
-        }
-
-        [data-animate-in="down"] {
-            transform: translate3d(0, -20%, 0);
-        }
-
-        [data-animate-in="fadeIn"] {
-            transform: translate3d(0, 0, 0);
-        }
-
-        [data-animate-in="scaleIn"] {
-            transform: scale(.3);
-        }
-
-        [data-animate-in].in-view {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-        }
-
-        /* Additional responsive utilities */
-        @media (max-width: 1024px) {
-            .cabg01_1 dt section figure a {
-                font-size: 1rem;
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .cabg01 {
-                padding-top: 4.5rem;
-            }
-
-            .cabg02_2 li,
-            .cabg03_2 li {
-                width: 50%;
-                border-left: 0;
-                border-top: 1px solid rgba(255, 255, 255, 0.3);
-            }
-
-            .cabg02_2 li:nth-child(odd),
-            .cabg03_2 li:nth-child(odd) {
-                border-left: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cabg01_1 dt section > img {
-                max-width: 300px;
-            }
-
-            .cabg01_1 dt section figure a + a {
-                margin-left: 0.5rem;
-            }
-
-            .cabg02_2 li,
-            .cabg03_2 li {
-                width: 90%;
-                border-left: 0;
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-            }
-
-            .cabg02_2 li + li,
-            .cabg03_2 li + li {
-                border-top: 1px solid rgba(255, 255, 255, 0.3);
-            }
-        }
-    </style>
 </Layout>
