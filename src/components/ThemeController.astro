@@ -127,12 +127,18 @@
         }
       })
 
-      // Update text elements
+      // Update text elements (excluding elements with text-black class which should stay black)
       const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div')
       textElements.forEach(element => {
         const htmlElement = element as HTMLElement
+
+        // Skip elements with text-black class - they should remain black
+        if (element.classList.contains('text-black')) {
+          return
+        }
+
       if (theme === 'dark') {
-          if (htmlElement.style.color === 'rgb(0, 0, 0)' || element.classList.contains('text-black')) {
+          if (htmlElement.style.color === 'rgb(0, 0, 0)') {
             htmlElement.style.color = 'var(--theme-text, #ffffff)'
           }
           if (htmlElement.style.color === 'rgb(102, 102, 102)' || element.classList.contains('text-neutral-600')) {
