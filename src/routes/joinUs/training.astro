@@ -1,8 +1,8 @@
 ---
-import {seoMeta} from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
-import SectionTitle from "../../components/ui/SectionTitle.astro";
-import {createNestedT} from '@/utils/i18n'
+import { createNestedT } from '@/utils/i18n'
+import SectionTitle from '../../components/ui/SectionTitle.astro'
 
 const t = await createNestedT()
 
@@ -11,11 +11,10 @@ const meta = seoMeta({
 })
 ---
 
-
 <Layout meta={meta}>
     <main class="relative z-10 w-full min-h-screen text-[color:var(--theme-text,#000000)] pt-[120px]">
         <!-- 標題區 -->
-        <SectionTitle title="人才招募" subtitle="Training"/>
+        <SectionTitle title="人才招募" subtitle="Training" />
 
         <div class="relative min-h-screen bg-[url('https://pic03.eapple.com.tw/yonghe32/bg.jpg')] bg-center bg-no-repeat bg-cover bg-fixed">
             <!-- Main Content -->
@@ -33,23 +32,23 @@ const meta = seoMeta({
                                 <!-- 手機版區塊1: cla_01.png 圖片 -->
                                 <section data-animate-in="left" data-detect-repeat="N" class="in-view my-8 lg:my-[5%] text-center lg:text-left bg-transparent">
                                     <img
-                                            src="https://pic03.eapple.com.tw/yonghe32/cla_01.png"
-                                            alt="培訓介紹"
-                                            class="w-auto max-w-[300px] sm:max-w-full mx-auto lg:mx-0"
+                                      src="https://pic03.eapple.com.tw/yonghe32/cla_01.png"
+                                      alt="培訓介紹"
+                                      class="w-auto max-w-[300px] sm:max-w-full mx-auto lg:mx-0"
                                     />
                                 </section>
 
                                 <!-- 手機版區塊2&3: 培訓服務介紹 & 培訓課程選項按鈕 (同一行) -->
                                 <div class="my-8 lg:hidden text-center flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center items-center [&_a+a]:ml-2 sm:[&_a+a]:ml-0">
                                     <a
-                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
-                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold rounded-full transition-colors duration-300"
+                                      href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
+                                      class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold rounded-full transition-colors duration-300"
                                     >
                                         培訓服務介紹
                                     </a>
                                     <a
-                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
-                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full transition-colors duration-300"
+                                      href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
+                                      class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full transition-colors duration-300"
                                     >
                                         培訓課程選項
                                     </a>
@@ -58,14 +57,14 @@ const meta = seoMeta({
                                 <!-- 電腦版按鈕組合 (隱藏在手機版) -->
                                 <figure class="hidden lg:flex justify-start items-stretch mt-5 mb-8 [&_a]:text-base [&_a]:lg:text-base [&_a]:px-2 [&_a]:lg:px-4">
                                     <a
-                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
-                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold rounded-full transition-colors duration-300"
+                                      href="https://www.yonghe32.com/paper/other_select_index.php?id=3629&amp;title_id=10681&amp;group_id=852"
+                                      class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold rounded-full transition-colors duration-300"
                                     >
                                         培訓服務介紹
                                     </a>
                                     <a
-                                            href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
-                                            class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full ml-3 transition-colors duration-300"
+                                      href="https://www.yonghe32.com/paper/other_select_index.php?id=3630&amp;title_id=10681&amp;group_id=852"
+                                      class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full ml-3 transition-colors duration-300"
                                     >
                                         培訓課程選項
                                     </a>
@@ -74,9 +73,9 @@ const meta = seoMeta({
                                 <div class="py-14 lg:flex-1 lg:flex lg:flex-col lg:justify-center lg:pt-14 lg:pb-0 relative z-10 text-center lg:text-left mb-8 lg:mb-0">
                                     <div class="absolute left-1/2 lg:left-[30%] top-0 w-full lg:w-[1230px] h-full bg-white/50 dark:bg-white/30 -translate-x-1/2 -z-10 rounded-lg lg:rounded-tr-[200px]"></div>
                                     <img
-                                            src="https://pic03.eapple.com.tw/yonghe32/cla_000.png"
-                                            alt="一對一教學"
-                                            class="w-auto max-w-full mx-auto lg:mx-0"
+                                      src="https://pic03.eapple.com.tw/yonghe32/cla_000.png"
+                                      alt="一對一教學"
+                                      class="w-auto max-w-full mx-auto lg:mx-0"
                                     />
                                     <span class="block mt-5 text-lg max-w-[390px] text-black mx-auto lg:mx-0">
                                         一對一的教學方式不僅能最大程度地發揮效益，還能確保學習的效果和效率
@@ -86,14 +85,14 @@ const meta = seoMeta({
                             </dt>
                             <dd class="leading-[0] order-2 md:order-2 lg:order-2 text-center lg:text-left">
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_01.png"
-                                        alt="培訓圖片1"
-                                        class="object-cover object-left-bottom min-h-full lg:block hidden"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_01.png"
+                                  alt="培訓圖片1"
+                                  class="object-cover object-left-bottom min-h-full lg:block hidden"
                                 />
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_01_1.jpg"
-                                        alt="培訓圖片2"
-                                        class="lg:hidden block my-8 mx-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_01_1.jpg"
+                                  alt="培訓圖片2"
+                                  class="lg:hidden block my-8 mx-auto"
                                 />
                             </dd>
                         </dl>
@@ -102,13 +101,16 @@ const meta = seoMeta({
                     <!-- Section 2: Course Selection -->
                     <div class="cabg02 py-[100px] max-w-7xl mx-auto transition-colors duration-300">
                         <dl class="cabg02_1 w-[95%] md:w-[97%] max-w-[1635px] mx-auto flex justify-between items-stretch lg:flex-row flex-col">
-                            <dt data-animate-in="left" data-detect-repeat="N"
-                                class="in-view w-full md:w-auto lg:w-[613px] mb-8 md:mb-12 lg:mb-0">
+                            <dt
+                              data-animate-in="left"
+                              data-detect-repeat="N"
+                              class="in-view w-full md:w-auto lg:w-[613px] mb-8 md:mb-12 lg:mb-0"
+                            >
                                 <h4 class="flex justify-start items-center text-2xl leading-tight pl-5 pb-3 border-b border-neutral-300 dark:border-neutral-600">
                                     <img
-                                            src="https://pic03.eapple.com.tw/yonghe32/ser_02.png"
-                                            alt="課程圖標"
-                                            class="w-8 h-8 mr-3"
+                                      src="https://pic03.eapple.com.tw/yonghe32/ser_02.png"
+                                      alt="課程圖標"
+                                      class="w-8 h-8 mr-3"
                                     />
                                     <p class="text-black font-semibold">課程選擇</p>
                                 </h4>
@@ -118,9 +120,9 @@ const meta = seoMeta({
                                         課程費用
                                         <span class="inline-block">
                                                 <a
-                                                        href="/"
-                                                        target="_blank"
-                                                        class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full mt-4 transition-colors duration-300"
+                                                  href="/"
+                                                  target="_blank"
+                                                  class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full mt-4 transition-colors duration-300"
                                                 >
                                                     請洽客服中心
                                                 </a>
@@ -134,7 +136,7 @@ const meta = seoMeta({
                                     <div class="flex justify-start items-start mb-4">
                                         <b class="mr-3 text-black">課程費用含</b>
                                         <div class="leading-relaxed text-black">
-                                            拔罐組<br/>結業證書一式
+                                            拔罐組<br />結業證書一式
                                         </div>
                                     </div>
 
@@ -174,9 +176,9 @@ const meta = seoMeta({
 
                             <dd class="w-full lg:w-auto self-stretch">
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_02.png"
-                                        alt="課程圖片"
-                                        class="object-cover w-full min-h-full rounded-lg"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_02.png"
+                                  alt="課程圖片"
+                                  class="object-cover w-full min-h-full rounded-lg"
                                 />
                             </dd>
                         </dl>
@@ -185,42 +187,51 @@ const meta = seoMeta({
                         <ul class="cabg02_2 flex justify-center items-stretch max-w-[1360px] mx-auto mt-12 min-[600px]:mt-16 lg:mt-[72px] text-center min-[600px]:flex-row lg:flex-row flex-wrap gap-4 min-[600px]:gap-6 lg:gap-8">
                             <li data-animate-in="down" data-detect-repeat="N" class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0">
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_03.png"
-                                        alt="肌肉路徑學識"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_03.png"
+                                  alt="肌肉路徑學識"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
                                     人體肌肉路徑學識概念強化
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_04.png"
-                                        alt="按摩技法"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_04.png"
+                                  alt="按摩技法"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
                                     徒手、指壓、掌壓、肘壓技法
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_05.png"
-                                        alt="精油技法"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_05.png"
+                                  alt="精油技法"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
                                     精油、指推、長推、肘推技法
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:w-[calc(25%-24px)] p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l lg:border-l border-neutral-400 dark:border-neutral-600"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_06.png"
-                                        alt="拔罐技法"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_06.png"
+                                  alt="拔罐技法"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
                                     拔罐、走罐、刮痧、 肌群伸展等技法
@@ -237,18 +248,18 @@ const meta = seoMeta({
                         <dl class="relative z-10 w-[95%] md:w-[97%] max-w-[1615px] mx-auto flex justify-between items-stretch md:flex-row lg:flex-row flex-col">
                             <dt data-animate-in="left" data-detect-repeat="N" class="in-view w-full md:w-1/2 lg:w-auto mb-6 md:mb-8 lg:mb-0">
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_07.jpg"
-                                        alt="美式整復"
-                                        class="object-cover w-full min-h-full rounded-lg"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_07.jpg"
+                                  alt="美式整復"
+                                  class="object-cover w-full min-h-full rounded-lg"
                                 />
                             </dt>
 
                             <dd data-animate-in="right" data-detect-repeat="N" class="in-view w-full md:w-1/2 lg:w-auto self-stretch">
                                 <h4 class="flex justify-start items-center text-2xl leading-tight pl-5 pb-3 border-b border-white/50">
                                     <img
-                                            src="https://pic03.eapple.com.tw/yonghe32/ser_02.png"
-                                            alt="美式整復圖標"
-                                            class="w-8 h-8 mr-3"
+                                      src="https://pic03.eapple.com.tw/yonghe32/ser_02.png"
+                                      alt="美式整復圖標"
+                                      class="w-8 h-8 mr-3"
                                     />
                                     <p class="text-white font-semibold">美式整復運動調理按摩</p>
                                 </h4>
@@ -258,9 +269,9 @@ const meta = seoMeta({
                                         課程費用
                                         <span class="inline-block">
                                                 <a
-                                                        href="/"
-                                                        target="_blank"
-                                                        class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full mt-4 transition-colors duration-300"
+                                                  href="/"
+                                                  target="_blank"
+                                                  class="inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-full mt-4 transition-colors duration-300"
                                                 >
                                                     請洽客服中心
                                                 </a>
@@ -274,7 +285,7 @@ const meta = seoMeta({
                                     <div class="flex justify-start items-start mb-4">
                                         <b class="mr-3">課程費用含</b>
                                         <div class="leading-relaxed">
-                                            精美筋膜刀具五件組與拔罐組<br/>結業證書一式
+                                            精美筋膜刀具五件組與拔罐組<br />結業證書一式
                                         </div>
                                     </div>
 
@@ -308,60 +319,72 @@ const meta = seoMeta({
                                         <li><b>廖家惠 - </b>品牌技術指導顧問</li>
                                     </ul>
                                 </figure>
-                            </dt>
+                            </dd>
                         </dl>
 
                         <!-- Advanced Features Grid -->
                         <ul class="flex justify-center items-stretch max-w-[1360px] mx-auto mt-12 min-[600px]:mt-16 lg:mt-[72px] text-center min-[600px]:flex-row lg:flex-row flex-wrap gap-4 min-[600px]:gap-6 lg:gap-8">
                             <li data-animate-in="down" data-detect-repeat="N" class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_08.png"
-                                        alt="評估教學"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_08.png"
+                                  alt="評估教學"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight">
                                     人體肌肉路徑學識與問題評估教學
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_09.png"
-                                        alt="運動按摩"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_09.png"
+                                  alt="運動按摩"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight">
-                                    徒手運動按摩<br/>關節鬆動術<br/>神經鬆動術<br/>內臟筋膜平衡調整
+                                    徒手運動按摩<br />關節鬆動術<br />神經鬆動術<br />內臟筋膜平衡調整
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_10.png"
-                                        alt="軟組織放鬆"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_10.png"
+                                  alt="軟組織放鬆"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight">
-                                    肌筋膜軟組織放鬆<br/>動作優化調整<br/>整合式伸展
+                                    肌筋膜軟組織放鬆<br />動作優化調整<br />整合式伸展
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full min-[600px]:w-[calc(50%-12px)] lg:flex-1 lg:min-w-0 p-4 border-b min-[600px]:border-b-0 min-[600px]:border-l border-neutral-400"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_11.png"
-                                        alt="整復調理"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_11.png"
+                                  alt="整復調理"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight">
-                                    美式整復調理<br/>傳統整復調理<br/>產後骨盆調理 肌群伸展等技法
+                                    美式整復調理<br />傳統整復調理<br />產後骨盆調理 肌群伸展等技法
                                 </p>
                             </li>
-                            <li data-animate-in="down" data-detect-repeat="N"
-                                class="in-view w-full lg:w-1/5 p-4 lg:border-l border-neutral-400">
+                            <li
+                              data-animate-in="down"
+                              data-detect-repeat="N"
+                              class="in-view w-full lg:w-1/5 p-4 lg:border-l border-neutral-400"
+                            >
                                 <img
-                                        src="https://pic03.eapple.com.tw/yonghe32/ca_12.png"
-                                        alt="拔罐伸展"
-                                        class="mx-auto mb-4 max-w-full h-auto"
+                                  src="https://pic03.eapple.com.tw/yonghe32/ca_12.png"
+                                  alt="拔罐伸展"
+                                  class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight">
                                     拔罐、走罐、刮痧、拔罐伸展等調理技法
@@ -380,7 +403,8 @@ const meta = seoMeta({
              before:transition-all before:duration-500
 
              hover:text-primary-400
-             hover:before:bg-primary-600">
+             hover:before:bg-primary-600"
+                            >
                                 <span class="text-xl font-semibold">立即預約體驗</span>
                             </a>
                         </div>
@@ -430,12 +454,12 @@ const meta = seoMeta({
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const element = entry.target as HTMLElement;
-                        element.style.opacity = '1';
-                        element.style.transform = 'translate3d(0, 0, 0)';
-                        // 確保不添加背景色
-                        element.style.background = 'transparent';
-                    }
+                        const element = entry.target as HTMLElement
+                element.style.opacity = '1'
+                element.style.transform = 'translate3d(0, 0, 0)'
+                // 確保不添加背景色
+                element.style.background = 'transparent'
+            }
                 })
             }, observerOptions)
 

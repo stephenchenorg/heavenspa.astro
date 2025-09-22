@@ -217,9 +217,7 @@ async function submitForm() {
     }
 
     // 成功
-    console.log('Form submitted successfully!')
     showSuccess.value = true
-    console.log('showSuccess set to:', showSuccess.value)
     resetForm()
 
     // 5秒後隱藏成功訊息

@@ -230,17 +230,6 @@ const {
       startAutoSlide()
     })
 
-    // 響應式處理
-    function handleResize() {
-      const totalPages = getTotalPages()
-      // 如果當前索引超過新的總頁數，重置到第一頁
-      if (currentIndex >= totalPages) {
-        currentIndex = 0
-      }
-      createDots()
-      updateCarouselPosition()
-    }
-
     // 更新導航按鈕位置到卡片中心
     function updateButtonPosition() {
       if (!showNavigation) return
