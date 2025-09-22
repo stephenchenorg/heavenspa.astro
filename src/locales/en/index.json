@@ -109,6 +109,33 @@
       "news": "News"
     }
   },
+  "partnerships": {
+    "more-news": "More Partnerships",
+    "title": "Partnerships",
+    "detail": "Partnership Details",
+    "loading": "Loading content...",
+    "publishDate": "Publish Date:",
+    "endDate": "End Date:",
+    "backToNews": "Back to Partnerships List",
+    "relatedPartnerships": "Related Partnerships",
+    "tags": "Tags",
+    "noRelatedPartnerships": "No related partnerships available",
+    "bookingTitle": "Book Now",
+    "bookingDescription": "Want to experience our professional services? Contact us now to schedule your exclusive session.",
+    "phoneBooking": "Phone Booking",
+    "onlineBooking": "Online Booking",
+    "errors": {
+      "notFound": "Partnership Not Found",
+      "notFoundContent": "<p>Sorry, the partnership you requested does not exist or has been removed.</p><p>Please return to the partnerships list to view other partnerships.</p>",
+      "defaultDescription": "Learn about Heaven Spa's partnerships"
+    },
+    "navigation": {
+      "previousPartnership": "Previous",
+      "nextPartnership": "Next",
+      "noPrevious": "No previous partnership",
+      "noNext": "No next partnership"
+    }
+  },
   "benefits": {
     "title": "MEMBER BENEFITS",
     "subtitle": "Member Privileges",
