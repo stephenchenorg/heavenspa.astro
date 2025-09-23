@@ -256,7 +256,7 @@
   }
 
   .section-container-index {
-    @apply relative w-full min-h-[80vh] py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]
+    @apply relative w-full md:min-h-[80vh] py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]
   }
 
   /* Card Patterns */
