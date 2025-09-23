@@ -1,15 +1,12 @@
 @layer base {
   html {
-    background: var(--theme-bg, #0a0a0a);
-    min-height: 100vh;
+    @apply bg-white dark:bg-black min-h-screen;
   }
-  
+
   body {
-    background: var(--theme-bg, #0a0a0a);
-    color: var(--theme-text, #ffffff);
-    min-height: 100vh;
+    @apply bg-white dark:bg-black text-black dark:text-white min-h-screen;
   }
-  
+
   button {
     cursor: pointer;
   }

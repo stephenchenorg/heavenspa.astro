@@ -4,42 +4,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Gold Color Palette (Primary) */
-  --color-gold-50: #fefce8;
-  --color-gold-100: #fef3c7;
-  --color-gold-200: #fde68a;
-  --color-gold-300: #fcd34d;
-  --color-gold-400: #f4e7b1;
-  --color-gold-500: #d4af37; /* Main Gold */
-  --color-gold-600: #c4a428;
-  --color-gold-700: #b8941f;
-  --color-gold-800: #92400e;
-  --color-gold-900: #78350f;
-
   /* Primary colors mapped to gold */
-  --color-primary-50: var(--color-gold-50);
-  --color-primary-100: var(--color-gold-100);
-  --color-primary-200: var(--color-gold-200);
-  --color-primary-300: var(--color-gold-300);
-  --color-primary-400: var(--color-gold-400);
-  --color-primary-500: var(--color-gold-500);
-  --color-primary-600: var(--color-gold-600);
-  --color-primary-700: var(--color-gold-700);
-  --color-primary-800: var(--color-gold-800);
-  --color-primary-900: var(--color-gold-900);
-
-  /* Brand colors (legacy support) */
-  --color-brand-50: var(--color-gold-50);
-  --color-brand-100: var(--color-gold-100);
-  --color-brand-200: var(--color-gold-200);
-  --color-brand-300: var(--color-gold-300);
-  --color-brand-400: var(--color-gold-400);
-  --color-brand-500: var(--color-gold-500);
-  --color-brand-600: var(--color-gold-600);
-  --color-brand-700: var(--color-gold-700);
-  --color-brand-800: var(--color-gold-800);
-  --color-brand-900: var(--color-gold-900);
-  --color-brand-950: var(--color-gold-900);
+  --color-primary-50: #fefce8;
+  --color-primary-100: #fef3c7;
+  --color-primary-200: #fde68a;
+  --color-primary-300: #fcd34d;
+  --color-primary-400: #f4e7b1;
+  --color-primary-500: #d4af37;
+  --color-primary-600: #c4a428;
+  --color-primary-700: #b8941f;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
 
   /* Neutral/Grayscale System */
   --color-neutral-0: #ffffff;   /* Pure White */
@@ -54,28 +29,11 @@
   --color-neutral-800: #111827; /* Important Heading */
   --color-neutral-900: #000000; /* Pure Black */
 
-  /* Secondary/Accent colors (gold variations) */
-  --color-secondary-50: var(--color-gold-50);
-  --color-secondary-100: var(--color-gold-100);
-  --color-secondary-200: var(--color-gold-200);
-  --color-secondary-300: var(--color-gold-300);
-  --color-secondary-400: var(--color-gold-400);
-  --color-secondary-500: var(--color-gold-500);
-  --color-secondary-600: var(--color-gold-600);
-  --color-secondary-700: var(--color-gold-700);
-  --color-secondary-800: var(--color-gold-800);
-  --color-secondary-900: var(--color-gold-900);
-
   /* Semantic colors */
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #3b82f6;
-
-  /* Background variations */
-  --color-background-cream: var(--color-neutral-50);
-  --color-background-light: var(--color-neutral-0);
-  --color-surface-overlay: rgba(255, 255, 255, 0.95);
 
   /* 字體設定 */
   --font-sans: 'Krona One', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -100,7 +58,6 @@
   --theme-text-secondary: #666666;
   --theme-border: #f0f0f0;
   --theme-card-bg: #ffffff;
-  --theme-hover-bg: #f8f9fa;
 
   /* Mobile Menu Theme Variables */
   --theme-mobile-menu-bg: rgba(255, 255, 255, 0.95);
@@ -112,15 +69,14 @@
   --theme-mobile-section-border: rgba(196, 149, 108, 0.15);
 }
 
-/* Dark Mode Theme */
-.dark-theme {
+/* Dark Mode Theme - Now using .dark class for Tailwind compatibility */
+.dark {
   /* Override theme variables for dark mode */
   --theme-bg: #000000;
   --theme-text: #ffffff;
   --theme-text-secondary: #cccccc;
   --theme-border: #333333;
   --theme-card-bg: #111111;
-  --theme-hover-bg: #1a1a1a;
 
   /* Mobile Menu Dark Theme Variables */
   --theme-mobile-menu-bg: rgba(0, 0, 0, 0.95);
@@ -187,15 +143,11 @@
 
   /* Button Patterns */
   .btn-primary {
-    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center shadow-[2px_2px_5px_rgba(0,0,0,0.2)] backdrop-blur-[10px] opacity-80 hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
-    background-color: var(--color-primary-500);
-    color: var(--theme-bg);
+    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center shadow-[2px_2px_5px_rgba(0,0,0,0.2)] backdrop-blur-[10px] opacity-80 hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0 bg-primary-500 text-white dark:text-black;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center shadow-[2px_2px_5px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0;
-    background-color: var(--theme-card-bg);
-    color: var(--theme-text);
+    @apply inline-flex items-center justify-center border-none rounded-[50px] font-medium tracking-wide cursor-pointer transition-all duration-300 ease-in-out no-underline text-center shadow-[2px_2px_5px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 hover:shadow-[2px_2px_5px_rgba(0,0,0,0.6)] active:translate-y-0 bg-white dark:bg-gray-900 text-black dark:text-white;
   }
 
   .btn-brand {
@@ -204,19 +156,15 @@
 
   /* Mobile Menu Patterns */
   .mobile-nav-item {
-    @apply block py-4 px-6 text-gray-800 no-underline text-lg font-medium border-l-4 border-l-transparent transition-all duration-300 ease-in-out relative;
+    @apply block py-4 px-6 text-gray-800 dark:text-gray-200 no-underline text-lg font-medium border-l-4 border-l-transparent transition-all duration-300 ease-in-out relative;
   }
 
   .mobile-nav-item:hover {
-    @apply pl-8;
-    background-color: color-mix(in srgb, var(--color-primary-600) 10%, transparent);
-    border-left-color: var(--color-secondary-500);
-    color: var(--color-secondary-500);
+    @apply pl-8 bg-primary-50 dark:bg-primary-900/20 border-l-primary-500 text-primary-500;
   }
 
   .mobile-nav-indicator {
-    @apply absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full opacity-0 transition-all duration-300 ease-in-out;
-    background-color: var(--color-secondary-500);
+    @apply absolute right-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full opacity-0 transition-all duration-300 ease-in-out bg-primary-500;
   }
 
   .mobile-nav-item:hover .mobile-nav-indicator,
@@ -230,18 +178,15 @@
   }
 
   .language-dropdown {
-    @apply absolute top-[calc(100%+0.5rem)] left-0 right-0 bg-white/95 backdrop-blur-[20px] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] opacity-0 invisible -translate-y-2.5 transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-[1000] overflow-hidden;
-    border: 1px solid color-mix(in srgb, var(--color-primary-300) 20%, transparent);
+    @apply absolute top-[calc(100%+0.5rem)] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-[20px] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] opacity-0 invisible -translate-y-2.5 transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-[1000] overflow-hidden border border-primary-200 dark:border-primary-700;
   }
 
   .language-option {
-    @apply block w-full py-3 px-4 border-none bg-transparent text-left cursor-pointer text-gray-700 text-sm transition-all duration-200 ease-linear border-l-[3px] border-l-transparent;
+    @apply block w-full py-3 px-4 border-none bg-transparent text-left cursor-pointer text-gray-700 dark:text-gray-200 text-sm transition-all duration-200 ease-linear border-l-[3px] border-l-transparent;
   }
 
   .language-option:hover {
-    @apply pl-5;
-    background-color: color-mix(in srgb, var(--color-primary-600) 10%, transparent);
-    border-left-color: var(--color-secondary-500);
+    @apply pl-5 bg-primary-50 dark:bg-primary-900/20 border-l-primary-500;
   }
 
   .language-dropdown.show {
@@ -250,25 +195,21 @@
 
   /* Section Layout Pattern */
   .section-container {
-    @apply relative z-10 w-full min-h-[80vh] pt-40 pb-32 px-4;
-    background: var(--theme-bg, #ffffff);
-    color: var(--theme-text, #000000);
+    @apply relative z-10 w-full min-h-[80vh] pt-40 pb-32 px-4 bg-white dark:bg-black text-black dark:text-white;
   }
 
   /* Section Layout Pattern */
   .section-container-detail {
-    @apply relative z-10 w-full min-h-[80vh] py-10 md:pt-40 md:pb-32 px-4;
-    background: var(--theme-bg, #ffffff);
-    color: var(--theme-text, #000000);
+    @apply relative z-10 w-full min-h-[80vh] py-10 md:pt-40 md:pb-32 px-4 bg-white dark:bg-black text-black dark:text-white;
   }
 
   .section-container-index {
-    @apply relative w-full md:min-h-[80vh] py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]
+    @apply relative w-full md:min-h-[80vh] py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-white dark:bg-black text-black dark:text-white;
   }
 
   /* Card Patterns */
   .course-card {
-    @apply bg-[color:var(--color-surface-overlay)] backdrop-blur-[10px] text-center flex flex-col justify-center items-center gap-4 relative;
+    @apply bg-white/95 dark:bg-gray-900/95 backdrop-blur-[10px] text-center flex flex-col justify-center items-center gap-4 relative;
   }
 
   /* Animation Patterns */
@@ -319,24 +260,24 @@
 }
 
 .animate-fade-in-up {
-  animation: var(--animation-fade-in-up);
+  animation: fadeInUp 1s ease both;
 }
 
 .animate-marquee {
-  animation: var(--animation-marquee);
+  animation: marquee 30s linear infinite;
 }
 
 .animate-slide-in {
-  animation: var(--animation-slide-in);
+  animation: slideIn 0.6s ease forwards;
 }
 
 .animate-slide-in-delay-200 {
-  animation: var(--animation-slide-in);
+  animation: slideIn 0.6s ease forwards;
   @apply delay-200;
 }
 
 .animate-slide-in-delay-400 {
-  animation: var(--animation-slide-in);
+  animation: slideIn 0.6s ease forwards;
   @apply delay-[400ms];
 }
 

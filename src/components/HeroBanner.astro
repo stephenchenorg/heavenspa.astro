@@ -56,7 +56,7 @@ const angleStep = 360 / chars.length
             <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
               <h1
                 class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
-                style="color: var(--theme-text, #ffffff)"
+                class="text-white dark:text-white"
               >
                 {banner.title}
               </h1>
@@ -66,7 +66,7 @@ const angleStep = 360 / chars.length
             <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
               <p
                 class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
-                style="color: var(--theme-text, rgba(255,255,255,0.8))"
+                class="text-white/80 dark:text-white/80"
               >
                 {banner.sub_title}
               </p>
@@ -89,8 +89,7 @@ const angleStep = 360 / chars.length
         <div class="text-center space-y-12">
           <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
             <h1
-              class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
-              style="color: var(--theme-text, #ffffff)"
+              class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em] text-theme-text"
             >
 
               {t('hero.title')}
@@ -98,8 +97,7 @@ const angleStep = 360 / chars.length
           </div>
           <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
             <p
-              class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
-              style="color: var(--theme-text, rgba(255,255,255,0.8))"
+              class="text-lg md:text-xl leading-relaxed font-light tracking-wide text-theme-text/80"
             >
               {t('hero.subtitle')}
             </p>
@@ -154,7 +152,7 @@ const angleStep = 360 / chars.length
   <div class="absolute right-4 bottom-4 md:right-8 md:bottom-8 z-10">
     <div class="relative w-[120px] h-[120px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-125 hover:opacity-80 animate-[fadeInUp_2s_ease_both]" onclick="scrollToTeam()">
       <div class="absolute z-[2] flex items-center justify-center w-8 h-8">
-        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" style="color: var(--theme-text-secondary, rgba(255,255,255,0.8))">
+        <svg class="w-10 h-10 text-white/80 dark:text-white/80" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
         </svg>
       </div>
@@ -226,7 +224,7 @@ const angleStep = 360 / chars.length
           heroTitle.style.color = 'rgb(217, 174, 84)'
           heroTitle.classList.add('animate-slow-pulse')
         } else {
-          heroTitle.style.color = 'var(--theme-text, #ffffff)'
+          // Color handled by Tailwind classes
           heroTitle.classList.remove('animate-slow-pulse')
         }
       })

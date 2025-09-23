@@ -44,7 +44,7 @@
                   course.title
                 }}
               </h3>
-              <h4 class="text-xl font-normal text-brand-950 mb-4 tracking-[0.5px]">{{ course.subtitle }}</h4>
+              <h4 class="text-xl font-normal text-primary-900 mb-4 tracking-[0.5px]">{{ course.subtitle }}</h4>
               <div>
                 <a
                   :href="course.link"

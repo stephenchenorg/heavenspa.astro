@@ -18,13 +18,13 @@ const { faqs } = Astro.props
 {faqs && faqs.length > 0 ? (
 <div id="faq-accordion">
     {faqs.map(faq => (
-    <div class="border-b" :key={faq.id} style="border-bottom-color: var(--color-primary-500);">
+    <div class="border-b border-primary-500" :key={faq.id}>
         <button
           type="button"
           class="flex items-center justify-between w-full py-5 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-transparent hover:via-primary-500/[0.03] hover:to-transparent gap-3 faq-toggle group"
           data-target={`faq-body-${faq.id}`}
         >
-            <span class="text-lg font-bold text-left break-keep" style="color: var(--theme-text);">
+            <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
               {faq.title}
             </span>
             <svg
@@ -33,7 +33,7 @@ const { faqs } = Astro.props
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 10 6"
-              style="color: var(--color-primary-600);"
+              class="text-primary-600"
             >
                 <path
                   stroke="currentColor"
@@ -56,14 +56,14 @@ const { faqs } = Astro.props
 <div class="text-center py-16">
     <div class="max-w-md mx-auto">
         <div class="mb-6">
-            <svg class="mx-auto h-16 w-16 opacity-30" style="color: var(--theme-text-secondary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="mx-auto h-16 w-16 opacity-30 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
             </svg>
         </div>
-        <h3 class="text-xl font-medium mb-2" style="color: var(--theme-text);">
+        <h3 class="text-xl font-medium mb-2 text-black dark:text-white">
             {t('faq.empty.title')}
         </h3>
-        <p class="text-sm leading-relaxed" style="color: var(--theme-text-secondary);">
+        <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
             {t('faq.empty.description')}
         </p>
     </div>
@@ -85,7 +85,7 @@ const { faqs } = Astro.props
             cursor.textContent = '|'
             cursor.style.cssText = `
                 animation: blink 1s infinite;
-                color: var(--color-primary-600, #c4a428);
+                /* Color handled by Tailwind: text-primary-600 */
                 font-weight: bold;
                 margin-left: 1px;
             `
