@@ -255,6 +255,13 @@
     color: var(--theme-text, #000000);
   }
 
+  /* Section Layout Pattern */
+  .section-container-detail {
+    @apply relative z-10 w-full min-h-[80vh] py-10 md:pt-40 md:pb-32 px-4;
+    background: var(--theme-bg, #ffffff);
+    color: var(--theme-text, #000000);
+  }
+
   .section-container-index {
     @apply relative w-full md:min-h-[80vh] py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]
   }

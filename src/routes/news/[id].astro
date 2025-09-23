@@ -36,7 +36,7 @@ const meta = seoMeta({
 
 <Layout meta={meta}>
     <!-- Hero Banner -->
-    <section class="relative aspect-[1920/600] overflow-hidden">
+    <section class="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[1920/600] overflow-hidden pt-20">
         <div class="absolute inset-0">
             <img
               src={article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
@@ -48,14 +48,14 @@ const meta = seoMeta({
 
         <!-- Hero Content Overlay -->
         <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center text-white px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-white px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-full">
                 <!-- Main Title - Center -->
-                <h1 class="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-wide mb-8">
+                <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-wide mb-4 sm:mb-6 lg:mb-8">
                     {article.title}
                 </h1>
 
                 <!-- Meta Information - Below Title -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-4 text-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
                     <!-- Date -->
                     <div class="flex items-center justify-center space-x-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ const meta = seoMeta({
         </div>
     </section>
 
-    <main class="section-container" style="background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000);">
+    <main class="section-container-detail" style="background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000);">
         <!-- Main Content Area with Sidebar Layout -->
         <section class="py-8">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -255,72 +255,70 @@ const meta = seoMeta({
                     </div>
 
                     <!-- Right Sidebar - 2/5 (40%) -->
-                    <div class="lg:col-span-2">
-                        <div class="sticky top-8 space-y-8">
-                            <!-- Related Articles -->
-                            <div class="pb-6 px-6">
-                                <h3
-                                  class="text-lg font-semibold mb-4 pb-4"
-                                  style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
-                                >
-                                    {t('news.relatedArticles')}</h3>
-                                <div class="space-y-4">
-                                    {filteredRelatedArticles.length > 0 ? (
-                                        filteredRelatedArticles.map(relatedArticle => (
-                                            <a href={`/news/${relatedArticle.id}`} class="block group">
-                                                <div class="flex space-x-3">
-                                                    <img
-                                                      src={relatedArticle.cover || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Article'}
-                                                      alt={relatedArticle.title}
-                                                      class="w-20 h-15 object-cover rounded flex-shrink-0"
-                                                    />
-                                                    <div class="flex-1 min-w-0">
-                                                        <h4
-                                                          class="text-sm font-medium line-clamp-2 group-hover:underline"
-                                                          style="color: var(--theme-text);"
-                                                        >
-                                                            {relatedArticle.title}
-                                                        </h4>
-                                                        <p class="text-xs mt-1" style="color: var(--theme-text-secondary);">
-                                                            {new Date(relatedArticle.started_at).toLocaleDateString('zh-TW')}
-                                                        </p>
-                                                    </div>
+                    <div class="sticky top-8 space-y-8 lg:col-span-2">
+                        <!-- Related Articles -->
+                        <div>
+                            <h3
+                              class="text-lg font-semibold mb-4 pb-4"
+                              style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
+                            >
+                                {t('news.relatedArticles')}</h3>
+                            <div class="space-y-4">
+                                {filteredRelatedArticles.length > 0 ? (
+                                    filteredRelatedArticles.map(relatedArticle => (
+                                        <a href={`/news/${relatedArticle.id}`} class="block group">
+                                            <div class="flex space-x-3">
+                                                <img
+                                                  src={relatedArticle.cover || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Article'}
+                                                  alt={relatedArticle.title}
+                                                  class="w-20 h-15 object-cover rounded flex-shrink-0"
+                                                />
+                                                <div class="flex-1 min-w-0">
+                                                    <h4
+                                                      class="text-sm font-medium line-clamp-2 group-hover:underline"
+                                                      style="color: var(--theme-text);"
+                                                    >
+                                                        {relatedArticle.title}
+                                                    </h4>
+                                                    <p class="text-xs mt-1" style="color: var(--theme-text-secondary);">
+                                                        {new Date(relatedArticle.started_at).toLocaleDateString('zh-TW')}
+                                                    </p>
                                                 </div>
-                                            </a>
-                                        ))
-                                    ) : (
-                                        <>
-                                            <span>{t('news.noRelatedArticles')}</span>
-                                        </>
-                                    )}
-                                </div>
+                                            </div>
+                                        </a>
+                                    ))
+                                ) : (
+                                    <>
+                                        <span>{t('news.noRelatedArticles')}</span>
+                                    </>
+                                )}
                             </div>
+                        </div>
 
-                            <!-- Tags -->
-                            <div class="pb-6 px-6">
-                                <h3
-                                  class="text-lg font-semibold mb-4 pb-4"
-                                  style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
-                                >
-                                    {t('news.tags')}</h3>
-                                <div class="flex flex-wrap gap-2">
-                                    {article.tags?.data?.map(tag => (
-                                        <span
-                                          class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
-                                          style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
-                                        >
-                                            {tag.title}
-                                        </span>
-                                    ))}
-                                    {(!article.tags?.data || article.tags.data.length === 0) && (
-                                        <span
-                                          class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
-                                          style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
-                                        >
-                                            {t('news.fallbackTags.beauty')}
-                                        </span>
-                                    )}
-                                </div>
+                        <!-- Tags -->
+                        <div>
+                            <h3
+                              class="text-lg font-semibold mb-4 pb-4"
+                              style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
+                            >
+                                {t('news.tags')}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                {article.tags?.data?.map(tag => (
+                                    <span
+                                      class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                      style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
+                                    >
+                                        {tag.title}
+                                    </span>
+                                ))}
+                                {(!article.tags?.data || article.tags.data.length === 0) && (
+                                    <span
+                                      class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                      style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
+                                    >
+                                        {t('news.fallbackTags.beauty')}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>

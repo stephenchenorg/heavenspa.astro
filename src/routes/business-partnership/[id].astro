@@ -36,34 +36,34 @@ const meta = seoMeta({
 
 <Layout meta={meta}>
     <!-- Hero Banner -->
-    <section class="relative aspect-[1920/600] overflow-hidden">
+    <section class="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[1920/600] overflow-hidden pt-20">
         <div class="absolute inset-0">
             <img
-              src={partnership.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
-              alt={partnership.title}
-              class="object-cover w-full h-full"
+                    src={partnership.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
+                    alt={partnership.title}
+                    class="object-cover w-full h-full"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
         </div>
 
         <!-- Hero Content Overlay -->
         <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center text-white px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-white px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-full">
                 <!-- Main Title - Center -->
-                <h1 class="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-wide mb-8">
+                <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-wide mb-4 sm:mb-6 lg:mb-8">
                     {partnership.title}
                 </h1>
 
                 <!-- Meta Information - Below Title -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-4 text-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
                     <!-- Date -->
                     <div class="flex items-center justify-center space-x-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                             />
                         </svg>
                         <span>{new Date(partnership.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
@@ -74,10 +74,10 @@ const meta = seoMeta({
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"
-                                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                     />
                                 </svg>
                                 <span>{partnership.author}</span>
@@ -87,7 +87,7 @@ const meta = seoMeta({
                     <!-- Tags -->
                     <div class="flex items-center justify-center space-x-2">
                         {partnership.tags?.data?.map(tag => (
-                            <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
+                                <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
                                 {tag.title}
                             </span>
                         ))}
@@ -96,8 +96,7 @@ const meta = seoMeta({
             </div>
         </div>
     </section>
-
-    <main class="section-container" style="background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000);">
+    <main class="section-container-detail" style="background: var(--theme-bg, #ffffff); color: var(--theme-text, #000000);">
         <!-- Main Content Area with Sidebar Layout -->
         <section class="py-8">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -255,72 +254,69 @@ const meta = seoMeta({
                     </div>
 
                     <!-- Right Sidebar - 2/5 (40%) -->
-                    <div class="lg:col-span-2">
-                        <div class="sticky top-8 space-y-8">
-                            <!-- Related Partnerships -->
-                            <div class="pb-6 px-6">
-                                <h3
-                                  class="text-lg font-semibold mb-4 pb-4"
-                                  style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
-                                >
-                                    {t('partnerships.relatedPartnerships')}</h3>
-                                <div class="space-y-4">
-                                    {filteredRelatedPartnerships.length > 0 ? (
-                                        filteredRelatedPartnerships.map(relatedPartnership => (
-                                            <a href={`/news/${relatedPartnership.id}`} class="block group">
-                                                <div class="flex space-x-3">
-                                                    <img
-                                                      src={relatedPartnership.cover || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Partnership'}
-                                                      alt={relatedPartnership.title}
-                                                      class="w-20 h-15 object-cover rounded flex-shrink-0"
-                                                    />
-                                                    <div class="flex-1 min-w-0">
-                                                        <h4
-                                                          class="text-sm font-medium line-clamp-2 group-hover:underline"
-                                                          style="color: var(--theme-text);"
-                                                        >
-                                                            {relatedPartnership.title}
-                                                        </h4>
-                                                        <p class="text-xs mt-1" style="color: var(--theme-text-secondary);">
-                                                            {new Date(relatedPartnership.started_at).toLocaleDateString('zh-TW')}
-                                                        </p>
-                                                    </div>
+                    <div class="sticky top-8 space-y-8 lg:col-span-2">
+                        <!-- Related Partnerships -->
+                        <div>
+                            <h3
+                              class="text-lg font-semibold mb-4 pb-4"
+                              style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
+                            >
+                                {t('partnerships.relatedPartnerships')}</h3>
+                            <div class="space-y-4">
+                                {filteredRelatedPartnerships.length > 0 ? (
+                                    filteredRelatedPartnerships.map(relatedPartnership => (
+                                        <a href={`/news/${relatedPartnership.id}`} class="block group">
+                                            <div class="flex space-x-3">
+                                                <img
+                                                  src={relatedPartnership.cover || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Partnership'}
+                                                  alt={relatedPartnership.title}
+                                                  class="w-20 h-15 object-cover rounded flex-shrink-0"
+                                                />
+                                                <div class="flex-1 min-w-0">
+                                                    <h4
+                                                      class="text-sm font-medium line-clamp-2 group-hover:underline"
+                                                      style="color: var(--theme-text);"
+                                                    >
+                                                        {relatedPartnership.title}
+                                                    </h4>
+                                                    <p class="text-xs mt-1" style="color: var(--theme-text-secondary);">
+                                                        {new Date(relatedPartnership.started_at).toLocaleDateString('zh-TW')}
+                                                    </p>
                                                 </div>
-                                            </a>
-                                        ))
-                                    ) : (
-                                        <>
-                                            <span>{t('partnerships.noRelatedPartnerships')}</span>
-                                        </>
-                                    )}
-                                </div>
+                                            </div>
+                                        </a>
+                                    ))
+                                ) : (
+                                    <>
+                                        <span>{t('partnerships.noRelatedPartnerships')}</span>
+                                    </>
+                                )}
                             </div>
-
-                            <!-- Tags -->
-                            <div class="pb-6 px-6">
-                                <h3
-                                  class="text-lg font-semibold mb-4 pb-4"
-                                  style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
-                                >
-                                    {t('partnerships.tags')}</h3>
-                                <div class="flex flex-wrap gap-2">
-                                    {partnership.tags?.data?.map(tag => (
-                                        <span
-                                          class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
-                                          style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
-                                        >
-                                            {tag.title}
-                                        </span>
-                                    ))}
-                                    {(!partnership.tags?.data || partnership.tags.data.length === 0) && (
-                                        <span
-                                          class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
-                                          style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
-                                        >
-                                            {t('partnerships.fallbackTags.beauty')}
-                                        </span>
-                                    )}
-                                </div>
+                        </div>
+                        <!-- Tags -->
+                        <div>
+                            <h3
+                              class="text-lg font-semibold mb-4 pb-4"
+                              style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
+                            >
+                                {t('partnerships.tags')}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                {partnership.tags?.data?.map(tag => (
+                                    <span
+                                      class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                      style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
+                                    >
+                                        {tag.title}
+                                    </span>
+                                ))}
+                                {(!partnership.tags?.data || partnership.tags.data.length === 0) && (
+                                    <span
+                                      class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                      style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
+                                    >
+                                        {t('partnerships.fallbackTags.beauty')}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>
