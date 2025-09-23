@@ -116,7 +116,13 @@
       const sections = document.querySelectorAll('section, footer, header')
       sections.forEach(section => {
         const htmlSection = section as HTMLElement
-      if (theme === 'dark') {
+
+        // Skip IntroSection - it has its own theme handling
+        if (htmlSection.id === 'intro') {
+          return
+        }
+
+        if (theme === 'dark') {
           // Apply dark theme styles
           htmlSection.style.background = 'var(--theme-bg, #000000)'
           htmlSection.style.color = 'var(--theme-text, #ffffff)'

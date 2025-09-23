@@ -7,6 +7,7 @@ import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
+import IntroSection from "../components/IntroSection.astro";
 
 // 獲取 banners 資料
 const banners = await getBanners()
@@ -21,7 +22,7 @@ const meta = seoMeta({
   <!-- Hero Banner -->
   <HeroBanner banners={banners} />
 
-  <!--<IntroSection />-->
+  <IntroSection />
 
   <TeamSection />
 

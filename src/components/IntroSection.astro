@@ -4,342 +4,312 @@ import { createNestedT } from '@/utils/i18n'
 const t = await createNestedT()
 ---
 
-<section class="relative min-h-screen flex items-center justify-center intro-section theme-section" id="intro" data-section="intro">
-    <div class="intro-container">
-
-        <div id="SECTION_1" class="sc-bkkeKt esgMKP sc-ezbkAF hnmoIs">
-            <div class="sc-iJKOTD irVGqj">
-                <div class="motion motion--first">in<span
-                  class="motion-chars"
-                                                    ><span>t</span><span>r</span><span>o</span></span></div>
-                <div class="motion motion--second">in<span
-                  class="motion-chars"
-                                                     ><span>t</span><span>r</span><span>o</span></span></div>
-                <div class="motion motion--third">in<span
-                  class="motion-chars"
-                                                    ><span>t</span><span>r</span><span>o</span></span></div>
-            </div>
-            <div class="sc-giYglK hrUILA is--in">
-                <div class="circle">
-                    <div>
-                        <h5 data-i18n="intro.headline">{t('intro.headline')}</h5>
-                        <p data-i18n="intro.description">{t('intro.description')}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section
+  class="relative w-full min-h-screen overflow-hidden theme-intro-bg"
+  id="intro"
+  data-section="intro"
+>
+  <!-- Large Typography Background -->
+  <div class="absolute inset-0 flex items-center justify-start pl-8 lg:pl-16">
+    <div class="intro-text-large theme-intro-text-bg font-bold leading-none select-none pointer-events-none">
+      <div class="intro-line">intro</div>
+      <div class="intro-line">intro</div>
+      <div class="intro-line">intro</div>
     </div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="relative z-10 flex items-center min-h-screen">
+    <div class="max-w-7xl mx-auto w-full px-4 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
+        <!-- Left Content - Background Text Area -->
+        <div class="order-2 lg:order-1"></div>
+
+        <!-- Right Content - Main Content -->
+        <div class="order-1 lg:order-2 space-y-6 lg:space-y-8 max-w-xl" data-animate-in="fadeInRight">
+
+          <!-- Main Heading -->
+          <div class="space-y-4">
+            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight theme-intro-text">
+              致力成為世界一流的美容服務整合<br />
+              者與持續成長的永續經營企業
+            </h2>
+          </div>
+
+          <!-- Description -->
+          <div class="space-y-4 theme-intro-text-secondary">
+            <p class="text-base lg:text-lg leading-relaxed">
+              Heaven Spa 擁有嚴謹管理思維、豐富美容產業及行銷經驗、彈性服務佈局、
+              創新護理研發、全球技術整合、市場趨勢分析等多項能力，使 Heaven Spa
+              成為台灣美容界領頭者，亦是各大美容品牌與
+              零售業者主要合作夥伴，在全球眾多美容業縱橫中取得關鍵地
+              位。
+            </p>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <button class="px-8 py-3 theme-intro-btn-primary font-medium rounded-full transition-colors duration-200">
+              了解更多
+            </button>
+            <button class="px-8 py-3 theme-intro-btn-secondary font-medium rounded-full transition-colors duration-200">
+              查看服務
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Arrow -->
+  <button class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center theme-intro-nav transition-colors duration-200">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
 </section>
-<style> *, ::before, ::after {
-    box-sizing: inherit;
-}
+<style>
+  /* Theme-aware Intro Styles */
+  .theme-intro-bg {
+    background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-500));
+  }
 
-.ldjTJa > * {
-    flex-shrink: 0;
-}
+  .theme-intro-text-bg {
+    color: rgba(255, 255, 255, 0.2);
+  }
 
-.hnmoIs {
-    background-color: var(--color-primary-400, rgb(252, 167, 119));
-    position: relative;
-    min-width: calc(800px + 100vh);
-    overflow: hidden;
-}
+  .theme-intro-text {
+    color: var(--theme-text, #ffffff);
+  }
 
-.esgMKP {
-    min-width: 100vw;
-    height: 100vh;
-    box-sizing: border-box;
-}
+  .theme-intro-text-secondary {
+    color: var(--theme-text-secondary, rgba(255, 255, 255, 0.9));
+  }
 
-.irVGqj {
-    color: var(--theme-text, rgb(255, 255, 255));
-    font-size: 220px;
-    line-height: 220px;
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-    font-family: Boska-Medium;
-    position: absolute;
-    left: 100px;
-    top: 45%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    max-width: calc(100vw - 80vmin);
-}
+  .theme-intro-btn-primary {
+    background-color: var(--theme-card-bg, #ffffff);
+    color: var(--color-primary-600);
+  }
 
-.hrUILA {
-    position: absolute;
-    top: 0px;
-    right: 204px;
-}
+  .theme-intro-btn-primary:hover {
+    background-color: var(--theme-hover-bg, #f8f9fa);
+  }
 
-.hrUILA.is--in::before {
-    transform: translateX(-50%) translateY(-50%) scale(1.15);
-}
+  .theme-intro-btn-secondary {
+    border: 2px solid var(--theme-text, #ffffff);
+    color: var(--theme-text, #ffffff);
+    background-color: transparent;
+  }
 
-.hrUILA::before, .hrUILA::after {
-    content: "";
+  .theme-intro-btn-secondary:hover {
+    background-color: var(--theme-card-bg, #ffffff);
+    color: var(--color-primary-600);
+  }
+
+  .theme-intro-nav {
+    color: var(--theme-text-secondary, rgba(255, 255, 255, 0.6));
+  }
+
+  .theme-intro-nav:hover {
+    color: var(--theme-text, #ffffff);
+  }
+
+  /* Dark Theme Overrides */
+  :root.dark-theme .theme-intro-bg,
+  body.dark-theme .theme-intro-bg {
+    background: linear-gradient(135deg, var(--color-neutral-800), var(--color-neutral-900));
+  }
+
+  :root.dark-theme .theme-intro-text-bg,
+  body.dark-theme .theme-intro-text-bg {
+    color: rgba(212, 175, 55, 0.15) !important;
+  }
+
+  :root.dark-theme .theme-intro-text,
+  body.dark-theme .theme-intro-text {
+    color: var(--theme-text, #ffffff);
+  }
+
+  :root.dark-theme .theme-intro-text-secondary,
+  body.dark-theme .theme-intro-text-secondary {
+    color: var(--theme-text-secondary, #cccccc);
+  }
+
+  :root.dark-theme .theme-intro-btn-primary,
+  body.dark-theme .theme-intro-btn-primary {
+    background-color: var(--color-primary-500) !important;
+    color: #ffffff !important;
+  }
+
+  :root.dark-theme .theme-intro-btn-primary:hover,
+  body.dark-theme .theme-intro-btn-primary:hover {
+    background-color: var(--color-primary-600) !important;
+  }
+
+  :root.dark-theme .theme-intro-btn-secondary,
+  body.dark-theme .theme-intro-btn-secondary {
+    border-color: var(--color-primary-500) !important;
+    color: var(--color-primary-500) !important;
+  }
+
+  :root.dark-theme .theme-intro-btn-secondary:hover,
+  body.dark-theme .theme-intro-btn-secondary:hover {
+    background-color: var(--color-primary-500) !important;
+    color: #ffffff !important;
+  }
+
+  :root.dark-theme .theme-intro-nav,
+  body.dark-theme .theme-intro-nav {
+    color: var(--color-primary-400) !important;
+  }
+
+  :root.dark-theme .theme-intro-nav:hover,
+  body.dark-theme .theme-intro-nav:hover {
+    color: var(--color-primary-300) !important;
+  }
+
+  /* Additional dark mode selectors for better compatibility */
+  #intro.dark-mode-active .theme-intro-text-bg {
+    color: rgba(212, 175, 55, 0.15) !important;
+  }
+
+  #intro.dark-mode-active .theme-intro-btn-primary {
+    background-color: var(--color-primary-500) !important;
+    color: #ffffff !important;
+  }
+
+  #intro.dark-mode-active .theme-intro-btn-primary:hover {
+    background-color: var(--color-primary-600) !important;
+  }
+
+  #intro.dark-mode-active .theme-intro-btn-secondary {
+    border-color: var(--color-primary-500) !important;
+    color: var(--color-primary-500) !important;
+  }
+
+  #intro.dark-mode-active .theme-intro-btn-secondary:hover {
+    background-color: var(--color-primary-500) !important;
+    color: #ffffff !important;
+  }
+
+  #intro.dark-mode-active .theme-intro-nav {
+    color: var(--color-primary-400) !important;
+  }
+
+  #intro.dark-mode-active .theme-intro-nav:hover {
+    color: var(--color-primary-300) !important;
+  }
+
+  /* Large Background Typography */
+  .intro-text-large {
+    font-size: clamp(8rem, 20vw, 16rem);
+    line-height: 0.8;
+    font-weight: 900;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .intro-line {
     display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    transform-origin: center center;
-    border-radius: 50%;
-    background: var(--theme-card-bg, rgb(232, 232, 232));
-}
+    transform-origin: left center;
+  }
 
-.hrUILA .circle {
-    height: 80vh;
-    width: 80vh;
-    background: var(--theme-card-bg, rgb(232, 232, 232));
-    color: var(--theme-text, rgb(67, 67, 67));
-    border-radius: 50%;
-    position: relative;
-    z-index: 3;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    padding-left: 30%;
-}
+  /* Animation effects */
+  [data-animate-in] {
+    opacity: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+  }
 
-.hrUILA.is--in::after {
-    transform: translateX(-50%) translateY(-50%) scale(1.30);
-}
+  [data-animate-in="fadeInUp"] {
+    transform: translateY(30px);
+  }
 
-.hrUILA::before, .hrUILA::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    transform-origin: center center;
-    border-radius: 50%;
-    background: var(--theme-card-bg, rgb(232, 232, 232));
-}
+  [data-animate-in="fadeInLeft"] {
+    transform: translateX(-30px);
+  }
 
-.hrUILA .circle div {
-    width: 480px;
-}
+  [data-animate-in="fadeInRight"] {
+    transform: translateX(30px);
+  }
 
-.hnmoIs {
-    background-color: var(--color-primary-400, rgb(252, 167, 119));
-    position: relative;
-    min-width: calc(800px + 100vh);
-    overflow: hidden;
-}
+  [data-animate-in].in-view {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 
-.hrUILA::before {
-    z-index: 2;
-    background-color: var(--theme-hover-bg, rgba(235, 235, 235, 0.6));
-    transition: transform 2s ease-out 0.3s;
-}
-
-.hrUILA::after {
-    z-index: 1;
-    background-color: color-mix(in srgb, var(--theme-hover-bg, rgba(235, 235, 235, 0.2)) 30%, transparent);
-    transition: transform 2s ease-out 0.6s;
-}
-
-.scroll-section {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.intro-section {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-}
-
-.intro-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 100vh;
-
-    padding: 0 2rem 0 6rem;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-}
-
-/* 響應式設計 - 優化版本 */
-/* 超大螢幕 */
-@media (min-width: 1400px) {
-    .hrUILA .circle {
-        height: 80vmin;
-        width: 80vmin;
-    }
-    .hrUILA {
-        right: 8vw;
-    }
-    .irVGqj {
-        left: 6vw;
-        font-size: clamp(180px, 15vw, 240px);
-        line-height: clamp(180px, 15vw, 240px);
-        max-width: calc(100vw - 85vmin);
-    }
-}
-
-/* 大螢幕 */
-@media (max-width: 1399px) and (min-width: 1200px) {
-    .hrUILA .circle {
-        height: 72vmin;
-        width: 72vmin;
-    }
-    .irVGqj {
-        font-size: clamp(160px, 12vw, 200px);
-        line-height: clamp(160px, 12vw, 200px);
-        max-width: calc(100vw - 77vmin);
-    }
-}
-
-/* 中大螢幕 */
-@media (max-width: 1199px) and (min-width: 1024px) {
-    .hrUILA .circle {
-        height: 70vmin;
-        width: 70vmin;
-    }
-    .irVGqj {
-        font-size: clamp(140px, 10vw, 180px);
-        line-height: clamp(140px, 10vw, 180px);
-        left: 60px;
-        max-width: calc(100vw - 75vmin);
-    }
-    .intro-container {
-        padding: 0 1rem 0 4rem;
-    }
-}
-
-/* 平板 */
-@media (max-width: 1023px) and (min-width: 768px) {
-    .hrUILA .circle {
-        height: 65vmin;
-        width: 65vmin;
-    }
-    .irVGqj {
-        font-size: clamp(100px, 8vw, 140px);
-        line-height: clamp(100px, 8vw, 140px);
-        left: 40px;
-        max-width: calc(100vw - 70vmin);
-    }
-    .intro-container {
-        padding: 0 1rem 0 2rem;
-    }
-    .hrUILA {
-        right: 5vw;
-    }
-}
-
-/* 手機橫向 */
-@media (max-width: 767px) and (min-height: 500px) {
-    .hrUILA .circle {
-        height: 60vmin;
-        width: 60vmin;
-    }
-    .irVGqj {
-        font-size: clamp(80px, 12vw, 120px);
-        line-height: clamp(80px, 12vw, 120px);
-        left: 20px;
-        max-width: calc(100vw - 65vmin);
-    }
-    .intro-container {
-        padding: 0 1rem 0 1.5rem;
-    }
-    .hrUILA {
-        right: 2vw;
-    }
-}
-
-/* 手機直向 */
-@media (max-width: 767px) and (max-height: 499px) {
-    .hrUILA .circle {
-        height: 75vmin;
-        width: 75vmin;
-    }
-    .irVGqj {
-        font-size: clamp(60px, 15vw, 100px);
-        line-height: clamp(60px, 15vw, 100px);
-        left: 10px;
-        max-width: calc(100vw - 78vmin);
-    }
-    .intro-container {
-        padding: 0 0.5rem 0 1rem;
-    }
-    .hrUILA {
-        right: 1vw;
-    }
-}
-
-/* 超小螢幕 */
-@media (max-width: 480px) {
-    .hrUILA .circle {
-        height: 70vmin;
-        width: 70vmin;
-    }
-    .irVGqj {
-        font-size: clamp(50px, 18vw, 90px);
-        line-height: clamp(50px, 18vw, 90px);
-        left: 5px;
-        max-width: calc(100vw - 72vmin);
-    }
-    .intro-container {
-        padding: 0 0.25rem 0 0.5rem;
-    }
-    .hrUILA {
-        right: 0.5vw;
-    }
-}
-
-/* 極小螢幕或極端比例 */
-@media (max-width: 320px), (max-height: 400px) {
-    .hrUILA .circle {
-        height: 65vmin;
-        width: 65vmin;
-    }
-    .irVGqj {
-        font-size: clamp(40px, 20vw, 80px);
-        line-height: clamp(40px, 20vw, 80px);
-        left: 2px;
-        max-width: calc(100vw - 67vmin);
-    }
-    .hrUILA {
-        right: 0;
-    }
-} </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Apply theme-aware styling to intro section
-  const introSection = document.getElementById('intro')
-
-  function updateIntroTheme() {
-    const isDark = document.body.classList.contains('dark-theme')
-
-    if (introSection) {
-      // Update section background and text colors
-      introSection.style.background = `var(--theme-bg, ${isDark ? '#000000' : '#ffffff'})`
-      introSection.style.color = `var(--theme-text, ${isDark ? '#ffffff' : '#000000'})`
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .intro-text-large {
+      font-size: clamp(6rem, 25vw, 12rem);
     }
   }
 
-  // Listen for theme change events
-  document.addEventListener('themeChanged', () => {
-    updateIntroTheme()
-  })
+  @media (max-width: 768px) {
+    .intro-text-large {
+      font-size: clamp(4rem, 30vw, 8rem);
+    }
+  }
 
-  // Apply initial theme
-  updateIntroTheme()
-})
+  @media (max-width: 480px) {
+    .intro-text-large {
+      font-size: clamp(3rem, 35vw, 6rem);
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer for animations and theme handling
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('[data-animate-in]')
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view')
+        }
+      })
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    })
+
+    animatedElements.forEach((el) => observer.observe(el))
+
+    // Theme aware styling for intro section
+    const introSection = document.getElementById('intro')
+
+    function updateIntroTheme(event) {
+      const isDark = document.body.classList.contains('dark-theme')
+
+      console.log('IntroSection theme updated, isDark:', isDark) // Debug log
+
+      if (introSection) {
+        // Force update classes
+        if (isDark) {
+          introSection.classList.add('dark-mode-active')
+        } else {
+          introSection.classList.remove('dark-mode-active')
+        }
+      }
+    }
+
+    // Listen for theme change events from ThemeController
+    document.addEventListener('themeChanged', updateIntroTheme)
+
+    // Watch for class changes on body
+    const themeObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          updateIntroTheme()
+        }
+      })
+    })
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] })
+
+    // Apply initial theme
+    setTimeout(updateIntroTheme, 100) // Delay to ensure body classes are applied
+  })
 </script>
