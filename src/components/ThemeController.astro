@@ -75,16 +75,13 @@
       })
     })
 
-    function applyTheme(theme: string) {
-      // Update body class
-      body.classList.remove('dark-theme', 'light-theme')
-      body.classList.add(`${theme}-theme`)
-
-      // Update theme icons
-      updateThemeIcons(theme)
-
-      // Update all sections with theme classes
-      updateAllSections(theme)
+    function applyTheme(theme) {
+      const html = document.documentElement;
+      if (theme === 'dark') {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
     }
 
     function updateThemeIcons(theme: string) {
