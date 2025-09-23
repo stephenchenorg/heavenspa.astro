@@ -1,44 +1,47 @@
 ---
 import { createNestedT } from '@/utils/i18n'
+import Button from '@/components/ui/Button.astro'
 
 const t = await createNestedT()
 ---
 
 <section
-  class="relative w-full min-h-screen overflow-hidden theme-intro-bg"
+  class="relative w-full overflow-hidden bg-transparent lg:h-[600px] p-4 lg:p-[5%]"
   id="intro"
   data-section="intro"
 >
-  <!-- Large Typography Background -->
-  <div class="absolute inset-0 flex items-center justify-start pl-8 lg:pl-16">
-    <div class="intro-text-large theme-intro-text-bg font-bold leading-none select-none pointer-events-none">
-      <div class="intro-line">intro</div>
-      <div class="intro-line">intro</div>
-      <div class="intro-line">intro</div>
-    </div>
+  <!-- Background Image -->
+  <div class="absolute inset-0 flex items-center justify-end pointer-events-none bg-[#f7e194] dark:bg-[#e6c875]">
+    <img src="/images/group4.png" class="w-[130%] h-[130%] object-cover" />
   </div>
 
   <!-- Content Container -->
-  <div class="relative z-10 flex items-center min-h-screen">
-    <div class="max-w-7xl mx-auto w-full px-4 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+  <div class="relative z-10 flex items-center h-full">
+    <div class="w-full h-full relative">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center h-full">
 
         <!-- Left Content - Background Text Area -->
-        <div class="order-2 lg:order-1"></div>
+        <div class="order-2 md:order-1 items-center justify-end h-full hidden md:flex">
+          <div class="text-[clamp(2rem,12vw,8rem)] leading-[0.8] font-black font-sans text-white dark:text-black select-none">
+            <div class="block ml-0 origin-left">intro</div>
+            <div class="block ml-4 md:ml-6 lg:ml-8 origin-left">intro</div>
+            <div class="block ml-8 md:ml-12 lg:ml-16 origin-left">intro</div>
+          </div>
+        </div>
 
         <!-- Right Content - Main Content -->
-        <div class="order-1 lg:order-2 space-y-6 lg:space-y-8 max-w-xl" data-animate-in="fadeInRight">
+        <div class="order-1 md:order-2 space-y-6 lg:space-y-8 max-w-xl relative flex flex-col justify-center overflow-hidden opacity-0 translate-x-8 transition-all duration-[800ms] ease-out animate-fade-in">
 
           <!-- Main Heading -->
-          <div class="space-y-4">
-            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight theme-intro-text">
-              致力成為世界一流的美容服務整合<br />
+          <div class="space-y-4 relative z-10">
+            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-white dark:text-white">
+              致力成為世界一流的美容服務整合
               者與持續成長的永續經營企業
             </h2>
           </div>
 
           <!-- Description -->
-          <div class="space-y-4 theme-intro-text-secondary">
+          <div class="space-y-4 text-white/90 dark:text-gray-300 relative z-10">
             <p class="text-base lg:text-lg leading-relaxed">
               Heaven Spa 擁有嚴謹管理思維、豐富美容產業及行銷經驗、彈性服務佈局、
               創新護理研發、全球技術整合、市場趨勢分析等多項能力，使 Heaven Spa
@@ -49,13 +52,19 @@ const t = await createNestedT()
           </div>
 
           <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 pt-4">
-            <button class="px-8 py-3 theme-intro-btn-primary font-medium rounded-full transition-colors duration-200">
-              了解更多
-            </button>
-            <button class="px-8 py-3 theme-intro-btn-secondary font-medium rounded-full transition-colors duration-200">
-              查看服務
-            </button>
+          <div class="flex flex-row gap-4 pt-4 relative z-10">
+            <Button
+              variant="primary"
+              size="medium"
+              text="了解更多"
+              wrapperClass="flex-initial"
+            />
+            <Button
+              variant="primary"
+              size="medium"
+              text="查看服務"
+              wrapperClass="flex-initial"
+            />
           </div>
 
         </div>
@@ -63,212 +72,18 @@ const t = await createNestedT()
       </div>
     </div>
   </div>
-
-  <!-- Navigation Arrow -->
-  <button class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center theme-intro-nav transition-colors duration-200">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-  </button>
-
 </section>
-<style>
-  /* Theme-aware Intro Styles */
-  .theme-intro-bg {
-    background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-500));
-  }
-
-  .theme-intro-text-bg {
-    color: rgba(255, 255, 255, 0.2);
-  }
-
-  .theme-intro-text {
-    color: var(--theme-text, #ffffff);
-  }
-
-  .theme-intro-text-secondary {
-    color: var(--theme-text-secondary, rgba(255, 255, 255, 0.9));
-  }
-
-  .theme-intro-btn-primary {
-    background-color: var(--theme-card-bg, #ffffff);
-    color: var(--color-primary-600);
-  }
-
-  .theme-intro-btn-primary:hover {
-    background-color: var(--theme-hover-bg, #f8f9fa);
-  }
-
-  .theme-intro-btn-secondary {
-    border: 2px solid var(--theme-text, #ffffff);
-    color: var(--theme-text, #ffffff);
-    background-color: transparent;
-  }
-
-  .theme-intro-btn-secondary:hover {
-    background-color: var(--theme-card-bg, #ffffff);
-    color: var(--color-primary-600);
-  }
-
-  .theme-intro-nav {
-    color: var(--theme-text-secondary, rgba(255, 255, 255, 0.6));
-  }
-
-  .theme-intro-nav:hover {
-    color: var(--theme-text, #ffffff);
-  }
-
-  /* Dark Theme Overrides */
-  :root.dark-theme .theme-intro-bg,
-  body.dark-theme .theme-intro-bg {
-    background: linear-gradient(135deg, var(--color-neutral-800), var(--color-neutral-900));
-  }
-
-  :root.dark-theme .theme-intro-text-bg,
-  body.dark-theme .theme-intro-text-bg {
-    color: rgba(212, 175, 55, 0.15) !important;
-  }
-
-  :root.dark-theme .theme-intro-text,
-  body.dark-theme .theme-intro-text {
-    color: var(--theme-text, #ffffff);
-  }
-
-  :root.dark-theme .theme-intro-text-secondary,
-  body.dark-theme .theme-intro-text-secondary {
-    color: var(--theme-text-secondary, #cccccc);
-  }
-
-  :root.dark-theme .theme-intro-btn-primary,
-  body.dark-theme .theme-intro-btn-primary {
-    background-color: var(--color-primary-500) !important;
-    color: #ffffff !important;
-  }
-
-  :root.dark-theme .theme-intro-btn-primary:hover,
-  body.dark-theme .theme-intro-btn-primary:hover {
-    background-color: var(--color-primary-600) !important;
-  }
-
-  :root.dark-theme .theme-intro-btn-secondary,
-  body.dark-theme .theme-intro-btn-secondary {
-    border-color: var(--color-primary-500) !important;
-    color: var(--color-primary-500) !important;
-  }
-
-  :root.dark-theme .theme-intro-btn-secondary:hover,
-  body.dark-theme .theme-intro-btn-secondary:hover {
-    background-color: var(--color-primary-500) !important;
-    color: #ffffff !important;
-  }
-
-  :root.dark-theme .theme-intro-nav,
-  body.dark-theme .theme-intro-nav {
-    color: var(--color-primary-400) !important;
-  }
-
-  :root.dark-theme .theme-intro-nav:hover,
-  body.dark-theme .theme-intro-nav:hover {
-    color: var(--color-primary-300) !important;
-  }
-
-  /* Additional dark mode selectors for better compatibility */
-  #intro.dark-mode-active .theme-intro-text-bg {
-    color: rgba(212, 175, 55, 0.15) !important;
-  }
-
-  #intro.dark-mode-active .theme-intro-btn-primary {
-    background-color: var(--color-primary-500) !important;
-    color: #ffffff !important;
-  }
-
-  #intro.dark-mode-active .theme-intro-btn-primary:hover {
-    background-color: var(--color-primary-600) !important;
-  }
-
-  #intro.dark-mode-active .theme-intro-btn-secondary {
-    border-color: var(--color-primary-500) !important;
-    color: var(--color-primary-500) !important;
-  }
-
-  #intro.dark-mode-active .theme-intro-btn-secondary:hover {
-    background-color: var(--color-primary-500) !important;
-    color: #ffffff !important;
-  }
-
-  #intro.dark-mode-active .theme-intro-nav {
-    color: var(--color-primary-400) !important;
-  }
-
-  #intro.dark-mode-active .theme-intro-nav:hover {
-    color: var(--color-primary-300) !important;
-  }
-
-  /* Large Background Typography */
-  .intro-text-large {
-    font-size: clamp(8rem, 20vw, 16rem);
-    line-height: 0.8;
-    font-weight: 900;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-
-  .intro-line {
-    display: block;
-    transform-origin: left center;
-  }
-
-  /* Animation effects */
-  [data-animate-in] {
-    opacity: 0;
-    transition: transform 0.8s ease, opacity 0.8s ease;
-  }
-
-  [data-animate-in="fadeInUp"] {
-    transform: translateY(30px);
-  }
-
-  [data-animate-in="fadeInLeft"] {
-    transform: translateX(-30px);
-  }
-
-  [data-animate-in="fadeInRight"] {
-    transform: translateX(30px);
-  }
-
-  [data-animate-in].in-view {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 1024px) {
-    .intro-text-large {
-      font-size: clamp(6rem, 25vw, 12rem);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .intro-text-large {
-      font-size: clamp(4rem, 30vw, 8rem);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .intro-text-large {
-      font-size: clamp(3rem, 35vw, 6rem);
-    }
-  }
-</style>
 
 <script>
-  // Intersection Observer for animations and theme handling
+  // Intersection Observer for animations
   document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('[data-animate-in]')
+    const animatedElements = document.querySelectorAll('.animate-fade-in')
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view')
+          entry.target.classList.remove('opacity-0', 'translate-x-8')
+          entry.target.classList.add('opacity-100', 'translate-x-0')
         }
       })
     }, {
@@ -277,39 +92,5 @@ const t = await createNestedT()
     })
 
     animatedElements.forEach((el) => observer.observe(el))
-
-    // Theme aware styling for intro section
-    const introSection = document.getElementById('intro')
-
-    function updateIntroTheme(event) {
-      const isDark = document.body.classList.contains('dark-theme')
-
-      console.log('IntroSection theme updated, isDark:', isDark) // Debug log
-
-      if (introSection) {
-        // Force update classes
-        if (isDark) {
-          introSection.classList.add('dark-mode-active')
-        } else {
-          introSection.classList.remove('dark-mode-active')
-        }
-      }
-    }
-
-    // Listen for theme change events from ThemeController
-    document.addEventListener('themeChanged', updateIntroTheme)
-
-    // Watch for class changes on body
-    const themeObserver = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          updateIntroTheme()
-        }
-      })
-    })
-    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] })
-
-    // Apply initial theme
-    setTimeout(updateIntroTheme, 100) // Delay to ensure body classes are applied
   })
 </script>
