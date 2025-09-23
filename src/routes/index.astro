@@ -2,7 +2,7 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getBanners } from '@/api/banners'
 import { getCourse } from '@/api/courses'
-import CourseSection from '@/components/CourseSection.astro'
+import ServiceSection from '@/components/ServiceSection.astro'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
 import TeamSection from '@/components/TeamSection.astro'
@@ -25,7 +25,7 @@ const meta = seoMeta({
 
   <TeamSection />
 
-  <CourseSection courses={courses} />
+  <ServiceSection courses={courses} />
 
   <IndexNews />
 

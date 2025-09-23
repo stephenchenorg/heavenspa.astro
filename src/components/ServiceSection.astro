@@ -1,0 +1,336 @@
+---
+import type { Course } from '@/api/courses'
+import SectionTitle from '@/components/ui/SectionTitle.astro'
+import { createNestedT } from '@/utils/i18n'
+
+const t = await createNestedT()
+
+interface Props {
+  courses: Course[]
+}
+const { courses } = Astro.props as Props
+
+---
+
+<section
+  class="relative w-full min-h-[80vh] flex flex-col justify-center py-4 px-4 md:px-6 lg:px-8 md:py-8 lg:py-16 bg-[var(--theme-bg)] text-[var(--theme-text)]"
+  id="courses"
+  data-section="courses"
+>
+
+  <!-- Section Title -->
+  <SectionTitle title="服務項目" subtitle="Services" />
+
+  <!-- Course Content -->
+  <div class="max-w-7xl mx-auto w-full mt-8">
+    <div class="relative overflow-x-hidden overflow-y-visible">
+      <!-- 整個區塊輪播容器 -->
+      <div class="flex transition-transform duration-500 ease-in-out" id="course-sections-container">
+
+        {courses.map((course, index) => (
+          <div class="min-w-full max-w-full flex-shrink-0 min-h-[540px] lg:min-h-[480px] overflow-x-hidden" data-course={index.toString()}>
+            <!-- Course Content - 置中重疊佈局 -->
+            <div class="relative max-w-5xl mx-auto px-4 pb-32 lg:pb-0">
+
+              <!-- Image (Background) -->
+              <div class="flex justify-center lg:justify-end max-w-full overflow-hidden">
+                <div class="relative h-[400px] lg:h-[480px] w-full lg:w-[700px] overflow-hidden rounded-3xl shadow-2xl">
+                  <img
+                    src={course?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
+                    alt={course?.subtitle || t('courses.service-intro')}
+                    class="w-full h-full object-cover transition-transform duration-700"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- Course Card (Overlapping) -->
+              <div class="absolute left-1/2 -translate-x-1/2 -translate-y-16 w-[calc(100%-2rem)] max-w-[380px] lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-0 lg:w-[420px] lg:max-w-none z-10">
+                <div class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-6 lg:p-8 text-center shadow-xl h-[200px] lg:h-[280px] flex flex-col justify-center">
+                  <div class="space-y-4">
+                    <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide">
+                      {course.title}
+                    </h3>
+                    <p class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed">
+                      {course.subtitle}
+                    </p>
+
+                    <!-- CTA Button -->
+                    <div class="pt-2 flex justify-center">
+                      <button class="group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground px-8 py-3 rounded-full text-base font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2">
+                        <span data-i18n="courses.service-intro">{t('courses.service-intro')}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        ))}
+
+      </div>
+
+      <!-- Navigation Controls - 左右兩側 -->
+      <button
+        class="absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        style="top: 50%; transform: translateY(-50%);"
+        aria-label="上一頁"
+        id="prev-course"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        class="absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        style="top: 50%; transform: translateY(-50%);"
+        aria-label="下一頁"
+        id="next-course"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ courses }}>
+  // Course data from API
+  // @ts-ignore - courses is passed from Astro define:vars
+  const coursesData = courses || []
+
+  let currentCourseIndex = 0
+
+  // DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const prevButton = document.getElementById('prev-course')
+    const nextButton = document.getElementById('next-course')
+    const sectionsContainer = document.getElementById('course-sections-container')
+
+    // Update course display
+    function updateCourse(index) {
+      const course = coursesData[index]
+      if (!course) return
+
+      // Slide entire sections container
+      if (sectionsContainer) {
+        const translateX = -100 * index
+        sectionsContainer.style.transform = `translateX(${translateX}%)`
+      }
+
+      // 循環播放，不需要禁用按鈕
+      if (prevButton) {
+        prevButton.disabled = false
+      }
+      if (nextButton) {
+        nextButton.disabled = false
+      }
+    }
+
+    // Navigation events - 循環播放
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : coursesData.length - 1
+        updateCourse(currentCourseIndex)
+      })
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        currentCourseIndex = currentCourseIndex < coursesData.length - 1 ? currentCourseIndex + 1 : 0
+        updateCourse(currentCourseIndex)
+      })
+    }
+
+    // Touch/Swipe functionality for mobile
+    let startX = 0
+    let currentX = 0
+    let isDragging = false
+
+    if (sectionsContainer) {
+      // Touch events
+      sectionsContainer.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX
+        isDragging = true
+        sectionsContainer.style.transition = 'none'
+      })
+
+      sectionsContainer.addEventListener('touchmove', e => {
+        if (!isDragging) return
+        currentX = e.touches[0].clientX
+        const diff = currentX - startX
+        const currentTranslate = -100 * currentCourseIndex
+        const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
+        sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+      })
+
+      sectionsContainer.addEventListener('touchend', () => {
+        if (!isDragging) return
+        isDragging = false
+        sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
+
+        const diff = currentX - startX
+        const threshold = 50
+
+        if (diff > threshold) {
+          // 向右滑動 - 上一張 (循環)
+          currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : coursesData.length - 1
+        } else if (diff < -threshold) {
+          // 向左滑動 - 下一張 (循環)
+          currentCourseIndex = currentCourseIndex < coursesData.length - 1 ? currentCourseIndex + 1 : 0
+        }
+
+        updateCourse(currentCourseIndex)
+      })
+
+      // Mouse events for desktop
+      sectionsContainer.addEventListener('mousedown', e => {
+        startX = e.clientX
+        isDragging = true
+        sectionsContainer.style.transition = 'none'
+        sectionsContainer.style.cursor = 'grabbing'
+      })
+
+      sectionsContainer.addEventListener('mousemove', e => {
+        if (!isDragging) return
+        e.preventDefault()
+        currentX = e.clientX
+        const diff = currentX - startX
+        const currentTranslate = -100 * currentCourseIndex
+        const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
+        sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+      })
+
+      sectionsContainer.addEventListener('mouseup', () => {
+        if (!isDragging) return
+        isDragging = false
+        sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
+        sectionsContainer.style.cursor = 'grab'
+
+        const diff = currentX - startX
+        const threshold = 50
+
+        if (diff > threshold) {
+          // 向右拖動 - 上一張 (循環)
+          currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : coursesData.length - 1
+        } else if (diff < -threshold) {
+          // 向左拖動 - 下一張 (循環)
+          currentCourseIndex = currentCourseIndex < coursesData.length - 1 ? currentCourseIndex + 1 : 0
+        }
+
+        updateCourse(currentCourseIndex)
+      })
+
+      sectionsContainer.addEventListener('mouseleave', () => {
+        if (isDragging) {
+          isDragging = false
+          sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
+          sectionsContainer.style.cursor = 'grab'
+          updateCourse(currentCourseIndex)
+        }
+      })
+
+      // Set initial cursor
+      sectionsContainer.style.cursor = 'grab'
+    }
+
+    // Auto-play functionality
+    let autoPlayInterval
+    const startAutoPlay = () => {
+      autoPlayInterval = setInterval(() => {
+        currentCourseIndex = (currentCourseIndex + 1) % coursesData.length
+        updateCourse(currentCourseIndex)
+      }, 5000)
+    }
+
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval)
+      }
+    }
+
+    // Start auto-play
+    startAutoPlay()
+
+    // Pause auto-play on hover
+    const courseSection = document.getElementById('courses')
+    if (courseSection) {
+      courseSection.addEventListener('mouseenter', stopAutoPlay)
+      courseSection.addEventListener('mouseleave', startAutoPlay)
+    }
+
+    // Initialize
+    updateCourse(currentCourseIndex)
+  })
+</script>
+
+<style>
+  /* Smooth transitions for all elements */
+  #course-image {
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Course sections container */
+  #course-sections-container {
+    transition: transform 0.5s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Individual course cards */
+  .course-card {
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .course-card:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Button hover effects */
+  button:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Disable text selection during drag */
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Animation for content changes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  /* Touch-friendly navigation buttons */
+  @media (max-width: 768px) {
+    #prev-course,
+    #next-course {
+      width: 44px;
+      height: 44px;
+      touch-action: manipulation;
+    }
+  }
+</style>
