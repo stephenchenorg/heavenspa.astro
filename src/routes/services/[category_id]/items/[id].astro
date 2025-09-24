@@ -53,55 +53,63 @@ const meta = seoMeta({
 
     <!-- 服務內容 -->
     <div class="max-w-7xl mx-auto px-4 py-8 ">
+
       <!-- 三列佈局 -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         <!-- 左側：一般資訊 -->
-        <div class="lg:col-span-1 space-y-8">
+        <div class="lg:col-span-1 space-y-8" data-animate-in="left">
 
           <!-- 服務規格 -->
           {service.specifications && service.specifications.length > 0 && (
+            <div data-animate-in="up">
               <h2 class="text-xl font-bold mb-3 text-neutral-800 dark:text-neutral-600">服務方案</h2>
               <div class="space-y-4">
-                {service.specifications.map((spec) => (
-                  <div class="p-4 transition-colors">
-                    <h3 class="text-base font-semibold mb-3 text-neutral-800">{spec.title}</h3>
-                    <div class="grid grid-cols-1 gap-2 text-sm">
-                      <div class="flex justify-between items-center py-1">
-                        <span class="text-neutral-800 dark:text-neutral-600">價格</span>
-                        <span class="font-medium text-neutral-800 dark:text-neutral-600 ">NT$ {spec.listing_price?.toLocaleString()}</span>
+                {service.specifications.map((spec, index) => (
+                  <>
+                    <div class="p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-sm" data-animate-in="fadeIn" style={`animation-delay: ${index * 100}ms`}>
+                      <h3 class="text-base font-semibold mb-3 text-neutral-800">{spec.title}</h3>
+                      <div class="grid grid-cols-1 gap-2 text-sm">
+                        <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
+                          <span class="text-neutral-800 dark:text-neutral-600">價格</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">NT$ {spec.listing_price?.toLocaleString()}</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
+                          <span class="text-neutral-800 dark:text-neutral-600">時間</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.minutes} 分鐘</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
+                          <span class="text-neutral-800 dark:text-neutral-600">堂數</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.hall_count || '-'}</span>
+                        </div>
                       </div>
-                      <div class="flex justify-between items-center py-1">
-                        <span class="text-neutral-800 dark:text-neutral-600">時間</span>
-                        <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.minutes} 分鐘</span>
-                      </div>
-                      <div class="flex justify-between items-center py-1">
-                        <span class="text-neutral-800 dark:text-neutral-600">堂數</span>
-                        <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.hall_count || '-'}</span>
-                      </div>
+                      {spec.description && (
+                        <>
+                          <div class="my-3 h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-500"></div>
+                          <p class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed">{spec.description}</p>
+                        </>
+                      )}
                     </div>
-                    {spec.description && (
-                      <>
-                        <div class="my-3 h-px bg-neutral-200 dark:bg-neutral-300"></div>
-                        <p class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed">{spec.description}</p>
-                      </>
+                    {index < service.specifications.length - 1 && (
+                      <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
                     )}
-                  </div>
+                  </>
                 ))}
               </div>
+            </div>
           )}
 
-          <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
+          <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700" data-animate-in="right"></div>
 
           <!-- 服務詳細內容 -->
-          <div class="space-y-6">
+          <div class="space-y-6" data-animate-in="up">
 
               {service.content_1 && (
-                <div>
-                  <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                <div data-animate-in="fadeIn" style="animation-delay: 200ms">
+                  <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
                     詳細介紹 / 提醒說明
                   </h3>
-                  <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                  <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                     {service.content_1}
                   </div>
                 </div>
@@ -109,12 +117,12 @@ const meta = seoMeta({
 
               {service.content_2 && (
                 <>
-                  <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
-                  <div>
-                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                  <div data-animate-in="fadeIn" style="animation-delay: 300ms">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
                       適合對象 / 膚況
                     </h3>
-                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                       {service.content_2}
                     </div>
                   </div>
@@ -123,12 +131,12 @@ const meta = seoMeta({
 
               {service.content_3 && (
                 <>
-                  <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
-                  <div>
-                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                  <div data-animate-in="fadeIn" style="animation-delay: 400ms">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
                       課程亮點
                     </h3>
-                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                       {service.content_3}
                     </div>
                   </div>
@@ -137,12 +145,12 @@ const meta = seoMeta({
 
               {service.content_4 && (
                 <>
-                  <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
-                  <div>
-                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                  <div data-animate-in="fadeIn" style="animation-delay: 500ms">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
                       課程內容
                     </h3>
-                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                       {service.content_4}
                     </div>
                   </div>
@@ -153,14 +161,18 @@ const meta = seoMeta({
 
         <!-- 右側：圖片直條式顯示 -->
         {service.images && service.images.length > 0 && (
-          <div class="lg:col-span-2 space-y-4">
+          <div class="lg:col-span-2 space-y-4" data-animate-in="right">
             <div class="space-y-4">
               {service.images.map((imageItem, index) => (
-                <div class="aspect-[4/3] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div
+                  class="aspect-[4/3] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500 hover:scale-[1.02] transform"
+                  data-animate-in="scaleIn"
+                  style={`animation-delay: ${index * 150}ms`}
+                >
                   <img
                     src={imageItem.image.desktop}
                     alt={`${service.title} 圖片 ${index + 1}`}
-                    class="w-full h-full object-cover  transition-transform duration-300"
+                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
                 </div>
@@ -188,4 +200,38 @@ const meta = seoMeta({
   }
 
 </style>
+
+<script>
+  // 動畫觀察器
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -10% 0px'
+  };
+
+  const animateElements = () => {
+    const elements = document.querySelectorAll('[data-animate-in]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    elements.forEach(el => observer.observe(el));
+  };
+
+  // 頁面載入後啟動動畫
+  document.addEventListener('DOMContentLoaded', () => {
+    // 延遲一點啟動動畫，讓頁面渲染完成
+    setTimeout(animateElements, 100);
+  });
+
+  // 如果頁面已經載入完成（快取情況）
+  if (document.readyState === 'complete') {
+    setTimeout(animateElements, 100);
+  }
+</script>
 
