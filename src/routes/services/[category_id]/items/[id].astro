@@ -1,6 +1,6 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { graphQLAPI, gql } from '@/api'
+import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 
@@ -9,51 +9,8 @@ const t = await createNestedT()
 // 取得路由參數
 const { category_id, id } = Astro.params
 
-const GET_SERVICE_DETAIL = gql`
-  query GetServiceDetail($id: Int!) {
-    service(id: $id) {
-      id
-      title
-      content_1
-      content_2
-      content_3
-      content_4
-      cover
-      service_category_id
-      category {
-        id
-        title
-        sub_title
-        description
-      }
-    }
-  }
-`
-
-// 取得服務詳細資料和分類資料
-const [serviceData] = await Promise.all([
-  graphQLAPI<{
-    service: {
-      id: string
-      title: string
-      content_1: string
-      content_2: string
-      content_3: string
-      content_4: string
-      cover: string
-      service_category_id: number
-      category: {
-        id: string
-        title: string
-        sub_title: string
-        description: string
-      }
-    }
-  }>(GET_SERVICE_DETAIL, {
-    variables: { id: parseInt(id!, 10) }
-  }),
-])
-
+// 取得服務詳細資料
+const serviceData = await getServiceDetail(parseInt(id!, 10))
 const service = serviceData.service
 
 const meta = seoMeta({
@@ -71,7 +28,7 @@ const meta = seoMeta({
       <!-- 背景圖片 -->
       <div
         class="absolute inset-0 bg-cover bg-center"
-        style={`background-image: url('${service.cover || service.category.cover?.desktop || service.category.background?.desktop}')`}
+        style={`background-image: url('${service.cover || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
       >
       </div>
       <!-- 漸層遮罩 -->
@@ -83,7 +40,7 @@ const meta = seoMeta({
             <ol class="flex items-center space-x-2 text-sm text-white/70">
               <li><a href="/services" class="hover:text-white transition-colors">服務項目</a></li>
               <li>/</li>
-              <li><a href={`/services/${service.service_category_id}/items`} class="hover:text-white transition-colors">{service.category.title}</a></li>
+              <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors">{service.category.title}</a></li>
               <li>/</li>
               <li class="text-white">{service.title}</li>
             </ol>
@@ -100,7 +57,7 @@ const meta = seoMeta({
       <!-- 返回按鈕 -->
       <div class="mb-8">
         <a
-          href={`/services/${service.category.id}/items`}
+          href={`/services/${category_id}/items`}
           class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
         >
           ← 返回 {service.category.title}

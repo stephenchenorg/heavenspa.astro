@@ -1,6 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { graphQLAPI, gql } from '@/api'
+import { getServices } from '@/api/services'
+import { getServiceCategories } from '@/api/serviceCategories'
 import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
@@ -13,77 +14,8 @@ const { category_id } = Astro.params
 const url = new URL(Astro.request.url)
 const currentPage = parseInt(url.searchParams.get('page') || '1', 10)
 
-const GET_SERVICE_CATEGORIES = gql`
-  query GetServiceCategories {
-    serviceCategories {
-      data {
-        id
-        title
-        sub_title
-        description
-        cover {
-          desktop
-          desktop_blur
-          mobile
-          mobile_blur
-        }
-        background {
-          desktop
-          desktop_blur
-          mobile
-          mobile_blur
-        }
-      }
-    }
-  }
-`
-
-const GET_SERVICES = gql`
-  query GetServices($page: Int!, $per_page: Int!, $search: String, $category_id: Int) {
-    services(page: $page, per_page: $per_page, search: $search, category_id: $category_id) {
-      data {
-        content_1
-        content_2
-        content_3
-        content_4
-        cover
-        title
-        id
-        service_category_id
-      }
-      from
-      has_more_pages
-      last_page
-      per_page
-      to
-      total
-    }
-  }
-`
-
 // 先取得分類資料
-const categoriesData = await graphQLAPI<{
-  serviceCategories: {
-    data: Array<{
-      id: string
-      title: string
-      sub_title: string
-      description: string
-      cover: {
-        desktop: string
-        desktop_blur: string
-        mobile: string
-        mobile_blur: string
-      }
-      background: {
-        desktop: string
-        desktop_blur: string
-        mobile: string
-        mobile_blur: string
-      }
-    }>
-  }
-}>(GET_SERVICE_CATEGORIES)
+const categoriesData = await getServiceCategories()
 
 const categories = categoriesData.serviceCategories.data
 
@@ -94,34 +26,7 @@ const categoryId = category_id ? parseInt(category_id, 10) : (categories.length 
 const currentCategory = categories.find(cat => parseInt(cat.id, 10) === categoryId) || categories[0]
 
 // 取得服務資料
-const servicesData = await graphQLAPI<{
-  services: {
-    data: Array<{
-      id: string
-      title: string
-      content_1: string
-      content_2: string
-      content_3: string
-      content_4: string
-      cover: string
-      service_category_id: number
-    }>
-    from: number
-    has_more_pages: boolean
-    last_page: number
-    per_page: number
-    to: number
-    total: number
-  }
-}>(GET_SERVICES, {
-  variables: {
-    page: currentPage,
-    per_page: 10,
-    search: "",
-    category_id: categoryId
-  }
-})
-
+const servicesData = await getServices(categoryId, currentPage, 10, "")
 const services = servicesData.services.data
 
 const meta = seoMeta({

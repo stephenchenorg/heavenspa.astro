@@ -1,61 +1,14 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
-import { graphQLAPI, gql } from '@/api'
+import { getServiceCategories } from '@/api/serviceCategories'
 import SectionTitle from "../../components/ui/SectionTitle.astro";
 
 const meta = seoMeta({
   title: '服務項目 - Heaven Spa',
 })
 
-const GET_SERVICE_CATEGORIES = gql`
-  query MyQuery {
-    serviceCategories {
-      data {
-        cover {
-          desktop
-          desktop_blur
-          mobile
-          mobile_blur
-        }
-        background {
-          desktop
-          desktop_blur
-          mobile
-          mobile_blur
-        }
-        description
-        sub_title
-        title
-        id
-      }
-    }
-  }
-`
-
-const data = await graphQLAPI<{
-  serviceCategories: {
-    data: Array<{
-      id: string
-      title: string
-      sub_title: string
-      description: string
-      cover: {
-        desktop: string
-        desktop_blur: string
-        mobile: string
-        mobile_blur: string
-      }
-      background: {
-        desktop: string
-        desktop_blur: string
-        mobile: string
-        mobile_blur: string
-      }
-    }>
-  }
-}>(GET_SERVICE_CATEGORIES)
-
+const data = await getServiceCategories()
 const services = data.serviceCategories.data
 ---
 
@@ -68,8 +21,6 @@ const services = data.serviceCategories.data
       class="w-full min-h-[calc(100vh-8rem)] flex flex-col"
       aria-label="服務項目列表"
     >
-
-
       <div class="mt-8 grid flex-1 grid-cols-1 md:grid-cols-4 gap-0">
         {services.map((service) => (
             <a href={`/services/${service.id}/items`} class="group relative flex h-full items-end overflow-hidden">
