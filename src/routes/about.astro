@@ -25,12 +25,12 @@ const meta = seoMeta({
     <div class="absolute inset-0 flex items-center justify-center">
       <div class="text-center text-white px-4 sm:px-6 lg:px-8">
         <!-- Main Title - Center -->
-        <h1 class="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-wide mb-8">
+        <h1 class="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-wide mb-8 animate-fade-in-up">
           品牌介紹
         </h1>
 
         <!-- Meta Information - Below Title -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-4 text-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-4 text-base sm:text-lg animate-slide-in-delay-200">
           <!-- Date -->
           <div class="flex items-center justify-center space-x-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,14 +67,16 @@ const meta = seoMeta({
   </section>
   <main class="section-container">
     <!-- 標題區 -->
-    <SectionTitle title="品牌介紹" subtitle="About" />
+    <div data-animate-in="fadeIn">
+      <SectionTitle title="品牌介紹" subtitle="About" />
+    </div>
 
     <!-- Page content will be added here -->
     <div class="max-w-6xl mx-auto w-full">
       <!-- 兩欄式佈局 -->
-      <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 mb-16">
+      <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 mb-16" data-animate-in="up">
         <!-- 左側圖片區域 (2/5 = 40%) -->
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2" data-animate-in="left">
           <div class="relative h-80 lg:h-96">
             <!-- 後方圖片 (替代色塊) - 左上角起始，長方形 -->
             <div class="absolute top-0 left-0 w-5/6 h-3/4 shadow-lg z-10" style="background: url('/public/images/about1.jpg')">
@@ -90,17 +92,17 @@ const meta = seoMeta({
         </div>
 
         <!-- 右側文字區域 (3/5 = 60%) -->
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-3" data-animate-in="right">
           <div class="p-6 lg:p-8 h-full flex flex-col justify-center">
-            <h3 class="text-2xl font-bold text-black dark:text-white mb-6" style="color: var(--theme-text, #ffffff)">關於 Heaven Spa</h3>
-            <div class="text-black dark:text-white space-y-6" style="color: var(--theme-text, #ffffff)">
-              <p class="leading-relaxed text-lg">
+            <h3 class="text-3xl lg:text-4xl font-bold text-black dark:text-white mb-8" style="color: var(--theme-text, #ffffff)">關於 Heaven Spa</h3>
+            <div class="intro-text-container text-black dark:text-white space-y-8" style="color: var(--theme-text, #ffffff)">
+              <p class="leading-relaxed text-xl lg:text-2xl font-medium" data-animate-in="up">
                 Heaven Spa 致力於為每位顧客提供最優質的 SPA 體驗，我們相信美麗與健康是每個人與生俱來的權利。
               </p>
-              <p class="leading-relaxed text-lg">
+              <p class="leading-relaxed text-lg lg:text-xl text-opacity-90" data-animate-in="up">
                 我們的專業團隊擁有豐富的經驗和專業知識，結合傳統療法與現代技術，為您打造獨一無二的放鬆體驗。
               </p>
-              <p class="leading-relaxed text-lg">
+              <p class="leading-relaxed text-lg lg:text-xl text-opacity-80" data-animate-in="up">
                 在這裡，您可以暫時遠離城市的喧囂，享受片刻的寧靜與舒適，讓身心靈都得到充分的放鬆與滋養。
               </p>
             </div>
@@ -108,7 +110,7 @@ const meta = seoMeta({
         </div>
       </section>
       <!-- 圖標輪播區域 -->
-      <section class="relative py-16 px-4 mb-16 overflow-hidden">
+      <section class="relative py-16 px-4 mb-16 overflow-hidden" data-animate-in="scaleIn">
         <!-- 背景圖片 -->
         <div class="absolute inset-0">
           <img
@@ -129,66 +131,66 @@ const meta = seoMeta({
             showDots={true}
             responsive={{ sm: 1, md: 2, lg: 3 }}
             uniqueId="services-carousel"
-            containerClass=""
+            containerClass="services-carousel-container"
           >
             <!-- 圖標項目 -->
             <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6">
-                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <img src="/icons/woman.svg" alt="美容護理" class="w-16 h-16 filter brightness-0 invert" />
+              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
+                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <img src="/icons/woman.svg" alt="美容護理" class="w-20 h-20 filter brightness-0 invert" />
                 </div>
-                <h4 class="text-white font-semibold mb-2">美容護理</h4>
-                <p class="text-white/70 text-sm">專業美容護理服務</p>
+                <h4 class="text-white font-bold text-xl mb-3">美容護理</h4>
+                <p class="text-white/80 text-base">專業美容護理服務</p>
               </div>
             </div>
 
             <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6">
-                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <img src="/icons/massage.svg" alt="按摩療程" class="w-16 h-16 filter brightness-0 invert" />
+              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
+                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <img src="/icons/massage.svg" alt="按摩療程" class="w-20 h-20 filter brightness-0 invert" />
                 </div>
-                <h4 class="text-white font-semibold mb-2">按摩療程</h4>
-                <p class="text-white/70 text-sm">舒壓放鬆按摩服務</p>
+                <h4 class="text-white font-bold text-xl mb-3">按摩療程</h4>
+                <p class="text-white/80 text-base">舒壓放鬆按摩服務</p>
               </div>
             </div>
 
             <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6">
-                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <img src="/icons/spa.svg" alt="芳療護理" class="w-16 h-16 filter brightness-0 invert" />
+              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
+                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <img src="/icons/spa.svg" alt="芳療護理" class="w-20 h-20 filter brightness-0 invert" />
                 </div>
-                <h4 class="text-white font-semibold mb-2">芳療護理</h4>
-                <p class="text-white/70 text-sm">精油芳香療法</p>
+                <h4 class="text-white font-bold text-xl mb-3">芳療護理</h4>
+                <p class="text-white/80 text-base">精油芳香療法</p>
               </div>
             </div>
 
             <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6">
-                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <img src="/icons/massage (1).svg" alt="身體護理" class="w-16 h-16 filter brightness-0 invert" />
+              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
+                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <img src="/icons/massage (1).svg" alt="身體護理" class="w-20 h-20 filter brightness-0 invert" />
                 </div>
-                <h4 class="text-white font-semibold mb-2">身體護理</h4>
-                <p class="text-white/70 text-sm">全身美體護理</p>
+                <h4 class="text-white font-bold text-xl mb-3">身體護理</h4>
+                <p class="text-white/80 text-base">全身美體護理</p>
               </div>
             </div>
 
             <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6">
-                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <img src="/icons/foot-massage.svg" alt="美甲護理" class="w-16 h-16 filter brightness-0 invert" />
+              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
+                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <img src="/icons/foot-massage.svg" alt="美甲護理" class="w-20 h-20 filter brightness-0 invert" />
                 </div>
-                <h4 class="text-white font-semibold mb-2">美甲護理</h4>
-                <p class="text-white/70 text-sm">專業美甲服務</p>
+                <h4 class="text-white font-bold text-xl mb-3">美甲護理</h4>
+                <p class="text-white/80 text-base">專業美甲服務</p>
               </div>
             </div>
 
             <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6">
-                <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                  <img src="/icons/relax.svg" alt="放鬆療程" class="w-16 h-16 filter brightness-0 invert" />
+              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
+                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+                  <img src="/icons/relax.svg" alt="放鬆療程" class="w-20 h-20 filter brightness-0 invert" />
                 </div>
-                <h4 class="text-white font-semibold mb-2">放鬆療程</h4>
-                <p class="text-white/70 text-sm">深度放鬆體驗</p>
+                <h4 class="text-white font-bold text-xl mb-3">放鬆療程</h4>
+                <p class="text-white/80 text-base">深度放鬆體驗</p>
               </div>
             </div>
           </Carousel>
@@ -196,9 +198,9 @@ const meta = seoMeta({
       </section>
 
       <!-- 分割區域：左圖右文 -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+      <section class="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]" data-animate-in="up">
         <!-- 左側圖片區域 -->
-        <div class="relative bg-gray-100 lg:-mb-12">
+        <div class="relative bg-gray-100 lg:-mb-12" data-animate-in="left">
           <img
             src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
             alt="Heaven Spa 專業服務"
@@ -218,7 +220,7 @@ const meta = seoMeta({
         </div>
 
         <!-- 右側深色內容區域 -->
-        <div class=" text-neutral-0  p-8 lg:p-16 flex flex-col justify-center relative lg:-mt-12 overflow-hidden bg-neutral-900">
+        <div class=" text-neutral-0  p-8 lg:p-16 flex flex-col justify-center relative lg:-mt-12 overflow-hidden bg-neutral-900" data-animate-in="right">
           <!-- 背景裝飾點綴 -->
           <div class="absolute inset-0 opacity-10">
             <!-- 左上角點點裝飾 -->
@@ -314,24 +316,24 @@ const meta = seoMeta({
 
           <!-- 主要內容 -->
           <div class="relative z-10">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+            <h2 class="text-4xl lg:text-5xl xl:text-6xl font-bold mb-8 leading-tight">
               專業、靈活且<br />個人化服務
             </h2>
 
-            <p class="text-neutral-0 mb-12 leading-relaxed text-lg">
+            <p class="text-neutral-0 mb-16 leading-relaxed text-xl lg:text-2xl font-light">
               我們致力於提供最專業的 SPA 療程，結合傳統技法與現代科技，
               為每位顧客量身打造專屬的美容護理體驗，讓您在舒適的環境中享受完美的放鬆時光。
             </p>
 
             <!-- 服務特色列表 -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div class="flex items-center space-x-3">
-                <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div class="flex items-center space-x-4 hover:transform hover:translate-x-2 transition-all duration-300">
+                <div class="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <span class="text-neutral-0">專業美容護理</span>
+                <span class="text-neutral-0 text-lg font-medium">專業美容護理</span>
               </div>
 
               <div class="flex items-center space-x-3">
@@ -340,7 +342,7 @@ const meta = seoMeta({
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <span class="text-neutral-0">個人化療程</span>
+                <span class="text-neutral-0 text-lg font-medium">個人化療程</span>
               </div>
 
               <div class="flex items-center space-x-3">
@@ -349,7 +351,7 @@ const meta = seoMeta({
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <span class="text-neutral-0">舒適環境</span>
+                <span class="text-neutral-0 text-lg font-medium">舒適環境</span>
               </div>
 
               <div class="flex items-center space-x-3">
@@ -358,18 +360,18 @@ const meta = seoMeta({
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <span class="text-neutral-0">專業技術團隊</span>
+                <span class="text-neutral-0 text-lg font-medium">專業技術團隊</span>
               </div>
             </div>
           </div>
         </div>
       </section>
       <!-- 聯絡我們區域 -->
-      <section class="py-20 px-4 bg-gray-50 border-t mt-24" style="border-color: var(--theme-mobile-section-border);">
+      <section class="py-20 px-4 border-t mt-24 border-[var(--theme-mobile-section-border)]" data-animate-in="fadeIn">
         <div class="max-w-4xl mx-auto text-center">
           <!-- 文字內容 -->
-          <div class="mb-12">
-            <p class="text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto" style="color: var(--theme-text, #ffffff)">
+          <div class="mb-16">
+            <p class="text-2xl lg:text-3xl xl:text-4xl leading-relaxed max-w-4xl mx-auto text-theme-text font-light">
               專業的美容護理力量幫助我們解決複雜的美容問題<br />
               並培養完美的美容解決方案。
             </p>
@@ -389,3 +391,173 @@ const meta = seoMeta({
     </div>
   </main>
 </Layout>
+
+<style>
+/* 輪播導航按鈕垂直置中 - 針對 services-carousel */
+.services-carousel-container {
+  position: relative;
+}
+
+.services-carousel-container .carousel-prev,
+.services-carousel-container .carousel-next {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* 使用 JavaScript 動態計算中心位置 */
+.services-carousel-container .carousel-prev,
+.services-carousel-container .carousel-next {
+  position: absolute !important;
+  z-index: 20 !important;
+}
+
+/* intro 文字段落階段式動畫 */
+.intro-text-container p[data-animate-in]:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.intro-text-container p[data-animate-in]:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.intro-text-container p[data-animate-in]:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* 為 intro 文字添加特殊過渡效果 */
+.intro-text-container p[data-animate-in] {
+  transition-delay: 0s;
+}
+
+.intro-text-container p[data-animate-in]:nth-child(1).in-view {
+  transition-delay: 0.2s;
+}
+
+.intro-text-container p[data-animate-in]:nth-child(2).in-view {
+  transition-delay: 0.4s;
+}
+
+.intro-text-container p[data-animate-in]:nth-child(3).in-view {
+  transition-delay: 0.6s;
+}
+</style>
+
+<script>
+  // 動畫觀察器初始化
+  function initializeAnimations() {
+    const animatedElements = document.querySelectorAll('[data-animate-in]')
+
+    if (!animatedElements.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // 檢查是否是 intro 文字段落
+            const isIntroText = entry.target.closest('.intro-text-container')
+
+            if (isIntroText) {
+              // 階段式觸發 intro 文字動畫
+              const container = entry.target.closest('.intro-text-container')
+              const paragraphs = container.querySelectorAll('p[data-animate-in]')
+
+              paragraphs.forEach((p, index) => {
+                setTimeout(() => {
+                  p.classList.add('in-view')
+                }, index * 200) // 每個段落延遲 200ms
+              })
+
+              // 取消觀察所有 intro 段落
+              paragraphs.forEach(p => observer.unobserve(p))
+            } else {
+              // 一般動畫元素
+              entry.target.classList.add('in-view')
+              observer.unobserve(entry.target)
+            }
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    animatedElements.forEach((element) => {
+      observer.observe(element)
+    })
+  }
+
+  // 頁面載入完成後初始化動畫
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAnimations)
+  } else {
+    initializeAnimations()
+  }
+
+  // 備用初始化
+  window.addEventListener('load', () => {
+    setTimeout(initializeAnimations, 100)
+  })
+
+  // 輪播按鈕垂直置中功能
+  function centerCarouselButtons() {
+    const carousel = document.querySelector('.services-carousel-carousel')
+    if (!carousel) {
+      setTimeout(centerCarouselButtons, 500)
+      return
+    }
+
+    const prevBtn = carousel.querySelector('.carousel-prev')
+    const nextBtn = carousel.querySelector('.carousel-next')
+    const slides = carousel.querySelectorAll('.carousel-slide')
+
+    if (!prevBtn || !nextBtn || !slides.length) {
+      setTimeout(centerCarouselButtons, 500)
+      return
+    }
+
+    // 計算輪播內容的中心位置
+    function updateButtonPositions() {
+      const carouselRect = carousel.getBoundingClientRect()
+      const firstSlide = slides[0]
+
+      if (firstSlide) {
+        const slideRect = firstSlide.getBoundingClientRect()
+        const slideCenter = slideRect.top + slideRect.height / 2 - carouselRect.top
+
+        // 設置按鈕位置
+        prevBtn.style.top = `${slideCenter}px`
+        nextBtn.style.top = `${slideCenter}px`
+        prevBtn.style.transform = 'translateY(-50%)'
+        nextBtn.style.transform = 'translateY(-50%)'
+      }
+    }
+
+    // 初始設置
+    updateButtonPositions()
+
+    // 監聽窗口調整大小
+    const resizeObserver = new ResizeObserver(updateButtonPositions)
+    resizeObserver.observe(carousel)
+
+    // 監聽窗口大小變化
+    window.addEventListener('resize', updateButtonPositions)
+
+    console.log('Carousel buttons centered successfully')
+  }
+
+  // 初始化按鈕置中
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(centerCarouselButtons, 1000)
+    })
+  } else {
+    setTimeout(centerCarouselButtons, 1000)
+  }
+
+  // 備用初始化
+  window.addEventListener('load', () => {
+    setTimeout(centerCarouselButtons, 1500)
+  })
+</script>
