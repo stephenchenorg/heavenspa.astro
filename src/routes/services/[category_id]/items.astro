@@ -8,10 +8,10 @@ import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
-// 取得 URL 參數
+// 取得路由參數
+const { category_id } = Astro.params
 const url = new URL(Astro.request.url)
 const currentPage = parseInt(url.searchParams.get('page') || '1', 10)
-const currentCategoryId = url.searchParams.get('category_id')
 
 const GET_SERVICE_CATEGORIES = gql`
   query GetServiceCategories {
@@ -87,8 +87,8 @@ const categoriesData = await graphQLAPI<{
 
 const categories = categoriesData.serviceCategories.data
 
-// 如果沒有指定分類，預設使用第一個分類
-const categoryId = currentCategoryId ? parseInt(currentCategoryId, 10) : (categories.length > 0 ? parseInt(categories[0].id, 10) : 1)
+// 使用路由參數中的 category_id
+const categoryId = category_id ? parseInt(category_id, 10) : (categories.length > 0 ? parseInt(categories[0].id, 10) : 1)
 
 // 找到當前分類
 const currentCategory = categories.find(cat => parseInt(cat.id, 10) === categoryId) || categories[0]
@@ -125,8 +125,8 @@ const servicesData = await graphQLAPI<{
 const services = servicesData.services.data
 
 const meta = seoMeta({
-  title: '服務項目 - Heaven Spa',
-  description: '探索 Heaven Spa 的專業服務項目，享受頂級的美容護理體驗。',
+  title: `${currentCategory?.title || '服務項目'} - Heaven Spa`,
+  description: `探索 Heaven Spa 的 ${currentCategory?.title || ''} 服務項目，享受頂級的美容護理體驗。`,
 })
 
 ---
@@ -166,7 +166,7 @@ const meta = seoMeta({
           {categories.map((category) => (
             <li class="me-2" role="presentation">
               <a
-                href={`?category_id=${category.id}&page=1`}
+                href={`/services/${category.id}/items`}
                 class={`inline-block p-4 border-b-2 rounded-t-lg transition-all duration-300 ${
                   categoryId === parseInt(category.id, 10)
                     ? 'border-neutral-900'
@@ -186,15 +186,13 @@ const meta = seoMeta({
         {services.map(service => (
           <div class="group cursor-pointer transform transition-transform duration-700
                 hover:scale-95 active:scale-90 relative backdrop-blur-sm overflow-hidden w-full flex flex-col">
-            <a href={`/services/${service.id}`} class="flex flex-col">
+            <a href={`/services/${categoryId}/items/${service.id}`} class="flex flex-col">
               <!-- 上半部：封面圖 -->
               <div class="relative w-full overflow-hidden aspect-[5/6]">
-                <!-- Background Image
-                  style={`background-image: url('${service.cover}')`}
-                 -->
+                <!-- Background Image -->
                 <div
                   class="absolute inset-0 bg-cover bg-center"
-                  style={`background-image: url('https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1')`}
+                  style={`background-image: url('${service.cover || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
                 >
                 </div>
                 <!-- Base Overlay for better text readability -->
@@ -226,7 +224,7 @@ const meta = seoMeta({
           const pageNum = i + 1
           return (
             <a
-              href={`?category_id=${categoryId}&page=${pageNum}`}
+              href={`/services/${categoryId}/items?page=${pageNum}`}
               class="px-3 py-2 rounded-lg border transition-all duration-300"
               style={pageNum === currentPage
                       ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
