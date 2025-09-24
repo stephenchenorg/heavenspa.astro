@@ -58,6 +58,9 @@
   --theme-text-secondary: #666666;
   --theme-border: #f0f0f0;
   --theme-card-bg: #ffffff;
+  --theme-nav-text: #000000;
+  --theme-nav-scrolled-bg: rgba(255, 255, 255, 0.95);
+  --theme-nav-scrolled-text: #000000;
 
   /* Mobile Menu Theme Variables */
   --theme-mobile-menu-bg: rgba(255, 255, 255, 0.95);
@@ -77,6 +80,9 @@
   --theme-text-secondary: #cccccc;
   --theme-border: #333333;
   --theme-card-bg: #111111;
+  --theme-nav-text: #ffffff;
+  --theme-nav-scrolled-bg: rgba(0, 0, 0, 0.9);
+  --theme-nav-scrolled-text: #ffffff;
 
   /* Mobile Menu Dark Theme Variables */
   --theme-mobile-menu-bg: rgba(0, 0, 0, 0.95);
@@ -128,6 +134,33 @@
   /* Navigation Patterns */
   .nav-item {
     @apply text-white no-underline text-lg font-medium tracking-wide transition-all duration-300 ease-in-out whitespace-nowrap bg-transparent border-none cursor-pointer py-2 px-0.5 relative;
+  }
+
+  /* Navigation scroll state styles */
+  .main-nav[data-scrolled="false"] {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .main-nav[data-scrolled="true"] {
+    background: var(--theme-nav-scrolled-bg) !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Dark mode scrolled navigation */
+  .dark .main-nav[data-scrolled="true"] {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .main-nav[data-scrolled="false"] .nav-item {
+    color: var(--theme-nav-text);
+  }
+
+  .main-nav[data-scrolled="true"] .nav-item {
+    color: var(--theme-nav-scrolled-text);
   }
 
   .nav-underline {
@@ -219,6 +252,15 @@
 
   .fade-in-up.active {
     @apply opacity-100 translate-y-0;
+  }
+
+  /* Theme utility classes */
+  .bg-theme-text {
+    background-color: var(--theme-text);
+  }
+
+  .text-theme-text {
+    color: var(--theme-text);
   }
 }
 

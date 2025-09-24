@@ -29,13 +29,13 @@ const {
 } = Astro.props
 ---
 
-<footer class="relative overflow-hidden bg-[var(--theme-bg,#ffffff)] text-[var(--theme-text,#000000)] border-t border-[var(--theme-border,#e5e5e5)] pt-16 pb-8 before:absolute before:inset-0 before:bg-gradient-to-br before:from-[rgba(212,175,55,0.05)] before:to-[rgba(212,175,55,0.02)] before:pointer-events-none">
+<footer class="relative overflow-hidden bg-theme-bg text-theme-text border-t border-[var(--theme-border,#e5e5e5)] pt-16 pb-8 before:absolute before:inset-0 before:bg-gradient-to-br before:from-[rgba(212,175,55,0.05)] before:to-[rgba(212,175,55,0.02)] before:pointer-events-none">
     <div class="relative z-10 px-4 md:px-8 lg:px-16 lg:max-w-[1400px] lg:mx-auto">
         <div class="grid md:grid-cols-2 grid-cols-1 gap-y-8 pb-8">
             <!-- 左側：公司資訊 -->
             <div class="animate-fadeInUp lg:pr-8 grid grid-cols-1 lg:max-w-md">
                 <div class="mb-6">
-                    <div class="text-2xl md:text-3xl font-bold text-[var(--color-primary-600,#c4a428)] mb-1 tracking-wide">
+                    <div class="text-2xl md:text-3xl font-bold text-primary-600 mb-1 tracking-wide">
                         {companySetting?.name}
                     </div>
                     <div class="text-base font-medium text-[var(--theme-text-secondary,#666666)] tracking-[2px] uppercase">
@@ -48,7 +48,7 @@ const {
 
                 <!-- 聯絡資訊 -->
                 <div class="gap-4 grid grid-cols-1 ">
-                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-primary-600 transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <Phone size="20" />
                         </div>
@@ -56,7 +56,7 @@ const {
                             {companySetting?.phone_1}
                         </a>
                     </div>
-                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-color-primary-600 transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <MapPin size="20" />
                         </div>
@@ -78,13 +78,13 @@ const {
                             {companySetting?.email_1}
                         </a>
                     </div>
-                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text--primary-600 transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <Clock size="20" />
                         </div>
                         <span>{companySetting?.business_hours || ''}</span>
                     </div>
-                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-[var(--color-primary-600,#c4a428)] transition-colors duration-300">
+                    <div class="hover:cursor-pointer flex items-center justify-start gap-3 text-sm hover:text-primary-600 transition-colors duration-300">
                         <div class="text-base opacity-80">
                             <CreditCard size="20" />
                         </div>
