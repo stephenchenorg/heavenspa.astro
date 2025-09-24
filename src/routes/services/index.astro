@@ -1,38 +1,62 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
-import SectionTitle from "../components/ui/SectionTitle.astro";
+import { graphQLAPI, gql } from '@/api'
+import SectionTitle from "../../components/ui/SectionTitle.astro";
 
 const meta = seoMeta({
   title: '服務項目 - Heaven Spa',
 })
 
-const services = [
-  {
-    title: '男性按摩',
-    description: '結合深層放鬆與花草芳香，讓身體與心靈沉浸於柔和療癒之中。',
-    image:
-      'https://www.cosmo-br.com/archive/images/pcateCover/works_01.jpg',
-  },
-  {
-    title: '女性按摩',
-    description: '結合深層放鬆與花草芳香，讓身體與心靈沉浸於柔和療癒之中。',
-    image:
-      'https://www.cosmo-br.com/archive/images/pcateCover/works_01.jpg',
-  },
-  {
-    title: '熱蠟除毛',
-    description: '透過礦石熱能釋放深層熱度，舒緩肌肉緊繃並帶來溫暖包覆感。',
-    image:
-      'https://www.cosmo-br.com/archive/images/pcateCover/works_02.jpg',
-  },
-  {
-    title: '水飛梭',
-    description: '透過礦石熱能釋放深層熱度，舒緩肌肉緊繃並帶來溫暖包覆感。',
-    image:
-      'https://www.cosmo-br.com/archive/images/pcateCover/works_03.jpg',
-  },
-]
+const GET_SERVICE_CATEGORIES = gql`
+  query MyQuery {
+    serviceCategories {
+      data {
+        cover {
+          desktop
+          desktop_blur
+          mobile
+          mobile_blur
+        }
+        background {
+          desktop
+          desktop_blur
+          mobile
+          mobile_blur
+        }
+        description
+        sub_title
+        title
+        id
+      }
+    }
+  }
+`
+
+const data = await graphQLAPI<{
+  serviceCategories: {
+    data: Array<{
+      id: string
+      title: string
+      sub_title: string
+      description: string
+      cover: {
+        desktop: string
+        desktop_blur: string
+        mobile: string
+        mobile_blur: string
+      }
+      background: {
+        desktop: string
+        desktop_blur: string
+        mobile: string
+        mobile_blur: string
+      }
+    }>
+  }
+}>(GET_SERVICE_CATEGORIES)
+
+const services = data.serviceCategories.data
 ---
 
 <Layout meta={meta}>
@@ -48,11 +72,11 @@ const services = [
 
       <div class="mt-8 grid flex-1 grid-cols-1 md:grid-cols-4 gap-0">
         {services.map((service) => (
-            <a href="/" class="group relative flex h-full items-end overflow-hidden">
+            <a href="/services/items" class="group relative flex h-full items-end overflow-hidden">
               {/* 背景圖片 */}
               <div
                   class="absolute top-0 left-0 h-full w-[120%] bg-center bg-cover transition-transform duration-[1200ms] ease-out group-hover:-translate-x-20"
-                  style={`background-image: url(${service.image})`}
+                  style={`background-image: url(${service.cover?.desktop || service.background?.desktop})`}
               />
                 {/* 漸層遮罩 */}
                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-t transition-opacity duration-500 group-hover:from-black/20" />
