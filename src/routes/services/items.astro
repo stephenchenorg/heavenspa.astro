@@ -8,9 +8,27 @@ import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
+// 取得 URL 參數
+const url = new URL(Astro.request.url)
+const currentPage = parseInt(url.searchParams.get('page') || '1', 10)
+const currentCategoryId = url.searchParams.get('category_id')
+
+const GET_SERVICE_CATEGORIES = gql`
+  query GetServiceCategories {
+    serviceCategories {
+      data {
+        id
+        title
+        sub_title
+        description
+      }
+    }
+  }
+`
+
 const GET_SERVICES = gql`
-  query MyQuery {
-    services(page: 1, per_page: 10, search: "") {
+  query GetServices($page: Int!, $per_page: Int!, $search: String, $category_id: Int) {
+    services(page: $page, per_page: $per_page, search: $search, category_id: $category_id) {
       data {
         content_1
         content_2
@@ -19,6 +37,7 @@ const GET_SERVICES = gql`
         cover
         title
         id
+        service_category_id
       }
       from
       has_more_pages
@@ -30,7 +49,25 @@ const GET_SERVICES = gql`
   }
 `
 
-const data = await graphQLAPI<{
+// 先取得分類資料
+const categoriesData = await graphQLAPI<{
+  serviceCategories: {
+    data: Array<{
+      id: string
+      title: string
+      sub_title: string
+      description: string
+    }>
+  }
+}>(GET_SERVICE_CATEGORIES)
+
+const categories = categoriesData.serviceCategories.data
+
+// 如果沒有指定分類，預設使用第一個分類
+const categoryId = currentCategoryId ? parseInt(currentCategoryId, 10) : (categories.length > 0 ? parseInt(categories[0].id, 10) : 1)
+
+// 取得服務資料
+const servicesData = await graphQLAPI<{
   services: {
     data: Array<{
       id: string
@@ -40,6 +77,7 @@ const data = await graphQLAPI<{
       content_3: string
       content_4: string
       cover: string
+      service_category_id: number
     }>
     from: number
     has_more_pages: boolean
@@ -48,9 +86,16 @@ const data = await graphQLAPI<{
     to: number
     total: number
   }
-}>(GET_SERVICES)
+}>(GET_SERVICES, {
+  variables: {
+    page: currentPage,
+    per_page: 10,
+    search: "",
+    category_id: categoryId
+  }
+})
 
-const services = data.services.data
+const services = servicesData.services.data
 
 const meta = seoMeta({
   title: '服務項目 - Heaven Spa',
@@ -65,26 +110,22 @@ const meta = seoMeta({
     <div class="max-w-6xl mx-auto w-full">
       <div class="mb-8">
         <ul class="flex justify-center flex-wrap text-sm font-medium text-center" id="default-tab" role="tablist">
-          <li class="me-2 border-b-2 border-transparent" role="presentation">
-            <button class="inline-block p-4 border-b-2 border-neutral-900 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
-              Profile
-            </button>
-          </li>
-          <li class="me-2 border-b-2 border-transparent" role="presentation">
-            <button class="inline-block p-4 border-b-2 border-transparent hover:border-neutral-900 rounded-t-lg transition-all duration-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">
-              Dashboard
-            </button>
-          </li>
-          <li class="me-2 border-b-2 border-transparent" role="presentation">
-            <button class="inline-block p-4 border-b-2 border-transparent hover:border-neutral-900 rounded-t-lg transition-all duration-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
-              Settings
-            </button>
-          </li>
-          <li class="border-b-2 border-transparent" role="presentation">
-            <button class="inline-block p-4 border-b-2 border-transparent hover:border-neutral-900 rounded-t-lg transition-all duration-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">
-              Contacts
-            </button>
-          </li>
+          {categories.map((category) => (
+            <li class="me-2" role="presentation">
+              <a
+                href={`?category_id=${category.id}&page=1`}
+                class={`inline-block p-4 border-b-2 rounded-t-lg transition-all duration-300 ${
+                  categoryId === parseInt(category.id, 10)
+                    ? 'border-neutral-900'
+                    : 'border-transparent hover:border-neutral-900'
+                }`}
+                role="tab"
+                aria-selected={categoryId === parseInt(category.id, 10)}
+              >
+                {category.title}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <!-- 服務網格 -->
@@ -128,16 +169,20 @@ const meta = seoMeta({
 
       <!-- 分頁器 -->
       <div class="flex justify-center items-center space-x-2">
-        {Array.from({ length: data.services.last_page }, (_, i) => (
-          <button
-            class="px-3 py-2 rounded-lg border transition-all duration-300"
-            style={i === 0
-                    ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
-                    : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {Array.from({ length: servicesData.services.last_page }, (_, i) => {
+          const pageNum = i + 1
+          return (
+            <a
+              href={`?category_id=${categoryId}&page=${pageNum}`}
+              class="px-3 py-2 rounded-lg border transition-all duration-300"
+              style={pageNum === currentPage
+                      ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                      : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+            >
+              {pageNum}
+            </a>
+          )
+        })}
       </div>
     </div>
 
