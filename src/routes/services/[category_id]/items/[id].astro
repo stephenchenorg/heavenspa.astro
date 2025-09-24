@@ -52,51 +52,121 @@ const meta = seoMeta({
     </section>
 
     <!-- 服務內容 -->
-    <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto px-4 py-8 ">
+      <!-- 三列佈局 -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-      <!-- 返回按鈕 -->
-      <div class="mb-8">
-        <a
-          href={`/services/${category_id}/items`}
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-        >
-          ← 返回 {service.category.title}
-        </a>
-      </div>
+        <!-- 左側：一般資訊 -->
+        <div class="lg:col-span-1 space-y-8">
 
-      <!-- 服務詳細內容 -->
-      <div class="prose prose-lg max-w-none">
+          <!-- 服務規格 -->
+          {service.specifications && service.specifications.length > 0 && (
+              <h2 class="text-xl font-bold mb-3 text-neutral-800 dark:text-neutral-600">服務方案</h2>
+              <div class="space-y-4">
+                {service.specifications.map((spec) => (
+                  <div class="p-4 transition-colors">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800">{spec.title}</h3>
+                    <div class="grid grid-cols-1 gap-2 text-sm">
+                      <div class="flex justify-between items-center py-1">
+                        <span class="text-neutral-800 dark:text-neutral-600">價格</span>
+                        <span class="font-medium text-neutral-800 dark:text-neutral-600 ">NT$ {spec.listing_price?.toLocaleString()}</span>
+                      </div>
+                      <div class="flex justify-between items-center py-1">
+                        <span class="text-neutral-800 dark:text-neutral-600">時間</span>
+                        <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.minutes} 分鐘</span>
+                      </div>
+                      <div class="flex justify-between items-center py-1">
+                        <span class="text-neutral-800 dark:text-neutral-600">堂數</span>
+                        <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.hall_count || '-'}</span>
+                      </div>
+                    </div>
+                    {spec.description && (
+                      <>
+                        <div class="my-3 h-px bg-neutral-200 dark:bg-neutral-300"></div>
+                        <p class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed">{spec.description}</p>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+          )}
 
-        {service.content_1 && (
-          <section class="mb-8">
-            <div class="text-gray-800 leading-relaxed whitespace-pre-line">
-              {service.content_1}
+          <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
+
+          <!-- 服務詳細內容 -->
+          <div class="space-y-6">
+
+              {service.content_1 && (
+                <div>
+                  <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                    詳細介紹 / 提醒說明
+                  </h3>
+                  <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                    {service.content_1}
+                  </div>
+                </div>
+              )}
+
+              {service.content_2 && (
+                <>
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
+                  <div>
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                      適合對象 / 膚況
+                    </h3>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                      {service.content_2}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {service.content_3 && (
+                <>
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
+                  <div>
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                      課程亮點
+                    </h3>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                      {service.content_3}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {service.content_4 && (
+                <>
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300"></div>
+                  <div>
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center">
+                      課程內容
+                    </h3>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4">
+                      {service.content_4}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
-          </section>
-        )}
+        </div>
 
-        {service.content_2 && (
-          <section class="mb-8">
-            <div class="text-gray-800 leading-relaxed whitespace-pre-line">
-              {service.content_2}
+        <!-- 右側：圖片直條式顯示 -->
+        {service.images && service.images.length > 0 && (
+          <div class="lg:col-span-2 space-y-4">
+            <div class="space-y-4">
+              {service.images.map((imageItem, index) => (
+                <div class="aspect-[4/3] overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                  <img
+                    src={imageItem.image.desktop}
+                    alt={`${service.title} 圖片 ${index + 1}`}
+                    class="w-full h-full object-cover  transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
-          </section>
-        )}
-
-        {service.content_3 && (
-          <section class="mb-8">
-            <div class="text-gray-800 leading-relaxed whitespace-pre-line">
-              {service.content_3}
-            </div>
-          </section>
-        )}
-
-        {service.content_4 && (
-          <section class="mb-8">
-            <div class="text-gray-800 leading-relaxed whitespace-pre-line">
-              {service.content_4}
-            </div>
-          </section>
+          </div>
         )}
       </div>
     </div>
@@ -116,4 +186,6 @@ const meta = seoMeta({
     margin-bottom: 1rem;
     line-height: 1.75;
   }
+
 </style>
+
