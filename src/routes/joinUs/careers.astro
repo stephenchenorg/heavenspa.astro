@@ -82,34 +82,31 @@ faqs = await getFaqList(40)
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                         <!-- Say Hello -->
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
-                            <div class="mb-3 sm:mb-4">
-                                <div class="relative">
+                            <div class="relative mb-3 sm:mb-4 w-4 h-6">
+                                <svg
+                                  class="w-6 h-6 sm:w-8 sm:h-8 mb-2"
+                                  style="color: var(--color-primary-500);"
+                                  fill="currentColor"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                >
+                                    <path d="M24 21h-24v-18h24v18zm-23-16.477v15.477h22v-15.477l-10.999 10-11.001-10zm21.089-.523h-20.176l10.088 9.171 10.088-9.171z"></path>
+                                </svg>
+                                <div class="absolute top-0 left-0">
                                     <svg
-                                      class="w-6 h-6 sm:w-8 sm:h-8 mb-2"
+                                      class="w-3 h-3 sm:w-4 sm:h-4"
                                       style="color: var(--color-primary-500);"
-                                      fill="currentColor"
-                                      viewBox="0 0 24 24"
                                       xmlns="http://www.w3.org/2000/svg"
-                                      fill-rule="evenodd"
-                                      clip-rule="evenodd"
+                                      viewBox="0 0 24 24"
+                                      fill="currentColor"
                                     >
-                                        <path d="M24 21h-24v-18h24v18zm-23-16.477v15.477h22v-15.477l-10.999 10-11.001-10zm21.089-.523h-20.176l10.088 9.171 10.088-9.171z"></path>
+                                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3.445 17.827c-3.684 1.684-9.401-9.43-5.8-11.308l1.053-.519 1.746 3.409-1.042.513c-1.095.587 1.185 5.04 2.305 4.497l1.032-.505 1.76 3.397-1.054.516z"></path>
                                     </svg>
-
-                                    <div class="absolute top-0 left-0">
-                                        <svg
-                                          class="w-3 h-3 sm:w-4 sm:h-4"
-                                          style="color: var(--color-primary-500);"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          viewBox="0 0 24 24"
-                                          fill="currentColor"
-                                        >
-                                            <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3.445 17.827c-3.684 1.684-9.401-9.43-5.8-11.308l1.053-.519 1.746 3.409-1.042.513c-1.095.587 1.185 5.04 2.305 4.497l1.032-.505 1.76 3.397-1.054.516z"></path>
-                                        </svg>
-                                    </div>
-                                    <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--color-primary-500);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
                                 </div>
                             </div>
+                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--color-primary-500);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div>
                                     <a
@@ -129,7 +126,7 @@ faqs = await getFaqList(40)
 
                         <!-- Location -->
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
-                            <div class="mb-3 sm:mb-4">
+                            <div class="relative mb-3 sm:mb-4 w-4 h-6">
                                 <svg
                                   class="w-6 h-6 sm:w-8 sm:h-8 mb-2"
                                   style="color: var(--color-primary-500);"
@@ -161,7 +158,6 @@ faqs = await getFaqList(40)
                 <div>
                     <!-- Google Maps -->
                     <div class="mb-6 lg:mb-0">
-                        <p class="font-normal mb-3 text-base sm:text-lg tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.mapTitle">{t('careers.mapTitle')}</p>
                         <div class="rounded-lg overflow-hidden" style="border: 2px solid var(--theme-border);">
                             <iframe
                               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.287123999033!2d121.5258937!3d25.058255700000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96bfd60fe63%3A0x54b492f3bcf5fd83!2z5Lqr5aSp5aCCIFNwYSBpbiBIZWF2ZW4gLSBTcGHmjInmkakv5a6i6KO95YyW6YGL5YuV5oyJ5pGpL-eUt-Wjq-eGseign-mZpOavmw!5e0!3m2!1szh-TW!2stw!4v1757748821828!5m2!1szh-TW!2stw"
