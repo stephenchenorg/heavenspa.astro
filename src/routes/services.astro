@@ -1,6 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
+import SectionTitle from "../components/ui/SectionTitle.astro";
 
 const meta = seoMeta({
   title: '服務項目 - Heaven Spa',
@@ -8,71 +9,61 @@ const meta = seoMeta({
 
 const services = [
   {
-    title: '極致芳療',
+    title: '男性按摩',
     description: '結合深層放鬆與花草芳香，讓身體與心靈沉浸於柔和療癒之中。',
     image:
-      'https://images.unsplash.com/photo-1615634260167-3aa4de9ad603?auto=format&fit=crop&w=1400&q=80',
+      'https://www.cosmo-br.com/archive/images/pcateCover/works_01.jpg',
   },
   {
-    title: '東方經絡',
-    description: '沿著經絡脈絡進行按壓與推揉，重新喚醒體內循環與活力。',
+    title: '女性按摩',
+    description: '結合深層放鬆與花草芳香，讓身體與心靈沉浸於柔和療癒之中。',
     image:
-      'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=80',
+      'https://www.cosmo-br.com/archive/images/pcateCover/works_01.jpg',
   },
   {
-    title: '晶石熱能',
+    title: '熱蠟除毛',
     description: '透過礦石熱能釋放深層熱度，舒緩肌肉緊繃並帶來溫暖包覆感。',
     image:
-      'https://images.unsplash.com/photo-1556228578-8c89e6adf28e?auto=format&fit=crop&w=1400&q=80',
+      'https://www.cosmo-br.com/archive/images/pcateCover/works_02.jpg',
+  },
+  {
+    title: '水飛梭',
+    description: '透過礦石熱能釋放深層熱度，舒緩肌肉緊繃並帶來溫暖包覆感。',
+    image:
+      'https://www.cosmo-br.com/archive/images/pcateCover/works_03.jpg',
   },
 ]
 ---
 
 <Layout meta={meta}>
-  <main class="pt-32 pb-12 w-full text-white">
+  <main class="pt-32 w-full text-white">
+
+    <!-- 標題區 -->
+    <SectionTitle title="服務項目" subtitle="Service" />
     <section
       class="w-full min-h-[calc(100vh-8rem)] flex flex-col"
       aria-label="服務項目列表"
     >
-      <div class="px-6 md:px-12 lg:px-16">
-        <p class="uppercase tracking-[0.4em] text-xs md:text-sm text-white/60">
-          Heaven Spa Services
-        </p>
-        <h1 class="mt-3 text-3xl md:text-5xl font-semibold">
-          服務項目
-        </h1>
-      </div>
 
-      <div class="mt-8 grid flex-1 grid-cols-1 md:grid-cols-3">
-        {services.map((service, index) => (
-          <article
-            class={`group relative flex h-full items-end overflow-hidden ${
-              index === 1 ? 'md:border-x border-white/10' : ''
-            }`}
-            :key={service.title}
-          >
-            <img
-              src={service.image}
-              alt={service.title}
-              loading="lazy"
-              class={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out ${
-                index % 2 === 0
-                  ? 'group-hover:translate-x-8'
-                  : 'group-hover:-translate-x-8'
-              }`}
-            />
 
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20 transition-opacity duration-500 group-hover:from-black/90" />
+      <div class="mt-8 grid flex-1 grid-cols-1 md:grid-cols-4 gap-0">
+        {services.map((service) => (
+            <a href="/" class="group relative flex h-full items-end overflow-hidden">
+              {/* 背景圖片 */}
+              <div
+                  class="absolute top-0 left-0 h-full w-[120%] bg-center bg-cover transition-transform duration-[1200ms] ease-out group-hover:-translate-x-20"
+                  style={`background-image: url(${service.image})`}
+              />
+                {/* 漸層遮罩 */}
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t transition-opacity duration-500 group-hover:from-black/20" />
 
-            <div class="relative z-[1] flex w-full flex-col gap-4 p-8 md:p-10">
-              <p class="text-sm text-white/60 md:text-base">
-                {service.description}
-              </p>
-              <p class="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
-                {service.title}
-              </p>
-            </div>
-          </article>
+                {/* 文字內容 */}
+                <div class="relative z-[1] flex w-full flex-col gap-4 p-8 md:p-10 justify-between h-full">
+                  <p class="text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">{service.title}</p>
+                  <p class="text-sm text-white/60 font-bold">{service.description}</p>
+
+                </div>
+            </a>
         ))}
       </div>
     </section>
