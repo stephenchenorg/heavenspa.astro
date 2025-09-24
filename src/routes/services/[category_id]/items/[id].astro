@@ -2,15 +2,12 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
-
-const t = await createNestedT()
 
 // 取得路由參數
 const { category_id, id } = Astro.params
 
 // 取得服務詳細資料
-const serviceData = await getServiceDetail(parseInt(id!, 10))
+const serviceData = await getServiceDetail(Number.parseInt(id!, 10))
 const service = serviceData.service
 
 const meta = seoMeta({
@@ -205,33 +202,32 @@ const meta = seoMeta({
   // 動畫觀察器
   const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -10% 0px'
-  };
+    rootMargin: '0px 0px -10% 0px',
+}
 
-  const animateElements = () => {
-    const elements = document.querySelectorAll('[data-animate-in]');
+  function animateElements() {
+  const elements = document.querySelectorAll('[data-animate-in]')
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view')
+        observer.unobserve(entry.target)
+      }
+    })
+  }, observerOptions)
 
-    elements.forEach(el => observer.observe(el));
-  };
+  elements.forEach(el => observer.observe(el))
+}
 
   // 頁面載入後啟動動畫
   document.addEventListener('DOMContentLoaded', () => {
     // 延遲一點啟動動畫，讓頁面渲染完成
-    setTimeout(animateElements, 100);
-  });
+    setTimeout(animateElements, 100)
+})
 
   // 如果頁面已經載入完成（快取情況）
   if (document.readyState === 'complete') {
-    setTimeout(animateElements, 100);
-  }
+    setTimeout(animateElements, 100)
+}
 </script>
-

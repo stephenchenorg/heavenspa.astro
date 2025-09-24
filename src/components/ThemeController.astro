@@ -53,7 +53,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     // Use querySelectorAll to handle multiple theme toggle buttons (desktop + mobile)
     const themeToggles = document.querySelectorAll('#theme-toggle')
-    const body = document.body
 
     // Get saved theme or default to light
     let currentTheme = localStorage.getItem('theme') || 'light'
@@ -75,92 +74,13 @@
       })
     })
 
-    function applyTheme(theme) {
-      const html = document.documentElement;
-      if (theme === 'dark') {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
+    function applyTheme(theme: string) {
+      const html = document.documentElement
+    if (theme === 'dark') {
+        html.classList.add('dark')
+    } else {
+        html.classList.remove('dark')
     }
-
-    function updateThemeIcons(theme: string) {
-      // Update icons for all theme toggle buttons
-      themeToggles.forEach(themeToggle => {
-        const lightIcon = themeToggle?.querySelector('svg:first-child')
-        const darkIcon = themeToggle?.querySelector('svg:last-child')
-
-        if (theme === 'dark') {
-          // Show moon icon (dark theme active)
-          lightIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100')
-          lightIcon?.classList.add('opacity-0', '-rotate-90', 'scale-75')
-
-          darkIcon?.classList.remove('opacity-0', 'rotate-90', 'scale-75')
-          darkIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100')
-        } else {
-          // Show sun icon (light theme active)
-          lightIcon?.classList.remove('opacity-0', '-rotate-90', 'scale-75')
-          lightIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100')
-
-          darkIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100')
-          darkIcon?.classList.add('opacity-0', 'rotate-90', 'scale-75')
-        }
-      })
-    }
-
-    function updateAllSections(theme: string) {
-      // Update all major sections
-      const sections = document.querySelectorAll('section, footer, header')
-      sections.forEach(section => {
-        const htmlSection = section as HTMLElement
-
-        // Skip IntroSection - it has its own theme handling
-        if (htmlSection.id === 'intro') {
-          return
-        }
-
-        if (theme === 'dark') {
-          // Apply dark theme styles
-          htmlSection.style.background = 'var(--theme-bg, #000000)'
-          htmlSection.style.color = 'var(--theme-text, #ffffff)'
-        } else {
-          // Apply light theme styles
-          htmlSection.style.background = 'var(--theme-bg, #ffffff)'
-          htmlSection.style.color = 'var(--theme-text, #000000)'
-        }
-      })
-
-      // Update text elements (excluding elements with text-black class which should stay black)
-      const textElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div')
-      textElements.forEach(element => {
-        const htmlElement = element as HTMLElement
-
-        // Skip elements with text-black class - they should remain black
-        if (element.classList.contains('text-black')) {
-          return
-        }
-
-      if (theme === 'dark') {
-          if (htmlElement.style.color === 'rgb(0, 0, 0)') {
-            htmlElement.style.color = 'var(--theme-text, #ffffff)'
-          }
-          if (htmlElement.style.color === 'rgb(102, 102, 102)' || element.classList.contains('text-neutral-600')) {
-            htmlElement.style.color = 'var(--theme-text-secondary, #cccccc)'
-          }
-        } else {
-          if (htmlElement.style.color === 'var(--theme-text, #ffffff)') {
-            htmlElement.style.color = 'var(--theme-text, #000000)'
-          }
-          if (htmlElement.style.color === 'var(--theme-text-secondary, #cccccc)') {
-            htmlElement.style.color = 'var(--theme-text-secondary, #666666)'
-          }
-        }
-      })
-
-      // Trigger custom event for components to update
-      document.dispatchEvent(new CustomEvent('themeChanged', {
-        detail: { theme },
-    }))
     }
 
     // Handle keyboard shortcuts (Ctrl+Shift+T for quick toggle)

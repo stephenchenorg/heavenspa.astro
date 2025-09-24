@@ -1,8 +1,5 @@
 ---
-import { createNestedT } from '@/utils/i18n'
 import Button from '@/components/ui/Button.astro'
-
-const t = await createNestedT()
 ---
 
 <section
@@ -113,8 +110,8 @@ const t = await createNestedT()
     if (!animatedElements.length) return
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             // 檢查是否是背景文字容器
             const isBgText = entry.target.closest('.intro-bg-text')
@@ -122,16 +119,18 @@ const t = await createNestedT()
             if (isBgText) {
               // 階段式觸發背景文字動畫
               const container = entry.target.closest('.intro-bg-text')
-              const textElements = container.querySelectorAll('div[data-animate-in]')
+              if (container) {
+                const textElements = container.querySelectorAll('div[data-animate-in]')
 
-              textElements.forEach((element, index) => {
-                setTimeout(() => {
-                  element.classList.add('in-view')
-                }, index * 200)
-              })
+                textElements.forEach((element, index) => {
+                  setTimeout(() => {
+                    element.classList.add('in-view')
+                  }, index * 200)
+                })
 
-              // 取消觀察所有背景文字元素
-              textElements.forEach(el => observer.unobserve(el))
+                // 取消觀察所有背景文字元素
+                textElements.forEach(el => observer.unobserve(el))
+              }
             } else {
               // 一般動畫元素
               entry.target.classList.add('in-view')
@@ -142,11 +141,11 @@ const t = await createNestedT()
       },
       {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+        rootMargin: '0px 0px -50px 0px',
+    }
     )
 
-    animatedElements.forEach((element) => {
+    animatedElements.forEach(element => {
       observer.observe(element)
     })
   }

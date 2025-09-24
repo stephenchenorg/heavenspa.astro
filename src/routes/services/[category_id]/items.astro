@@ -1,9 +1,8 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import { getServices } from '@/api/services'
 import { getServiceCategories } from '@/api/serviceCategories'
+import { getServices } from '@/api/services'
 import Button from '@/components/ui/Button.astro'
-import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 
@@ -12,7 +11,7 @@ const t = await createNestedT()
 // 取得路由參數
 const { category_id } = Astro.params
 const url = new URL(Astro.request.url)
-const currentPage = parseInt(url.searchParams.get('page') || '1', 10)
+const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 
 // 先取得分類資料
 const categoriesData = await getServiceCategories()
@@ -20,13 +19,13 @@ const categoriesData = await getServiceCategories()
 const categories = categoriesData.serviceCategories.data
 
 // 使用路由參數中的 category_id
-const categoryId = category_id ? parseInt(category_id, 10) : (categories.length > 0 ? parseInt(categories[0].id, 10) : 1)
+const categoryId = category_id ? Number.parseInt(category_id, 10) : (categories.length > 0 ? Number.parseInt(categories[0].id, 10) : 1)
 
 // 找到當前分類
-const currentCategory = categories.find(cat => parseInt(cat.id, 10) === categoryId) || categories[0]
+const currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === categoryId) || categories[0]
 
 // 取得服務資料
-const servicesData = await getServices(categoryId, currentPage, 10, "")
+const servicesData = await getServices(categoryId, currentPage, 10, '')
 const services = servicesData.services.data
 
 const meta = seoMeta({
@@ -68,17 +67,17 @@ const meta = seoMeta({
     <div class="max-w-6xl mx-auto w-full">
       <div class="mb-8">
         <ul class="flex justify-center flex-wrap text-sm font-medium text-center" id="default-tab" role="tablist">
-          {categories.map((category) => (
+          {categories.map(category => (
             <li class="me-2" role="presentation">
               <a
                 href={`/services/${category.id}/items`}
                 class={`inline-block p-4 border-b-2 rounded-t-lg transition-all duration-300 ${
-                  categoryId === parseInt(category.id, 10)
+                  categoryId === Number.parseInt(category.id, 10)
                     ? 'border-neutral-900'
                     : 'border-transparent hover:border-neutral-900'
                 }`}
                 role="tab"
-                aria-selected={categoryId === parseInt(category.id, 10)}
+                aria-selected={categoryId === Number.parseInt(category.id, 10)}
               >
                 {category.title}
               </a>
@@ -90,7 +89,8 @@ const meta = seoMeta({
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
         {services.map(service => (
           <div class="group cursor-pointer transform transition-transform duration-700
-                hover:scale-95 active:scale-90 relative backdrop-blur-sm overflow-hidden w-full flex flex-col">
+                hover:scale-95 active:scale-90 relative backdrop-blur-sm overflow-hidden w-full flex flex-col"
+          >
             <a href={`/services/${categoryId}/items/${service.id}`} class="flex flex-col">
               <!-- 上半部：封面圖 -->
               <div class="relative w-full overflow-hidden aspect-[5/6]">

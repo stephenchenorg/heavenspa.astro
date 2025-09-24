@@ -2,12 +2,12 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getBanners } from '@/api/banners'
 import { getCourse } from '@/api/courses'
-import ServiceSection from '@/components/ServiceSection.astro'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
+import ServiceSection from '@/components/ServiceSection.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
-import IntroSection from "../components/IntroSection.astro";
+import IntroSection from '../components/IntroSection.astro'
 
 // 獲取 banners 資料
 const banners = await getBanners()

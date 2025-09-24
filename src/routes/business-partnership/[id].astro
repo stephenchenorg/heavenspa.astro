@@ -39,9 +39,9 @@ const meta = seoMeta({
     <section class="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[1920/600] overflow-hidden pt-20">
         <div class="absolute inset-0">
             <img
-                    src={partnership.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
-                    alt={partnership.title}
-                    class="object-cover w-full h-full"
+              src={partnership.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
+              alt={partnership.title}
+              class="object-cover w-full h-full"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
         </div>
@@ -60,10 +60,10 @@ const meta = seoMeta({
                     <div class="flex items-center justify-center space-x-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                             />
                         </svg>
                         <span>{new Date(partnership.started_at || new Date()).toLocaleDateString('zh-TW')}</span>
@@ -74,10 +74,10 @@ const meta = seoMeta({
                             <div class="flex items-center justify-center space-x-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                     />
                                 </svg>
                                 <span>{partnership.author}</span>
@@ -355,7 +355,6 @@ const meta = seoMeta({
 
             // Initialize dots
             generateDots()
-            const dots = document.querySelectorAll('.carousel-dot')
 
             // Hide navigation if only one slide
             if (totalSlides <= 1) {

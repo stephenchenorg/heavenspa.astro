@@ -168,7 +168,7 @@ const { faqs } = Astro.props
             expandAnimation.addEventListener('finish', () => {
                 if (content) {
                     // 內容淡入
-                    const fadeInAnimation = content.animate(
+                    content.animate(
                         [
                             { opacity: 0 },
                             { opacity: 1 },
@@ -214,7 +214,7 @@ const { faqs } = Astro.props
             }
 
             // 高度收合動畫
-            const collapseAnimation = element.animate(
+            element.animate(
                 [
                     { maxHeight: `${currentHeight}px` },
                     { maxHeight: '0px' },

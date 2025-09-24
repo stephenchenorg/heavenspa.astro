@@ -1,8 +1,8 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
-import Layout from '@/layouts/Layout.astro'
 import { getServiceCategories } from '@/api/serviceCategories'
-import SectionTitle from "../../components/ui/SectionTitle.astro";
+import Layout from '@/layouts/Layout.astro'
+import SectionTitle from '../../components/ui/SectionTitle.astro'
 
 const meta = seoMeta({
   title: '服務項目 - Heaven Spa',
@@ -22,12 +22,12 @@ const services = data.serviceCategories.data
       aria-label="服務項目列表"
     >
       <div class="mt-8 grid flex-1 grid-cols-1 md:grid-cols-4 gap-0">
-        {services.map((service) => (
+        {services.map(service => (
             <a href={`/services/${service.id}/items`} class="group relative flex h-full items-end overflow-hidden">
               {/* 背景圖片 */}
               <div
-                  class="absolute top-0 left-0 h-full w-[120%] bg-center bg-cover transition-transform duration-[1200ms] ease-out group-hover:-translate-x-20"
-                  style={`background-image: url(${service.cover?.desktop})`}
+                class="absolute top-0 left-0 h-full w-[120%] bg-center bg-cover transition-transform duration-[1200ms] ease-out group-hover:-translate-x-20"
+                style={`background-image: url(${service.cover?.desktop})`}
               />
                 {/* 漸層遮罩 */}
                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-t transition-opacity duration-500 group-hover:from-black/20" />

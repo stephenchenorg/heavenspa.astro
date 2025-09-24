@@ -3,9 +3,6 @@ import { getLocale } from 'i18n:astro'
 
 const currentLocale = getLocale()
 
-// 根據當前語系決定顯示文字
-const isZhTW = currentLocale === 'zh-TW'
-const displayText = isZhTW ? 'TW' : 'En'
 ---
 
 <div class="language-switcher flex">

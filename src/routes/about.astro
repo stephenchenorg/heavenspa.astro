@@ -450,8 +450,8 @@ const meta = seoMeta({
     if (!animatedElements.length) return
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             // 檢查是否是 intro 文字段落
             const isIntroText = entry.target.closest('.intro-text-container')
@@ -459,16 +459,18 @@ const meta = seoMeta({
             if (isIntroText) {
               // 階段式觸發 intro 文字動畫
               const container = entry.target.closest('.intro-text-container')
-              const paragraphs = container.querySelectorAll('p[data-animate-in]')
+              if (container) {
+                const paragraphs = container.querySelectorAll('p[data-animate-in]')
 
-              paragraphs.forEach((p, index) => {
-                setTimeout(() => {
-                  p.classList.add('in-view')
-                }, index * 200) // 每個段落延遲 200ms
-              })
+                paragraphs.forEach((p, index) => {
+                  setTimeout(() => {
+                    p.classList.add('in-view')
+                  }, index * 200) // 每個段落延遲 200ms
+                })
 
-              // 取消觀察所有 intro 段落
-              paragraphs.forEach(p => observer.unobserve(p))
+                // 取消觀察所有 intro 段落
+                paragraphs.forEach(p => observer.unobserve(p))
+              }
             } else {
               // 一般動畫元素
               entry.target.classList.add('in-view')
@@ -479,11 +481,11 @@ const meta = seoMeta({
       },
       {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+        rootMargin: '0px 0px -50px 0px',
+    }
     )
 
-    animatedElements.forEach((element) => {
+    animatedElements.forEach(element => {
       observer.observe(element)
     })
   }
@@ -519,6 +521,7 @@ const meta = seoMeta({
 
     // 計算輪播內容的中心位置
     function updateButtonPositions() {
+      if (!carousel) return
       const carouselRect = carousel.getBoundingClientRect()
       const firstSlide = slides[0]
 
@@ -527,10 +530,16 @@ const meta = seoMeta({
         const slideCenter = slideRect.top + slideRect.height / 2 - carouselRect.top
 
         // 設置按鈕位置
-        prevBtn.style.top = `${slideCenter}px`
-        nextBtn.style.top = `${slideCenter}px`
-        prevBtn.style.transform = 'translateY(-50%)'
-        nextBtn.style.transform = 'translateY(-50%)'
+        if (prevBtn) {
+          const prevBtnElement = prevBtn as HTMLElement
+          prevBtnElement.style.top = `${slideCenter}px`
+          prevBtnElement.style.transform = 'translateY(-50%)'
+        }
+        if (nextBtn) {
+          const nextBtnElement = nextBtn as HTMLElement
+          nextBtnElement.style.top = `${slideCenter}px`
+          nextBtnElement.style.transform = 'translateY(-50%)'
+        }
       }
     }
 

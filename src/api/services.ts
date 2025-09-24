@@ -27,7 +27,7 @@ export async function getServices(
   categoryId: number,
   page: number = 1,
   perPage: number = 10,
-  search: string = ""
+  search: string = ''
 ): Promise<ServicesResponse> {
   try {
     const res = await graphQLAPI<ServicesResponse>(gql`
@@ -54,10 +54,10 @@ export async function getServices(
     `, {
       variables: {
         category_id: categoryId,
-        page: page,
+        page,
         per_page: perPage,
-        search: search || ""
-      }
+        search: search || '',
+      },
     })
 
     return res
@@ -72,8 +72,8 @@ export async function getServices(
         per_page: perPage,
         to: 0,
         total: 0,
-        from: 0
-      }
+        from: 0,
+      },
     }
   }
 }

@@ -1,10 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
-
-const t = await createNestedT()
 
 const meta = seoMeta({
     title: `技能培訓 - Heaven Spa`,
@@ -391,7 +388,10 @@ const meta = seoMeta({
 
                         <!-- CTA Section -->
                         <div class="pt-[50px] px-[5%]">
-                            <a href="https://page.line.me/284pgmle?openQrModal=true" target="_blank" class="cta_03 relative block w-[380px] text-white py-[45px] px-[3%] mx-auto text-center z-10
+                            <a
+                              href="https://page.line.me/284pgmle?openQrModal=true"
+                              target="_blank"
+                              class="cta_03 relative block w-[380px] text-white py-[45px] px-[3%] mx-auto text-center z-10
              overflow-hidden
              before:content-[''] before:absolute before:z-[-1]
              before:border before:border-primary-600
