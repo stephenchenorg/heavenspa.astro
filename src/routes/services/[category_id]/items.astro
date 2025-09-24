@@ -45,7 +45,7 @@ const meta = seoMeta({
         <!-- 背景圖片 -->
         <div
           class="absolute inset-0 bg-cover bg-center"
-          style={`background-image: url('${currentCategory.cover?.desktop || currentCategory.background?.desktop}')`}
+          style={`background-image: url('${currentCategory.background?.desktop}')`}
         >
         </div>
         <!-- 漸層遮罩 -->
@@ -97,7 +97,7 @@ const meta = seoMeta({
                 <!-- Background Image -->
                 <div
                   class="absolute inset-0 bg-cover bg-center"
-                  style={`background-image: url('${service.cover || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                  style={`background-image: url('${service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
                 >
                 </div>
                 <!-- Base Overlay for better text readability -->

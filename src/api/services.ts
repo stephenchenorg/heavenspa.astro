@@ -3,7 +3,12 @@ import { gql, graphQLAPI } from '@/api/index'
 export interface Service {
   id: string
   title: string
-  cover: string
+  cover: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
 }
 
 export interface ServicesResponse {
@@ -29,7 +34,12 @@ export async function getServices(
       query GetServices($category_id: Int, $page: Int, $per_page: Int, $search: String) {
         services(category_id: $category_id, page: $page, per_page: $per_page, search: $search) {
           data {
-            cover
+          cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
             id
             title
           }

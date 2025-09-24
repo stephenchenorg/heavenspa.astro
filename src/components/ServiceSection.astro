@@ -1,21 +1,19 @@
 ---
-import type { Course } from '@/api/courses'
+import { getServiceCategories } from '@/api/serviceCategories'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createNestedT } from '@/utils/i18n'
 
 const t = await createNestedT()
 
-interface Props {
-  courses: Course[]
-}
-const { courses } = Astro.props as Props
+const data = await getServiceCategories()
+const services = data.serviceCategories.data
 
 ---
 
 <section
   class="section-container-index"
-  id="courses"
-  data-section="courses"
+  id="services"
+  data-section="services"
 >
 
   <!-- Section Title -->
@@ -25,10 +23,10 @@ const { courses } = Astro.props as Props
   <div class="max-w-7xl mx-auto w-full mt-8">
     <div class="relative overflow-x-hidden overflow-y-visible">
       <!-- 整個區塊輪播容器 -->
-      <div class="flex transition-transform duration-500 ease-in-out" id="course-sections-container">
+      <div class="flex transition-transform duration-500 ease-in-out" id="service-sections-container">
 
-        {courses.map((course, index) => (
-          <div class="min-w-full max-w-full flex-shrink-0 min-h-[540px] lg:min-h-[480px] overflow-x-hidden" data-course={index.toString()}>
+        {services.map((service, index) => (
+          <div class="min-w-full max-w-full flex-shrink-0 min-h-[540px] lg:min-h-[480px] overflow-x-hidden" data-service={index.toString()}>
             <!-- Course Content - 置中重疊佈局 -->
             <div class="relative max-w-5xl mx-auto px-4 pb-32 lg:pb-0">
 
@@ -36,8 +34,8 @@ const { courses } = Astro.props as Props
               <div class="flex justify-center lg:justify-end max-w-full overflow-hidden">
                 <div class="relative h-[400px] lg:h-[480px] w-full lg:w-[700px] overflow-hidden rounded-3xl shadow-2xl">
                   <img
-                    src={course?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
-                    alt={course?.subtitle || t('courses.service-intro')}
+                    src={service?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
+                    alt={service?.sub_title || t('courses.service-intro')}
                     class="w-full h-full object-cover transition-transform duration-700"
                     loading="lazy"
                   />
@@ -49,10 +47,10 @@ const { courses } = Astro.props as Props
                 <div class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-6 lg:p-8 text-center shadow-xl h-[200px] lg:h-[280px] flex flex-col justify-center">
                   <div class="space-y-4">
                     <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide">
-                      {course.title}
+                      {service.title}
                     </h3>
                     <p class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed">
-                      {course.subtitle}
+                      {service.sub_title}
                     </p>
 
                     <!-- CTA Button -->
@@ -76,7 +74,7 @@ const { courses } = Astro.props as Props
         class="absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
         style="top: 50%; transform: translateY(-50%);"
         aria-label="上一頁"
-        id="prev-course"
+        id="prev-service"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -86,7 +84,7 @@ const { courses } = Astro.props as Props
         class="absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
         style="top: 50%; transform: translateY(-50%);"
         aria-label="下一頁"
-        id="next-course"
+        id="next-service"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -97,23 +95,23 @@ const { courses } = Astro.props as Props
   </div>
 </section>
 
-<script is:inline define:vars={{ courses }}>
+<script is:inline define:vars={{ services }}>
   // Course data from API
-  // @ts-ignore - courses is passed from Astro define:vars
-  const coursesData = courses || []
+  // @ts-ignore - services is passed from Astro define:vars
+  const servicesData = services || []
 
   let currentCourseIndex = 0
 
   // DOM ready
   document.addEventListener('DOMContentLoaded', () => {
-    const prevButton = document.getElementById('prev-course')
-    const nextButton = document.getElementById('next-course')
-    const sectionsContainer = document.getElementById('course-sections-container')
+    const prevButton = document.getElementById('prev-service')
+    const nextButton = document.getElementById('next-service')
+    const sectionsContainer = document.getElementById('service-sections-container')
 
-    // Update course display
+    // Update service display
     function updateCourse(index) {
-      const course = coursesData[index]
-      if (!course) return
+      const service = servicesData[index]
+      if (!service) return
 
       // Slide entire sections container
       if (sectionsContainer) {
@@ -133,14 +131,14 @@ const { courses } = Astro.props as Props
     // Navigation events - 循環播放
     if (prevButton) {
       prevButton.addEventListener('click', () => {
-        currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : coursesData.length - 1
+        currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : servicesData.length - 1
         updateCourse(currentCourseIndex)
       })
     }
 
     if (nextButton) {
       nextButton.addEventListener('click', () => {
-        currentCourseIndex = currentCourseIndex < coursesData.length - 1 ? currentCourseIndex + 1 : 0
+        currentCourseIndex = currentCourseIndex < servicesData.length - 1 ? currentCourseIndex + 1 : 0
         updateCourse(currentCourseIndex)
       })
     }
@@ -177,10 +175,10 @@ const { courses } = Astro.props as Props
 
         if (diff > threshold) {
           // 向右滑動 - 上一張 (循環)
-          currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : coursesData.length - 1
+          currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : servicesData.length - 1
         } else if (diff < -threshold) {
           // 向左滑動 - 下一張 (循環)
-          currentCourseIndex = currentCourseIndex < coursesData.length - 1 ? currentCourseIndex + 1 : 0
+          currentCourseIndex = currentCourseIndex < servicesData.length - 1 ? currentCourseIndex + 1 : 0
         }
 
         updateCourse(currentCourseIndex)
@@ -215,10 +213,10 @@ const { courses } = Astro.props as Props
 
         if (diff > threshold) {
           // 向右拖動 - 上一張 (循環)
-          currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : coursesData.length - 1
+          currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : servicesData.length - 1
         } else if (diff < -threshold) {
           // 向左拖動 - 下一張 (循環)
-          currentCourseIndex = currentCourseIndex < coursesData.length - 1 ? currentCourseIndex + 1 : 0
+          currentCourseIndex = currentCourseIndex < servicesData.length - 1 ? currentCourseIndex + 1 : 0
         }
 
         updateCourse(currentCourseIndex)
@@ -241,7 +239,7 @@ const { courses } = Astro.props as Props
     let autoPlayInterval
     const startAutoPlay = () => {
       autoPlayInterval = setInterval(() => {
-        currentCourseIndex = (currentCourseIndex + 1) % coursesData.length
+        currentCourseIndex = (currentCourseIndex + 1) % servicesData.length
         updateCourse(currentCourseIndex)
       }, 5000)
     }
@@ -256,10 +254,10 @@ const { courses } = Astro.props as Props
     startAutoPlay()
 
     // Pause auto-play on hover
-    const courseSection = document.getElementById('courses')
-    if (courseSection) {
-      courseSection.addEventListener('mouseenter', stopAutoPlay)
-      courseSection.addEventListener('mouseleave', startAutoPlay)
+    const serviceSection = document.getElementById('services')
+    if (serviceSection) {
+      serviceSection.addEventListener('mouseenter', stopAutoPlay)
+      serviceSection.addEventListener('mouseleave', startAutoPlay)
     }
 
     // Initialize
@@ -269,12 +267,12 @@ const { courses } = Astro.props as Props
 
 <style>
   /* Smooth transitions for all elements */
-  #course-image {
+  #service-image {
     transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Course sections container */
-  #course-sections-container {
+  #service-sections-container {
     transition: transform 0.5s ease-in-out;
     user-select: none;
     -webkit-user-select: none;
@@ -282,15 +280,15 @@ const { courses } = Astro.props as Props
     -ms-user-select: none;
   }
 
-  /* Individual course cards */
-  .course-card {
+  /* Individual service cards */
+  .service-card {
     flex-shrink: 0;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
 
-  .course-card:hover {
+  .service-card:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   }
@@ -326,8 +324,8 @@ const { courses } = Astro.props as Props
 
   /* Touch-friendly navigation buttons */
   @media (max-width: 768px) {
-    #prev-course,
-    #next-course {
+    #prev-service,
+    #next-service {
       width: 44px;
       height: 44px;
       touch-action: manipulation;

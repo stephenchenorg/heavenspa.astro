@@ -26,7 +26,7 @@ export interface ServiceCategoriesResponse {
 }
 
 export async function getServiceCategories(): Promise<ServiceCategoriesResponse> {
-  const res = await graphQLAPI<ServiceCategoriesResponse>(gql`
+  return await graphQLAPI<ServiceCategoriesResponse>(gql`
     query MyQuery {
       serviceCategories {
         data {
@@ -50,6 +50,4 @@ export async function getServiceCategories(): Promise<ServiceCategoriesResponse>
       }
     }
   `)
-
-  return res
 }
