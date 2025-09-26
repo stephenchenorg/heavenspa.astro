@@ -1,11 +1,27 @@
 import type { TeamMember, TeamsResponse } from '@/types'
 import { gql, graphQLAPI } from './index'
 
-export async function getAllTeams(lang?: string): Promise<TeamMember[]> {
+export async function getAllTeams(type: number): Promise<TeamMember[]> {
+  const filters: Record<string, boolean> = {}
+
+  if (type === 20) {
+    filters.is_works = true
+  }
+  if (type === 30) {
+    filters.is_years = true
+  }
+  if (type === 40) {
+    filters.is_hottest = true
+  }
+
+  const filterParams = Object.keys(filters).length > 0
+    ? `, ${Object.entries(filters).map(([key, value]) => `${key}: ${value}`).join(', ')}`
+    : ''
+
   try {
     const { teams } = await graphQLAPI<TeamsResponse>(gql`
       query MyQuery {
-        teams(sort_by: "asc", sort_column: "sort") {
+        teams(sort_by: "asc", sort_column: "sort"${filterParams}) {
           data {
             content
             id
@@ -59,7 +75,7 @@ export async function getAllTeams(lang?: string): Promise<TeamMember[]> {
           }
         }
       }
-    `, { locale: lang })
+    `)
     return teams.data || []
   } catch (error) {
     console.error('Failed to fetch all teams:', error)

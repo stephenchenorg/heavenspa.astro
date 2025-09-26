@@ -9,21 +9,21 @@ import TeamCard from '../../components/ui/TeamCard.astro'
 
 const t = await createNestedT()
 
-// 建立翻譯函式
+const url = new URL(Astro.request.url)
+const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
+const selectedType = Number.parseInt(url.searchParams.get('type') || '10')
 
 // 獲取所有團隊成員
 let teamMembers: TeamMember[] = []
 const types = [
-  { id: 10, title: '全部' },
+  { id: 10, title: '團隊一覽 / Masseurs' },
   { id: 20, title: '今日可預約 / Today Available' },
-  { id: 30, title: '團隊一覽 / Masseurs' },
-  { id: 40, title: '新人 / Coming Now' },
-  { id: 50, title: '本週推薦 / Recommended' },
+  { id: 30, title: '新人 / Coming Now' },
+  { id: 40, title: '本週推薦 / Recommended' },
 ]
-const selectedCategoryId = 10
 
 try {
-  teamMembers = await getAllTeams((Astro.locals as any).locale)
+  teamMembers = await getAllTeams(selectedType)
   console.warn('teamMembers >> ', teamMembers.length)
 } catch (error) {
   console.error('Failed to fetch team members:', error)
@@ -51,13 +51,13 @@ const meta = seoMeta({
                 style=" border-radius: 12px; padding: 8px;"
               >
                 <div class="flex gap-2 justify-center min-w-max">
-                  {types.map(category => (
+                  {types.map(type => (
                       <a
-                        href={`?category_id=${category.id}`}
-                        class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedCategoryId === category.id ? 'active' : ''}`}
-                        style={selectedCategoryId === category.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                        href={`?type=${type.id}`}
+                        class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedType === type.id ? 'active' : ''}`}
+                        style={selectedType === type.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
                       >
-                        {category.title}
+                        {type.title}
                       </a>
                   ))}
                 </div>
