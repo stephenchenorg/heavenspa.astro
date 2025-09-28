@@ -183,8 +183,13 @@
     "terms-of-service": "Terms of Service"
   },
   "intro": {
-    "headline": "Committed to becoming a world-class manufacturing service integrator and a sustainable business enterprise with continuous growth",
-    "description": "With rigorous management thinking, rich industry and marketing experience, flexible regional layout, innovative design and development, global information integration, market trend analysis and other capabilities, we have become the leader in Taiwan's garment industry and the main partner of major fashion brands and retailers in the United States, Japan, Europe and Taiwan, occupying a key position in the global garment industry value chain."
+    "heading": "Committed to becoming a world-class beauty service integrator and a sustainable enterprise with continuous growth",
+    "description": "Heaven Spa possesses rigorous management thinking, rich beauty industry and marketing experience, flexible service layout, innovative care research and development, global technology integration, market trend analysis and many other capabilities, making Heaven Spa a leader in Taiwan's beauty industry and a major partner of major beauty brands and retailers, gaining a key position among the many beauty industries worldwide.",
+    "buttons": {
+      "learnMore": "Learn More",
+      "viewServices": "View Services"
+    },
+    "backgroundText": "intro"
   },
   "careers": {
     "title": "Recruitment",
@@ -246,5 +251,55 @@
     },
     "loading": "Loading..."
   },
-  "contact": "CONTACT"
+  "contact": "CONTACT",
+  "about": {
+    "pageTitle": "About - Heaven Spa",
+    "sectionTitle": "About",
+    "sectionSubtitle": "About",
+    "hero": {
+      "title": "About",
+      "location": "Taipei",
+      "author": "John Doe",
+      "tag": "tag1"
+    },
+    "heaven": {
+      "title": "This Place is Like Your Paradise",
+      "description": "Nowadays, we are under pressure from all sides and often cannot enjoy freedom. However, Heaven Spa sincerely hopes that through our comprehensive care including Spa massage, facial care, and hot wax hair removal, you can regain peace and relaxation during your brief time here. After entering the store, we hope you can let go of all stress and constraints, like a fish swimming freely in the ocean, enjoying your own tranquility. When you are tired, you can hide in the deep sea reefs to find your own private space. Let Heaven Spa be your haven."
+    },
+    "services": {
+      "beauty": {
+        "title": "Beauty Care",
+        "description": "Professional beauty care services"
+      },
+      "massage": {
+        "title": "Massage Therapy",
+        "description": "Stress relief and relaxation massage services"
+      },
+      "aromatherapy": {
+        "title": "Aromatherapy",
+        "description": "Essential oil aromatherapy"
+      },
+      "bodycare": {
+        "title": "Body Care",
+        "description": "Full body beauty care"
+      },
+      "nail": {
+        "title": "Nail Care",
+        "description": "Professional nail services"
+      },
+      "relax": {
+        "title": "Relaxation Therapy",
+        "description": "Deep relaxation experience"
+      }
+    },
+    "environment": {
+      "title": "Environment",
+      "description1": "Simple, comfortable, privacy - just right. We adopt a minimalist black, white and gray tone, with wood grain and coffee color system to add visual warmth. Curtain partitions provide both ventilation and safety. With our full appointment system, we control the number of people for your privacy, allowing you to enjoy quiet service.",
+      "description2": "Service staff will replace all contact supplies after each customer leaves, and alcohol is provided bedside to strengthen protection for both of us."
+    },
+    "contact": {
+      "description": "Professional beauty care power helps us solve complex beauty problems and develop perfect beauty solutions.",
+      "buttonText": "CONTACT US"
+    }
+  }
 }

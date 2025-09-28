@@ -19,7 +19,7 @@ export interface Banner {
 export async function getBanners(): Promise<Banner[]> {
   const res = await graphQLAPI(gql`
     query MyQuery {
-      banners {
+      banners(sort_by: "asc", sort_column: "sort") {
         data {
           cta_link
           cta_title
