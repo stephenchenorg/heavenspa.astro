@@ -101,6 +101,7 @@ export class NestedTranslator {
   get schedule() { return this.createProxy(this.translations.schedule as NestedTranslation, ['schedule']) }
   get course() { return this.createProxy(this.translations.course as NestedTranslation, ['course']) }
   get courses() { return this.createProxy(this.translations.courses as NestedTranslation, ['courses']) }
+  get services() { return this.createProxy(this.translations.services as NestedTranslation, ['services']) }
   get news() { return this.createProxy(this.translations.news as NestedTranslation, ['news']) }
   get benefits() { return this.createProxy(this.translations.benefits as NestedTranslation, ['benefits']) }
   get buttons() { return this.createProxy(this.translations.buttons as NestedTranslation, ['buttons']) }
@@ -153,20 +154,24 @@ export const defaultLocale: Locale = 'zh-TW'
 export function getCurrentLocale(): Locale {
   if (typeof window === 'undefined') return defaultLocale
 
-  // 1. 檢查 URL 參數
+  // 1. 檢查 URL 路徑（Astro i18n 路由）
+  const pathname = window.location.pathname
+  if (pathname.startsWith('/en/') || pathname === '/en') return 'en'
+
+  // 2. 檢查 URL 參數
   const urlParams = new URLSearchParams(window.location.search)
   const langParam = urlParams.get('lang')
   if (langParam === 'zh-tw' || langParam === 'zh-TW') return 'zh-TW'
   if (langParam === 'en') return 'en'
 
-  // 2. 檢查 cookies
+  // 3. 檢查 cookies
   const match = document.cookie.match(/(?:^|;\s*)locale=([^;]+)/)
   if (match) {
     if (match[1] === 'zh-tw' || match[1] === 'zh-TW') return 'zh-TW'
     if (match[1] === 'en') return 'en'
   }
 
-  // 3. 瀏覽器語言
+  // 4. 瀏覽器語言
   const browserLang = navigator.language.toLowerCase()
   if (browserLang.includes('zh')) return 'zh-TW'
   if (browserLang.includes('en')) return 'en'

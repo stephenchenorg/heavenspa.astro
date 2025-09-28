@@ -4,8 +4,11 @@ import { getPartnership, getRelatedPartnerships } from '@/api/partnerships'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getLocale } from 'i18n:astro'
 
 const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
 const { id } = Astro.params
 if (!id || Number.isNaN(Number(id))) {
     return Astro.rewrite('/404')
@@ -50,12 +53,12 @@ const meta = seoMeta({
         <div class="absolute inset-0 flex items-center justify-center">
             <div class="text-center text-white px-4 sm:px-6 lg:px-8 flex flex-col justify-center h-full">
                 <!-- Main Title - Center -->
-                <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-wide mb-4 sm:mb-6 lg:mb-8">
+                <h1 class={`font-bold leading-tight tracking-wide mb-4 sm:mb-6 lg:mb-8 ${isEnglish ? 'text-[clamp(1.25rem,4vw,2.5rem)]' : 'text-[clamp(1.5rem,5vw,3.75rem)]'}`}>
                     {partnership.title}
                 </h1>
 
                 <!-- Meta Information - Below Title -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
+                <div class={`flex flex-col sm:flex-row sm:items-center justify-center gap-2 sm:gap-3 lg:gap-4 ${isEnglish ? 'text-xs' : 'text-xs sm:text-sm'}`}>
                     <!-- Date -->
                     <div class="flex items-center justify-center space-x-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,10 +201,10 @@ const meta = seoMeta({
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                                             </svg>
                                             <div class="flex-1 min-w-0">
-                                                <div class="text-xs font-medium mb-1" style="color: var(--color-primary-500);">
+                                                <div class={`font-medium mb-1 ${isEnglish ? 'text-xs' : 'text-xs'}`} style="color: var(--color-primary-500);">
                                                     {t('partnerships.navigation.previousPartnership')}
                                                 </div>
-                                                <div class="text-sm font-medium line-clamp-2" style="color: var(--theme-text);">
+                                                <div class={`font-medium line-clamp-2 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--theme-text);">
                                                     {partnership.prev.title}
                                                 </div>
                                             </div>
@@ -224,10 +227,10 @@ const meta = seoMeta({
                                           style="background: var(--theme-card-bg); border: 1px solid var(--theme-border);"
                                         >
                                             <div class="flex-1 min-w-0">
-                                                <div class="text-xs font-medium mb-1" style="color: var(--color-primary-500);">
+                                                <div class={`font-medium mb-1 ${isEnglish ? 'text-xs' : 'text-xs'}`} style="color: var(--color-primary-500);">
                                                     {t('partnerships.navigation.nextPartnership')}
                                                 </div>
-                                                <div class="text-sm font-medium line-clamp-2" style="color: var(--theme-text);">
+                                                <div class={`font-medium line-clamp-2 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--theme-text);">
                                                     {partnership.next.title}
                                                 </div>
                                             </div>
@@ -258,7 +261,7 @@ const meta = seoMeta({
                         <!-- Related Partnerships -->
                         <div>
                             <h3
-                              class="text-lg font-semibold mb-4 pb-4"
+                              class={`font-semibold mb-4 pb-4 ${isEnglish ? 'text-base' : 'text-lg'}`}
                               style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
                             >
                                 {t('partnerships.relatedPartnerships')}</h3>
@@ -274,7 +277,7 @@ const meta = seoMeta({
                                                 />
                                                 <div class="flex-1 min-w-0">
                                                     <h4
-                                                      class="text-sm font-medium line-clamp-2 group-hover:underline"
+                                                      class={`font-medium line-clamp-2 group-hover:underline ${isEnglish ? 'text-xs' : 'text-sm'}`}
                                                       style="color: var(--theme-text);"
                                                     >
                                                         {relatedPartnership.title}
@@ -296,14 +299,14 @@ const meta = seoMeta({
                         <!-- Tags -->
                         <div>
                             <h3
-                              class="text-lg font-semibold mb-4 pb-4"
+                              class={`font-semibold mb-4 pb-4 ${isEnglish ? 'text-base' : 'text-lg'}`}
                               style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
                             >
                                 {t('partnerships.tags')}</h3>
                             <div class="flex flex-wrap gap-2">
                                 {partnership.tags?.data?.map(tag => (
                                     <span
-                                      class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                      class={`rounded-md px-3 py-2 transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50 ${isEnglish ? 'text-xs' : 'text-sm'}`}
                                       style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
                                     >
                                         {tag.title}
@@ -311,7 +314,7 @@ const meta = seoMeta({
                                 ))}
                                 {(!partnership.tags?.data || partnership.tags.data.length === 0) && (
                                     <span
-                                      class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                      class={`rounded-md px-3 py-2 transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50 ${isEnglish ? 'text-xs' : 'text-sm'}`}
                                       style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
                                     >
                                         {t('partnerships.fallbackTags.beauty')}

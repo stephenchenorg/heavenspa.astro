@@ -252,6 +252,48 @@
     "loading": "Loading..."
   },
   "contact": "CONTACT",
+  "services": {
+    "pageTitle": "Services - Heaven Spa",
+    "sectionTitle": "Services",
+    "sectionSubtitle": "SERVICES",
+    "breadcrumb": {
+      "home": "Home",
+      "services": "Services"
+    },
+    "detail": {
+      "servicePlans": "Service Plans",
+      "serviceDetails": "Service Details",
+      "price": "Price",
+      "duration": "Duration",
+      "sessions": "Sessions",
+      "minutes": "minutes",
+      "noData": "No Data Available",
+      "detailedDescription": "Detailed Description / Important Notes",
+      "suitableFor": "Suitable For / Skin Conditions",
+      "courseHighlights": "Course Highlights",
+      "courseContent": "Course Content",
+      "imageAlt": "Image"
+    },
+    "categories": {
+      "massage": "Massage Therapy",
+      "facial": "Facial Care",
+      "body": "Body Care",
+      "aromatherapy": "Aromatherapy",
+      "hairRemoval": "Hair Removal",
+      "skincare": "Skincare"
+    },
+    "booking": {
+      "title": "Book Now",
+      "description": "Want to experience our professional services? Contact us now to book your exclusive time.",
+      "phoneBooking": "Phone Booking",
+      "onlineBooking": "Online Booking"
+    },
+    "errors": {
+      "notFound": "Service Not Found",
+      "notFoundContent": "<p>Sorry, the service you requested does not exist or has been removed.</p><p>Please return to the services list to view other services.</p>",
+      "defaultDescription": "Learn about Heaven Spa's professional services"
+    }
+  },
   "about": {
     "pageTitle": "About - Heaven Spa",
     "sectionTitle": "About",

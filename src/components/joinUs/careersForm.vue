@@ -9,7 +9,7 @@
           </svg>
         </div>
         <div class="ml-3">
-          <p class="text-sm font-medium">{{ t('careers.form.successMessage') }}</p>
+          <p class="text-sm font-medium">{{ translatedText.successMessage }}</p>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
           </svg>
         </div>
         <div class="ml-3">
-          <p class="text-sm font-medium">{{ t('careers.form.errorMessage') }}</p>
+          <p class="text-sm font-medium">{{ translatedText.errorMessage }}</p>
         </div>
       </div>
     </div>
@@ -30,12 +30,12 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ t('careers.form.name') }}
+            {{ translatedText.name }}
           </label>
           <input
             v-model="form.name"
             type="text"
-            :placeholder="t('careers.form.namePlaceholder')"
+            :placeholder="translatedText.namePlaceholder"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -43,12 +43,12 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ t('careers.form.phone') }}
+            {{ translatedText.phone }}
           </label>
           <input
             v-model="form.phone"
             type="tel"
-            :placeholder="t('careers.form.phonePlaceholder')"
+            :placeholder="translatedText.phonePlaceholder"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -59,12 +59,12 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ t('careers.form.height') }}
+            {{ translatedText.height }}
           </label>
           <input
             v-model="form.height"
             type="number"
-            :placeholder="t('careers.form.heightPlaceholder')"
+            :placeholder="translatedText.heightPlaceholder"
             required
             min="100"
             max="250"
@@ -74,12 +74,12 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ t('careers.form.weight') }}
+            {{ translatedText.weight }}
           </label>
           <input
             v-model="form.weight"
             type="number"
-            :placeholder="t('careers.form.weightPlaceholder')"
+            :placeholder="translatedText.weightPlaceholder"
             required
             min="30"
             max="200"
@@ -92,7 +92,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ t('careers.form.birthday') }}
+            {{ translatedText.birthday }}
           </label>
           <input
             v-model="form.birthday"
@@ -104,12 +104,12 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ t('careers.form.social') }}
+            {{ translatedText.social }}
           </label>
           <input
             v-model="form.social"
             type="text"
-            :placeholder="t('careers.form.socialPlaceholder')"
+            :placeholder="translatedText.socialPlaceholder"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -119,12 +119,12 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          {{ t('careers.form.email') }}
+          {{ translatedText.email }}
         </label>
         <input
           v-model="form.email"
           type="email"
-          :placeholder="t('careers.form.emailPlaceholder')"
+          :placeholder="translatedText.emailPlaceholder"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -133,12 +133,12 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          {{ t('careers.form.address') }}
+          {{ translatedText.address }}
         </label>
         <input
           v-model="form.address"
           type="text"
-          :placeholder="t('careers.form.addressPlaceholder')"
+          :placeholder="translatedText.addressPlaceholder"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -151,8 +151,8 @@
         class="w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg text-sm sm:text-base"
         :style="buttonStyle"
       >
-        <span v-if="!isSubmitting">{{ t('careers.form.submit') }}</span>
-        <span v-else>{{ t('careers.form.submitting') }}</span>
+        <span v-if="!isSubmitting">{{ translatedText.submit }}</span>
+        <span v-else>{{ translatedText.submitting }}</span>
       </button>
     </form>
   </div>
@@ -160,21 +160,81 @@
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
-import { initTranslations, t } from '@/utils/i18n'
+import { initTranslations, t, getCurrentLocale } from '@/utils/i18n'
+
+// 響應式翻譯函數
+const currentLocale = ref(getCurrentLocale())
+const translatedText = ref({
+  successMessage: '',
+  errorMessage: '',
+  name: '',
+  namePlaceholder: '',
+  phone: '',
+  phonePlaceholder: '',
+  email: '',
+  emailPlaceholder: '',
+  height: '',
+  heightPlaceholder: '',
+  weight: '',
+  weightPlaceholder: '',
+  social: '',
+  socialPlaceholder: '',
+  birthday: '',
+  address: '',
+  addressPlaceholder: '',
+  submit: '',
+  submitting: ''
+})
 
 // 初始化翻譯
-await initTranslations()
+async function initializeTranslations() {
+  console.log('Initializing translations...')
+  await initTranslations()
+  console.log('Translations initialized')
+  updateTranslations()
+}
+
+// 更新翻譯文字
+function updateTranslations() {
+  const locale = getCurrentLocale()
+  console.log('Current locale detected:', locale)
+  console.log('Current pathname:', window.location.pathname)
+
+  translatedText.value = {
+    successMessage: t('careers.form.successMessage'),
+    errorMessage: t('careers.form.errorMessage'),
+    name: t('careers.form.name'),
+    namePlaceholder: t('careers.form.namePlaceholder'),
+    phone: t('careers.form.phone'),
+    phonePlaceholder: t('careers.form.phonePlaceholder'),
+    email: t('careers.form.email'),
+    emailPlaceholder: t('careers.form.emailPlaceholder'),
+    height: t('careers.form.height'),
+    heightPlaceholder: t('careers.form.heightPlaceholder'),
+    weight: t('careers.form.weight'),
+    weightPlaceholder: t('careers.form.weightPlaceholder'),
+    social: t('careers.form.social'),
+    socialPlaceholder: t('careers.form.socialPlaceholder'),
+    birthday: t('careers.form.birthday'),
+    address: t('careers.form.address'),
+    addressPlaceholder: t('careers.form.addressPlaceholder'),
+    submit: t('careers.form.submit'),
+    submitting: t('careers.form.submitting')
+  }
+
+  console.log('Translated text updated:', translatedText.value.name)
+}
 
 // 表單資料
 const form = reactive({
-  name: '卡卡卡',
-  phone: '0987654321',
-  email: 'admin@admin.com',
-  height: '168',
-  weight: '58',
-  social: 'line',
-  birthday: '1998-01-01',
-  address: '台北市大安區復興南路一段390號6樓',
+  name: '',
+  phone: '',
+  email: '',
+  height: '',
+  weight: '',
+  social: '',
+  birthday: '',
+  address: '',
 })
 
 // 狀態管理
@@ -213,7 +273,7 @@ async function submitForm() {
     const result = await response.json()
 
     if (!response.ok) {
-      throw new Error(result.errors?.[0]?.message || '提交失敗，請稍後再試。')
+      throw new Error(result.errors?.[0]?.message || translatedText.value.errorMessage)
     }
 
     // 成功
@@ -225,7 +285,7 @@ async function submitForm() {
       showSuccess.value = false
     }, 5000)
   } catch (error) {
-    console.error('提交錯誤:', error)
+    console.error('Submit error:', error)
     showError.value = true
 
     // 5秒後隱藏錯誤訊息
@@ -249,16 +309,50 @@ function updateTheme() {
   currentTheme.value = document.body.classList.contains('dark-theme') ? 'dark' : 'light'
 }
 
+// 監聽語言變化
+function handleLanguageChange() {
+  const newLocale = getCurrentLocale()
+  if (newLocale !== currentLocale.value) {
+    currentLocale.value = newLocale
+    updateTranslations()
+  }
+}
+
 // 監聽主題變化
-onMounted(() => {
+onMounted(async () => {
+  // 初始化翻譯
+  await initializeTranslations()
+
   updateTheme()
 
   // 監聽主題變化事件
   document.addEventListener('themeChanged', updateTheme)
 
+  // 監聽語言變化事件（自定義事件）
+  window.addEventListener('localechange', async (event) => {
+    await initTranslations()
+    updateTranslations()
+  })
+
+  // 監聽路由變化（用於 Astro i18n 路由）
+  const observer = new MutationObserver(() => {
+    handleLanguageChange()
+  })
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['lang']
+  })
+
+  // 也監聽 popstate 事件（瀏覽器前進後退）
+  window.addEventListener('popstate', handleLanguageChange)
+
   // 組件卸載時清理事件監聽器
   return () => {
     document.removeEventListener('themeChanged', updateTheme)
+    window.removeEventListener('localechange', updateTranslations)
+    window.removeEventListener('popstate', handleLanguageChange)
+    observer.disconnect()
   }
 })
 </script>

@@ -2,8 +2,11 @@
 import { getServiceCategories } from '@/api/serviceCategories'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getLocale } from 'i18n:astro'
 
 const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
 
 const data = await getServiceCategories()
 const services = data.serviceCategories.data
@@ -17,7 +20,9 @@ const services = data.serviceCategories.data
 >
 
   <!-- Section Title -->
-  <SectionTitle title="服務項目" subtitle="Services" />
+  <div class="service-section-title" data-animate="true">
+    <SectionTitle title="服務項目" subtitle="Services" />
+  </div>
 
   <!-- Course Content -->
   <div class="max-w-7xl mx-auto w-full mt-8">
@@ -45,17 +50,17 @@ const services = data.serviceCategories.data
               <!-- Course Card (Overlapping) -->
               <div class="absolute left-1/2 -translate-x-1/2 -translate-y-16 w-[calc(100%-2rem)] max-w-[380px] lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:-translate-x-0 lg:w-[420px] lg:max-w-none z-10">
                 <div class="bg-primary-600/50 backdrop-blur-sm rounded-3xl p-6 lg:p-8 text-center shadow-xl h-[200px] lg:h-[280px] flex flex-col justify-center">
-                  <div class="space-y-4">
-                    <h3 class="text-black dark:text-white text-3xl lg:text-4xl font-light tracking-wide">
+                  <div class={`space-y-4 ${isEnglish ? 'space-y-3' : ''}`}>
+                    <h3 class={`text-black dark:text-white font-light tracking-wide ${isEnglish ? 'text-2xl lg:text-3xl leading-tight' : 'text-3xl lg:text-4xl'}`}>
                       {service.title}
                     </h3>
-                    <p class="text-gray-200 dark:text-gray-700 text-base lg:text-lg font-light leading-relaxed">
+                    <p class={`text-gray-200 dark:text-gray-700 font-light leading-relaxed ${isEnglish ? 'text-sm lg:text-base line-clamp-3' : 'text-base lg:text-lg'}`}>
                       {service.sub_title}
                     </p>
 
                     <!-- CTA Button -->
                     <div class="pt-2 flex justify-center">
-                      <a href=`/services/${service.id}/items` class="group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground px-8 py-3 rounded-full text-base font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2">
+                      <a href=`/services/${service.id}/items` class={`group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground rounded-full font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2 ${isEnglish ? 'px-6 py-2.5 text-sm' : 'px-8 py-3 text-base'}`}>
                         <span data-i18n="courses.service-intro">{t('courses.service-intro')}</span>
                       </a>
                     </div>
@@ -265,7 +270,74 @@ const services = data.serviceCategories.data
   })
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.querySelector('.service-section-title')
+
+    if (!titleElement) return
+
+    // 創建 Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // 添加動畫類
+            entry.target.classList.add('animate-in')
+
+            // 動畫完成後停止觀察
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.3, // 當元素 30% 可見時觸發
+        rootMargin: '0px 0px -50px 0px' // 提前觸發動畫
+      }
+    )
+
+    // 開始觀察
+    observer.observe(titleElement)
+  })
+</script>
+
 <style>
+  /* Service Section Title Animation */
+  .service-section-title {
+    opacity: 0;
+    transform: translateX(-50px) translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .service-section-title.animate-in {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+
+  /* 分別控制主標題和副標題的動畫 */
+  .service-section-title :global(h2) {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.2s;
+  }
+
+  .service-section-title :global(h3) {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.4s;
+  }
+
+  .service-section-title.animate-in :global(h2) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .service-section-title.animate-in :global(h3) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Smooth transitions for all elements */
   #service-image {
     transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -329,6 +401,31 @@ const services = data.serviceCategories.data
       width: 44px;
       height: 44px;
       touch-action: manipulation;
+    }
+  }
+
+  /* Line clamp utilities for text overflow */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Responsive text adjustments for English */
+  .en-locale {
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Better spacing for English content */
+  .service-card-english {
+    padding: 1rem 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .service-card-english {
+      padding: 1.5rem 2rem;
     }
   }
 </style>

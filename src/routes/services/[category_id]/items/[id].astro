@@ -2,17 +2,18 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
-
-// 取得路由參數
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
+// Get route parameters
 const { category_id, id } = Astro.params
 
-// 取得服務詳細資料
+// Get service details
 const serviceData = await getServiceDetail(Number.parseInt(id!, 10))
 const service = serviceData.service
 
 const meta = seoMeta({
   title: `${service.title} - ${service.category.title} - Heaven Spa`,
-  description: service.content_1 || `了解 ${service.title} 服務的詳細內容，享受專業的美容護理體驗。`,
+  description: service.content_1 || t('services.errors.defaultDescription'),
 })
 
 ---
@@ -20,22 +21,22 @@ const meta = seoMeta({
 <Layout meta={meta}>
   <main class="section-container">
 
-    <!-- 服務橫幅 -->
+    <!-- Service Banner -->
     <section class="relative w-full h-64 md:h-80 lg:h-96 mb-8 overflow-hidden">
-      <!-- 背景圖片 -->
+      <!-- Background Image -->
       <div
         class="absolute inset-0 bg-cover bg-center"
         style={`background-image: url('${service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
       >
       </div>
-      <!-- 漸層遮罩 -->
+      <!-- Gradient Overlay -->
       <div class="absolute inset-0 bg-black/50"></div>
-      <!-- 文字內容 -->
+      <!-- Text Content -->
       <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4">
         <div class="max-w-4xl">
           <nav class="mb-4">
             <ol class="flex items-center space-x-2 text-sm text-white/70">
-              <li><a href="/services" class="hover:text-white transition-colors">服務項目</a></li>
+              <li><a href="/services" class="hover:text-white transition-colors">{t('nav.services')}</a></li>
               <li>/</li>
               <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors">{service.category.title}</a></li>
               <li>/</li>
@@ -48,19 +49,19 @@ const meta = seoMeta({
       </div>
     </section>
 
-    <!-- 服務內容 -->
+    <!-- Service Content -->
     <div class="max-w-7xl mx-auto px-4 py-8 ">
 
-      <!-- 三列佈局 -->
+      <!-- Three Column Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-        <!-- 左側：一般資訊 -->
+        <!-- Left Side: General Information -->
         <div class="lg:col-span-1 space-y-8" data-animate-in="left">
 
-          <!-- 服務規格 -->
-          {service.specifications && service.specifications.length > 0 && (
-            <div data-animate-in="up">
-              <h2 class="text-xl font-bold mb-3 text-neutral-800 dark:text-neutral-600">服務方案</h2>
+          <!-- Service Specifications -->
+          <div data-animate-in="up">
+            <h2 class="text-xl font-bold mb-3 text-neutral-800 dark:text-neutral-600">{t('services.detail.servicePlans')}</h2>
+            {service.specifications && service.specifications.length > 0 ? (
               <div class="space-y-4">
                 {service.specifications.map((spec, index) => (
                   <>
@@ -68,15 +69,15 @@ const meta = seoMeta({
                       <h3 class="text-base font-semibold mb-3 text-neutral-800">{spec.title}</h3>
                       <div class="grid grid-cols-1 gap-2 text-sm">
                         <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
-                          <span class="text-neutral-800 dark:text-neutral-600">價格</span>
+                          <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.price')}</span>
                           <span class="font-medium text-neutral-800 dark:text-neutral-600">NT$ {spec.listing_price?.toLocaleString()}</span>
                         </div>
                         <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
-                          <span class="text-neutral-800 dark:text-neutral-600">時間</span>
-                          <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.minutes} 分鐘</span>
+                          <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.duration')}</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.minutes} {t('services.detail.minutes')}</span>
                         </div>
                         <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
-                          <span class="text-neutral-800 dark:text-neutral-600">堂數</span>
+                          <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.sessions')}</span>
                           <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.hall_count || '-'}</span>
                         </div>
                       </div>
@@ -93,17 +94,22 @@ const meta = seoMeta({
                   </>
                 ))}
               </div>
-            </div>
-            <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700" data-animate-in="right"></div>
-          )}
+            ) : (
+              <div class="p-4 text-center text-neutral-500 dark:text-neutral-400 text-sm">
+                {t('services.detail.noData')}
+              </div>
+            )}
+          </div>
 
-          <!-- 服務詳細內容 -->
+          <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700" data-animate-in="right"></div>
+
+          <!-- Service Details -->
           <div class="space-y-6" data-animate-in="up">
 
               {service.content_1 && (
                 <div data-animate-in="fadeIn" style="animation-delay: 200ms">
                   <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
-                    詳細介紹 / 提醒說明
+                    {t('services.detail.detailedDescription')}
                   </h3>
                   <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                     {service.content_1}
@@ -116,7 +122,7 @@ const meta = seoMeta({
                   <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
                   <div data-animate-in="fadeIn" style="animation-delay: 300ms">
                     <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
-                      適合對象 / 膚況
+                      {t('services.detail.suitableFor')}
                     </h3>
                     <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                       {service.content_2}
@@ -130,7 +136,7 @@ const meta = seoMeta({
                   <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
                   <div data-animate-in="fadeIn" style="animation-delay: 400ms">
                     <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
-                      課程亮點
+                      {t('services.detail.courseHighlights')}
                     </h3>
                     <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                       {service.content_3}
@@ -144,7 +150,7 @@ const meta = seoMeta({
                   <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
                   <div data-animate-in="fadeIn" style="animation-delay: 500ms">
                     <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
-                      課程內容
+                      {t('services.detail.courseContent')}
                     </h3>
                     <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
                       {service.content_4}
@@ -155,7 +161,7 @@ const meta = seoMeta({
             </div>
         </div>
 
-        <!-- 右側：圖片直條式顯示 -->
+        <!-- Right Side: Vertical Image Display -->
         {service.images && service.images.length > 0 && (
           <div class="lg:col-span-2 space-y-4" data-animate-in="right">
             <div class="space-y-4">
@@ -167,7 +173,7 @@ const meta = seoMeta({
                 >
                   <img
                     src={imageItem.image.desktop}
-                    alt={`${service.title} 圖片 ${index + 1}`}
+                    alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
                     class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
@@ -198,7 +204,7 @@ const meta = seoMeta({
 </style>
 
 <script>
-  // 動畫觀察器
+  // Animation Observer
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -10% 0px',
@@ -219,13 +225,13 @@ const meta = seoMeta({
   elements.forEach(el => observer.observe(el))
 }
 
-  // 頁面載入後啟動動畫
+  // Start animation after page load
   document.addEventListener('DOMContentLoaded', () => {
-    // 延遲一點啟動動畫，讓頁面渲染完成
+    // Delay animation start slightly to let page render complete
     setTimeout(animateElements, 100)
 })
 
-  // 如果頁面已經載入完成（快取情況）
+  // If page is already loaded (cached situation)
   if (document.readyState === 'complete') {
     setTimeout(animateElements, 100)
 }

@@ -1,7 +1,11 @@
 ---
 import Button from '@/components/ui/Button.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getLocale } from 'i18n:astro'
+
 const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
 ---
 
 <section
@@ -21,7 +25,7 @@ const t = await createNestedT()
 
         <!-- Left Content - Background Text Area -->
         <div class="order-2 md:order-1 items-center justify-end h-full hidden md:flex" data-animate-in="left">
-          <div class="text-[clamp(2rem,12vw,8rem)] leading-[0.8] font-black font-sans text-white dark:text-black select-none intro-bg-text">
+          <div class={`leading-[0.8] font-black font-sans text-white dark:text-black select-none intro-bg-text ${isEnglish ? 'text-[clamp(1.5rem,10vw,6rem)]' : 'text-[clamp(2rem,12vw,8rem)]'}`}>
             <div class="block ml-0 origin-left" data-animate-in="left" style="animation-delay: 0.2s;">{t('intro.backgroundText')}</div>
             <div class="block ml-4 md:ml-6 lg:ml-8 origin-left" data-animate-in="left" style="animation-delay: 0.4s;">{t('intro.backgroundText')}</div>
             <div class="block ml-8 md:ml-12 lg:ml-16 origin-left" data-animate-in="left" style="animation-delay: 0.6s;">{t('intro.backgroundText')}</div>
@@ -33,25 +37,25 @@ const t = await createNestedT()
 
           <!-- Main Heading -->
           <div class="space-y-4 relative z-10" data-animate-in="up">
-            <h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-black">
+            <h2 class={`font-bold leading-tight text-black ${isEnglish ? 'text-2xl lg:text-3xl xl:text-4xl' : 'text-3xl lg:text-4xl xl:text-5xl'}`}>
               {t('intro.heading')}
             </h2>
           </div>
 
           <!-- Description -->
           <div class="space-y-4 text-black/90 relative z-10 intro-description-container">
-            <p class="text-base lg:text-lg leading-relaxed" data-animate-in="up">
+            <p class={`leading-relaxed ${isEnglish ? 'text-sm lg:text-base' : 'text-base lg:text-lg'}`} data-animate-in="up">
               {t('intro.description')}
             </p>
           </div>
 
           <!-- CTA Buttons -->
-          <div class="flex flex-row gap-4 py-4 relative z-10 intro-buttons-container">
+          <div class={`flex flex-row gap-4 py-4 relative z-10 intro-buttons-container ${isEnglish ? 'flex-wrap' : ''}`}>
             <div data-animate-in="up" style="animation-delay: 0.2s;">
               <Button
                 href='/about'
                 variant="ghost"
-                size="medium"
+                size={isEnglish ? "small" : "medium"}
                 text={t('intro.buttons.learnMore')}
                 wrapperClass="flex-initial"
               />
@@ -60,7 +64,7 @@ const t = await createNestedT()
               <Button
                 href='/services'
                 variant="ghost"
-                size="medium"
+                size={isEnglish ? "small" : "medium"}
                 text={t('intro.buttons.viewServices')}
                 wrapperClass="flex-initial"
               />
@@ -98,6 +102,44 @@ const t = await createNestedT()
 
   .intro-buttons-container [data-animate-in]:nth-child(2) {
     animation-delay: 0.4s;
+  }
+
+  /* English language optimizations */
+  .intro-en-text {
+    word-break: break-word;
+    hyphens: auto;
+    letter-spacing: 0.025em;
+  }
+
+  /* Background text adjustments for English */
+  .intro-bg-text.en-bg {
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+  }
+
+  /* Responsive adjustments for English content */
+  @media (max-width: 768px) {
+    .intro-en-heading {
+      font-size: 1.75rem;
+      line-height: 1.2;
+    }
+
+    .intro-en-description {
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+  }
+
+  /* Button container adjustments for English */
+  .intro-buttons-english {
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .intro-buttons-english {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 </style>
 

@@ -5,8 +5,11 @@ import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getLocale } from 'i18n:astro'
 
 const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
 
 const partnerships = await getPartnerships()
 
@@ -55,14 +58,14 @@ const meta = seoMeta({
               <div class="p-4 flex-1 flex flex-col justify-between">
                   <!-- Title -->
                   <div class="space-y-2">
-                    <h3 class="text-lg font-bold leading-tight tracking-wide line-clamp-2 h-14 transition-colors duration-300" style="color: var(--theme-text);">
+                    <h3 class={`font-bold leading-tight tracking-wide line-clamp-2 h-14 transition-colors duration-300 ${isEnglish ? 'text-base' : 'text-lg'}`} style="color: var(--theme-text);">
                       {partnership.title}
                     </h3>
                     <div class="w-12 h-0.5 rounded-full" style="background: linear-gradient(to right, var(--color-primary-500), transparent);"></div>
                   </div>
 
                   <!-- Content Summary -->
-                  <div class="text-sm leading-relaxed line-clamp-3 h-16 transition-colors duration-300 py-4" style="color: var(--theme-text-secondary);">
+                  <div class={`leading-relaxed line-clamp-3 h-16 transition-colors duration-300 py-4 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--theme-text-secondary);">
                     {(() => {
                       if (!partnership.content) return '暫無內容摘要...'
                       // 移除 HTML 標籤
@@ -80,7 +83,7 @@ const meta = seoMeta({
                           <span>{partnership.author}</span>
                         </div>
                     )}
-                    <div class="flex items-center space-x-1 text-sm font-medium transition-colors duration-300" style="color: var(--color-primary-500);">
+                    <div class={`flex items-center space-x-1 font-medium transition-colors duration-300 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--color-primary-500);">
                       <span>{ t('partnerships.detail') }</span>
                       <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -97,7 +100,7 @@ const meta = seoMeta({
       <div class="flex justify-center items-center space-x-2">
         {Array.from({ length: Math.ceil(partnerships.length / 12) }, (_, i) => (
           <button
-            class="px-3 py-2 rounded-lg border transition-all duration-300"
+            class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
             style={i === 0
                     ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
                     : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
@@ -123,6 +126,43 @@ const meta = seoMeta({
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    /* English language optimizations */
+    .partnership-en-title {
+      word-break: break-word;
+      hyphens: auto;
+      letter-spacing: 0.025em;
+    }
+
+    .partnership-en-content {
+      word-break: break-word;
+      hyphens: auto;
+      line-height: 1.5;
+    }
+
+    /* Responsive adjustments for English content */
+    @media (max-width: 768px) {
+      .partnership-en-title {
+        font-size: 0.875rem;
+        line-height: 1.25;
+      }
+
+      .partnership-en-content {
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+    }
+
+    /* Better spacing for partnership cards in English */
+    .partnership-card-english {
+      padding: 0.875rem;
+    }
+
+    @media (min-width: 768px) {
+      .partnership-card-english {
+        padding: 1rem;
+      }
     }
   </style>
 </Layout>

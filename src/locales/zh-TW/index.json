@@ -252,6 +252,48 @@
     "loading": "載入中..."
   },
   "contact": "CONTACT",
+  "services": {
+    "pageTitle": "服務項目 - Heaven Spa",
+    "sectionTitle": "服務項目",
+    "sectionSubtitle": "SERVICES",
+    "breadcrumb": {
+      "home": "首頁",
+      "services": "服務項目"
+    },
+    "detail": {
+      "servicePlans": "服務方案",
+      "serviceDetails": "服務詳細內容",
+      "price": "價格",
+      "duration": "時間",
+      "sessions": "堂數",
+      "minutes": "分鐘",
+      "noData": "暫無資料",
+      "detailedDescription": "詳細介紹 / 提醒說明",
+      "suitableFor": "適合對象 / 膚況",
+      "courseHighlights": "課程亮點",
+      "courseContent": "課程內容",
+      "imageAlt": "圖片"
+    },
+    "categories": {
+      "massage": "按摩療程",
+      "facial": "臉部護理",
+      "body": "身體護理",
+      "aromatherapy": "芳療護理",
+      "hairRemoval": "除毛服務",
+      "skincare": "美容護膚"
+    },
+    "booking": {
+      "title": "立即預約",
+      "description": "想要體驗我們的專業服務嗎？現在就聯繫我們預約您的專屬時光。",
+      "phoneBooking": "電話預約",
+      "onlineBooking": "線上預約"
+    },
+    "errors": {
+      "notFound": "服務項目未找到",
+      "notFoundContent": "<p>很抱歉，您請求的服務項目不存在或已被移除。</p><p>請返回服務列表頁面查看其他服務。</p>",
+      "defaultDescription": "了解 Heaven Spa 的專業服務"
+    }
+  },
   "about": {
     "pageTitle": "品牌介紹 - Heaven Spa",
     "sectionTitle": "品牌介紹",

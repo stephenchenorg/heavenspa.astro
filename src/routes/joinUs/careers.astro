@@ -60,14 +60,14 @@ faqs = await getFaqList(40)
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
                 <!--上方區塊-->
                 <div>
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.headline">標題文案</h2>
-                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">副標題文案</p>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.headline">{t('careers.headline')}</h2>
+                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">{t('careers.description')}</p>
                     <ul class="grid space-y-2 my-4 text-sm sm:text-base">
-                        <li>✔ <span data-i18n="careers.requirements.freedom">文案內容1</span></li>
-                        <li>✔ <span data-i18n="careers.requirements.freedom">文案內容2</span></li>
-                        <li>✔ <span data-i18n="careers.requirements.freedom">文案內容3</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.requirement1">{t('careers.requirements.requirement1')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.requirement2">{t('careers.requirements.requirement2')}</span></li>
+                        <li>✔ <span data-i18n="careers.requirements.requirement3">{t('careers.requirements.requirement3')}</span></li>
                     </ul>
-                    <p class="text-sm sm:text-base" data-i18n="careers.conclusion">{t('careers.conclusion')}</p>
+                    <p class="text-sm sm:text-base" data-i18n="careers.requirements.requirement4">{t('careers.requirements.requirement4')}</p>
                 </div>
                 <div>
                     <FAQ faqs={faqs} />
@@ -168,7 +168,7 @@ faqs = await getFaqList(40)
                               allowfullscreen=""
                               loading="lazy"
                               referrerpolicy="no-referrer-when-downgrade"
-                              title="Heaven Spa 位置地圖"
+                              :title="t('careers.mapTitle')"
                             >
                             </iframe>
                         </div>

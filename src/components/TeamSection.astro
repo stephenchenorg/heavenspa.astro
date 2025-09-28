@@ -18,7 +18,9 @@ const teamMembers: TeamMember[] = (await getAllTeams(40)).slice(0, 6)
   data-section="team"
 >
   <!-- 標題區 -->
-  <SectionTitle title="本週推薦" subtitle="RECOMMENDED" />
+  <div class="team-section-title" data-animate="true">
+    <SectionTitle title="本週推薦" subtitle="RECOMMENDED" />
+  </div>
 
   <!-- 響應式輪播 -->
   <div class="max-w-7xl mx-auto w-full mt-8">
@@ -83,6 +85,43 @@ const teamMembers: TeamMember[] = (await getAllTeams(40)).slice(0, 6)
 </section>
 
 <style>
+  /* Team Section Title Animation */
+  .team-section-title {
+    opacity: 0;
+    transform: translateX(-50px) translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .team-section-title.animate-in {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+
+  /* 分別控制主標題和副標題的動畫 */
+  .team-section-title :global(h2) {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.2s;
+  }
+
+  .team-section-title :global(h3) {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.4s;
+  }
+
+  .team-section-title.animate-in :global(h2) {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .team-section-title.animate-in :global(h3) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Marquee Animation */
   .marquee-container {
     width: 100%;
@@ -110,3 +149,33 @@ const teamMembers: TeamMember[] = (await getAllTeams(40)).slice(0, 6)
   }
 
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.querySelector('.team-section-title')
+
+    if (!titleElement) return
+
+    // 創建 Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // 添加動畫類
+            entry.target.classList.add('animate-in')
+
+            // 動畫完成後停止觀察
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.3, // 當元素 30% 可見時觸發
+        rootMargin: '0px 0px -50px 0px' // 提前觸發動畫
+      }
+    )
+
+    // 開始觀察
+    observer.observe(titleElement)
+  })
+</script>
