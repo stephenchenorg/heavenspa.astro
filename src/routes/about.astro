@@ -1,648 +1,722 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {seoMeta} from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import Button from '../components/ui/Button.astro'
 import Carousel from '../components/ui/Carousel.astro'
 import SectionTitle from '../components/ui/SectionTitle.astro'
-import { createNestedT } from '@/utils/i18n'
-import { getLocale } from 'i18n:astro'
+import {createNestedT} from '@/utils/i18n'
+import {getLocale} from 'i18n:astro'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 
 const meta = seoMeta({
-  title: t('about.pageTitle'),
+    title: t('about.pageTitle'),
 })
 ---
 
 <Layout meta={meta}>
-  <!-- Hero Banner -->
-  <section class="relative aspect-[1920/600] overflow-hidden">
-    <div class="absolute inset-0">
-      <img
-        src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
-        alt="品牌介紹 banner"
-        class="object-cover w-full h-full"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
-    </div>
-    <!-- Hero Content Overlay -->
-    <div class="absolute inset-0 flex items-center justify-center">
-      <div class="text-center text-white px-4 sm:px-6 lg:px-8">
-        <!-- Main Title - Center -->
-        <h1 class={`font-bold leading-tight tracking-wide mb-8 animate-fade-in-up ${isEnglish ? 'text-2xl sm:text-3xl lg:text-5xl xl:text-6xl' : 'text-3xl sm:text-4xl lg:text-6xl xl:text-7xl'}`}>
-          {t('about.hero.title')}
-        </h1>
-
-        <!-- Meta Information - Below Title -->
-        <div class={`flex flex-col sm:flex-row sm:items-center justify-center gap-4 animate-slide-in-delay-200 ${isEnglish ? 'text-sm sm:text-base' : 'text-base sm:text-lg'}`}>
-          <!-- Date -->
-          <div class="flex items-center justify-center space-x-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <span>{t('about.hero.location')}</span>
-          </div>
-            <div class="flex items-center justify-center space-x-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-              <span>{t('about.hero.author')}</span>
-            </div>
-
-          <!-- Tags -->
-          <div class="flex items-center justify-center space-x-2">
-              <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
-                  {t('about.hero.tag')}
-              </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <main class="section-container">
-    <!-- 標題區 -->
-    <div data-animate-in="fadeIn">
-      <SectionTitle title={t('about.sectionTitle')} subtitle={t('about.sectionSubtitle')} />
-    </div>
-
-    <!-- Page content will be added here -->
-    <div class="max-w-6xl mx-auto w-full">
-      <!-- 兩欄式佈局 -->
-      <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 mb-16" data-animate-in="up">
-        <!-- 左側圖片區域 (2/5 = 40%) -->
-        <div class="lg:col-span-2" data-animate-in="left">
-          <div class="relative" style="background: url('/public/images/about1.jpg')">
-            <!-- 前方圖片 - 右下角偏移，長方形覆蓋 -->
-            <img
-              src="/public/images/about2.jpg"
-              alt="品牌介紹圖片"
-              class="relative -right-10 -bottom-10 object-cover z-20"
-            />
-          </div>
-        </div>
-
-        <!-- 右側文字區域 (3/5 = 60%) -->
-        <div class="lg:col-span-3" data-animate-in="right">
-          <div class="p-6 lg:p-8 h-full flex flex-col justify-center">
-            <h3 class={`font-bold text-black dark:text-white mb-8 ${isEnglish ? 'text-2xl lg:text-3xl' : 'text-3xl lg:text-4xl'}`} style="color: var(--theme-text, #ffffff)">{t('about.heaven.title')}</h3>
-            <div class="intro-text-container text-black dark:text-white space-y-8" style="color: var(--theme-text, #ffffff)">
-              <p class={`leading-relaxed text-opacity-90 ${isEnglish ? 'text-base lg:text-lg' : 'text-lg lg:text-xl'}`} data-animate-in="up">
-                {t('about.heaven.description')}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- 圖標輪播區域 -->
-      <section class="relative py-16 px-4 mb-16 overflow-hidden" data-animate-in="scaleIn">
-        <!-- 背景圖片 -->
+    <!-- Hero Banner -->
+    <section class="relative aspect-[1920/900] sm:aspect-[1920/800] lg:aspect-[1920/700] overflow-hidden">
         <div class="absolute inset-0">
-          <img
-            src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
-            alt="Heaven Spa 背景"
-            class="w-full h-full object-cover"
-          />
-          <!-- 深色遮罩 -->
-          <div class="absolute inset-0" style="background: #111; opacity: 0.7;"></div>
-        </div>
-
-        <div class="relative z-10 max-w-6xl mx-auto pt-20">
-          <!-- 圖標輪播容器 -->
-          <Carousel
-            itemCount={6}
-            autoPlayInterval={4000}
-            showNavigation={true}
-            showDots={true}
-            responsive={{ sm: 1, md: 2, lg: 3 }}
-            uniqueId="services-carousel"
-            containerClass="services-carousel-container"
-          >
-            <!-- 圖標項目 -->
-            <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
-                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <img src="/icons/woman.svg" alt={t('about.services.beauty.title')} class="w-20 h-20 filter brightness-0 invert" />
-                </div>
-                <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-lg' : 'text-xl'}`}>{t('about.services.beauty.title')}</h4>
-                <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-base'}`}>{t('about.services.beauty.description')}</p>
-              </div>
-            </div>
-
-            <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
-                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <img src="/icons/massage.svg" alt={t('about.services.massage.title')} class="w-20 h-20 filter brightness-0 invert" />
-                </div>
-                <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-lg' : 'text-xl'}`}>{t('about.services.massage.title')}</h4>
-                <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-base'}`}>{t('about.services.massage.description')}</p>
-              </div>
-            </div>
-
-            <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
-                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <img src="/icons/spa.svg" alt={t('about.services.aromatherapy.title')} class="w-20 h-20 filter brightness-0 invert" />
-                </div>
-                <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-lg' : 'text-xl'}`}>{t('about.services.aromatherapy.title')}</h4>
-                <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-base'}`}>{t('about.services.aromatherapy.description')}</p>
-              </div>
-            </div>
-
-            <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
-                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <img src="/icons/massage (1).svg" alt={t('about.services.bodycare.title')} class="w-20 h-20 filter brightness-0 invert" />
-                </div>
-                <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-lg' : 'text-xl'}`}>{t('about.services.bodycare.title')}</h4>
-                <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-base'}`}>{t('about.services.bodycare.description')}</p>
-              </div>
-            </div>
-
-            <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
-                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <img src="/icons/foot-massage.svg" alt={t('about.services.nail.title')} class="w-20 h-20 filter brightness-0 invert" />
-                </div>
-                <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-lg' : 'text-xl'}`}>{t('about.services.nail.title')}</h4>
-                <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-base'}`}>{t('about.services.nail.description')}</p>
-              </div>
-            </div>
-
-            <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-4">
-              <div class="text-center p-6 hover:transform hover:scale-105 transition-all duration-300">
-                <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                  <img src="/icons/relax.svg" alt={t('about.services.relax.title')} class="w-20 h-20 filter brightness-0 invert" />
-                </div>
-                <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-lg' : 'text-xl'}`}>{t('about.services.relax.title')}</h4>
-                <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-base'}`}>{t('about.services.relax.description')}</p>
-              </div>
-            </div>
-          </Carousel>
-        </div>
-      </section>
-
-      <!-- 分割區域：左圖右文 -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]" data-animate-in="up">
-        <!-- 左側圖片區域 -->
-        <div class="relative bg-gray-100 lg:-mb-12" data-animate-in="left">
-          <div class="grid grid-cols-2 gap-2 h-full">
             <img
-              src="/images/about3.jpeg"
-              alt="Heaven Spa 專業服務 1"
-              class="w-full h-full object-cover"
+                    src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
+                    alt="品牌介紹 banner"
+                    class="object-cover w-full h-full"
             />
-            <img
-              src="/images/about4.jpeg"
-              alt="Heaven Spa 專業服務 2"
-              class="w-full h-full object-cover"
-            />
-            <img
-              src="/images/about5.jpeg"
-              alt="Heaven Spa 專業服務 3"
-              class="w-full h-full object-cover"
-            />
-            <img
-              src="/images/about6.jpeg"
-              alt="Heaven Spa 專業服務 4"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <!-- 品牌標章 -->
-          <!--<div class="absolute bottom-8 left-8">-->
-          <!--  <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">-->
-          <!--    <div class="text-center">-->
-          <!--      <div class="text-xs font-bold text-primary-600 leading-tight">HEAVEN</div>-->
-          <!--      <div class="text-xs font-bold text-primary-600 leading-tight">SPA</div>-->
-          <!--      <div class="w-6 h-px bg-primary-600 mx-auto my-1"></div>-->
-          <!--      <div class="text-xs text-gray-600">PROFESSIONAL</div>-->
-          <!--    </div>-->
-          <!--  </div>-->
-          <!--</div>-->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
         </div>
+        <!-- Hero Content Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center pt-20 pb-10">
+            <div class="text-center text-white px-6 sm:px-8 lg:px-12 max-w-4xl mx-auto">
+                <!-- Main Title - Center -->
+                <h1 class={`font-bold leading-tight tracking-wide mb-8 sm:mb-12 animate-fade-in-up ${isEnglish ? 'text-2xl sm:text-4xl lg:text-5xl xl:text-6xl' : 'text-3xl sm:text-5xl lg:text-6xl xl:text-7xl'}`}>
+                    {t('about.hero.title')}
+                </h1>
 
-        <!-- 右側深色內容區域 -->
-        <div class=" text-neutral-0  p-8 lg:p-16 flex flex-col justify-center relative lg:-mt-12 overflow-hidden bg-neutral-900" data-animate-in="right">
-          <!-- 背景裝飾點綴 -->
-          <div class="absolute inset-0 opacity-10">
-            <!-- 左上角點點裝飾 -->
-            <div class="absolute top-8 left-8">
-              <div class="grid grid-cols-6 gap-3">
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-              </div>
+                <!-- Simplified Meta Information -->
+                <div class={`animate-slide-in-delay-200 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>
+                    <!-- Tags -->
+                    <div class="flex items-center justify-center">
+            <span class="px-4 py-2 text-sm font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
+              {t('about.hero.tag')}
+            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="w-full overflow-x-hidden section-container-detail">
+        <SectionTitle title='品牌介紹' subtitle={t('about.sectionSubtitle')}/>
+
+        <!-- Page content will be added here -->
+        <!-- 兩欄式佈局 -->
+        <section class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 mb-16 sm:mb-20 px-4 sm:px-6"
+                 data-animate-in="up">
+            <!-- 左側圖片區域 (2/5 = 40%) -->
+            <div class="lg:col-span-2 order-2 lg:order-1" data-animate-in="left">
+                <div class="relative h-64 sm:h-80 lg:h-full lg:bg-cover lg:bg-center rounded-lg lg:rounded-none overflow-hidden"
+                     >
+                    <!-- 前方圖片 - 手機版置中顯示，桌面版右下角偏移 -->
+                    <img
+                            src="/public/images/about2.jpg"
+                            alt="品牌介紹圖片"
+                            class="w-full h-full object-cover  lg:object-cover z-20 rounded-lg lg:rounded-none lg:relative"
+                    />
+                </div>
             </div>
 
-            <!-- 右下角較少的點點 -->
-            <div class="absolute bottom-12 right-12">
-              <div class="grid grid-cols-6 gap-3">
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-                <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
-              </div>
+            <!-- 右側文字區域 (3/5 = 60%) -->
+            <div class="lg:col-span-3 order-1 lg:order-2" data-animate-in="right">
+                <div class="py-6 lg:p-8 h-full flex flex-col justify-center">
+                    <h3 class={`font-bold text-black dark:text-white mb-6 sm:mb-8 ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}
+                        style="color: var(--theme-text, #ffffff)">{t('about.heaven.title')}</h3>
+                    <div class="intro-text-container text-black dark:text-white space-y-6 sm:space-y-8"
+                         style="color: var(--theme-text, #ffffff)">
+                        <p class={`leading-relaxed text-opacity-90 ${isEnglish ? 'text-base sm:text-lg lg:text-xl' : 'text-lg sm:text-xl lg:text-2xl'}`}
+                           data-animate-in="up">
+                            {t('about.heaven.description')}
+                        </p>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
+        <!-- 圖標輪播區域 -->
+        <section class="relative py-12 sm:py-16 lg:py-20 mb-16 sm:mb-20 overflow-hidden" data-animate-in="scaleIn">
+            <!-- 背景圖片 -->
+            <div class="absolute inset-0">
+                <img
+                        src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
+                        alt="Heaven Spa 背景"
+                        class="w-full h-full object-cover"
+                />
+                <!-- 深色遮罩 -->
+                <div class="absolute inset-0" style="background: #111; opacity: 0.7;"></div>
+            </div>
 
-          <!-- 主要內容 -->
-          <div class="relative z-10">
-            <h2 class={`font-bold mb-8 leading-tight ${isEnglish ? 'text-3xl lg:text-4xl xl:text-5xl' : 'text-4xl lg:text-5xl xl:text-6xl'}`}>
-              {t('about.environment.title')}
-            </h2>
+            <div class="relative z-10 max-w-6xl mx-auto pt-12 sm:pt-16 lg:pt-20">
+                <!-- 圖標輪播容器 -->
+                <Carousel
+                        itemCount={6}
+                        autoPlayInterval={4000}
+                        showNavigation={true}
+                        showDots={true}
+                        responsive={{sm: 1, md: 2, lg: 3}}
+                        uniqueId="services-carousel"
+                        containerClass="services-carousel-container"
+                >
+                    <!-- 圖標項目 -->
+                    <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3 sm:px-4">
+                        <div class="text-center p-4 sm:p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
+                                <img src="/icons/woman.svg" alt={t('about.services.beauty.title')}
+                                     class="w-16 h-16 sm:w-20 sm:h-20 filter brightness-0 invert"/>
+                            </div>
+                            <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t('about.services.beauty.title')}</h4>
+                            <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-sm sm:text-base'}`}>{t('about.services.beauty.description')}</p>
+                        </div>
+                    </div>
 
-            <p class={`text-neutral-0 mb-16 leading-relaxed font-light ${isEnglish ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'}`}>
-              {t('about.environment.description1')}
-            </p>
-            <p class={`text-neutral-0 mb-16 leading-relaxed font-light ${isEnglish ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'}`}>
-              {t('about.environment.description2')}
-            </p>
+                    <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3 sm:px-4">
+                        <div class="text-center p-4 sm:p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
+                                <img src="/icons/massage.svg" alt={t('about.services.massage.title')}
+                                     class="w-16 h-16 sm:w-20 sm:h-20 filter brightness-0 invert"/>
+                            </div>
+                            <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t('about.services.massage.title')}</h4>
+                            <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-sm sm:text-base'}`}>{t('about.services.massage.description')}</p>
+                        </div>
+                    </div>
 
-            <!-- 服務特色列表 -->
-            <!--<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">-->
-            <!--  <div class="flex items-center space-x-4 hover:transform hover:translate-x-2 transition-all duration-300">-->
-            <!--    <div class="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
-            <!--      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">-->
-            <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
-            <!--      </svg>-->
-            <!--    </div>-->
-            <!--    <span class="text-neutral-0 text-lg font-medium">專業美容護理</span>-->
-            <!--  </div>-->
+                    <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3 sm:px-4">
+                        <div class="text-center p-4 sm:p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
+                                <img src="/icons/spa.svg" alt={t('about.services.aromatherapy.title')}
+                                     class="w-16 h-16 sm:w-20 sm:h-20 filter brightness-0 invert"/>
+                            </div>
+                            <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t('about.services.aromatherapy.title')}</h4>
+                            <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-sm sm:text-base'}`}>{t('about.services.aromatherapy.description')}</p>
+                        </div>
+                    </div>
 
-            <!--  <div class="flex items-center space-x-3">-->
-            <!--    <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
-            <!--      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">-->
-            <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
-            <!--      </svg>-->
-            <!--    </div>-->
-            <!--    <span class="text-neutral-0 text-lg font-medium">個人化療程</span>-->
-            <!--  </div>-->
+                    <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3 sm:px-4">
+                        <div class="text-center p-4 sm:p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
+                                <img src="/icons/massage (1).svg" alt={t('about.services.bodycare.title')}
+                                     class="w-16 h-16 sm:w-20 sm:h-20 filter brightness-0 invert"/>
+                            </div>
+                            <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t('about.services.bodycare.title')}</h4>
+                            <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-sm sm:text-base'}`}>{t('about.services.bodycare.description')}</p>
+                        </div>
+                    </div>
 
-            <!--  <div class="flex items-center space-x-3">-->
-            <!--    <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
-            <!--      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">-->
-            <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
-            <!--      </svg>-->
-            <!--    </div>-->
-            <!--    <span class="text-neutral-0 text-lg font-medium">舒適環境</span>-->
-            <!--  </div>-->
+                    <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3 sm:px-4">
+                        <div class="text-center p-4 sm:p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
+                                <img src="/icons/foot-massage.svg" alt={t('about.services.nail.title')}
+                                     class="w-16 h-16 sm:w-20 sm:h-20 filter brightness-0 invert"/>
+                            </div>
+                            <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t('about.services.nail.title')}</h4>
+                            <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-sm sm:text-base'}`}>{t('about.services.nail.description')}</p>
+                        </div>
+                    </div>
 
-            <!--  <div class="flex items-center space-x-3">-->
-            <!--    <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
-            <!--      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">-->
-            <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
-            <!--      </svg>-->
-            <!--    </div>-->
-            <!--    <span class="text-neutral-0 text-lg font-medium">專業技術團隊</span>-->
-            <!--  </div>-->
-            <!--</div>-->
-          </div>
+                    <div class="carousel-slide flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 px-3 sm:px-4">
+                        <div class="text-center p-4 sm:p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 flex items-center justify-center">
+                                <img src="/icons/relax.svg" alt={t('about.services.relax.title')}
+                                     class="w-16 h-16 sm:w-20 sm:h-20 filter brightness-0 invert"/>
+                            </div>
+                            <h4 class={`text-white font-bold mb-3 ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>{t('about.services.relax.title')}</h4>
+                            <p class={`text-white/80 ${isEnglish ? 'text-sm' : 'text-sm sm:text-base'}`}>{t('about.services.relax.description')}</p>
+                        </div>
+                    </div>
+                </Carousel>
+            </div>
+        </section>
+
+        <!-- 分割區域：左圖右文 -->
+        <section class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 lg:mb-8 sm:mb-8 px-4 sm:px-6 lg:mt-[180px]" data-animate-in="up">
+            <!-- 左側圖片區域 -->
+            <div class="relative w-full lg:-mt-16 lg:mb-16" data-animate-in="left">
+                <div class="grid grid-cols-2 gap-2 h-full min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
+                    <img
+                            src="/images/about3.jpeg"
+                            alt="Heaven Spa 專業服務 1"
+                            class="w-full h-full object-cover"
+                    />
+                    <img
+                            src="/images/about4.jpeg"
+                            alt="Heaven Spa 專業服務 2"
+                            class="w-full h-full object-cover"
+                    />
+                    <img
+                            src="/images/about5.jpeg"
+                            alt="Heaven Spa 專業服務 3"
+                            class="w-full h-full object-cover"
+                    />
+                    <img
+                            src="/images/about6.jpeg"
+                            alt="Heaven Spa 專業服務 4"
+                            class="w-full h-full object-cover"
+                    />
+                </div>
+                <!-- 品牌標章 -->
+                <!--<div class="absolute bottom-8 left-8">-->
+                <!--  <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">-->
+                <!--    <div class="text-center">-->
+                <!--      <div class="text-xs font-bold text-primary-600 leading-tight">HEAVEN</div>-->
+                <!--      <div class="text-xs font-bold text-primary-600 leading-tight">SPA</div>-->
+                <!--      <div class="w-6 h-px bg-primary-600 mx-auto my-1"></div>-->
+                <!--      <div class="text-xs text-gray-600">PROFESSIONAL</div>-->
+                <!--    </div>-->
+                <!--  </div>-->
+                <!--</div>-->
+            </div>
+
+            <!-- 右側深色內容區域 -->
+            <div class="flex flex-col justify-center relative overflow-hidden bg-neutral-900 w-full p-8 lg:p-16 lg:mt-8 lg:-mb-8" data-animate-in="right">
+                <!-- 背景裝飾點綴 -->
+                <div class="absolute inset-0 opacity-10">
+                    <!-- 左上角點點裝飾 -->
+                    <div class="absolute top-8 left-8">
+                        <div class="grid grid-cols-6 gap-3">
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- 右下角較少的點點 -->
+                    <div class="absolute bottom-12 right-12">
+                        <div class="grid grid-cols-6 gap-3">
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                            <div class="w-1 h-1 bg-neutral-0 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 主要內容 -->
+                <div class="relative z-10 text-neutral-0">
+                    <h2 class={`font-bold mb-6 sm:mb-8 leading-tight ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl xl:text-5xl' : 'text-3xl sm:text-4xl lg:text-5xl xl:text-6xl'}`}>
+                        {t('about.environment.title')}
+                    </h2>
+
+                    <p class={`text-neutral-0 mb-8 sm:mb-12 lg:mb-16 leading-relaxed font-light ${isEnglish ? 'text-base sm:text-lg lg:text-xl' : 'text-lg sm:text-xl lg:text-2xl'}`}>
+                        {t('about.environment.description1')}
+                    </p>
+                    <p class={`text-neutral-0 mb-8 sm:mb-12 lg:mb-16 leading-relaxed font-light ${isEnglish ? 'text-base sm:text-lg lg:text-xl' : 'text-lg sm:text-xl lg:text-2xl'}`}>
+                        {t('about.environment.description2')}
+                    </p>
+
+                    <!-- 服務特色列表 -->
+                    <!--<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">-->
+                    <!--  <div class="flex items-center space-x-4 hover:transform hover:translate-x-2 transition-all duration-300">-->
+                    <!--    <div class="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
+                    <!--      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">-->
+                    <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
+                    <!--      </svg>-->
+                    <!--    </div>-->
+                    <!--    <span class="text-neutral-0 text-lg font-medium">專業美容護理</span>-->
+                    <!--  </div>-->
+
+                    <!--  <div class="flex items-center space-x-3">-->
+                    <!--    <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
+                    <!--      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">-->
+                    <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
+                    <!--      </svg>-->
+                    <!--    </div>-->
+                    <!--    <span class="text-neutral-0 text-lg font-medium">個人化療程</span>-->
+                    <!--  </div>-->
+
+                    <!--  <div class="flex items-center space-x-3">-->
+                    <!--    <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
+                    <!--      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">-->
+                    <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
+                    <!--      </svg>-->
+                    <!--    </div>-->
+                    <!--    <span class="text-neutral-0 text-lg font-medium">舒適環境</span>-->
+                    <!--  </div>-->
+
+                    <!--  <div class="flex items-center space-x-3">-->
+                    <!--    <div class="w-5 h-5 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">-->
+                    <!--      <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">-->
+                    <!--        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />-->
+                    <!--      </svg>-->
+                    <!--    </div>-->
+                    <!--    <span class="text-neutral-0 text-lg font-medium">專業技術團隊</span>-->
+                    <!--  </div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </section>
+        <!-- 聯絡我們區域 -->
+        <div class="section-container-detail">
+            <section class="py-16 sm:py-20 border-t mt-16 sm:mt-20 lg:mt-24 border-[var(--theme-mobile-section-border)]"
+                     data-animate-in="fadeIn">
+                <div class="max-w-4xl mx-auto text-center">
+                    <!-- 文字內容 -->
+                    <div class="mb-12 sm:mb-16">
+                        <p class={`leading-relaxed max-w-4xl mx-auto text-theme-text font-light ${isEnglish ? 'text-lg sm:text-xl lg:text-2xl xl:text-3xl' : 'text-xl sm:text-2xl lg:text-3xl xl:text-4xl'}`}>
+                            {t('about.contact.description')}
+                        </p>
+                    </div>
+
+                    <!-- 聯絡按鈕 -->
+                    <div>
+                        <Button
+                                href="/joinUs/careers"
+                                variant="outline"
+                                size="large"
+                                text={t('about.contact.buttonText')}
+                        />
+                    </div>
+                </div>
+            </section>
         </div>
-      </section>
-      <!-- 聯絡我們區域 -->
-      <section class="py-20 px-4 border-t mt-24 border-[var(--theme-mobile-section-border)]" data-animate-in="fadeIn">
-        <div class="max-w-4xl mx-auto text-center">
-          <!-- 文字內容 -->
-          <div class="mb-16">
-            <p class={`leading-relaxed max-w-4xl mx-auto text-theme-text font-light ${isEnglish ? 'text-xl lg:text-2xl xl:text-3xl' : 'text-2xl lg:text-3xl xl:text-4xl'}`}>
-              {t('about.contact.description')}
-            </p>
-          </div>
-
-          <!-- 聯絡按鈕 -->
-          <div>
-            <Button
-              href="/joinUs/careers"
-              variant="outline"
-              size="large"
-              text={t('about.contact.buttonText')}
-            />
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
+    </main>
 </Layout>
 
 <style>
-/* 輪播導航按鈕垂直置中 - 針對 services-carousel */
-.services-carousel-container {
-  position: relative;
-}
+    /* 動畫初始狀態 - 確保版面一開始就正常顯示 */
+    [data-animate-in] {
+        opacity: 1;
+        transform: none;
+        transition: all 0.6s ease-out;
+    }
 
-.services-carousel-container .carousel-prev,
-.services-carousel-container .carousel-next {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-}
+    /* 動畫準備狀態 */
+    [data-animate-in]:not(.in-view) {
+        opacity: 0;
+    }
 
-/* 使用 JavaScript 動態計算中心位置 */
-.services-carousel-container .carousel-prev,
-.services-carousel-container .carousel-next {
-  position: absolute !important;
-  z-index: 20 !important;
-}
+    [data-animate-in="up"]:not(.in-view) {
+        transform: translateY(30px);
+    }
 
-/* intro 文字段落階段式動畫 */
-.intro-text-container p[data-animate-in]:nth-child(1) {
-  animation-delay: 0.2s;
-}
+    [data-animate-in="left"]:not(.in-view) {
+        transform: translateX(-30px);
+    }
 
-.intro-text-container p[data-animate-in]:nth-child(2) {
-  animation-delay: 0.4s;
-}
+    [data-animate-in="right"]:not(.in-view) {
+        transform: translateX(30px);
+    }
 
-.intro-text-container p[data-animate-in]:nth-child(3) {
-  animation-delay: 0.6s;
-}
+    [data-animate-in="fadeIn"]:not(.in-view) {
+        opacity: 0;
+    }
 
-/* 為 intro 文字添加特殊過渡效果 */
-.intro-text-container p[data-animate-in] {
-  transition-delay: 0s;
-}
+    [data-animate-in="scaleIn"]:not(.in-view) {
+        transform: scale(0.95);
+    }
 
-.intro-text-container p[data-animate-in]:nth-child(1).in-view {
-  transition-delay: 0.2s;
-}
+    /* 動畫執行狀態 */
+    [data-animate-in].in-view {
+        opacity: 1;
+        transform: none;
+    }
 
-.intro-text-container p[data-animate-in]:nth-child(2).in-view {
-  transition-delay: 0.4s;
-}
+    /* 輪播導航按鈕垂直置中 - 針對 services-carousel */
+    .services-carousel-container {
+        position: relative;
+    }
 
-.intro-text-container p[data-animate-in]:nth-child(3).in-view {
-  transition-delay: 0.6s;
-}
+    .services-carousel-container .carousel-prev,
+    .services-carousel-container .carousel-next {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
 
-/* English language optimizations for About page */
-.about-en-text {
-  word-break: break-word;
-  hyphens: auto;
-  letter-spacing: 0.025em;
-}
+    /* 使用 JavaScript 動態計算中心位置 */
+    .services-carousel-container .carousel-prev,
+    .services-carousel-container .carousel-next {
+        position: absolute !important;
+        z-index: 20 !important;
+    }
 
-/* Hero title adjustments for English */
-.about-hero-en {
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-}
+    /* intro 文字段落階段式動畫 */
+    .intro-text-container p[data-animate-in]:nth-child(1) {
+        animation-delay: 0.2s;
+    }
 
-/* Service carousel text adjustments for English */
-.about-service-en h4 {
-  line-height: 1.3;
-  word-break: break-word;
-}
+    .intro-text-container p[data-animate-in]:nth-child(2) {
+        animation-delay: 0.4s;
+    }
 
-.about-service-en p {
-  line-height: 1.4;
-  word-break: break-word;
-}
+    .intro-text-container p[data-animate-in]:nth-child(3) {
+        animation-delay: 0.6s;
+    }
 
-/* Environment section adjustments for English */
-.about-environment-en {
-  word-spacing: 0.1em;
-  line-height: 1.4;
-}
+    /* 為 intro 文字添加特殊過渡效果 */
+    .intro-text-container p[data-animate-in] {
+        transition-delay: 0s;
+    }
 
-/* Contact section adjustments for English */
-.about-contact-en {
-  line-height: 1.3;
-  word-break: break-word;
-}
+    .intro-text-container p[data-animate-in]:nth-child(1).in-view {
+        transition-delay: 0.2s;
+    }
 
-/* Responsive adjustments for English content */
-@media (max-width: 768px) {
-  .about-hero-en {
-    font-size: 1.5rem;
-    line-height: 1.2;
-  }
+    .intro-text-container p[data-animate-in]:nth-child(2).in-view {
+        transition-delay: 0.4s;
+    }
 
-  .about-service-en h4 {
-    font-size: 1rem;
-    line-height: 1.3;
-  }
+    .intro-text-container p[data-animate-in]:nth-child(3).in-view {
+        transition-delay: 0.6s;
+    }
 
-  .about-service-en p {
-    font-size: 0.875rem;
-    line-height: 1.4;
-  }
+    /* English language optimizations for About page */
+    .about-en-text {
+        word-break: break-word;
+        hyphens: auto;
+        letter-spacing: 0.025em;
+    }
 
-  .about-environment-en {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
+    /* Hero title adjustments for English */
+    .about-hero-en {
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+    }
 
-  .about-contact-en {
-    font-size: 1.125rem;
-    line-height: 1.3;
-  }
-}
+    /* Service carousel text adjustments for English */
+    .about-service-en h4 {
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    .about-service-en p {
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    /* Environment section adjustments for English */
+    .about-environment-en {
+        word-spacing: 0.1em;
+        line-height: 1.4;
+    }
+
+    /* Contact section adjustments for English */
+    .about-contact-en {
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    /* Responsive adjustments for English content */
+    @media (max-width: 768px) {
+        .about-hero-en {
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-service-en h4 {
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .about-service-en p {
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        .about-environment-en {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .about-contact-en {
+            font-size: 1.125rem;
+            line-height: 1.3;
+        }
+    }
 </style>
 
 <script>
-  // 動畫觀察器初始化
-  function initializeAnimations() {
-    const animatedElements = document.querySelectorAll('[data-animate-in]')
+    // 動畫觀察器初始化
+    function initializeAnimations() {
+        const animatedElements = document.querySelectorAll('[data-animate-in]')
 
-    if (!animatedElements.length) return
+        if (!animatedElements.length) return
 
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // 檢查是否是 intro 文字段落
-            const isIntroText = entry.target.closest('.intro-text-container')
-
-            if (isIntroText) {
-              // 階段式觸發 intro 文字動畫
-              const container = entry.target.closest('.intro-text-container')
-              if (container) {
-                const paragraphs = container.querySelectorAll('p[data-animate-in]')
-
-                paragraphs.forEach((p, index) => {
-                  setTimeout(() => {
-                    p.classList.add('in-view')
-                  }, index * 200) // 每個段落延遲 200ms
-                })
-
-                // 取消觀察所有 intro 段落
-                paragraphs.forEach(p => observer.unobserve(p))
-              }
-            } else {
-              // 一般動畫元素
-              entry.target.classList.add('in-view')
-              observer.unobserve(entry.target)
-            }
-          }
+        // 先將所有動畫元素設為可見狀態，避免初始載入時的版面問題
+        animatedElements.forEach(element => {
+            const el = element as HTMLElement
+            el.style.opacity = '1'
+            el.style.transform = 'none'
         })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px',
-    }
-    )
 
-    animatedElements.forEach(element => {
-      observer.observe(element)
+        // 延遲一段時間後開始動畫觀察
+        setTimeout(() => {
+            // 重新設定初始狀態
+            animatedElements.forEach(element => {
+                if (!element.classList.contains('in-view')) {
+                    const el = element as HTMLElement
+                    const animationType = element.getAttribute('data-animate-in')
+
+                    switch (animationType) {
+                        case 'up':
+                            el.style.opacity = '0'
+                            el.style.transform = 'translateY(30px)'
+                            break
+                        case 'left':
+                            el.style.opacity = '0'
+                            el.style.transform = 'translateX(-30px)'
+                            break
+                        case 'right':
+                            el.style.opacity = '0'
+                            el.style.transform = 'translateX(30px)'
+                            break
+                        case 'fadeIn':
+                            el.style.opacity = '0'
+                            break
+                        case 'scaleIn':
+                            el.style.opacity = '0'
+                            el.style.transform = 'scale(0.95)'
+                            break
+                        default:
+                            el.style.opacity = '0'
+                    }
+                }
+            })
+
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // 檢查是否是 intro 文字段落
+                            const isIntroText = entry.target.closest('.intro-text-container')
+
+                            if (isIntroText) {
+                                // 階段式觸發 intro 文字動畫
+                                const container = entry.target.closest('.intro-text-container')
+                                if (container) {
+                                    const paragraphs = container.querySelectorAll('p[data-animate-in]')
+
+                                    paragraphs.forEach((p, index) => {
+                                        setTimeout(() => {
+                                            p.classList.add('in-view')
+                                            const pEl = p as HTMLElement
+                                            pEl.style.opacity = '1'
+                                            pEl.style.transform = 'none'
+                                        }, index * 200) // 每個段落延遲 200ms
+                                    })
+
+                                    // 取消觀察所有 intro 段落
+                                    paragraphs.forEach(p => observer.unobserve(p))
+                                }
+                            } else {
+                                // 一般動畫元素
+                                entry.target.classList.add('in-view')
+                                const targetEl = entry.target as HTMLElement
+                                targetEl.style.opacity = '1'
+                                targetEl.style.transform = 'none'
+                                observer.unobserve(entry.target)
+                            }
+                        }
+                    })
+                },
+                {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px',
+                }
+            )
+
+            animatedElements.forEach(element => {
+                observer.observe(element)
+            })
+        }, 100) // 延遲 100ms 開始動畫
+    }
+
+    // 頁面載入完成後初始化動畫
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(initializeAnimations, 50)
+        })
+    } else {
+        setTimeout(initializeAnimations, 50)
+    }
+
+    // 備用初始化
+    window.addEventListener('load', () => {
+        setTimeout(initializeAnimations, 100)
     })
-  }
 
-  // 頁面載入完成後初始化動畫
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeAnimations)
-  } else {
-    initializeAnimations()
-  }
-
-  // 備用初始化
-  window.addEventListener('load', () => {
-    setTimeout(initializeAnimations, 100)
-  })
-
-  // 輪播按鈕垂直置中功能
-  function centerCarouselButtons() {
-    const carousel = document.querySelector('.services-carousel-carousel')
-    if (!carousel) {
-      setTimeout(centerCarouselButtons, 500)
-      return
-    }
-
-    const prevBtn = carousel.querySelector('.carousel-prev')
-    const nextBtn = carousel.querySelector('.carousel-next')
-    const slides = carousel.querySelectorAll('.carousel-slide')
-
-    if (!prevBtn || !nextBtn || !slides.length) {
-      setTimeout(centerCarouselButtons, 500)
-      return
-    }
-
-    // 計算輪播內容的中心位置
-    function updateButtonPositions() {
-      if (!carousel) return
-      const carouselRect = carousel.getBoundingClientRect()
-      const firstSlide = slides[0]
-
-      if (firstSlide) {
-        const slideRect = firstSlide.getBoundingClientRect()
-        const slideCenter = slideRect.top + slideRect.height / 2 - carouselRect.top
-
-        // 設置按鈕位置
-        if (prevBtn) {
-          const prevBtnElement = prevBtn as HTMLElement
-          prevBtnElement.style.top = `${slideCenter}px`
-          prevBtnElement.style.transform = 'translateY(-50%)'
+    // 輪播按鈕垂直置中功能
+    function centerCarouselButtons() {
+        const carousel = document.querySelector('.services-carousel-carousel')
+        if (!carousel) {
+            setTimeout(centerCarouselButtons, 500)
+            return
         }
-        if (nextBtn) {
-          const nextBtnElement = nextBtn as HTMLElement
-          nextBtnElement.style.top = `${slideCenter}px`
-          nextBtnElement.style.transform = 'translateY(-50%)'
+
+        const prevBtn = carousel.querySelector('.carousel-prev')
+        const nextBtn = carousel.querySelector('.carousel-next')
+        const slides = carousel.querySelectorAll('.carousel-slide')
+
+        if (!prevBtn || !nextBtn || !slides.length) {
+            setTimeout(centerCarouselButtons, 500)
+            return
         }
-      }
+
+        // 計算輪播內容的中心位置
+        function updateButtonPositions() {
+            if (!carousel) return
+            const carouselRect = carousel.getBoundingClientRect()
+            const firstSlide = slides[0]
+
+            if (firstSlide) {
+                const slideRect = firstSlide.getBoundingClientRect()
+                const slideCenter = slideRect.top + slideRect.height / 2 - carouselRect.top
+
+                // 設置按鈕位置
+                if (prevBtn) {
+                    const prevBtnElement = prevBtn as HTMLElement
+                    prevBtnElement.style.top = `${slideCenter}px`
+                    prevBtnElement.style.transform = 'translateY(-50%)'
+                }
+                if (nextBtn) {
+                    const nextBtnElement = nextBtn as HTMLElement
+                    nextBtnElement.style.top = `${slideCenter}px`
+                    nextBtnElement.style.transform = 'translateY(-50%)'
+                }
+            }
+        }
+
+        // 初始設置
+        updateButtonPositions()
+
+        // 監聽窗口調整大小
+        const resizeObserver = new ResizeObserver(updateButtonPositions)
+        resizeObserver.observe(carousel)
+
+        // 監聽窗口大小變化
+        window.addEventListener('resize', updateButtonPositions)
     }
 
-    // 初始設置
-    updateButtonPositions()
+    // 初始化按鈕置中
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(centerCarouselButtons, 1000)
+        })
+    } else {
+        setTimeout(centerCarouselButtons, 1000)
+    }
 
-    // 監聽窗口調整大小
-    const resizeObserver = new ResizeObserver(updateButtonPositions)
-    resizeObserver.observe(carousel)
-
-    // 監聽窗口大小變化
-    window.addEventListener('resize', updateButtonPositions)
-  }
-
-  // 初始化按鈕置中
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(centerCarouselButtons, 1000)
+    // 備用初始化
+    window.addEventListener('load', () => {
+        setTimeout(centerCarouselButtons, 1500)
     })
-  } else {
-    setTimeout(centerCarouselButtons, 1000)
-  }
-
-  // 備用初始化
-  window.addEventListener('load', () => {
-    setTimeout(centerCarouselButtons, 1500)
-  })
 </script>
