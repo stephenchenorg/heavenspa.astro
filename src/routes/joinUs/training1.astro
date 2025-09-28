@@ -470,18 +470,21 @@ const meta = seoMeta({
 
                 parallaxElements.forEach(element => {
                     const speed = 0.5
-                    element.style.transform = `translateY(${scrolled * speed}px)`
+                    const htmlElement = element as HTMLElement
+                    htmlElement.style.transform = `translateY(${scrolled * speed}px)`
                 })
             })
 
             // 為按鈕添加波浪點擊效果
             document.querySelectorAll('a[class*="bg-primary"]').forEach(button => {
-                button.addEventListener('click', function(e) {
+                button.addEventListener('click', (e: Event) => {
+                    const mouseEvent = e as MouseEvent
                     const ripple = document.createElement('span')
-                    const rect = this.getBoundingClientRect()
+                    const target = button as HTMLElement
+                    const rect = target.getBoundingClientRect()
                     const size = Math.max(rect.width, rect.height)
-                    const x = e.clientX - rect.left - size / 2
-                    const y = e.clientY - rect.top - size / 2
+                    const x = mouseEvent.clientX - rect.left - size / 2
+                    const y = mouseEvent.clientY - rect.top - size / 2
 
                     ripple.style.cssText = `
                         position: absolute;
@@ -496,9 +499,9 @@ const meta = seoMeta({
                         pointer-events: none;
                     `
 
-                    this.style.position = 'relative'
-                    this.style.overflow = 'hidden'
-                    this.appendChild(ripple)
+                    target.style.position = 'relative'
+                    target.style.overflow = 'hidden'
+                    target.appendChild(ripple)
 
                     setTimeout(() => {
                         ripple.remove()
