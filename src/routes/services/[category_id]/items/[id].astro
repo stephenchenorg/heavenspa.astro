@@ -39,13 +39,13 @@ const meta = seoMeta({
       <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4 sm:px-6 lg:px-8">
         <div class={`w-full ${isEnglish ? 'max-w-5xl' : 'max-w-4xl'}`}>
           <!-- Breadcrumb Navigation -->
-          <nav class="mb-4 sm:mb-6">
-            <ol class={`flex items-center justify-center flex-wrap gap-x-2 gap-y-1 text-white/70 ${isEnglish ? 'text-xs sm:text-sm' : 'text-sm'}`}>
-              <li><a href="/services" class="hover:text-white transition-colors underline-offset-2 hover:underline">{t('nav.services')}</a></li>
-              <li class="text-white/50">/</li>
-              <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors underline-offset-2 hover:underline">{service.category.title}</a></li>
-              <li class="text-white/50">/</li>
-              <li class="text-white font-medium">{service.title}</li>
+          <nav class={`mb-2 sm:mb-4 md:mb-6 ${isEnglish ? 'hidden xs:block' : ''}`}>
+            <ol class={`flex items-center justify-center flex-wrap gap-x-1 sm:gap-x-2 gap-y-1 text-white/70 ${isEnglish ? 'text-[10px] xs:text-xs sm:text-sm' : 'text-xs sm:text-sm'}`}>
+              <li><a href="/services" class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-16 sm:max-w-none">{t('nav.services')}</a></li>
+              <li class="text-white/50 text-[8px] sm:text-xs">/</li>
+              <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-20 sm:max-w-none">{service.category.title}</a></li>
+              <li class="text-white/50 text-[8px] sm:text-xs">/</li>
+              <li class="text-white font-medium truncate max-w-24 sm:max-w-none" title={service.title}>{service.title}</li>
             </ol>
           </nav>
 
@@ -249,3 +249,24 @@ const meta = seoMeta({
     setTimeout(animateElements, 100)
 }
 </script>
+
+<style>
+  /* Custom xs breakpoint for extra small screens */
+  @media (min-width: 475px) {
+    .xs\:block {
+      display: block;
+    }
+
+    .xs\:text-xs {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+  }
+
+  /* Hide breadcrumb on very small screens for English */
+  @media (max-width: 474px) {
+    .hidden.xs\:block {
+      display: none !important;
+    }
+  }
+</style>
