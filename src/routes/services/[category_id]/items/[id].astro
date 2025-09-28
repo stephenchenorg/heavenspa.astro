@@ -3,7 +3,11 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getLocale } from 'i18n:astro'
+
 const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
 // Get route parameters
 const { category_id, id } = Astro.params
 
@@ -22,7 +26,7 @@ const meta = seoMeta({
   <main class="section-container">
 
     <!-- Service Banner -->
-    <section class="relative w-full h-64 md:h-80 lg:h-96 mb-8 overflow-hidden">
+    <section class="relative w-full h-72 sm:h-80 md:h-96 lg:h-[28rem] mb-8 overflow-hidden">
       <!-- Background Image -->
       <div
         class="absolute inset-0 bg-cover bg-center"
@@ -30,21 +34,30 @@ const meta = seoMeta({
       >
       </div>
       <!-- Gradient Overlay -->
-      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
       <!-- Text Content -->
-      <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4">
-        <div class="max-w-4xl">
-          <nav class="mb-4">
-            <ol class="flex items-center space-x-2 text-sm text-white/70">
-              <li><a href="/services" class="hover:text-white transition-colors">{t('nav.services')}</a></li>
-              <li>/</li>
-              <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors">{service.category.title}</a></li>
-              <li>/</li>
-              <li class="text-white">{service.title}</li>
+      <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4 sm:px-6 lg:px-8">
+        <div class={`w-full ${isEnglish ? 'max-w-5xl' : 'max-w-4xl'}`}>
+          <!-- Breadcrumb Navigation -->
+          <nav class="mb-4 sm:mb-6">
+            <ol class={`flex items-center justify-center flex-wrap gap-x-2 gap-y-1 text-white/70 ${isEnglish ? 'text-xs sm:text-sm' : 'text-sm'}`}>
+              <li><a href="/services" class="hover:text-white transition-colors underline-offset-2 hover:underline">{t('nav.services')}</a></li>
+              <li class="text-white/50">/</li>
+              <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors underline-offset-2 hover:underline">{service.category.title}</a></li>
+              <li class="text-white/50">/</li>
+              <li class="text-white font-medium">{service.title}</li>
             </ol>
           </nav>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{service.title}</h1>
-          <p class="text-lg md:text-xl text-white/80">{service.category.title}</p>
+
+          <!-- Main Title -->
+          <h1 class={`font-bold mb-3 sm:mb-4 leading-tight ${isEnglish ? 'text-[clamp(1.5rem,6vw,3rem)] sm:text-[clamp(2rem,5vw,3.5rem)]' : 'text-[clamp(2rem,7vw,4rem)] sm:text-[clamp(2.5rem,6vw,4.5rem)]'}`}>
+            {service.title}
+          </h1>
+
+          <!-- Category Subtitle -->
+          <p class={`text-white/80 font-medium ${isEnglish ? 'text-base sm:text-lg md:text-xl' : 'text-lg sm:text-xl md:text-2xl'}`}>
+            {service.category.title}
+          </p>
         </div>
       </div>
     </section>
