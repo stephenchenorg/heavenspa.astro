@@ -8,7 +8,7 @@ import Button from '@/components/ui/Button.astro'
   data-section="intro"
 >
   <!-- Background Image -->
-  <div class="absolute inset-0 flex items-center justify-end pointer-events-none bg-[#FFD646]">
+  <div class="absolute inset-0 flex items-center justify-end pointer-events-none bg-[linear-gradient(135deg,#C99700,#FFD54F)]">
     <img src="/images/group4.png" class="w-[130%] h-[130%] object-cover" />
   </div>
 
@@ -52,6 +52,7 @@ import Button from '@/components/ui/Button.astro'
           <div class="flex flex-row gap-4 pt-4 relative z-10 intro-buttons-container">
             <div data-animate-in="up" style="animation-delay: 0.2s;">
               <Button
+                href='/about'
                 variant="ghost"
                 size="medium"
                 text="了解更多"
@@ -60,6 +61,7 @@ import Button from '@/components/ui/Button.astro'
             </div>
             <div data-animate-in="up" style="animation-delay: 0.4s;">
               <Button
+                href='/services'
                 variant="ghost"
                 size="medium"
                 text="查看服務"
