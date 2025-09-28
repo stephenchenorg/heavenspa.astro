@@ -22,12 +22,12 @@ articles = articles.slice(0, 6) // 只取前6筆資料
   </div>
 
   <!-- 響應式輪播 -->
-  <div class="max-w-7xl mx-auto w-full mt-8">
+  <div class="max-w-7xl mx-auto w-full mt-8 news-carousel-container" data-animate="carousel">
     {articles.length > 0 ? (
       <Carousel
         itemCount={articles.length}
         uniqueId="news"
-        autoPlayInterval={5000}
+        autoPlayInterval={2600}
       >
         {articles.map((article, articleIndex) => (
           <div
@@ -178,6 +178,19 @@ articles = articles.slice(0, 6) // 只取前6筆資料
     transform: translateY(0);
   }
 
+  /* News Carousel Animation */
+  .news-carousel-container {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.6s; /* 在標題動畫後開始 */
+  }
+
+  .news-carousel-container.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Line clamp utilities for better text overflow handling */
   .line-clamp-2 {
     display: -webkit-box;
@@ -223,8 +236,7 @@ articles = articles.slice(0, 6) // 只取前6筆資料
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const titleElement = document.querySelector('.news-section-title')
-
-    if (!titleElement) return
+    const carouselElement = document.querySelector('.news-carousel-container')
 
     // 創建 Intersection Observer
     const observer = new IntersectionObserver(
@@ -245,7 +257,12 @@ articles = articles.slice(0, 6) // 只取前6筆資料
       }
     )
 
-    // 開始觀察
-    observer.observe(titleElement)
+    // 開始觀察標題和輪播
+    if (titleElement) {
+      observer.observe(titleElement)
+    }
+    if (carouselElement) {
+      observer.observe(carouselElement)
+    }
   })
 </script>
