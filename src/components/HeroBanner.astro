@@ -55,8 +55,7 @@ const angleStep = 360 / chars.length
             <!-- Main Heading -->
             <div class="space-y-6 animate-fade-in-up [animation-delay:0.4s] [animation-fill-mode:both]">
               <h1
-                class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em]"
-                class="text-white dark:text-white"
+                class="text-[clamp(4rem,12vw,12rem)] font-black leading-[0.85] tracking-[-0.05em] text-white dark:text-white"
               >
                 {banner.title}
               </h1>
@@ -156,9 +155,9 @@ const angleStep = 360 / chars.length
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
         </svg>
       </div>
-      <div class="absolute w-full h-full animate-[textRotation_6s_linear_infinite] hidden md:block">
+      <div class="absolute w-full h-full animate-[textRotation_6s_linear_infinite]">
         {chars.map((char: string, i: number) => (
-          <span class="absolute left-1/2 text-xs font-light" style={`transform: rotate(${i * angleStep}deg); transform-origin: 0px 60px;`}>
+          <span class="absolute left-1/2 text-xs font-light text-white/80" style={`transform: rotate(${i * angleStep}deg); transform-origin: 0px 60px;`}>
             {char}
           </span>
         ))}
