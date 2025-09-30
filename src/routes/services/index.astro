@@ -36,13 +36,11 @@ const services = data.serviceCategories.data
                 style={`background-image: url(${service.cover?.desktop})`}
               />
                 {/* 漸層遮罩 */}
-                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t transition-opacity duration-500 group-hover:from-black/20" />
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-black/20 transition-opacity duration-500 group-hover:from-black/60 group-hover:to-black/20" />
 
                 {/* 文字內容 */}
                 <div class="relative z-[1] flex w-full flex-col gap-4 p-8 md:p-10 justify-between h-full">
                   <p class={`font-semibold tracking-tight ${isEnglish ? 'text-[clamp(1rem,3vw,1.5rem)]' : 'text-[clamp(1.25rem,4vw,2rem)]'}`}>{service.title}</p>
-                  <p class={`text-white/60 font-bold ${isEnglish ? 'text-xs line-clamp-3' : 'text-sm'}`}>{service.description}</p>
-
                 </div>
             </a>
         ))}
