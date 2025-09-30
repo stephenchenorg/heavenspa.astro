@@ -26,12 +26,17 @@
     "span-title": "Our Story"
   },
   "team": {
-    "title": "Our Team.",
+    "title": "Our Team",
+    "subtitle": "OUR TEAM",
     "description": "The same color can evoke different emotions, or have various meanings to different individuals and cultures.",
     "more-members": "More",
     "pageTitle": "Service Team - Heaven Spa",
     "sectionTitle": "Service Team",
     "sectionSubtitle": "OUR TEAM",
+    "recommended": {
+      "title": "Recommended",
+      "subtitle": "RECOMMENDED"
+    },
     "noData": "No Data",
     "noDataDescription": "Currently no team member information available",
     "schedule": "Work Schedule",
@@ -83,6 +88,9 @@
   "news": {
     "more-news": "More",
     "title": "News",
+    "subtitle": "NEWS",
+    "sectionTitle": "News",
+    "sectionSubtitle": "NEWS",
     "detail": "Detail",
     "loading": "Loading content...",
     "publishDate": "Published:",
@@ -118,6 +126,9 @@
   "partnerships": {
     "more-news": "More Partnerships",
     "title": "Partnerships",
+    "subtitle": "BUSINESS PARTNERSHIP",
+    "sectionTitle": "Business Partnership",
+    "sectionSubtitle": "BUSINESS PARTNERSHIP",
     "detail": "Partnership Details",
     "loading": "Loading content...",
     "publishDate": "Publish Date:",
@@ -200,6 +211,10 @@
   "careers": {
     "title": "Recruitment",
     "subtitle": "Contact Us",
+    "training": {
+      "title": "Technical Training",
+      "subtitle": "TRAINING"
+    },
     "headline": "Job content",
     "description": "Flexible scheduling and perfect commission system",
     "requirements": {
@@ -241,6 +256,8 @@
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "FAQ",
+    "sectionTitle": "FAQ",
+    "sectionSubtitle": "FAQ",
     "categories": {
       "reservation": "Reservation",
       "spa": "Spa Services",
@@ -259,6 +276,8 @@
   },
   "contact": "CONTACT",
   "services": {
+    "title": "Services",
+    "subtitle": "SERVICES",
     "pageTitle": "Services - Heaven Spa",
     "sectionTitle": "Services",
     "sectionSubtitle": "SERVICES",

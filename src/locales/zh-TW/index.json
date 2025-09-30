@@ -26,12 +26,17 @@
     "span-title": "我們的故事"
   },
   "team": {
-    "title": "Our Team.",
+    "title": "服務團隊",
+    "subtitle": "OUR TEAM",
     "description": "同樣的色彩可以喚起不同的情感，或對不同的個人和文化具有各種意義。",
     "more-members": "查看所有團隊成員",
     "pageTitle": "服務團隊 - Heaven Spa",
     "sectionTitle": "服務團隊",
     "sectionSubtitle": "OUR TEAM",
+    "recommended": {
+      "title": "本週推薦",
+      "subtitle": "RECOMMENDED"
+    },
     "noData": "暫無資料",
     "noDataDescription": "目前沒有團隊成員資訊",
     "schedule": "工作班表",
@@ -83,6 +88,9 @@
   "news": {
     "more-news": "更多最新消息",
     "title": "最新消息",
+    "subtitle": "NEWS",
+    "sectionTitle": "最新消息",
+    "sectionSubtitle": "NEWS",
     "detail": "新聞詳情",
     "loading": "內容載入中...",
     "publishDate": "發布日期:",
@@ -118,6 +126,9 @@
   "partnerships": {
     "more-news": "更多異業合作",
     "title": "異業合作",
+    "subtitle": "BUSINESS PARTNERSHIP",
+    "sectionTitle": "異業合作",
+    "sectionSubtitle": "BUSINESS PARTNERSHIP",
     "detail": "異業合作詳情",
     "loading": "內容載入中...",
     "publishDate": "發布日期:",
@@ -200,6 +211,10 @@
   "careers": {
     "title": "人才招募",
     "subtitle": "Contact Us",
+    "training": {
+      "title": "技術培訓",
+      "subtitle": "TRAINING"
+    },
     "headline": "職務內容",
     "description": "可彈性排班，完善抽成制度",
     "requirements": {
@@ -241,6 +256,8 @@
   "faq": {
     "title": "常見問題",
     "subtitle": "FAQ",
+    "sectionTitle": "常見問題",
+    "sectionSubtitle": "FAQ",
     "categories": {
       "reservation": "預約問題",
       "spa": "Spa問題",
@@ -259,6 +276,8 @@
   },
   "contact": "CONTACT",
   "services": {
+    "title": "服務項目",
+    "subtitle": "SERVICES",
     "pageTitle": "服務項目 - Heaven Spa",
     "sectionTitle": "服務項目",
     "sectionSubtitle": "SERVICES",

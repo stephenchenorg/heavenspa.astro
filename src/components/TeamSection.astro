@@ -19,7 +19,7 @@ const teamMembers: TeamMember[] = (await getAllTeams(40)).slice(0, 6)
 >
   <!-- 標題區 -->
   <div class="team-section-title" data-animate="true">
-    <SectionTitle title="本週推薦" subtitle="RECOMMENDED" />
+    <SectionTitle title={t('team.recommended.title')} subtitle={t('team.recommended.subtitle')} />
   </div>
 
   <!-- 響應式輪播 -->
