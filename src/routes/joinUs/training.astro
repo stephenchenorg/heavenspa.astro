@@ -3,6 +3,9 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 
+import { createNestedT } from '@/utils/i18n'
+const t = await createNestedT()
+
 const meta = seoMeta({
     title: `技能培訓 - Heaven Spa`,
 })
