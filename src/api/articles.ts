@@ -127,8 +127,8 @@ export async function getArticles(): Promise<Article[]> {
 }
 export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
   const res = await graphQLAPI(gql`
-    query GetRelatedArticles($intersectTags: [Int!], $unionTags: [Int!],) {
-      articles(intersect_tags: $intersectTags, union_tags: $unionTags) {
+    query GetRelatedArticles($unionTags: [Int!],) {
+      articles(union_tags: $unionTags) {
         data {
           id
           content
@@ -165,7 +165,6 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
     }
   `, {
     variables: {
-      intersectTags: tagIds,
       unionTags: tagIds,
     },
   })

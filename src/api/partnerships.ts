@@ -127,8 +127,8 @@ export async function getPartnerships(): Promise<Partnership[]> {
 }
 export async function getRelatedPartnerships(tagIds: number[]): Promise<Partnership[]> {
   const res = await graphQLAPI(gql`
-    query GetRelatedPartnerships($intersectTags: [Int!], $unionTags: [Int!],) {
-      partnerships(intersect_tags: $intersectTags, union_tags: $unionTags) {
+    query GetRelatedPartnerships($unionTags: [Int!],) {
+      partnerships(union_tags: $unionTags) {
         data {
           id
           content
@@ -165,7 +165,6 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
     }
   `, {
     variables: {
-      intersectTags: tagIds,
       unionTags: tagIds,
     },
   })
