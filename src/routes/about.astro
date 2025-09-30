@@ -48,7 +48,7 @@ const meta = seoMeta({
         </div>
     </section>
 
-    <main class="w-full overflow-x-hidden section-container-detail">
+    <main class="section-container-detail">
         <SectionTitle title='品牌介紹' subtitle={t('about.sectionSubtitle')}/>
 
         <!-- Page content will be added here -->
@@ -84,7 +84,7 @@ const meta = seoMeta({
             </div>
         </section>
         <!-- 圖標輪播區域 -->
-        <section class="relative py-12 sm:py-16 lg:py-20 mb-16 sm:mb-20 overflow-hidden" data-animate-in="scaleIn">
+        <section class="max-w-6xl mx-auto relative py-12 sm:py-16 lg:py-20 mb-16 sm:mb-20 overflow-hidden" data-animate-in="scaleIn">
             <!-- 背景圖片 -->
             <div class="absolute inset-0">
                 <img
@@ -203,17 +203,6 @@ const meta = seoMeta({
                             class="w-full h-full object-cover"
                     />
                 </div>
-                <!-- 品牌標章 -->
-                <!--<div class="absolute bottom-8 left-8">-->
-                <!--  <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">-->
-                <!--    <div class="text-center">-->
-                <!--      <div class="text-xs font-bold text-primary-600 leading-tight">HEAVEN</div>-->
-                <!--      <div class="text-xs font-bold text-primary-600 leading-tight">SPA</div>-->
-                <!--      <div class="w-6 h-px bg-primary-600 mx-auto my-1"></div>-->
-                <!--      <div class="text-xs text-gray-600">PROFESSIONAL</div>-->
-                <!--    </div>-->
-                <!--  </div>-->
-                <!--</div>-->
             </div>
 
             <!-- 右側深色內容區域 -->
@@ -365,30 +354,29 @@ const meta = seoMeta({
                 </div>
             </div>
         </section>
-        <!-- 聯絡我們區域 -->
-        <div class="section-container-detail">
-            <section class="py-16 sm:py-20 border-t mt-16 sm:mt-20 lg:mt-24 border-[var(--theme-mobile-section-border)]"
-                     data-animate-in="fadeIn">
-                <div class="max-w-4xl mx-auto text-center">
-                    <!-- 文字內容 -->
-                    <div class="mb-12 sm:mb-16">
-                        <p class={`leading-relaxed max-w-4xl mx-auto text-theme-text font-light ${isEnglish ? 'text-lg sm:text-xl lg:text-2xl xl:text-3xl' : 'text-xl sm:text-2xl lg:text-3xl xl:text-4xl'}`}>
-                            {t('about.contact.description')}
-                        </p>
-                    </div>
 
-                    <!-- 聯絡按鈕 -->
-                    <div>
-                        <Button
-                                href="/joinUs/careers"
-                                variant="outline"
-                                size="large"
-                                text={t('about.contact.buttonText')}
-                        />
-                    </div>
+        <!-- 聯絡我們區域 -->
+        <section class="max-w-6xl mx-auto py-16 sm:py-20 border-t mt-16 sm:mt-20 lg:mt-24 border-[var(--theme-mobile-section-border)]"
+                 data-animate-in="fadeIn">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- 文字內容 -->
+                <div class="mb-12 sm:mb-16">
+                    <p class={`leading-relaxed max-w-4xl mx-auto text-theme-text font-light ${isEnglish ? 'text-lg sm:text-xl lg:text-2xl xl:text-3xl' : 'text-xl sm:text-2xl lg:text-3xl xl:text-4xl'}`}>
+                        {t('about.contact.description')}
+                    </p>
                 </div>
-            </section>
-        </div>
+
+                <!-- 聯絡按鈕 -->
+                <div>
+                    <Button
+                            href="/joinUs/careers"
+                            variant="outline"
+                            size="large"
+                            text={t('about.contact.buttonText')}
+                    />
+                </div>
+            </div>
+        </section>
     </main>
 </Layout>
 
