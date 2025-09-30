@@ -46,7 +46,13 @@
     "introduction": "自我介紹",
     "noIntroduction": "這位成員目前沒有詳細介紹。",
     "thumbnail": "縮圖",
-    "viewDetails": "前往查看"
+    "viewDetails": "前往查看",
+    "types": {
+      "all": "團隊一覽",
+      "available": "今日可預約",
+      "new": "新人",
+      "recommended": "本週推薦"
+    }
   },
   "marquee": {
     "marquee1": "專業服務團隊",

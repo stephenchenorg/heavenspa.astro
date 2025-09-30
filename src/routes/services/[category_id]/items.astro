@@ -68,25 +68,26 @@ const meta = seoMeta({
     )}
 
     <div class="max-w-6xl mx-auto w-full">
-      <div class="mb-8">
-        <ul class="flex justify-center flex-wrap text-sm font-medium text-center" id="default-tab" role="tablist">
-          {categories.map(category => (
-            <li class="me-2" role="presentation">
+      <div class="mb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex flex-wrap gap-2 justify-center">
+            {categories.map(category => (
               <a
                 href={`/services/${category.id}/items`}
-                class={`inline-block p-4 border-b-2 rounded-t-lg transition-all duration-300 ${
+                class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${
                   categoryId === Number.parseInt(category.id, 10)
-                    ? 'border-neutral-900'
-                    : 'border-transparent hover:border-neutral-900'
+                    ? 'active'
+                    : ''
                 }`}
+                style={categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
                 role="tab"
                 aria-selected={categoryId === Number.parseInt(category.id, 10)}
               >
                 {category.title}
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
       </div>
       <!-- 服務網格 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">

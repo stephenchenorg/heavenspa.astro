@@ -46,7 +46,13 @@
     "introduction": "Self Introduction",
     "noIntroduction": "This member currently has no detailed introduction.",
     "thumbnail": "Thumbnail",
-    "viewDetails": "VIEW MORE"
+    "viewDetails": "VIEW MORE",
+    "types": {
+      "all": "Masseurs",
+      "available": "Today Available",
+      "new": "Coming Now",
+      "recommended": "Recommended"
+    }
   },
   "marquee": {
     "marquee1": "Professional Service Team",
