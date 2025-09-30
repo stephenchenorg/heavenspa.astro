@@ -25,7 +25,7 @@ export interface ServiceDetail {
     }
   }>
   specifications: Array<{
-    listing_price: number
+    selling_price: number
     minutes: number
     title: string
     hall_count: number
@@ -66,7 +66,7 @@ export async function getServiceDetail(id: number): Promise<ServiceDetailRespons
           }
           title
           specifications {
-            listing_price
+            selling_price
             minutes
             title
             hall_count
