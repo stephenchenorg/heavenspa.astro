@@ -10,7 +10,6 @@ import TeamCard from '../../components/ui/TeamCard.astro'
 const t = await createNestedT()
 
 const url = new URL(Astro.request.url)
-const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 const selectedType = Number.parseInt(url.searchParams.get('type') || '10')
 
 // 獲取所有團隊成員

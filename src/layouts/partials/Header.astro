@@ -28,9 +28,6 @@ function isActive(path: string) {
 // 特殊處理 careers 相關頁面
 const isCareersActive = currentPath.startsWith('/joinUs')
 
-// 檢查當前語言，英文版使用手機版樣式
-const isEnglish = currentPath.startsWith('/en')
-
 // 共用導航配置
 const navItems = [
   { href: '/about', text: t('nav.about'), i18nKey: 'nav.about' },
