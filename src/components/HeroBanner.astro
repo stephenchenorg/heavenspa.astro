@@ -47,8 +47,17 @@ const angleStep = 360 / chars.length
       <div
         class={`banner-slide absolute inset-0 flex items-center justify-center transition-opacity duration-1000 will-change-[opacity] ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
         data-slide={index}
-        style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop}') center center/cover no-repeat; background-attachment: fixed;`}
       >
+        <!-- Desktop background -->
+        <div
+          class="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop}') center center/cover no-repeat; background-attachment: fixed;`}
+        ></div>
+        <!-- Mobile background -->
+        <div
+          class="block md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop || banner.image.mobile}') center center/cover no-repeat;`}
+        ></div>
         <!-- Main Content -->
         <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
           <div class="text-center space-y-12">
@@ -64,8 +73,7 @@ const angleStep = 360 / chars.length
             <!-- Description -->
             <div class="animate-fade-in-up [animation-delay:0.6s] [animation-fill-mode:both] max-w-3xl mx-auto space-y-4">
               <p
-                class="text-lg md:text-xl leading-relaxed font-light tracking-wide"
-                class="text-white/80 dark:text-white/80"
+                class="text-lg md:text-xl leading-relaxed font-light tracking-wide text-white/80 dark:text-white/80"
               >
                 {banner.sub_title}
               </p>
@@ -82,7 +90,6 @@ const angleStep = 360 / chars.length
   ) : (
     <div
       class="banner-slide absolute inset-0 flex items-center justify-center opacity-100"
-      style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1') center center/cover no-repeat; background-attachment: fixed;"
     >
       <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center space-y-12">
