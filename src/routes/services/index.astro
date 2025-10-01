@@ -19,7 +19,7 @@ const services = data.serviceCategories.data
 ---
 
 <Layout meta={meta}>
-  <main class="pt-32 w-full text-white">
+  <main class="section-container mb-0 pb-0">
 
     <!-- 標題區 -->
     <SectionTitle title={t('services.title')} subtitle={t('services.subtitle')} />
@@ -27,7 +27,7 @@ const services = data.serviceCategories.data
       class="w-full min-h-[calc(100vh-8rem)] flex flex-col"
       aria-label="服務項目列表"
     >
-      <div class="mt-8 grid flex-1 grid-cols-1 lg:grid-cols-4 gap-0">
+      <div class="mt-8 grid flex-1 grid-cols-1 lg:grid-cols-3 gap-0">
         {services.map(service => (
             <a href={`/services/${service.id}/items`} class="group relative flex h-full items-end overflow-hidden service-card">
               {/* 背景圖片 */}

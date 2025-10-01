@@ -79,11 +79,11 @@ const meta = seoMeta({
                 {service.specifications.map((spec, index) => (
                   <>
                     <div class="p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-sm" data-animate-in="fadeIn" style={`animation-delay: ${index * 100}ms`}>
-                      <h3 class="text-base font-semibold mb-3 text-neutral-800">{spec.title}</h3>
+                      <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600">{spec.title}</h3>
                       <div class="grid grid-cols-1 gap-2 text-sm">
                         <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
                           <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.price')}</span>
-                          <span class="font-medium text-neutral-800 dark:text-neutral-600">NT$ {spec.selling_price?.toLocaleString()}</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">NT$ {spec.listing_price?.toLocaleString()}</span>
                         </div>
                         <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
                           <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.duration')}</span>
