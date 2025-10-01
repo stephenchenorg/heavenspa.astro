@@ -52,11 +52,11 @@ const meta = seoMeta({
 ---
 
 <Layout meta={meta}>
-  <main class="section-containermin-h-screen">
-    <!-- 標題區 -->
+  <main class="section-container">
+  <!-- 標題區 -->
     <SectionTitle title={data.page?.title} subtitle={data.page?.key} />
 
-    <div class="min-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto">
       <article class="mt-12">
         <Prose sourceDoc={data.page?.fields[0]?.content || ''} client:load />
       </article>
