@@ -3,8 +3,6 @@ import { gql, graphQLAPI } from '@/api/index'
 export interface Tags {
   id: string
   title: string
-  slug: string
-  key: string
 }
 export interface Article {
   id: number
@@ -80,8 +78,6 @@ export async function getArticles(): Promise<Article[]> {
             data {
               id
               title
-              slug
-              key
             }
           }
           images {
@@ -257,8 +253,6 @@ export async function getArticle(id: string): Promise<Article> {
             data {
               id
               title
-              slug
-              key
             }
           }
           images {
