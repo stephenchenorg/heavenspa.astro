@@ -88,8 +88,8 @@ const meta = seoMeta({
                 </div>
             </div>
             <!-- Section 1: 環境圖片輪播 -->
-            <section class="sticky top-0 h-screen flex items-center justify-center ">
-                <div class="w-full h-screen flex flex-col items-center justify-center py-16 px-6 overflow-hidden">
+            <section class="sticky top-0 min-h-screen flex items-center justify-center py-20">
+                <div class="w-full flex flex-col items-center justify-center py-8 px-6">
                     <!-- 文字描述區 -->
                     <div class="max-w-5xl mx-auto text-center mb-12 z-10">
                         <h2 class={`font-bold mb-6 leading-tight ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}>
@@ -103,30 +103,78 @@ const meta = seoMeta({
                         </p>
                     </div>
 
-                    <!-- 滾動驅動圖片區 -->
-                    <div class="w-full flex-1 flex flex-col justify-center gap-6 overflow-hidden">
-                        <div class="environment-scroll-wrapper">
-                            <div class="environment-scroll-row">
-                                <div class="environment-scroll-content" id="environment-scroll-1">
-                                    <img src="/images/about3.jpeg" alt="環境圖片 1" class="environment-scroll-image" />
-                                    <img src="/images/about4.jpeg" alt="環境圖片 2" class="environment-scroll-image" />
-                                    <img src="/images/about5.jpeg" alt="環境圖片 3" class="environment-scroll-image" />
-                                    <img src="/images/about6.jpeg" alt="環境圖片 4" class="environment-scroll-image" />
-                                    <img src="/images/about3.jpeg" alt="環境圖片 5" class="environment-scroll-image" />
-                                    <img src="/images/about4.jpeg" alt="環境圖片 6" class="environment-scroll-image" />
+                    <!-- 環境圖片輪播 -->
+                    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
+                        <div class="env-carousel-container relative">
+                            <div class="env-carousel-wrapper overflow-hidden">
+                                <div class="env-carousel-track" id="env-track">
+                                    <div class="env-slide">
+                                        <img src="/images/about/about1.jpg" alt="環境圖片 1" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about2.jpg" alt="環境圖片 2" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about3.jpg" alt="環境圖片 3" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about4.jpg" alt="環境圖片 4" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about5.jpg" alt="環境圖片 5" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about6.jpg" alt="環境圖片 6" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about7.jpg" alt="環境圖片 7" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about8.jpg" alt="環境圖片 8" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about9.jpg" alt="環境圖片 9" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about10.jpg" alt="環境圖片 10" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about11.jpg" alt="環境圖片 11" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about12.jpg" alt="環境圖片 12" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <!-- 複製前4張用於無縫循環 -->
+                                    <div class="env-slide">
+                                        <img src="/images/about/about1.jpg" alt="環境圖片 1" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about2.jpg" alt="環境圖片 2" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about3.jpg" alt="環境圖片 3" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
+                                    <div class="env-slide">
+                                        <img src="/images/about/about4.jpg" alt="環境圖片 4" class="w-full h-full object-cover rounded-2xl" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="environment-scroll-wrapper">
-                            <div class="environment-scroll-row">
-                                <div class="environment-scroll-content reverse" id="environment-scroll-2">
-                                    <img src="/images/about6.jpeg" alt="環境圖片 7" class="environment-scroll-image" />
-                                    <img src="/images/about5.jpeg" alt="環境圖片 8" class="environment-scroll-image" />
-                                    <img src="/images/about3.jpeg" alt="環境圖片 9" class="environment-scroll-image" />
-                                    <img src="/images/about4.jpeg" alt="環境圖片 10" class="environment-scroll-image" />
-                                    <img src="/images/about6.jpeg" alt="環境圖片 11" class="environment-scroll-image" />
-                                    <img src="/images/about5.jpeg" alt="環境圖片 12" class="environment-scroll-image" />
-                                </div>
+
+                            <!-- 導航按鈕 -->
+                            <button class="env-carousel-btn env-prev" id="env-carousel-prev" aria-label="上一頁">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button class="env-carousel-btn env-next" id="env-carousel-next" aria-label="下一頁">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+
+                            <!-- 指示點 -->
+                            <div class="env-carousel-dots" id="env-carousel-dots">
+                                <!-- JavaScript 會動態生成指示點 -->
                             </div>
                         </div>
                     </div>
@@ -421,64 +469,116 @@ const meta = seoMeta({
         }
     }
 
-    /* Environment Scroll 樣式 - 跟隨滾動 */
-    .environment-scroll-wrapper {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
+    /* Environment Carousel 樣式 */
+    .env-carousel-container {
+        padding: 20px 0 60px;
     }
 
-    .environment-scroll-row {
-        width: 100%;
-        height: 320px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .environment-scroll-content {
+    .env-carousel-track {
         display: flex;
-        gap: 24px;
-        will-change: transform;
-        transform: translate3d(0, 0, 0);
-        transition: transform 0.1s linear;
+        gap: 16px;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .environment-scroll-image {
-        flex-shrink: 0;
-        width: 490px;
-        height: 320px;
-        object-fit: cover;
-        border-radius: 24px;
+    .env-slide {
+        flex: 0 0 calc(50% - 8px);
+        aspect-ratio: 4/3;
+    }
+
+    @media (min-width: 768px) {
+        .env-slide {
+            flex: 0 0 calc(33.333% - 11px);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .env-slide {
+            flex: 0 0 calc(25% - 12px);
+        }
+    }
+
+    .env-slide img {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         transition: all 0.3s ease;
     }
 
-    .environment-scroll-image:hover {
-        transform: scale(1.05);
-        z-index: 10;
+    .env-slide:hover img {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+    }
+
+    /* 按鈕樣式 - 參考 Carousel.astro */
+    .env-carousel-container {
         position: relative;
     }
 
-    /* 響應式設計 */
-    @media (max-width: 768px) {
-        .environment-scroll-row {
-            height: 230px;
-        }
-
-        .environment-scroll-image {
-            width: 350px;
-            height: 230px;
-        }
+    .env-carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 50;
+        color: white;
+        pointer-events: auto;
+        margin-top: -30px;
     }
 
-    @media (max-width: 480px) {
-        .environment-scroll-row {
-            height: 180px;
-        }
+    .env-carousel-btn:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: translateY(-50%) scale(1.1);
+    }
 
-        .environment-scroll-image {
-            width: 280px;
-            height: 180px;
-        }
+    .env-carousel-btn:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    .env-prev {
+        left: 16px;
+    }
+
+    .env-next {
+        right: 16px;
+    }
+
+    /* 指示點 */
+    .env-carousel-dots {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 24px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .env-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .env-dot.active {
+        background: var(--theme-primary, #d4af37);
+        width: 36px;
+        border-radius: 6px;
+    }
+
+    .env-dot:hover {
+        background: rgba(0, 0, 0, 0.5);
+        transform: scale(1.2);
     }
 
     /* Sticky Stacking Scroll 樣式 */
@@ -668,91 +768,6 @@ const meta = seoMeta({
         setTimeout(centerCarouselButtons, 1500)
     })
 
-    // 環境圖片跟隨滾動功能
-    function initEnvironmentScrollEffect() {
-        const scroll1 = document.getElementById('environment-scroll-1')
-        const scroll2 = document.getElementById('environment-scroll-2')
-
-        if (!scroll1 || !scroll2) return
-
-        // 找到環境區塊的 section
-        const environmentSection = scroll1.closest('section')
-        if (!environmentSection) return
-
-        // 設置第二排圖片的初始位置（從右邊開始）
-        const containerWidth = scroll2.scrollWidth / 2
-        scroll2.style.transform = `translate3d(-${containerWidth}px, 0px, 0px)`
-
-        let lastScrollY = window.scrollY
-
-        function handleScroll() {
-            if (!scroll1 || !scroll2 || !environmentSection) return
-
-            const currentScrollY = window.scrollY
-            const scrollDelta = currentScrollY - lastScrollY
-
-            // 檢查環境區塊是否在可視範圍內
-            const rect = environmentSection.getBoundingClientRect()
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0
-
-            // 只有在環境區塊可見時才移動圖片
-            if (!isVisible) {
-                lastScrollY = currentScrollY
-                return
-            }
-
-            // 獲取當前的 transform 值
-            const transform1 = scroll1.style.transform || 'translate3d(0px, 0px, 0px)'
-            const transform2 = scroll2.style.transform || 'translate3d(0px, 0px, 0px)'
-
-            // 提取當前的 x 位移值
-            const match1 = transform1.match(/translate3d\(([^,]+)/)
-            const match2 = transform2.match(/translate3d\(([^,]+)/)
-
-            const currentX1 = match1 ? parseFloat(match1[1]) : 0
-            const currentX2 = match2 ? parseFloat(match2[1]) : 0
-
-            // 計算新的位移（第一行向左，第二行向右）
-            const speed = 0.15 // 降低滾動速度倍數
-            const newX1 = currentX1 - (scrollDelta * speed)
-            const newX2 = currentX2 + (scrollDelta * speed)
-
-            // 計算容器寬度進行循環
-            const containerWidth = scroll1.scrollWidth / 2
-
-            // 循環邏輯 - 第一排向左滾動
-            let finalX1 = newX1
-            if (newX1 < -containerWidth) {
-                finalX1 = 0
-            } else if (newX1 > 0) {
-                finalX1 = -containerWidth
-            }
-
-            // 循環邏輯 - 第二排向右滾動（反向）
-            let finalX2 = newX2
-            if (newX2 > 0) {
-                finalX2 = -containerWidth
-            } else if (newX2 < -containerWidth) {
-                finalX2 = 0
-            }
-
-            // 應用新的 transform
-            scroll1.style.transform = `translate3d(${finalX1}px, 0px, 0px)`
-            scroll2.style.transform = `translate3d(${finalX2}px, 0px, 0px)`
-
-            lastScrollY = currentScrollY
-        }
-
-        // 監聽滾動事件
-        window.addEventListener('scroll', handleScroll, { passive: true })
-    }
-
-    // 初始化環境滾動效果
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initEnvironmentScrollEffect)
-    } else {
-        initEnvironmentScrollEffect()
-    }
 
     // 服務區塊動畫效果
     function initServiceAnimations() {
@@ -1017,5 +1032,159 @@ const meta = seoMeta({
         document.addEventListener('DOMContentLoaded', initProgressIndicator)
     } else {
         initProgressIndicator()
+    }
+
+    // 環境圖片輪播 - 無縫循環
+    function initEnvCarousel() {
+        const track = document.getElementById('env-track')
+        const prevBtn = document.getElementById('env-carousel-prev')
+        const nextBtn = document.getElementById('env-carousel-next')
+        const dotsContainer = document.getElementById('env-carousel-dots')
+
+        if (!track || !prevBtn || !nextBtn || !dotsContainer) return
+
+        const slides = track.querySelectorAll('.env-slide')
+        const totalSlides = 12 // 實際圖片數量
+        const allSlides = slides.length // 包含複製的圖片
+
+        function getSlidesPerView() {
+            if (window.innerWidth >= 1024) return 4
+            if (window.innerWidth >= 768) return 3
+            return 2
+        }
+
+        let currentIndex = 0
+        let slidesPerView = getSlidesPerView()
+        let isTransitioning = false
+
+        // 生成指示點 (只顯示真實圖片的點)
+        function createDots() {
+            if (!dotsContainer) return
+
+            dotsContainer.innerHTML = ''
+            const realPages = Math.ceil(totalSlides / slidesPerView)
+
+            console.log('Creating dots:', realPages, 'pages, slidesPerView:', slidesPerView)
+
+            for (let i = 0; i < realPages; i++) {
+                const dot = document.createElement('div')
+                dot.classList.add('env-dot')
+                if (i === 0) dot.classList.add('active')
+                dot.addEventListener('click', () => goToSlide(i))
+                dotsContainer.appendChild(dot)
+            }
+
+            console.log('Dots created:', dotsContainer.children.length)
+        }
+
+        // 更新位置
+        function updatePosition(smooth = true) {
+            const slideWidth = slides[0].offsetWidth
+            const gap = 16
+            const offset = -(currentIndex * (slideWidth + gap))
+
+            if (smooth) {
+                track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+            } else {
+                track.style.transition = 'none'
+            }
+
+            track.style.transform = `translateX(${offset}px)`
+
+            // 更新指示點
+            const dots = dotsContainer.querySelectorAll('.env-dot')
+            const realPages = Math.ceil(totalSlides / slidesPerView)
+            const activeIndex = currentIndex % realPages
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeIndex)
+            })
+        }
+
+        // 跳到指定頁
+        function goToSlide(index) {
+            if (isTransitioning) return
+            currentIndex = index
+            updatePosition()
+        }
+
+        // 下一頁
+        function nextSlide() {
+            if (isTransitioning) return
+            isTransitioning = true
+            currentIndex++
+            updatePosition()
+
+            // 檢查是否到達複製的圖片區域
+            const maxRealIndex = totalSlides
+            if (currentIndex >= maxRealIndex) {
+                setTimeout(() => {
+                    currentIndex = 0
+                    updatePosition(false)
+                    isTransitioning = false
+                }, 500)
+            } else {
+                setTimeout(() => {
+                    isTransitioning = false
+                }, 500)
+            }
+        }
+
+        // 上一頁
+        function prevSlide() {
+            if (isTransitioning) return
+            isTransitioning = true
+
+            if (currentIndex <= 0) {
+                currentIndex = totalSlides
+                updatePosition(false)
+                setTimeout(() => {
+                    currentIndex--
+                    updatePosition()
+                    setTimeout(() => {
+                        isTransitioning = false
+                    }, 500)
+                }, 50)
+            } else {
+                currentIndex--
+                updatePosition()
+                setTimeout(() => {
+                    isTransitioning = false
+                }, 500)
+            }
+        }
+
+        prevBtn.addEventListener('click', prevSlide)
+        nextBtn.addEventListener('click', nextSlide)
+
+        // 自動播放 (2.6秒)
+        let autoplay = setInterval(nextSlide, 2600)
+
+        track.addEventListener('mouseenter', () => clearInterval(autoplay))
+        track.addEventListener('mouseleave', () => {
+            autoplay = setInterval(nextSlide, 2600)
+        })
+
+        // 響應式
+        let resizeTimer: ReturnType<typeof setTimeout>
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer)
+            resizeTimer = setTimeout(() => {
+                const newSlidesPerView = getSlidesPerView()
+                if (newSlidesPerView !== slidesPerView) {
+                    slidesPerView = newSlidesPerView
+                    createDots()
+                    updatePosition(false)
+                }
+            }, 200)
+        })
+
+        createDots()
+        updatePosition(false)
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initEnvCarousel)
+    } else {
+        initEnvCarousel()
     }
 </script>
