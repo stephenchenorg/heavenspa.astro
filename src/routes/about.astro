@@ -1036,16 +1036,15 @@ const meta = seoMeta({
 
     // 環境圖片輪播 - 無縫循環
     function initEnvCarousel() {
-        const track = document.getElementById('env-track')
-        const prevBtn = document.getElementById('env-carousel-prev')
-        const nextBtn = document.getElementById('env-carousel-next')
-        const dotsContainer = document.getElementById('env-carousel-dots')
+        const track = document.getElementById('env-track') as HTMLElement
+        const prevBtn = document.getElementById('env-carousel-prev') as HTMLButtonElement
+        const nextBtn = document.getElementById('env-carousel-next') as HTMLButtonElement
+        const dotsContainer = document.getElementById('env-carousel-dots') as HTMLElement
 
         if (!track || !prevBtn || !nextBtn || !dotsContainer) return
 
         const slides = track.querySelectorAll('.env-slide')
         const totalSlides = 12 // 實際圖片數量
-        const allSlides = slides.length // 包含複製的圖片
 
         function getSlidesPerView() {
             if (window.innerWidth >= 1024) return 4
@@ -1059,8 +1058,6 @@ const meta = seoMeta({
 
         // 生成指示點 (只顯示真實圖片的點)
         function createDots() {
-            if (!dotsContainer) return
-
             dotsContainer.innerHTML = ''
             const realPages = Math.ceil(totalSlides / slidesPerView)
 
@@ -1079,7 +1076,8 @@ const meta = seoMeta({
 
         // 更新位置
         function updatePosition(smooth = true) {
-            const slideWidth = slides[0].offsetWidth
+            const firstSlide = slides[0] as HTMLElement
+            const slideWidth = firstSlide.offsetWidth
             const gap = 16
             const offset = -(currentIndex * (slideWidth + gap))
 
@@ -1101,7 +1099,7 @@ const meta = seoMeta({
         }
 
         // 跳到指定頁
-        function goToSlide(index) {
+        function goToSlide(index: number) {
             if (isTransitioning) return
             currentIndex = index
             updatePosition()
