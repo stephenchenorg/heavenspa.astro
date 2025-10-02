@@ -138,8 +138,6 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
             data {
               id
               title
-              slug
-              key
             }
           }
           images {
