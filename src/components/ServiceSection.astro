@@ -1,8 +1,8 @@
 ---
+import { getLocale } from 'i18n:astro'
 import { getServiceCategories } from '@/api/serviceCategories'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getLocale } from 'i18n:astro'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -277,7 +277,7 @@ const services = data.serviceCategories.data
 
     // 創建 Intersection Observer
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             // 添加動畫類
@@ -290,8 +290,8 @@ const services = data.serviceCategories.data
       },
       {
         threshold: 0.3, // 當元素 30% 可見時觸發
-        rootMargin: '0px 0px -50px 0px' // 提前觸發動畫
-      }
+        rootMargin: '0px 0px -50px 0px', // 提前觸發動畫
+    }
     )
 
     // 開始觀察標題和輪播

@@ -11,19 +11,27 @@ export interface FaqItem {
 
 interface Props {
     faqs: FaqItem[]
+    twoColumn?: boolean
 }
 
-const { faqs } = Astro.props
+const { faqs, twoColumn = false } = Astro.props
+
+// 如果是雙欄模式，分離奇數和偶數項目
+const oddFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 0) : []
+const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
 ---
 {faqs && faqs.length > 0 ? (
-<div id="faq-accordion">
-    {faqs.map(faq => (
-    <div class="border-b border-primary-500" :key={faq.id}>
-        <button
-          type="button"
-          class="flex items-center justify-between w-full py-5 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-transparent hover:via-primary-500/[0.03] hover:to-transparent gap-3 faq-toggle group"
-          data-target={`faq-body-${faq.id}`}
-        >
+  twoColumn ? (
+    <div id="faq-accordion" class="faq-two-column">
+      <div class="faq-column faq-column-left">
+        {oddFaqs.map(faq => (
+        <div class="border-b border-primary-500" :key={faq.id}>
+          <button
+            type="button"
+            class="flex items-center justify-between w-full py-5 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-transparent hover:via-primary-500/[0.03] hover:to-transparent gap-3 faq-toggle group"
+            data-target={`faq-body-${faq.id}`}
+            data-column="left"
+          >
             <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
               {faq.title}
             </span>
@@ -34,24 +42,98 @@ const { faqs } = Astro.props
               fill="none"
               viewBox="0 0 10 6"
             >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5 5 1 1 5"
-                />
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5 5 1 1 5"
+              />
             </svg>
+          </button>
+          <div id={`faq-body-${faq.id}`} class="faq-content overflow-hidden transition-all duration-300 ease-in-out max-h-0">
+            <div class="px-6 pb-6 pt-2">
+              <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
+            </div>
+          </div>
+        </div>
+        ))}
+      </div>
+      <div class="faq-column faq-column-right">
+        {evenFaqs.map(faq => (
+        <div class="border-b border-primary-500" :key={faq.id}>
+          <button
+            type="button"
+            class="flex items-center justify-between w-full py-5 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-transparent hover:via-primary-500/[0.03] hover:to-transparent gap-3 faq-toggle group"
+            data-target={`faq-body-${faq.id}`}
+            data-column="right"
+          >
+            <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
+              {faq.title}
+            </span>
+            <svg
+              class="w-4 h-4 text-primary-600 transition-transform duration-500 ease-out group-hover:scale-110 shrink-0"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5 5 1 1 5"
+              />
+            </svg>
+          </button>
+          <div id={`faq-body-${faq.id}`} class="faq-content overflow-hidden transition-all duration-300 ease-in-out max-h-0">
+            <div class="px-6 pb-6 pt-2">
+              <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
+            </div>
+          </div>
+        </div>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <div id="faq-accordion">
+      {faqs.map(faq => (
+      <div class="border-b border-primary-500" :key={faq.id}>
+        <button
+          type="button"
+          class="flex items-center justify-between w-full py-5 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-transparent hover:via-primary-500/[0.03] hover:to-transparent gap-3 faq-toggle group"
+          data-target={`faq-body-${faq.id}`}
+        >
+          <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
+            {faq.title}
+          </span>
+          <svg
+            class="w-4 h-4 text-primary-600 transition-transform duration-500 ease-out group-hover:scale-110 shrink-0"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 10 6"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5 5 1 1 5"
+            />
+          </svg>
         </button>
         <div id={`faq-body-${faq.id}`} class="faq-content overflow-hidden transition-all duration-300 ease-in-out max-h-0">
-            <div class="px-6 pb-6 pt-2">
-                <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
-            </div>
+          <div class="px-6 pb-6 pt-2">
+            <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
+          </div>
         </div>
+      </div>
+      ))}
     </div>
-    ))}
-</div>
- ) : (
+  )
+) : (
 <div class="text-center py-16">
     <div class="max-w-md mx-auto">
         <div class="mb-6">
@@ -127,7 +209,7 @@ const { faqs } = Astro.props
             }
         })
 
-        toggles.forEach((btn) => {
+        toggles.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target')
                 if (!targetId) return
@@ -139,10 +221,24 @@ const { faqs } = Astro.props
                 const textElement = target.querySelector('.faq-text') as HTMLElement
                 const isCurrentlyOpen = target.style.maxHeight && target.style.maxHeight !== '0px'
 
-                // 關閉所有其他項目
-                contents.forEach((content) => {
+                // 檢查是否為雙欄佈局，並獲取當前欄位
+                const currentColumn = btn.getAttribute('data-column')
+
+                // 關閉其他項目（雙欄模式下只關閉同一欄的項目）
+                contents.forEach(content => {
                     const contentEl = content as HTMLElement
                     if (contentEl.id !== targetId) {
+                        // 雙欄模式：只關閉同一欄的項目
+                        if (currentColumn) {
+                            const contentBtn = document.querySelector(`[data-target="${contentEl.id}"]`)
+                            const contentColumn = contentBtn?.getAttribute('data-column')
+
+                            // 如果不在同一欄，跳過
+                            if (contentColumn && contentColumn !== currentColumn) {
+                                return
+                            }
+                        }
+
                         contentEl.style.maxHeight = '0px'
                         const otherBtn = document.querySelector(`[data-target="${contentEl.id}"]`)
                         const otherSvg = otherBtn?.querySelector('svg')
@@ -171,7 +267,7 @@ const { faqs } = Astro.props
                     // 打開 - 使用預先計算的高度
                     const targetHeight = contentHeights.get(targetId)
                     if (targetHeight) {
-                        target.style.maxHeight = targetHeight + 'px'
+                        target.style.maxHeight = `${targetHeight}px`
                     }
 
                     if (svg) {
@@ -206,5 +302,25 @@ const { faqs } = Astro.props
     /* 手風琴容器優化 */
     #faq-accordion > div {
         will-change: auto;
+    }
+
+    /* 雙欄佈局 */
+    #faq-accordion.faq-two-column {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    @media (min-width: 768px) {
+        #faq-accordion.faq-two-column {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        #faq-accordion.faq-two-column > .faq-column {
+            flex: 1;
+        }
     }
 </style>

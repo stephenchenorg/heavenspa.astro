@@ -1,16 +1,16 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Layout from '@/layouts/Layout.astro'
+import { createNestedT } from '@/utils/i18n'
+
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 
-import { createNestedT } from '@/utils/i18n'
 const t = await createNestedT()
 
 const meta = seoMeta({
     title: `技能培訓 - Heaven Spa`,
 })
 ---
-
 
 <Layout meta={meta}>
     <main class="section-container">
@@ -81,14 +81,14 @@ const meta = seoMeta({
                             </dt>
                             <dd class="leading-[0] order-2 md:order-2 lg:order-2 text-center lg:text-left">
                                 <img
-                                        src="/images/about/about1.jpg"
-                                        alt="培訓圖片1"
-                                        class="object-cover object-left-bottom min-h-full lg:block hidden w-[977px] h-[593px] rounded-tl-full"
+                                  src="/images/about/about1.jpg"
+                                  alt="培訓圖片1"
+                                  class="object-cover object-left-bottom min-h-full lg:block hidden w-[977px] h-[593px] rounded-tl-full"
                                 />
                                 <img
-                                        src="/images/about/about1 1.png"
-                                        alt="培訓圖片2"
-                                        class="lg:hidden block my-8 mx-auto w-[660px] h-[426px]"
+                                  src="/images/about/about1 1.png"
+                                  alt="培訓圖片2"
+                                  class="lg:hidden block my-8 mx-auto w-[660px] h-[426px]"
                                 />
                             </dd>
                         </dl>
@@ -186,7 +186,7 @@ const meta = seoMeta({
                                   class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
-                                    核心基礎概念<br/>
+                                    核心基礎概念<br />
                                     人體主要肌群與常見痠痛點
                                     指油壓的力道方向與節奏重點
                                 </p>
@@ -203,7 +203,7 @@ const meta = seoMeta({
                                   class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
-                                    手技操作訓練<br/>
+                                    手技操作訓練<br />
                                     中式指壓教學
                                     精油油壓教學
                                     體力分配、姿勢調整，避免操作疲勞
@@ -221,7 +221,7 @@ const meta = seoMeta({
                                   class="mx-auto mb-4 max-w-full h-auto"
                                 />
                                 <p class="max-w-[200px] mx-auto leading-tight text-black">
-                                    完整服務流程<br/>
+                                    完整服務流程<br />
                                     職場應用與課程設計
                                     顧客的溝通與藝術
                                     打造個人特色，提供客製化的專屬訂製服務
@@ -593,7 +593,7 @@ const meta = seoMeta({
                         }
 
                         // Add delay if specified
-                        const delay = parseInt(element.getAttribute('data-delay') || '0')
+                        const delay = Number.parseInt(element.getAttribute('data-delay') || '0')
                         if (delay > 0) {
                             htmlElement.style.animationDelay = `${delay}ms`
                         }

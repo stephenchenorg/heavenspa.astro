@@ -1,11 +1,11 @@
 ---
-import {seoMeta} from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
+import { getServiceCategories } from '@/api/serviceCategories'
 import Layout from '@/layouts/Layout.astro'
+import { createNestedT } from '@/utils/i18n'
 import Button from '../components/ui/Button.astro'
 import SectionTitle from '../components/ui/SectionTitle.astro'
-import {createNestedT} from '@/utils/i18n'
-import {getLocale} from 'i18n:astro'
-import { getServiceCategories } from '@/api/serviceCategories'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -24,9 +24,9 @@ const meta = seoMeta({
     <section class="relative aspect-[1920/900] sm:aspect-[1920/800] lg:aspect-[1920/700] overflow-hidden">
         <div class="absolute inset-0">
             <img
-                    src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
-                    alt="品牌介紹 banner"
-                    class="object-cover w-full h-full"
+              src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
+              alt="品牌介紹 banner"
+              class="object-cover w-full h-full"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
         </div>
@@ -42,7 +42,7 @@ const meta = seoMeta({
     </section>
 
     <main class="section-container-detail">
-        <SectionTitle title={t('about.sectionTitle')} subtitle={t('about.sectionSubtitle')}/>
+        <SectionTitle title={t('about.sectionTitle')} subtitle={t('about.sectionSubtitle')} />
 
         <!-- 品牌介紹內容 -->
         <section class="max-w-6xl mx-auto mb-20 sm:mb-28 px-4 sm:px-6 brand-intro-section" data-animate-in="up">
@@ -51,21 +51,27 @@ const meta = seoMeta({
                 <div class="order-2 lg:order-1" data-animate-in="left">
                     <div class="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                         <img
-                            src="/images/about2.jpg"
-                            alt="品牌介紹圖片"
-                            class="w-full h-full object-cover"
+                          src="/images/about2.jpg"
+                          alt="品牌介紹圖片"
+                          class="w-full h-full object-cover"
                         />
                     </div>
                 </div>
 
                 <!-- 右側文字 -->
                 <div class="order-1 lg:order-2" data-animate-in="right">
-                    <h3 class={`font-bold mb-6 sm:mb-8 ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}
-                        style="color: var(--theme-text)">{t('about.heaven.title')}</h3>
-                    <div class="intro-text-container space-y-6"
-                         style="color: var(--theme-text)">
-                        <p class={`leading-relaxed ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}
-                           data-animate-in="up">
+                    <h3
+                      class={`font-bold mb-6 sm:mb-8 ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}
+                      style="color: var(--theme-text)"
+                    >{t('about.heaven.title')}</h3>
+                    <div
+                      class="intro-text-container space-y-6"
+                      style="color: var(--theme-text)"
+                    >
+                        <p
+                          class={`leading-relaxed ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}
+                          data-animate-in="up"
+                        >
                             {t('about.heaven.description')}
                         </p>
                     </div>
@@ -216,10 +222,10 @@ const meta = seoMeta({
                     {t('about.contact.description')}
                 </p>
                 <Button
-                    href="/joinUs/careers"
-                    variant="outline"
-                    size="large"
-                    text={t('about.contact.buttonText')}
+                  href="/joinUs/careers"
+                  variant="outline"
+                  size="large"
+                  text={t('about.contact.buttonText')}
                 />
             </div>
         </section>
@@ -768,17 +774,16 @@ const meta = seoMeta({
         setTimeout(centerCarouselButtons, 1500)
     })
 
-
     // 服務區塊動畫效果
     function initServiceAnimations() {
         const serviceSections = document.querySelectorAll('.service-section')
 
         const observerOptions = {
             threshold: 0.3,
-            rootMargin: '0px'
-        }
+            rootMargin: '0px',
+    }
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const section = entry.target as HTMLElement
@@ -1016,8 +1021,8 @@ const meta = seoMeta({
                     // 平滑滾動到目標位置
                     window.scrollTo({
                         top: targetScroll,
-                        behavior: 'smooth'
-                    })
+                        behavior: 'smooth',
+                })
                 }
             })
         })
@@ -1061,8 +1066,6 @@ const meta = seoMeta({
             dotsContainer.innerHTML = ''
             const realPages = Math.ceil(totalSlides / slidesPerView)
 
-            console.log('Creating dots:', realPages, 'pages, slidesPerView:', slidesPerView)
-
             for (let i = 0; i < realPages; i++) {
                 const dot = document.createElement('div')
                 dot.classList.add('env-dot')
@@ -1070,8 +1073,6 @@ const meta = seoMeta({
                 dot.addEventListener('click', () => goToSlide(i))
                 dotsContainer.appendChild(dot)
             }
-
-            console.log('Dots created:', dotsContainer.children.length)
         }
 
         // 更新位置

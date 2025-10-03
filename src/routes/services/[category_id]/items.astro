@@ -1,11 +1,11 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getServiceCategories } from '@/api/serviceCategories'
 import { getServices } from '@/api/services'
 import Button from '@/components/ui/Button.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getLocale } from 'i18n:astro'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -128,8 +128,7 @@ const meta = seoMeta({
                         </svg>
                         {service.time_min === service.time_max
                           ? `${service.time_min}${isEnglish ? ' min' : ' 分鐘'}`
-                          : `${service.time_min}-${service.time_max}${isEnglish ? ' min' : ' 分鐘'}`
-                        }
+                          : `${service.time_min}-${service.time_max}${isEnglish ? ' min' : ' 分鐘'}`}
                       </span>
                     )}
                     {service.price_min && service.price_max && (
@@ -139,8 +138,7 @@ const meta = seoMeta({
                         </svg>
                         {service.price_min === service.price_max
                           ? `$${service.price_min.toLocaleString()}`
-                          : `$${service.price_min.toLocaleString()}-$${service.price_max.toLocaleString()}`
-                        }
+                          : `$${service.price_min.toLocaleString()}-$${service.price_max.toLocaleString()}`}
                       </span>
                     )}
                   </div>

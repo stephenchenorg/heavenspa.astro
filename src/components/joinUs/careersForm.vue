@@ -160,7 +160,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
-import { initTranslations, t, getCurrentLocale } from '@/utils/i18n'
+import { getCurrentLocale, initTranslations, t } from '@/utils/i18n'
 
 // 響應式翻譯函數
 const currentLocale = ref(getCurrentLocale())
@@ -183,22 +183,18 @@ const translatedText = ref({
   address: '',
   addressPlaceholder: '',
   submit: '',
-  submitting: ''
+  submitting: '',
 })
 
 // 初始化翻譯
 async function initializeTranslations() {
-  console.log('Initializing translations...')
   await initTranslations()
-  console.log('Translations initialized')
   updateTranslations()
 }
 
 // 更新翻譯文字
 function updateTranslations() {
   const locale = getCurrentLocale()
-  console.log('Current locale detected:', locale)
-  console.log('Current pathname:', window.location.pathname)
 
   translatedText.value = {
     successMessage: t('careers.form.successMessage'),
@@ -219,10 +215,8 @@ function updateTranslations() {
     address: t('careers.form.address'),
     addressPlaceholder: t('careers.form.addressPlaceholder'),
     submit: t('careers.form.submit'),
-    submitting: t('careers.form.submitting')
+    submitting: t('careers.form.submitting'),
   }
-
-  console.log('Translated text updated:', translatedText.value.name)
 }
 
 // 表單資料
@@ -329,7 +323,7 @@ onMounted(async () => {
   document.addEventListener('themeChanged', updateTheme)
 
   // 監聽語言變化事件（自定義事件）
-  window.addEventListener('localechange', async (event) => {
+  window.addEventListener('localechange', async event => {
     await initTranslations()
     updateTranslations()
   })
@@ -341,7 +335,7 @@ onMounted(async () => {
 
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['lang']
+    attributeFilter: ['lang'],
   })
 
   // 也監聽 popstate 事件（瀏覽器前進後退）

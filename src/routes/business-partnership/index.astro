@@ -1,11 +1,11 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getPartnerships } from '@/api/partnerships'
 import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getLocale } from 'i18n:astro'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
