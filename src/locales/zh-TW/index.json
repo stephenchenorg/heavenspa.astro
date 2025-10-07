@@ -208,6 +208,38 @@
     },
     "backgroundText": "intro"
   },
+  "joinUs": {
+    "title": "加入我們",
+    "subtitle": "JOIN US",
+    "courses": {
+        "title": "課程內容"
+    },
+    "contact": {
+      "title": "聯絡我們",
+      "description": "歡迎您加入我們的團隊！如有任何疑問，請隨時與我們聯繫。",
+      "sayHello": "Say Hello",
+      "location": "Location",
+      "resume": "個人簡歷"
+    },
+    "faq": {
+      "title": "徵才問題"
+    },
+    "mapTitle": "我們的位置",
+    "form": {
+      "name": "中文姓名",
+      "phone": "行動電話",
+      "email": "電子信箱",
+      "height": "身高 (cm)",
+      "weight": "體重 (kg)",
+      "social": "聯絡方式",
+      "birthday": "出生日期",
+      "address": "居住地址",
+      "submit": "填寫履歷",
+      "submitting": "處理中...",
+      "successMessage": "申請已成功提交！我們會盡快與您聯繫。",
+      "errorMessage": "提交失敗，請稍後再試。"
+    }
+  },
   "careers": {
     "title": "人才招募",
     "subtitle": "Contact Us",

@@ -208,6 +208,40 @@
     },
     "backgroundText": "intro"
   },
+  "joinUs": {
+    "title": "Join Us",
+    "subtitle": "Join Us",
+    "headline": "Job content",
+    "description": "Flexible scheduling and perfect commission system",
+    "courses": {
+        "title": "Course Content"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Welcome to join our team! If you have any questions, please feel free to contact us at any time.",
+      "sayHello": "Say Hello",
+      "location": "Location",
+      "resume": "Resume"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions"
+    },
+    "mapTitle": "Our Location",
+    "form": {
+      "name": "Chinese Name",
+      "phone": "Mobile Phone",
+      "email": "Email",
+      "height": "Height (cm)",
+      "weight": "Weight (kg)",
+      "social": "Contact Method",
+      "birthday": "Date of Birth",
+      "address": "Residential Address",
+      "submit": "Fill in resume",
+      "submitting": "Processing...",
+      "successMessage": "Application submitted successfully! We will contact you soon.",
+      "errorMessage": "Submission failed, please try again later."
+    }
+  },
   "careers": {
     "title": "Recruitment",
     "subtitle": "Contact Us",

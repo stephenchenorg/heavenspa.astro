@@ -13,7 +13,7 @@ const t = await createNestedT()
 const companySetting = await getCompanySetting()
 
 const meta = seoMeta({
-    title: `${t('careers.title')} - Heaven Spa`,
+    title: `${t('joinUs.title')} - Heaven Spa`,
 })
 
 interface FaqItem {
@@ -26,46 +26,176 @@ interface FaqItem {
 let faqs: FaqItem[] = []
 faqs = await getFaqList(40)
 
+interface Course {
+    title: string;
+    content: {
+        課程內容: string;
+        適合對象: string;
+        售價: string;
+    };
+    button: {
+        text: string;
+        color: string;
+        textColor: string;
+    };
+}
+
+const courses: Course[] = [
+    {
+        title: "1. 按摩師",
+        content: {
+            課程內容: "學習基礎按摩手法、穴位認識、客戶服務技巧，以及專業衛生知識。透過理論與實作結合，快速建立紮實基礎。",
+            適合對象: "無經驗者、轉職人士、想學習專業按摩技能的學員",
+            售價: "NT$ 15,800",
+        },
+        button: {
+            text: "立即報名",
+            color: "var(--color-primary-500)",
+            textColor: "#fff",
+        },
+    },
+    {
+        title: "2. 熱蠟除毛師",
+        content: {
+            課程內容: "學習基礎按摩手法、穴位認識、客戶服務技巧，以及專業衛生知識。透過理論與實作結合，快速建立紮實基礎。",
+            適合對象: "無經驗者、轉職人士、想學習專業按摩技能的學員",
+            售價: "NT$ 15,800",
+        },
+        button: {
+            text: "立即報名",
+            color: "var(--color-primary-500)",
+            textColor: "#fff",
+        },
+    },
+    {
+        title: "3. 美容師",
+        content: {
+            課程內容: "學習基礎按摩手法、穴位認識、客戶服務技巧，以及專業衛生知識。透過理論與實作結合，快速建立紮實基礎。",
+            適合對象: "無經驗者、轉職人士、想學習專業按摩技能的學員",
+            售價: "NT$ 15,800",
+        },
+        button: {
+            text: "立即報名",
+            color: "var(--color-primary-500)",
+            textColor: "#fff",
+        },
+    },
+];
 ---
 
 <Layout meta={meta}>
-    <main class="section-container">
+    <main class="section-container ">
+
         <!-- 標題區 -->
         <SectionTitle
-          title={t('careers.title')}
-          subtitle={t('careers.subtitle')}
+          title={t('joinUs.title')}
+          subtitle={t('joinUs.subtitle')}
         />
 
+        <!-- 課程區塊 - 帶背景 -->
+        <section class="careers-section relative py-12 lg:py-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-8 lg:mb-12 lg:tracking-[4px] md:tracking-[3px] tracking-[2px] text-white ／">
+                    {t('joinUs.courses.title')}
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 課程卡片 1 -->
+                    {courses && courses.map((item, index) => (
+                        <div class="liquid border overflow-hidden flex flex-col"
+                             style="border-color: var(--theme-border);">
+                            <!-- 滿版圖片 -->
+                            <div class="w-full h-64 overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop"
+                                        alt="初階課程"
+                                        class="w-full h-full object-cover"
+                                />
+                            </div>
+
+                            <!-- 卡片內容 -->
+                            <div class="p-6 flex-1 flex flex-col">
+                                <!-- 標題和下底線 -->
+                                <h3 class="text-xl font-semibold mb-2 pb-3 border-b text-white">
+                                    {item.title}
+                                </h3>
+
+                                <!-- 課程內容 -->
+                                <div class="mt-4 mb-4 space-y-3 flex-1">
+                                    <div class="flex justify-between">
+                                        <h4 class="font-semibold mb-2 text-white w-[100px] shrink-0">課程內容：</h4>
+                                        <p class="text-sm leading-relaxed text-white">
+                                            {item.content['課程內容']}
+                                        </p>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <h4 class="font-semibold mb-2 text-white w-[100px] shrink-0">適合對象：</h4>
+                                        <p class="text-sm leading-relaxed text-white">
+                                            {item.content['適合對象']}
+                                        </p>
+                                    </div>
+
+                                    <div class="flex justify-between">
+                                        <h4 class="font-semibold mb-2 text-white w-[100px] shrink-0">售價：</h4>
+                                        <p class="text-2xl font-bold" style="color: var(--color-primary-500);">
+                                            {item.content['售價']}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- 按鈕區 -->
+                                <div class="grid grid-cols-1 mt-auto -mx-6 -mb-6">
+                                    <!--<button-->
+                                    <!--        class="px-4 py-4 border-r font-medium transition-all duration-300 hover:opacity-80 text-black"-->
+                                    <!--        style=" background: #f3f4f6;"-->
+                                    <!--&gt;-->
+                                    <!--    了解詳情-->
+                                    <!--</button>-->
+                                    <a href="https://page.line.me/284pgmle?openQrModal=true" target="_blank"
+                                            class="px-4 py-4 text-center font-medium text-white transition-all duration-300 hover:opacity-90"
+                                            style="background: var(--color-primary-500);"
+                                    >
+                                        立即報名
+                                    </a>
+                                </div>
+                            </div>
+                            <svg width="0" height="0" style="position:absolute;left:-9999px;top:-9999px">
+                                <defs>
+                                    <filter id="liquid_glass_filter">
+                                        <!-- 產生碎形雜訊 -->
+                                        <feTurbulence type="fractalNoise" baseFrequency="0.003" numOctaves="2" seed="7"
+                                                      result="noise"/>
+                                        <!-- 將雜訊模糊化，讓它更平滑 -->
+                                        <feGaussianBlur in="noise" stdDeviation="1.2" result="map"/>
+                                        <!-- 用模糊後的雜訊圖來扭曲我們的元素 -->
+                                        <feDisplacementMap in="SourceGraphic" in2="map" scale="110" xChannelSelector="R"
+                                                           yChannelSelector="G"/>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
         <!-- Page content will be added here -->
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!--上方區塊-->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-                <div class="order-1 lg:order-1">
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.headline">{t('careers.headline')}</h2>
-                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.description">{t('careers.description')}</p>
-                    <ul class="grid space-y-2 my-4 text-sm sm:text-base">
-                        <li>✔ <span data-i18n="careers.requirements.requirement1">{t('careers.requirements.requirement1')}</span></li>
-                        <li>✔ <span data-i18n="careers.requirements.requirement2">{t('careers.requirements.requirement2')}</span></li>
-                        <li>✔ <span data-i18n="careers.requirements.requirement3">{t('careers.requirements.requirement3')}</span></li>
-                    </ul>
-                    <p class="text-sm sm:text-base" data-i18n="careers.requirements.requirement4">{t('careers.requirements.requirement4')}</p>
-                </div>
-                <div class="order-2 lg:order-2">
-                    <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--theme-text);" data-i18n="careers.contact.resume">{t('careers.contact.resume')}</h4>
-                    <CareersForm client:load />
-                </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
+            <!--個人簡歷區塊-->
+            <section class="mt-12 lg:mt-16 border-t pt-8">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.resume')}</h2>
+                <CareersForm client:load />
             </section>
             <!-- 中間區塊 -->
             <section class="mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
-                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.contact.title">徵才問題</h2>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.faq.title">{t('joinUs.faq.title')}</h2>
                 <FAQ faqs={faqs} twoColumn={true} />
             </section>
             <!--下方區塊-->
             <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
                 <!-- 表單 -->
                 <div>
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="careers.contact.title">{t('careers.contact.title')}</h2>
-                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="careers.contact.description">{t('careers.contact.description')}</p>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.title')}</h2>
+                    <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="joinUs.contact.description">{t('joinUs.contact.description')}</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                         <!-- Say Hello -->
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
@@ -93,7 +223,7 @@ faqs = await getFaqList(40)
                                     </svg>
                                 </div>
                             </div>
-                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--color-primary-500);" data-i18n="careers.contact.sayHello">{t('careers.contact.sayHello')}</h4>
+                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--color-primary-500);" data-i18n="joinUs.contact.sayHello">{t('joinUs.contact.sayHello')}</h4>
                             <div class="space-y-1 sm:space-y-2">
                                 <div>
                                     <a
@@ -103,7 +233,7 @@ faqs = await getFaqList(40)
                                         {companySetting.email_1}
                                     </a>
                                 </div>
-                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.phone">
+                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="joinUs.contact.phone">
                                     <a href=`tel:${companySetting.phone_1}`>
                                         {companySetting.phone_1}
                                     </a>
@@ -126,16 +256,16 @@ faqs = await getFaqList(40)
                                     <path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602"></path>
                                 </svg>
                             </div>
-                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--color-primary-500);" data-i18n="careers.contact.location">{t('careers.contact.location')}</h4>
+                            <h4 class="text-lg sm:text-xl font-normal mb-2 sm:mb-3 tracking-[2px]" style="color: var(--color-primary-500);" data-i18n="joinUs.contact.location">{t('joinUs.contact.location')}</h4>
                             <div class="space-y-1 sm:space-y-2">
-                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.address">
+                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="joinUs.contact.address">
                                     <a
                                       href={`https://maps.google.com/?q=${encodeURIComponent(companySetting.address_1 || '')}`}
                                       target="_blank"
                                       rel="noopener noreferrer"
                                     >{companySetting?.address_1}</a>
                                 </div>
-                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="careers.contact.hours">
+                                <div class="text-sm sm:text-base" style="color: var(--theme-text-secondary);" data-i18n="joinUs.contact.hours">
                                     {companySetting?.business_hours}
                                 </div>
                             </div>
@@ -155,7 +285,7 @@ faqs = await getFaqList(40)
                               allowfullscreen=""
                               loading="lazy"
                               referrerpolicy="no-referrer-when-downgrade"
-                              :title="t('careers.mapTitle')"
+                              :title="t('joinUs.mapTitle')"
                             >
                             </iframe>
                         </div>
@@ -193,3 +323,193 @@ faqs = await getFaqList(40)
         </div>
     </main>
 </Layout>
+
+<!-- SVG 液態玻璃濾鏡 -->
+<svg width="0" height="0" style="position:fixed;left:-9999px;top:-9999px">
+  <defs>
+    <filter id="liquid_glass_filter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+      <feTurbulence type="fractalNoise" baseFrequency="0.003" numOctaves="2" seed="7" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="1.2" result="map"/>
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="110" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<style>
+
+    @keyframes liquidFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+        60% {
+            opacity: 1;
+            transform: translateY(-8px) scale(1.02);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .liquid {
+        /* 真正的液態關鍵：先模糊、再用 SVG 位移地圖扭曲背景 */
+        backdrop-filter: url(#liquid_glass_filter) blur(2px) saturate(150%);
+        -webkit-backdrop-filter: url(#liquid_glass_filter) blur(20px) saturate(150%);
+        /* 用 box-shadow 取代邊框，營造厚度與光暈 - 加強左右亮澤 */
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.45),
+          inset 0 -1px 0 rgba(255,255,255,0.18),
+          inset 1px 0 0 rgba(255,255,255,0.35),
+          inset -1px 0 0 rgba(255,255,255,0.25),
+          inset 6px 6px 16px rgba(255,255,255,0.12),
+          inset -6px 6px 16px rgba(255,255,255,0.08),
+          0 10px 28px rgba(0,0,0,0.35);
+        background: rgba(104,104,104, 0.1);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        /* 進入動畫 */
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        animation: liquidFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        animation-delay: 0.1s;
+    }
+
+    /* Hover 效果 */
+    .liquid:hover {
+        transform: translateY(-16px) scale(1.02);
+        background: rgba(104, 104, 104, 0.15);
+        backdrop-filter: url(#liquid_glass_filter) blur(3px) saturate(180%);
+        -webkit-backdrop-filter: url(#liquid_glass_filter) blur(70px) saturate(180%);
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.55),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.25),
+            inset 2px 0 0 rgba(255,255,255,0.45),
+            inset -2px 0 0 rgba(255,255,255,0.35),
+            inset 8px 8px 20px rgba(255, 255, 255, 0.18),
+            inset -8px 8px 20px rgba(255,255,255,0.12),
+            0 20px 48px rgba(0, 0, 0, 0.4),
+            0 0 40px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Fallback：若瀏覽器不支援 backdrop-filter，就用柔和漸層墊底 */
+    @supports not (backdrop-filter: blur(2px)) {
+        .liquid {
+            background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+        }
+    }
+
+    /* 圖片效果 */
+    .liquid img {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .liquid:hover img {
+        transform: scale(1.05);
+        filter: brightness(1.1) saturate(1.2);
+    }
+
+    /* 內部反光效果 */
+    .liquid > div:first-child::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0.08) 50%,
+            transparent 100%
+        );
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 10;
+    }
+
+    .liquid:hover > div:first-child::after {
+        opacity: 1;
+    }
+
+    /* 水滴/液態流動效果 */
+    .liquid::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle at 30% 40%,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.15) 15%,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 70% 60%,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.08) 20%,
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(255, 255, 255, 0.15) 0%,
+            transparent 35%
+        );
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.6;
+        animation: liquid-drift 15s ease-in-out infinite;
+        mix-blend-mode: overlay;
+    }
+
+    @keyframes liquid-drift {
+        0%, 100% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+            transform: translate(5%, -8%) rotate(3deg);
+        }
+        50% {
+            transform: translate(-3%, 5%) rotate(-2deg);
+        }
+        75% {
+            transform: translate(-5%, -3%) rotate(2deg);
+        }
+    }
+
+    .liquid:hover::before {
+        animation-play-state: paused;
+        opacity: 0.8;
+    }
+
+    /* 課程區塊背景 */
+    .careers-section {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .careers-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("/images/join.jpg") center/cover no-repeat fixed;
+        z-index: 0;
+    }
+
+    .careers-section::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(1px);
+        z-index: 1;
+    }
+</style>
