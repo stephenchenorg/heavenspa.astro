@@ -1,4 +1,4 @@
-import netlify from '@astrojs/netlify'
+import node from '@astrojs/node'
 import vue from '@astrojs/vue'
 import i18n from '@astrolicious/i18n'
 import tailwindcss from '@tailwindcss/vite'
@@ -6,11 +6,9 @@ import { defineConfig } from 'astro/config'
 import icons from 'unplugin-icons/vite'
 
 export default defineConfig({
-  site: 'http://localhost:4321',
+  site: 'https://dev-admin.heavenspa.com.tw',
   output: 'server',
-  adapter: netlify({
-    devFeatures: false,
-  }),
+  adapter: node(),
   integrations: [
     vue(),
     i18n({
@@ -19,6 +17,10 @@ export default defineConfig({
     }),
   ],
   vite: {
+    server: {
+      host: '0.0.0.0',
+      port: 4323, // 新專案用不同 port
+    },
     plugins: [
       tailwindcss(),
       icons({
