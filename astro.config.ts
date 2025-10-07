@@ -11,6 +11,10 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  server: {
+    host: '0.0.0.0',
+    port: 4323, // 新專案用不同 port
+  },
   integrations: [
     vue(),
     i18n({
@@ -19,10 +23,6 @@ export default defineConfig({
     }),
   ],
   vite: {
-    server: {
-      host: '0.0.0.0',
-      port: 4323, // 新專案用不同 port
-    },
     plugins: [
       tailwindcss(),
       icons({
@@ -31,8 +31,6 @@ export default defineConfig({
     ],
   },
   security: {
-    // Change built-in origin check to custom function
-    // @see src/middleware.ts
     checkOrigin: false,
   },
 })
