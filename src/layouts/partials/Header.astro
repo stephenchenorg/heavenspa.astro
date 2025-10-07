@@ -35,6 +35,8 @@ const navItems = [
   { href: '/services/1/items', text: t('nav.services'), i18nKey: 'nav.services' },
   { href: '/team', text: t('nav.team'), i18nKey: 'nav.team' },
   { href: '/faq', text: t('nav.faq'), i18nKey: 'nav.faq' },
+  { href: '/joinUs', text: t('nav.joinUs'), i18nKey: 'nav.joinUs' },
+  { href: '/business-partnership', text: t('nav.business_partnership'), i18nKey: 'nav.business-partnership' },
 ]
 
 const careersDropdown = {
@@ -130,14 +132,6 @@ const careersDropdown = {
       {navItems.map(item => (
         <NavLink href={item.href} text={item.text} isActive={isActive(item.href)} variant="mobile" i18nKey={item.i18nKey} />
       ))}
-      <DropdownNav
-        text={careersDropdown.text}
-        isActive={careersDropdown.isActive}
-        variant="mobile"
-        i18nKey={careersDropdown.i18nKey}
-        items={careersDropdown.items}
-      />
-      <NavLink href="/business-partnership" text={t('nav.business_partnership')} isActive={isActive('/business-partnership')} variant="mobile" i18nKey="nav.business_partnership" />
     </nav>
 
     <div class="px-6 py-4 border-t border-b mobile-language-section lg:hidden" style="border-color: var(--theme-mobile-section-border); background: var(--theme-mobile-section-bg);">
