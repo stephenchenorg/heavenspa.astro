@@ -34,17 +34,9 @@ export async function getAllTeams(type: number): Promise<TeamMember[]> {
                 mobile
                 mobile_blur
               }
-              is_default
             }
             job
             title
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
-            cover
             age
             height
             weight
@@ -88,15 +80,8 @@ export async function getTeamMember(id: number, lang?: string): Promise<TeamMemb
     const { team } = await graphQLAPI<{ team: TeamMember }>(gql`
       query MyQuery {
         team(id: ${id}) {
-          cover
           content
           age
-          image {
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
           images {
             created_at
             id
@@ -106,7 +91,6 @@ export async function getTeamMember(id: number, lang?: string): Promise<TeamMemb
               mobile
               mobile_blur
             }
-            is_default
           }
           job
           monday_end

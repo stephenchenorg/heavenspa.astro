@@ -16,7 +16,6 @@ export interface TeamImage {
 export interface TeamImageItem {
   id: number
   created_at: string
-  is_default: boolean
   image: TeamImage
 }
 
@@ -26,8 +25,6 @@ export interface TeamMember {
   job: string
   content?: string
   images: TeamImageItem[]
-  image: TeamImage
-  cover?: string
   // 基本資訊欄位
   age?: number
   height?: number
