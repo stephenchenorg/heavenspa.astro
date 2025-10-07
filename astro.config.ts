@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config'
 import icons from 'unplugin-icons/vite'
 
 export default defineConfig({
-  site: 'https://dev-admin.heavenspa.com.tw',
+  site: 'https://dev-www.heavenspa.com.tw',
   output: 'server',
   adapter: node({
     mode: 'standalone',
