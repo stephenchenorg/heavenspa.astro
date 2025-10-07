@@ -27,26 +27,13 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
 
 <a class={cardClass} onclick={onClick} href=`/team/${member.id}`>
   <div class={imageClass} data-member-id={uniqueId}>
-    <!-- 主圖片 -->
-    <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-100 transition-opacity duration-500 ease-in-out">
-      <source media="(max-width: 768px)" srcset={member.image?.mobile || member.cover} />
-      <img
-        src={member.image?.desktop || member.cover || '/images/default-team.jpg'}
-        alt={member.title}
-        loading="lazy"
-        onload="this.style.filter='none'"
-        style="filter: blur(5px); transition: filter 0.3s ease;"
-        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-      />
-    </picture>
-
-    <!-- 額外輪播圖片 -->
-    {member.images && member.images.filter(imageItem => !imageItem.is_default).map((imageItem, imgIndex) => (
-      <picture class="carousel-slide block w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
+    <!-- 輪播圖片 -->
+    {member.images && member.images.length > 0 && member.images.map((imageItem, imgIndex) => (
+      <picture class={`carousel-slide block w-full h-full absolute inset-0 ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 ease-in-out`}>
         <source media="(max-width: 768px)" srcset={imageItem.image.mobile} />
         <img
           src={imageItem.image.desktop || '/images/default-team.jpg'}
-          alt={`${member.title} - Image ${imgIndex + 2}`}
+          alt={`${member.title} - Image ${imgIndex + 1}`}
           loading="lazy"
           onload="this.style.filter='none'"
           style="filter: blur(5px); transition: filter 0.3s ease;"
@@ -56,11 +43,10 @@ const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2
     ))}
 
     <!-- 輪播指示器 -->
-    {member.images && member.images.filter(imageItem => !imageItem.is_default).length > 0 && (
+    {member.images && member.images.length > 1 && (
       <div class="carousel-dots absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-        <div class="carousel-dot w-2 h-2 rounded-full bg-white/90 cursor-pointer transition-all duration-200 hover:scale-125 active"></div>
-        {member.images.filter(imageItem => !imageItem.is_default).map(() => (
-          <div class="carousel-dot w-2 h-2 rounded-full bg-white/50 cursor-pointer transition-all duration-200 hover:bg-white/80 hover:scale-125"></div>
+        {member.images.map((_, index) => (
+          <div class={`carousel-dot w-2 h-2 rounded-full cursor-pointer transition-all duration-200 hover:scale-125 ${index === 0 ? 'bg-white/90 active' : 'bg-white/50'}`}></div>
         ))}
       </div>
     )}

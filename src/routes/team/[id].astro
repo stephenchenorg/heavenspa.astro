@@ -43,10 +43,9 @@ const meta = seoMeta({
   seo_json_ld: teamMember.seo_json_ld,
 })
 
-// 獲取有效的圖片列表 - 優先使用 is_default 為 true 的圖片
+// 獲取有效的圖片列表
 const validImages = teamMember.images?.filter(img => img.image?.desktop) || []
-const defaultImage = validImages.find(img => img.is_default)?.image?.desktop
-const mainImage = defaultImage || teamMember.image?.desktop || validImages[0]?.image?.desktop || '/placeholder.jpg'
+const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
 ---
 
 <Layout meta={meta}>
