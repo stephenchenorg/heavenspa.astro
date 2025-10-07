@@ -8,7 +8,9 @@ import icons from 'unplugin-icons/vite'
 export default defineConfig({
   site: 'https://dev-admin.heavenspa.com.tw',
   output: 'server',
-  adapter: node(),
+  adapter: node({
+    mode: 'standalone',
+  }),
   integrations: [
     vue(),
     i18n({
