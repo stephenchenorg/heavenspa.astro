@@ -35,7 +35,6 @@
           <input
             v-model="form.name"
             type="text"
-            :placeholder="translatedText.namePlaceholder"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -48,7 +47,6 @@
           <input
             v-model="form.phone"
             type="tel"
-            :placeholder="translatedText.phonePlaceholder"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -64,7 +62,6 @@
           <input
             v-model="form.height"
             type="number"
-            :placeholder="translatedText.heightPlaceholder"
             required
             min="100"
             max="250"
@@ -79,7 +76,6 @@
           <input
             v-model="form.weight"
             type="number"
-            :placeholder="translatedText.weightPlaceholder"
             required
             min="30"
             max="200"
@@ -109,7 +105,6 @@
           <input
             v-model="form.social"
             type="text"
-            :placeholder="translatedText.socialPlaceholder"
             required
             class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
             :style="inputStyle"
@@ -124,7 +119,6 @@
         <input
           v-model="form.email"
           type="email"
-          :placeholder="translatedText.emailPlaceholder"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -138,7 +132,6 @@
         <input
           v-model="form.address"
           type="text"
-          :placeholder="translatedText.addressPlaceholder"
           required
           class="w-full p-2 sm:p-3 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
           :style="inputStyle"
@@ -168,20 +161,13 @@ const translatedText = ref({
   successMessage: '',
   errorMessage: '',
   name: '',
-  namePlaceholder: '',
   phone: '',
-  phonePlaceholder: '',
   email: '',
-  emailPlaceholder: '',
   height: '',
-  heightPlaceholder: '',
   weight: '',
-  weightPlaceholder: '',
   social: '',
-  socialPlaceholder: '',
   birthday: '',
   address: '',
-  addressPlaceholder: '',
   submit: '',
   submitting: '',
 })
@@ -200,20 +186,13 @@ function updateTranslations() {
     successMessage: t('careers.form.successMessage'),
     errorMessage: t('careers.form.errorMessage'),
     name: t('careers.form.name'),
-    namePlaceholder: t('careers.form.namePlaceholder'),
     phone: t('careers.form.phone'),
-    phonePlaceholder: t('careers.form.phonePlaceholder'),
     email: t('careers.form.email'),
-    emailPlaceholder: t('careers.form.emailPlaceholder'),
     height: t('careers.form.height'),
-    heightPlaceholder: t('careers.form.heightPlaceholder'),
     weight: t('careers.form.weight'),
-    weightPlaceholder: t('careers.form.weightPlaceholder'),
     social: t('careers.form.social'),
-    socialPlaceholder: t('careers.form.socialPlaceholder'),
     birthday: t('careers.form.birthday'),
     address: t('careers.form.address'),
-    addressPlaceholder: t('careers.form.addressPlaceholder'),
     submit: t('careers.form.submit'),
     submitting: t('careers.form.submitting'),
   }
@@ -352,12 +331,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Placeholder 顏色在不同主題下的樣式 */
-input::placeholder {
-  color: var(--placeholder-color, #666666);
-  opacity: 0.7;
-}
-
 /* 確保焦點狀態在兩種主題下都正常 */
 input:focus {
   outline: none;
