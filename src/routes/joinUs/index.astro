@@ -124,11 +124,11 @@ const courses: Course[] = [
 
                                 <!-- 按鈕區 -->
                                 <div class="grid grid-cols-1 mt-auto -mx-6 -mb-6">
-                                    <a href="https://page.line.me/284pgmle?openQrModal=true" target="_blank"
+                                    <a href="#form"
                                             class="px-4 py-4 text-center font-medium text-white transition-all duration-300 hover:opacity-90"
                                             style="background: var(--color-primary-500);"
                                     >
-                                        人才招募
+                                        {t('joinUs.form.submit')}
                                     </a>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@ const courses: Course[] = [
         <!-- Page content will be added here -->
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
             <!--個人簡歷區塊-->
-            <section class="mt-12 lg:mt-16 border-t pt-8">
+            <section class="mt-12 lg:mt-16 border-t pt-8" id="form">
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.resume')}</h2>
                 <CareersForm client:load />
             </section>

@@ -4,6 +4,7 @@
     "social-media": "Social Media",
     "about": "About",
     "news": "News",
+    "sitemap": "Sitemap",
     "services": "Services",
     "courses": "Services",
     "team": "Our Team",
@@ -200,8 +201,8 @@
     "terms-of-service": "Terms of Service"
   },
   "intro": {
-    "heading": "Committed to becoming a world-class beauty service integrator and a sustainable enterprise with continuous growth",
-    "description": "Heaven Spa possesses rigorous management thinking, rich beauty industry and marketing experience, flexible service layout, innovative care research and development, global technology integration, market trend analysis and many other capabilities, making Heaven Spa a leader in Taiwan's beauty industry and a major partner of major beauty brands and retailers, gaining a key position among the many beauty industries worldwide.",
+    "heading": "A healing space that values both professionalism and feeling.",
+    "description": "At Heaven Spa, every service begins with a deep focus on the body and its sensations.\nOur all-male therapist team combines professional techniques with attentive care, integrating premium aromatherapy and medical-grade skincare.\nFrom massages and facial treatments to hot wax hair removal,\nwe deliver sincere service in a soothing atmosphere, turning relaxation into a feeling of being truly understood.",
     "buttons": {
       "learnMore": "Learn More",
       "viewServices": "View Services"
