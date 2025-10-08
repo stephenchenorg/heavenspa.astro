@@ -122,7 +122,7 @@ const angleStep = 360 / chars.length
       <button
         class="banner-prev absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
         aria-label="上一頁"
-        style="top: 50%; transform: translateY(-50%);"
+        style="top: 50%; transform: translateY(-50%); z-index:500;"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -131,7 +131,7 @@ const angleStep = 360 / chars.length
       <button
         class="banner-next absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm"
         aria-label="下一頁"
-        style="top: 50%; transform: translateY(-50%);"
+        style="top: 50%; transform: translateY(-50%); z-index:500;"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -155,7 +155,7 @@ const angleStep = 360 / chars.length
   )}
 
   <!-- Rotating Circle Text - Bottom Right -->
-  <div class="absolute right-4 bottom-4 md:right-8 md:bottom-8 z-10">
+  <div class="absolute right-4 bottom-4 md:right-8 md:bottom-8 z-[500]">
     <div class="relative w-[120px] h-[120px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-125 hover:opacity-80 animate-[fadeInUp_2s_ease_both]" onclick="scrollToTeam()">
       <div class="absolute z-[2] flex items-center justify-center w-8 h-8">
         <svg class="w-10 h-10 text-white/80 dark:text-white/80" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
