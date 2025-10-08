@@ -6,6 +6,7 @@ import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import Button from '../components/ui/Button.astro'
 import SectionTitle from '../components/ui/SectionTitle.astro'
+import Carousel from '@/components/ui/Carousel.astro'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -17,6 +18,22 @@ const services = data.serviceCategories.data
 const meta = seoMeta({
     title: t('about.pageTitle'),
 })
+
+// 環境圖片陣列
+const environmentImages = [
+    '/images/about/about1.jpg',
+    '/images/about/about2.jpg',
+    '/images/about/about3.jpg',
+    '/images/about/about4.jpg',
+    '/images/about/about5.jpg',
+    '/images/about/about6.jpg',
+    '/images/about/about7.jpg',
+    '/images/about/about8.jpg',
+    '/images/about/about9.jpg',
+    '/images/about/about10.jpg',
+    '/images/about/about11.jpg',
+    '/images/about/about12.jpg',
+]
 ---
 
 <Layout meta={meta}>
@@ -80,7 +97,7 @@ const meta = seoMeta({
         </section>
 
         <!-- Sticky Stacking Scroll 區域 -->
-        <div class="sticky-scroll-wrapper relative" id="service-categories">
+        <div class="sticky-scroll-wrapper relative" >
             <!-- 左側進度指示器 -->
             <div class="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
                 <div class="relative flex items-start">
@@ -94,8 +111,8 @@ const meta = seoMeta({
                 </div>
             </div>
             <!-- Section 1: 環境圖片輪播 -->
-            <section class="sticky top-0 min-h-screen flex items-center justify-center py-20">
-                <div class="w-full flex flex-col items-center justify-center py-8 px-6">
+            <section class="sticky top-0 min-h-screen flex items-center justify-center pb-20 pt-10">
+                <div class="w-full flex flex-col items-center justify-center">
                     <!-- 文字描述區 -->
                     <div class="max-w-5xl mx-auto text-center mb-12 z-10">
                         <h2 class={`font-bold mb-6 leading-tight ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}>
@@ -111,108 +128,58 @@ const meta = seoMeta({
 
                     <!-- 環境圖片輪播 -->
                     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
-                        <div class="env-carousel-container relative">
-                            <div class="env-carousel-wrapper overflow-hidden">
-                                <div class="env-carousel-track" id="env-track">
-                                    <div class="env-slide">
-                                        <img src="/images/about/about1.jpg" alt="環境圖片 1" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about2.jpg" alt="環境圖片 2" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about3.jpg" alt="環境圖片 3" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about4.jpg" alt="環境圖片 4" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about5.jpg" alt="環境圖片 5" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about6.jpg" alt="環境圖片 6" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about7.jpg" alt="環境圖片 7" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about8.jpg" alt="環境圖片 8" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about9.jpg" alt="環境圖片 9" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about10.jpg" alt="環境圖片 10" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about11.jpg" alt="環境圖片 11" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about12.jpg" alt="環境圖片 12" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <!-- 複製前4張用於無縫循環 -->
-                                    <div class="env-slide">
-                                        <img src="/images/about/about1.jpg" alt="環境圖片 1" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about2.jpg" alt="環境圖片 2" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about3.jpg" alt="環境圖片 3" class="w-full h-full object-cover rounded-2xl" />
-                                    </div>
-                                    <div class="env-slide">
-                                        <img src="/images/about/about4.jpg" alt="環境圖片 4" class="w-full h-full object-cover rounded-2xl" />
+                        <Carousel
+                            itemCount={environmentImages.length}
+                            uniqueId="environment"
+                            autoPlayInterval={2600}
+                            responsive={{ sm: 1, md: 2, lg: 3 }}
+                        >
+                            {environmentImages.map((image, index) => (
+                                <div class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3" data-slide={index}>
+                                    <div class="px-2">
+                                        <div class="aspect-[4/3] overflow-hidden rounded-2xl">
+                                            <img
+                                                src={image}
+                                                alt={`環境圖片 ${index + 1}`}
+                                                class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- 導航按鈕 -->
-                            <button class="env-carousel-btn env-prev" id="env-carousel-prev" aria-label="上一頁">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                                </svg>
-                            </button>
-                            <button class="env-carousel-btn env-next" id="env-carousel-next" aria-label="下一頁">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
-
-                            <!-- 指示點 -->
-                            <div class="env-carousel-dots" id="env-carousel-dots">
-                                <!-- JavaScript 會動態生成指示點 -->
-                            </div>
-                        </div>
+                            ))}
+                        </Carousel>
                     </div>
                 </div>
             </section>
 
-            {services.map((service, index) => (
-                <section class="sticky top-0 h-screen flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index}>
-                    <!-- 背景圖層 -->
-                    <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out service-bg" style={`background-image: url(${service.cover?.desktop}); background-size: cover; background-position: center;`}></div>
+            <div id="service-categories">
+                {services.map((service, index) => (
+                    <section class="sticky top-0 h-screen flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index}>
+                        <!-- 背景圖層 -->
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out service-bg" style={`background-image: url(${service.cover?.desktop}); background-size: cover; background-position: center;`}></div>
 
-                    <!-- 漸層遮罩：手機版上下漸層，桌面版左右漸層 -->
-                    <div class="absolute inset-0 w-full h-full bg-gradient-to-b md:bg-gradient-to-r from-transparent via-black/30 to-black/70 transition-opacity duration-700"></div>
+                        <!-- 漸層遮罩：手機版上下漸層，桌面版左右漸層 -->
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-b md:bg-gradient-to-r from-transparent via-black/30 to-black/70 transition-opacity duration-700"></div>
 
-                    <!-- 內容區：手機版在上方，桌面版在右側 -->
-                    <div class="w-full md:w-1/2 lg:w-2/5 px-6 pt-24 md:pt-0 md:px-12 lg:px-16 text-white relative z-10 service-content">
-                        <div class="space-y-4 md:space-y-6">
-                            <h2 class={`font-bold opacity-0 translate-y-8 transition-all duration-700 delay-150 service-title ${isEnglish ? 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl' : 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl'}`}>
-                                {service.title}
-                            </h2>
-                            {service.description && (
-                                <p class={`leading-relaxed opacity-0 translate-y-8 transition-all duration-700 delay-300 service-description ${isEnglish ? 'text-sm sm:text-base md:text-lg' : 'text-base sm:text-lg md:text-xl'}`}>
-                                    {service.description}
-                                </p>
-                            )}
-                            <a href={`/services/${service.id}/items`} class="inline-block mt-4 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white dark:text-black rounded-full font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg text-sm md:text-base opacity-0 translate-y-8 delay-500 service-button">
-                                {isEnglish ? 'View Services' : '查看服務'}
-                            </a>
+                        <!-- 內容區：手機版在上方，桌面版在右側 -->
+                        <div class="w-full md:w-1/2 lg:w-2/5 px-6 pt-24 md:pt-0 md:px-12 lg:px-16 text-white relative z-10 service-content">
+                            <div class="space-y-4 md:space-y-6">
+                                <h2 class={`font-bold opacity-0 translate-y-8 transition-all duration-700 delay-150 service-title ${isEnglish ? 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl' : 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl'}`}>
+                                    {service.title}
+                                </h2>
+                                {service.description && (
+                                    <p class={`leading-relaxed opacity-0 translate-y-8 transition-all duration-700 delay-300 service-description ${isEnglish ? 'text-sm sm:text-base md:text-lg' : 'text-base sm:text-lg md:text-xl'}`}>
+                                        {service.description}
+                                    </p>
+                                )}
+                                <a href={`/services/${service.id}/items`} class="inline-block mt-4 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white dark:text-black rounded-full font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg text-sm md:text-base opacity-0 translate-y-8 delay-500 service-button">
+                                    {isEnglish ? 'View Services' : '查看服務'}
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            ))}
+                    </section>
+                ))}
+            </div>
         </div>
 
         <!-- 聯絡我們區域 -->
@@ -475,117 +442,6 @@ const meta = seoMeta({
         }
     }
 
-    /* Environment Carousel 樣式 */
-    .env-carousel-container {
-        padding: 20px 0 60px;
-    }
-
-    .env-carousel-track {
-        display: flex;
-        gap: 16px;
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .env-slide {
-        flex: 0 0 calc(50% - 8px);
-        aspect-ratio: 4/3;
-    }
-
-    @media (min-width: 768px) {
-        .env-slide {
-            flex: 0 0 calc(33.333% - 11px);
-        }
-    }
-
-    @media (min-width: 1024px) {
-        .env-slide {
-            flex: 0 0 calc(25% - 12px);
-        }
-    }
-
-    .env-slide img {
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        transition: all 0.3s ease;
-    }
-
-    .env-slide:hover img {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
-    }
-
-    /* 按鈕樣式 - 參考 Carousel.astro */
-    .env-carousel-container {
-        position: relative;
-    }
-
-    .env-carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(4px);
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        z-index: 50;
-        color: white;
-        pointer-events: auto;
-        margin-top: -30px;
-    }
-
-    .env-carousel-btn:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: translateY(-50%) scale(1.1);
-    }
-
-    .env-carousel-btn:active {
-        transform: translateY(-50%) scale(0.95);
-    }
-
-    .env-prev {
-        left: 16px;
-    }
-
-    .env-next {
-        right: 16px;
-    }
-
-    /* 指示點 */
-    .env-carousel-dots {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        margin-top: 24px;
-        position: relative;
-        z-index: 10;
-    }
-
-    .env-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-    }
-
-    .env-dot.active {
-        background: var(--theme-primary, #d4af37);
-        width: 36px;
-        border-radius: 6px;
-    }
-
-    .env-dot:hover {
-        background: rgba(0, 0, 0, 0.5);
-        transform: scale(1.2);
-    }
 
     /* Sticky Stacking Scroll 樣式 */
     .sticky-scroll-wrapper {
@@ -1039,151 +895,4 @@ const meta = seoMeta({
         initProgressIndicator()
     }
 
-    // 環境圖片輪播 - 無縫循環
-    function initEnvCarousel() {
-        const track = document.getElementById('env-track') as HTMLElement
-        const prevBtn = document.getElementById('env-carousel-prev') as HTMLButtonElement
-        const nextBtn = document.getElementById('env-carousel-next') as HTMLButtonElement
-        const dotsContainer = document.getElementById('env-carousel-dots') as HTMLElement
-
-        if (!track || !prevBtn || !nextBtn || !dotsContainer) return
-
-        const slides = track.querySelectorAll('.env-slide')
-        const totalSlides = 12 // 實際圖片數量
-
-        function getSlidesPerView() {
-            if (window.innerWidth >= 1024) return 4
-            if (window.innerWidth >= 768) return 3
-            return 2
-        }
-
-        let currentIndex = 0
-        let slidesPerView = getSlidesPerView()
-        let isTransitioning = false
-
-        // 生成指示點 (只顯示真實圖片的點)
-        function createDots() {
-            dotsContainer.innerHTML = ''
-            const realPages = Math.ceil(totalSlides / slidesPerView)
-
-            for (let i = 0; i < realPages; i++) {
-                const dot = document.createElement('div')
-                dot.classList.add('env-dot')
-                if (i === 0) dot.classList.add('active')
-                dot.addEventListener('click', () => goToSlide(i))
-                dotsContainer.appendChild(dot)
-            }
-        }
-
-        // 更新位置
-        function updatePosition(smooth = true) {
-            const firstSlide = slides[0] as HTMLElement
-            const slideWidth = firstSlide.offsetWidth
-            const gap = 16
-            const offset = -(currentIndex * (slideWidth + gap))
-
-            if (smooth) {
-                track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-            } else {
-                track.style.transition = 'none'
-            }
-
-            track.style.transform = `translateX(${offset}px)`
-
-            // 更新指示點
-            const dots = dotsContainer.querySelectorAll('.env-dot')
-            const realPages = Math.ceil(totalSlides / slidesPerView)
-            const activeIndex = currentIndex % realPages
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === activeIndex)
-            })
-        }
-
-        // 跳到指定頁
-        function goToSlide(index: number) {
-            if (isTransitioning) return
-            currentIndex = index
-            updatePosition()
-        }
-
-        // 下一頁
-        function nextSlide() {
-            if (isTransitioning) return
-            isTransitioning = true
-            currentIndex++
-            updatePosition()
-
-            // 檢查是否到達複製的圖片區域
-            const maxRealIndex = totalSlides
-            if (currentIndex >= maxRealIndex) {
-                setTimeout(() => {
-                    currentIndex = 0
-                    updatePosition(false)
-                    isTransitioning = false
-                }, 500)
-            } else {
-                setTimeout(() => {
-                    isTransitioning = false
-                }, 500)
-            }
-        }
-
-        // 上一頁
-        function prevSlide() {
-            if (isTransitioning) return
-            isTransitioning = true
-
-            if (currentIndex <= 0) {
-                currentIndex = totalSlides
-                updatePosition(false)
-                setTimeout(() => {
-                    currentIndex--
-                    updatePosition()
-                    setTimeout(() => {
-                        isTransitioning = false
-                    }, 500)
-                }, 50)
-            } else {
-                currentIndex--
-                updatePosition()
-                setTimeout(() => {
-                    isTransitioning = false
-                }, 500)
-            }
-        }
-
-        prevBtn.addEventListener('click', prevSlide)
-        nextBtn.addEventListener('click', nextSlide)
-
-        // 自動播放 (2.6秒)
-        let autoplay = setInterval(nextSlide, 2600)
-
-        track.addEventListener('mouseenter', () => clearInterval(autoplay))
-        track.addEventListener('mouseleave', () => {
-            autoplay = setInterval(nextSlide, 2600)
-        })
-
-        // 響應式
-        let resizeTimer: ReturnType<typeof setTimeout>
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer)
-            resizeTimer = setTimeout(() => {
-                const newSlidesPerView = getSlidesPerView()
-                if (newSlidesPerView !== slidesPerView) {
-                    slidesPerView = newSlidesPerView
-                    createDots()
-                    updatePosition(false)
-                }
-            }, 200)
-        })
-
-        createDots()
-        updatePosition(false)
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initEnvCarousel)
-    } else {
-        initEnvCarousel()
-    }
 </script>
