@@ -153,10 +153,15 @@ const environmentImages = [
             </section>
 
             <div id="service-categories">
-                {services.map((service, index) => (
-                    <section class="sticky top-0 h-screen flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index}>
+                {services.map((service, index) => {
+                    // 決定要使用的背景圖片：優先使用對應裝置的圖片，如果沒有則使用另一個
+                    const desktopImage = service.cover?.desktop || service.cover?.mobile || ''
+                    const mobileImage = service.cover?.mobile || service.cover?.desktop || ''
+
+                    return (
+                    <section class="sticky top-0 h-screen flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index} data-desktop-bg={desktopImage} data-mobile-bg={mobileImage}>
                         <!-- 背景圖層 -->
-                        <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out service-bg" style={`background-image: url(${service.cover?.desktop}); background-size: cover; background-position: center;`}></div>
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out service-bg"></div>
 
                         <!-- 漸層遮罩：手機版上下漸層，桌面版左右漸層 -->
                         <div class="absolute inset-0 w-full h-full bg-gradient-to-b md:bg-gradient-to-r from-transparent via-black/30 to-black/70 transition-opacity duration-700"></div>
@@ -178,7 +183,8 @@ const environmentImages = [
                             </div>
                         </div>
                     </section>
-                ))}
+                    )
+                })}
             </div>
         </div>
 
@@ -894,5 +900,52 @@ const environmentImages = [
     } else {
         initProgressIndicator()
     }
+
+    // 響應式背景圖片切換
+    function updateServiceBackgrounds() {
+        const serviceSections = document.querySelectorAll('.service-section')
+        const isMobile = window.innerWidth < 768 // Tailwind 的 md 斷點
+
+        serviceSections.forEach(section => {
+            const desktopBg = section.getAttribute('data-desktop-bg') || ''
+            const mobileBg = section.getAttribute('data-mobile-bg') || ''
+            const bgElement = section.querySelector('.service-bg') as HTMLElement
+
+            if (bgElement) {
+                // 根據螢幕尺寸選擇適當的背景圖片
+                const backgroundImage = isMobile ? mobileBg : desktopBg
+
+                if (backgroundImage) {
+                    bgElement.style.backgroundImage = `url(${backgroundImage})`
+                    bgElement.style.backgroundSize = 'cover'
+                    bgElement.style.backgroundPosition = 'center'
+                }
+            }
+        })
+    }
+
+    // 初始化背景圖片
+    function initServiceBackgrounds() {
+        updateServiceBackgrounds()
+
+        // 監聽視窗大小變化
+        let resizeTimer: number
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer)
+            resizeTimer = setTimeout(() => {
+                updateServiceBackgrounds()
+            }, 250) // 防抖處理,避免頻繁切換
+        })
+    }
+
+    // 初始化服務背景圖片
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initServiceBackgrounds)
+    } else {
+        initServiceBackgrounds()
+    }
+
+    // 備用初始化
+    window.addEventListener('load', initServiceBackgrounds)
 
 </script>

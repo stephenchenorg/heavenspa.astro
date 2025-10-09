@@ -43,21 +43,20 @@ const angleStep = 360 / chars.length
 
   <!-- Banner Content (Background + Content combined) -->
   {banners && banners.length > 0 ? (
-    banners.map((banner, index) => (
+    banners.map((banner, index) => {
+      // 決定要使用的背景圖片：優先使用對應裝置的圖片，如果沒有則使用另一個
+      const desktopImage = banner.image.desktop || banner.image.mobile || ''
+      const mobileImage = banner.image.mobile || banner.image.desktop || ''
+
+      return (
       <div
         class={`banner-slide absolute inset-0 flex items-center justify-center transition-opacity duration-1000 will-change-[opacity] ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
         data-slide={index}
+        data-desktop-bg={desktopImage}
+        data-mobile-bg={mobileImage}
       >
-        <!-- Desktop background -->
-        <div
-          class="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop}') center center/cover no-repeat; background-attachment: fixed;`}
-        ></div>
-        <!-- Mobile background -->
-        <div
-          class="block md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${banner.image.desktop || banner.image.mobile}') center center/cover no-repeat;`}
-        ></div>
+        <!-- Background container -->
+        <div class="banner-bg absolute inset-0 bg-cover bg-center bg-no-repeat"></div>
         <!-- Main Content -->
         <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
           <div class="text-center space-y-12">
@@ -86,7 +85,8 @@ const angleStep = 360 / chars.length
           </div>
         </div>
       </div>
-    ))
+      )
+    })
   ) : (
     <div
       class="banner-slide absolute inset-0 flex items-center justify-center opacity-100"
@@ -204,6 +204,48 @@ const angleStep = 360 / chars.length
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // 響應式背景圖片切換
+    function updateBannerBackgrounds() {
+      const bannerSlides = document.querySelectorAll('.banner-slide')
+      const isMobile = window.innerWidth < 768 // Tailwind 的 md 斷點
+
+      bannerSlides.forEach(slide => {
+        const desktopBg = slide.getAttribute('data-desktop-bg') || ''
+        const mobileBg = slide.getAttribute('data-mobile-bg') || ''
+        const bgElement = slide.querySelector('.banner-bg') as HTMLElement
+
+        if (bgElement) {
+          // 根據螢幕尺寸選擇適當的背景圖片
+          const backgroundImage = isMobile ? mobileBg : desktopBg
+
+          if (backgroundImage) {
+            // 使用漸層遮罩 + 背景圖片
+            bgElement.style.background = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${backgroundImage}') center center/cover no-repeat`
+            bgElement.style.backgroundAttachment = isMobile ? 'scroll' : 'fixed'
+            bgElement.style.backgroundSize = 'cover'
+            bgElement.style.backgroundPosition = 'center'
+          }
+        }
+      })
+    }
+
+    // 初始化背景圖片
+    function initBannerBackgrounds() {
+      updateBannerBackgrounds()
+
+      // 監聽視窗大小變化
+      let resizeTimer: number
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer)
+        resizeTimer = setTimeout(() => {
+          updateBannerBackgrounds()
+        }, 250) // 防抖處理,避免頻繁切換
+      })
+    }
+
+    // 立即初始化背景圖片
+    initBannerBackgrounds()
+
     // Initialize scrollToTeam function
     (window as any).scrollToTeam = function () {
       const teamSection = document.getElementById('team')

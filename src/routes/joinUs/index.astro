@@ -55,7 +55,7 @@ const courses: Course[] = [
     {
         title: "3. 美容師",
         content: {
-            課程內容: "學習基礎按摩手法、穴位認識、客戶服務技巧，以及專業衛生知識。透過理論與實作結合，快速建立紮實基礎。",
+            課程內容: "學習基礎按摩手法、穴位認識、客戶服ㄇㄖ務技巧，以及專業衛生知識。透過理論與實作結合，快速建立紮實基礎。",
             適合對象: "無經驗者、轉職人士、想學習專業按摩技能的學員",
             售價: "NT$ 15,800",
         },
@@ -155,20 +155,24 @@ const courses: Course[] = [
         <!-- Page content will be added here -->
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 " >
             <!--個人簡歷區塊-->
-            <section class="mt-12 lg:mt-16 border-t pt-8" >
-                <h2 id="form" class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.resume')}</h2>
-                <CareersForm client:load />
+            <section id="form" class="form-section mt-12 lg:mt-16 border-t pt-8" style="scroll-margin-top: 100px;">
+                <h2 class="form-title text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.resume')}</h2>
+                <div class="form-content">
+                    <CareersForm client:load />
+                </div>
             </section>
             <!-- 中間區塊 -->
-            <section class="mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
-                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.faq.title">{t('joinUs.faq.title')}</h2>
-                <FAQ faqs={faqs} twoColumn={true} />
+            <section class="fade-in-section mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
+                <h2 class="fade-in-title text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.faq.title">{t('joinUs.faq.title')}</h2>
+                <div class="fade-in-content">
+                    <FAQ faqs={faqs} twoColumn={true} />
+                </div>
             </section>
             <!--下方區塊-->
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
+            <section class="fade-in-section grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
                 <!-- 表單 -->
-                <div>
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.title')}</h2>
+                <div class="fade-in-content">
+                    <h2 class="fade-in-title text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.title')}</h2>
                     <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="joinUs.contact.description">{t('joinUs.contact.description')}</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                         <!-- Say Hello -->
@@ -246,7 +250,7 @@ const courses: Course[] = [
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="fade-in-content" style="transition-delay: 0.3s;">
                     <!-- Google Maps -->
                     <div class="mb-6 lg:mb-0">
                         <div class="rounded-lg overflow-hidden" style="border: 2px solid var(--theme-border);">
@@ -310,6 +314,10 @@ const courses: Course[] = [
 </svg>
 
 <style>
+    /* 平滑滾動 */
+    html {
+        scroll-behavior: smooth;
+    }
 
     @keyframes liquidFadeIn {
         0% {
@@ -486,4 +494,176 @@ const courses: Course[] = [
         backdrop-filter: blur(1px);
         z-index: 1;
     }
+
+    /* 表單區塊動畫 */
+    .form-section {
+        position: relative;
+    }
+
+    .form-title {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .form-content {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: 0.2s;
+    }
+
+    .form-section.animate .form-title {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .form-section.animate .form-content {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 標題文字閃光效果 */
+    @keyframes shimmer {
+        0% {
+            background-position: -200% center;
+        }
+        100% {
+            background-position: 200% center;
+        }
+    }
+
+    .form-section.animate .form-title {
+        background: linear-gradient(
+            90deg,
+            var(--theme-text) 0%,
+            var(--color-primary-500) 50%,
+            var(--theme-text) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 2s ease-in-out 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    /* 按鈕脈動效果 */
+    @keyframes pulse-glow {
+        0%, 100% {
+            box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.7);
+        }
+        50% {
+            box-shadow: 0 0 20px 10px rgba(var(--color-primary-rgb), 0);
+        }
+    }
+
+    .liquid a[href="#form"] {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .liquid a[href="#form"]::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .liquid a[href="#form"]:active::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* 淡入滑出動畫 - 徵才問題和聯絡我們區塊 */
+    .fade-in-section {
+        position: relative;
+    }
+
+    .fade-in-title {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in-content {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: 0.15s;
+    }
+
+    .fade-in-section.animate .fade-in-title {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .fade-in-section.animate .fade-in-content {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
+
+<script>
+    // 監聽錨點跳轉,觸發動畫
+    document.addEventListener('DOMContentLoaded', () => {
+        const formSection = document.querySelector('.form-section');
+        const fadeInSections = document.querySelectorAll('.fade-in-section');
+
+        // 檢查元素是否在視窗中
+        const isInViewport = (element: Element) => {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.75 &&
+                rect.bottom >= 0
+            );
+        };
+
+        // 滾動監聽
+        const checkScroll = () => {
+            if (formSection && isInViewport(formSection)) {
+                formSection.classList.add('animate');
+            }
+
+            // 檢查所有淡入區塊
+            fadeInSections.forEach(section => {
+                if (isInViewport(section)) {
+                    section.classList.add('animate');
+                }
+            });
+        };
+
+        // 初始檢查
+        checkScroll();
+
+        // 滾動時檢查
+        window.addEventListener('scroll', checkScroll, { passive: true });
+
+        // 監聽錨點點擊
+        document.querySelectorAll('a[href="#form"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // 平滑滾動到目標
+                const target = document.querySelector('#form');
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    // 延遲觸發動畫
+                    setTimeout(() => {
+                        formSection?.classList.add('animate');
+                    }, 500);
+                }
+            });
+        });
+    });
+</script>
