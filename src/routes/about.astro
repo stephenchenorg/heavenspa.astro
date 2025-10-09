@@ -925,14 +925,15 @@ const environmentImages = [
     }
 
     // 初始化背景圖片
+    let serviceResizeTimer: ReturnType<typeof setTimeout>
+
     function initServiceBackgrounds() {
         updateServiceBackgrounds()
 
         // 監聽視窗大小變化
-        let resizeTimer: number
         window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer)
-            resizeTimer = setTimeout(() => {
+            clearTimeout(serviceResizeTimer)
+            serviceResizeTimer = setTimeout(() => {
                 updateServiceBackgrounds()
             }, 250) // 防抖處理,避免頻繁切換
         })
