@@ -8,7 +8,12 @@ export interface Article {
   id: number
   title: string
   author: string
-  cover: string
+  cover: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
   content: string
   ended_at: string
   started_at: string
@@ -68,7 +73,12 @@ export async function getArticles(): Promise<Article[]> {
         data {
           id
           content
-          cover
+          cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -128,7 +138,12 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
         data {
           id
           content
-          cover
+          cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -192,14 +207,12 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
       previousArticle: article(where: { id: { _lt: $currentId } }, orderBy: { id: desc }, first: 1) {
         id
         title
-        cover
         started_at
         created_at
       }
       nextArticle: article(where: { id: { _gt: $currentId } }, orderBy: { id: asc }, first: 1) {
         id
         title
-        cover
         started_at
         created_at
       }
@@ -243,7 +256,12 @@ export async function getArticle(id: string): Promise<Article> {
           title
           author
           content
-          cover
+          cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           started_at
           created_at
@@ -264,22 +282,10 @@ export async function getArticle(id: string): Promise<Article> {
           next {
             id
             title
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
           }
           prev {
             id
             title
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
           }
         }
       }

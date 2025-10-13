@@ -27,10 +27,16 @@ const meta = seoMeta({
 
     <!-- Service Banner -->
     <section class="relative w-full h-72 sm:h-80 md:h-96 lg:h-[28rem] mb-8 overflow-hidden">
-      <!-- Background Image -->
+      <!-- Background Image - Mobile -->
       <div
-        class="absolute inset-0 bg-cover bg-center"
-        style={`background-image: url('${service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+        class="absolute inset-0 bg-cover bg-center md:hidden"
+        style={`background-image: url('${service.cover?.mobile || service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+      >
+      </div>
+      <!-- Background Image - Desktop -->
+      <div
+        class="absolute inset-0 bg-cover bg-center hidden md:block"
+        style={`background-image: url('${service.cover?.desktop || service.cover?.mobile || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
       >
       </div>
       <!-- Gradient Overlay -->
@@ -184,10 +190,18 @@ const meta = seoMeta({
                   data-animate-in="scaleIn"
                   style={`animation-delay: ${index * 150}ms`}
                 >
+                  <!-- Mobile Image -->
                   <img
-                    src={imageItem.image.desktop}
+                    src={imageItem.image.mobile || imageItem.image.desktop}
                     alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
-                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-out"
+                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-out md:hidden"
+                    loading="lazy"
+                  />
+                  <!-- Desktop Image -->
+                  <img
+                    src={imageItem.image.desktop || imageItem.image.mobile}
+                    alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
+                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-700 ease-out hidden md:block"
                     loading="lazy"
                   />
                 </div>

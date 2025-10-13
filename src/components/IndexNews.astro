@@ -40,10 +40,15 @@ articles = articles.slice(0, 6) // 只取前6筆資料
                 onclick={`window.location.href='/news/${article.id}'`}
               >
                 <div class="relative w-full h-[400px] aspect-square overflow-hidden mb-4">
-                  <!-- Background Image -->
+                  <!-- Background Image - Mobile -->
                   <div
-                    class="absolute inset-0 bg-cover bg-center"
-                    style={`background-image: url('${article.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}
+                    class="absolute inset-0 bg-cover bg-center md:hidden"
+                    style={`background-image: url('${article.cover.mobile || article.cover.desktop}');`}
+                  ></div>
+                  <!-- Background Image - Desktop -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center hidden md:block"
+                    style={`background-image: url('${article.cover.desktop || article.cover.mobile}');`}
                   ></div>
                   <!-- Base Overlay for better text readability -->
                   <div class="absolute inset-0 bg-black/30"></div>

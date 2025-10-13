@@ -33,10 +33,16 @@ const meta = seoMeta({
             <a href={`/business-partnership/${partnership.id}`} class="h-full flex flex-col">
               <!-- 上半部：封面圖 -->
               <div class="relative w-full h-64 overflow-hidden flex-shrink-0">
-                <!-- Background Image -->
+                <!-- Background Image - Mobile -->
                 <div
-                  class="absolute inset-0 bg-cover bg-center"
-                  style={`background-image: url('${partnership.cover || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}')`}
+                  class="absolute inset-0 bg-cover bg-center md:hidden"
+                  style={`background-image: url('${partnership.cover?.mobile || partnership.cover?.desktop }')`}
+                >
+                </div>
+                <!-- Background Image - Desktop -->
+                <div
+                  class="absolute inset-0 bg-cover bg-center hidden md:block"
+                  style={`background-image: url('${partnership.cover?.desktop || partnership.cover?.mobile }')`}
                 >
                 </div>
                 <!-- Base Overlay for better text readability -->

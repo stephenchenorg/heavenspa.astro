@@ -45,9 +45,16 @@ const meta = seoMeta({
     {currentCategory && (
       <section class="relative w-full h-64 md:h-80 lg:h-96 mb-8 overflow-hidden">
         <!-- 背景圖片 -->
+        <!-- Mobile Background -->
         <div
-          class="absolute inset-0 bg-cover bg-center"
-          style={`background-image: url('${currentCategory.background?.desktop}')`}
+          class="absolute inset-0 bg-cover bg-center md:hidden"
+          style={`background-image: url('${currentCategory.background?.mobile || currentCategory.background?.desktop}')`}
+        >
+        </div>
+        <!-- Desktop Background -->
+        <div
+          class="absolute inset-0 bg-cover bg-center hidden md:block"
+          style={`background-image: url('${currentCategory.background?.desktop || currentCategory.background?.mobile}')`}
         >
         </div>
         <!-- 漸層遮罩 -->
@@ -98,10 +105,16 @@ const meta = seoMeta({
             <a href={`/services/${categoryId}/items/${service.id}`} class="flex flex-col">
               <!-- 上半部：封面圖 -->
               <div class="relative w-full overflow-hidden aspect-square">
-                <!-- Background Image -->
+                <!-- Background Image - Mobile -->
                 <div
-                  class="absolute inset-0 bg-cover bg-center"
-                  style={`background-image: url('${service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                  class="absolute inset-0 bg-cover bg-center md:hidden"
+                  style={`background-image: url('${service.cover?.mobile || service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                >
+                </div>
+                <!-- Background Image - Desktop -->
+                <div
+                  class="absolute inset-0 bg-cover bg-center hidden md:block"
+                  style={`background-image: url('${service.cover?.desktop || service.cover?.mobile || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
                 >
                 </div>
                 <!-- Base Overlay for better text readability -->

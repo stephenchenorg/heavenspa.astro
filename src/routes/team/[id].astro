@@ -44,8 +44,9 @@ const meta = seoMeta({
 })
 
 // 獲取有效的圖片列表
-const validImages = teamMember.images?.filter(img => img.image?.desktop) || []
-const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
+const validImages = teamMember.images?.filter(img => img.image?.desktop || img.image?.mobile) || []
+const mainImageDesktop = validImages[0]?.image?.desktop || validImages[0]?.image?.mobile || '/placeholder.jpg'
+const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.desktop || '/placeholder.jpg'
 ---
 
 <Layout meta={meta}>
@@ -91,11 +92,20 @@ const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
             </>
           )}
 
+          <!-- Mobile Image -->
           <img
-            id="carousel-img"
-            src={mainImage}
+            id="carousel-img-mobile"
+            src={mainImageMobile}
             alt={teamMember.title}
-            class="w-full h-full object-cover select-none transition-all duration-300"
+            class="w-full h-full object-cover select-none transition-all duration-300 md:hidden"
+            loading="lazy"
+          />
+          <!-- Desktop Image -->
+          <img
+            id="carousel-img-desktop"
+            src={mainImageDesktop}
+            alt={teamMember.title}
+            class="w-full h-full object-cover select-none transition-all duration-300 hidden md:block"
             loading="lazy"
           />
 
@@ -122,17 +132,32 @@ const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
         {validImages.length > 1 && (
           <div id="carousel-thumbs" class="flex flex-wrap justify-center gap-3 mt-6 max-w-lg">
             {validImages.map((img, idx) => (
-              <img
-                src={img.image?.desktop}
-                alt={`${t('team.thumbnail')}${idx + 1}`}
-                class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm ${
-                  idx === 0
-                    ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
-                    : 'border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
-                }`}
-                onclick={`carouselThumb(${idx})`}
-                loading="lazy"
-              />
+              <div class="relative w-20 h-20">
+                <!-- Mobile Thumbnail -->
+                <img
+                  src={img.image?.mobile || img.image?.desktop}
+                  alt={`${t('team.thumbnail')}${idx + 1}`}
+                  class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm md:hidden ${
+                    idx === 0
+                      ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
+                      : 'border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
+                  }`}
+                  onclick={`carouselThumb(${idx})`}
+                  loading="lazy"
+                />
+                <!-- Desktop Thumbnail -->
+                <img
+                  src={img.image?.desktop || img.image?.mobile}
+                  alt={`${t('team.thumbnail')}${idx + 1}`}
+                  class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm hidden md:block ${
+                    idx === 0
+                      ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
+                      : 'border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
+                  }`}
+                  onclick={`carouselThumb(${idx})`}
+                  loading="lazy"
+                />
+              </div>
             ))}
           </div>
         )}
@@ -265,11 +290,16 @@ const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
 
   <!-- 燈箱和輪播功能 JavaScript -->
   {validImages.length > 0 && (
-    <script type="module" is:inline define:vars={{ teamImages: validImages.map(img => img.image?.desktop).filter(Boolean), allImages: validImages }}>
+    <script type="module" is:inline define:vars={{
+      teamImagesDesktop: validImages.map(img => img.image?.desktop || img.image?.mobile).filter(Boolean),
+      teamImagesMobile: validImages.map(img => img.image?.mobile || img.image?.desktop).filter(Boolean),
+      allImages: validImages
+    }}>
       document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0
   let lightboxIndex = 0
-  const imgElement = document.getElementById('carousel-img')
+  const imgElementMobile = document.getElementById('carousel-img-mobile')
+  const imgElementDesktop = document.getElementById('carousel-img-desktop')
   const dotElements = document.querySelectorAll('#carousel-dots button')
   const thumbElements = document.querySelectorAll('#carousel-thumbs img')
   const lightbox = document.getElementById('lightbox')
@@ -278,9 +308,13 @@ const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
 
   // 輪播功能
   function updateCarousel() {
-          if (imgElement && teamImages[currentIndex]) {
-            imgElement.src = teamImages[currentIndex]
-      imgElement.alt = `作品圖${currentIndex + 1}`
+          if (imgElementMobile && teamImagesMobile[currentIndex]) {
+            imgElementMobile.src = teamImagesMobile[currentIndex]
+      imgElementMobile.alt = `作品圖${currentIndex + 1}`
+    }
+          if (imgElementDesktop && teamImagesDesktop[currentIndex]) {
+            imgElementDesktop.src = teamImagesDesktop[currentIndex]
+      imgElementDesktop.alt = `作品圖${currentIndex + 1}`
     }
 
           // 更新指示點
@@ -321,12 +355,12 @@ const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
 
         // 全域函式
         window.carouselPrev = () => {
-          currentIndex = (currentIndex - 1 + teamImages.length) % teamImages.length
+          currentIndex = (currentIndex - 1 + teamImagesDesktop.length) % teamImagesDesktop.length
     updateCarousel()
   }
 
       window.carouselNext = () => {
-          currentIndex = (currentIndex + 1) % teamImages.length
+          currentIndex = (currentIndex + 1) % teamImagesDesktop.length
     updateCarousel()
   }
 
@@ -377,12 +411,12 @@ const mainImage = validImages[0]?.image?.desktop || '/placeholder.jpg'
         })
 
   // 初始化
-  if (teamImages.length > 1) {
+  if (teamImagesDesktop.length > 1) {
           updateCarousel()
 
     // 自動輪播（可選）
     setInterval(() => {
-            currentIndex = (currentIndex + 1) % teamImages.length
+            currentIndex = (currentIndex + 1) % teamImagesDesktop.length
       updateCarousel()
     }, 5000)
   }

@@ -8,7 +8,12 @@ export interface Partnership {
   id: number
   title: string
   author: string
-  cover: string
+  cover: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
   content: string
   ended_at: string
   started_at: string
@@ -30,7 +35,7 @@ export interface Partnership {
   next?: {
     id: number
     title: string
-    image: {
+    cover: {
       desktop: string
       desktop_blur: string
       mobile: string
@@ -40,7 +45,7 @@ export interface Partnership {
   prev?: {
     id: number
     title: string
-    image: {
+    cover: {
       desktop: string
       desktop_blur: string
       mobile: string
@@ -68,7 +73,12 @@ export async function getPartnerships(): Promise<Partnership[]> {
         data {
           id
           content
-          cover
+          cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -128,7 +138,12 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
         data {
           id
           content
-          cover
+          cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -192,14 +207,12 @@ export async function getAdjacentPartnerships(currentId: number): Promise<{ prev
       previousPartnership: partnership(where: { id: { _lt: $currentId } }, orderBy: { id: desc }, first: 1) {
         id
         title
-        cover
         started_at
         created_at
       }
       nextPartnership: partnership(where: { id: { _gt: $currentId } }, orderBy: { id: asc }, first: 1) {
         id
         title
-        cover
         started_at
         created_at
       }
@@ -243,7 +256,12 @@ export async function getPartnership(id: string): Promise<Partnership> {
           title
           author
           content
-          cover
+          cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           started_at
           created_at
@@ -264,22 +282,10 @@ export async function getPartnership(id: string): Promise<Partnership> {
           next {
             id
             title
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
           }
           prev {
             id
             title
-            image {
-              desktop
-              desktop_blur
-              mobile
-              mobile_blur
-            }
           }
         }
       }

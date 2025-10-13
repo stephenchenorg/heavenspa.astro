@@ -38,10 +38,18 @@ const services = data.serviceCategories.data
               <!-- Image (Background) -->
               <div class="flex justify-center lg:justify-end max-w-full overflow-hidden">
                 <div class="relative h-[400px] lg:h-[480px] w-full lg:w-[700px] overflow-hidden rounded-3xl shadow-2xl">
+                  <!-- Mobile Image -->
                   <img
-                    src={service?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
+                    src={service?.cover?.mobile || service?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
                     alt={service?.sub_title || t('courses.service-intro')}
-                    class="w-full h-full object-cover transition-transform duration-700"
+                    class="w-full h-full object-cover transition-transform duration-700 md:hidden"
+                    loading="lazy"
+                  />
+                  <!-- Desktop Image -->
+                  <img
+                    src={service?.cover?.desktop || service?.cover?.mobile || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
+                    alt={service?.sub_title || t('courses.service-intro')}
+                    class="w-full h-full object-cover transition-transform duration-700 hidden md:block"
                     loading="lazy"
                   />
                 </div>
