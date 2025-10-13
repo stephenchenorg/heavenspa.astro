@@ -2,7 +2,7 @@ import { getLocale } from 'i18n:astro'
 
 // 語系資料類型定義
 interface NestedTranslation {
-  [key: string]: string | NestedTranslation
+  [key: string]: string | string[] | NestedTranslation
 }
 
 // 動態載入語系資料
@@ -23,7 +23,7 @@ async function loadTranslations(locale: string): Promise<NestedTranslation> {
 }
 
 // 遞迴取得嵌套物件的值
-function getNestedValue(obj: NestedTranslation, path: string[]): string | NestedTranslation | undefined {
+function getNestedValue(obj: NestedTranslation, path: string[]): string | string[] | NestedTranslation | undefined {
   if (path.length === 0) return obj
 
   const [first, ...rest] = path
@@ -31,7 +31,8 @@ function getNestedValue(obj: NestedTranslation, path: string[]): string | Nested
 
   if (value === undefined) return undefined
   if (typeof value === 'string' && rest.length === 0) return value
-  if (typeof value === 'object' && rest.length > 0) {
+  if (Array.isArray(value) && rest.length === 0) return value
+  if (typeof value === 'object' && !Array.isArray(value) && rest.length > 0) {
     return getNestedValue(value, rest)
   }
 
@@ -52,6 +53,8 @@ export async function createNestedT() {
 
         if (typeof value === 'string') {
           return value
+        } else if (Array.isArray(value)) {
+          return value
         } else if (typeof value === 'object') {
           return createProxy(value, newPath)
         }
@@ -64,12 +67,16 @@ export async function createNestedT() {
           // 支持 t('nav.home') 的用法
           const path = args[0].split('.')
           const value = getNestedValue(translations, path)
-          return typeof value === 'string' ? value : args[0]
+          if (typeof value === 'string') return value
+          if (Array.isArray(value)) return value
+          return args[0]
         }
 
         // 如果沒有參數，回傳當前路徑的值
         const value = getNestedValue(translations, currentPath)
-        return typeof value === 'string' ? value : ''
+        if (typeof value === 'string') return value
+        if (Array.isArray(value)) return value
+        return ''
       },
     })
   }
@@ -111,10 +118,12 @@ export class NestedTranslator {
   get faq() { return this.createProxy(this.translations.faq as NestedTranslation, ['faq']) }
 
   // 函數語法：nt('nav.home')
-  t(key: string): string {
+  t(key: string): string | string[] {
     const path = key.split('.')
     const value = getNestedValue(this.translations, path)
-    return typeof value === 'string' ? value : key
+    if (typeof value === 'string') return value
+    if (Array.isArray(value)) return value
+    return key
   }
 
   private createProxy(obj: NestedTranslation, path: string[]): any {
@@ -122,6 +131,8 @@ export class NestedTranslator {
       get: (_target, prop: string) => {
         const value = obj[prop]
         if (typeof value === 'string') {
+          return value
+        } else if (Array.isArray(value)) {
           return value
         } else if (typeof value === 'object') {
           return this.createProxy(value, [...path, prop])
@@ -212,7 +223,7 @@ export async function initTranslations() {
   }
 }
 
-export function t(key: string): string {
+export function t(key: string): string | string[] {
   const locale = getCurrentLocale()
   const translations = translationsCache[locale]
 
@@ -222,5 +233,7 @@ export function t(key: string): string {
 
   const path = key.split('.')
   const value = getNestedValue(translations, path)
-  return typeof value === 'string' ? value : key
+  if (typeof value === 'string') return value
+  if (Array.isArray(value)) return value
+  return key
 }
