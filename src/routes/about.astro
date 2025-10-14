@@ -1,6 +1,7 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
+import { getAboutData } from '@/api/about'
 import { getServiceCategories } from '@/api/serviceCategories'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
@@ -15,36 +16,31 @@ const isEnglish = currentLocale === 'en'
 const data = await getServiceCategories()
 const services = data.serviceCategories.data
 
+ const aboutData = await getAboutData()
+const { about, aboutImages } = aboutData
+
 const meta = seoMeta({
     title: t('about.pageTitle'),
 })
-
-// 環境圖片陣列
-const environmentImages = [
-    '/images/about/about1.jpg',
-    '/images/about/about2.jpg',
-    '/images/about/about3.jpg',
-    '/images/about/about4.jpg',
-    '/images/about/about5.jpg',
-    '/images/about/about6.jpg',
-    '/images/about/about7.jpg',
-    '/images/about/about8.jpg',
-    '/images/about/about9.jpg',
-    '/images/about/about10.jpg',
-    '/images/about/about11.jpg',
-    '/images/about/about12.jpg',
-]
 ---
 
 <Layout meta={meta}>
     <!-- Hero Banner -->
     <section class="relative aspect-[1920/900] sm:aspect-[1920/800] lg:aspect-[1920/700] overflow-hidden">
         <div class="absolute inset-0">
-            <img
-              src="https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg"
-              alt="品牌介紹 banner"
-              class="object-cover w-full h-full"
-            />
+            <picture>
+                <!-- 手機版圖片 (< 768px) -->
+                <source
+                    media="(max-width: 767px)"
+                    srcset={about.cover.mobile}
+                />
+                <!-- 電腦版圖片 (>= 768px) -->
+                <img
+                    src={about.cover.desktop}
+                    alt="品牌介紹 banner"
+                    class="object-cover w-full h-full"
+                />
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
         </div>
         <!-- Hero Content Overlay -->
@@ -67,11 +63,19 @@ const environmentImages = [
                 <!-- 左側圖片 -->
                 <div class="order-2 lg:order-1" data-animate-in="left">
                     <div class="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                        <img
-                          src="/images/about2.jpg"
-                          alt="品牌介紹圖片"
-                          class="w-full h-full object-cover"
-                        />
+                        <picture>
+                            <!-- 手機版圖片 (< 768px) -->
+                            <source
+                                media="(max-width: 767px)"
+                                srcset={about.image.mobile}
+                            />
+                            <!-- 電腦版圖片 (>= 768px) -->
+                            <img
+                                src={about.image.desktop}
+                                alt="品牌介紹圖片"
+                                class="w-full h-full object-cover"
+                            />
+                        </picture>
                     </div>
                 </div>
 
@@ -80,7 +84,7 @@ const environmentImages = [
                     <h3
                       class={`font-bold mb-6 sm:mb-8 ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}
                       style="color: var(--theme-text)"
-                    >{t('about.heaven.title')}</h3>
+                    >{about.title_1}</h3>
                     <div
                       class="intro-text-container space-y-6"
                       style="color: var(--theme-text)"
@@ -89,7 +93,7 @@ const environmentImages = [
                           class={`leading-relaxed ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}
                           data-animate-in="up"
                         >
-                            {t('about.heaven.description')}
+                            {about.content_1}
                         </p>
                     </div>
                 </div>
@@ -116,33 +120,39 @@ const environmentImages = [
                     <!-- 文字描述區 -->
                     <div class="max-w-5xl mx-auto text-center mb-12 z-10">
                         <h2 class={`font-bold mb-6 leading-tight ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}>
-                            {t('about.environment.title')}
+                            {about.title_2}
                         </h2>
-                        <p class={` mb-6 leading-relaxed ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>
-                            {t('about.environment.description1')}
-                        </p>
                         <p class={`leading-relaxed ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>
-                            {t('about.environment.description2')}
+                            {about.content_2}
                         </p>
                     </div>
 
                     <!-- 環境圖片輪播 -->
                     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
                         <Carousel
-                            itemCount={environmentImages.length}
+                            itemCount={aboutImages.data.length}
                             uniqueId="environment"
                             autoPlayInterval={2600}
                             responsive={{ sm: 1, md: 2, lg: 3 }}
                         >
-                            {environmentImages.map((image, index) => (
+                            {aboutImages.data.map((item, index) => (
                                 <div class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3" data-slide={index}>
                                     <div class="px-2">
                                         <div class="aspect-[4/3] overflow-hidden rounded-2xl">
-                                            <img
-                                                src={image}
-                                                alt={`環境圖片 ${index + 1}`}
-                                                class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
-                                            />
+                                            <picture>
+                                                <!-- 手機版圖片 (< 768px) -->
+                                                <source
+                                                    media="(max-width: 767px)"
+                                                    srcset={item.image.mobile}
+                                                />
+                                                <!-- 電腦版圖片 (>= 768px) -->
+                                                <img
+                                                    src={item.image.desktop}
+                                                    alt={`環境圖片 ${index + 1}`}
+                                                    class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                                                    loading="lazy"
+                                                />
+                                            </picture>
                                         </div>
                                     </div>
                                 </div>
@@ -192,13 +202,13 @@ const environmentImages = [
         <section class="max-w-4xl mx-auto py-16 sm:py-20 text-center" data-animate-in="fadeIn">
             <div class="space-y-8">
                 <p class={`leading-relaxed text-theme-text ${isEnglish ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-2xl sm:text-3xl lg:text-4xl'}`}>
-                    {t('about.contact.description')}
+                    {about.content_3}
                 </p>
                 <Button
-                  href="/joinUs/careers"
+                  :href={about.cta_link}
                   variant="outline"
                   size="large"
-                  text={t('about.contact.buttonText')}
+                  text={about.cta_title}
                 />
             </div>
         </section>
