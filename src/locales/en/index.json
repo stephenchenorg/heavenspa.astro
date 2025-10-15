@@ -213,70 +213,9 @@
     "title": "Join Us",
     "subtitle": "Join Us",
     "job": {
-      "title": "Job Responsibilities"
-    },
-    "positions": {
-      "masseur": {
-        "title": "1. Massage Therapist",
-        "jobContent": {
-          "title": "Job Responsibilities:",
-          "items": [
-            "Provide full body relaxation, pressure point/oil massage, muscle conditioning, deep fascia massage, and auxiliary tools operation (fascia knife, cupping)",
-            "Focus on specific areas according to customer needs (shoulders, neck, back, abdomen, legs, etc.)",
-            "Learn and execute in-store SOP and customer service procedures",
-            "Participate in training courses to enhance professional techniques and service quality"
-          ]
-        },
-        "requirements": {
-          "title": "Requirements:",
-          "items": [
-            "Experience in massage, beauty, or sports conditioning preferred (training available for inexperienced candidates)",
-            "Good at listening to customer needs, with both attentiveness and composure",
-            "Good physical fitness and learning attitude, willing to develop long-term"
-          ]
-        }
-      },
-      "waxSpecialist": {
-        "title": "2. Hot Wax Hair Removal Specialist",
-        "jobContent": {
-          "title": "Job Responsibilities:",
-          "items": [
-            "Provide hot wax hair removal services to customers",
-            "Understand hair growth cycles and basic skin knowledge",
-            "Familiar with skin cleansing and pre/post-treatment care procedures",
-            "Learn brand-specific products and standard service operations",
-            "Maintain environmental cleanliness and hygiene standards"
-          ]
-        },
-        "requirements": {
-          "title": "Requirements:",
-          "items": [
-            "Hair removal, beauty-related certifications or experience preferred",
-            "Attention to detail and cleanliness, with quality service standards",
-            "Friendly personality, steady technique, able to help customers relax and trust"
-          ]
-        }
-      },
-      "facialSpecialist": {
-        "title": "3. Facial Beauty Specialist",
-        "jobContent": {
-          "title": "Job Responsibilities:",
-          "items": [
-            "Provide facial cleansing, manual blackhead removal, hydrafacial, moisturizing infusion, and basic repair treatments",
-            "Provide appropriate skincare recommendations based on skin type and needs",
-            "Learn product combinations and operation techniques to ensure customer experience quality",
-            "Maintain cleanliness of equipment and tools"
-          ]
-        },
-        "requirements": {
-          "title": "Requirements:",
-          "items": [
-            "Facial beauty, beautician certification, or related experience preferred",
-            "Keen sense of aesthetics and details, technique that is both gentle and steady",
-            "Eager to learn new techniques with a positive attitude"
-          ]
-        }
-      }
+      "title": "Job Responsibilities",
+      "jobContent": "Job Responsibilities:",
+      "requirements": "Requirements:"
     },
     "contact": {
       "title": "Contact Us",
@@ -352,6 +291,7 @@
       "reservation": "Reservation",
       "spa": "Spa Services",
       "hair_removal": "Hair Removal",
+      "water_shuttle": "Water Shuttle",
       "recruitment": "Recruitment"
     },
     "empty": {

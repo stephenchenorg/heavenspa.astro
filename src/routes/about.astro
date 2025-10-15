@@ -115,7 +115,7 @@ const meta = seoMeta({
                 </div>
             </div>
             <!-- Section 1: 環境圖片輪播 -->
-            <section class="sticky top-0 min-h-screen flex items-center justify-center pb-20 pt-10">
+            <section class="sticky top-0 min-h-screen flex items-center justify-center pb-20 pt-10" id="AboutImages">
                 <div class="w-full flex flex-col items-center justify-center">
                     <!-- 文字描述區 -->
                     <div class="max-w-5xl mx-auto text-center mb-12 z-10">
@@ -127,6 +127,7 @@ const meta = seoMeta({
                         </p>
                     </div>
 
+                    {aboutImages && aboutImages.data.length > 0 && (
                     <!-- 環境圖片輪播 -->
                     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
                         <Carousel
@@ -159,6 +160,7 @@ const meta = seoMeta({
                             ))}
                         </Carousel>
                     </div>
+                    )}
                 </div>
             </section>
 
