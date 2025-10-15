@@ -40,7 +40,7 @@ faqs = await getFaqList(40)
         />
 
         <!-- 課程區塊 - 帶背景 -->
-        <section class="careers-section relative py-12 lg:py-16">
+        <section class="bg-white relative py-12 lg:py-16">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-8 lg:mb-12 lg:tracking-[4px] md:tracking-[3px] tracking-[2px] text-black ／">
                     {t('joinUs.job.title')}
@@ -424,35 +424,6 @@ faqs = await getFaqList(40)
     .liquid:hover::before {
         animation-play-state: paused;
         opacity: 0.8;
-    }
-
-    /* 課程區塊背景 */
-    .careers-section {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .careers-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url("/images/join.png") center/cover no-repeat fixed;
-        z-index: 0;
-    }
-
-    .careers-section::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(1px);
-        z-index: 1;
     }
 
     /* 表單區塊動畫 */
