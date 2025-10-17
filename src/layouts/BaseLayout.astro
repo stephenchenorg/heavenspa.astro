@@ -4,6 +4,7 @@ import { createCompanySetting } from '@stephenchenorg/astro/company-setting'
 import { getLocale } from 'i18n:astro'
 import siteConfig from '@/site.config'
 import GAScript from './partials/GAScript.astro'
+import MetaPixel from './partials/MetaPixel.astro'
 import '@/styles/index.css'
 
 interface Props {
@@ -28,6 +29,7 @@ const companySetting = createCompanySetting({
 // const pathname = Astro.url.pathname
 
 const ga4TrackingId = siteConfig.ga4TrackingId
+const metaPixelId = siteConfig.metaPixelId
 
 // 獲取當前語言
 const currentLocale = getLocale()
@@ -66,6 +68,7 @@ const htmlLang = currentLocale === 'zh-TW' ? 'zh-Hant-TW' : 'en-US'
     )}
 
     {import.meta.env.DEV && ga4TrackingId && <GAScript ga4TrackingId={ga4TrackingId} />}
+    {!import.meta.env.DEV && metaPixelId && <MetaPixel pixelId={metaPixelId} />}
 
     {!import.meta.env.DEV && meta.seo_head && <Fragment set:html={meta.seo_head} />}
   </head>
