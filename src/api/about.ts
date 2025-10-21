@@ -62,6 +62,15 @@ export async function getAboutData(): Promise<AboutData> {
         }
         title_1
         title_2
+        og_description
+        og_image
+        og_title
+        seo_body
+        seo_description
+        seo_head
+        seo_json_ld
+        seo_keyword
+        seo_title
       }
       aboutImages {
         data {
@@ -73,15 +82,6 @@ export async function getAboutData(): Promise<AboutData> {
           }
         }
       }
-      og_description
-      og_image
-      og_title
-      seo_body
-      seo_description
-      seo_head
-      seo_json_ld
-      seo_keyword
-      seo_title
     }
   `)
 
