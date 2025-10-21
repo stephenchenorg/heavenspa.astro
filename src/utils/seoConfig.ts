@@ -22,7 +22,7 @@ interface SeoConfig {
 type Locale = 'zh_TW' | 'en'
 
 // 預設 OG 圖片
-export const DEFAULT_OG_IMAGE = 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'
+export const DEFAULT_OG_IMAGE = ''
 
 // 網站基礎 URL
 export const SITE_URL = 'https://dev-www.heavenspa.com.tw'
