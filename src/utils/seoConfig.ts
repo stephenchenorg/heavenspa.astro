@@ -3,10 +3,21 @@
  * 集中管理所有頁面的 SEO 和 Open Graph 設定（支援多語系）
  */
 
-import type { PageMeta } from '@/types'
-
-// SeoConfig 就是 PageMeta 的別名，但為了向後相容，保留此類型
-type SeoConfig = PageMeta
+// SeoConfig 用於配置文件，不包含 canonical（因為 canonical 是動態生成的）
+// 只包含必要的 SEO 欄位
+interface SeoConfig {
+  title: string
+  seo_title: string
+  seo_description: string
+  seo_keyword?: string
+  og_title: string
+  og_description: string
+  og_image: string
+  // 後台可選欄位
+  seo_head?: string
+  seo_body?: string
+  seo_json_ld?: string
+}
 
 type Locale = 'zh_TW' | 'en'
 
@@ -271,33 +282,4 @@ export const SEO_CONFIG: Record<Locale, Record<string, SeoConfig>> = {
  */
 export function getSeoConfig(page: string, locale: Locale = 'zh_TW'): SeoConfig {
   return SEO_CONFIG[locale][page] || SEO_CONFIG[locale].home
-}
-
-/**
- * 建立動態頁面的 SEO 設定
- * @param pageTitle - 頁面標題（不含網站名稱）
- * @param description - 頁面描述
- * @param image - OG 圖片 URL
- * @param keywords - SEO 關鍵字
- * @param canonical - Canonical URL
- */
-export function createDynamicSeo(
-  pageTitle: string,
-  description?: string,
-  image?: string,
-  keywords?: string,
-  canonical?: string,
-): SeoConfig {
-  const finalDescription = description || pageTitle
-
-  return {
-    title: `${pageTitle} - Heaven Spa`,
-    seo_title: `${pageTitle} - Heaven Spa`,
-    seo_description: finalDescription,
-    seo_keyword: keywords,
-    og_title: `${pageTitle} - Heaven Spa`,
-    og_description: finalDescription,
-    og_image: image || DEFAULT_OG_IMAGE,
-    canonical,
-  }
 }

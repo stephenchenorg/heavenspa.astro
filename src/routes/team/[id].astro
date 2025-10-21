@@ -6,7 +6,7 @@ import { getTeamMember } from '@/api/teams'
 import Schedule from '@/components/ui/Schedule.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getSeoConfig, createDynamicSeo, getCanonicalUrl } from '@/utils/seoConfig'
+import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()

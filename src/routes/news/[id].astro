@@ -5,7 +5,7 @@ import { getArticle, getRelatedArticles } from '@/api/articles'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import {createDynamicSeo, getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
+import {getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()

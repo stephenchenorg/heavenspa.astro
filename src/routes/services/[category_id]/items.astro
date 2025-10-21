@@ -6,7 +6,7 @@ import { getServices } from '@/api/services'
 import Button from '@/components/ui/Button.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import {createDynamicSeo, getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
+import {getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()

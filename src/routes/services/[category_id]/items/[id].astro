@@ -4,7 +4,7 @@ import { getLocale } from 'i18n:astro'
 import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import {createDynamicSeo, getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
+import {getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
