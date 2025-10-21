@@ -41,20 +41,22 @@ const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.
 // 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
 const defaultSeo = getSeoConfig('team', locale)
 
-const meta = seoMeta({
-  title: teamMember.title || defaultSeo.title,
-  seo_title: teamMember.seo_title || defaultSeo.seo_title,
-  seo_description: teamMember.seo_description || defaultSeo.seo_description,
-  seo_keyword: teamMember.seo_keyword || defaultSeo.seo_keyword,
-  og_title: teamMember.og_title || defaultSeo.og_title,
-  og_description: teamMember.og_description || defaultSeo.og_description,
-  og_image: teamMember.og_image || mainImageDesktop || defaultSeo.og_image,
+const meta = {
+  ...seoMeta({
+    title: teamMember.title || defaultSeo.title,
+    seo_title: teamMember.seo_title || defaultSeo.seo_title,
+    seo_description: teamMember.seo_description || defaultSeo.seo_description,
+    seo_keyword: teamMember.seo_keyword || defaultSeo.seo_keyword,
+    og_title: teamMember.og_title || defaultSeo.og_title,
+    og_description: teamMember.og_description || defaultSeo.og_description,
+    og_image: teamMember.og_image || mainImageDesktop || defaultSeo.og_image,
+    // 後台額外欄位 (有值才顯示)
+    seo_head: teamMember.seo_head,
+    seo_body: teamMember.seo_body,
+    seo_json_ld: teamMember.seo_json_ld,
+  }),
   canonical: getCanonicalUrl(`team/${id}`, locale),
-  // 後台額外欄位 (有值才顯示)
-  seo_head: teamMember.seo_head,
-  seo_body: teamMember.seo_body,
-  seo_json_ld: teamMember.seo_json_ld,
-} as PageMeta)
+} as PageMeta
 ---
 
 <Layout meta={meta}>

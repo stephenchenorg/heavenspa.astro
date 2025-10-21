@@ -16,10 +16,10 @@ const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 const partnerships = await getPartnerships()
 
 const seoConfig = getSeoConfig('businessPartnership', locale)
-const meta = seoMeta({
-  ...seoConfig,
+const meta = {
+  ...seoMeta(seoConfig),
   canonical: getCanonicalUrl('business-partnership', locale),
-} as PageMeta)
+} as PageMeta
 
 ---
 

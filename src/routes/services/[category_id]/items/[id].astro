@@ -22,20 +22,22 @@ const coverImage = service.cover?.desktop || service.cover?.mobile
 // 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
 const defaultSeo = getSeoConfig('services', locale)
 
-const meta = seoMeta({
-  title: service.title || defaultSeo.title,
-  seo_title: service.seo_title || defaultSeo.seo_title,
-  seo_description: service.seo_description || defaultSeo.seo_description,
-  seo_keyword: service.seo_keyword || defaultSeo.seo_keyword,
-  og_title: service.og_title || defaultSeo.og_title,
-  og_description: service.og_description || defaultSeo.og_description,
-  og_image: service.og_image || coverImage || defaultSeo.og_image,
+const meta = {
+  ...seoMeta({
+    title: service.title || defaultSeo.title,
+    seo_title: service.seo_title || defaultSeo.seo_title,
+    seo_description: service.seo_description || defaultSeo.seo_description,
+    seo_keyword: service.seo_keyword || defaultSeo.seo_keyword,
+    og_title: service.og_title || defaultSeo.og_title,
+    og_description: service.og_description || defaultSeo.og_description,
+    og_image: service.og_image || coverImage || defaultSeo.og_image,
+    // 後台額外欄位 (有值才顯示)
+    seo_head: service.seo_head,
+    seo_body: service.seo_body,
+    seo_json_ld: service.seo_json_ld,
+  }),
   canonical: getCanonicalUrl(`services/${category_id}/items/${id}`, locale),
-  // 後台額外欄位 (有值才顯示)
-  seo_head: service.seo_head,
-  seo_body: service.seo_body,
-  seo_json_ld: service.seo_json_ld,
-} as PageMeta)
+} as PageMeta
 
 ---
 

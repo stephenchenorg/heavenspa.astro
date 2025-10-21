@@ -14,10 +14,10 @@ const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const seoConfig = getSeoConfig('faq', locale)
 
-const meta = seoMeta({
-  ...seoConfig,
+const meta = {
+  ...seoMeta(seoConfig),
   canonical: getCanonicalUrl('faq', locale),
-} as PageMeta)
+} as PageMeta
 
 // 定義類型
 interface FaqItem {

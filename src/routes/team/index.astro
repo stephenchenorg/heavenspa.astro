@@ -32,10 +32,10 @@ try {
 const currentLocale = getLocale()
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 const seoConfig = getSeoConfig('team', locale)
-const meta = seoMeta({
-  ...seoConfig,
+const meta = {
+  ...seoMeta(seoConfig),
   canonical: getCanonicalUrl('team', locale),
-} as PageMeta)
+} as PageMeta
 
 ---
 

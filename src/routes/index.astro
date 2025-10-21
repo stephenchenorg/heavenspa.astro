@@ -18,10 +18,10 @@ const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 // 取得 SEO 設定
 const seoConfig = getSeoConfig('home', locale)
 
-const meta = seoMeta({
-  ...seoConfig,
+const meta = {
+  ...seoMeta(seoConfig),
   canonical: getCanonicalUrl('', locale),
-} as PageMeta)
+} as PageMeta
 ---
 
 <Layout meta={meta}>

@@ -20,10 +20,10 @@ const companySetting = await getCompanySetting()
 const currentLocale = getLocale()
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 const seoConfig = getSeoConfig('joinUs', locale)
-const meta = seoMeta({
-  ...seoConfig,
+const meta = {
+  ...seoMeta(seoConfig),
   canonical: getCanonicalUrl('joinUs', locale),
-} as PageMeta)
+} as PageMeta
 
 interface FaqItem {
     id: string

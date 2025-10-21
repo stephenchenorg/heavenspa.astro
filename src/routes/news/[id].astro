@@ -29,20 +29,22 @@ const coverImage = article.cover?.desktop || article.cover?.mobile
 // 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
 const defaultSeo = getSeoConfig('news', locale)
 
-const meta = seoMeta({
-  title: article.title || defaultSeo.title,
-  seo_title: article.seo_title || defaultSeo.seo_title,
-  seo_description: article.seo_description || defaultSeo.seo_description,
-  seo_keyword: article.seo_keyword || defaultSeo.seo_keyword,
-  og_title: article.og_title || defaultSeo.og_title,
-  og_description: article.og_description || defaultSeo.og_description,
-  og_image: article.og_image || coverImage || defaultSeo.og_image,
+const meta = {
+  ...seoMeta({
+    title: article.title || defaultSeo.title,
+    seo_title: article.seo_title || defaultSeo.seo_title,
+    seo_description: article.seo_description || defaultSeo.seo_description,
+    seo_keyword: article.seo_keyword || defaultSeo.seo_keyword,
+    og_title: article.og_title || defaultSeo.og_title,
+    og_description: article.og_description || defaultSeo.og_description,
+    og_image: article.og_image || coverImage || defaultSeo.og_image,
+    // 後台額外欄位 (有值才顯示)
+    seo_head: article.seo_head,
+    seo_body: article.seo_body,
+    seo_json_ld: article.seo_json_ld,
+  }),
   canonical: getCanonicalUrl(`news/${id}`, locale),
-  // 後台額外欄位 (有值才顯示)
-  seo_head: article.seo_head,
-  seo_body: article.seo_body,
-  seo_json_ld: article.seo_json_ld,
-} as PageMeta)
+} as PageMeta
 ---
 
 <Layout meta={meta}>
