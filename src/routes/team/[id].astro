@@ -1,14 +1,15 @@
 ---
 import type { TeamMember } from '@/types'
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getTeamMember } from '@/api/teams'
 import Schedule from '@/components/ui/Schedule.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getSeoConfig, createDynamicSeo } from '@/utils/seoConfig'
 
 const t = await createNestedT()
-
-// 建立翻譯函式
+const currentLocale = getLocale()
 
 // 獲取 ID 參數
 const { id } = Astro.params
@@ -22,8 +23,6 @@ let teamMember: TeamMember | null = null
 try {
   teamMember = await getTeamMember(Number(id))
 
-
-
   if (!teamMember) {
     return Astro.rewrite('/404')
   }
@@ -33,24 +32,38 @@ try {
   return Astro.rewrite('/404')
 }
 
-// SEO 設定 - 優先使用成員的 SEO 設定，否則使用預設值
-const meta = seoMeta({
-  title: teamMember.seo_title || teamMember.og_title || `${teamMember.title} - Heaven Spa`,
-  og_description: teamMember.og_description,
-  og_image: teamMember.og_image,
-  og_title: teamMember.og_title,
-  seo_body: teamMember.seo_body,
-  seo_description: teamMember.seo_description,
-  seo_head: teamMember.seo_head,
-  seo_json_ld: teamMember.seo_json_ld,
-  seo_keyword: teamMember.seo_keyword,
-  seo_title: teamMember.seo_title,
-})
-
 // 獲取有效的圖片列表
 const validImages = teamMember.images?.filter(img => img.image?.desktop || img.image?.mobile) || []
 const mainImageDesktop = validImages[0]?.image?.desktop || validImages[0]?.image?.mobile
 const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.desktop
+
+// 準備預設 SEO 內容
+const defaultDescription = teamMember.content
+  ? teamMember.content.replace(/<[^>]*>/g, '').substring(0, 160)
+  : `${teamMember.title} - ${teamMember.job || ''} | Heaven Spa 專業團隊成員`
+
+// 建立預設 SEO 設定
+const defaultSeo = createDynamicSeo({
+  title: teamMember.title,
+  description: defaultDescription,
+  image: mainImageDesktop,
+  keywords: `Heaven Spa, ${teamMember.title}, ${teamMember.job || '美容師'}, 專業團隊`,
+})
+
+// SEO 設定 - 後台資料優先，否則使用預設值
+const meta = seoMeta({
+  title: teamMember.title || defaultSeo.title,
+  seo_title: teamMember.seo_title || defaultSeo.seo_title,
+  seo_description: teamMember.seo_description || defaultSeo.seo_description,
+  seo_keyword: teamMember.seo_keyword || defaultSeo.seo_keyword,
+  og_title: teamMember.og_title || defaultSeo.og_title,
+  og_description: teamMember.og_description || defaultSeo.og_description,
+  og_image: teamMember.og_image || defaultSeo.og_image,
+  // 後台額外提供的欄位
+  seo_body: teamMember.seo_body,
+  seo_head: teamMember.seo_head,
+  seo_json_ld: teamMember.seo_json_ld,
+})
 ---
 
 <Layout meta={meta}>

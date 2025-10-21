@@ -1,11 +1,14 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getArticle, getRelatedArticles } from '@/api/articles'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { createDynamicSeo } from '@/utils/seoConfig'
 
 const t = await createNestedT()
+const currentLocale = getLocale()
 const { id } = Astro.params
 if (!id || Number.isNaN(Number(id))) {
     return Astro.rewrite('/404')
@@ -20,17 +23,34 @@ const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : [
 // 過濾掉當前文章
 const filteredRelatedArticles = relatedArticles.filter(relatedArticle => relatedArticle.id !== article.id)
 
+// 準備預設 SEO 內容
+const defaultDescription = article.content
+  ? article.content.replace(/<[^>]*>/g, '').substring(0, 160)
+  : `${article.title} | Heaven Spa 最新消息`
+
+const coverImage = article.cover?.desktop || article.cover?.mobile
+
+// 建立預設 SEO 設定
+const defaultSeo = createDynamicSeo({
+  title: article.title,
+  description: defaultDescription,
+  image: coverImage,
+  keywords: `Heaven Spa, 最新消息, ${article.title}, SPA資訊`,
+})
+
+// SEO 設定 - 後台資料優先，否則使用預設值
 const meta = seoMeta({
-    title: `${article.title} - Heaven Spa`,
-    og_description: article.og_description,
-    og_image: article.og_image,
-    og_title: article.og_title,
-    seo_body: article.seo_body,
-    seo_description: article.seo_description,
-    seo_head: article.seo_head,
-    seo_json_ld: article.seo_json_ld,
-    seo_keyword: article.seo_keyword,
-    seo_title: article.seo_title,
+  title: article.title || defaultSeo.title,
+  seo_title: article.seo_title || defaultSeo.seo_title,
+  seo_description: article.seo_description || defaultSeo.seo_description,
+  seo_keyword: article.seo_keyword || defaultSeo.seo_keyword,
+  og_title: article.og_title || defaultSeo.og_title,
+  og_description: article.og_description || defaultSeo.og_description,
+  og_image: article.og_image || defaultSeo.og_image,
+  // 後台額外提供的欄位
+  seo_body: article.seo_body,
+  seo_head: article.seo_head,
+  seo_json_ld: article.seo_json_ld,
 })
 ---
 

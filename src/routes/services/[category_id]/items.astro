@@ -6,6 +6,7 @@ import { getServices } from '@/api/services'
 import Button from '@/components/ui/Button.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { createDynamicSeo } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -31,19 +32,21 @@ const currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === c
 const servicesData = await getServices(categoryId, currentPage, 10, '')
 const services = servicesData.services.data
 
-const meta = seoMeta({
-  title: `${currentCategory?.title || '服務項目'} - Heaven Spa`,
-  description: `探索 Heaven Spa 的 ${currentCategory?.title || ''} 服務項目，享受頂級的美容護理體驗。`,
-  og_description: currentCategory.og_description,
-  og_image: currentCategory.og_image,
-  og_title: currentCategory.og_title,
-  seo_body: currentCategory.seo_body,
-  seo_description: currentCategory.seo_description,
-  seo_head: currentCategory.seo_head,
-  seo_json_ld: currentCategory.seo_json_ld,
-  seo_keyword: currentCategory.seo_keyword,
-  seo_title: currentCategory.seo_title,
+// 準備預設 SEO 內容
+const categoryTitle = currentCategory?.title || '服務項目'
+const categoryDescription = currentCategory?.description || `探索 Heaven Spa 的 ${categoryTitle} 服務項目，享受頂級的美容護理體驗。`
+const coverImage = currentCategory?.cover?.desktop || currentCategory?.cover?.mobile
+
+// 建立預設 SEO 設定
+const defaultSeo = createDynamicSeo({
+  title: categoryTitle,
+  description: categoryDescription,
+  image: coverImage,
+  keywords: `Heaven Spa, ${categoryTitle}, SPA療程, 美容護理`,
 })
+
+// SEO 設定 - 使用預設值
+const meta = seoMeta(defaultSeo)
 
 ---
 

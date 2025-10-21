@@ -43,15 +43,6 @@ export async function getPositionData(): Promise<Position[]> {
           title
           requirements
           description
-          og_description
-          og_image
-          og_title
-          seo_body
-          seo_description
-          seo_head
-          seo_json_ld
-          seo_keyword
-          seo_title
         }
       }
     }

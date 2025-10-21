@@ -17,15 +17,6 @@ export interface ServiceCategory {
     mobile: string
     mobile_blur: string
   }
-  og_description?: string
-  og_image?: string
-  og_title?: string
-  seo_body?: string
-  seo_description?: string
-  seo_head?: string
-  seo_json_ld?: string
-  seo_keyword?: string
-  seo_title?: string
 }
 
 export interface ServiceCategoriesResponse {
