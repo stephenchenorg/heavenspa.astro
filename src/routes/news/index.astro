@@ -1,19 +1,19 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getArticles } from '@/api/articles'
 import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
+const currentLocale = getLocale()
 
 const articles = await getArticles()
 
-const meta = seoMeta({
-  title: '最新消息 - Heaven Spa',
-  description: '了解 Heaven Spa 的最新消息、促銷活動和健康資訊，掌握最新動態，享受專屬優惠。',
-})
+const meta = seoMeta(getSeoConfig('news', currentLocale === 'en' ? 'en' : 'zh_TW'))
 
 ---
 

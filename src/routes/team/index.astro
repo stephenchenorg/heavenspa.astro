@@ -6,6 +6,8 @@ import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 import TeamCard from '../../components/ui/TeamCard.astro'
+import {getLocale} from "i18n:astro";
+import {getSeoConfig} from "@/utils/seoConfig";
 
 const t = await createNestedT()
 
@@ -23,14 +25,13 @@ const types = [
 
 try {
   teamMembers = await getAllTeams(selectedType)
-  console.warn('teamMembers >> ', teamMembers.length)
 } catch (error) {
   console.error('Failed to fetch team members:', error)
 }
 
-const meta = seoMeta({
-  title: t('team.pageTitle'),
-})
+const currentLocale = getLocale()
+const meta = seoMeta(getSeoConfig('team', currentLocale === 'en' ? 'en' : 'zh_TW'))
+
 ---
 
 <Layout meta={meta}>

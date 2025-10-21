@@ -1,5 +1,6 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
@@ -8,6 +9,7 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import { getPositionData } from '@/api/position'
+import { getSeoConfig } from '@/utils/seoConfig'
 
 const positions = await getPositionData()
 
@@ -15,9 +17,8 @@ const t = await createNestedT()
 
 const companySetting = await getCompanySetting()
 
-const meta = seoMeta({
-    title: `${t('joinUs.title')} - Heaven Spa`,
-})
+const currentLocale = getLocale()
+const meta = seoMeta(getSeoConfig('joinUs', currentLocale === 'en' ? 'en' : 'zh_TW'))
 
 interface FaqItem {
     id: string

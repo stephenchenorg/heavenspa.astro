@@ -6,6 +6,7 @@ import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -13,10 +14,7 @@ const isEnglish = currentLocale === 'en'
 
 const partnerships = await getPartnerships()
 
-const meta = seoMeta({
-  title: '異業合作 - Heaven Spa',
-  description: '了解 Heaven Spa 的異業合作。',
-})
+const meta = seoMeta(getSeoConfig('businessPartnership', currentLocale === 'en' ? 'en' : 'zh_TW'))
 
 ---
 

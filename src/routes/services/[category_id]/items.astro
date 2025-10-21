@@ -34,6 +34,15 @@ const services = servicesData.services.data
 const meta = seoMeta({
   title: `${currentCategory?.title || '服務項目'} - Heaven Spa`,
   description: `探索 Heaven Spa 的 ${currentCategory?.title || ''} 服務項目，享受頂級的美容護理體驗。`,
+  og_description: currentCategory.og_description,
+  og_image: currentCategory.og_image,
+  og_title: currentCategory.og_title,
+  seo_body: currentCategory.seo_body,
+  seo_description: currentCategory.seo_description,
+  seo_head: currentCategory.seo_head,
+  seo_json_ld: currentCategory.seo_json_ld,
+  seo_keyword: currentCategory.seo_keyword,
+  seo_title: currentCategory.seo_title,
 })
 
 ---

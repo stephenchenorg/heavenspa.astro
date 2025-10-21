@@ -33,7 +33,15 @@ const filteredRelatedPartnerships = relatedPartnerships.filter(relatedPartnershi
 
 const meta = seoMeta({
     title: `${partnership.title} - Heaven Spa`,
-    description: partnership.content ? partnership.content.replace(/<[^>]*>/g, '').substring(0, 160) : t('partnerships.errors.defaultDescription'),
+    og_description: partnership.og_description,
+    og_image: partnership.og_image,
+    og_title: partnership.og_title,
+    seo_body: partnership.seo_body,
+    seo_description: partnership.seo_description,
+    seo_head: partnership.seo_head,
+    seo_json_ld: partnership.seo_json_ld,
+    seo_keyword: partnership.seo_keyword,
+    seo_title: partnership.seo_title,
 })
 ---
 

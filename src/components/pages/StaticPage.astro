@@ -23,6 +23,15 @@ interface PageData {
         mobile_blur?: string
       }
     }>
+    og_description?: string
+    og_image?: string
+    og_title?: string
+    seo_body?: string
+    seo_description?: string
+    seo_head?: string
+    seo_json_ld?: string
+    seo_keyword?: string
+    seo_title?: string
   }
 }
 
@@ -32,6 +41,15 @@ const data = await graphQLAPI<PageData>(gql`
       id
       title
       key
+      og_description
+      og_image
+      og_title
+      seo_body
+      seo_description
+      seo_head
+      seo_json_ld
+      seo_keyword
+      seo_title
       fields {
         content
         image {
@@ -47,7 +65,15 @@ const data = await graphQLAPI<PageData>(gql`
 
 const meta = seoMeta({
   title: data.page?.title,
-  description: data.page?.key,
+  og_description: data.page?.og_description,
+  og_image: data.page?.og_image,
+  og_title: data.page?.og_title,
+  seo_body: data.page?.seo_body,
+  seo_description: data.page?.seo_description,
+  seo_head: data.page?.seo_head,
+  seo_json_ld: data.page?.seo_json_ld,
+  seo_keyword: data.page?.seo_keyword,
+  seo_title: data.page?.seo_title,
 })
 ---
 

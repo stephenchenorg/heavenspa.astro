@@ -36,14 +36,15 @@ try {
 // SEO 設定 - 優先使用成員的 SEO 設定，否則使用預設值
 const meta = seoMeta({
   title: teamMember.seo_title || teamMember.og_title || `${teamMember.title} - Heaven Spa`,
-  description: teamMember.seo_description || teamMember.og_description || `了解更多關於 ${teamMember.title} 的專業服務和經驗。`,
-  og_title: teamMember.og_title,
   og_description: teamMember.og_description,
   og_image: teamMember.og_image,
-  seo_keyword: teamMember.seo_keyword,
-  seo_head: teamMember.seo_head,
+  og_title: teamMember.og_title,
   seo_body: teamMember.seo_body,
+  seo_description: teamMember.seo_description,
+  seo_head: teamMember.seo_head,
   seo_json_ld: teamMember.seo_json_ld,
+  seo_keyword: teamMember.seo_keyword,
+  seo_title: teamMember.seo_title,
 })
 
 // 獲取有效的圖片列表

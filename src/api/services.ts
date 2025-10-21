@@ -13,6 +13,15 @@ export interface Service {
     mobile: string
     mobile_blur: string
   }
+  og_description?: string
+  og_image?: string
+  og_title?: string
+  seo_body?: string
+  seo_description?: string
+  seo_head?: string
+  seo_json_ld?: string
+  seo_keyword?: string
+  seo_title?: string
 }
 
 export interface ServicesResponse {
@@ -34,7 +43,7 @@ export async function getServices(
   search: string = ''
 ): Promise<ServicesResponse> {
   try {
-    const res = await graphQLAPI<ServicesResponse>(gql`
+    return await graphQLAPI<ServicesResponse>(gql`
       query GetServices($category_id: Int, $page: Int, $per_page: Int, $search: String) {
         services(category_id: $category_id, page: $page, per_page: $per_page, search: $search) {
           data {
@@ -67,8 +76,6 @@ export async function getServices(
         search: search || '',
       },
     })
-
-    return res
   } catch (error) {
     console.error('Error fetching services:', error)
     // 返回空結果作為後備

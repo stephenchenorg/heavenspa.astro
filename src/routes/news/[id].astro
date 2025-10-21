@@ -22,7 +22,15 @@ const filteredRelatedArticles = relatedArticles.filter(relatedArticle => related
 
 const meta = seoMeta({
     title: `${article.title} - Heaven Spa`,
-    description: article.content ? article.content.replace(/<[^>]*>/g, '').substring(0, 160) : t('news.errors.defaultDescription'),
+    og_description: article.og_description,
+    og_image: article.og_image,
+    og_title: article.og_title,
+    seo_body: article.seo_body,
+    seo_description: article.seo_description,
+    seo_head: article.seo_head,
+    seo_json_ld: article.seo_json_ld,
+    seo_keyword: article.seo_keyword,
+    seo_title: article.seo_title,
 })
 ---
 

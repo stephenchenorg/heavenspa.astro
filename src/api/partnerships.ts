@@ -52,6 +52,15 @@ export interface Partnership {
       mobile_blur: string
     }
   }
+  og_description?: string
+  og_image?: string
+  og_title?: string
+  seo_body?: string
+  seo_description?: string
+  seo_head?: string
+  seo_json_ld?: string
+  seo_keyword?: string
+  seo_title?: string
 }
 
 export interface PartnershipsResponse {
@@ -98,6 +107,15 @@ export async function getPartnerships(): Promise<Partnership[]> {
               mobile_blur
             }
           }
+          og_description
+          og_image
+          og_title
+          seo_body
+          seo_description
+          seo_head
+          seo_json_ld
+          seo_keyword
+          seo_title
         }
         has_more_pages
         last_page
@@ -121,6 +139,15 @@ export async function getPartnerships(): Promise<Partnership[]> {
       cover: partnership.cover,
       content: partnership.content,
       ended_at: partnership.ended_at,
+      og_description: partnership.og_description,
+      og_image: partnership.og_image,
+      og_title: partnership.og_title,
+      seo_body: partnership.seo_body,
+      seo_description: partnership.seo_description,
+      seo_head: partnership.seo_head,
+      seo_json_ld: partnership.seo_json_ld,
+      seo_keyword: partnership.seo_keyword,
+      seo_title: partnership.seo_title,
       started_at: d.toISOString().slice(0, 10),
       created_at: d.toISOString().slice(0, 10),
       date: d.getDate().toString().padStart(2, '0'),
@@ -190,6 +217,15 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
       cover: partnership.cover,
       content: partnership.content,
       ended_at: partnership.ended_at,
+      og_description: partnership.og_description,
+      og_image: partnership.og_image,
+      og_title: partnership.og_title,
+      seo_body: partnership.seo_body,
+      seo_description: partnership.seo_description,
+      seo_head: partnership.seo_head,
+      seo_json_ld: partnership.seo_json_ld,
+      seo_keyword: partnership.seo_keyword,
+      seo_title: partnership.seo_title,
       started_at: d.toISOString().slice(0, 10),
       created_at: d.toISOString().slice(0, 10),
       date: d.getDate().toString().padStart(2, '0'),
@@ -234,6 +270,15 @@ export async function getAdjacentPartnerships(currentId: number): Promise<{ prev
       cover: partnership.cover,
       content: partnership.content,
       ended_at: partnership.ended_at,
+      og_description: partnership.og_description,
+      og_image: partnership.og_image,
+      og_title: partnership.og_title,
+      seo_body: partnership.seo_body,
+      seo_description: partnership.seo_description,
+      seo_head: partnership.seo_head,
+      seo_json_ld: partnership.seo_json_ld,
+      seo_keyword: partnership.seo_keyword,
+      seo_title: partnership.seo_title,
       started_at: d.toISOString(),
       created_at: d.toISOString(),
       date: d.getDate().toString().padStart(2, '0'),
@@ -279,6 +324,15 @@ export async function getPartnership(id: string): Promise<Partnership> {
               mobile_blur
             }
           }
+          og_description
+          og_image
+          og_title
+          seo_body
+          seo_description
+          seo_head
+          seo_json_ld
+          seo_keyword
+          seo_title
           next {
             id
             title
@@ -312,5 +366,14 @@ export async function getPartnership(id: string): Promise<Partnership> {
     images: res.partnership.images,
     next: res.partnership.next,
     prev: res.partnership.prev,
+    og_description: res.partnership.og_description,
+    og_image: res.partnership.og_image,
+    og_title: res.partnership.og_title,
+    seo_body: res.partnership.seo_body,
+    seo_description: res.partnership.seo_description,
+    seo_head: res.partnership.seo_head,
+    seo_json_ld: res.partnership.seo_json_ld,
+    seo_keyword: res.partnership.seo_keyword,
+    seo_title: res.partnership.seo_title,
   }
 }

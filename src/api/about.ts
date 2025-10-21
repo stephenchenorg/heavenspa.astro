@@ -17,6 +17,15 @@ export interface About {
   image: AboutImage
   title_1: string
   title_2: string
+  og_description?: string
+  og_image?: string
+  og_title?: string
+  seo_body?: string
+  seo_description?: string
+  seo_head?: string
+  seo_json_ld?: string
+  seo_keyword?: string
+  seo_title?: string
 }
 
 export interface AboutImageData {
@@ -64,6 +73,15 @@ export async function getAboutData(): Promise<AboutData> {
           }
         }
       }
+      og_description
+      og_image
+      og_title
+      seo_body
+      seo_description
+      seo_head
+      seo_json_ld
+      seo_keyword
+      seo_title
     }
   `)
 

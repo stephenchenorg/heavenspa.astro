@@ -80,8 +80,12 @@ export async function getTeamMember(id: number): Promise<TeamMember | null> {
     const { team } = await graphQLAPI<{ team: TeamMember }>(gql`
       query MyQuery {
         team(id: ${id}) {
+          title
           content
           age
+          weight
+          years
+          height
           images {
             created_at
             id
@@ -95,31 +99,27 @@ export async function getTeamMember(id: number): Promise<TeamMember | null> {
           job
           monday_end
           monday_start
+          saturday_end
+          saturday_start
+          sunday_end
+          sunday_start
+          thursday_end
+          thursday_start
+          tuesday_end
+          tuesday_start
+          wednesday_end
+          wednesday_start
+          friday_start
+          friday_end
           og_description
           og_image
           og_title
-          saturday_end
-          saturday_start
           seo_body
           seo_description
           seo_head
           seo_json_ld
           seo_keyword
           seo_title
-          sunday_end
-          sunday_start
-          thursday_end
-          thursday_start
-          title
-          tuesday_end
-          tuesday_start
-          wednesday_end
-          wednesday_start
-          weight
-          years
-          height
-          friday_start
-          friday_end
         }
       }
     `)

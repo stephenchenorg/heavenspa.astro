@@ -17,7 +17,15 @@ const service = serviceData.service
 
 const meta = seoMeta({
   title: `${service.title} - ${service.category.title} - Heaven Spa`,
-  description: service.content_1 || t('services.errors.defaultDescription'),
+  og_description: service.og_description,
+  og_image: service.og_image,
+  og_title: service.og_title,
+  seo_body: service.seo_body,
+  seo_description: service.seo_description,
+  seo_head: service.seo_head,
+  seo_json_ld: service.seo_json_ld,
+  seo_keyword: service.seo_keyword,
+  seo_title: service.seo_title,
 })
 
 ---
