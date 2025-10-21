@@ -1,5 +1,5 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import { type PageMeta, seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import Prose from '@/components/ui/Prose.vue'
 import { gql, graphQLAPI } from '../../api'
@@ -80,7 +80,7 @@ const meta = seoMeta({
   seo_keyword: data.page?.seo_keyword,
   seo_title: data.page?.seo_title,
   canonical: getCanonicalUrl(Astro.props.path, locale),
-})
+} as PageMeta)
 ---
 
 <Layout meta={meta}>
