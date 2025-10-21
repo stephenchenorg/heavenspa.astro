@@ -43,9 +43,6 @@ const htmlLang = currentLocale === 'zh-TW' ? 'zh-Hant-TW' : 'en-US'
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-
-    <title>{siteConfig.name}</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Krona+One&family=Noto+Sans+TC:wght@300..800&family=Noto+Serif+TC:wght@300..800&display=swap" />
@@ -58,7 +55,7 @@ const htmlLang = currentLocale === 'zh-TW' ? 'zh-Hant-TW' : 'en-US'
         <link rel="canonical" href={meta.canonical} />
 
         <!-- SEO Meta Tags (必定顯示) -->
-        <title>{meta.seo_title}</title>
+        <title>{meta.title ? `${meta.title} - ${siteConfig.name}` : siteConfig.name}</title>
         <meta name="description" content={meta.seo_description} />
         <meta name="keywords" content={meta.seo_keyword} />
 
