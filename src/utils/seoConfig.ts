@@ -3,24 +3,37 @@
  * 集中管理所有頁面的 SEO 和 Open Graph 設定（支援多語系）
  */
 
-interface SeoConfig {
-  title?: string
-  seo_keyword?: string
-  seo_title?: string
-  seo_description?: string
-  og_title?: string
-  og_description?: string
-  og_image?: string
-  // 後台額外提供的欄位（如果有的話）
-  seo_body?: string
-  seo_head?: string
-  seo_json_ld?: string
-}
+import type { PageMeta } from '@/types'
+
+// SeoConfig 就是 PageMeta 的別名，但為了向後相容，保留此類型
+type SeoConfig = PageMeta
 
 type Locale = 'zh_TW' | 'en'
 
 // 預設 OG 圖片
 export const DEFAULT_OG_IMAGE = 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'
+
+// 網站基礎 URL
+export const SITE_URL = 'https://dev-www.heavenspa.com.tw'
+
+/**
+ * 生成 canonical URL
+ * @param path - 頁面路徑（例如：'/about', '/services/1/items/2'）
+ * @param locale - 語系（'zh_TW' 或 'en'）
+ * @returns 完整的 canonical URL
+ */
+export function getCanonicalUrl(path: string, locale: Locale = 'zh_TW'): string {
+  // 移除路徑開頭的斜線（如果有的話）
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+
+  // 如果是預設語系（zh_TW），不加語系前綴
+  if (locale === 'zh_TW') {
+    return `${SITE_URL}/${cleanPath}`
+  }
+
+  // 其他語系加上語系前綴
+  return `${SITE_URL}/${locale}/${cleanPath}`
+}
 
 /**
  * SEO 設定（多語系）
@@ -262,22 +275,29 @@ export function getSeoConfig(page: string, locale: Locale = 'zh_TW'): SeoConfig 
 
 /**
  * 建立動態頁面的 SEO 設定
+ * @param pageTitle - 頁面標題（不含網站名稱）
+ * @param description - 頁面描述
+ * @param image - OG 圖片 URL
+ * @param keywords - SEO 關鍵字
+ * @param canonical - Canonical URL
  */
-export function createDynamicSeo(options: {
-  title: string
-  description?: string
-  image?: string
-  keywords?: string
-}): SeoConfig {
-  const description = options.description || options.title
+export function createDynamicSeo(
+  pageTitle: string,
+  description?: string,
+  image?: string,
+  keywords?: string,
+  canonical?: string,
+): SeoConfig {
+  const finalDescription = description || pageTitle
 
   return {
-    title: `${options.title} - Heaven Spa`,
-    seo_title: `${options.title} - Heaven Spa`,
-    seo_description: description,
-    seo_keyword: options.keywords,
-    og_title: `${options.title} - Heaven Spa`,
-    og_description: description,
-    og_image: options.image || DEFAULT_OG_IMAGE,
+    title: `${pageTitle} - Heaven Spa`,
+    seo_title: `${pageTitle} - Heaven Spa`,
+    seo_description: finalDescription,
+    seo_keyword: keywords,
+    og_title: `${pageTitle} - Heaven Spa`,
+    og_description: finalDescription,
+    og_image: image || DEFAULT_OG_IMAGE,
+    canonical,
   }
 }

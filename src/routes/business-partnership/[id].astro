@@ -1,15 +1,16 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getPartnership, getRelatedPartnerships } from '@/api/partnerships'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { createDynamicSeo } from '@/utils/seoConfig'
+import {createDynamicSeo, getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 const { id } = Astro.params
 if (!id || Number.isNaN(Number(id))) {
     return Astro.rewrite('/404')
@@ -32,22 +33,11 @@ const relatedPartnerships = tagIds.length > 0 ? await getRelatedPartnerships(tag
 // 過濾掉當前異業合作
 const filteredRelatedPartnerships = relatedPartnerships.filter(relatedPartnership => relatedPartnership.id !== partnership.id)
 
-// 準備預設 SEO 內容
-const defaultDescription = partnership.content
-  ? partnership.content.replace(/<[^>]*>/g, '').substring(0, 160)
-  : `${partnership.title} | Heaven Spa 異業合作`
-
 const coverImage = partnership.cover?.desktop || partnership.cover?.mobile || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'
 
-// 建立預設 SEO 設定
-const defaultSeo = createDynamicSeo({
-  title: partnership.title,
-  description: defaultDescription,
-  image: coverImage,
-  keywords: `Heaven Spa, 異業合作, ${partnership.title}, 商業合作`,
-})
+// 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
+const defaultSeo = getSeoConfig('businessPartnership', locale)
 
-// SEO 設定 - 後台資料優先，否則使用預設值
 const meta = seoMeta({
   title: partnership.title || defaultSeo.title,
   seo_title: partnership.seo_title || defaultSeo.seo_title,
@@ -55,12 +45,13 @@ const meta = seoMeta({
   seo_keyword: partnership.seo_keyword || defaultSeo.seo_keyword,
   og_title: partnership.og_title || defaultSeo.og_title,
   og_description: partnership.og_description || defaultSeo.og_description,
-  og_image: partnership.og_image || defaultSeo.og_image,
-  // 後台額外提供的欄位
-  seo_body: partnership.seo_body,
+  og_image: partnership.og_image || coverImage || defaultSeo.og_image,
+  canonical: getCanonicalUrl(`business-partnership/${id}`, locale),
+  // 後台額外欄位 (有值才顯示)
   seo_head: partnership.seo_head,
+  seo_body: partnership.seo_body,
   seo_json_ld: partnership.seo_json_ld,
-})
+} as PageMeta)
 ---
 
 <Layout meta={meta}>

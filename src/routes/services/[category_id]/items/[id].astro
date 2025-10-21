@@ -1,14 +1,15 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { createDynamicSeo } from '@/utils/seoConfig'
+import {createDynamicSeo, getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 // Get route parameters
 const { category_id, id } = Astro.params
 
@@ -16,22 +17,11 @@ const { category_id, id } = Astro.params
 const serviceData = await getServiceDetail(Number.parseInt(id!, 10))
 const service = serviceData.service
 
-// 準備預設 SEO 內容
-const defaultDescription = service.content_1
-  ? service.content_1.replace(/<[^>]*>/g, '').substring(0, 160)
-  : `${service.title} - ${service.category.title} | Heaven Spa 專業服務`
-
 const coverImage = service.cover?.desktop || service.cover?.mobile
 
-// 建立預設 SEO 設定
-const defaultSeo = createDynamicSeo({
-  title: `${service.title} - ${service.category.title}`,
-  description: defaultDescription,
-  image: coverImage,
-  keywords: `Heaven Spa, ${service.category.title}, ${service.title}, SPA療程`,
-})
+// 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
+const defaultSeo = getSeoConfig('services', locale)
 
-// SEO 設定 - 後台資料優先，否則使用預設值
 const meta = seoMeta({
   title: service.title || defaultSeo.title,
   seo_title: service.seo_title || defaultSeo.seo_title,
@@ -39,12 +29,13 @@ const meta = seoMeta({
   seo_keyword: service.seo_keyword || defaultSeo.seo_keyword,
   og_title: service.og_title || defaultSeo.og_title,
   og_description: service.og_description || defaultSeo.og_description,
-  og_image: service.og_image || defaultSeo.og_image,
-  // 後台額外提供的欄位
-  seo_body: service.seo_body,
+  og_image: service.og_image || coverImage || defaultSeo.og_image,
+  canonical: getCanonicalUrl(`services/${category_id}/items/${id}`, locale),
+  // 後台額外欄位 (有值才顯示)
   seo_head: service.seo_head,
+  seo_body: service.seo_body,
   seo_json_ld: service.seo_json_ld,
-})
+} as PageMeta)
 
 ---
 

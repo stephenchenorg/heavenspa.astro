@@ -1,13 +1,13 @@
 ---
 import type { TeamMember } from '@/types'
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
 import { getAllTeams } from '@/api/teams'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 import TeamCard from '../../components/ui/TeamCard.astro'
 import {getLocale} from "i18n:astro";
-import {getSeoConfig} from "@/utils/seoConfig";
+import {getSeoConfig, getCanonicalUrl} from "@/utils/seoConfig";
 
 const t = await createNestedT()
 
@@ -30,7 +30,12 @@ try {
 }
 
 const currentLocale = getLocale()
-const meta = seoMeta(getSeoConfig('team', currentLocale === 'en' ? 'en' : 'zh_TW'))
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+const seoConfig = getSeoConfig('team', locale)
+const meta = seoMeta({
+  ...seoConfig,
+  canonical: getCanonicalUrl('team', locale),
+} as PageMeta)
 
 ---
 

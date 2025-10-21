@@ -1,17 +1,22 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getSeoConfig } from '@/utils/seoConfig'
+import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
-const meta = seoMeta(getSeoConfig('faq', currentLocale === 'en' ? 'en' : 'zh_TW'))
+const seoConfig = getSeoConfig('faq', locale)
+const meta = seoMeta({
+  ...seoConfig,
+  canonical: getCanonicalUrl('faq', locale),
+} as PageMeta)
 
 // 定義類型
 interface FaqItem {

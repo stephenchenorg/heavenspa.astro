@@ -1,5 +1,5 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getBanners } from '@/api/banners'
 import HeroBanner from '@/components/HeroBanner.astro'
@@ -8,20 +8,22 @@ import ServiceSection from '@/components/ServiceSection.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
 import IntroSection from '../components/IntroSection.astro'
-import { getSeoConfig } from '@/utils/seoConfig'
+import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
 
 // 獲取 banners 資料
 const banners = await getBanners()
 const currentLocale = getLocale()
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 // 取得 SEO 設定並使用第一張 banner 圖片作為 OG 圖片
-const seoConfig = getSeoConfig('home', currentLocale === 'en' ? 'en' : 'zh_TW')
+const seoConfig = getSeoConfig('home', locale)
 const firstBannerImage = banners[0]?.image?.desktop
 
 const meta = seoMeta({
   ...seoConfig,
   og_image: firstBannerImage || seoConfig.og_image,
-})
+  canonical: getCanonicalUrl('', locale),
+} as PageMeta)
 ---
 
 <Layout meta={meta}>

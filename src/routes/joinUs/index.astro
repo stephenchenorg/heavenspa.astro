@@ -1,5 +1,5 @@
 ---
-import { seoMeta } from '@stephenchenorg/astro/page'
+import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
 import { getFaqList } from '@/api/faq'
@@ -9,7 +9,7 @@ import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import { getPositionData } from '@/api/position'
-import { getSeoConfig } from '@/utils/seoConfig'
+import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
 
 const positions = await getPositionData()
 
@@ -18,7 +18,12 @@ const t = await createNestedT()
 const companySetting = await getCompanySetting()
 
 const currentLocale = getLocale()
-const meta = seoMeta(getSeoConfig('joinUs', currentLocale === 'en' ? 'en' : 'zh_TW'))
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+const seoConfig = getSeoConfig('joinUs', locale)
+const meta = seoMeta({
+  ...seoConfig,
+  canonical: getCanonicalUrl('joinUs', locale),
+} as PageMeta)
 
 interface FaqItem {
     id: string

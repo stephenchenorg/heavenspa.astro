@@ -52,6 +52,16 @@ export interface Article {
       mobile_blur: string
     }
   }
+  // SEO fields
+  seo_title?: string
+  seo_description?: string
+  seo_keyword?: string
+  og_title?: string
+  og_description?: string
+  og_image?: string
+  seo_head?: string
+  seo_body?: string
+  seo_json_ld?: string
 }
 
 export interface ArticlesResponse {
@@ -287,6 +297,15 @@ export async function getArticle(id: string): Promise<Article> {
             id
             title
           }
+          seo_title
+          seo_description
+          seo_keyword
+          og_title
+          og_description
+          og_image
+          seo_head
+          seo_body
+          seo_json_ld
         }
       }
   `, {
@@ -312,5 +331,14 @@ export async function getArticle(id: string): Promise<Article> {
     images: res.article.images,
     next: res.article.next,
     prev: res.article.prev,
+    seo_title: res.article.seo_title,
+    seo_description: res.article.seo_description,
+    seo_keyword: res.article.seo_keyword,
+    og_title: res.article.og_title,
+    og_description: res.article.og_description,
+    og_image: res.article.og_image,
+    seo_head: res.article.seo_head,
+    seo_body: res.article.seo_body,
+    seo_json_ld: res.article.seo_json_ld,
   }
 }
