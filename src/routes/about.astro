@@ -24,7 +24,7 @@ const { about, aboutImages } = aboutData
 // 取得預設 SEO 設定
 const seoConfig = getSeoConfig('about', locale)
 
-// SEO 設定 - 只使用預設值
+// SEO 設定
 const meta = seoMeta({
     ...seoConfig,
     canonical: getCanonicalUrl('about', locale),

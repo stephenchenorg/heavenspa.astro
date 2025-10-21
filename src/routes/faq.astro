@@ -13,6 +13,7 @@ const currentLocale = getLocale()
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const seoConfig = getSeoConfig('faq', locale)
+
 const meta = seoMeta({
   ...seoConfig,
   canonical: getCanonicalUrl('faq', locale),

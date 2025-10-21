@@ -15,13 +15,11 @@ const banners = await getBanners()
 const currentLocale = getLocale()
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
-// 取得 SEO 設定並使用第一張 banner 圖片作為 OG 圖片
+// 取得 SEO 設定
 const seoConfig = getSeoConfig('home', locale)
-const firstBannerImage = banners[0]?.image?.desktop
 
 const meta = seoMeta({
   ...seoConfig,
-  og_image: firstBannerImage || seoConfig.og_image,
   canonical: getCanonicalUrl('', locale),
 } as PageMeta)
 ---

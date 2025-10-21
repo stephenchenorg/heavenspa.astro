@@ -3,6 +3,7 @@ import type { PageMeta } from '@/types'
 import { createCompanySetting } from '@stephenchenorg/astro/company-setting'
 import { getLocale } from 'i18n:astro'
 import siteConfig from '@/site.config'
+import { getBanners } from '@/api/banners'
 import GAScript from './partials/GAScript.astro'
 import MetaPixel from './partials/MetaPixel.astro'
 import '@/styles/index.css'
@@ -34,6 +35,13 @@ const metaPixelId = siteConfig.metaPixelId
 // 獲取當前語言
 const currentLocale = getLocale()
 const htmlLang = currentLocale === 'zh-TW' ? 'zh-Hant-TW' : 'en-US'
+
+// 如果沒有 og_image，使用第一張 banner 圖片作為預設
+let ogImage = meta.og_image
+if (!ogImage) {
+  const banners = await getBanners()
+  ogImage = banners[0]?.image?.desktop || meta.og_image
+}
 ---
 
 <!doctype html>
@@ -65,7 +73,7 @@ const htmlLang = currentLocale === 'zh-TW' ? 'zh-Hant-TW' : 'en-US'
         <meta property="og:url" content={meta.canonical} />
         <meta property="og:site_name" content={companySetting.name} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={meta.og_image} />
+        <meta property="og:image" content={ogImage} />
 
         <!-- 後台額外欄位 (有值才顯示) -->
         {meta.seo_head && <Fragment set:html={meta.seo_head} />}

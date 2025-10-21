@@ -1,9 +1,11 @@
 ---
 import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import Prose from '@/components/ui/Prose.vue'
 import { gql, graphQLAPI } from '../../api'
 import Layout from '../../layouts/Layout.astro'
 import SectionTitle from '../ui/SectionTitle.astro'
+import { getCanonicalUrl } from '@/utils/seoConfig'
 
 interface Props {
   path: string
@@ -63,6 +65,9 @@ const data = await graphQLAPI<PageData>(gql`
   }
   `)
 
+const currentLocale = getLocale()
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
 const meta = seoMeta({
   title: data.page?.title,
   og_description: data.page?.og_description,
@@ -74,6 +79,7 @@ const meta = seoMeta({
   seo_json_ld: data.page?.seo_json_ld,
   seo_keyword: data.page?.seo_keyword,
   seo_title: data.page?.seo_title,
+  canonical: getCanonicalUrl(Astro.props.path, locale),
 })
 ---
 
