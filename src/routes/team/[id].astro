@@ -20,11 +20,14 @@ if (!id || Number.isNaN(Number(id))) {
 let teamMember: TeamMember | null = null
 
 try {
-  teamMember = await getTeamMember(Number(id), (Astro.locals as any).locale)
+  teamMember = await getTeamMember(Number(id))
+
+
 
   if (!teamMember) {
     return Astro.rewrite('/404')
   }
+
 } catch (error) {
   console.error('Failed to fetch team member:', error)
   return Astro.rewrite('/404')
@@ -45,8 +48,8 @@ const meta = seoMeta({
 
 // 獲取有效的圖片列表
 const validImages = teamMember.images?.filter(img => img.image?.desktop || img.image?.mobile) || []
-const mainImageDesktop = validImages[0]?.image?.desktop || validImages[0]?.image?.mobile || '/placeholder.jpg'
-const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.desktop || '/placeholder.jpg'
+const mainImageDesktop = validImages[0]?.image?.desktop || validImages[0]?.image?.mobile
+const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.desktop
 ---
 
 <Layout meta={meta}>
@@ -132,12 +135,12 @@ const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.
         {validImages.length > 1 && (
           <div id="carousel-thumbs" class="flex flex-wrap justify-center gap-3 mt-6 max-w-lg">
             {validImages.map((img, idx) => (
-              <div class="relative w-20 h-20">
-                <!-- Mobile Thumbnail -->
+              <picture>
+                <source media="(min-width: 768px)" srcset={img.image?.desktop || img.image?.mobile} />
                 <img
                   src={img.image?.mobile || img.image?.desktop}
                   alt={`${t('team.thumbnail')}${idx + 1}`}
-                  class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm md:hidden ${
+                  class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm ${
                     idx === 0
                       ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
                       : 'border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
@@ -145,19 +148,7 @@ const mainImageMobile = validImages[0]?.image?.mobile || validImages[0]?.image?.
                   onclick={`carouselThumb(${idx})`}
                   loading="lazy"
                 />
-                <!-- Desktop Thumbnail -->
-                <img
-                  src={img.image?.desktop || img.image?.mobile}
-                  alt={`${t('team.thumbnail')}${idx + 1}`}
-                  class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm hidden md:block ${
-                    idx === 0
-                      ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
-                      : 'border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
-                  }`}
-                  onclick={`carouselThumb(${idx})`}
-                  loading="lazy"
-                />
-              </div>
+              </picture>
             ))}
           </div>
         )}

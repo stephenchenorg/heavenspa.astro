@@ -75,7 +75,7 @@ export async function getAllTeams(type: number): Promise<TeamMember[]> {
   }
 }
 
-export async function getTeamMember(id: number, lang?: string): Promise<TeamMember | null> {
+export async function getTeamMember(id: number): Promise<TeamMember | null> {
   try {
     const { team } = await graphQLAPI<{ team: TeamMember }>(gql`
       query MyQuery {
@@ -122,7 +122,7 @@ export async function getTeamMember(id: number, lang?: string): Promise<TeamMemb
           friday_end
         }
       }
-    `, { locale: lang })
+    `)
     return team || null
   } catch (error) {
     console.error(`Failed to fetch team member with id ${id}:`, error)
