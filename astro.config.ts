@@ -29,12 +29,6 @@ export default defineConfig({
         compiler: 'vue3',
       }),
     ],
-    assetsInclude: ['**/*', '!**/unused/**'],
-    server: {
-      fs: {
-        deny: ['**/public/unused/**'],
-      },
-    },
   },
   security: {
     checkOrigin: false,

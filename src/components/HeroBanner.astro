@@ -29,7 +29,19 @@ const { banners } = Astro.props
 const circleText = t('hero.scroll')
 const chars = circleText.split('')
 const angleStep = 360 / chars.length
+
+// Get the first banner image for preloading (LCP optimization)
+const firstBannerDesktop = banners?.[0]?.image?.desktop || banners?.[0]?.image?.mobile
+const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.desktop
 ---
+
+<!-- Preload first banner image for LCP optimization -->
+{firstBannerDesktop && (
+  <link rel="preload" as="image" href={firstBannerDesktop} media="(min-width: 768px)" fetchpriority="high" />
+)}
+{firstBannerMobile && (
+  <link rel="preload" as="image" href={firstBannerMobile} media="(max-width: 767px)" fetchpriority="high" />
+)}
 
 <!-- Hero Banner Section -->
 <section
@@ -53,16 +65,30 @@ const angleStep = 360 / chars.length
         class={`banner-slide absolute inset-0 flex items-center justify-center transition-opacity duration-1000 will-change-[opacity] ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
         data-slide={index}
       >
-        <!-- Desktop background -->
-        <div
-          class="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${desktopImage}') center center/cover no-repeat; background-attachment: fixed;`}
-        ></div>
-        <!-- Mobile background -->
-        <div
-          class="block md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={`background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${mobileImage}') center center/cover no-repeat;`}
-        ></div>
+        <!-- Desktop background with img tag for better LCP -->
+        <div class="hidden md:block absolute inset-0">
+          <img
+            src={desktopImage}
+            alt={banner.title}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchpriority={index === 0 ? 'high' : 'low'}
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+        <!-- Mobile background with img tag for better LCP -->
+        <div class="block md:hidden absolute inset-0">
+          <img
+            src={mobileImage}
+            alt={banner.title}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchpriority={index === 0 ? 'high' : 'low'}
+            decoding="async"
+          />
+          <div class="absolute inset-0 bg-black/40"></div>
+        </div>
         <!-- Main Content -->
         <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8">
           <div class="text-center space-y-12">
