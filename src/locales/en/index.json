@@ -289,9 +289,9 @@
     "sectionSubtitle": "FAQ",
     "categories": {
       "reservation": "Reservation",
-      "spa": "Spa Services",
-      "hair_removal": "Hair Removal",
-      "water_shuttle": "Water Shuttle",
+      "spa": "Spa",
+      "hair_removal": "Waxing",
+      "water_shuttle": "Hydrafacial",
       "recruitment": "Recruitment"
     },
     "empty": {
