@@ -247,6 +247,38 @@ const meta = {
     line-height: 1.75;
   }
 
+  /* Animation styles - prevent layout shift */
+  [data-animate-in] {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  [data-animate-in="left"] {
+    transform: translateX(-20px);
+  }
+
+  [data-animate-in="right"] {
+    transform: translateX(20px);
+  }
+
+  [data-animate-in="up"] {
+    transform: translateY(20px);
+  }
+
+  [data-animate-in="fadeIn"],
+  [data-animate-in="scaleIn"] {
+    transform: scale(0.98);
+  }
+
+  [data-animate-in].in-view {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+
+  /* Ensure no overflow during animation */
+  .section-container {
+    overflow-x: hidden;
+  }
 </style>
 
 <script>
@@ -268,18 +300,26 @@ const meta = {
     })
   }, observerOptions)
 
-  elements.forEach(el => observer.observe(el))
+  elements.forEach(el => {
+    // Add will-change to optimize animation performance
+    el.style.willChange = 'transform, opacity'
+    observer.observe(el)
+  })
 }
 
   // Start animation after page load
   document.addEventListener('DOMContentLoaded', () => {
-    // Delay animation start slightly to let page render complete
-    setTimeout(animateElements, 100)
+    // Ensure page layout is stable before animating
+    requestAnimationFrame(() => {
+      setTimeout(animateElements, 150)
+    })
 })
 
   // If page is already loaded (cached situation)
   if (document.readyState === 'complete') {
-    setTimeout(animateElements, 100)
+    requestAnimationFrame(() => {
+      setTimeout(animateElements, 150)
+    })
 }
 </script>
 
