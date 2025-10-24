@@ -302,7 +302,9 @@ const meta = {
 
   elements.forEach(el => {
     // Add will-change to optimize animation performance
-    el.style.willChange = 'transform, opacity'
+    if (el instanceof HTMLElement) {
+      el.style.willChange = 'transform, opacity'
+    }
     observer.observe(el)
   })
 }
