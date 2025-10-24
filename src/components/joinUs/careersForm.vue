@@ -30,7 +30,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ translatedText.name }}
+            <span class="text-red-500">*</span> {{ translatedText.name }}
           </label>
           <input
             v-model="form.name"
@@ -42,7 +42,7 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ translatedText.phone }}
+            <span class="text-red-500">*</span> {{ translatedText.phone }}
           </label>
           <input
             v-model="form.phone"
@@ -57,7 +57,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ translatedText.height }}
+            <span class="text-red-500">*</span> {{ translatedText.height }}
           </label>
           <input
             v-model="form.height"
@@ -71,7 +71,7 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ translatedText.weight }}
+            <span class="text-red-500">*</span> {{ translatedText.weight }}
           </label>
           <input
             v-model="form.weight"
@@ -88,7 +88,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ translatedText.birthday }}
+            <span class="text-red-500">*</span> {{ translatedText.birthday }}
           </label>
           <input
             v-model="form.birthday"
@@ -100,7 +100,7 @@
         </div>
         <div>
           <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-            {{ translatedText.social }}
+            <span class="text-red-500">*</span> {{ translatedText.social }}
           </label>
           <input
             v-model="form.social"
@@ -114,7 +114,7 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          {{ translatedText.email }}
+          <span class="text-red-500">*</span> {{ translatedText.email }}
         </label>
         <input
           v-model="form.email"
@@ -127,7 +127,7 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          {{ translatedText.address }}
+          <span class="text-red-500">*</span> {{ translatedText.address }}
         </label>
         <input
           v-model="form.address"
