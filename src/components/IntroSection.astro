@@ -15,7 +15,28 @@ const isEnglish = currentLocale === 'en'
 >
   <!-- Background Image -->
   <div class="absolute inset-0 flex items-center justify-end pointer-events-none bg-[linear-gradient(135deg,#C99700,#FFD54F)]">
-    <img src="https://cs-studio-test.s3.ap-northeast-1.amazonaws.com/heavenspa/staging/group4.png" class="w-[130%] h-[130%] object-cover" alt="group4" />
+    <picture>
+      <!-- Mobile: up to 640px -->
+      <source
+        media="(max-width: 640px)"
+        srcset="https://cs-studio-test.s3.ap-northeast-1.amazonaws.com/heavenspa/staging/group4_mobile.png"
+        width="800"
+      />
+      <!-- Tablet: 641px to 1024px -->
+      <source
+        media="(max-width: 1024px)"
+        srcset="https://cs-studio-test.s3.ap-northeast-1.amazonaws.com/heavenspa/staging/group4_mobile.png"
+        width="1200"
+      />
+      <!-- Desktop: 1025px and up -->
+      <img
+        src="https://cs-studio-test.s3.ap-northeast-1.amazonaws.com/heavenspa/staging/group4.png"
+        class="w-[130%] h-[130%] object-cover"
+        alt="group4"
+        loading="eager"
+        decoding="async"
+      />
+    </picture>
   </div>
 
   <!-- Content Container -->
