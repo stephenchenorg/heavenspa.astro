@@ -3,7 +3,6 @@ import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'
-import DropdownNav from '@/components/ui/DropdownNav.astro'
 import NavLink from '@/components/ui/NavLink.astro'
 import { createNestedT } from '@/utils/i18n'
 
@@ -25,9 +24,6 @@ function isActive(path: string) {
   return currentPath.startsWith(path)
 }
 
-// 特殊處理 careers 相關頁面
-const isCareersActive = currentPath.startsWith('/joinUs')
-
 // 共用導航配置
 const navItems = [
   { href: '/about', text: t('nav.about'), i18nKey: 'nav.about' },
@@ -38,16 +34,6 @@ const navItems = [
   { href: '/joinUs', text: t('nav.joinUs'), i18nKey: 'nav.joinUs' },
   { href: '/business-partnership', text: t('nav.business_partnership'), i18nKey: 'nav.business-partnership' },
 ]
-
-const careersDropdown = {
-  text: t('nav.careers'),
-  isActive: isCareersActive,
-  i18nKey: 'nav.careers',
-  items: [
-    { href: '/joinUs/careers', text: t('nav.recruitment'), i18nKey: 'nav.recruitment' },
-    { href: '/joinUs/training', text: t('nav.training'), i18nKey: 'nav.training' },
-  ],
-}
 ---
 
 <!-- 導航列 -->

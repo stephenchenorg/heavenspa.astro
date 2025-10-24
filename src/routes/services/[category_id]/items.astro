@@ -33,7 +33,6 @@ const currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === c
 const servicesData = await getServices(categoryId, currentPage, 10, '')
 const services = servicesData.services.data
 
-const categoryTitle = currentCategory?.title || '服務項目'
 const coverImage = currentCategory?.cover?.desktop || currentCategory?.cover?.mobile
 
 // 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值

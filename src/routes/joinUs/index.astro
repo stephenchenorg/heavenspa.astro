@@ -52,7 +52,7 @@ faqs = await getFaqList(40)
                     {t('joinUs.job.title')}
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {positions && positions.map((item, index) => (
+                    {positions && positions.map((item) => (
                         <div class="liquid border overflow-hidden flex flex-col"
                              style="border-color: var(--theme-border);">
                             <!-- 滿版圖片 -->
@@ -128,14 +128,14 @@ faqs = await getFaqList(40)
                 </div>
             </section>
             <!-- 中間區塊 -->
-            <section class="fade-in-section mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
+            <section class="fade-in-section mt-12 lg:mt-16 border-t pt-8" style="border-color: var(--theme-border);">
                 <h2 class="fade-in-title text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.faq.title">{t('joinUs.faq.title')}</h2>
                 <div class="fade-in-content">
                     <FAQ faqs={faqs} twoColumn={true} />
                 </div>
             </section>
             <!--下方區塊-->
-            <section class="fade-in-section grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(&#45;&#45;theme-border);">
+            <section class="fade-in-section grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 lg:mt-16 border-t pt-8" style="border-color: var(--theme-border);">
                 <!-- 表單 -->
                 <div class="fade-in-content">
                     <h2 class="fade-in-title text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.title')}</h2>
