@@ -22,7 +22,7 @@ interface SeoConfig {
 type Locale = 'zh_TW' | 'en'
 
 // 預設 OG 圖片
-export const DEFAULT_OG_IMAGE = ''
+export const DEFAULT_OG_IMAGE = '/images/about/about1.jpg'
 
 // 網站基礎 URL
 export const SITE_URL = 'https://dev-www.heavenspa.com.tw'
