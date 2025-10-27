@@ -38,7 +38,7 @@ try {
   }
 
   // 檢查服務是否屬於該分類
-  if (service.service_category_id !== category_id) {
+  if (service.service_category_id != category_id) {
     return Astro.rewrite('/404')
   }
 } catch (error) {
