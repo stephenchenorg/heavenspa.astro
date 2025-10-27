@@ -40,8 +40,7 @@ const defaultSeo = getSeoConfig('businessPartnership', locale)
 
 const meta = {
   ...seoMeta({
-    title: partnership.title || defaultSeo.title,
-    seo_title: partnership.seo_title || defaultSeo.seo_title,
+    title: partnership.seo_title || defaultSeo.seo_title,
     seo_description: partnership.seo_description || defaultSeo.seo_description,
     seo_keyword: partnership.seo_keyword || defaultSeo.seo_keyword,
     og_title: partnership.og_title || defaultSeo.og_title,
