@@ -16,15 +16,12 @@ if (!id || Number.isNaN(Number(id))) {
     return Astro.rewrite('/404')
 }
 
-// 如果找不到異業合作，創建一個預設的異業合作物件
-const defaultPartnership = {
-    id: 0,
-    title: t('partnerships.errors.notFound'),
-    content: t('partnerships.errors.notFoundContent'),
-    cover: 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg',
-}
+const partnership = await getPartnership(id)
 
-const partnership = await getPartnership(id) || defaultPartnership
+// 如果異業合作不存在，導向 404
+if (!partnership || !partnership.id) {
+    return Astro.rewrite('/404')
+}
 
 // 獲取相關異業合作
 const tagIds = partnership.tags?.data?.map(tag => Number(tag.id)) || []

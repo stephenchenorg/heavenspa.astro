@@ -10,12 +10,40 @@ const t = await createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
 // Get route parameters
 const { category_id, id } = Astro.params
 
+// 驗證參數
+if (!category_id || Number.isNaN(Number(category_id))) {
+  return Astro.rewrite('/404')
+}
+
+if (!id || Number.isNaN(Number(id))) {
+  return Astro.rewrite('/404')
+}
+
 // Get service details
-const serviceData = await getServiceDetail(Number.parseInt(id!, 10))
-const service = serviceData.service
+let serviceData
+let service
+
+try {
+  serviceData = await getServiceDetail(Number.parseInt(id, 10))
+  service = serviceData?.service
+
+  // 檢查服務是否存在
+  if (!service || !service.id) {
+    return Astro.rewrite('/404')
+  }
+
+  // 檢查服務是否屬於該分類
+  if (service.service_category_id !== Number(category_id)) {
+    return Astro.rewrite('/404')
+  }
+} catch (error) {
+  console.error('Failed to fetch service:', error)
+  return Astro.rewrite('/404')
+}
 
 const coverImage = service.cover?.desktop || service.cover?.mobile
 

@@ -15,23 +15,44 @@ const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 // 取得路由參數
 const { category_id } = Astro.params
+
+// 驗證 category_id 參數
+if (!category_id || Number.isNaN(Number(category_id))) {
+  return Astro.rewrite('/404')
+}
+
 const url = new URL(Astro.request.url)
 const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 
 // 先取得分類資料
-const categoriesData = await getServiceCategories()
+let categoriesData
+let categories
+let currentCategory
+let servicesData
+let services
 
-const categories = categoriesData.serviceCategories.data
+try {
+  categoriesData = await getServiceCategories()
+  categories = categoriesData.serviceCategories.data
 
-// 使用路由參數中的 category_id
-const categoryId = category_id ? Number.parseInt(category_id, 10) : (categories.length > 0 ? Number.parseInt(categories[0].id, 10) : 1)
+  // 使用路由參數中的 category_id
+  const categoryId = Number.parseInt(category_id, 10)
 
-// 找到當前分類
-const currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === categoryId) || categories[0]
+  // 找到當前分類
+  currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === categoryId)
 
-// 取得服務資料
-const servicesData = await getServices(categoryId, currentPage, 10, '')
-const services = servicesData.services.data
+  // 如果分類不存在，導向 404
+  if (!currentCategory) {
+    return Astro.rewrite('/404')
+  }
+
+  // 取得服務資料
+  servicesData = await getServices(categoryId, currentPage, 10, '')
+  services = servicesData?.services?.data || []
+} catch (error) {
+  console.error('Failed to fetch service category:', error)
+  return Astro.rewrite('/404')
+}
 
 const coverImage = currentCategory?.cover?.desktop || currentCategory?.cover?.mobile
 

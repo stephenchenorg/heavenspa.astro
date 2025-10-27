@@ -1,0 +1,18 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dev-www.heavenspa.com.tw/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/private/
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# Allow public API endpoints
+Allow: /api/public/
+
+# Crawl-delay
+Crawl-delay: 1

@@ -17,6 +17,11 @@ if (!id || Number.isNaN(Number(id))) {
 
 const article = await getArticle(id)
 
+// 如果文章不存在，導向 404
+if (!article || !article.id) {
+    return Astro.rewrite('/404')
+}
+
 // 獲取相關文章
 const tagIds = article.tags?.data?.map(tag => Number(tag.id)) || []
 const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : []
