@@ -376,9 +376,9 @@ const meta = {
         document.addEventListener('DOMContentLoaded', () => {
             const carouselTrack = document.querySelector('.carousel-track')
             const slides = document.querySelectorAll('.carousel-slide')
-            const prevButton = document.querySelector('.banner-prev') as HTMLElement | null
-            const nextButton = document.querySelector('.banner-next') as HTMLElement | null
-            const dotsContainer = document.querySelector('.dots-container') as HTMLElement | null
+            const prevButton = document.querySelector('.carousel-prev') as HTMLElement | null
+            const nextButton = document.querySelector('.carousel-next') as HTMLElement | null
+            const dotsContainer = document.querySelector('#carousel-dots') as HTMLElement | null
 
             if (!carouselTrack || slides.length === 0) return
 
