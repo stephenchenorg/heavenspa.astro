@@ -248,7 +248,7 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
     }
 
     // Carousel functionality
-    const slides = document.querySelectorAll('.banner-slide')
+    const slides = document.querySelectorAll<HTMLElement>('.banner-slide')
     const dots = document.querySelectorAll('.carousel-dot')
     let currentSlide = 0
     let autoSlideInterval: ReturnType<typeof setInterval>
@@ -276,8 +276,10 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
     function showSlide(index: number) {
       // Update banner slides
       slides.forEach((slide, i) => {
-        slide.classList.toggle('opacity-100', i === index)
-        slide.classList.toggle('opacity-0', i !== index)
+        const isActive = i === index
+        slide.classList.toggle('opacity-100', isActive)
+        slide.classList.toggle('opacity-0', !isActive)
+        slide.style.pointerEvents = isActive ? 'auto' : 'none'
       })
 
       // Update dots
