@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro'
-import { getArticles } from '@/api/articles'
-import { getPartnerships } from '@/api/partnerships'
-import { getServiceCategories } from '@/api/serviceCategories'
+import { getArticles, type Article } from '@/api/articles'
+import { getPartnerships, type Partnership } from '@/api/partnerships'
+import { getServiceCategories, type ServiceCategory } from '@/api/serviceCategories'
 import { getAllTeams } from '@/api/teams'
-import type { Article, Partnership, ServiceCategory, TeamMember } from '@/types'
+import type { TeamMember } from '@/types'
 
 // 網站基礎 URL
 const SITE_URL = 'https://dev-www.heavenspa.com.tw'
