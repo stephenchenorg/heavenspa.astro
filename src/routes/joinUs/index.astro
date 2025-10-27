@@ -1,15 +1,16 @@
 ---
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getCompanySetting } from '@/api/companySetting'
 import { getFaqList } from '@/api/faq'
+import { getPositionData } from '@/api/position'
 import FAQ from '@/components/FAQ.astro'
 import CareersForm from '@/components/joinUs/careersForm.vue'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getPositionData } from '@/api/position'
-import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const positions = await getPositionData()
 
@@ -52,22 +53,24 @@ faqs = await getFaqList(40)
                     {t('joinUs.job.title')}
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {positions && positions.map((item) => (
-                        <div class="liquid border overflow-hidden flex flex-col"
-                             style="border-color: var(--theme-border);">
+                    {positions && positions.map(item => (
+                        <div
+                          class="liquid border overflow-hidden flex flex-col"
+                          style="border-color: var(--theme-border);"
+                        >
                             <!-- 滿版圖片 -->
                             <div class="w-full h-64 overflow-hidden">
                                 <picture>
                                     <!-- 手機版圖片 (< 768px) -->
                                     <source
-                                        media="(max-width: 767px)"
-                                        srcset={item.cover.mobile}
+                                      media="(max-width: 767px)"
+                                      srcset={item.cover.mobile}
                                     />
                                     <!-- 電腦版圖片 (>= 768px) -->
                                     <img
-                                        src={item.cover.desktop}
-                                        alt={item.title}
-                                        class="w-full h-full object-cover"
+                                      src={item.cover.desktop}
+                                      alt={item.title}
+                                      class="w-full h-full object-cover"
                                     />
                                 </picture>
                             </div>
@@ -93,20 +96,25 @@ faqs = await getFaqList(40)
 
                                 <!-- 按鈕區 -->
                                 <div class="mt-auto -mx-6 -mb-6">
-                                    <a href="mailto:heavenspa999@gmail.com"
-                                       class="block px-6 py-4 text-center transition-all duration-300 hover:opacity-90 bg-white/90 ">
+                                    <a
+                                      href="mailto:heavenspa999@gmail.com"
+                                      class="block px-6 py-4 text-center transition-all duration-300 hover:opacity-90 bg-white/90 "
+                                    >
                                         <p class="text-xs text-black/60 mb-2 font-medium">
                                             {t('joinUs.form.sendResume')}
                                         </p>
-                                        <div class="inline-flex items-center justify-center gap-2 text-sm font-semibold"
-                                             style="color: var(--color-primary-500);">
+                                        <div
+                                          class="inline-flex items-center justify-center gap-2 text-sm font-semibold"
+                                          style="color: var(--color-primary-500);"
+                                        >
                                             <span>📩</span>
                                             <span>heavenspa999@gmail.com</span>
                                         </div>
                                     </a>
-                                    <a href="#form"
-                                            class="block px-6 py-4 text-center font-medium text-white transition-all duration-300 hover:opacity-90"
-                                            style="background: var(--color-primary-500);"
+                                    <a
+                                      href="#form"
+                                      class="block px-6 py-4 text-center font-medium text-white transition-all duration-300 hover:opacity-90"
+                                      style="background: var(--color-primary-500);"
                                     >
                                         {t('joinUs.form.submit')}
                                     </a>
@@ -119,7 +127,7 @@ faqs = await getFaqList(40)
         </section>
 
         <!-- Page content will be added here -->
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 " >
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
             <!--個人簡歷區塊-->
             <section id="form" class="form-section mt-12 lg:mt-16 border-t pt-8" style="scroll-margin-top: 100px;">
                 <h2 class="form-title text-2xl sm:text-3xl lg:text-4xl font-light mb-4 lg:mb-6 lg:tracking-[4px] md:tracking-[3px] tracking-[2px]" data-i18n="joinUs.contact.title">{t('joinUs.contact.resume')}</h2>
@@ -272,9 +280,9 @@ faqs = await getFaqList(40)
 <svg width="0" height="0" style="position:fixed;left:-9999px;top:-9999px">
   <defs>
     <filter id="liquid_glass_filter" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-      <feTurbulence type="fractalNoise" baseFrequency="0.003" numOctaves="2" seed="7" result="noise"/>
-      <feGaussianBlur in="noise" stdDeviation="1.2" result="map"/>
-      <feDisplacementMap in="SourceGraphic" in2="map" scale="110" xChannelSelector="R" yChannelSelector="G"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.003" numOctaves="2" seed="7" result="noise" />
+      <feGaussianBlur in="noise" stdDeviation="1.2" result="map" />
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="110" xChannelSelector="R" yChannelSelector="G" />
     </filter>
   </defs>
 </svg>
@@ -550,57 +558,57 @@ faqs = await getFaqList(40)
 <script>
     // 監聽錨點跳轉,觸發動畫
     document.addEventListener('DOMContentLoaded', () => {
-        const formSection = document.querySelector('.form-section');
-        const fadeInSections = document.querySelectorAll('.fade-in-section');
+        const formSection = document.querySelector('.form-section')
+    const fadeInSections = document.querySelectorAll('.fade-in-section')
 
-        // 檢查元素是否在視窗中
-        const isInViewport = (element: Element) => {
-            const rect = element.getBoundingClientRect();
-            return (
+    // 檢查元素是否在視窗中
+    const isInViewport = (element: Element) => {
+            const rect = element.getBoundingClientRect()
+        return (
                 rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.75 &&
                 rect.bottom >= 0
-            );
-        };
+            )
+    }
 
-        // 滾動監聽
-        const checkScroll = () => {
+    // 滾動監聽
+    const checkScroll = () => {
             if (formSection && isInViewport(formSection)) {
-                formSection.classList.add('animate');
-            }
+                formSection.classList.add('animate')
+        }
 
             // 檢查所有淡入區塊
             fadeInSections.forEach(section => {
                 if (isInViewport(section)) {
-                    section.classList.add('animate');
-                }
-            });
-        };
+                    section.classList.add('animate')
+            }
+            })
+    }
 
-        // 初始檢查
-        checkScroll();
+    // 初始檢查
+    checkScroll()
 
-        // 滾動時檢查
-        window.addEventListener('scroll', checkScroll, { passive: true });
+    // 滾動時檢查
+    window.addEventListener('scroll', checkScroll, { passive: true })
 
-        // 監聽錨點點擊
-        document.querySelectorAll('a[href="#form"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
+    // 監聽錨點點擊
+    document.querySelectorAll('a[href="#form"]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault()
 
-                // 平滑滾動到目標
-                const target = document.querySelector('#form');
-                if (target) {
+            // 平滑滾動到目標
+            const target = document.querySelector('#form')
+            if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
-                        block: 'start'
-                    });
+                        block: 'start',
+                })
 
-                    // 延遲觸發動畫
-                    setTimeout(() => {
-                        formSection?.classList.add('animate');
-                    }, 500);
-                }
-            });
-        });
-    });
+                // 延遲觸發動畫
+                setTimeout(() => {
+                        formSection?.classList.add('animate')
+                }, 500)
+            }
+            })
+    })
+})
 </script>

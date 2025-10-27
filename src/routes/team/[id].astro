@@ -1,12 +1,13 @@
 ---
+import type { PageMeta } from '@stephenchenorg/astro/page'
 import type { TeamMember } from '@/types'
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getTeamMember } from '@/api/teams'
 import Schedule from '@/components/ui/Schedule.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -27,7 +28,6 @@ try {
   if (!teamMember) {
     return Astro.rewrite('/404')
   }
-
 } catch (error) {
   console.error('Failed to fetch team member:', error)
   return Astro.rewrite('/404')
@@ -287,11 +287,15 @@ const meta = {
 
   <!-- 燈箱和輪播功能 JavaScript -->
   {validImages.length > 0 && (
-    <script type="module" is:inline define:vars={{
+    <script
+      type="module"
+      is:inline
+      define:vars={{
       teamImagesDesktop: validImages.map(img => img.image?.desktop || img.image?.mobile).filter(Boolean),
       teamImagesMobile: validImages.map(img => img.image?.mobile || img.image?.desktop).filter(Boolean),
-      allImages: validImages
-    }}>
+      allImages: validImages,
+    }}
+    >
       document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0
   let lightboxIndex = 0

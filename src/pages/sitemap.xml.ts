@@ -1,9 +1,11 @@
 import type { APIRoute } from 'astro'
-import { getArticles, type Article } from '@/api/articles'
-import { getPartnerships, type Partnership } from '@/api/partnerships'
-import { getServiceCategories, type ServiceCategory } from '@/api/serviceCategories'
-import { getAllTeams } from '@/api/teams'
+import type { Article } from '@/api/articles'
+import type { Partnership } from '@/api/partnerships'
 import type { TeamMember } from '@/types'
+import { getArticles } from '@/api/articles'
+import { getPartnerships } from '@/api/partnerships'
+import { getServiceCategories } from '@/api/serviceCategories'
+import { getAllTeams } from '@/api/teams'
 
 // 網站基礎 URL
 const SITE_URL = 'https://dev-www.heavenspa.com.tw'
@@ -27,7 +29,7 @@ const staticPages = [
 const locales = ['zh-TW', 'en']
 
 // 生成 XML sitemap
-function generateSitemap(urls: Array<{ url: string; lastmod?: string; priority: string; changefreq: string }>) {
+function generateSitemap(urls: Array<{ url: string, lastmod?: string, priority: string, changefreq: string }>) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -46,7 +48,7 @@ ${urls.map(({ url, lastmod, priority, changefreq }) => `  <url>
 
 export const GET: APIRoute = async () => {
   try {
-    const urls: Array<{ url: string; lastmod?: string; priority: string; changefreq: string }> = []
+    const urls: Array<{ url: string, lastmod?: string, priority: string, changefreq: string }> = []
 
     // 添加靜態頁面（中文和英文版本）
     for (const locale of locales) {

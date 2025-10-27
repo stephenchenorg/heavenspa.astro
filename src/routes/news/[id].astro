@@ -1,11 +1,12 @@
 ---
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getArticle, getRelatedArticles } from '@/api/articles'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import {getCanonicalUrl, getSeoConfig} from '@/utils/seoConfig'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -57,13 +58,13 @@ const meta = {
         <div class="absolute inset-0">
             <!-- Mobile Image -->
             <img
-              src={article.cover?.mobile || article.cover?.desktop }
+              src={article.cover?.mobile || article.cover?.desktop}
               alt={article.title}
               class="object-cover w-full h-full md:hidden"
             />
             <!-- Desktop Image -->
             <img
-              src={article.cover?.desktop || article.cover?.mobile }
+              src={article.cover?.desktop || article.cover?.mobile}
               alt={article.title}
               class="object-cover w-full h-full hidden md:block"
             />
@@ -161,14 +162,14 @@ const meta = {
                                             <div class="carousel-slide flex-shrink-0 w-full h-full relative">
                                                 <!-- Mobile Image -->
                                                 <img
-                                                  src={article.cover?.mobile || article.cover?.desktop }
+                                                  src={article.cover?.mobile || article.cover?.desktop}
                                                   alt={article.title}
                                                   class="w-full h-full object-cover md:hidden"
                                                   loading="lazy"
                                                 />
                                                 <!-- Desktop Image -->
                                                 <img
-                                                  src={article.cover?.desktop || article.cover?.mobile }
+                                                  src={article.cover?.desktop || article.cover?.mobile}
                                                   alt={article.title}
                                                   class="w-full h-full object-cover hidden md:block"
                                                   loading="lazy"

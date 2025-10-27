@@ -1,8 +1,9 @@
 ---
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import Layout from '@/layouts/Layout.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
+import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
@@ -36,7 +37,7 @@ const sitemapSections = [
       { label: t('nav.team'), url: '/team', icon: 'team' },
       { label: t('nav.news'), url: '/news', icon: 'news' },
       { label: t('nav.business_partnership'), url: '/business-partnership', icon: 'partnership' },
-    ]
+    ],
   },
   {
     title: t('sitemap.otherPages'),
@@ -45,7 +46,7 @@ const sitemapSections = [
       { label: t('nav.joinUs'), url: '/joinUs', icon: 'join' },
       { label: t('footer.privacy-policy'), url: '/privacy', icon: 'privacy' },
       { label: t('footer.terms-of-service'), url: '/terms', icon: 'terms' },
-    ]
+    ],
   },
 ]
 
@@ -185,7 +186,7 @@ const icons: Record<string, string> = {
             class="mb-4 opacity-80"
             style="color: var(--theme-text);"
           >
-            {currentLocale === 'en' ? "Can't find what you're looking for? Contact us for assistance." : '找不到您要的內容？聯繫我們尋求協助。'}
+            {currentLocale === 'en' ? 'Can\'t find what you\'re looking for? Contact us for assistance.' : '找不到您要的內容？聯繫我們尋求協助。'}
           </p>
           <a
             href="/faq"

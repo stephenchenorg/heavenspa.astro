@@ -1,12 +1,13 @@
 ---
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getFaqList } from '@/api/faq'
 import FAQ from '@/components/FAQ.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()

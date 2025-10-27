@@ -1,5 +1,6 @@
 ---
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getBanners } from '@/api/banners'
 import HeroBanner from '@/components/HeroBanner.astro'
@@ -7,8 +8,8 @@ import IndexNews from '@/components/IndexNews.astro'
 import ServiceSection from '@/components/ServiceSection.astro'
 import TeamSection from '@/components/TeamSection.astro'
 import Layout from '@/layouts/Layout.astro'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 import IntroSection from '../components/IntroSection.astro'
-import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
 
 // 獲取 banners 資料
 const banners = await getBanners()

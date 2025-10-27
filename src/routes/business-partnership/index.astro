@@ -1,12 +1,13 @@
 ---
-import {type PageMeta, seoMeta} from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getPartnerships } from '@/api/partnerships'
 import Button from '@/components/ui/Button.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
-import { getSeoConfig, getCanonicalUrl } from '@/utils/seoConfig'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -39,13 +40,13 @@ const meta = {
                 <!-- Background Image - Mobile -->
                 <div
                   class="absolute inset-0 bg-cover bg-center md:hidden"
-                  style={`background-image: url('${partnership.cover?.mobile || partnership.cover?.desktop }')`}
+                  style={`background-image: url('${partnership.cover?.mobile || partnership.cover?.desktop}')`}
                 >
                 </div>
                 <!-- Background Image - Desktop -->
                 <div
                   class="absolute inset-0 bg-cover bg-center hidden md:block"
-                  style={`background-image: url('${partnership.cover?.desktop || partnership.cover?.mobile }')`}
+                  style={`background-image: url('${partnership.cover?.desktop || partnership.cover?.mobile}')`}
                 >
                 </div>
                 <!-- Base Overlay for better text readability -->

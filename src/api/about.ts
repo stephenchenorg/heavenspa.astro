@@ -40,7 +40,7 @@ export interface AboutData {
 }
 
 export async function getAboutData(): Promise<AboutData> {
-  const res = await graphQLAPI<{ about: About; aboutImages: { data: AboutImageData[] } }>(gql`
+  const res = await graphQLAPI<{ about: About, aboutImages: { data: AboutImageData[] } }>(gql`
     query MyQuery {
       about {
         content_1

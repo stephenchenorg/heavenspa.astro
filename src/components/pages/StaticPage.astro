@@ -1,11 +1,12 @@
 ---
-import { type PageMeta, seoMeta } from '@stephenchenorg/astro/page'
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import Prose from '@/components/ui/Prose.vue'
+import { getCanonicalUrl } from '@/utils/seoConfig'
 import { gql, graphQLAPI } from '../../api'
 import Layout from '../../layouts/Layout.astro'
 import SectionTitle from '../ui/SectionTitle.astro'
-import { getCanonicalUrl } from '@/utils/seoConfig'
 
 interface Props {
   path: string
