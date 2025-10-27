@@ -258,87 +258,99 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
   }
 }
 
-export async function getArticle(id: string): Promise<Article> {
-  const res = await graphQLAPI(gql`
-    query GetArticle($id: Int!) {
-        article(id: $id) {
-          id
-          title
-          author
-          content
-          cover{
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          ended_at
-          started_at
-          created_at
-          tags {
-            data {
-              id
-              title
-            }
-          }
-          images {
-            image {
+export async function getArticle(id: string): Promise<Article | null> {
+  try {
+    const res = await graphQLAPI(gql`
+      query GetArticle($id: Int!) {
+          article(id: $id) {
+            id
+            title
+            author
+            content
+            cover{
               desktop
               desktop_blur
               mobile
               mobile_blur
             }
+            ended_at
+            started_at
+            created_at
+            tags {
+              data {
+                id
+                title
+              }
+            }
+            images {
+              image {
+                desktop
+                desktop_blur
+                mobile
+                mobile_blur
+              }
+            }
+            next {
+              id
+              title
+            }
+            prev {
+              id
+              title
+            }
+            seo_title
+            seo_description
+            seo_keyword
+            og_title
+            og_description
+            og_image
+            seo_head
+            seo_body
+            seo_json_ld
           }
-          next {
-            id
-            title
-          }
-          prev {
-            id
-            title
-          }
-          seo_title
-          seo_description
-          seo_keyword
-          og_title
-          og_description
-          og_image
-          seo_head
-          seo_body
-          seo_json_ld
         }
-      }
-  `, {
-    variables: { id: Number.parseInt(id) },
-  })
-  const createdDate = res.article.started_at || res.article.created_at
-  const normalized = createdDate?.replace(' ', 'T') || createdDate
-  const d = new Date(normalized)
+    `, {
+      variables: { id: Number.parseInt(id) },
+    })
 
-  return {
-    id: res.article.id,
-    title: res.article.title,
-    author: res.article.author,
-    cover: res.article.cover,
-    content: res.article.content,
-    ended_at: res.article.ended_at,
-    started_at: d.toISOString(),
-    created_at: d.toISOString(),
-    date: d.getDate().toString().padStart(2, '0'),
-    year: d.getFullYear().toString(),
-    month: (d.getMonth() + 1).toString().padStart(2, '0'),
-    tags: res.article.tags,
-    images: res.article.images,
-    next: res.article.next,
-    prev: res.article.prev,
-    seo_title: res.article.seo_title,
-    seo_description: res.article.seo_description,
-    seo_keyword: res.article.seo_keyword,
-    og_title: res.article.og_title,
-    og_description: res.article.og_description,
-    og_image: res.article.og_image,
-    seo_head: res.article.seo_head,
-    seo_body: res.article.seo_body,
-    seo_json_ld: res.article.seo_json_ld,
+    // 檢查返回的文章是否存在
+    if (!res.article) {
+      console.error(`Article with id ${id} not found`)
+      return null
+    }
+
+    const createdDate = res.article.started_at || res.article.created_at
+    const normalized = createdDate?.replace(' ', 'T') || createdDate
+    const d = new Date(normalized)
+
+    return {
+      id: res.article.id,
+      title: res.article.title,
+      author: res.article.author,
+      cover: res.article.cover,
+      content: res.article.content,
+      ended_at: res.article.ended_at,
+      started_at: d.toISOString(),
+      created_at: d.toISOString(),
+      date: d.getDate().toString().padStart(2, '0'),
+      year: d.getFullYear().toString(),
+      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      tags: res.article.tags,
+      images: res.article.images,
+      next: res.article.next,
+      prev: res.article.prev,
+      seo_title: res.article.seo_title,
+      seo_description: res.article.seo_description,
+      seo_keyword: res.article.seo_keyword,
+      og_title: res.article.og_title,
+      og_description: res.article.og_description,
+      og_image: res.article.og_image,
+      seo_head: res.article.seo_head,
+      seo_body: res.article.seo_body,
+      seo_json_ld: res.article.seo_json_ld,
+    }
+  } catch (error) {
+    console.error(`Error fetching article ${id}:`, error)
+    return null
   }
 }
