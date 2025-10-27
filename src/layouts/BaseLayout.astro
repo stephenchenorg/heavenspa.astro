@@ -66,7 +66,7 @@ if (!ogImage) {
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
 
-    <!--{!import.meta.env.DEV && (-->
+    {!import.meta.env.DEV && (
       <>
         <!-- Canonical URL -->
         <link rel="canonical" href={meta.canonical} />
@@ -88,7 +88,7 @@ if (!ogImage) {
         {meta.seo_head && <Fragment set:html={meta.seo_head} />}
         {meta.seo_json_ld && <script is:inline type="application/ld+json" set:html={meta.seo_json_ld}></script>}
       </>
-    <!--)}-->
+    )}
 
     {import.meta.env.DEV && ga4TrackingId && <GAScript ga4TrackingId={ga4TrackingId} />}
     {!import.meta.env.DEV && metaPixelId && <MetaPixel pixelId={metaPixelId} />}
