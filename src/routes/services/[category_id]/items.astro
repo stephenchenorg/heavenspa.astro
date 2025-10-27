@@ -30,13 +30,14 @@ let categories
 let currentCategory
 let servicesData
 let services
+let categoryId: number
 
 try {
   categoriesData = await getServiceCategories()
   categories = categoriesData.serviceCategories.data
 
   // 使用路由參數中的 category_id
-  const categoryId = Number.parseInt(category_id, 10)
+  categoryId = Number.parseInt(category_id, 10)
 
   // 找到當前分類
   currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === categoryId)

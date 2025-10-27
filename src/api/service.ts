@@ -7,6 +7,7 @@ export interface ServiceDetail {
   content_2: string
   content_3: string
   content_4: string
+  service_category_id: string
   cover: {
     desktop: string
     desktop_blur: string
@@ -14,6 +15,7 @@ export interface ServiceDetail {
     mobile_blur: string
   }
   category: {
+    id: string
     title: string
   }
   images: Array<{
@@ -52,8 +54,10 @@ export async function getServiceDetail(id: number): Promise<ServiceDetailRespons
       query MyQuery($id: Int!) {
         service(id: $id) {
           category {
+            id
             title
           }
+          service_category_id
           cover {
             desktop
             desktop_blur

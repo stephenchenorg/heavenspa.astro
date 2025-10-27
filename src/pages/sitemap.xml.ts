@@ -2,7 +2,8 @@ import type { APIRoute } from 'astro'
 import { getArticles } from '@/api/articles'
 import { getPartnerships } from '@/api/partnerships'
 import { getServiceCategories } from '@/api/serviceCategories'
-import { getTeamMembers } from '@/api/teamMembers'
+import { getAllTeams } from '@/api/teams'
+import type { Article, Partnership, ServiceCategory, TeamMember } from '@/types'
 
 // 網站基礎 URL
 const SITE_URL = 'https://dev-www.heavenspa.com.tw'
@@ -65,12 +66,12 @@ export const GET: APIRoute = async () => {
       // 新聞文章
       const articles = await getArticles()
       if (articles && articles.length > 0) {
-        articles.forEach(article => {
+        articles.forEach((article: Article) => {
           for (const locale of locales) {
             const prefix = locale === 'zh-TW' ? '' : `/${locale}`
             urls.push({
               url: `${prefix}/news/${article.id}`,
-              lastmod: article.updated_at ? new Date(article.updated_at).toISOString().split('T')[0] : undefined,
+              lastmod: new Date().toISOString().split('T')[0],
               priority: '0.7',
               changefreq: 'weekly',
             })
@@ -85,12 +86,12 @@ export const GET: APIRoute = async () => {
       // 異業合作
       const partnerships = await getPartnerships()
       if (partnerships && partnerships.length > 0) {
-        partnerships.forEach(partnership => {
+        partnerships.forEach((partnership: Partnership) => {
           for (const locale of locales) {
             const prefix = locale === 'zh-TW' ? '' : `/${locale}`
             urls.push({
               url: `${prefix}/business-partnership/${partnership.id}`,
-              lastmod: partnership.updated_at ? new Date(partnership.updated_at).toISOString().split('T')[0] : undefined,
+              lastmod: new Date().toISOString().split('T')[0],
               priority: '0.6',
               changefreq: 'weekly',
             })
@@ -112,22 +113,10 @@ export const GET: APIRoute = async () => {
             // 服務分類頁面
             urls.push({
               url: `${prefix}/services/${category.id}/items`,
-              lastmod: category.updated_at ? new Date(category.updated_at).toISOString().split('T')[0] : undefined,
+              lastmod: new Date().toISOString().split('T')[0],
               priority: '0.8',
               changefreq: 'weekly',
             })
-
-            // 服務項目詳細頁面
-            if (category.items?.data && category.items.data.length > 0) {
-              category.items.data.forEach(item => {
-                urls.push({
-                  url: `${prefix}/services/${category.id}/items/${item.id}`,
-                  lastmod: item.updated_at ? new Date(item.updated_at).toISOString().split('T')[0] : undefined,
-                  priority: '0.7',
-                  changefreq: 'weekly',
-                })
-              })
-            }
           }
         }
       }
@@ -137,14 +126,14 @@ export const GET: APIRoute = async () => {
 
     try {
       // 團隊成員
-      const teamMembers = await getTeamMembers()
+      const teamMembers = await getAllTeams(10) // 10 = all teams
       if (teamMembers && teamMembers.length > 0) {
-        teamMembers.forEach(member => {
+        teamMembers.forEach((member: TeamMember) => {
           for (const locale of locales) {
             const prefix = locale === 'zh-TW' ? '' : `/${locale}`
             urls.push({
               url: `${prefix}/team/${member.id}`,
-              lastmod: member.updated_at ? new Date(member.updated_at).toISOString().split('T')[0] : undefined,
+              lastmod: new Date().toISOString().split('T')[0],
               priority: '0.6',
               changefreq: 'weekly',
             })
