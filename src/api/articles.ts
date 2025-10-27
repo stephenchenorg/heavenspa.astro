@@ -76,14 +76,26 @@ export interface ArticlesResponse {
   }
 }
 
+function formatArticleDate(dateStr: string) {
+  const normalized = dateStr?.replace(' ', 'T') || dateStr
+  const d = new Date(normalized)
+  return {
+    iso: d.toISOString(),
+    date: d.toISOString().slice(0, 10),
+    day: d.getDate().toString().padStart(2, '0'),
+    year: d.getFullYear().toString(),
+    month: (d.getMonth() + 1).toString().padStart(2, '0'),
+  }
+}
+
 export async function getArticles(): Promise<Article[]> {
   const res = await graphQLAPI(gql`
-    query MyQuery {
-      articles{
+    query GetArticles {
+      articles {
         data {
           id
           content
-          cover{
+          cover {
             desktop
             desktop_blur
             mobile
@@ -119,23 +131,20 @@ export async function getArticles(): Promise<Article[]> {
     }
   `)
 
-  // 將 API 資料轉換為 Article 格式
-  return (res.articles.data || []).map((article: Article, index: number) => {
-    const createdDate = article.started_at || article.created_at
-    const normalized = createdDate?.replace(' ', 'T') || createdDate
-    const d = new Date(normalized)
+  return (res.articles.data || []).map((article: Article) => {
+    const dateInfo = formatArticleDate(article.started_at || article.created_at)
     return {
-      id: article.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
+      id: article.id,
       title: article.title,
       author: article.author,
       cover: article.cover,
       content: article.content,
       ended_at: article.ended_at,
-      started_at: d.toISOString().slice(0, 10),
-      created_at: d.toISOString().slice(0, 10),
-      date: d.getDate().toString().padStart(2, '0'),
-      year: d.getFullYear().toString(),
-      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      started_at: dateInfo.date,
+      created_at: dateInfo.date,
+      date: dateInfo.day,
+      year: dateInfo.year,
+      month: dateInfo.month,
       tags: article.tags,
       images: article.images,
     }
@@ -143,12 +152,12 @@ export async function getArticles(): Promise<Article[]> {
 }
 export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
   const res = await graphQLAPI(gql`
-    query GetRelatedArticles($unionTags: [Int!],) {
+    query GetRelatedArticles($unionTags: [Int!]) {
       articles(union_tags: $unionTags) {
         data {
           id
           content
-          cover{
+          cover {
             desktop
             desktop_blur
             mobile
@@ -188,23 +197,20 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
     },
   })
 
-  // 將 API 資料轉換為 Article 格式
-  return (res.articles.data || []).map((article: Article, index: number) => {
-    const createdDate = article.started_at || article.created_at
-    const normalized = createdDate?.replace(' ', 'T') || createdDate
-    const d = new Date(normalized)
+  return (res.articles.data || []).map((article: Article) => {
+    const dateInfo = formatArticleDate(article.started_at || article.created_at)
     return {
-      id: article.id || (index + 1),
+      id: article.id,
       title: article.title,
       author: article.author,
       cover: article.cover,
       content: article.content,
       ended_at: article.ended_at,
-      started_at: d.toISOString().slice(0, 10),
-      created_at: d.toISOString().slice(0, 10),
-      date: d.getDate().toString().padStart(2, '0'),
-      year: d.getFullYear().toString(),
-      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      started_at: dateInfo.date,
+      created_at: dateInfo.date,
+      date: dateInfo.day,
+      year: dateInfo.year,
+      month: dateInfo.month,
       tags: article.tags,
       images: article.images,
     }
@@ -231,11 +237,9 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
     variables: { currentId },
   })
 
-  const formatArticle = (article: any) => {
+  const formatArticle = (article: any): Article | null => {
     if (!article) return null
-    const createdDate = article.started_at || article.created_at
-    const normalized = createdDate?.replace(' ', 'T') || createdDate
-    const d = new Date(normalized)
+    const dateInfo = formatArticleDate(article.started_at || article.created_at)
 
     return {
       id: article.id,
@@ -244,11 +248,11 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
       cover: article.cover,
       content: article.content,
       ended_at: article.ended_at,
-      started_at: d.toISOString(),
-      created_at: d.toISOString(),
-      date: d.getDate().toString().padStart(2, '0'),
-      year: d.getFullYear().toString(),
-      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      started_at: dateInfo.iso,
+      created_at: dateInfo.iso,
+      date: dateInfo.day,
+      year: dateInfo.year,
+      month: dateInfo.month,
     }
   }
 
@@ -262,66 +266,62 @@ export async function getArticle(id: string): Promise<Article | null> {
   try {
     const res = await graphQLAPI(gql`
       query GetArticle($id: Int!) {
-          article(id: $id) {
-            id
-            title
-            author
-            content
-            cover{
+        article(id: $id) {
+          id
+          title
+          author
+          content
+          cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          ended_at
+          started_at
+          created_at
+          tags {
+            data {
+              id
+              title
+            }
+          }
+          images {
+            image {
               desktop
               desktop_blur
               mobile
               mobile_blur
             }
-            ended_at
-            started_at
-            created_at
-            tags {
-              data {
-                id
-                title
-              }
-            }
-            images {
-              image {
-                desktop
-                desktop_blur
-                mobile
-                mobile_blur
-              }
-            }
-            next {
-              id
-              title
-            }
-            prev {
-              id
-              title
-            }
-            seo_title
-            seo_description
-            seo_keyword
-            og_title
-            og_description
-            og_image
-            seo_head
-            seo_body
-            seo_json_ld
           }
+          next {
+            id
+            title
+          }
+          prev {
+            id
+            title
+          }
+          seo_title
+          seo_description
+          seo_keyword
+          og_title
+          og_description
+          og_image
+          seo_head
+          seo_body
+          seo_json_ld
         }
+      }
     `, {
       variables: { id: Number.parseInt(id) },
     })
 
-    // 檢查返回的文章是否存在
     if (!res.article) {
-      console.error(`Article with id ${id} not found`)
       return null
     }
 
-    const createdDate = res.article.started_at || res.article.created_at
-    const normalized = createdDate?.replace(' ', 'T') || createdDate
-    const d = new Date(normalized)
+    const dateInfo = formatArticleDate(res.article.started_at || res.article.created_at)
 
     return {
       id: res.article.id,
@@ -330,11 +330,11 @@ export async function getArticle(id: string): Promise<Article | null> {
       cover: res.article.cover,
       content: res.article.content,
       ended_at: res.article.ended_at,
-      started_at: d.toISOString(),
-      created_at: d.toISOString(),
-      date: d.getDate().toString().padStart(2, '0'),
-      year: d.getFullYear().toString(),
-      month: (d.getMonth() + 1).toString().padStart(2, '0'),
+      started_at: dateInfo.iso,
+      created_at: dateInfo.iso,
+      date: dateInfo.day,
+      year: dateInfo.year,
+      month: dateInfo.month,
       tags: res.article.tags,
       images: res.article.images,
       next: res.article.next,
@@ -350,7 +350,9 @@ export async function getArticle(id: string): Promise<Article | null> {
       seo_json_ld: res.article.seo_json_ld,
     }
   } catch (error) {
-    console.error(`Error fetching article ${id}:`, error)
+    if (import.meta.env.DEV) {
+      console.error(`Error fetching article ${id}:`, error)
+    }
     return null
   }
 }

@@ -1,0 +1,996 @@
+---
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
+import { getAboutData } from '@/api/about'
+import { getServiceCategories } from '@/api/serviceCategories'
+import Carousel from '@/components/ui/Carousel.astro'
+import Layout from '@/layouts/Layout.astro'
+import { createNestedT } from '@/utils/i18n'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
+import Button from '../components/ui/Button.astro'
+import SectionTitle from '../components/ui/SectionTitle.astro'
+
+const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
+const data = await getServiceCategories()
+const services = data.serviceCategories.data
+
+const aboutData = await getAboutData()
+const { about, aboutImages } = aboutData
+
+// 取得預設 SEO 設定
+const defaultSeo = getSeoConfig('about', locale)
+
+const meta = {
+    ...seoMeta({
+        title: about.seo_title || defaultSeo.seo_title,
+        seo_description: about.seo_description || defaultSeo.seo_description,
+        seo_keyword: about.seo_keyword || defaultSeo.seo_keyword,
+        og_title: about.og_title || defaultSeo.og_title,
+        og_description: about.og_description || defaultSeo.og_description,
+        og_image: about.og_image || defaultSeo.og_image,
+        // 後台額外欄位 (有值才顯示)
+        seo_head: about.seo_head,
+        seo_body: about.seo_body,
+        seo_json_ld: about.seo_json_ld,
+    }),
+    canonical: getCanonicalUrl('about', locale),
+} as PageMeta
+---
+
+<Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+</Fragment>
+
+<Layout meta={meta}>
+    <div class="roboto-page">
+    <!-- Hero Banner -->
+    <section class="relative aspect-[1920/900] sm:aspect-[1920/800] lg:aspect-[1920/700] overflow-hidden">
+        <div class="absolute inset-0">
+            <picture>
+                <!-- 手機版圖片 (< 768px) -->
+                <source
+                  media="(max-width: 767px)"
+                  srcset={about.cover.mobile}
+                />
+                <!-- 電腦版圖片 (>= 768px) -->
+                <img
+                  src={about.cover.desktop}
+                  alt="品牌介紹 banner"
+                  class="object-cover w-full h-full"
+                />
+            </picture>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
+        </div>
+        <!-- Hero Content Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center pt-20 pb-10">
+            <div class="text-center text-white px-6 sm:px-8 lg:px-12 max-w-4xl mx-auto">
+                <!-- Main Title - Center -->
+                <h1 class={`font-bold leading-tight tracking-wide mb-8 sm:mb-12 animate-fade-in-up ${isEnglish ? 'text-2xl sm:text-4xl lg:text-5xl xl:text-6xl' : 'text-3xl sm:text-5xl lg:text-6xl xl:text-7xl'}`}>
+                    {t('about.hero.title')}
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <main class="section-container-detail">
+        <SectionTitle title={t('about.sectionTitle')} subtitle={t('about.sectionSubtitle')} />
+
+        <!-- 品牌介紹內容 -->
+        <section class="max-w-6xl mx-auto mb-20 sm:mb-28 px-4 sm:px-6 brand-intro-section" data-animate-in="up">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- 左側圖片 -->
+                <div class="order-2 lg:order-1" data-animate-in="left">
+                    <div class="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                        <picture>
+                            <!-- 手機版圖片 (< 768px) -->
+                            <source
+                              media="(max-width: 767px)"
+                              srcset={about.image.mobile}
+                            />
+                            <!-- 電腦版圖片 (>= 768px) -->
+                            <img
+                              src={about.image.desktop}
+                              alt="品牌介紹圖片"
+                              class="w-full h-full object-cover"
+                            />
+                        </picture>
+                    </div>
+                </div>
+
+                <!-- 右側文字 -->
+                <div class="order-1 lg:order-2" data-animate-in="right">
+                    <h3
+                      class={`font-bold mb-6 sm:mb-8 ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}
+                      style="color: var(--theme-text)"
+                    >{about.title_1}</h3>
+                    <div
+                      class="intro-text-container space-y-6"
+                      style="color: var(--theme-text)"
+                    >
+                        <p
+                          class={`${isEnglish ? 'leading-loose text-base sm:text-lg' : 'leading-relaxed text-lg sm:text-xl'}`}
+                          data-animate-in="up"
+                        >
+                            {about.content_1}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sticky Stacking Scroll 區域 -->
+        <div class="sticky-scroll-wrapper relative">
+            <!-- 左側進度指示器 -->
+            <div class="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
+                <div class="relative flex items-start">
+                    <!-- 進度線 -->
+                    <div class="relative w-1 bg-neutral-300 dark:bg-white/20 rounded-full flex-shrink-0" style="height: 300px;">
+                        <div class="absolute top-0 left-0 w-full bg-primary-500 rounded-full transition-all duration-500 ease-out" id="progress-indicator" style="height: 0%;"></div>
+                    </div>
+                    <!-- 進度點和標籤容器 -->
+                    <div class="absolute top-0 left-0 flex flex-col" id="progress-dots-container" style="height: 300px;">
+                    </div>
+                </div>
+            </div>
+            <!-- Section 1: 環境圖片輪播 -->
+            <section class="sticky top-0 min-h-screen flex items-center justify-center pb-20 pt-10" id="AboutImages">
+                <div class="w-full flex flex-col items-center justify-center">
+                    <!-- 文字描述區 -->
+                    <div class="max-w-5xl mx-auto text-center mb-12 z-10">
+                        <h2 class={`font-bold mb-6 leading-tight ${isEnglish ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-3xl sm:text-4xl lg:text-5xl'}`}>
+                            {about.title_2}
+                        </h2>
+                        <p class={`leading-relaxed ${isEnglish ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'}`}>
+                            {about.content_2}
+                        </p>
+                    </div>
+
+                    {aboutImages && aboutImages.data.length > 0 && (
+                    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6">
+                        <Carousel
+                          itemCount={aboutImages.data.length}
+                          uniqueId="environment"
+                          autoPlayInterval={2600}
+                          responsive={{ sm: 1, md: 2, lg: 3 }}
+                        >
+                            {aboutImages.data.map((item, index) => (
+                                <div class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3" data-slide={index}>
+                                    <div class="px-2">
+                                        <div class="aspect-[4/3] overflow-hidden rounded-2xl">
+                                            <picture>
+                                                <!-- 手機版圖片 (< 768px) -->
+                                                <source
+                                                  media="(max-width: 767px)"
+                                                  srcset={item.image.mobile}
+                                                />
+                                                <!-- 電腦版圖片 (>= 768px) -->
+                                                <img
+                                                  src={item.image.desktop}
+                                                  alt={`環境圖片 ${index + 1}`}
+                                                  class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                                                  loading="lazy"
+                                                />
+                                            </picture>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </Carousel>
+                    </div>
+                    )}
+                </div>
+            </section>
+
+            <div id="service-categories">
+                {services.map((service, index) => {
+                    // 決定要使用的背景圖片：優先使用對應裝置的圖片，如果沒有則使用另一個
+                    const desktopImage = service.cover?.desktop || service.cover?.mobile || ''
+                    const mobileImage = service.cover?.mobile || service.cover?.desktop || ''
+
+                    return (
+                    <section class="sticky top-0 h-screen flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index} data-desktop-bg={desktopImage} data-mobile-bg={mobileImage}>
+                        <!-- 背景圖層 -->
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out service-bg"></div>
+
+                        <!-- 漸層遮罩：手機版上下漸層，桌面版左右漸層 -->
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-b md:bg-gradient-to-r from-transparent via-black/30 to-black/70 transition-opacity duration-700"></div>
+
+                        <!-- 內容區：手機版在上方，桌面版在右側 -->
+                        <div class="w-full md:w-1/2 lg:w-2/5 px-6 pt-24 md:pt-0 md:px-12 lg:px-16 text-white relative z-10 service-content">
+                            <div class="space-y-4 md:space-y-6">
+                                <h2 class={`font-bold opacity-0 translate-y-8 transition-all duration-700 delay-150 service-title ${isEnglish ? 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl' : 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl'}`}>
+                                    {service.title}
+                                </h2>
+                                {service.description && (
+                                    <p class={`leading-relaxed opacity-0 translate-y-8 transition-all duration-700 delay-300 service-description ${isEnglish ? 'text-sm sm:text-base md:text-lg' : 'text-base sm:text-lg md:text-xl'}`}>
+                                        {service.description}
+                                    </p>
+                                )}
+                                <a href={`/services/${service.id}/items`} class="inline-block mt-4 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white dark:text-black rounded-full font-medium transition-all duration-300  hover:shadow-lg text-sm md:text-base opacity-0 translate-y-8 delay-500 service-button">
+                                    {isEnglish ? 'View Services' : '查看服務'}
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                    )
+                })}
+            </div>
+        </div>
+
+        <!-- 聯絡我們區域 -->
+        <section class="max-w-4xl mx-auto py-16 sm:py-20 text-center" data-animate-in="fadeIn">
+            <div class="space-y-8">
+                <p class={`leading-relaxed text-theme-text ${isEnglish ? 'text-xl sm:text-2xl lg:text-3xl' : 'text-2xl sm:text-3xl lg:text-4xl'}`}>
+                    {about.content_3}
+                </p>
+                <Button
+                  href={about.cta_link}
+                  variant="outline"
+                  size="large"
+                  text={about.cta_title}
+                />
+            </div>
+        </section>
+    </main>
+    </div>
+</Layout>
+
+<style>
+    /* Roboto 字體 */
+    .roboto-page {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .roboto-page * {
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* 動畫初始狀態 - 確保版面一開始就正常顯示 */
+    [data-animate-in] {
+        opacity: 1;
+        transform: none;
+        transition: all 0.6s ease-out;
+    }
+
+    /* 動畫準備狀態 */
+    [data-animate-in]:not(.in-view) {
+        opacity: 0;
+    }
+
+    [data-animate-in="up"]:not(.in-view) {
+        transform: translateY(30px);
+    }
+
+    [data-animate-in="left"]:not(.in-view) {
+        transform: translateX(-30px);
+    }
+
+    [data-animate-in="right"]:not(.in-view) {
+        transform: translateX(30px);
+    }
+
+    [data-animate-in="fadeIn"]:not(.in-view) {
+        opacity: 0;
+    }
+
+    [data-animate-in="scaleIn"]:not(.in-view) {
+        transform: scale(0.95);
+    }
+
+    /* 動畫執行狀態 */
+    [data-animate-in].in-view {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* 輪播導航按鈕垂直置中 - 針對 services-carousel */
+    .services-carousel-container {
+        position: relative;
+    }
+
+    .services-carousel-container .carousel-prev,
+    .services-carousel-container .carousel-next {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+
+    /* 使用 JavaScript 動態計算中心位置 */
+    .services-carousel-container .carousel-prev,
+    .services-carousel-container .carousel-next {
+        position: absolute !important;
+        z-index: 20 !important;
+    }
+
+    /* intro 文字段落階段式動畫 */
+    .intro-text-container p[data-animate-in]:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+
+    .intro-text-container p[data-animate-in]:nth-child(2) {
+        animation-delay: 0.4s;
+    }
+
+    .intro-text-container p[data-animate-in]:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+
+    /* 為 intro 文字添加特殊過渡效果 */
+    .intro-text-container p[data-animate-in] {
+        transition-delay: 0s;
+    }
+
+    .intro-text-container p[data-animate-in]:nth-child(1).in-view {
+        transition-delay: 0.2s;
+    }
+
+    .intro-text-container p[data-animate-in]:nth-child(2).in-view {
+        transition-delay: 0.4s;
+    }
+
+    .intro-text-container p[data-animate-in]:nth-child(3).in-view {
+        transition-delay: 0.6s;
+    }
+
+    /* English language optimizations for About page */
+    .about-en-text {
+        word-break: break-word;
+        hyphens: auto;
+        letter-spacing: 0.025em;
+    }
+
+    /* Hero title adjustments for English */
+    .about-hero-en {
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+    }
+
+    /* Service carousel text adjustments for English */
+    .about-service-en h4 {
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    .about-service-en p {
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    /* Environment section adjustments for English */
+    .about-environment-en {
+        word-spacing: 0.1em;
+        line-height: 1.4;
+    }
+
+    /* Contact section adjustments for English */
+    .about-contact-en {
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+    /* Responsive adjustments for English content */
+    @media (max-width: 768px) {
+        .about-hero-en {
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-service-en h4 {
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .about-service-en p {
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        .about-environment-en {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .about-contact-en {
+            font-size: 1.125rem;
+            line-height: 1.3;
+        }
+    }
+
+    /* Service card background image optimization */
+    .service-card {
+        min-height: 400px;
+    }
+
+    .service-background {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* Specific width handling for 1583px and similar resolutions */
+    @media (min-width: 1500px) and (max-width: 1650px) {
+        .service-background {
+            width: 138% !important;
+            transform: translateX(-8%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-32%) !important;
+        }
+    }
+
+    @media (min-width: 1400px) and (max-width: 1499px) {
+        .service-background {
+            width: 135% !important;
+            transform: translateX(-5%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-30%) !important;
+        }
+    }
+
+    @media (min-width: 1651px) and (max-width: 1700px) {
+        .service-background {
+            width: 136% !important;
+            transform: translateX(-6%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-31%) !important;
+        }
+    }
+
+    /* For very wide screens */
+    @media (min-width: 1700px) {
+        .service-background {
+            width: 140% !important;
+            transform: translateX(-10%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-35%) !important;
+        }
+    }
+
+    /* Ensure no gaps on medium-large screens */
+    @media (min-width: 1200px) and (max-width: 1399px) {
+        .service-background {
+            width: 135% !important;
+            transform: translateX(-10%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-28%) !important;
+        }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1199px) {
+        .service-background {
+            width: 140% !important;
+            transform: translateX(-15%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-35%) !important;
+        }
+    }
+
+    /* For smaller desktop screens */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .service-background {
+            width: 145% !important;
+            transform: translateX(-20%);
+        }
+
+        .service-background:hover {
+            transform: translateX(-40%) !important;
+        }
+    }
+
+    /* Sticky Stacking Scroll 樣式 */
+    .sticky-scroll-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .sticky-scroll-wrapper section {
+        width: 100%;
+    }
+</style>
+
+<script>
+    // 動畫觀察器初始化
+    function initializeAnimations() {
+        const animatedElements = document.querySelectorAll('[data-animate-in]')
+
+        if (!animatedElements.length) return
+
+        // 先將所有動畫元素設為可見狀態，避免初始載入時的版面問題
+        animatedElements.forEach(element => {
+            const el = element as HTMLElement
+            el.style.opacity = '1'
+            el.style.transform = 'none'
+        })
+
+        // 延遲一段時間後開始動畫觀察
+        setTimeout(() => {
+            // 重新設定初始狀態
+            animatedElements.forEach(element => {
+                if (!element.classList.contains('in-view')) {
+                    const el = element as HTMLElement
+                    const animationType = element.getAttribute('data-animate-in')
+
+                    switch (animationType) {
+                        case 'up':
+                            el.style.opacity = '0'
+                            el.style.transform = 'translateY(30px)'
+                            break
+                        case 'left':
+                            el.style.opacity = '0'
+                            el.style.transform = 'translateX(-30px)'
+                            break
+                        case 'right':
+                            el.style.opacity = '0'
+                            el.style.transform = 'translateX(30px)'
+                            break
+                        case 'fadeIn':
+                            el.style.opacity = '0'
+                            break
+                        case 'scaleIn':
+                            el.style.opacity = '0'
+                            el.style.transform = 'scale(0.95)'
+                            break
+                        default:
+                            el.style.opacity = '0'
+                    }
+                }
+            })
+
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // 檢查是否是 intro 文字段落
+                            const isIntroText = entry.target.closest('.intro-text-container')
+
+                            if (isIntroText) {
+                                // 階段式觸發 intro 文字動畫
+                                const container = entry.target.closest('.intro-text-container')
+                                if (container) {
+                                    const paragraphs = container.querySelectorAll('p[data-animate-in]')
+
+                                    paragraphs.forEach((p, index) => {
+                                        setTimeout(() => {
+                                            p.classList.add('in-view')
+                                            const pEl = p as HTMLElement
+                                            pEl.style.opacity = '1'
+                                            pEl.style.transform = 'none'
+                                        }, index * 200) // 每個段落延遲 200ms
+                                    })
+
+                                    // 取消觀察所有 intro 段落
+                                    paragraphs.forEach(p => observer.unobserve(p))
+                                }
+                            } else {
+                                // 一般動畫元素
+                                entry.target.classList.add('in-view')
+                                const targetEl = entry.target as HTMLElement
+                                targetEl.style.opacity = '1'
+                                targetEl.style.transform = 'none'
+                                observer.unobserve(entry.target)
+                            }
+                        }
+                    })
+                },
+                {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px',
+                }
+            )
+
+            animatedElements.forEach(element => {
+                observer.observe(element)
+            })
+        }, 100) // 延遲 100ms 開始動畫
+    }
+
+    // 頁面載入完成後初始化動畫
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(initializeAnimations, 50)
+        })
+    } else {
+        setTimeout(initializeAnimations, 50)
+    }
+
+    // 備用初始化
+    window.addEventListener('load', () => {
+        setTimeout(initializeAnimations, 100)
+    })
+
+    // 輪播按鈕垂直置中功能
+    function centerCarouselButtons() {
+        const carousel = document.querySelector('.services-carousel-carousel')
+        if (!carousel) {
+            setTimeout(centerCarouselButtons, 500)
+            return
+        }
+
+        const prevBtn = carousel.querySelector('.carousel-prev')
+        const nextBtn = carousel.querySelector('.carousel-next')
+        const slides = carousel.querySelectorAll('.carousel-slide')
+
+        if (!prevBtn || !nextBtn || !slides.length) {
+            setTimeout(centerCarouselButtons, 500)
+            return
+        }
+
+        // 計算輪播內容的中心位置
+        function updateButtonPositions() {
+            if (!carousel) return
+            const carouselRect = carousel.getBoundingClientRect()
+            const firstSlide = slides[0]
+
+            if (firstSlide) {
+                const slideRect = firstSlide.getBoundingClientRect()
+                const slideCenter = slideRect.top + slideRect.height / 2 - carouselRect.top
+
+                // 設置按鈕位置
+                if (prevBtn) {
+                    const prevBtnElement = prevBtn as HTMLElement
+                    prevBtnElement.style.top = `${slideCenter}px`
+                    prevBtnElement.style.transform = 'translateY(-50%)'
+                }
+                if (nextBtn) {
+                    const nextBtnElement = nextBtn as HTMLElement
+                    nextBtnElement.style.top = `${slideCenter}px`
+                    nextBtnElement.style.transform = 'translateY(-50%)'
+                }
+            }
+        }
+
+        // 初始設置
+        updateButtonPositions()
+
+        // 監聽窗口調整大小
+        const resizeObserver = new ResizeObserver(updateButtonPositions)
+        resizeObserver.observe(carousel)
+
+        // 監聽窗口大小變化
+        window.addEventListener('resize', updateButtonPositions)
+    }
+
+    // 初始化按鈕置中
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(centerCarouselButtons, 1000)
+        })
+    } else {
+        setTimeout(centerCarouselButtons, 1000)
+    }
+
+    // 備用初始化
+    window.addEventListener('load', () => {
+        setTimeout(centerCarouselButtons, 1500)
+    })
+
+    // 服務區塊動畫效果
+    function initServiceAnimations() {
+        const serviceSections = document.querySelectorAll('.service-section')
+
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px',
+    }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const section = entry.target as HTMLElement
+
+                    // 背景放大效果
+                    const bg = section.querySelector('.service-bg') as HTMLElement
+                    if (bg) {
+                        bg.style.transform = 'scale(1.05)'
+                    }
+
+                    // 標題動畫
+                    const title = section.querySelector('.service-title') as HTMLElement
+                    if (title) {
+                        setTimeout(() => {
+                            title.style.opacity = '1'
+                            title.style.transform = 'translateY(0)'
+                        }, 150)
+                    }
+
+                    // 描述動畫
+                    const description = section.querySelector('.service-description') as HTMLElement
+                    if (description) {
+                        setTimeout(() => {
+                            description.style.opacity = '1'
+                            description.style.transform = 'translateY(0)'
+                        }, 300)
+                    }
+
+                    // 按鈕動畫
+                    const button = section.querySelector('.service-button') as HTMLElement
+                    if (button) {
+                        setTimeout(() => {
+                            button.style.opacity = '1'
+                            button.style.transform = 'translateY(0)'
+                        }, 500)
+                    }
+                } else {
+                    // 離開可視範圍時重置
+                    const section = entry.target as HTMLElement
+
+                    const bg = section.querySelector('.service-bg') as HTMLElement
+                    if (bg) {
+                        bg.style.transform = 'scale(1)'
+                    }
+
+                    const title = section.querySelector('.service-title') as HTMLElement
+                    if (title) {
+                        title.style.opacity = '0'
+                        title.style.transform = 'translateY(32px)'
+                    }
+
+                    const description = section.querySelector('.service-description') as HTMLElement
+                    if (description) {
+                        description.style.opacity = '0'
+                        description.style.transform = 'translateY(32px)'
+                    }
+
+                    const button = section.querySelector('.service-button') as HTMLElement
+                    if (button) {
+                        button.style.opacity = '0'
+                        button.style.transform = 'translateY(32px)'
+                    }
+                }
+            })
+        }, observerOptions)
+
+        serviceSections.forEach(section => {
+            observer.observe(section)
+        })
+    }
+
+    // 初始化服務動畫
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initServiceAnimations)
+    } else {
+        initServiceAnimations()
+    }
+
+    // 進度指示器功能
+    function initProgressIndicator() {
+        const progressIndicator = document.getElementById('progress-indicator')
+        const progressDotsContainer = document.getElementById('progress-dots-container')
+        const brandIntroSection = document.querySelector('.brand-intro-section')
+        const serviceSections = document.querySelectorAll('.service-section')
+        const stickyWrapper = document.querySelector('.sticky-scroll-wrapper')
+        const environmentSection = document.querySelector('.sticky-scroll-wrapper > section:first-of-type')
+
+        if (!progressIndicator || !progressDotsContainer || !stickyWrapper) return
+
+        // 收集所有區塊標題（品牌介紹 + 環境 + 服務）
+        const sections = [brandIntroSection, environmentSection, ...Array.from(serviceSections)]
+        const sectionTitles = sections.map((section, index) => {
+            if (index === 0) {
+                // 品牌介紹區塊
+                const title = section?.querySelector('h3')?.textContent?.trim() || '品牌介紹'
+                return title
+            } else if (index === 1) {
+                // 環境區塊
+                const title = section?.querySelector('h2')?.textContent?.trim() || '環境介紹'
+                return title
+            } else {
+                // 服務區塊
+                const title = section?.querySelector('.service-title')?.textContent?.trim() || `服務 ${index - 1}`
+                return title
+            }
+        })
+
+        // 生成進度點和標籤
+        const totalSections = sections.length
+        const itemHeight = 300 / (totalSections - 1) // 均勻分佈
+
+        const dotsHTML = sectionTitles.map((title, index) => {
+            const topPosition = index * itemHeight
+            return `
+                <div class="absolute flex items-center gap-3 cursor-pointer group progress-item"
+                     data-index="${index}"
+                     style="top: ${topPosition}px; left: -4px; transform: translateY(-50%);">
+                    <!-- 進度點 -->
+                    <div class="w-3 h-3 rounded-full border-2 border-neutral-400 dark:border-white/40 bg-transparent transition-all duration-300 progress-dot group-hover:scale-150 group-hover:border-primary-400" style="flex-shrink: 0;"></div>
+                    <!-- 標籤文字 -->
+                    <span class="text-sm font-medium text-neutral-600 dark:text-white/60 whitespace-nowrap transition-all duration-300 group-hover:text-primary-500 group-hover:translate-x-1 progress-label">
+                        ${title}
+                    </span>
+                </div>
+            `
+        }).join('')
+
+        progressDotsContainer.innerHTML = dotsHTML
+        const dots = progressDotsContainer.querySelectorAll('.progress-dot')
+        const labels = progressDotsContainer.querySelectorAll('.progress-label')
+        const items = progressDotsContainer.querySelectorAll('.progress-item')
+
+        function updateProgress() {
+            if (!progressIndicator || !stickyWrapper) return
+
+            let currentSectionIndex = 0
+
+            // 檢查是否在品牌介紹區塊
+            if (brandIntroSection) {
+                const brandRect = brandIntroSection.getBoundingClientRect()
+                if (brandRect.top <= window.innerHeight / 2 && brandRect.bottom >= window.innerHeight / 2) {
+                    currentSectionIndex = 0
+                    progressIndicator.style.height = `${(1 / totalSections) * 100}%`
+                } else if (brandRect.bottom < window.innerHeight / 2) {
+                    // 已經滾過品牌介紹，計算 sticky wrapper 進度
+                    const wrapperRect = stickyWrapper.getBoundingClientRect()
+                    const wrapperHeight = stickyWrapper.scrollHeight
+                    const scrollProgress = Math.max(0, -wrapperRect.top)
+                    const wrapperProgress = Math.min(1, scrollProgress / (wrapperHeight - window.innerHeight))
+
+                    // 進度線：品牌介紹 + wrapper 進度
+                    const totalProgressValue = (1 + wrapperProgress * (totalSections - 1)) / totalSections
+                    progressIndicator.style.height = `${totalProgressValue * 100}%`
+
+                    // 當前區塊：1 (環境) + wrapper 內的進度
+                    currentSectionIndex = Math.min(
+                        1 + Math.floor(wrapperProgress * (totalSections - 1)),
+                        totalSections - 1
+                    )
+                } else {
+                    // 還沒到品牌介紹
+                    progressIndicator.style.height = '0%'
+                    currentSectionIndex = -1
+                }
+            } else {
+                // 沒有品牌介紹，使用原邏輯
+                const wrapperRect = stickyWrapper.getBoundingClientRect()
+                const wrapperHeight = stickyWrapper.scrollHeight
+                const scrollProgress = Math.max(0, -wrapperRect.top)
+                const totalProgress = Math.min(1, scrollProgress / (wrapperHeight - window.innerHeight))
+
+                progressIndicator.style.height = `${totalProgress * 100}%`
+                currentSectionIndex = Math.min(
+                    Math.floor(totalProgress * totalSections),
+                    totalSections - 1
+                )
+            }
+
+            // 檢測是否為深色模式
+            const isDarkMode = document.documentElement.classList.contains('dark')
+
+            // 更新進度點和標籤狀態
+            dots.forEach((dot, index) => {
+                const dotElement = dot as HTMLElement
+                const labelElement = labels[index] as HTMLElement
+
+                if (index <= currentSectionIndex) {
+                    dotElement.style.backgroundColor = '#d4af37' // primary-500
+                    dotElement.style.borderColor = '#d4af37'
+                    if (index === currentSectionIndex) {
+                        dotElement.style.transform = 'scale(1.3)'
+                        labelElement.style.color = '#d4af37'
+                        labelElement.style.fontWeight = '600'
+                    } else {
+                        dotElement.style.transform = 'scale(1.1)'
+                        labelElement.style.color = isDarkMode ? 'rgba(255, 255, 255, 0.8)' : 'rgba(64, 64, 64, 0.8)'
+                        labelElement.style.fontWeight = '500'
+                    }
+                } else {
+                    dotElement.style.backgroundColor = 'transparent'
+                    dotElement.style.borderColor = isDarkMode ? 'rgba(255, 255, 255, 0.4)' : 'rgba(163, 163, 163, 0.6)'
+                    dotElement.style.transform = 'scale(1)'
+                    labelElement.style.color = isDarkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(82, 82, 82, 0.8)'
+                    labelElement.style.fontWeight = '500'
+                }
+            })
+        }
+
+        // 點擊跳轉功能
+        items.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const targetSection = sections[index]
+                if (targetSection) {
+                    let targetScroll = 0
+
+                    if (index === 0) {
+                        // 品牌介紹區塊：滾動到 SectionTitle 上方
+                        const sectionTitle = document.querySelector('.section-container-detail')
+                        if (sectionTitle) {
+                            targetScroll = sectionTitle.getBoundingClientRect().top + window.scrollY - 80
+                        } else {
+                            targetScroll = targetSection.getBoundingClientRect().top + window.scrollY - 100
+                        }
+                    } else if (index === 1) {
+                        // 環境區塊：滾動到 sticky wrapper 開始位置
+                        targetScroll = stickyWrapper.getBoundingClientRect().top + window.scrollY
+                    } else {
+                        // 其他服務區塊
+                        const wrapperTop = stickyWrapper.getBoundingClientRect().top + window.scrollY
+                        const sectionHeight = window.innerHeight
+                        // index - 1 因為要扣掉品牌介紹
+                        targetScroll = wrapperTop + ((index - 1) * sectionHeight)
+                    }
+
+                    // 平滑滾動到目標位置
+                    window.scrollTo({
+                        top: targetScroll,
+                        behavior: 'smooth',
+                })
+                }
+            })
+        })
+
+        // 監聽滾動
+        window.addEventListener('scroll', updateProgress, { passive: true })
+        updateProgress() // 初始化
+    }
+
+    // 初始化進度指示器
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProgressIndicator)
+    } else {
+        initProgressIndicator()
+    }
+
+    // 響應式背景圖片切換
+    function updateServiceBackgrounds() {
+        const serviceSections = document.querySelectorAll('.service-section')
+        const isMobile = window.innerWidth < 768 // Tailwind 的 md 斷點
+
+        serviceSections.forEach(section => {
+            const desktopBg = section.getAttribute('data-desktop-bg') || ''
+            const mobileBg = section.getAttribute('data-mobile-bg') || ''
+            const bgElement = section.querySelector('.service-bg') as HTMLElement
+
+            if (bgElement) {
+                // 根據螢幕尺寸選擇適當的背景圖片
+                const backgroundImage = isMobile ? mobileBg : desktopBg
+
+                if (backgroundImage) {
+                    bgElement.style.backgroundImage = `url(${backgroundImage})`
+                    bgElement.style.backgroundSize = 'cover'
+                    bgElement.style.backgroundPosition = 'center'
+                }
+            }
+        })
+    }
+
+    // 初始化背景圖片
+    let serviceResizeTimer: ReturnType<typeof setTimeout>
+
+    function initServiceBackgrounds() {
+        updateServiceBackgrounds()
+
+        // 監聽視窗大小變化
+        window.addEventListener('resize', () => {
+            clearTimeout(serviceResizeTimer)
+            serviceResizeTimer = setTimeout(() => {
+                updateServiceBackgrounds()
+            }, 250) // 防抖處理,避免頻繁切換
+        })
+    }
+
+    // 初始化服務背景圖片
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initServiceBackgrounds)
+    } else {
+        initServiceBackgrounds()
+    }
+
+    // 備用初始化
+    window.addEventListener('load', initServiceBackgrounds)
+</script>
