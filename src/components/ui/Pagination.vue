@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { computed } from 'vue'
 import { usePagination } from '@stephenchenorg/astro/pagination-vue-server-side'
+import { computed } from 'vue'
 import { getLinkByLocaleBrowser } from '@/utils/i18n'
 
 const props = withDefaults(defineProps<{

@@ -46,7 +46,7 @@ const currentLocale = getLocale()
         const fullPath = window.location.pathname + window.location.search + window.location.hash
 
         // 移除現有的語言前綴（如果有）
-        let basePath = fullPath.replace(/^\/en(\/|$)/, '/')
+        const basePath = fullPath.replace(/^\/en(\/|$)/, '/')
 
         // 根據目標語言決定跳轉
         if (targetLocale === 'en') {
