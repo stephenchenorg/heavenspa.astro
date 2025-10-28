@@ -2,8 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import { getServiceCategories } from '@/api/serviceCategories'
-import { getServices } from '@/api/services'
+import { getServicesCategoryPageData } from '@/api/servicesCategoryPage'
 import Button from '@/components/ui/Button.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
@@ -25,7 +24,7 @@ if (!category_id || Number.isNaN(Number(category_id))) {
 const url = new URL(Astro.request.url)
 const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 
-// 先取得分類資料
+// 取得分類和服務資料（批次查詢）
 let categoriesData
 let categories
 let currentCategory
@@ -34,11 +33,16 @@ let services
 let categoryId: number
 
 try {
-  categoriesData = await getServiceCategories()
-  categories = categoriesData.serviceCategories.data
-
   // 使用路由參數中的 category_id
   categoryId = Number.parseInt(category_id, 10)
+
+  // 批次查詢分類和服務資料
+  const pageData = await getServicesCategoryPageData(categoryId, currentPage, 10, '')
+  categoriesData = pageData.serviceCategories
+  servicesData = pageData.services
+
+  categories = categoriesData.serviceCategories.data
+  services = servicesData?.services?.data || []
 
   // 找到當前分類
   currentCategory = categories.find(cat => Number.parseInt(cat.id, 10) === categoryId)
@@ -47,10 +51,6 @@ try {
   if (!currentCategory) {
     return Astro.rewrite('/404')
   }
-
-  // 取得服務資料
-  servicesData = await getServices(categoryId, currentPage, 10, '')
-  services = servicesData?.services?.data || []
 } catch (error) {
   console.error('Failed to fetch service category:', error)
   return Astro.rewrite('/404')

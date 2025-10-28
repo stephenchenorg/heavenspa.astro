@@ -2,10 +2,7 @@ import type { APIRoute } from 'astro'
 import type { Article } from '@/api/articles'
 import type { Partnership } from '@/api/partnerships'
 import type { TeamMember } from '@/types'
-import { getArticles } from '@/api/articles'
-import { getPartnerships } from '@/api/partnerships'
-import { getServiceCategories } from '@/api/serviceCategories'
-import { getAllTeams } from '@/api/teams'
+import { getSitemapData } from '@/api/sitemapData'
 
 // 網站基礎 URL
 const SITE_URL = 'https://dev-www.heavenspa.com.tw'
@@ -63,10 +60,11 @@ export const GET: APIRoute = async () => {
       })
     }
 
-    // 獲取動態內容
+    // 獲取動態內容（批次查詢）
     try {
+      const { articles, partnerships, serviceCategories, teamMembers } = await getSitemapData()
+
       // 新聞文章
-      const articles = await getArticles()
       if (articles && articles.length > 0) {
         articles.forEach((article: Article) => {
           for (const locale of locales) {
@@ -80,13 +78,8 @@ export const GET: APIRoute = async () => {
           }
         })
       }
-    } catch (error) {
-      console.error('Error fetching articles:', error)
-    }
 
-    try {
       // 異業合作
-      const partnerships = await getPartnerships()
       if (partnerships && partnerships.length > 0) {
         partnerships.forEach((partnership: Partnership) => {
           for (const locale of locales) {
@@ -100,15 +93,10 @@ export const GET: APIRoute = async () => {
           }
         })
       }
-    } catch (error) {
-      console.error('Error fetching partnerships:', error)
-    }
 
-    try {
       // 服務分類和項目
-      const { serviceCategories } = await getServiceCategories()
-      if (serviceCategories?.data && serviceCategories.data.length > 0) {
-        for (const category of serviceCategories.data) {
+      if (serviceCategories && serviceCategories.length > 0) {
+        for (const category of serviceCategories) {
           for (const locale of locales) {
             const prefix = locale === 'zh-TW' ? '' : `/${locale}`
 
@@ -122,13 +110,8 @@ export const GET: APIRoute = async () => {
           }
         }
       }
-    } catch (error) {
-      console.error('Error fetching service categories:', error)
-    }
 
-    try {
       // 團隊成員
-      const teamMembers = await getAllTeams(10) // 10 = all teams
       if (teamMembers && teamMembers.length > 0) {
         teamMembers.forEach((member: TeamMember) => {
           for (const locale of locales) {
@@ -143,7 +126,7 @@ export const GET: APIRoute = async () => {
         })
       }
     } catch (error) {
-      console.error('Error fetching team members:', error)
+      console.error('Error fetching sitemap data:', error)
     }
 
     const sitemap = generateSitemap(urls)

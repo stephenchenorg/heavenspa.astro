@@ -377,3 +377,39 @@ export async function getPartnership(id: string): Promise<Partnership> {
     seo_title: res.partnership.seo_title,
   }
 }
+
+export interface PartnershipPageData {
+  partnership: Partnership | null
+  relatedPartnerships: Partnership[]
+}
+
+export async function getPartnershipPageData(id: string): Promise<PartnershipPageData> {
+  try {
+    // First fetch the partnership to get tag IDs
+    const partnership = await getPartnership(id)
+
+    if (!partnership) {
+      return {
+        partnership: null,
+        relatedPartnerships: [],
+      }
+    }
+
+    // Then fetch related partnerships based on tag IDs
+    const tagIds = partnership.tags?.data?.map(tag => Number(tag.id)) || []
+    const relatedPartnerships = tagIds.length > 0 ? await getRelatedPartnerships(tagIds) : []
+
+    return {
+      partnership,
+      relatedPartnerships,
+    }
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.error(`Error fetching partnership page data for ${id}:`, error)
+    }
+    return {
+      partnership: null,
+      relatedPartnerships: [],
+    }
+  }
+}

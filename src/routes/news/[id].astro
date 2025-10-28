@@ -2,7 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import { getArticle, getRelatedArticles } from '@/api/articles'
+import { getArticlePageData } from '@/api/articles'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
@@ -16,16 +16,13 @@ if (!id || Number.isNaN(Number(id))) {
     return Astro.rewrite('/404')
 }
 
-const article = await getArticle(id)
+// 批次查詢文章和相關文章
+const { article, relatedArticles } = await getArticlePageData(id)
 
 // 如果文章不存在，導向 404
 if (!article || !article.id) {
     return Astro.rewrite('/404')
 }
-
-// 獲取相關文章
-const tagIds = article.tags?.data?.map(tag => Number(tag.id)) || []
-const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : []
 
 // 過濾掉當前文章
 const filteredRelatedArticles = relatedArticles.filter(relatedArticle => relatedArticle.id !== article.id)

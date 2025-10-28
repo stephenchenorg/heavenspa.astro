@@ -356,3 +356,39 @@ export async function getArticle(id: string): Promise<Article | null> {
     return null
   }
 }
+
+export interface ArticlePageData {
+  article: Article | null
+  relatedArticles: Article[]
+}
+
+export async function getArticlePageData(id: string): Promise<ArticlePageData> {
+  try {
+    // First fetch the article to get tag IDs
+    const article = await getArticle(id)
+
+    if (!article) {
+      return {
+        article: null,
+        relatedArticles: [],
+      }
+    }
+
+    // Then fetch related articles based on tag IDs
+    const tagIds = article.tags?.data?.map(tag => Number(tag.id)) || []
+    const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : []
+
+    return {
+      article,
+      relatedArticles,
+    }
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.error(`Error fetching article page data for ${id}:`, error)
+    }
+    return {
+      article: null,
+      relatedArticles: [],
+    }
+  }
+}

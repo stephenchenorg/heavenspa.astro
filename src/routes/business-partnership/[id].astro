@@ -2,7 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import { getPartnership, getRelatedPartnerships } from '@/api/partnerships'
+import { getPartnershipPageData } from '@/api/partnerships'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
@@ -17,16 +17,13 @@ if (!id || Number.isNaN(Number(id))) {
     return Astro.rewrite('/404')
 }
 
-const partnership = await getPartnership(id)
+// 批次查詢異業合作和相關異業合作
+const { partnership, relatedPartnerships } = await getPartnershipPageData(id)
 
 // 如果異業合作不存在，導向 404
 if (!partnership || !partnership.id) {
     return Astro.rewrite('/404')
 }
-
-// 獲取相關異業合作
-const tagIds = partnership.tags?.data?.map(tag => Number(tag.id)) || []
-const relatedPartnerships = tagIds.length > 0 ? await getRelatedPartnerships(tagIds) : []
 
 // 過濾掉當前異業合作
 const filteredRelatedPartnerships = relatedPartnerships.filter(relatedPartnership => relatedPartnership.id !== partnership.id)
