@@ -13,7 +13,7 @@ import Telegram from '@/components/icon/Telegram.vue'
 import Threads from '@/components/icon/Threads.vue'
 import X from '@/components/icon/X.vue'
 import FooterLink from '@/components/ui/FooterLink.vue'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 
 const t = await createNestedT()
 
@@ -102,13 +102,13 @@ const {
                         <spa data-i18n="nav.sitemap">{t('nav.sitemap')}</spa>
                     </h4>
                     <ul class="grid grid-cols-2 gap-y-3 gap-x-4 md:grid-cols-1 md:gap-x-0">
-                        <FooterLink href="/about" text={t('nav.about')} />
-                        <FooterLink href="/services" text={t('nav.services')} />
-                        <FooterLink href="/team" text={t('nav.team')} />
-                        <FooterLink href="/news" text={t('nav.news')} />
-                        <FooterLink href="/faq" text={t('nav.faq')} />
-                        <FooterLink href="/joinUs/careers" text={t('nav.joinUs')} />
-                        <FooterLink href="/business-partnership" text={t('nav.business_partnership')} />
+                        <FooterLink href={getLinkByLocale('/about')} text={t('nav.about')} />
+                        <FooterLink href={getLinkByLocale('/services')} text={t('nav.services')} />
+                        <FooterLink href={getLinkByLocale('/team')} text={t('nav.team')} />
+                        <FooterLink href={getLinkByLocale('/news')} text={t('nav.news')} />
+                        <FooterLink href={getLinkByLocale('/faq')} text={t('nav.faq')} />
+                        <FooterLink href={getLinkByLocale('/joinUs/careers')} text={t('nav.joinUs')} />
+                        <FooterLink href={getLinkByLocale('/business-partnership')} text={t('nav.business_partnership')} />
                     </ul>
                 </div>
 
@@ -227,8 +227,8 @@ const {
                         {t('footer.terms')}
                     </h4>
                     <ul class="space-y-3 grid grid-cols-1 gap-2 md:gap-0">
-                        <FooterLink href="/privacy" text={t('footer.privacy-policy')} />
-                        <FooterLink href="/terms" text={t('footer.terms-of-service')} />
+                        <FooterLink href={getLinkByLocale('/privacy')} text={t('footer.privacy-policy')} />
+                        <FooterLink href={getLinkByLocale('/terms')} text={t('footer.terms-of-service')} />
                     </ul>
                 </div>
             </div>

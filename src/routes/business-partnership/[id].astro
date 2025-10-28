@@ -5,7 +5,7 @@ import { getLocale } from 'i18n:astro'
 import { getPartnershipPageData } from '@/api/partnerships'
 import Prose from '@/components/ui/Prose.vue'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
@@ -223,7 +223,7 @@ const meta = {
                                 <div class="flex-1 max-w-sm">
                                     {partnership.prev ? (
                                         <a
-                                          href={`/news/${partnership.prev.id}`}
+                                          href={getLinkByLocale(`/business-partnership/${partnership.prev.id}`)}
                                           class="group flex items-center space-x-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md"
                                           style="background: var(--theme-card-bg); border: 1px solid var(--theme-border);"
                                         >
@@ -258,7 +258,7 @@ const meta = {
                                 <div class="flex-1 max-w-sm">
                                     {partnership.next ? (
                                         <a
-                                          href={`/news/${partnership.next.id}`}
+                                          href={getLinkByLocale(`/business-partnership/${partnership.next.id}`)}
                                           class="group flex items-center space-x-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md text-right"
                                           style="background: var(--theme-card-bg); border: 1px solid var(--theme-border);"
                                         >
@@ -304,7 +304,7 @@ const meta = {
                             <div class="space-y-4">
                                 {filteredRelatedPartnerships.length > 0 ? (
                                     filteredRelatedPartnerships.map(relatedPartnership => (
-                                        <a href={`/business-partnership/${relatedPartnership.id}`} class="block group">
+                                        <a href={getLinkByLocale(`/business-partnership/${relatedPartnership.id}`)} class="block group">
                                             <div class="flex space-x-3">
                                                 <div class="w-20 h-15 rounded flex-shrink-0 relative overflow-hidden">
                                                     <!-- Mobile Image -->

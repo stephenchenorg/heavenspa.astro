@@ -2,6 +2,7 @@
 import { seoMeta } from '@stephenchenorg/astro/page'
 import Button from '@/components/ui/Button.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getLinkByLocale } from '@/utils/i18n'
 
 interface Props {
   status: number
@@ -33,7 +34,7 @@ const meta = seoMeta({
           </p>
         )}
         {goBack && (
-          <Button href="/" variant="primary">回首頁</Button>
+          <Button href={getLinkByLocale('/')} variant="primary">回首頁</Button>
         )}
       </div>
     </div>

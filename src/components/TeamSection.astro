@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button.astro'
 import Carousel from '@/components/ui/Carousel.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 
 interface Props {
   teamMembers: TeamMember[]
@@ -48,7 +48,7 @@ const t = await createNestedT()
 
   <!-- 查看更多按鈕 -->
   <div class="mt-12 max-w-7xl mx-auto w-full">
-    <Button href="/team" variant="outline" size="medium" text={t('team.more-members')} />
+    <Button href={getLinkByLocale('/team')} variant="outline" size="medium" text={t('team.more-members')} />
   </div>
 
   <!-- Marquee Section -->

@@ -4,7 +4,7 @@ import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'
 import NavLink from '@/components/ui/NavLink.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 
 const t = await createNestedT()
 
@@ -26,13 +26,13 @@ function isActive(path: string) {
 
 // 共用導航配置
 const navItems = [
-  { href: '/about', text: t('nav.about'), i18nKey: 'nav.about' },
-  { href: '/news', text: t('nav.news'), i18nKey: 'nav.news' },
-  { href: '/services/1/items', text: t('nav.services'), i18nKey: 'nav.services' },
-  { href: '/team', text: t('nav.team'), i18nKey: 'nav.team' },
-  { href: '/faq', text: t('nav.faq'), i18nKey: 'nav.faq' },
-  { href: '/joinUs', text: t('nav.joinUs'), i18nKey: 'nav.joinUs' },
-  { href: '/business-partnership', text: t('nav.business_partnership'), i18nKey: 'nav.business-partnership' },
+  { href: getLinkByLocale('/about'), text: t('nav.about'), i18nKey: 'nav.about' },
+  { href: getLinkByLocale('/news'), text: t('nav.news'), i18nKey: 'nav.news' },
+  { href: getLinkByLocale('/services/1/items'), text: t('nav.services'), i18nKey: 'nav.services' },
+  { href: getLinkByLocale('/team'), text: t('nav.team'), i18nKey: 'nav.team' },
+  { href: getLinkByLocale('/faq'), text: t('nav.faq'), i18nKey: 'nav.faq' },
+  { href: getLinkByLocale('/joinUs'), text: t('nav.joinUs'), i18nKey: 'nav.joinUs' },
+  { href: getLinkByLocale('/business-partnership'), text: t('nav.business_partnership'), i18nKey: 'nav.business-partnership' },
 ]
 ---
 
@@ -45,7 +45,7 @@ const navItems = [
   <div class="nav-logo flex-shrink-0">
     <div class="flex items-center">
       <a
-        href="/"
+        href={getLinkByLocale('/')}
         class="flex items-center space-x-2 transition-all duration-300 group"
       >
         { companySetting?.logo ? (
@@ -98,7 +98,7 @@ const navItems = [
     style="background: var(--theme-mobile-menu-bg-gradient);"
   >
     <div class="flex justify-between items-center p-6 border-b mobile-menu-header" style="border-color: var(--theme-mobile-menu-border);">
-      <a href="/" class="mobile-logo">
+      <a href={getLinkByLocale('/')} class="mobile-logo">
         {companySetting?.logo && (
           <img
             src={companySetting?.logo}

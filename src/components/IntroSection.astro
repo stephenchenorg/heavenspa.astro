@@ -1,7 +1,7 @@
 ---
 import { getLocale } from 'i18n:astro'
 import Button from '@/components/ui/Button.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
@@ -74,7 +74,7 @@ const isEnglish = currentLocale === 'en'
           <div class={`flex flex-row gap-4 py-4 relative z-10 intro-buttons-container ${isEnglish ? 'flex-wrap' : ''}`}>
             <div data-animate-in="up" style="animation-delay: 0.2s;">
               <Button
-                href="/about"
+                href={getLinkByLocale('/about')}
                 variant="ghost"
                 size={isEnglish ? 'small' : 'medium'}
                 text={t('intro.buttons.learnMore')}
@@ -83,7 +83,7 @@ const isEnglish = currentLocale === 'en'
             </div>
             <div data-animate-in="up" style="animation-delay: 0.4s;">
               <Button
-                href="/services/1/items"
+                href={getLinkByLocale('/services/1/items')}
                 variant="ghost"
                 size={isEnglish ? 'small' : 'medium'}
                 text={t('intro.buttons.viewServices')}

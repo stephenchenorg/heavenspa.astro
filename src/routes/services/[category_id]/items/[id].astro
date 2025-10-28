@@ -4,7 +4,7 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getServiceDetail } from '@/api/service'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
@@ -94,9 +94,9 @@ const meta = {
           <!-- Breadcrumb Navigation -->
           <nav class={`mb-2 sm:mb-4 md:mb-6 ${isEnglish ? 'hidden xs:block' : ''}`}>
             <ol class={`flex items-center justify-center flex-wrap gap-x-1 sm:gap-x-2 gap-y-1 text-white/70 ${isEnglish ? 'text-[10px] xs:text-xs sm:text-sm' : 'text-xs sm:text-sm'}`}>
-              <li><a href="/services" class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-16 sm:max-w-none">{t('nav.services')}</a></li>
+              <li><a href={getLinkByLocale('/services')} class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-16 sm:max-w-none">{t('nav.services')}</a></li>
               <li class="text-white/50 text-[8px] sm:text-xs">/</li>
-              <li><a href={`/services/${category_id}/items`} class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-20 sm:max-w-none">{service.category.title}</a></li>
+              <li><a href={getLinkByLocale(`/services/${category_id}/items`)} class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-20 sm:max-w-none">{service.category.title}</a></li>
               <li class="text-white/50 text-[8px] sm:text-xs">/</li>
               <li class="text-white font-medium truncate max-w-24 sm:max-w-none" title={service.title}>{service.title}</li>
             </ol>

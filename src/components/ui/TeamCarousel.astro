@@ -1,6 +1,7 @@
 ---
 import type { TeamMember } from '@/types'
 import Badge from './Badge.astro'
+import { getLinkByLocale } from '@/utils/i18n'
 
 export interface Props {
   member: TeamMember
@@ -25,7 +26,7 @@ const {
 const uniqueId = `carousel-${member.id}-${Math.random().toString(36).substring(2, 11)}`
 ---
 
-<a class={cardClass} onclick={onClick} href=`/team/${member.id}`>
+<a class={cardClass} onclick={onClick} href={getLinkByLocale(`/team/${member.id}`)}>
   <div class={imageClass} data-member-id={uniqueId}>
     <!-- 輪播圖片 -->
     {member.images && member.images.length > 0 && member.images.map((imageItem, imgIndex) => (

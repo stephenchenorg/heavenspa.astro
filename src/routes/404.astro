@@ -3,7 +3,7 @@ import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
@@ -57,7 +57,7 @@ Astro.response.status = 404
 
       <!-- Main CTA Button -->
       <a
-        href="/"
+        href={getLinkByLocale('/')}
         class="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white dark:text-black transition-all duration-300 hover:shadow-xl hover:scale-105"
         style="background: var(--color-primary-500);"
       >

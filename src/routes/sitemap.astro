@@ -4,7 +4,7 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
@@ -31,21 +31,21 @@ const sitemapSections = [
   {
     title: t('sitemap.mainPages'),
     links: [
-      { label: t('nav.home'), url: '/', icon: 'home' },
-      { label: t('nav.about'), url: '/about', icon: 'info' },
-      { label: t('nav.services'), url: '/services', icon: 'services' },
-      { label: t('nav.team'), url: '/team', icon: 'team' },
-      { label: t('nav.news'), url: '/news', icon: 'news' },
-      { label: t('nav.business_partnership'), url: '/business-partnership', icon: 'partnership' },
+      { label: t('nav.home'), url: getLinkByLocale('/'), icon: 'home' },
+      { label: t('nav.about'), url: getLinkByLocale('/about'), icon: 'info' },
+      { label: t('nav.services'), url: getLinkByLocale('/services'), icon: 'services' },
+      { label: t('nav.team'), url: getLinkByLocale('/team'), icon: 'team' },
+      { label: t('nav.news'), url: getLinkByLocale('/news'), icon: 'news' },
+      { label: t('nav.business_partnership'), url: getLinkByLocale('/business-partnership'), icon: 'partnership' },
     ],
   },
   {
     title: t('sitemap.otherPages'),
     links: [
-      { label: t('nav.faq'), url: '/faq', icon: 'faq' },
-      { label: t('nav.joinUs'), url: '/joinUs', icon: 'join' },
-      { label: t('footer.privacy-policy'), url: '/privacy', icon: 'privacy' },
-      { label: t('footer.terms-of-service'), url: '/terms', icon: 'terms' },
+      { label: t('nav.faq'), url: getLinkByLocale('/faq'), icon: 'faq' },
+      { label: t('nav.joinUs'), url: getLinkByLocale('/joinUs'), icon: 'join' },
+      { label: t('footer.privacy-policy'), url: getLinkByLocale('/privacy'), icon: 'privacy' },
+      { label: t('footer.terms-of-service'), url: getLinkByLocale('/terms'), icon: 'terms' },
     ],
   },
 ]
@@ -189,7 +189,7 @@ const icons: Record<string, string> = {
             {currentLocale === 'en' ? 'Can\'t find what you\'re looking for? Contact us for assistance.' : '找不到您要的內容？聯繫我們尋求協助。'}
           </p>
           <a
-            href="/faq"
+            href={getLinkByLocale('/faq')}
             class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white dark:text-black transition-all duration-300 hover:shadow-xl hover:scale-105"
             style="background: var(--color-primary-500);"
           >

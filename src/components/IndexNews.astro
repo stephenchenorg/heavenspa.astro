@@ -2,7 +2,7 @@
 import type { Article } from '@/api/articles'
 import { getLocale } from 'i18n:astro'
 import Button from '@/components/ui/Button.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import Carousel from './ui/Carousel.astro'
 import SectionTitle from './ui/SectionTitle.astro'
 
@@ -39,7 +39,7 @@ const isEnglish = currentLocale === 'en'
             <div class="px-2">
               <div
                 class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative"
-                onclick={`window.location.href='/news/${article.id}'`}
+                onclick={`window.location.href='${getLinkByLocale(`/news/${article.id}`)}'`}
               >
                 <div class="relative w-full h-[400px] aspect-square overflow-hidden mb-4">
                   <!-- Background Image - Mobile -->
@@ -141,7 +141,7 @@ const isEnglish = currentLocale === 'en'
   <!-- 只在有資料時顯示的按鈕區域 -->
   {articles.length > 0 && (
     <div class="mt-12 max-w-7xl mx-auto w-full">
-      <Button href="/news" variant="outline" size="medium" text={t('news.more-news')} />
+      <Button href={getLinkByLocale('/news')} variant="outline" size="medium" text={t('news.more-news')} />
     </div>
   )}
 

@@ -237,3 +237,58 @@ export function t(key: string): string | string[] {
   if (Array.isArray(value)) return value
   return key
 }
+
+export function getLinkByLocale(path: string): string {
+  if (/^(?:https?:\/\/|mailto:|tel:|\/\/)/.test(path)) {
+    return path
+  }
+
+  const [pathAndQuery, hash] = path.split('#')
+  const [pathname, query] = pathAndQuery.split('?')
+
+  const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+
+  const locale = getLocale()
+
+  let localePath = normalizedPath
+
+  if (locale !== 'zh-TW') {
+    const localePrefix = `/${locale}`
+    if (!normalizedPath.startsWith(`${localePrefix}/`) && normalizedPath !== localePrefix) {
+      localePath = `${localePrefix}${normalizedPath}`
+    }
+  }
+
+  if (query) localePath += `?${query}`
+  if (hash) localePath += `#${hash}`
+
+  return localePath
+}
+
+// Browser-compatible version for client-side components
+export function getLinkByLocaleBrowser(path: string): string {
+  if (/^(?:https?:\/\/|mailto:|tel:|\/\/)/.test(path)) {
+    return path
+  }
+
+  const [pathAndQuery, hash] = path.split('#')
+  const [pathname, query] = pathAndQuery.split('?')
+
+  const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+
+  const locale = getCurrentLocale()
+
+  let localePath = normalizedPath
+
+  if (locale !== 'zh-TW') {
+    const localePrefix = `/${locale}`
+    if (!normalizedPath.startsWith(`${localePrefix}/`) && normalizedPath !== localePrefix) {
+      localePath = `${localePrefix}${normalizedPath}`
+    }
+  }
+
+  if (query) localePath += `?${query}`
+  if (hash) localePath += `#${hash}`
+
+  return localePath
+}

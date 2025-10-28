@@ -42,11 +42,19 @@ const currentLocale = getLocale()
         // 如果點擊的是當前語言，不做任何動作
         if (targetLocale === currentLocale) return
 
+        // 獲取完整的當前 URL（包含 query string 和 hash）
+        const fullPath = window.location.pathname + window.location.search + window.location.hash
+
+        // 移除現有的語言前綴（如果有）
+        let basePath = fullPath.replace(/^\/en(\/|$)/, '/')
+
         // 根據目標語言決定跳轉
         if (targetLocale === 'en') {
-          window.location.href = `/en${window.location.pathname}`
+          // 切換到英文：加上 /en 前綴
+          window.location.href = `/en${basePath}`
         } else {
-          window.location.href = window.location.pathname.replace('/en', '')
+          // 切換到中文（默認語言）：使用沒有前綴的路徑
+          window.location.href = basePath
         }
       })
     })

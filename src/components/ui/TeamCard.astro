@@ -1,7 +1,7 @@
 ---
 import type { TeamMember } from '@/types'
 import ImageCarousel from '@/components/ui/ImageCarousel.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import Button from './Button.astro'
 
 const t = await createNestedT()
@@ -16,7 +16,7 @@ const { member, uniqueId } = Astro.props
 ---
 <a
   class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 w-full h-full"
-  href={`/team/${member.id}`}
+  href={getLinkByLocale(`/team/${member.id}`)}
 >
   <!-- 圖片容器 -->
   <div class="relative w-full aspect-square overflow-hidden mb-4 bg-[var(--theme-border,#e5e7eb)]">
