@@ -1,5 +1,16 @@
-import type { Position } from '@/api/position'
 import { gql, graphQLAPI } from '@/api/index'
+
+export interface Position {
+  cover: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
+  title: string
+  requirements: string
+  description: string
+}
 
 export interface Faq {
   id: string
