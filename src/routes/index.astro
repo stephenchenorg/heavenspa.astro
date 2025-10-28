@@ -2,7 +2,10 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
+import { getArticles } from '@/api/articles'
 import { getBanners } from '@/api/banners'
+import { getServiceCategories } from '@/api/serviceCategories'
+import { getAllTeams } from '@/api/teams'
 import HeroBanner from '@/components/HeroBanner.astro'
 import IndexNews from '@/components/IndexNews.astro'
 import ServiceSection from '@/components/ServiceSection.astro'
@@ -11,10 +14,42 @@ import Layout from '@/layouts/Layout.astro'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 import IntroSection from '../components/IntroSection.astro'
 
-// 獲取 banners 資料
-const banners = await getBanners()
 const currentLocale = getLocale()
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
+// 並行呼叫所有 GraphQL API，大幅提升載入速度
+const startTime = performance.now()
+
+const [banners, allTeams, serviceData, allArticles] = await Promise.all([
+  getBanners().then(data => {
+    const time = performance.now() - startTime
+    console.log(`✅ getBanners() completed in ${time.toFixed(2)}ms`)
+    return data
+  }),
+  getAllTeams(40).then(data => {
+    const time = performance.now() - startTime
+    console.log(`✅ getAllTeams() completed in ${time.toFixed(2)}ms`)
+    return data
+  }),
+  getServiceCategories().then(data => {
+    const time = performance.now() - startTime
+    console.log(`✅ getServiceCategories() completed in ${time.toFixed(2)}ms`)
+    return data
+  }),
+  getArticles().then(data => {
+    const time = performance.now() - startTime
+    console.log(`✅ getArticles() completed in ${time.toFixed(2)}ms`)
+    return data
+  }),
+])
+
+const totalTime = performance.now() - startTime
+console.log(`\n🚀 Total API time (parallel): ${totalTime.toFixed(2)}ms\n`)
+
+// 處理資料
+const teamMembers = allTeams.slice(0, 6)
+const services = serviceData.serviceCategories.data
+const articles = allArticles.slice(0, 6)
 
 // 取得 SEO 設定
 const seoConfig = getSeoConfig('home', locale)
@@ -31,15 +66,15 @@ const meta = {
   <IntroSection />
 
   <div class="animate-in">
-    <TeamSection />
+    <TeamSection teamMembers={teamMembers} />
   </div>
 
   <div class="animate-in">
-    <ServiceSection />
+    <ServiceSection services={services} />
   </div>
 
   <div class="animate-in">
-    <IndexNews />
+    <IndexNews articles={articles} />
   </div>
 
   <script>

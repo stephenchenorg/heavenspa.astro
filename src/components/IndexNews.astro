@@ -1,17 +1,19 @@
 ---
+import type { Article } from '@/types'
 import { getLocale } from 'i18n:astro'
-import { getArticles } from '@/api/articles'
 import Button from '@/components/ui/Button.astro'
 import { createNestedT } from '@/utils/i18n'
 import Carousel from './ui/Carousel.astro'
 import SectionTitle from './ui/SectionTitle.astro'
 
+interface Props {
+  articles: Article[]
+}
+
+const { articles } = Astro.props
 const t = await createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
-
-let articles = await getArticles()
-articles = articles.slice(0, 6) // 只取前6筆資料
 
 ---
 

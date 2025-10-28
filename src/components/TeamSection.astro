@@ -1,16 +1,17 @@
 ---
 import type { TeamMember } from '@/types'
-import { getAllTeams } from '@/api/teams'
 import Button from '@/components/ui/Button.astro'
 import Carousel from '@/components/ui/Carousel.astro'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import TeamCard from '@/components/ui/TeamCard.astro'
 import { createNestedT } from '@/utils/i18n'
 
-const t = await createNestedT()
+interface Props {
+  teamMembers: TeamMember[]
+}
 
-// 獲取前六筆團隊成員
-const teamMembers: TeamMember[] = (await getAllTeams(40)).slice(0, 6)
+const { teamMembers } = Astro.props
+const t = await createNestedT()
 ---
 <section
   class="section-container-index"

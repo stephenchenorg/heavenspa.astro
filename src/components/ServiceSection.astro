@@ -1,15 +1,17 @@
 ---
+import type { ServiceCategory } from '@/types'
 import { getLocale } from 'i18n:astro'
-import { getServiceCategories } from '@/api/serviceCategories'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
 import { createNestedT } from '@/utils/i18n'
 
+interface Props {
+  services: ServiceCategory[]
+}
+
+const { services } = Astro.props
 const t = await createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
-
-const data = await getServiceCategories()
-const services = data.serviceCategories.data
 
 ---
 
