@@ -2,9 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import { getCompanySetting } from '@/api/companySetting'
-import { getFaqList } from '@/api/faq'
-import { getPositionData } from '@/api/position'
+import { getJoinUsPageData } from '@/api/joinUsPage'
 import FAQ from '@/components/FAQ.astro'
 import CareersForm from '@/components/joinUs/careersForm.vue'
 import SectionTitle from '@/components/ui/SectionTitle.astro'
@@ -12,29 +10,19 @@ import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
-const positions = await getPositionData()
-
 const t = await createNestedT()
-
-const companySetting = await getCompanySetting()
 
 const currentLocale = getLocale()
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
+// 單一批次查詢取得 Join Us 頁面所有資料
+const { positions, companySetting, faqs } = await getJoinUsPageData()
+
 const seoConfig = getSeoConfig('joinUs', locale)
 const meta = {
   ...seoMeta(seoConfig),
   canonical: getCanonicalUrl('joinUs', locale),
 } as PageMeta
-
-interface FaqItem {
-    id: string
-    title: string
-    content: string
-}
-
-// 獲取徵才問題 FAQ 資料 (type = 40)
-let faqs: FaqItem[] = []
-faqs = await getFaqList(40)
 ---
 
 <Layout meta={meta}>

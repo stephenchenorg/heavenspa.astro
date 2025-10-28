@@ -2,8 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import { getAboutData } from '@/api/about'
-import { getServiceCategories } from '@/api/serviceCategories'
+import { getAboutPageData } from '@/api/aboutPage'
 import Carousel from '@/components/ui/Carousel.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT } from '@/utils/i18n'
@@ -16,11 +15,9 @@ const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
-const data = await getServiceCategories()
-const services = data.serviceCategories.data
-
-const aboutData = await getAboutData()
-const { about, aboutImages } = aboutData
+// 單一批次查詢取得 About 頁面所有資料
+const { about, aboutImages, serviceCategories } = await getAboutPageData()
+const services = serviceCategories.serviceCategories.data
 
 // 取得預設 SEO 設定
 const defaultSeo = getSeoConfig('about', locale)
