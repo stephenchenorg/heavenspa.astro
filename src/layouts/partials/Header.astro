@@ -136,28 +136,32 @@ const navItems = [
 </div>
 
 <script>
-  // 等待頁面完全載入
+  // 優化版：統一的初始化函數，減少重複邏輯
   function initializeMobileMenu() {
     // 防止重複初始化
     if ((window as any).headerInitialized) {
       return
     }
     ;(window as any).headerInitialized = true
-    // 導航滾動效果
+
+    // 導航滾動效果（使用 passive 和節流優化性能）
     const mainNav = document.querySelector('.main-nav')
+    let scrollTicking = false
 
     function handleNavScroll() {
-      if (mainNav) {
-        const navElement = mainNav as HTMLElement
-        if (window.pageYOffset > 20) {
-          navElement.setAttribute('data-scrolled', 'true')
-        } else {
-          navElement.setAttribute('data-scrolled', 'false')
-        }
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          if (mainNav) {
+            const navElement = mainNav as HTMLElement
+            navElement.setAttribute('data-scrolled', window.pageYOffset > 20 ? 'true' : 'false')
+          }
+          scrollTicking = false
+        })
+        scrollTicking = true
       }
     }
 
-    window.addEventListener('scroll', handleNavScroll)
+    window.addEventListener('scroll', handleNavScroll, { passive: true })
 
     // 手機版選單功能
     const mobileMenuBtnEl = document.getElementById('mobile-menu-btn')
@@ -218,27 +222,16 @@ const navItems = [
       document.body.style.overflow = ''
     }
 
-    // 多種方式綁定點擊事件
+    // 優化：統一的點擊事件處理
     if (mobileMenuBtnEl) {
-      // 方法1: addEventListener
-      mobileMenuBtnEl.addEventListener('click', e => {
+      const handleMenuOpen = (e: Event) => {
         e.preventDefault()
         e.stopPropagation()
         openMobileMenu()
-      })
-
-      // 方法2: ontouchstart (行動裝置)
-      mobileMenuBtnEl.addEventListener('touchstart', e => {
-        e.preventDefault()
-        openMobileMenu()
-      })
-
-      // 方法3: onclick 屬性作為備用
-      mobileMenuBtnEl.onclick = function (e) {
-        e.preventDefault()
-        openMobileMenu()
-        return false
       }
+
+      // 只使用一個 click 事件監聽器（現代瀏覽器支持觸控點擊）
+      mobileMenuBtnEl.addEventListener('click', handleMenuOpen)
 
       // 確保按鈕可見和可點擊
       mobileMenuBtnEl.style.pointerEvents = 'auto'
@@ -318,17 +311,17 @@ const navItems = [
     }
   } // initializeMobileMenu 函數結束
 
-  // 多種方式確保初始化
+  // 優化：統一的初始化邏輯，避免重複調用
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeMobileMenu)
+    // 如果 DOM 還在載入，等待 DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', initializeMobileMenu, { once: true })
   } else {
+    // DOM 已經載入完成，立即執行
     initializeMobileMenu()
   }
 
-  // 備用初始化
-  window.addEventListener('load', () => {
-    setTimeout(initializeMobileMenu, 100)
-  })
+  // 處理 Astro 頁面切換
+  document.addEventListener('astro:page-load', initializeMobileMenu)
 </script>
 
 <style is:global>
