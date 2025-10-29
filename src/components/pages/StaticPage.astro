@@ -7,35 +7,10 @@ import { getCanonicalUrl } from '@/utils/seoConfig'
 import { gql, graphQLAPI } from '../../api'
 import Layout from '../../layouts/Layout.astro'
 import SectionTitle from '../ui/SectionTitle.astro'
+import type { PageData } from '@/types'
 
 interface Props {
   path: string
-}
-
-interface PageData {
-  page: {
-    id: string
-    title: string
-    key: string
-    fields: Array<{
-      content: string
-      image?: {
-        desktop?: string
-        desktop_blur?: string
-        mobile?: string
-        mobile_blur?: string
-      }
-    }>
-    og_description?: string
-    og_image?: string
-    og_title?: string
-    seo_body?: string
-    seo_description?: string
-    seo_head?: string
-    seo_json_ld?: string
-    seo_keyword?: string
-    seo_title?: string
-  }
 }
 
 const data = await graphQLAPI<PageData>(gql`

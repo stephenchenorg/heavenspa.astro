@@ -1,7 +1,7 @@
 import type { Article } from '@/api/articles'
 import type { Banner } from '@/api/banners'
 import type { ServiceCategoriesResponse, ServiceCategory } from '@/api/serviceCategories'
-import type { TeamMember } from '@/types'
+import type { PageData, TeamMember } from '@/types'
 import { gql, graphQLAPI } from '@/api/index'
 
 export interface HomepageData {
@@ -9,6 +9,7 @@ export interface HomepageData {
   teams: TeamMember[]
   serviceCategories: ServiceCategoriesResponse
   articles: Article[]
+  page: PageData
 }
 
 interface HomepageResponse {
@@ -21,6 +22,7 @@ interface HomepageResponse {
   serviceCategories: {
     data: ServiceCategory[]
   }
+  page: PageData
   articles: {
     data: any[]
     has_more_pages: boolean
@@ -176,6 +178,18 @@ export async function getHomepageData(): Promise<HomepageData> {
         total
         from
       }
+      page(key: "index") {
+        id
+        og_description
+        og_image
+        og_title
+        seo_body
+        seo_description
+        seo_head
+        seo_json_ld
+        seo_keyword
+        seo_title
+      }
     }
   `)
 
@@ -202,6 +216,7 @@ export async function getHomepageData(): Promise<HomepageData> {
   return {
     banners: response.banners?.data || [],
     teams: response.teams?.data || [],
+    page: response.page || {},
     serviceCategories: {
       serviceCategories: {
         data: response.serviceCategories?.data || [],
