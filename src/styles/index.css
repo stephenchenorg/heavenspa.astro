@@ -35,10 +35,6 @@
   --color-error: #ef4444;
   --color-info: #3b82f6;
 
-  /* 字體設定 */
-  --font-sans: 'Krona One', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace';
-
   /* Letter spacing scale */
   --letter-spacing-tight: -0.025em;
   --letter-spacing-normal: 0em;
