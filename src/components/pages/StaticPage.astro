@@ -7,13 +7,13 @@ import { getCanonicalUrl } from '@/utils/seoConfig'
 import { gql, graphQLAPI } from '../../api'
 import Layout from '../../layouts/Layout.astro'
 import SectionTitle from '../ui/SectionTitle.astro'
-import type { PageData } from '@/types'
+import type { PageResponse } from '@/types'
 
 interface Props {
   path: string
 }
 
-const data = await graphQLAPI<PageData>(gql`
+const data = await graphQLAPI<PageResponse>(gql`
   query MyQuery {
     page(key: "${Astro.props.path}") {
       id

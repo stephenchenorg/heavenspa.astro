@@ -21,3 +21,7 @@ export interface PageData {
   seo_keyword?: string
   seo_title?: string
 }
+
+export interface PageResponse {
+  page: PageData
+}
