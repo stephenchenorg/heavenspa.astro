@@ -11,7 +11,7 @@ const { pixelId } = Astro.props
   And important part is using `is:inline` attribute on the script tag.
   Tell Astro ignores all the optimizations it does to scripts and just includes them as they are.
 -->
-<script is:inline defer define:vars={{ pixelId }}>
+<script is:inline define:vars={{ pixelId }}>
 (function (f, b, e, v, n, t, s) {
   if (f.fbq) return
   n = f.fbq = function (...args) {
