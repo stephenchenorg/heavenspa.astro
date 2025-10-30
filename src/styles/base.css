@@ -7,17 +7,9 @@
     @apply bg-white dark:bg-black text-black dark:text-white min-h-screen;
   }
 
-  /* Language-specific fonts */
-  html[lang="en"] body,
-  html[lang="en"] body *,
-  html[lang="en"] * {
-    font-family: 'Roboto', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
-  }
-
-  html[lang="zh-TW"] body,
-  html[lang="zh-TW"] body *,
-  html[lang="zh-TW"] * {
-    font-family: 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
+  /* Universal font stack - Roboto for English, Noto Sans TC fallback for Chinese */
+  html * {
+    font-family: 'Roboto', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
   }
 
   button {
