@@ -53,6 +53,7 @@ const navItems = [
                 src={companySetting?.logo}
                 alt={companySetting?.name || 'Logo'}
                 class="h-10 w-auto sm:h-12 transition-transform duration-300 group-hover:scale-105"
+                loading="eager"
               />
           )
           : (
@@ -104,6 +105,7 @@ const navItems = [
             src={companySetting?.logo}
             class="h-10 w-auto object-contain"
             alt="Logo"
+            loading="eager"
           />
         )}
       </a>

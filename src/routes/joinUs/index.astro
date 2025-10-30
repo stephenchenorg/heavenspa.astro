@@ -41,7 +41,7 @@ const meta = {
                     {t('joinUs.job.title')}
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {positions && positions.map(item => (
+                    {positions && positions.map((item, index) => (
                         <div
                           class="liquid border overflow-hidden flex flex-col"
                           style="border-color: var(--theme-border);"
@@ -59,6 +59,7 @@ const meta = {
                                       src={item.cover.desktop}
                                       alt={item.title}
                                       class="w-full h-full object-cover"
+                                      loading={index < 2 ? "eager" : "lazy"}
                                     />
                                 </picture>
                             </div>

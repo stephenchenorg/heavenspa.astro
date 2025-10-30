@@ -58,12 +58,16 @@ const meta = {
               src={article.cover?.mobile || article.cover?.desktop}
               alt={article.title}
               class="object-cover w-full h-full md:hidden"
+              loading="eager"
+              fetchpriority="high"
             />
             <!-- Desktop Image -->
             <img
               src={article.cover?.desktop || article.cover?.mobile}
               alt={article.title}
               class="object-cover w-full h-full hidden md:block"
+              loading="eager"
+              fetchpriority="high"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
         </div>
@@ -312,12 +316,14 @@ const meta = {
                                                       src={relatedArticle.cover?.mobile || relatedArticle.cover?.desktop || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Article'}
                                                       alt={relatedArticle.title}
                                                       class="w-full h-full object-cover md:hidden"
+                                                      loading="lazy"
                                                     />
                                                     <!-- Desktop Image -->
                                                     <img
                                                       src={relatedArticle.cover?.desktop || relatedArticle.cover?.mobile || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Article'}
                                                       alt={relatedArticle.title}
                                                       class="w-full h-full object-cover hidden md:block"
+                                                      loading="lazy"
                                                     />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
