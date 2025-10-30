@@ -51,11 +51,23 @@ if (!ogImage) {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <!-- Preconnect for faster DNS resolution -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Load only what you need with display=swap -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Krona+One&family=Noto+Sans+TC:wght@300..800&family=Noto+Serif+TC:wght@300..800&family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- Non-blocking font loading: optimized for LCP performance -->
+    <!-- Only load essential fonts (Noto Sans TC, Noto Serif TC, Roboto) with necessary weights (400, 600, 700) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Roboto:wght@400;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+
+    <!-- Fallback for no-JS scenarios -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Roboto:wght@400;600;700&display=swap" />
+    </noscript>
 
     <slot name="head" />
 

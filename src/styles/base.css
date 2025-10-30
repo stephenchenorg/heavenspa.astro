@@ -17,7 +17,7 @@
   html[lang="zh-TW"] body,
   html[lang="zh-TW"] body *,
   html[lang="zh-TW"] * {
-    font-family: 'Krona One', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
+    font-family: 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
   }
 
   button {
