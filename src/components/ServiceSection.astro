@@ -86,7 +86,7 @@ const isEnglish = currentLocale === 'en'
 
       <!-- Navigation Controls - 左右兩側 -->
       <button
-        class="absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        class="absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-[5] transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed pointer-events-auto"
         style="top: 50%; transform: translateY(-50%);"
         aria-label="上一頁"
         id="prev-service"
@@ -96,7 +96,7 @@ const isEnglish = currentLocale === 'en'
         </svg>
       </button>
       <button
-        class="absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        class="absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-[5] transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed pointer-events-auto"
         style="top: 50%; transform: translateY(-50%);"
         aria-label="下一頁"
         id="next-service"
@@ -160,29 +160,56 @@ const isEnglish = currentLocale === 'en'
 
     // Touch/Swipe functionality for mobile
     let startX = 0
+    let startY = 0
     let currentX = 0
     let isDragging = false
+    let isSwiping = false
 
     if (sectionsContainer) {
       // Touch events
       sectionsContainer.addEventListener('touchstart', e => {
+        // 如果觸碰的是連結或按鈕，不要攔截
+        const target = e.target
+        if (target.closest('a') || target.closest('button')) {
+          return
+        }
+
         startX = e.touches[0].clientX
+        startY = e.touches[0].clientY
         isDragging = true
-        sectionsContainer.style.transition = 'none'
+        isSwiping = false
       })
 
       sectionsContainer.addEventListener('touchmove', e => {
         if (!isDragging) return
+
         currentX = e.touches[0].clientX
-        const diff = currentX - startX
-        const currentTranslate = -100 * currentCourseIndex
-        const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
-        sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        const currentY = e.touches[0].clientY
+        const diffX = Math.abs(currentX - startX)
+        const diffY = Math.abs(currentY - startY)
+
+        // 只有當水平滑動距離大於垂直滑動時才啟動輪播
+        if (diffX > diffY && diffX > 10) {
+          isSwiping = true
+          e.preventDefault() // 防止頁面滾動
+
+          sectionsContainer.style.transition = 'none'
+          const diff = currentX - startX
+          const currentTranslate = -100 * currentCourseIndex
+          const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
+          sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        }
       })
 
       sectionsContainer.addEventListener('touchend', () => {
         if (!isDragging) return
         isDragging = false
+
+        if (!isSwiping) {
+          // 不是滑動操作，可能是點擊，不做處理
+          return
+        }
+
         sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
 
         const diff = currentX - startX
@@ -197,6 +224,7 @@ const isEnglish = currentLocale === 'en'
         }
 
         updateCourse(currentCourseIndex)
+        isSwiping = false
       })
 
       // Mouse events for desktop

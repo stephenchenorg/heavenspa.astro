@@ -1,0 +1,11 @@
+---
+import { getServiceCategories } from '@/api/serviceCategories'
+
+const { serviceCategories } = await getServiceCategories()
+const firstCategory = serviceCategories.data[0]
+
+if (firstCategory) {
+    return Astro.redirect(`/services/${firstCategory.id}/items`)
+}
+
+---
