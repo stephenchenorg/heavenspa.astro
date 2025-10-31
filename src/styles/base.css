@@ -7,9 +7,14 @@
     @apply bg-white dark:bg-black text-black dark:text-white min-h-screen;
   }
 
-  /* Universal font stack - Roboto for English, Noto Sans TC fallback for Chinese */
-  html * {
-    font-family: 'Roboto', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
+  /* Chinese website: Krona One + Noto Sans TC */
+  html[lang="zh-TW"] * {
+    font-family: 'Krona One', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
+  }
+
+  /* English website: Roboto */
+  html[lang="en"] * {
+    font-family: 'Roboto', 'ui-sans-serif', 'system-ui', 'sans-serif' !important;
   }
 
   button {
