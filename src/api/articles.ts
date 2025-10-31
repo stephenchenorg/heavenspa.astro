@@ -367,7 +367,7 @@ export async function getArticlePageData(id: string): Promise<ArticlePageData> {
     }
 
     // Then fetch related articles based on tag IDs
-    const tagIds = article.tags.map(tag => Number(tag.id)) || []
+    const tagIds = article.tags?.map(tag => Number(tag.id)) || []
     const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : []
 
     return {

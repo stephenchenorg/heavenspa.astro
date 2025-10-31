@@ -113,7 +113,7 @@ const meta = {
 
                     <!-- Tags -->
                     <div class="flex items-center justify-center space-x-2">
-                        {partnership.tags.map(tag => (
+                        {partnership.tags?.map(tag => (
                                 <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
                                 {tag.title}
                             </span>
@@ -355,7 +355,7 @@ const meta = {
                             >
                                 {t('partnerships.tags')}</h3>
                             <div class="flex flex-wrap gap-2">
-                                {partnership.tags.map(tag => (
+                                {partnership.tags?.map(tag => (
                                     <span
                                       class={`rounded-md px-3 py-2 transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50 ${isEnglish ? 'text-xs' : 'text-sm'}`}
                                       style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"

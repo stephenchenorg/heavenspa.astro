@@ -57,6 +57,7 @@ if (!ogImage) {
 
     <!-- Non-blocking font loading: optimized for LCP performance -->
     <!-- Load essential fonts: Krona One, Roboto, Noto Sans TC -->
+    {/* @ts-expect-error - onload attribute contains inline JS for non-blocking font loading */}
     <link
       rel="preload"
       as="style"

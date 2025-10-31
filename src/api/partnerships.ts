@@ -388,7 +388,7 @@ export async function getPartnershipPageData(id: string): Promise<PartnershipPag
     }
 
     // Then fetch related partnerships based on tag IDs
-    const tagIds = partnership.tags.map(tag => Number(tag.id)) || []
+    const tagIds = partnership.tags?.map(tag => Number(tag.id)) || []
     const relatedPartnerships = tagIds.length > 0 ? await getRelatedPartnerships(tagIds) : []
 
     return {
