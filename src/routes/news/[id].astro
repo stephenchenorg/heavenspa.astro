@@ -112,7 +112,7 @@ const meta = {
 
                     <!-- Tags -->
                     <div class="flex items-center justify-center space-x-2">
-                        {article.tags?.data?.map(tag => (
+                        {article.tags?.map(tag => (
                             <span class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
                                 {tag.title}
                             </span>
@@ -356,7 +356,7 @@ const meta = {
                             >
                                 {t('news.tags')}</h3>
                             <div class="flex flex-wrap gap-2">
-                                {article.tags?.data?.map(tag => (
+                                {article.tags?.map(tag => (
                                     <span
                                       class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
                                       style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
@@ -364,7 +364,7 @@ const meta = {
                                         {tag.title}
                                     </span>
                                 ))}
-                                {(!article.tags?.data || article.tags.data.length === 0) && (
+                                {(!article.tags || article.tags.length === 0) && (
                                     <span
                                       class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
                                       style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"

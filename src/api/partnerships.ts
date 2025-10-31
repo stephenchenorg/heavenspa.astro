@@ -21,9 +21,7 @@ export interface Partnership {
   date?: string
   year?: string
   month?: string
-  tags?: {
-    data: Tags[]
-  }
+  tags?: Tags[]
   images?: Array<{
     image: {
       desktop: string
@@ -94,10 +92,8 @@ export async function getPartnerships(): Promise<Partnership[]> {
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
@@ -177,10 +173,8 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
@@ -311,10 +305,8 @@ export async function getPartnership(id: string): Promise<Partnership> {
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
@@ -396,7 +388,7 @@ export async function getPartnershipPageData(id: string): Promise<PartnershipPag
     }
 
     // Then fetch related partnerships based on tag IDs
-    const tagIds = partnership.tags?.data?.map(tag => Number(tag.id)) || []
+    const tagIds = partnership.tags.map(tag => Number(tag.id)) || []
     const relatedPartnerships = tagIds.length > 0 ? await getRelatedPartnerships(tagIds) : []
 
     return {

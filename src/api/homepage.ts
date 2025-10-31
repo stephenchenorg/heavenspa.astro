@@ -157,10 +157,8 @@ export async function getHomepageData(): Promise<HomepageData> {
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
