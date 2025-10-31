@@ -143,18 +143,38 @@ const isEnglish = currentLocale === 'en'
       }
     }
 
+    // Auto-play functionality - 必須先定義，才能在其他事件中使用
+    let autoPlayInterval
+    const startAutoPlay = () => {
+      stopAutoPlay() // 先清除舊的
+      autoPlayInterval = setInterval(() => {
+        currentCourseIndex = (currentCourseIndex + 1) % servicesData.length
+        updateCourse(currentCourseIndex)
+      }, 2600)
+    }
+
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval)
+      }
+    }
+
     // Navigation events - 循環播放
     if (prevButton) {
       prevButton.addEventListener('click', () => {
+        stopAutoPlay() // 停止自動輪播
         currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : servicesData.length - 1
         updateCourse(currentCourseIndex)
+        startAutoPlay() // 重啟自動輪播
       })
     }
 
     if (nextButton) {
       nextButton.addEventListener('click', () => {
+        stopAutoPlay() // 停止自動輪播
         currentCourseIndex = currentCourseIndex < servicesData.length - 1 ? currentCourseIndex + 1 : 0
         updateCourse(currentCourseIndex)
+        startAutoPlay() // 重啟自動輪播
       })
     }
 
@@ -174,6 +194,7 @@ const isEnglish = currentLocale === 'en'
           return
         }
 
+        stopAutoPlay() // 觸碰時停止自動輪播
         startX = e.touches[0].clientX
         startY = e.touches[0].clientY
         isDragging = true
@@ -207,6 +228,7 @@ const isEnglish = currentLocale === 'en'
 
         if (!isSwiping) {
           // 不是滑動操作，可能是點擊，不做處理
+          startAutoPlay() // 重啟自動輪播
           return
         }
 
@@ -225,31 +247,55 @@ const isEnglish = currentLocale === 'en'
 
         updateCourse(currentCourseIndex)
         isSwiping = false
+        startAutoPlay() // 重啟自動輪播
       })
 
       // Mouse events for desktop
       sectionsContainer.addEventListener('mousedown', e => {
+        // 如果點擊的是連結或按鈕，不要攔截
+        const target = e.target
+        if (target.closest('a') || target.closest('button')) {
+          return
+        }
+
+        stopAutoPlay() // 拖動時停止自動輪播
         startX = e.clientX
         isDragging = true
-        sectionsContainer.style.transition = 'none'
+        isSwiping = false
         sectionsContainer.style.cursor = 'grabbing'
       })
 
       sectionsContainer.addEventListener('mousemove', e => {
         if (!isDragging) return
-        e.preventDefault()
+
         currentX = e.clientX
-        const diff = currentX - startX
-        const currentTranslate = -100 * currentCourseIndex
-        const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
-        sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        const diffX = Math.abs(currentX - startX)
+
+        // 只有當拖動距離大於 10px 時才啟動輪播
+        if (diffX > 10) {
+          isSwiping = true
+          e.preventDefault()
+
+          sectionsContainer.style.transition = 'none'
+          const diff = currentX - startX
+          const currentTranslate = -100 * currentCourseIndex
+          const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
+          sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        }
       })
 
       sectionsContainer.addEventListener('mouseup', () => {
         if (!isDragging) return
         isDragging = false
-        sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
         sectionsContainer.style.cursor = 'grab'
+
+        if (!isSwiping) {
+          // 不是拖動操作，只是點擊，不做處理
+          startAutoPlay() // 重啟自動輪播
+          return
+        }
+
+        sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
 
         const diff = currentX - startX
         const threshold = 50
@@ -263,14 +309,18 @@ const isEnglish = currentLocale === 'en'
         }
 
         updateCourse(currentCourseIndex)
+        isSwiping = false
+        startAutoPlay() // 重啟自動輪播
       })
 
       sectionsContainer.addEventListener('mouseleave', () => {
         if (isDragging) {
           isDragging = false
+          isSwiping = false
           sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
           sectionsContainer.style.cursor = 'grab'
           updateCourse(currentCourseIndex)
+          startAutoPlay() // 重啟自動輪播
         }
       })
 
@@ -278,25 +328,10 @@ const isEnglish = currentLocale === 'en'
       sectionsContainer.style.cursor = 'grab'
     }
 
-    // Auto-play functionality
-    let autoPlayInterval
-    const startAutoPlay = () => {
-      autoPlayInterval = setInterval(() => {
-        currentCourseIndex = (currentCourseIndex + 1) % servicesData.length
-        updateCourse(currentCourseIndex)
-      }, 2600)
-    }
-
-    const stopAutoPlay = () => {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval)
-      }
-    }
-
     // Start auto-play
     startAutoPlay()
 
-    // Pause auto-play on hover
+    // Pause auto-play on hover (desktop only)
     const serviceSection = document.getElementById('services')
     if (serviceSection) {
       serviceSection.addEventListener('mouseenter', stopAutoPlay)
