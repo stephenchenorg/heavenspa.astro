@@ -2,30 +2,44 @@
   <li>
     <a
       :href
+      :target="target"
+      :rel="rel"
+      :title="title"
       :class="[
         'footer-link group flex items-center justify-start text-sm',
         'text-[var(--theme-text-secondary,#666666)]',
         'hover:text-[var(--color-primary-600,#c4a428)]',
         'hover:translate-x-1',
         {
-          'is-bouncing': isBouncing
+          'is-bouncing': isBouncing,
+          'gap-2': hasIcon,
+          'has-icon': hasIcon
         }
       ]"
       @click="handleClick"
     >
-      <span class="arrow w-0 overflow-hidden opacity-0 group-hover:opacity-100 group-hover:w-auto group-hover:mr-2 transition-all duration-300">→</span>
-      <span>{{ text }}</span>
+      <span v-if="!hasIcon" class="arrow w-0 overflow-hidden opacity-0 group-hover:opacity-100 group-hover:w-auto group-hover:mr-2 transition-all duration-300">→</span>
+      <div v-if="hasIcon" class="w-4 h-4 transition-transform duration-300">
+        <slot name="icon" />
+      </div>
+      <span :class="hasIcon ? 'font-normal tracking-wide' : ''">{{ text }}</span>
     </a>
   </li>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useSlots } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   href: string
   text: string
+  target?: string
+  rel?: string
+  title?: string
 }>()
+
+const slots = useSlots()
+const hasIcon = ref(!!slots.icon)
 
 const isBouncing = ref(false)
 
@@ -110,8 +124,8 @@ function handleClick() {
     box-shadow: 0 4px 12px rgba(196, 164, 40, 0.6) !important;
   }
 
-  /* 觸控裝置 Active 時箭頭顯示 */
-  .footer-link:active .arrow {
+  /* 觸控裝置 Active 時箭頭顯示 - 只有沒有 icon 時才顯示 */
+  .footer-link:not(.has-icon):active .arrow {
     width: auto !important;
     margin-right: 0.5rem !important;
     opacity: 1 !important;
@@ -127,7 +141,7 @@ function handleClick() {
     box-shadow: 0 4px 12px rgba(196, 164, 40, 0.4);
   }
 
-  .footer-link.is-bouncing .arrow {
+  .footer-link.is-bouncing:not(.has-icon) .arrow {
     width: auto !important;
     margin-right: 0.5rem !important;
     opacity: 1 !important;
