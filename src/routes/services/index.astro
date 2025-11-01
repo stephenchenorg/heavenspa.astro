@@ -1,0 +1,18 @@
+---
+import { getServiceCategories } from '@/api/serviceCategories'
+import {getLocale} from "i18n:astro";
+
+const { serviceCategories } = await getServiceCategories()
+const firstCategory = serviceCategories.data[0]
+
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
+
+if (firstCategory) {
+    if(isEnglish){
+        return Astro.redirect(`/en/services/${firstCategory.id}/items`)
+    }
+    return Astro.redirect(`/services/${firstCategory.id}/items`)
+}
+
+---

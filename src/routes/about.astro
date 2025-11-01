@@ -54,6 +54,8 @@ const meta = {
                   src={about.cover.desktop}
                   alt="品牌介紹 banner"
                   class="object-cover w-full h-full"
+                  loading="eager"
+                  fetchpriority="high"
                 />
             </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
@@ -89,6 +91,7 @@ const meta = {
                               src={about.image.desktop}
                               alt="品牌介紹圖片"
                               class="w-full h-full object-cover"
+                              loading="lazy"
                             />
                         </picture>
                     </div>

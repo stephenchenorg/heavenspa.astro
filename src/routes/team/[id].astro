@@ -107,7 +107,8 @@ const meta = {
             src={mainImageMobile}
             alt={teamMember.title}
             class="w-full h-full object-cover select-none transition-all duration-300 md:hidden"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
           />
           <!-- Desktop Image -->
           <img
@@ -115,7 +116,8 @@ const meta = {
             src={mainImageDesktop}
             alt={teamMember.title}
             class="w-full h-full object-cover select-none transition-all duration-300 hidden md:block"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
           />
 
           <!--{validImages.length > 1 && (-->

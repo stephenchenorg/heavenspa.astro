@@ -32,6 +32,7 @@
               <img
                 :src="course.image" :alt="course.subtitle"
                 class="w-full h-full object-cover object-center transition-transform duration-300"
+                :loading="index === 0 ? 'eager' : 'lazy'"
               >
             </div>
           </div>

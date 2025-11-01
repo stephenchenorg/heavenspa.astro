@@ -26,13 +26,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <style scoped>
-.threads-icon {
-  color: var(--theme-text, #000000);
-  transition: all 0.3s ease;
-}
+
 
 .threads-icon:hover {
   color: var(--color-primary-600, #c4a428);
-  transform: scale(1.1);
 }
 </style>

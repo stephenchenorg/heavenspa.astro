@@ -119,100 +119,70 @@ const {
                     </h4>
                     <ul class="space-y-3 grid grid-cols-1 md:gap-0">
                         {companySetting?.fb_link && (
-                                <li>
-                                    <a
-                                      href={companySetting.fb_link}
-                                      class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      title="Facebook"
-                                    >
-                                        <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                                            <Facebook size="16" />
-                                        </div>
-                                        <span class="font-normal tracking-wide">Facebook</span>
-                                    </a>
-                                </li>
+                            <FooterLink
+                                href={companySetting.fb_link}
+                                text="Facebook"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Facebook"
+                            >
+                                <Facebook slot="icon" size="16" />
+                            </FooterLink>
                         )}
                         {companySetting?.ig_link && (
-                                <li>
-                                    <a
-                                      href={companySetting.ig_link}
-                                      class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      title="Instagram"
-                                    >
-                                        <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                                            <Instagram size="16" />
-                                        </div>
-                                        <span class="font-normal tracking-wide">Instagram</span>
-                                    </a>
-                                </li>
+                            <FooterLink
+                                href={companySetting.ig_link}
+                                text="Instagram"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Instagram"
+                            >
+                                <Instagram slot="icon" size="16" />
+                            </FooterLink>
                         )}
                         {companySetting?.line_link && (
-                                <li>
-                                    <a
-                                      href={companySetting.line_link}
-                                      class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      title="Line"
-                                    >
-                                        <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                                            <Line size="18" />
-                                        </div>
-                                        <span class="font-normal tracking-wide">Line</span>
-                                    </a>
-                                </li>
+                            <FooterLink
+                                href={companySetting.line_link}
+                                text="Line"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Line"
+                            >
+                                <Line slot="icon" size="18" />
+                            </FooterLink>
                         )}
                         {companySetting?.twitter_link && (
-                                <li>
-                                    <a
-                                      href={companySetting.twitter_link}
-                                      class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      title="X (Twitter)"
-                                    >
-                                        <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                                            <X size="18" />
-                                        </div>
-                                        <span class="font-normal tracking-wide">Twitter</span>
-                                    </a>
-                                </li>
+                            <FooterLink
+                                href={companySetting.twitter_link}
+                                text="Twitter"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="X (Twitter)"
+                            >
+                                <X slot="icon" size="18" />
+                            </FooterLink>
                         )}
                         {companySetting?.tg_link && (
-                                <li>
-                                    <a
-                                      href={companySetting.tg_link}
-                                      class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      title="Telegram"
-                                    >
-                                        <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                                            <Telegram size="18" />
-                                        </div>
-                                        <span class="font-normal tracking-wide">Telegram</span>
-                                    </a>
-                                </li>
+                            <FooterLink
+                                href={companySetting.tg_link}
+                                text="Telegram"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Telegram"
+                            >
+                                <Telegram slot="icon" size="18" />
+                            </FooterLink>
                         )}
                         {companySetting?.threads_link && (
-                                <li>
-                                    <a
-                                      href={companySetting.threads_link}
-                                      class="flex items-center gap-2 text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] transition-all duration-300 hover:scale-105"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      title="Threads"
-                                    >
-                                        <div class="w-4 h-4 transition-transform duration-300 group-hover:scale-110">
-                                            <Threads size="20" />
-                                        </div>
-                                        <span class="font-normal tracking-wide">Threads</span>
-                                    </a>
-                                </li>
+                            <FooterLink
+                                href={companySetting.threads_link}
+                                text="Threads"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Threads"
+                            >
+                                <Threads slot="icon" size="20" />
+                            </FooterLink>
                         )}
                     </ul>
                 </div>
@@ -270,6 +240,7 @@ const {
         .animation-delay-600 {
             animation-delay: 0.6s;
         }
+
 
         /* 深色模式適配 */
         .dark-theme footer {

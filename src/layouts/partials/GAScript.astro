@@ -8,11 +8,11 @@ const { ga4TrackingId } = Astro.props
 
 <!--
   This section is for Google Analytics 4 (GA4) tracking code.
-  And important part is using `is:inline` attribute on the script tag.
-  Tell Astro ignores all the optimizations it does to scripts and just includes them as they are.
+  Using defer attribute to prevent blocking page render and improve LCP.
+  GA script will load after HTML parsing is complete.
 -->
-<script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${ga4TrackingId}`}></script>
-<script is:inline define:vars={{ ga4TrackingId }}>
+<script is:inline defer src={`https://www.googletagmanager.com/gtag/js?id=${ga4TrackingId}`}></script>
+<script is:inline defer define:vars={{ ga4TrackingId }}>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());

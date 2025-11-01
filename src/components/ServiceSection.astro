@@ -86,7 +86,7 @@ const isEnglish = currentLocale === 'en'
 
       <!-- Navigation Controls - 左右兩側 -->
       <button
-        class="absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        class="absolute left-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-[5] transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed pointer-events-auto"
         style="top: 50%; transform: translateY(-50%);"
         aria-label="上一頁"
         id="prev-service"
@@ -96,7 +96,7 @@ const isEnglish = currentLocale === 'en'
         </svg>
       </button>
       <button
-        class="absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-20 transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        class="absolute right-4 w-12 h-12 rounded-full flex items-center justify-center text-white z-[5] transition-all duration-200 hover:scale-110 active:scale-95 bg-black/60 hover:bg-black/80 backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed pointer-events-auto"
         style="top: 50%; transform: translateY(-50%);"
         aria-label="下一頁"
         id="next-service"
@@ -143,46 +143,95 @@ const isEnglish = currentLocale === 'en'
       }
     }
 
+    // Auto-play functionality - 必須先定義，才能在其他事件中使用
+    let autoPlayInterval
+    const startAutoPlay = () => {
+      stopAutoPlay() // 先清除舊的
+      autoPlayInterval = setInterval(() => {
+        currentCourseIndex = (currentCourseIndex + 1) % servicesData.length
+        updateCourse(currentCourseIndex)
+      }, 2600)
+    }
+
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval)
+      }
+    }
+
     // Navigation events - 循環播放
     if (prevButton) {
       prevButton.addEventListener('click', () => {
+        stopAutoPlay() // 停止自動輪播
         currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : servicesData.length - 1
         updateCourse(currentCourseIndex)
+        startAutoPlay() // 重啟自動輪播
       })
     }
 
     if (nextButton) {
       nextButton.addEventListener('click', () => {
+        stopAutoPlay() // 停止自動輪播
         currentCourseIndex = currentCourseIndex < servicesData.length - 1 ? currentCourseIndex + 1 : 0
         updateCourse(currentCourseIndex)
+        startAutoPlay() // 重啟自動輪播
       })
     }
 
     // Touch/Swipe functionality for mobile
     let startX = 0
+    let startY = 0
     let currentX = 0
     let isDragging = false
+    let isSwiping = false
 
     if (sectionsContainer) {
       // Touch events
       sectionsContainer.addEventListener('touchstart', e => {
+        // 如果觸碰的是連結或按鈕，不要攔截
+        const target = e.target
+        if (target.closest('a') || target.closest('button')) {
+          return
+        }
+
+        stopAutoPlay() // 觸碰時停止自動輪播
         startX = e.touches[0].clientX
+        startY = e.touches[0].clientY
         isDragging = true
-        sectionsContainer.style.transition = 'none'
+        isSwiping = false
       })
 
       sectionsContainer.addEventListener('touchmove', e => {
         if (!isDragging) return
+
         currentX = e.touches[0].clientX
-        const diff = currentX - startX
-        const currentTranslate = -100 * currentCourseIndex
-        const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
-        sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        const currentY = e.touches[0].clientY
+        const diffX = Math.abs(currentX - startX)
+        const diffY = Math.abs(currentY - startY)
+
+        // 只有當水平滑動距離大於垂直滑動時才啟動輪播
+        if (diffX > diffY && diffX > 10) {
+          isSwiping = true
+          e.preventDefault() // 防止頁面滾動
+
+          sectionsContainer.style.transition = 'none'
+          const diff = currentX - startX
+          const currentTranslate = -100 * currentCourseIndex
+          const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
+          sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        }
       })
 
       sectionsContainer.addEventListener('touchend', () => {
         if (!isDragging) return
         isDragging = false
+
+        if (!isSwiping) {
+          // 不是滑動操作，可能是點擊，不做處理
+          startAutoPlay() // 重啟自動輪播
+          return
+        }
+
         sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
 
         const diff = currentX - startX
@@ -197,31 +246,56 @@ const isEnglish = currentLocale === 'en'
         }
 
         updateCourse(currentCourseIndex)
+        isSwiping = false
+        startAutoPlay() // 重啟自動輪播
       })
 
       // Mouse events for desktop
       sectionsContainer.addEventListener('mousedown', e => {
+        // 如果點擊的是連結或按鈕，不要攔截
+        const target = e.target
+        if (target.closest('a') || target.closest('button')) {
+          return
+        }
+
+        stopAutoPlay() // 拖動時停止自動輪播
         startX = e.clientX
         isDragging = true
-        sectionsContainer.style.transition = 'none'
+        isSwiping = false
         sectionsContainer.style.cursor = 'grabbing'
       })
 
       sectionsContainer.addEventListener('mousemove', e => {
         if (!isDragging) return
-        e.preventDefault()
+
         currentX = e.clientX
-        const diff = currentX - startX
-        const currentTranslate = -100 * currentCourseIndex
-        const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
-        sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        const diffX = Math.abs(currentX - startX)
+
+        // 只有當拖動距離大於 10px 時才啟動輪播
+        if (diffX > 10) {
+          isSwiping = true
+          e.preventDefault()
+
+          sectionsContainer.style.transition = 'none'
+          const diff = currentX - startX
+          const currentTranslate = -100 * currentCourseIndex
+          const newTranslate = currentTranslate + (diff / sectionsContainer.offsetWidth) * 100
+          sectionsContainer.style.transform = `translateX(${newTranslate}%)`
+        }
       })
 
       sectionsContainer.addEventListener('mouseup', () => {
         if (!isDragging) return
         isDragging = false
-        sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
         sectionsContainer.style.cursor = 'grab'
+
+        if (!isSwiping) {
+          // 不是拖動操作，只是點擊，不做處理
+          startAutoPlay() // 重啟自動輪播
+          return
+        }
+
+        sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
 
         const diff = currentX - startX
         const threshold = 50
@@ -235,14 +309,18 @@ const isEnglish = currentLocale === 'en'
         }
 
         updateCourse(currentCourseIndex)
+        isSwiping = false
+        startAutoPlay() // 重啟自動輪播
       })
 
       sectionsContainer.addEventListener('mouseleave', () => {
         if (isDragging) {
           isDragging = false
+          isSwiping = false
           sectionsContainer.style.transition = 'transform 0.5s ease-in-out'
           sectionsContainer.style.cursor = 'grab'
           updateCourse(currentCourseIndex)
+          startAutoPlay() // 重啟自動輪播
         }
       })
 
@@ -250,25 +328,10 @@ const isEnglish = currentLocale === 'en'
       sectionsContainer.style.cursor = 'grab'
     }
 
-    // Auto-play functionality
-    let autoPlayInterval
-    const startAutoPlay = () => {
-      autoPlayInterval = setInterval(() => {
-        currentCourseIndex = (currentCourseIndex + 1) % servicesData.length
-        updateCourse(currentCourseIndex)
-      }, 2600)
-    }
-
-    const stopAutoPlay = () => {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval)
-      }
-    }
-
     // Start auto-play
     startAutoPlay()
 
-    // Pause auto-play on hover
+    // Pause auto-play on hover (desktop only)
     const serviceSection = document.getElementById('services')
     if (serviceSection) {
       serviceSection.addEventListener('mouseenter', stopAutoPlay)

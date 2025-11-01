@@ -21,9 +21,7 @@ export interface Article {
   date?: string
   year?: string
   month?: string
-  tags?: {
-    data: Tags[]
-  }
+  tags?: Tags[]
   images?: Array<{
     image: {
       desktop: string
@@ -107,10 +105,8 @@ export async function getArticles(): Promise<Article[]> {
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
@@ -169,10 +165,8 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
@@ -281,10 +275,8 @@ export async function getArticle(id: string): Promise<Article | null> {
           started_at
           created_at
           tags {
-            data {
-              id
-              title
-            }
+            id
+            title
           }
           images {
             image {
@@ -375,7 +367,7 @@ export async function getArticlePageData(id: string): Promise<ArticlePageData> {
     }
 
     // Then fetch related articles based on tag IDs
-    const tagIds = article.tags?.data?.map(tag => Number(tag.id)) || []
+    const tagIds = article.tags?.map(tag => Number(tag.id)) || []
     const relatedArticles = tagIds.length > 0 ? await getRelatedArticles(tagIds) : []
 
     return {

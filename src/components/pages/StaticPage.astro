@@ -7,38 +7,13 @@ import { getCanonicalUrl } from '@/utils/seoConfig'
 import { gql, graphQLAPI } from '../../api'
 import Layout from '../../layouts/Layout.astro'
 import SectionTitle from '../ui/SectionTitle.astro'
+import type { PageResponse } from '@/types'
 
 interface Props {
   path: string
 }
 
-interface PageData {
-  page: {
-    id: string
-    title: string
-    key: string
-    fields: Array<{
-      content: string
-      image?: {
-        desktop?: string
-        desktop_blur?: string
-        mobile?: string
-        mobile_blur?: string
-      }
-    }>
-    og_description?: string
-    og_image?: string
-    og_title?: string
-    seo_body?: string
-    seo_description?: string
-    seo_head?: string
-    seo_json_ld?: string
-    seo_keyword?: string
-    seo_title?: string
-  }
-}
-
-const data = await graphQLAPI<PageData>(gql`
+const data = await graphQLAPI<PageResponse>(gql`
   query MyQuery {
     page(key: "${Astro.props.path}") {
       id
@@ -71,7 +46,7 @@ const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const meta = {
   ...seoMeta({
-    title: data.page?.seo_title || data.page?.title,
+    title: data.page?.seo_title || data.page?.title || '',
     og_description: data.page?.og_description,
     og_image: data.page?.og_image,
     og_title: data.page?.og_title,
@@ -88,11 +63,11 @@ const meta = {
 <Layout meta={meta}>
   <main class="section-container">
   <!-- 標題區 -->
-    <SectionTitle title={data.page?.title} subtitle={data.page?.key} />
+    <SectionTitle title={data.page?.title || ''} subtitle={data.page?.key || ''} />
 
     <div class="max-w-6xl mx-auto">
       <article class="mt-12">
-        <Prose sourceDoc={data.page?.fields[0]?.content || ''} client:visible />
+        <Prose sourceDoc={data.page?.fields?.[0]?.content || ''} client:visible />
       </article>
     </div>
   </main>
