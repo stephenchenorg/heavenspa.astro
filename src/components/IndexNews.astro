@@ -33,25 +33,29 @@ const isEnglish = currentLocale === 'en'
       >
         {articles.map((article, articleIndex) => (
           <div
-            class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
+            class="carousel-slide flex-shrink-0 w-full md:w-1/2 lg:w-1/3 aspect-[4/3]"
             data-slide={articleIndex}
           >
-            <div class="px-2">
+            <div class="px-2 h-full">
               <div
-                class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative"
+                class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 relative h-full"
                 onclick={`window.location.href='${getLinkByLocale(`/news/${article.id}`)}'`}
               >
-                <div class="relative w-full aspect-[4/3] overflow-hidden mb-4">
-                  <!-- Background Image - Mobile -->
-                  <div
-                    class="absolute inset-0 bg-cover bg-center md:hidden"
-                    style={`background-image: url('${article.cover.mobile || article.cover.desktop}');`}
-                  ></div>
-                  <!-- Background Image - Desktop -->
-                  <div
-                    class="absolute inset-0 bg-cover bg-center hidden md:block"
-                    style={`background-image: url('${article.cover.desktop || article.cover.mobile}');`}
-                  ></div>
+                <div class="relative w-full h-full overflow-hidden">
+                  <!-- Mobile Image -->
+                  <img
+                    src={article.cover.mobile || article.cover.desktop}
+                    alt={article.title}
+                    class="absolute inset-0 w-full h-full object-cover object-center md:hidden"
+                    loading="lazy"
+                  />
+                  <!-- Desktop Image -->
+                  <img
+                    src={article.cover.desktop || article.cover.mobile}
+                    alt={article.title}
+                    class="absolute inset-0 w-full h-full object-cover object-center hidden md:block"
+                    loading="lazy"
+                  />
                   <!-- Base Overlay for better text readability -->
                   <div class="absolute inset-0 bg-black/30"></div>
                   <!-- Hover Overlay -->

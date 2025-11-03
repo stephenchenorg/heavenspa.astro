@@ -58,7 +58,7 @@ const meta = {
             <img
               src={partnership.background?.mobile || partnership.background?.desktop}
               alt={partnership.title}
-              class="object-contain w-full h-full md:hidden"
+              class="object-cover object-center w-full h-full md:hidden"
               loading="eager"
               fetchpriority="high"
             />
@@ -66,7 +66,7 @@ const meta = {
             <img
               src={partnership.background?.desktop || partnership.background?.mobile}
               alt={partnership.title}
-              class="object-contain w-full h-full hidden md:block"
+              class="object-cover object-center w-full h-full hidden md:block"
               loading="eager"
               fetchpriority="high"
             />
@@ -147,14 +147,14 @@ const meta = {
                                                     <img
                                                       src={imageItem.image.mobile || imageItem.image.desktop}
                                                       alt={`${partnership.title} - Image ${index + 1}`}
-                                                      class="w-full h-full object-contain md:hidden"
+                                                      class="w-full h-full object-cover object-center md:hidden"
                                                       loading="lazy"
                                                     />
                                                     <!-- Desktop Image -->
                                                     <img
                                                       src={imageItem.image.desktop || imageItem.image.mobile}
                                                       alt={`${partnership.title} - Image ${index + 1}`}
-                                                      class="w-full h-full object-contain hidden md:block"
+                                                      class="w-full h-full object-cover object-center hidden md:block"
                                                       loading="lazy"
                                                     />
                                                 </div>
@@ -299,14 +299,14 @@ const meta = {
                                                     <img
                                                       src={relatedPartnership.cover?.mobile || relatedPartnership.cover?.desktop || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Partnership'}
                                                       alt={relatedPartnership.title}
-                                                      class="w-full h-full object-contain md:hidden"
+                                                      class="w-full h-full object-cover object-center md:hidden"
                                                       loading="lazy"
                                                     />
                                                     <!-- Desktop Image -->
                                                     <img
                                                       src={relatedPartnership.cover?.desktop || relatedPartnership.cover?.mobile || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Partnership'}
                                                       alt={relatedPartnership.title}
-                                                      class="w-full h-full object-contain hidden md:block"
+                                                      class="w-full h-full object-cover object-center hidden md:block"
                                                       loading="lazy"
                                                     />
                                                 </div>

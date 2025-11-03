@@ -31,7 +31,7 @@
             <div class="flex-1 h-[420px] relative z-[1] overflow-hidden -ml-5">
               <img
                 :src="course.image" :alt="course.subtitle"
-                class="w-full h-full object-contain object-center transition-transform duration-300"
+                class="w-full h-full object-cover object-center transition-transform duration-300"
                 :loading="index === 0 ? 'eager' : 'lazy'"
               >
             </div>

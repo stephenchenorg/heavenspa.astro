@@ -70,7 +70,7 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
           <img
             src={desktopImage}
             alt={banner.title}
-            class="absolute inset-0 w-full h-full object-contain"
+            class="absolute inset-0 w-full h-full object-cover object-center"
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchpriority={index === 0 ? 'high' : 'low'}
             decoding="async"
@@ -82,7 +82,7 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
           <img
             src={mobileImage}
             alt={banner.title}
-            class="absolute inset-0 w-full h-full object-contain"
+            class="absolute inset-0 w-full h-full object-cover object-center"
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchpriority={index === 0 ? 'high' : 'low'}
             decoding="async"

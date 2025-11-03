@@ -241,14 +241,14 @@ const meta = {
                   <img
                     src={imageItem.image.mobile || imageItem.image.desktop}
                     alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
-                    class="w-full h-full object-contain hover:scale-110 transition-transform duration-700 ease-out md:hidden"
+                    class="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-700 ease-out md:hidden"
                     loading="lazy"
                   />
                   <!-- Desktop Image -->
                   <img
                     src={imageItem.image.desktop || imageItem.image.mobile}
                     alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
-                    class="w-full h-full object-contain hover:scale-110 transition-transform duration-700 ease-out hidden md:block"
+                    class="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-700 ease-out hidden md:block"
                     loading="lazy"
                   />
                 </div>
