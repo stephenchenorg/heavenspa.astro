@@ -40,6 +40,7 @@
     },
     "noData": "No Data",
     "noDataDescription": "Currently no team member information available",
+    "noTeamMembers": "No team members available",
     "schedule": "Work Schedule",
     "personalInfo": "Personal Information",
     "height": "Height",
@@ -332,6 +333,7 @@
     "pageTitle": "Services - Heaven Spa",
     "sectionTitle": "Services",
     "sectionSubtitle": "SERVICES",
+    "noServicesAvailable": "No services available",
     "breadcrumb": {
       "home": "Home",
       "services": "Services"

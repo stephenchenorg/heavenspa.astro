@@ -1,12 +1,20 @@
 ---
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
 import { getServiceCategories } from '@/api/serviceCategories'
-import {getLocale} from "i18n:astro";
+import Layout from '@/layouts/Layout.astro'
+import SectionTitle from '@/components/ui/SectionTitle.astro'
+import { createNestedT } from '@/utils/i18n'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
+
+const t = await createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const { serviceCategories } = await getServiceCategories()
 const firstCategory = serviceCategories.data[0]
-
-const currentLocale = getLocale()
-const isEnglish = currentLocale === 'en'
 
 if (firstCategory) {
     if(isEnglish){
@@ -15,4 +23,28 @@ if (firstCategory) {
     return Astro.redirect(`/services/${firstCategory.id}/items`)
 }
 
+const seoConfig = getSeoConfig('services', locale)
+const meta = {
+  ...seoMeta(seoConfig),
+  canonical: getCanonicalUrl('services', locale),
+} as PageMeta
+
 ---
+
+<Layout meta={meta}>
+  <main class="section-container">
+    <!-- 標題區 -->
+    <SectionTitle title={t('services.sectionTitle')} subtitle={t('services.sectionSubtitle')} />
+
+    <div class="max-w-6xl mx-auto w-full">
+      <div class="flex flex-col items-center justify-center py-16 px-4">
+        <svg class="w-20 h-20 text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+        </svg>
+        <p class="text-neutral-500 text-lg">
+          {t('services.noServicesAvailable')}
+        </p>
+      </div>
+    </div>
+  </main>
+</Layout>

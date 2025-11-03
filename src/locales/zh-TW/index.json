@@ -40,6 +40,7 @@
     },
     "noData": "暫無資料",
     "noDataDescription": "目前沒有團隊成員資訊",
+    "noTeamMembers": "暫無團隊成員",
     "schedule": "工作班表",
     "personalInfo": "個人資訊",
     "height": "身高",
@@ -332,6 +333,7 @@
     "pageTitle": "服務項目 - Heaven Spa",
     "sectionTitle": "服務項目",
     "sectionSubtitle": "SERVICES",
+    "noServicesAvailable": "暫無服務項目",
     "breadcrumb": {
       "home": "首頁",
       "services": "服務項目"
