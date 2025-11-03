@@ -138,92 +138,105 @@ const meta = {
         </div>
       </div>
       <!-- 服務網格 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
-        {services.map(service => (
-          <div class="group cursor-pointer transform transition-transform duration-700
-                hover:scale-95 active:scale-90 relative backdrop-blur-sm overflow-hidden w-full flex flex-col"
-          >
-            <a href={getLinkByLocale(`/services/${categoryId}/items/${service.id}`)} class="flex flex-col">
-              <!-- 上半部：封面圖 -->
-              <div class="relative w-full overflow-hidden aspect-square">
-                <!-- Background Image - Mobile -->
-                <div
-                  class="absolute inset-0 bg-cover bg-center md:hidden"
-                  style={`background-image: url('${service.cover?.mobile || service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
-                >
-                </div>
-                <!-- Background Image - Desktop -->
-                <div
-                  class="absolute inset-0 bg-cover bg-center hidden md:block"
-                  style={`background-image: url('${service.cover?.desktop || service.cover?.mobile || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
-                >
-                </div>
-                <!-- Base Overlay for better text readability -->
-                <div class="absolute inset-0 bg-black/20"></div>
-                <!-- Hover Overlay -->
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      {services && services.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
+          {services.map(service => (
+            <div class="group cursor-pointer transform transition-transform duration-700
+                  hover:scale-95 active:scale-90 relative backdrop-blur-sm overflow-hidden w-full flex flex-col"
+            >
+              <a href={getLinkByLocale(`/services/${categoryId}/items/${service.id}`)} class="flex flex-col">
+                <!-- 上半部：封面圖 -->
+                <div class="relative w-full overflow-hidden aspect-square">
+                  <!-- Background Image - Mobile -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center md:hidden"
+                    style={`background-image: url('${service.cover?.mobile || service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                  >
+                  </div>
+                  <!-- Background Image - Desktop -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center hidden md:block"
+                    style={`background-image: url('${service.cover?.desktop || service.cover?.mobile || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                  >
+                  </div>
+                  <!-- Base Overlay for better text readability -->
+                  <div class="absolute inset-0 bg-black/20"></div>
+                  <!-- Hover Overlay -->
+                  <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                <!-- VIEW MORE Button Overlay -->
-                <Button
-                  variant="ghost"
-                  text={t('buttons.view-more')}
-                  size="small"
-                  icon="→"
-                  wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
+                  <!-- VIEW MORE Button Overlay -->
+                  <Button
+                    variant="ghost"
+                    text={t('buttons.view-more')}
+                    size="small"
+                    icon="→"
+                    wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
 
-                <!-- 時間與價格資訊（圖片底部） -->
-                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-                  <div class="flex items-center gap-3 text-sm text-white">
-                    {service.time_min && service.time_max && (
-                      <span class="flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {service.time_min === service.time_max
-                          ? `${service.time_min}${isEnglish ? ' min' : ' 分鐘'}`
-                          : `${service.time_min}-${service.time_max}${isEnglish ? ' min' : ' 分鐘'}`}
-                      </span>
-                    )}
-                    {service.price_min && service.price_max && (
-                      <span class="flex items-center gap-1 text-primary-400 font-semibold">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {service.price_min === service.price_max
-                          ? `$${service.price_min.toLocaleString()}`
-                          : `$${service.price_min.toLocaleString()}-$${service.price_max.toLocaleString()}`}
-                      </span>
-                    )}
+                  <!-- 時間與價格資訊（圖片底部） -->
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                    <div class="flex items-center gap-3 text-sm text-white">
+                      {service.time_min && service.time_max && (
+                        <span class="flex items-center gap-1">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {service.time_min === service.time_max
+                            ? `${service.time_min}${isEnglish ? ' min' : ' 分鐘'}`
+                            : `${service.time_min}-${service.time_max}${isEnglish ? ' min' : ' 分鐘'}`}
+                        </span>
+                      )}
+                      {service.price_min && service.price_max && (
+                        <span class="flex items-center gap-1 text-primary-400 font-semibold">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {service.price_min === service.price_max
+                            ? `$${service.price_min.toLocaleString()}`
+                            : `$${service.price_min.toLocaleString()}-$${service.price_max.toLocaleString()}`}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- 標題區域 -->
-              <div class="p-4 flex-1 flex items-center">
-                <p class={`text-neutral-900 font-medium line-clamp-2 ${isEnglish ? 'text-base' : 'text-lg'}`}>{service.title}</p>
-              </div>
-            </a>
-          </div>
-        ))}
-      </div>
+                <!-- 標題區域 -->
+                <div class="p-4 flex-1 flex items-center">
+                  <p class={`text-neutral-900 font-medium line-clamp-2 ${isEnglish ? 'text-base' : 'text-lg'}`}>{service.title}</p>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="flex flex-col items-center justify-center py-16 px-4">
+          <svg class="w-20 h-20 text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+          <p class="text-neutral-500 text-lg">
+            {isEnglish ? 'No services available' : '暫無服務項目'}
+          </p>
+        </div>
+      )}
 
       <!-- 分頁器 -->
-      <div class="flex justify-center items-center space-x-2">
-        {Array.from({ length: servicesData.services.last_page }, (_, i) => {
-          const pageNum = i + 1
-          return (
-            <a
-              href={getLinkByLocale(`/services/${categoryId}/items?page=${pageNum}`)}
-              class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
-              style={pageNum === currentPage
-                      ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
-                      : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
-            >
-              {pageNum}
-            </a>
-          )
-        })}
-      </div>
+      {services && services.length > 0 && servicesData.services.last_page > 1 && (
+        <div class="flex justify-center items-center space-x-2">
+          {Array.from({ length: servicesData.services.last_page }, (_, i) => {
+            const pageNum = i + 1
+            return (
+              <a
+                href={getLinkByLocale(`/services/${categoryId}/items?page=${pageNum}`)}
+                class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
+                style={pageNum === currentPage
+                        ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                        : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+              >
+                {pageNum}
+              </a>
+            )
+          })}
+        </div>
+      )}
     </div>
 
   </main>
