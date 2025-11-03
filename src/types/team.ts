@@ -60,5 +60,11 @@ export interface TeamMember {
 export interface TeamsResponse {
   teams: {
     data: TeamMember[]
+    has_more_pages: boolean
+    last_page: number
+    per_page: number
+    to: number
+    total: number
+    from: number
   }
 }

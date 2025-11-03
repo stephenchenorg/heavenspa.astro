@@ -1,7 +1,11 @@
 import type { TeamMember, TeamsResponse } from '@/types'
 import { gql, graphQLAPI } from './index'
 
-export async function getAllTeams(type: number): Promise<TeamMember[]> {
+export async function getAllTeams(
+  type: number,
+  page: number = 1,
+  perPage: number = 12
+): Promise<TeamsResponse> {
   const filters: Record<string, boolean> = {}
 
   if (type === 20) {
@@ -19,9 +23,9 @@ export async function getAllTeams(type: number): Promise<TeamMember[]> {
     : ''
 
   try {
-    const { teams } = await graphQLAPI<TeamsResponse>(gql`
-      query MyQuery {
-        teams(sort_by: "asc", sort_column: "sort"${filterParams}) {
+    return await graphQLAPI<TeamsResponse>(gql`
+      query GetTeams($page: Int, $per_page: Int) {
+        teams(sort_by: "asc", sort_column: "sort", page: $page, per_page: $per_page${filterParams}) {
           data {
             content
             id
@@ -65,13 +69,33 @@ export async function getAllTeams(type: number): Promise<TeamMember[]> {
             seo_keyword
             seo_title
           }
+          has_more_pages
+          last_page
+          per_page
+          to
+          total
+          from
         }
       }
-    `)
-    return teams.data || []
+    `, {
+      variables: {
+        page,
+        per_page: perPage,
+      },
+    })
   } catch (error) {
     console.error('Failed to fetch all teams:', error)
-    return []
+    return {
+      teams: {
+        data: [],
+        has_more_pages: false,
+        last_page: 1,
+        per_page: perPage,
+        to: 0,
+        total: 0,
+        from: 0,
+      },
+    }
   }
 }
 

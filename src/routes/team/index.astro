@@ -5,7 +5,7 @@ import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
 import { getAllTeams } from '@/api/teams'
 import Layout from '@/layouts/Layout.astro'
-import { createNestedT } from '@/utils/i18n'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 import TeamCard from '../../components/ui/TeamCard.astro'
@@ -14,9 +14,11 @@ const t = await createNestedT()
 
 const url = new URL(Astro.request.url)
 const selectedType = Number.parseInt(url.searchParams.get('type') || '10')
+const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 
 // 獲取所有團隊成員
 let teamMembers: TeamMember[] = []
+let teamsData
 const types = [
   { id: 10, title: t('team.types.all') },
   { id: 20, title: t('team.types.available') },
@@ -25,7 +27,8 @@ const types = [
 ]
 
 try {
-  teamMembers = await getAllTeams(selectedType)
+  teamsData = await getAllTeams(selectedType, currentPage, 12)
+  teamMembers = teamsData.teams.data || []
 } catch (error) {
   console.error('Failed to fetch team members:', error)
 }
@@ -89,6 +92,26 @@ const meta = {
           <p class="text-neutral-500 text-lg">
             {t('team.noTeamMembers')}
           </p>
+        </div>
+      )}
+
+      <!-- 分頁器 -->
+      {teamMembers && teamMembers.length > 0 && teamsData && teamsData.teams.last_page > 1 && (
+        <div class="flex justify-center items-center space-x-2 mt-8">
+          {Array.from({ length: teamsData.teams.last_page }, (_, i) => {
+            const pageNum = i + 1
+            return (
+              <a
+                href={getLinkByLocale(`/team?type=${selectedType}&page=${pageNum}`)}
+                class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
+                style={pageNum === currentPage
+                        ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                        : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+              >
+                {pageNum}
+              </a>
+            )
+          })}
         </div>
       )}
     </div>
