@@ -123,19 +123,58 @@ const isEnglish = currentLocale === 'en'
 
   // DOM ready
   document.addEventListener('DOMContentLoaded', () => {
+    // 初始數據驗證
+    if (!servicesData) {
+      console.error('ServiceSection: servicesData is undefined')
+      return
+    }
+
+    if (!Array.isArray(servicesData)) {
+      console.error('ServiceSection: servicesData is not an array', servicesData)
+      return
+    }
+
+    if (servicesData.length === 0) {
+      console.warn('ServiceSection: servicesData is empty')
+      return
+    }
+
+    console.log(`ServiceSection: Initialized with ${servicesData.length} services`)
+
     const prevButton = document.getElementById('prev-service')
     const nextButton = document.getElementById('next-service')
     const sectionsContainer = document.getElementById('service-sections-container')
 
     // Update service display
     function updateCourse(index) {
+      // 數據驗證和邊界檢查
+      if (!servicesData || servicesData.length === 0) {
+        console.warn('ServiceSection: No services data available')
+        return
+      }
+
+      // 確保索引在有效範圍內
+      if (index < 0 || index >= servicesData.length) {
+        console.warn(`ServiceSection: Invalid index ${index}, resetting to 0`)
+        currentCourseIndex = 0
+        index = 0
+      }
+
       const service = servicesData[index]
-      if (!service) return
+      if (!service) {
+        console.warn(`ServiceSection: Service not found at index ${index}`)
+        return
+      }
 
       // Slide entire sections container
       if (sectionsContainer) {
         const translateX = -100 * index
         sectionsContainer.style.transform = `translateX(${translateX}%)`
+        
+        // 調試信息
+        console.log(`ServiceSection: Moving to slide ${index}, translateX: ${translateX}%`)
+      } else {
+        console.warn('ServiceSection: sectionsContainer not found')
       }
 
       // 循環播放，不需要禁用按鈕
@@ -151,7 +190,25 @@ const isEnglish = currentLocale === 'en'
     let autoPlayInterval
     const startAutoPlay = () => {
       stopAutoPlay() // 先清除舊的
+      
+      // 檢查是否有服務數據
+      if (!servicesData || servicesData.length === 0) {
+        console.warn('ServiceSection: Cannot start autoplay, no services data')
+        return
+      }
+
+      // 只有多於一個服務時才啟動自動播放
+      if (servicesData.length <= 1) {
+        console.log('ServiceSection: Only one service, autoplay disabled')
+        return
+      }
+
       autoPlayInterval = setInterval(() => {
+        // 確保當前索引有效
+        if (currentCourseIndex >= servicesData.length) {
+          currentCourseIndex = 0
+        }
+        
         currentCourseIndex = (currentCourseIndex + 1) % servicesData.length
         updateCourse(currentCourseIndex)
       }, 2600)
@@ -167,7 +224,16 @@ const isEnglish = currentLocale === 'en'
     if (prevButton) {
       prevButton.addEventListener('click', () => {
         stopAutoPlay() // 停止自動輪播
+        
+        // 安全的前一張計算
         currentCourseIndex = currentCourseIndex > 0 ? currentCourseIndex - 1 : servicesData.length - 1
+        
+        // 邊界檢查
+        if (currentCourseIndex < 0 || currentCourseIndex >= servicesData.length) {
+          currentCourseIndex = servicesData.length - 1
+        }
+        
+        console.log(`ServiceSection: Previous clicked, moving to index ${currentCourseIndex}`)
         updateCourse(currentCourseIndex)
         startAutoPlay() // 重啟自動輪播
       })
@@ -176,7 +242,16 @@ const isEnglish = currentLocale === 'en'
     if (nextButton) {
       nextButton.addEventListener('click', () => {
         stopAutoPlay() // 停止自動輪播
+        
+        // 安全的下一張計算
         currentCourseIndex = currentCourseIndex < servicesData.length - 1 ? currentCourseIndex + 1 : 0
+        
+        // 邊界檢查
+        if (currentCourseIndex < 0 || currentCourseIndex >= servicesData.length) {
+          currentCourseIndex = 0
+        }
+        
+        console.log(`ServiceSection: Next clicked, moving to index ${currentCourseIndex}`)
         updateCourse(currentCourseIndex)
         startAutoPlay() // 重啟自動輪播
       })
@@ -332,6 +407,14 @@ const isEnglish = currentLocale === 'en'
       sectionsContainer.style.cursor = 'grab'
     }
 
+    // 確保初始索引有效
+    if (currentCourseIndex >= servicesData.length) {
+      currentCourseIndex = 0
+    }
+
+    // Initialize first
+    updateCourse(currentCourseIndex)
+
     // Start auto-play
     startAutoPlay()
 
@@ -341,7 +424,6 @@ const isEnglish = currentLocale === 'en'
       serviceSection.addEventListener('mouseenter', stopAutoPlay)
       serviceSection.addEventListener('mouseleave', startAutoPlay)
     }
-
     // Initialize
     updateCourse(currentCourseIndex)
 
