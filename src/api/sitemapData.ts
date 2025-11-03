@@ -51,6 +51,12 @@ export async function getSitemapData(): Promise<SitemapData> {
             mobile
             mobile_blur
           }
+          background {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -147,6 +153,7 @@ export async function getSitemapData(): Promise<SitemapData> {
       title: article.title,
       author: article.author,
       cover: article.cover,
+      background: article.background,
       content: article.content,
       ended_at: article.ended_at,
       started_at: dateInfo.date,
