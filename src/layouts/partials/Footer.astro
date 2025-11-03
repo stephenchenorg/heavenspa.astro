@@ -50,9 +50,11 @@ const hasSocialMedia = companySetting?.fb_link ||
                         HEAVEN SPA
                     </div>
                 </div>
-                <p class="text-sm md:text-base leading-relaxed text-[var(--theme-text-secondary,#666666)] mb-8">
-                    {companySetting?.description}
-                </p>
+                {companySetting?.description && (
+                    <p class="text-sm md:text-base leading-relaxed text-[var(--theme-text-secondary,#666666)] mb-8">
+                        {companySetting?.description}
+                    </p>
+                )}
 
                 <!-- 聯絡資訊 -->
                 <div class="gap-6 grid grid-cols-1 md:grid-cols-2">

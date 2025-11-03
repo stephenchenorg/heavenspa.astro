@@ -139,6 +139,7 @@ const meta = {
                     <p class="text-neutral-400 text-sm sm:text-base mb-4" data-i18n="joinUs.contact.description">{t('joinUs.contact.description')}</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
                         <!-- Say Hello -->
+                        {companySetting.email_1 && (
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
                             <div class="relative mb-3 sm:mb-4 w-4 h-6">
                                 <svg
@@ -181,8 +182,10 @@ const meta = {
                                 </div>
                             </div>
                         </div>
+                        )}
 
                         <!-- Location -->
+                        {companySetting.address_1 && (
                         <div class="border-l-4 pl-4 sm:pl-6 py-4" style="border-color: var(--color-primary-500);">
                             <div class="relative mb-3 sm:mb-4 w-4 h-6">
                                 <svg
@@ -211,6 +214,7 @@ const meta = {
                                 </div>
                             </div>
                         </div>
+                        )}
                     </div>
                 </div>
                 <div class="fade-in-content" style="transition-delay: 0.3s;">
