@@ -146,7 +146,7 @@ export async function getArticles(page: number = 1, perPage: number = 12): Promi
     })
 
     const formattedArticles = (res.articles?.data || []).map((article: Article) => {
-      const dateInfo = formatArticleDate(article.started_at || article.created_at)
+      const dateInfo = formatArticleDate(article.started_at)
       return {
         id: article.id,
         title: article.title,
@@ -243,7 +243,7 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
   })
 
   return (res.articles.data || []).map((article: Article) => {
-    const dateInfo = formatArticleDate(article.started_at || article.created_at)
+    const dateInfo = formatArticleDate(article.started_at)
     return {
       id: article.id,
       title: article.title,
@@ -285,7 +285,7 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
 
   const formatArticle = (article: any): Article | null => {
     if (!article) return null
-    const dateInfo = formatArticleDate(article.started_at || article.created_at)
+    const dateInfo = formatArticleDate(article.started_at)
 
     return {
       id: article.id,
@@ -372,7 +372,7 @@ export async function getArticle(id: string): Promise<Article | null> {
       return null
     }
 
-    const dateInfo = formatArticleDate(res.article.started_at || res.article.created_at)
+    const dateInfo = formatArticleDate(res.article.started_at)
 
     return {
       id: res.article.id,

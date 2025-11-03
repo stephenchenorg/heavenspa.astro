@@ -143,7 +143,7 @@ export async function getPartnerships(page: number = 1, perPage: number = 12): P
 
     // 將 API 資料轉換為 Partnership 格式
     const formattedPartnerships = (res.partnerships?.data || []).map((partnership: Partnership, index: number) => {
-      const createdDate = partnership.started_at || partnership.created_at
+      const createdDate = partnership.started_at
       const normalized = createdDate?.replace(' ', 'T') || createdDate
       const d = new Date(normalized)
       return {
@@ -252,7 +252,7 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
 
   // 將 API 資料轉換為 Partnership 格式
   return (res.partnerships.data || []).map((partnership: Partnership, index: number) => {
-    const createdDate = partnership.started_at || partnership.created_at
+    const createdDate = partnership.started_at
     const normalized = createdDate?.replace(' ', 'T') || createdDate
     const d = new Date(normalized)
     return {
@@ -305,7 +305,7 @@ export async function getAdjacentPartnerships(currentId: number): Promise<{ prev
 
   const formatPartnership = (partnership: any) => {
     if (!partnership) return null
-    const createdDate = partnership.started_at || partnership.created_at
+    const createdDate = partnership.started_at
     const normalized = createdDate?.replace(' ', 'T') || createdDate
     const d = new Date(normalized)
 
@@ -397,7 +397,7 @@ export async function getPartnership(id: string): Promise<Partnership> {
   `, {
     variables: { id: Number.parseInt(id) },
   })
-  const createdDate = res.partnership.started_at || res.partnership.created_at
+  const createdDate = res.partnership.started_at
   const normalized = createdDate?.replace(' ', 'T') || createdDate
   const d = new Date(normalized)
 
