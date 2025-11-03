@@ -118,7 +118,7 @@ const meta = {
       )}
 
       <!-- 分頁器 -->
-      {partnerships && partnerships.length > 0 && Math.ceil(partnerships.length / 12) > 1 && (
+      {partnerships && partnerships.length > 0 && (
         <div class="flex justify-center items-center space-x-2">
           {Array.from({ length: Math.ceil(partnerships.length / 12) }, (_, i) => (
             <button
