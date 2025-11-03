@@ -92,72 +92,104 @@ function formatArticleDate(dateStr: string) {
   }
 }
 
-export async function getArticles(): Promise<Article[]> {
-  const res = await graphQLAPI(gql`
-    query GetArticles {
-      articles {
-        data {
-          id
-          content
-          cover {
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          background {
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          ended_at
-          title
-          author
-          started_at
-          created_at
-          tags {
+export async function getArticles(page: number = 1, perPage: number = 12): Promise<ArticlesResponse> {
+  try {
+    const res = await graphQLAPI(gql`
+      query GetArticles($page: Int, $per_page: Int) {
+        articles(page: $page, per_page: $per_page) {
+          data {
             id
-            title
-          }
-          images {
-            image {
+            content
+            cover {
               desktop
               desktop_blur
               mobile
               mobile_blur
             }
+            background {
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+            ended_at
+            title
+            author
+            started_at
+            created_at
+            tags {
+              id
+              title
+            }
+            images {
+              image {
+                desktop
+                desktop_blur
+                mobile
+                mobile_blur
+              }
+            }
           }
+          has_more_pages
+          last_page
+          per_page
+          to
+          total
+          from
         }
-        has_more_pages
-        last_page
-        per_page
-        to
-        total
-        from
       }
-    }
-  `)
+    `, {
+      variables: {
+        page,
+        per_page: perPage,
+      },
+    })
 
-  return (res.articles.data || []).map((article: Article) => {
-    const dateInfo = formatArticleDate(article.started_at || article.created_at)
+    const formattedArticles = (res.articles?.data || []).map((article: Article) => {
+      const dateInfo = formatArticleDate(article.started_at || article.created_at)
+      return {
+        id: article.id,
+        title: article.title,
+        author: article.author,
+        cover: article.cover,
+        background: article.background,
+        content: article.content,
+        ended_at: article.ended_at,
+        started_at: dateInfo.date,
+        created_at: dateInfo.date,
+        date: dateInfo.day,
+        year: dateInfo.year,
+        month: dateInfo.month,
+        tags: article.tags,
+        images: article.images,
+      }
+    })
+
     return {
-      id: article.id,
-      title: article.title,
-      author: article.author,
-      cover: article.cover,
-      background: article.background,
-      content: article.content,
-      ended_at: article.ended_at,
-      started_at: dateInfo.date,
-      created_at: dateInfo.date,
-      date: dateInfo.day,
-      year: dateInfo.year,
-      month: dateInfo.month,
-      tags: article.tags,
-      images: article.images,
+      articles: {
+        data: formattedArticles,
+        has_more_pages: res.articles?.has_more_pages || false,
+        last_page: res.articles?.last_page || 1,
+        per_page: res.articles?.per_page || perPage,
+        to: res.articles?.to || 0,
+        total: res.articles?.total || 0,
+        from: res.articles?.from || 0,
+      },
     }
-  })
+  } catch (error) {
+    console.error('Failed to fetch articles:', error)
+    return {
+      articles: {
+        data: [],
+        has_more_pages: false,
+        last_page: 1,
+        per_page: perPage,
+        to: 0,
+        total: 0,
+        from: 0,
+      },
+    }
+  }
 }
 export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
   const res = await graphQLAPI(gql`

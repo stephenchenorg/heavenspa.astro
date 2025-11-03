@@ -14,7 +14,11 @@ const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
-const articles = await getArticles()
+const url = new URL(Astro.request.url)
+const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
+
+const articlesData = await getArticles(currentPage, 12)
+const articles = articlesData.articles.data
 
 const seoConfig = getSeoConfig('news', locale)
 const meta = {
@@ -49,7 +53,7 @@ const meta = {
       <!-- 新聞網格 -->
       {articles && articles.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
-          {articles.slice(0, 12).map(article => (
+          {articles.map(article => (
             <div
               class="group cursor-pointer transition-all duration-300 hover:-translate-y-2 relative backdrop-blur-sm overflow-hidden border shadow-sm hover:shadow-lg w-full h-[450px] flex flex-col"
               style="background-color: var(--theme-card-bg); border-color: var(--theme-border);"
@@ -168,16 +172,20 @@ const meta = {
       <!-- 分頁器 -->
       {articles && articles.length > 0 && (
         <div class="flex justify-center items-center space-x-2">
-          {Array.from({ length: Math.ceil(articles.length / 12) }, (_, i) => (
-            <button
-              class="px-3 py-2 rounded-lg border transition-all duration-300"
-              style={i === 0
-                ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
-                : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
-            >
-              {i + 1}
-            </button>
-          ))}
+          {Array.from({ length: articlesData.articles.last_page }, (_, i) => {
+            const pageNum = i + 1
+            return (
+              <a
+                href={getLinkByLocale(`/news?page=${pageNum}`)}
+                class="px-3 py-2 rounded-lg border transition-all duration-300"
+                style={pageNum === currentPage
+                  ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                  : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+              >
+                {pageNum}
+              </a>
+            )
+          })}
         </div>
       )}
     </div>

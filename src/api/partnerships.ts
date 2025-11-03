@@ -79,93 +79,125 @@ export interface PartnershipsResponse {
   }
 }
 
-export async function getPartnerships(): Promise<Partnership[]> {
-  const res = await graphQLAPI(gql`
-    query MyQuery {
-      partnerships{
-        data {
-          id
-          content
-          cover{
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          background{
-            desktop
-            desktop_blur
-            mobile
-            mobile_blur
-          }
-          ended_at
-          title
-          author
-          started_at
-          created_at
-          tags {
+export async function getPartnerships(page: number = 1, perPage: number = 12): Promise<PartnershipsResponse> {
+  try {
+    const res = await graphQLAPI(gql`
+      query GetPartnerships($page: Int, $per_page: Int) {
+        partnerships(page: $page, per_page: $per_page) {
+          data {
             id
-            title
-          }
-          images {
-            image {
+            content
+            cover{
               desktop
               desktop_blur
               mobile
               mobile_blur
             }
+            background{
+              desktop
+              desktop_blur
+              mobile
+              mobile_blur
+            }
+            ended_at
+            title
+            author
+            started_at
+            created_at
+            tags {
+              id
+              title
+            }
+            images {
+              image {
+                desktop
+                desktop_blur
+                mobile
+                mobile_blur
+              }
+            }
+            og_description
+            og_image
+            og_title
+            seo_body
+            seo_description
+            seo_head
+            seo_json_ld
+            seo_keyword
+            seo_title
           }
-          og_description
-          og_image
-          og_title
-          seo_body
-          seo_description
-          seo_head
-          seo_json_ld
-          seo_keyword
-          seo_title
+          has_more_pages
+          last_page
+          per_page
+          to
+          total
+          from
         }
-        has_more_pages
-        last_page
-        per_page
-        to
-        total
-        from
       }
-    }
-  `)
+    `, {
+      variables: {
+        page,
+        per_page: perPage,
+      },
+    })
 
-  // 將 API 資料轉換為 Partnership 格式
-  return (res.partnerships.data || []).map((partnership: Partnership, index: number) => {
-    const createdDate = partnership.started_at || partnership.created_at
-    const normalized = createdDate?.replace(' ', 'T') || createdDate
-    const d = new Date(normalized)
+    // 將 API 資料轉換為 Partnership 格式
+    const formattedPartnerships = (res.partnerships?.data || []).map((partnership: Partnership, index: number) => {
+      const createdDate = partnership.started_at || partnership.created_at
+      const normalized = createdDate?.replace(' ', 'T') || createdDate
+      const d = new Date(normalized)
+      return {
+        id: partnership.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
+        title: partnership.title,
+        author: partnership.author,
+        cover: partnership.cover,
+        background: partnership.background,
+        content: partnership.content,
+        ended_at: partnership.ended_at,
+        og_description: partnership.og_description,
+        og_image: partnership.og_image,
+        og_title: partnership.og_title,
+        seo_body: partnership.seo_body,
+        seo_description: partnership.seo_description,
+        seo_head: partnership.seo_head,
+        seo_json_ld: partnership.seo_json_ld,
+        seo_keyword: partnership.seo_keyword,
+        seo_title: partnership.seo_title,
+        started_at: d.toISOString().slice(0, 10),
+        created_at: d.toISOString().slice(0, 10),
+        date: d.getDate().toString().padStart(2, '0'),
+        year: d.getFullYear().toString(),
+        month: (d.getMonth() + 1).toString().padStart(2, '0'),
+        tags: partnership.tags,
+        images: partnership.images,
+      }
+    })
+
     return {
-      id: partnership.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
-      title: partnership.title,
-      author: partnership.author,
-      cover: partnership.cover,
-      background: partnership.background,
-      content: partnership.content,
-      ended_at: partnership.ended_at,
-      og_description: partnership.og_description,
-      og_image: partnership.og_image,
-      og_title: partnership.og_title,
-      seo_body: partnership.seo_body,
-      seo_description: partnership.seo_description,
-      seo_head: partnership.seo_head,
-      seo_json_ld: partnership.seo_json_ld,
-      seo_keyword: partnership.seo_keyword,
-      seo_title: partnership.seo_title,
-      started_at: d.toISOString().slice(0, 10),
-      created_at: d.toISOString().slice(0, 10),
-      date: d.getDate().toString().padStart(2, '0'),
-      year: d.getFullYear().toString(),
-      month: (d.getMonth() + 1).toString().padStart(2, '0'),
-      tags: partnership.tags,
-      images: partnership.images,
+      partnerships: {
+        data: formattedPartnerships,
+        has_more_pages: res.partnerships?.has_more_pages || false,
+        last_page: res.partnerships?.last_page || 1,
+        per_page: res.partnerships?.per_page || perPage,
+        to: res.partnerships?.to || 0,
+        total: res.partnerships?.total || 0,
+        from: res.partnerships?.from || 0,
+      },
     }
-  })
+  } catch (error) {
+    console.error('Failed to fetch partnerships:', error)
+    return {
+      partnerships: {
+        data: [],
+        has_more_pages: false,
+        last_page: 1,
+        per_page: perPage,
+        to: 0,
+        total: 0,
+        from: 0,
+      },
+    }
+  }
 }
 export async function getRelatedPartnerships(tagIds: number[]): Promise<Partnership[]> {
   const res = await graphQLAPI(gql`
