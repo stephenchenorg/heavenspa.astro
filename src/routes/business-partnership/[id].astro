@@ -131,17 +131,17 @@ const meta = {
                     <!-- Left Content - 3/5 (60%) -->
                     <div class="lg:col-span-3">
                         <!-- Image Gallery Carousel -->
-                        <div class="mb-12">
-                            <div class="relative">
-                                <!-- Carousel Container -->
-                                <div
-                                  class="relative aspect-[800/544] overflow-hidden shadow-lg"
-                                  style="background: var(--theme-card-bg);"
-                                >
-                                    <!-- Slides -->
-                                    <div class="carousel-track flex transition-transform duration-500 ease-in-out h-full">
-                                        {partnership.images && partnership.images.length > 0 ? (
-                                            partnership.images.map((imageItem, index) => (
+                        {partnership.images && partnership.images.length > 0 && (
+                            <div class="mb-12">
+                                <div class="relative">
+                                    <!-- Carousel Container -->
+                                    <div
+                                      class="relative aspect-[800/544] overflow-hidden shadow-lg"
+                                      style="background: var(--theme-card-bg);"
+                                    >
+                                        <!-- Slides -->
+                                        <div class="carousel-track flex transition-transform duration-500 ease-in-out h-full">
+                                            {partnership.images.map((imageItem, index) => (
                                                 <div class="carousel-slide flex-shrink-0 w-full h-full relative">
                                                     <!-- Mobile Image -->
                                                     <img
@@ -158,45 +158,45 @@ const meta = {
                                                       loading="lazy"
                                                     />
                                                 </div>
-                                            ))
-                                        ) : null}
-                                    </div>
+                                            ))}
+                                        </div>
 
-                                    <!-- Navigation Arrows -->
-                                    <button
-                                      class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors duration-200"
-                                      aria-label="Previous image"
-                                    >
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                              stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              stroke-width="2"
-                                              d="M15 19l-7-7 7-7"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <button
-                                      class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors duration-200"
-                                      aria-label="Next image"
-                                    >
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                              stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              stroke-width="2"
-                                              d="M9 5l7 7-7 7"
-                                            />
-                                        </svg>
-                                    </button>
+                                        <!-- Navigation Arrows -->
+                                        <button
+                                          class="carousel-prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors duration-200"
+                                          aria-label="Previous image"
+                                        >
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M15 19l-7-7 7-7"
+                                                />
+                                            </svg>
+                                        </button>
+                                        <button
+                                          class="carousel-next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors duration-200"
+                                          aria-label="Next image"
+                                        >
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M9 5l7 7-7 7"
+                                                />
+                                            </svg>
+                                        </button>
 
-                                    <!-- Dots Indicator -->
-                                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2" id="carousel-dots">
-                                        <!-- Dots will be dynamically generated by JavaScript based on slide count -->
+                                        <!-- Dots Indicator -->
+                                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2" id="carousel-dots">
+                                            <!-- Dots will be dynamically generated by JavaScript based on slide count -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
 
                         <!-- Partnership Content -->
                         <partnership class="prose prose-lg max-w-none my-8" style="color: var(--theme-text);">
