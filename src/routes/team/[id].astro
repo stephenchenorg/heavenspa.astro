@@ -106,7 +106,7 @@ const meta = {
             id="carousel-img-mobile"
             src={mainImageMobile}
             alt={teamMember.title}
-            class="w-full h-full object-cover select-none transition-all duration-300 md:hidden"
+            class="w-full h-full object-contain select-none transition-all duration-300 md:hidden"
             loading="eager"
             fetchpriority="high"
           />
@@ -115,7 +115,7 @@ const meta = {
             id="carousel-img-desktop"
             src={mainImageDesktop}
             alt={teamMember.title}
-            class="w-full h-full object-cover select-none transition-all duration-300 hidden md:block"
+            class="w-full h-full object-contain select-none transition-all duration-300 hidden md:block"
             loading="eager"
             fetchpriority="high"
           />
@@ -148,7 +148,7 @@ const meta = {
                 <img
                   src={img.image?.mobile || img.image?.desktop}
                   alt={`${t('team.thumbnail')}${idx + 1}`}
-                  class={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm ${
+                  class={`w-20 h-20 object-contain rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm ${
                     idx === 0
                       ? 'border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
                       : 'border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
@@ -332,9 +332,9 @@ const meta = {
     // 更新縮圖
     thumbElements.forEach((thumb, index) => {
             if (index === currentIndex) {
-              thumb.className = 'w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
+              thumb.className = 'w-20 h-20 object-contain rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--color-primary-500,#3b82f6)] ring-2 ring-[var(--color-primary-200,#bfdbfe)]'
       } else {
-              thumb.className = 'w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
+              thumb.className = 'w-20 h-20 object-contain rounded-lg border-2 cursor-pointer transition-all duration-200 shadow-sm border-[var(--theme-border,#e5e7eb)] hover:border-[var(--theme-text-secondary,#6b7280)] hover:shadow-md'
       }
           })
   }

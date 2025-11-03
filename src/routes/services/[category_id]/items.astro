@@ -84,7 +84,7 @@ const meta = {
 
     <!-- 分類橫幅 -->
     {currentCategory && (
-      <section class="relative w-full h-64 md:h-80 lg:h-96 mb-8 overflow-hidden">
+      <section class="relative w-full aspect-[4/3] md:aspect-[16/9] mb-8 overflow-hidden">
         <!-- 背景圖片 -->
         <!-- Mobile Background -->
         <div
@@ -146,7 +146,7 @@ const meta = {
             >
               <a href={getLinkByLocale(`/services/${categoryId}/items/${service.id}`)} class="flex flex-col">
                 <!-- 上半部：封面圖 -->
-                <div class="relative w-full overflow-hidden aspect-square">
+                <div class="relative w-full overflow-hidden aspect-[4/3]">
                   <!-- Background Image - Mobile -->
                   <div
                     class="absolute inset-0 bg-cover bg-center md:hidden"

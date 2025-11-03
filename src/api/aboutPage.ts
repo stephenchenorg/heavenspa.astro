@@ -6,17 +6,17 @@ export interface About {
   content_2: string
   content_3: string
   cover: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1080px (16:9 比例，適合品牌介紹上方 Banner)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版品牌介紹上方 Banner)
     mobile_blur: string
   }
   cta_link: string
   cta_title: string
   image: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合品牌介紹 About 區塊)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版品牌介紹 About 區塊)
     mobile_blur: string
   }
   title_1: string
@@ -34,9 +34,9 @@ export interface About {
 
 export interface AboutImageData {
   image: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合品牌介紹環境圖片)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版品牌介紹環境圖片)
     mobile_blur: string
   }
 }

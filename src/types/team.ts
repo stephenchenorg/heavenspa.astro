@@ -7,9 +7,9 @@ export interface TeamTag {
 }
 
 export interface TeamImage {
-  desktop: string
+  desktop: string // 建議尺寸: 1920x1920px (1:1 比例，適合本週推薦與服務團隊)
   desktop_blur: string
-  mobile: string
+  mobile: string // 建議尺寸: 640x640px (1:1 比例，適合手機版本週推薦與服務團隊)
   mobile_blur: string
 }
 

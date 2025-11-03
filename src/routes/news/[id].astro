@@ -51,13 +51,13 @@ const meta = {
 
 <Layout meta={meta}>
   <!-- Hero Banner -->
-  <section class="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[1920/600] overflow-hidden pt-20">
+  <section class="relative aspect-[4/3] md:aspect-[16/9] overflow-hidden pt-20">
     <div class="absolute inset-0">
       <!-- Mobile Image -->
       <img
         src={article.background?.mobile || article.background?.desktop}
         alt={article.title}
-        class="object-cover w-full h-full md:hidden"
+        class="object-contain w-full h-full md:hidden"
         loading="eager"
         fetchpriority="high"
       />
@@ -65,7 +65,7 @@ const meta = {
       <img
         src={article.background?.desktop || article.background?.mobile}
         alt={article.title}
-        class="object-cover w-full h-full hidden md:block"
+        class="object-contain w-full h-full hidden md:block"
         loading="eager"
         fetchpriority="high"
       />
@@ -140,7 +140,7 @@ const meta = {
                 <div class="relative">
                   <!-- Carousel Container -->
                   <div
-                    class="relative aspect-[800/544] overflow-hidden shadow-lg"
+                    class="relative aspect-[4/3] overflow-hidden shadow-lg"
                     style="background: var(--theme-card-bg);"
                   >
                     <!-- Slides -->
@@ -151,14 +151,14 @@ const meta = {
                           <img
                             src={imageItem.image.mobile || imageItem.image.desktop}
                             alt={`${article.title} - Image ${index + 1}`}
-                            class="w-full h-full object-cover md:hidden"
+                            class="w-full h-full object-contain md:hidden"
                             loading="lazy"
                           />
                           <!-- Desktop Image -->
                           <img
                             src={imageItem.image.desktop || imageItem.image.mobile}
                             alt={`${article.title} - Image ${index + 1}`}
-                            class="w-full h-full object-cover hidden md:block"
+                            class="w-full h-full object-contain hidden md:block"
                             loading="lazy"
                           />
                         </div>
@@ -305,14 +305,14 @@ const meta = {
                           <img
                             src={relatedArticle.cover?.mobile || relatedArticle.cover?.desktop || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Article'}
                             alt={relatedArticle.title}
-                            class="w-full h-full object-cover md:hidden"
+                            class="w-full h-full object-contain md:hidden"
                             loading="lazy"
                           />
                           <!-- Desktop Image -->
                           <img
                             src={relatedArticle.cover?.desktop || relatedArticle.cover?.mobile || 'https://imagefaker.access.mx.com/80x60/d4af37/ffffff/?text=Article'}
                             alt={relatedArticle.title}
-                            class="w-full h-full object-cover hidden md:block"
+                            class="w-full h-full object-contain hidden md:block"
                             loading="lazy"
                           />
                         </div>

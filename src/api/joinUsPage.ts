@@ -2,9 +2,9 @@ import { gql, graphQLAPI } from '@/api/index'
 
 export interface Position {
   cover: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合加入我們職缺內容)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版加入我們職缺內容)
     mobile_blur: string
   }
   title: string

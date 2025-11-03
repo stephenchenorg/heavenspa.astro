@@ -11,7 +11,7 @@ export interface CompanySettingData {
   whatsapp_link: string
   twitter_link: string
   threads_link: string
-  logo: string
+  logo: string // 建議尺寸: 電腦版 240x80px (3:1)，手機版 120x40px (3:1)
   name: string
   phone_1: string
   phone_2: string

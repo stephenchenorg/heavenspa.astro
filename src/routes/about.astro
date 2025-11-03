@@ -41,7 +41,7 @@ const meta = {
 
 <Layout meta={meta}>
     <!-- Hero Banner -->
-    <section class="relative aspect-[1920/900] sm:aspect-[1920/800] lg:aspect-[1920/700] overflow-hidden">
+    <section class="relative aspect-[4/3] md:aspect-[16/9] overflow-hidden">
         <div class="absolute inset-0">
             <picture>
                 <!-- 手機版圖片 (< 768px) -->
@@ -53,7 +53,7 @@ const meta = {
                 <img
                   src={about.cover.desktop}
                   alt="品牌介紹 banner"
-                  class="object-cover w-full h-full"
+                  class="object-contain w-full h-full"
                   loading="eager"
                   fetchpriority="high"
                 />
@@ -90,7 +90,7 @@ const meta = {
                             <img
                               src={about.image.desktop}
                               alt="品牌介紹圖片"
-                              class="w-full h-full object-cover"
+                              class="w-full h-full object-contain"
                               loading="lazy"
                             />
                         </picture>
@@ -168,7 +168,7 @@ const meta = {
                                                 <img
                                                   src={item.image.desktop}
                                                   alt={`環境圖片 ${index + 1}`}
-                                                  class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
+                                                  class="w-full h-full object-contain transition-all duration-300 hover:scale-105"
                                                   loading="lazy"
                                                 />
                                             </picture>
@@ -184,9 +184,9 @@ const meta = {
 
             <div id="service-categories">
                 {services.map((service, index) => {
-                    // 決定要使用的背景圖片：優先使用對應裝置的圖片，如果沒有則使用另一個
-                    const desktopImage = service.cover?.desktop || service.cover?.mobile || ''
-                    const mobileImage = service.cover?.mobile || service.cover?.desktop || ''
+                    // 決定要使用的背景圖片（上滑蓋板）：優先使用對應裝置的圖片，如果沒有則使用另一個
+                    const desktopImage = service.background?.desktop || service.background?.mobile || ''
+                    const mobileImage = service.background?.mobile || service.background?.desktop || ''
 
                     return (
                     <section class="sticky top-0 h-screen flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index} data-desktop-bg={desktopImage} data-mobile-bg={mobileImage}>

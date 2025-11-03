@@ -9,9 +9,9 @@ export interface Article {
   title: string
   author: string
   cover: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合首頁最新消息與封面)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版首頁最新消息與封面)
     mobile_blur: string
   }
   background: {
@@ -30,9 +30,9 @@ export interface Article {
   tags?: Tags[]
   images?: Array<{
     image: {
-      desktop: string
+      desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合最新消息內文圖)
       desktop_blur: string
-      mobile: string
+      mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版最新消息內文圖)
       mobile_blur: string
     }
   }>

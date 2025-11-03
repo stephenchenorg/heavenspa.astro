@@ -6,15 +6,15 @@ export interface ServiceCategory {
   sub_title: string
   description: string
   cover: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x960px (2:1 比例，適合首頁服務項目)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x640px (1:1 比例，適合手機版首頁服務項目)
     mobile_blur: string
   }
   background: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1080px (16:9 比例，適合「上滑蓋板」與「服務項目 Banner」)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版「上滑蓋板」與「服務項目 Banner」)
     mobile_blur: string
   }
   og_description?: string

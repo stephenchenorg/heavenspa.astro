@@ -8,9 +8,9 @@ export interface Service {
   time_max: number
   time_min: number
   cover: {
-    desktop: string
+    desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合服務項目詳細頁封面)
     desktop_blur: string
-    mobile: string
+    mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版服務項目詳細頁封面)
     mobile_blur: string
   }
   og_description?: string

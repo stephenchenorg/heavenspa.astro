@@ -1,9 +1,9 @@
 import { gql, graphQLAPI } from '@/api/index'
 
 export interface BannerImage {
-  desktop: string
+  desktop: string // 建議尺寸: 1920x1080px (16:9 比例，適合各頁面上方 Banner)
   desktop_blur: string
-  mobile: string
+  mobile: string // 建議尺寸: 640x480px (4:3 比例，適合手機版各頁面上方 Banner)
   mobile_blur: string
 }
 

@@ -7,7 +7,7 @@ const t = await createNestedT()
 export interface BannerImage {
   desktop: string // 建議尺寸: 1920x1080px (16:9 比例，可搭配視差滾動)
   desktop_blur: string
-  mobile: string // 建議尺寸: 1080x810px (4:3 比例，適合手機)
+  mobile: string // 建議尺寸: 640x1280px (9:18 比例，適合手機直向顯示)
   mobile_blur: string
 }
 
@@ -45,7 +45,7 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
 
 <!-- Hero Banner Section -->
 <section
-  class="relative w-full flex min-h-[80vh] items-center justify-center overflow-hidden theme-section aspect-[1920/1080]"
+  class="relative w-full flex min-h-[80vh] items-center justify-center overflow-hidden theme-section aspect-[640/1280] md:aspect-[1920/1080]"
   id="page-header"
 >
   <!-- Subtle texture background -->
@@ -70,7 +70,7 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
           <img
             src={desktopImage}
             alt={banner.title}
-            class="absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-contain"
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchpriority={index === 0 ? 'high' : 'low'}
             decoding="async"
@@ -82,7 +82,7 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
           <img
             src={mobileImage}
             alt={banner.title}
-            class="absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-contain"
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchpriority={index === 0 ? 'high' : 'low'}
             decoding="async"
