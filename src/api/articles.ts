@@ -14,6 +14,12 @@ export interface Article {
     mobile: string
     mobile_blur: string
   }
+  background: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
   content: string
   ended_at: string
   started_at: string
@@ -99,6 +105,12 @@ export async function getArticles(): Promise<Article[]> {
             mobile
             mobile_blur
           }
+          background {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -134,6 +146,7 @@ export async function getArticles(): Promise<Article[]> {
       title: article.title,
       author: article.author,
       cover: article.cover,
+      background: article.background,
       content: article.content,
       ended_at: article.ended_at,
       started_at: dateInfo.date,
@@ -154,6 +167,12 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
           id
           content
           cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          background {
             desktop
             desktop_blur
             mobile
@@ -198,6 +217,7 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
       title: article.title,
       author: article.author,
       cover: article.cover,
+      background: article.background,
       content: article.content,
       ended_at: article.ended_at,
       started_at: dateInfo.date,
@@ -240,6 +260,7 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
       title: article.title,
       author: article.author,
       cover: article.cover,
+      background: article.background,
       content: article.content,
       ended_at: article.ended_at,
       started_at: dateInfo.iso,
@@ -266,6 +287,12 @@ export async function getArticle(id: string): Promise<Article | null> {
           author
           content
           cover {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          background {
             desktop
             desktop_blur
             mobile
@@ -320,6 +347,7 @@ export async function getArticle(id: string): Promise<Article | null> {
       title: res.article.title,
       author: res.article.author,
       cover: res.article.cover,
+      background: res.article.background,
       content: res.article.content,
       ended_at: res.article.ended_at,
       started_at: dateInfo.iso,

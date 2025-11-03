@@ -28,7 +28,7 @@ if (!partnership || !partnership.id) {
 // 過濾掉當前異業合作
 const filteredRelatedPartnerships = relatedPartnerships.filter(relatedPartnership => relatedPartnership.id !== partnership.id)
 
-const coverImage = partnership.cover?.desktop || partnership.cover?.mobile || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'
+const coverImage = partnership.cover?.desktop || partnership.cover?.mobile
 
 // 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
 const defaultSeo = getSeoConfig('businessPartnership', locale)
@@ -56,7 +56,7 @@ const meta = {
         <div class="absolute inset-0">
             <!-- Mobile Image -->
             <img
-              src={partnership.cover?.mobile || partnership.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
+              src={partnership.background?.mobile || partnership.background?.desktop}
               alt={partnership.title}
               class="object-cover w-full h-full md:hidden"
               loading="eager"
@@ -64,7 +64,7 @@ const meta = {
             />
             <!-- Desktop Image -->
             <img
-              src={partnership.cover?.desktop || partnership.cover?.mobile || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7young-woman-lying-down-with-traditional-hot-stones-along-spi-e1719460788846.jpeg'}
+              src={partnership.background?.desktop || partnership.background?.mobile}
               alt={partnership.title}
               class="object-cover w-full h-full hidden md:block"
               loading="eager"
@@ -159,23 +159,6 @@ const meta = {
                                                     />
                                                 </div>
                                             ))
-                                        ) : (
-                                            <div class="carousel-slide flex-shrink-0 w-full h-full relative">
-                                                <!-- Mobile Image -->
-                                                <img
-                                                  src={partnership.cover?.mobile || partnership.cover?.desktop || 'https://imagefaker.access.mx.com/800x544/d4af37/ffffff/?text=Partnership+Image'}
-                                                  alt={partnership.title}
-                                                  class="w-full h-full object-cover md:hidden"
-                                                  loading="lazy"
-                                                />
-                                                <!-- Desktop Image -->
-                                                <img
-                                                  src={partnership.cover?.desktop || partnership.cover?.mobile || 'https://imagefaker.access.mx.com/800x544/d4af37/ffffff/?text=Partnership+Image'}
-                                                  alt={partnership.title}
-                                                  class="w-full h-full object-cover hidden md:block"
-                                                  loading="lazy"
-                                                />
-                                            </div>
                                         )}
                                     </div>
 

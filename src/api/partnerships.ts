@@ -14,6 +14,12 @@ export interface Partnership {
     mobile: string
     mobile_blur: string
   }
+  background: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
   content: string
   ended_at: string
   started_at: string
@@ -86,6 +92,12 @@ export async function getPartnerships(): Promise<Partnership[]> {
             mobile
             mobile_blur
           }
+          background{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           ended_at
           title
           author
@@ -133,6 +145,7 @@ export async function getPartnerships(): Promise<Partnership[]> {
       title: partnership.title,
       author: partnership.author,
       cover: partnership.cover,
+      background: partnership.background,
       content: partnership.content,
       ended_at: partnership.ended_at,
       og_description: partnership.og_description,
@@ -162,6 +175,12 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
           id
           content
           cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          background{
             desktop
             desktop_blur
             mobile
@@ -209,6 +228,7 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
       title: partnership.title,
       author: partnership.author,
       cover: partnership.cover,
+      background: partnership.background,
       content: partnership.content,
       ended_at: partnership.ended_at,
       og_description: partnership.og_description,
@@ -262,6 +282,7 @@ export async function getAdjacentPartnerships(currentId: number): Promise<{ prev
       title: partnership.title,
       author: partnership.author,
       cover: partnership.cover,
+      background: partnership.background,
       content: partnership.content,
       ended_at: partnership.ended_at,
       og_description: partnership.og_description,
@@ -296,6 +317,12 @@ export async function getPartnership(id: string): Promise<Partnership> {
           author
           content
           cover{
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
+          background{
             desktop
             desktop_blur
             mobile
@@ -347,6 +374,7 @@ export async function getPartnership(id: string): Promise<Partnership> {
     title: res.partnership.title,
     author: res.partnership.author,
     cover: res.partnership.cover,
+    background: res.partnership.background,
     content: res.partnership.content,
     ended_at: res.partnership.ended_at,
     started_at: d.toISOString(),

@@ -55,7 +55,7 @@ const meta = {
     <div class="absolute inset-0">
       <!-- Mobile Image -->
       <img
-        src={article.cover?.mobile || article.cover?.desktop}
+        src={article.background?.mobile || article.background?.desktop}
         alt={article.title}
         class="object-cover w-full h-full md:hidden"
         loading="eager"
@@ -63,7 +63,7 @@ const meta = {
       />
       <!-- Desktop Image -->
       <img
-        src={article.cover?.desktop || article.cover?.mobile}
+        src={article.background?.desktop || article.background?.mobile}
         alt={article.title}
         class="object-cover w-full h-full hidden md:block"
         loading="eager"
