@@ -199,9 +199,10 @@ const meta = {
                         )}
 
                         <!-- Partnership Content -->
-                        <partnership class="prose prose-lg max-w-none my-8" style="color: var(--theme-text);">
+                        <article class="prose prose-lg mx-auto my-8 px-4 max-w-full md:max-w-none overflow-x-auto"
+                                 style="color: var(--theme-text);">
                             <Prose sourceDoc={partnership.content || ''} client:visible />
-                        </partnership>
+                        </article>
 
                         <!-- Partnership Navigation -->
                         <div class="mb-8 py-8 border-y" style="border-color: var(--theme-border);">
