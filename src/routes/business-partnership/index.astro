@@ -82,7 +82,7 @@ const meta = {
                     <!-- Content Summary -->
                     <div class={`leading-relaxed line-clamp-3 h-16 transition-colors duration-300 py-4 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--theme-text-secondary);">
                       {(() => {
-                        if (!partnership.content) return '暫無內容摘要...'
+                        if (!partnership.content) return t('partnerships.noContentSummary')
                         // 移除 HTML 標籤
                         const textContent = partnership.content.replace(/<[^>]*>/g, '')
                         // 截取前50個字

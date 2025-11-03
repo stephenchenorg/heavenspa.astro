@@ -112,7 +112,7 @@ const meta = {
                     style="color: var(--theme-text-secondary);"
                   >
                     {(() => {
-                      if (!article.content) return '暫無內容摘要...'
+                      if (!article.content) return t('news.noContentSummary')
                       // 移除 HTML 標籤
 
                       const textContent = article.content.replace(/<[^>]*>/g, '')
