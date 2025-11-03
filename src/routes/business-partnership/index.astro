@@ -31,94 +31,107 @@ const meta = {
 
     <div class="max-w-6xl mx-auto w-full">
       <!-- 新聞網格 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
-        {partnerships.slice(0, 12).map(partnership => (
-          <div class="group cursor-pointer transition-all duration-300 hover:-translate-y-2 relative backdrop-blur-sm overflow-hidden border shadow-sm hover:shadow-lg w-full h-[450px] flex flex-col" style="background-color: var(--theme-card-bg); border-color: var(--theme-border);">
-            <a href={getLinkByLocale(`/business-partnership/${partnership.id}`)} class="h-full flex flex-col">
-              <!-- 上半部：封面圖 -->
-              <div class="relative w-full h-64 overflow-hidden flex-shrink-0">
-                <!-- Background Image - Mobile -->
-                <div
-                  class="absolute inset-0 bg-cover bg-center md:hidden"
-                  style={`background-image: url('${partnership.cover?.mobile || partnership.cover?.desktop}')`}
-                >
-                </div>
-                <!-- Background Image - Desktop -->
-                <div
-                  class="absolute inset-0 bg-cover bg-center hidden md:block"
-                  style={`background-image: url('${partnership.cover?.desktop || partnership.cover?.mobile}')`}
-                >
-                </div>
-                <!-- Base Overlay for better text readability -->
-                <div class="absolute inset-0 bg-black/20"></div>
-                <!-- Hover Overlay -->
-                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                <!-- VIEW MORE Button Overlay -->
-                <Button
-                  variant="ghost"
-                  text={t('buttons.view-more')}
-                  size="small"
-                  icon="→"
-                  wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              </div>
-
-              <!-- 下半部：標題和資訊 -->
-              <div class="p-4 flex-1 flex flex-col justify-between">
-                  <!-- Title -->
-                  <div class="space-y-2">
-                    <h3 class={`font-bold leading-tight tracking-wide line-clamp-2 h-14 transition-colors duration-300 ${isEnglish ? 'text-base' : 'text-lg'}`} style="color: var(--theme-text);">
-                      {partnership.title}
-                    </h3>
-                    <div class="w-12 h-0.5 rounded-full" style="background: linear-gradient(to right, var(--color-primary-500), transparent);"></div>
+      {partnerships && partnerships.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full">
+          {partnerships.slice(0, 12).map(partnership => (
+            <div class="group cursor-pointer transition-all duration-300 hover:-translate-y-2 relative backdrop-blur-sm overflow-hidden border shadow-sm hover:shadow-lg w-full h-[450px] flex flex-col" style="background-color: var(--theme-card-bg); border-color: var(--theme-border);">
+              <a href={getLinkByLocale(`/business-partnership/${partnership.id}`)} class="h-full flex flex-col">
+                <!-- 上半部：封面圖 -->
+                <div class="relative w-full h-64 overflow-hidden flex-shrink-0">
+                  <!-- Background Image - Mobile -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center md:hidden"
+                    style={`background-image: url('${partnership.cover?.mobile || partnership.cover?.desktop}')`}
+                  >
                   </div>
-
-                  <!-- Content Summary -->
-                  <div class={`leading-relaxed line-clamp-3 h-16 transition-colors duration-300 py-4 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--theme-text-secondary);">
-                    {(() => {
-                      if (!partnership.content) return '暫無內容摘要...'
-                      // 移除 HTML 標籤
-                      const textContent = partnership.content.replace(/<[^>]*>/g, '')
-                      // 截取前50個字
-                      return textContent.length > 50 ? `${textContent.substring(0, 50)}...` : textContent
-                    })()}
+                  <!-- Background Image - Desktop -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center hidden md:block"
+                    style={`background-image: url('${partnership.cover?.desktop || partnership.cover?.mobile}')`}
+                  >
                   </div>
-                  <div class="flex items-center justify-between pt-2">
-                    { partnership.author && (
-                        <div class="flex items-center space-x-2 text-xs transition-colors duration-300" style="color: var(--theme-text-muted);">
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                          <span>{partnership.author}</span>
-                        </div>
-                    )}
-                    <div class={`flex items-center space-x-1 font-medium transition-colors duration-300 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--color-primary-500);">
-                      <span>{ t('partnerships.detail') }</span>
-                      <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                      </svg>
+                  <!-- Base Overlay for better text readability -->
+                  <div class="absolute inset-0 bg-black/20"></div>
+                  <!-- Hover Overlay -->
+                  <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                  <!-- VIEW MORE Button Overlay -->
+                  <Button
+                    variant="ghost"
+                    text={t('buttons.view-more')}
+                    size="small"
+                    icon="→"
+                    wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
+
+                <!-- 下半部：標題和資訊 -->
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                    <!-- Title -->
+                    <div class="space-y-2">
+                      <h3 class={`font-bold leading-tight tracking-wide line-clamp-2 h-14 transition-colors duration-300 ${isEnglish ? 'text-base' : 'text-lg'}`} style="color: var(--theme-text);">
+                        {partnership.title}
+                      </h3>
+                      <div class="w-12 h-0.5 rounded-full" style="background: linear-gradient(to right, var(--color-primary-500), transparent);"></div>
                     </div>
-                  </div>
-              </div>
-            </a>
-          </div>
-        ))}
-      </div>
+
+                    <!-- Content Summary -->
+                    <div class={`leading-relaxed line-clamp-3 h-16 transition-colors duration-300 py-4 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--theme-text-secondary);">
+                      {(() => {
+                        if (!partnership.content) return '暫無內容摘要...'
+                        // 移除 HTML 標籤
+                        const textContent = partnership.content.replace(/<[^>]*>/g, '')
+                        // 截取前50個字
+                        return textContent.length > 50 ? `${textContent.substring(0, 50)}...` : textContent
+                      })()}
+                    </div>
+                    <div class="flex items-center justify-between pt-2">
+                      { partnership.author && (
+                          <div class="flex items-center space-x-2 text-xs transition-colors duration-300" style="color: var(--theme-text-muted);">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <span>{partnership.author}</span>
+                          </div>
+                      )}
+                      <div class={`flex items-center space-x-1 font-medium transition-colors duration-300 ${isEnglish ? 'text-xs' : 'text-sm'}`} style="color: var(--color-primary-500);">
+                        <span>{ t('partnerships.detail') }</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                      </div>
+                    </div>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="flex flex-col items-center justify-center py-16 px-4">
+          <svg class="w-20 h-20 text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <p class="text-neutral-500 text-lg">
+            {isEnglish ? 'No partnerships available' : '暫無異業合作'}
+          </p>
+        </div>
+      )}
 
       <!-- 分頁器 -->
-      <div class="flex justify-center items-center space-x-2">
-        {Array.from({ length: Math.ceil(partnerships.length / 12) }, (_, i) => (
-          <button
-            class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
-            style={i === 0
-                    ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
-                    : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      {partnerships && partnerships.length > 0 && Math.ceil(partnerships.length / 12) > 1 && (
+        <div class="flex justify-center items-center space-x-2">
+          {Array.from({ length: Math.ceil(partnerships.length / 12) }, (_, i) => (
+            <button
+              class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
+              style={i === 0
+                      ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                      : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
 
   </main>
