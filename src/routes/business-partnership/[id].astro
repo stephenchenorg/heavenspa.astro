@@ -331,31 +331,25 @@ const meta = {
                             </div>
                         </div>
                         <!-- Tags -->
-                        <div>
-                            <h3
-                              class={`font-semibold mb-4 pb-4 ${isEnglish ? 'text-base' : 'text-lg'}`}
-                              style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
-                            >
-                                {t('partnerships.tags')}</h3>
-                            <div class="flex flex-wrap gap-2">
-                                {partnership.tags?.map(tag => (
-                                    <span
-                                      class={`rounded-md px-3 py-2 transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50 ${isEnglish ? 'text-xs' : 'text-sm'}`}
-                                      style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
+                        {partnership.tags && partnership.tags.length > 0 && (
+                                <div>
+                                    <h3
+                                            class="text-lg font-semibold mb-4 pb-4"
+                                            style="border-bottom: 1px solid var(--theme-border); color: var(--theme-text);"
                                     >
-                                        {tag.title}
-                                    </span>
-                                ))}
-                                {(!partnership.tags || partnership.tags.length === 0) && (
-                                    <span
-                                      class={`rounded-md px-3 py-2 transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50 ${isEnglish ? 'text-xs' : 'text-sm'}`}
-                                      style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
-                                    >
-                                        {t('partnerships.fallbackTags.beauty')}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
+                                        {t('news.tags')}</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        {partnership.tags.map(tag => (
+                                                <span
+                                                        class="rounded-md px-3 py-2 text-sm transition-all duration-200 cursor-pointer border hover:border-primary-500 hover:bg-primary-50"
+                                                        style="border-color: var(--theme-border); color: var(--theme-text); background: var(--theme-card-bg);"
+                                                >
+                      {tag.title}
+                    </span>
+                                        ))}
+                                    </div>
+                                </div>
+                        )}
                     </div>
                 </div>
             </div>
