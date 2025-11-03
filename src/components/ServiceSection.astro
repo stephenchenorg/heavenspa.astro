@@ -28,18 +28,18 @@ const isEnglish = currentLocale === 'en'
 
   <!-- Course Content -->
   <div class="max-w-7xl mx-auto w-full mt-8 service-carousel-container" data-animate="carousel">
-    <div class="relative overflow-x-hidden overflow-y-visible">
+    <div class="relative overflow-hidden">
       <!-- 整個區塊輪播容器 -->
       <div class="flex transition-transform duration-500 ease-in-out" id="service-sections-container">
 
         {services.map((service, index) => (
-          <div class="min-w-full max-w-full flex-shrink-0 min-h-[540px] lg:min-h-[480px] overflow-x-hidden" data-service={index.toString()}>
+          <div class="min-w-full max-w-full flex-shrink-0 min-h-[540px] lg:min-h-[480px] overflow-hidden" data-service={index.toString()}>
             <!-- Course Content - 置中重疊佈局 -->
             <div class="relative max-w-5xl mx-auto px-4 pb-32 lg:pb-0">
 
               <!-- Image (Background) -->
               <div class="flex justify-center lg:justify-end max-w-full overflow-hidden">
-                <div class="service-image-container relative aspect-square lg:aspect-[2/1] w-full lg:w-[700px] overflow-hidden rounded-3xl shadow-2xl">
+                <div class="service-image-container relative aspect-[3/2] w-full lg:w-[700px] overflow-hidden rounded-3xl shadow-2xl">
                   <!-- Mobile Image -->
                   <img
                     src={service?.cover?.mobile || service?.cover?.desktop || 'https://hamahairspa.com/wp-content/uploads/2024/06/%E5%A4%A7treating-facial-skin-by-massage-cosmetological-clinic.jpeg'}
@@ -520,8 +520,7 @@ const isEnglish = currentLocale === 'en'
   }
 
   /* 圖片容器優化 */
-  .service-carousel-container .relative.aspect-square,
-  .service-carousel-container .relative.lg\\:aspect-\\[2\\/1\\] {
+  .service-carousel-container .relative.aspect-\\[3\\/2\\] {
     /* 確保容器等比例 */
     position: relative;
     overflow: hidden;
@@ -542,8 +541,8 @@ const isEnglish = currentLocale === 'en'
   /* 移動裝置圖片優化 */
   @media (max-width: 768px) {
     .service-carousel-container img {
-      /* 移動裝置使用更保守的縮放 */
-      object-position: center 30%;
+      /* 移動裝置 3:2 比例優化 */
+      object-position: center center;
     }
   }
 
@@ -554,22 +553,16 @@ const isEnglish = currentLocale === 'en'
       object-position: center center;
     }
     
-    /* 寬屏比例調整 */
-    .service-carousel-container .lg\\:aspect-\\[2\\/1\\] img {
+    /* 3:2 比例調整 */
+    .service-carousel-container .lg\\:aspect-\\[3\\/2\\] img {
       object-position: center center;
-      /* 寬屏圖片可以稍微調整焦點 */
+      /* 3:2 比例圖片適合大部分場景 */
     }
   }
 
-  /* 不同長寬比圖片的智能調整 */
-  .service-carousel-container .aspect-square img {
-    /* 正方形容器：適合肖像和方形圖片 */
-    object-fit: cover;
-    object-position: center 25%;
-  }
-
-  .service-carousel-container .lg\\:aspect-\\[2\\/1\\] img {
-    /* 2:1 容器：適合風景和寬幅圖片 */
+  /* 統一 3:2 比例圖片調整 */
+  .service-carousel-container .aspect-\\[3\\/2\\] img {
+    /* 3:2 容器：適合服務場景和環境圖片 */
     object-fit: cover;
     object-position: center center;
   }
@@ -586,6 +579,28 @@ const isEnglish = currentLocale === 'en'
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+  }
+
+  /* 隱藏卷軸 - 所有裝置 */
+  .service-carousel-container {
+    /* 隱藏水平和垂直卷軸 */
+    overflow: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .service-carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* 確保輪播容器不會出現卷軸 */
+  .service-carousel-container .relative {
+    overflow: hidden;
+  }
+
+  #service-sections-container {
+    /* 防止內容溢出產生卷軸 */
+    overflow: hidden;
   }
 
   /* Individual service cards */
@@ -637,6 +652,37 @@ const isEnglish = currentLocale === 'en'
       width: 44px;
       height: 44px;
       touch-action: manipulation;
+    }
+
+    /* 手機版專用：強制隱藏所有卷軸 */
+    .service-carousel-container,
+    .service-carousel-container * {
+      /* 完全隱藏卷軸 */
+      overflow-x: hidden !important;
+      overflow-y: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none !important;
+      scrollbar-width: none !important;
+    }
+
+    .service-carousel-container *::-webkit-scrollbar,
+    .service-carousel-container::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      background: transparent !important;
+    }
+
+    /* 防止內容超出視窗 */
+    .service-carousel-container {
+      max-width: 100vw;
+      width: 100%;
+    }
+
+    /* 確保輪播項目不會溢出 */
+    #service-sections-container > div {
+      max-width: 100vw;
+      overflow: hidden;
     }
   }
 
@@ -796,36 +842,31 @@ const isEnglish = currentLocale === 'en'
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* 響應式圖片尺寸優化 */
+  /* 響應式圖片尺寸優化 - 統一 3:2 比例 */
   @media (max-width: 480px) {
     .service-image-container img {
-      /* 小螢幕優化：重點保留圖片上半部 */
-      object-position: center 25%;
+      /* 小螢幕 3:2 優化：稍微偏向上方 */
+      object-position: center 40%;
     }
   }
 
   @media (min-width: 481px) and (max-width: 768px) {
     .service-image-container img {
-      /* 平板優化：平衡顯示 */
-      object-position: center 30%;
+      /* 平板 3:2 優化：居中顯示 */
+      object-position: center center;
     }
   }
 
   @media (min-width: 769px) {
     .service-image-container img {
-      /* 桌面優化：完整居中顯示 */
+      /* 桌面 3:2 優化：完整居中顯示 */
       object-position: center center;
     }
   }
 
   /* 圖片長寬比最佳化 */
-  .aspect-square .service-image-container img {
-    /* 正方形容器：適合人像和產品圖 */
-    object-position: center 35%;
-  }
-
-  .lg\\:aspect-\\[2\\/1\\] .service-image-container img {
-    /* 寬屏容器：適合場景和環境圖 */
+  .aspect-\\[3\\/2\\] .service-image-container img {
+    /* 統一 3:2 容器：適合大部分服務場景圖 */
     object-position: center center;
   }
 
@@ -836,5 +877,49 @@ const isEnglish = currentLocale === 'en'
 
   :global(.dark) .service-image-container:hover img {
     filter: brightness(1.1) contrast(1.1) saturate(1.15);
+  }
+
+  /* 全域卷軸隱藏 - ServiceSection 專用 */
+  .service-carousel-container,
+  .service-carousel-container *,
+  #service-sections-container,
+  #service-sections-container * {
+    /* 移除所有可能的卷軸 */
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .service-carousel-container::-webkit-scrollbar,
+  .service-carousel-container *::-webkit-scrollbar,
+  #service-sections-container::-webkit-scrollbar,
+  #service-sections-container *::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+
+  /* 防止內容溢出 */
+  .service-carousel-container {
+    contain: layout style;
+  }
+
+  /* 特別針對手機版的額外保護 */
+  @media (max-width: 768px) {
+    .service-carousel-container {
+      /* 確保容器不會超出螢幕寬度 */
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+
+    /* 防止任何子元素產生卷軸 */
+    .service-carousel-container *,
+    #service-sections-container *,
+    .service-image-container,
+    .service-image-container * {
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
   }
 </style>
