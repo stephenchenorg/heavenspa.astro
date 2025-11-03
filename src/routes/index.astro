@@ -52,17 +52,23 @@ const meta = {
   <HeroBanner banners={banners} />
   <IntroSection />
 
-  <div class="animate-in">
-    <TeamSection teamMembers={teamMembers} />
-  </div>
+  {teamMembers && teamMembers.length > 0 && (
+    <div class="animate-in">
+      <TeamSection teamMembers={teamMembers} />
+    </div>
+  )}
 
-  <div class="animate-in">
-    <ServiceSection services={services} />
-  </div>
+  {services && services.length > 0 && (
+    <div class="animate-in">
+      <ServiceSection services={services} />
+    </div>
+  )}
 
-  <div class="animate-in">
-    <IndexNews articles={articles} />
-  </div>
+  {articles && articles.length > 0 && (
+    <div class="animate-in">
+      <IndexNews articles={articles} />
+    </div>
+  )}
 
   <script>
     // 等待 DOM 載入完成
