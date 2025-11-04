@@ -41,7 +41,7 @@ const meta = {
 
 <Layout meta={meta}>
     <!-- Hero Banner -->
-    <section class="relative aspect-[16/9] overflow-hidden">
+    <section class="relative aspect-[1920/900] sm:aspect-[1920/800] lg:aspect-[1920/700] overflow-hidden">
         <div class="absolute inset-0">
             <picture>
                 <!-- 手機版圖片 (< 768px) -->
@@ -66,7 +66,7 @@ const meta = {
                 <!-- Main Title - Center -->
                 <h1 class={`font-bold ${isEnglish ? 'leading-normal about-hero-en' : 'leading-tight'} tracking-wide mb-8 sm:mb-12 animate-fade-in-up ${isEnglish ? 'text-2xl sm:text-4xl lg:text-5xl xl:text-6xl' : 'text-3xl sm:text-5xl lg:text-6xl xl:text-7xl'} ${isEnglish ? 'break-words hyphens-auto' : ''}`}>
                     {t('about.hero.title')}
-                </h1> 
+                </h1>
             </div>
         </div>
     </section>
@@ -484,7 +484,7 @@ const meta = {
             overflow-wrap: break-word;
             max-width: 100%;
         }
-        
+
         .service-content {
             padding-left: 1rem !important;
             padding-right: 1rem !important;
@@ -619,7 +619,7 @@ const meta = {
             font-size: 0.75rem;
             max-width: 100px;
         }
-        
+
         .progress-label.break-words {
             max-width: 100px !important;
         }
