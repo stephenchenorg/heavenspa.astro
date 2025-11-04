@@ -67,32 +67,32 @@ const meta = {
                             </div>
 
                             <!-- 卡片內容 -->
-                            <div class="p-6 flex-1 flex flex-col">
+                            <div class="p-6 flex-1 flex flex-col bg-white">
                                 <!-- 標題和下底線 -->
-                                <h3 class="text-xl font-semibold mb-2 pb-3 border-b" style="color: var(--theme-text); border-color: var(--theme-border);">
+                                <h3 class="text-xl font-semibold mb-2 pb-3 border-b border-gray-200 text-black">
                                     {item.title}
                                 </h3>
 
                                 <!-- 職缺內容 -->
                                 <div class="mt-4 mb-4 space-y-4 flex-1">
                                     <div>
-                                        <h4 class="font-semibold mb-3" style="color: var(--theme-text);">{t('joinUs.job.jobContent')}</h4>
-                                        <p class="text-sm whitespace-pre-line" style="color: var(--theme-text-secondary);">{item.description}</p>
+                                        <h4 class="font-semibold mb-3 text-black">{t('joinUs.job.jobContent')}</h4>
+                                        <p class="text-sm text-gray-700 whitespace-pre-line">{item.description}</p>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold mb-3" style="color: var(--theme-text);">{t('joinUs.job.requirements')}</h4>
-                                        <p class="text-sm whitespace-pre-line" style="color: var(--theme-text-secondary);">{item.requirements}</p>
+                                        <h4 class="font-semibold mb-3 text-black">{t('joinUs.job.requirements')}</h4>
+                                        <p class="text-sm text-gray-700 whitespace-pre-line">{item.requirements}</p>
                                     </div>
                                 </div>
 
                                 <!-- 按鈕區 -->
                                 <div class="mt-auto -mx-6 -mb-6">
+                                    <div class="border-t border-gray-200 mb-0"></div>
                                     <a
                                       href="mailto:heavenspa999@gmail.com"
-                                      class="block px-6 py-4 text-center transition-all duration-300 hover:opacity-90"
-                                      style="background: var(--theme-card-bg);"
+                                      class="block px-6 py-4 text-center transition-all duration-300 hover:opacity-90 bg-white/90"
                                     >
-                                        <p class="text-xs mb-2 font-medium" style="color: var(--theme-text-secondary);">
+                                        <p class="text-xs text-black/60 mb-2 font-medium">
                                             {t('joinUs.form.sendResume')}
                                         </p>
                                         <div
