@@ -764,21 +764,21 @@ const meta = {
 
         if (!progressIndicator || !progressDotsContainer || !stickyWrapper) return
 
+        // 檢查當前語系 - 從 html lang 屬性判斷
+        const isEnglishLang = document.documentElement.lang === 'en'
+
         // 收集所有區塊標題（品牌介紹 + 環境 + 服務）
         const sections = [brandIntroSection, environmentSection, ...Array.from(serviceSections)]
         const sectionTitles = sections.map((section, index) => {
             if (index === 0) {
-                // 品牌介紹區塊
-                const title = section?.querySelector('h3')?.textContent?.trim() || '品牌介紹'
-                return title
+                // 品牌介紹區塊 - 固定中英文
+                return isEnglishLang ? 'About Us' : '品牌介紹'
             } else if (index === 1) {
-                // 環境區塊
-                const title = section?.querySelector('h2')?.textContent?.trim() || '環境介紹'
-                return title
+                // 環境區塊 - 固定中英文
+                return isEnglishLang ? 'Environment' : '環境'
             } else {
-                // 服務區塊
-                const title = section?.querySelector('.service-title')?.textContent?.trim() || `服務 ${index - 1}`
-                return title
+                // 服務區塊 - 固定中英文
+                return isEnglishLang ? 'Services' : '服務'
             }
         })
 
