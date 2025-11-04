@@ -11,7 +11,6 @@ import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
-const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const url = new URL(Astro.request.url)
