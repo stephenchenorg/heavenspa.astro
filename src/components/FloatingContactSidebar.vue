@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed right-2 top-[60%] z-50 flex -translate-y-1/3 transform flex-col md:right-3 lg:right-4 border border-primary-200 rounded-full bg-white/95 backdrop-blur-sm shadow-lg divide-y divide-primary-100"
+    class="fixed right-2 top-[20%] z-50 flex -translate-y-1/3 transform flex-col md:right-3 lg:right-4 border border-primary-200 rounded-full bg-white/95 backdrop-blur-sm shadow-lg divide-y divide-primary-100"
   >
     <!-- LINE Contact Button -->
     <div v-if="companySetting.line_link" class="p-2 md:p-2 lg:p-2 first:rounded-t-full">
