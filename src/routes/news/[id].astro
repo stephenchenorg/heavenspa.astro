@@ -238,12 +238,28 @@ const meta = {
                       </div>
                     </a>
                   ) : (
-                    <div class="p-4 rounded-lg opacity-50"
-                         style="background: var(--theme-card-bg); border: 1px solid var(--theme-border);">
-                      <div class="text-xs" style="color: var(--theme-text-secondary);">
-                        {t('news.navigation.noPrevious')}
+                    <a
+                      class="group flex items-center space-x-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md"
+                      style="background: var(--theme-card-bg); border: 2px solid var(--theme-border);"
+                    >
+                      <svg
+                        class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300 flex-shrink-0 opacity-0"
+                        style="color: var(--color-primary-500);"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                      </svg>
+                      <div class="flex-1 min-w-0">
+                        <div class="text-xs font-medium mb-1 opacity-0" style="color: var(--color-primary-500);">
+                          {t('news.navigation.previousArticle')}
+                        </div>
+                        <div class="text-sm font-medium line-clamp-2" style="color: var(--theme-text);">
+                          {t('news.navigation.noPrevious')}
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   )}
                 </div>
 
@@ -274,12 +290,28 @@ const meta = {
                       </svg>
                     </a>
                   ) : (
-                    <div class="p-4 rounded-lg opacity-50 text-right"
-                         style="background: var(--theme-card-bg); border: 1px solid var(--theme-border);">
-                      <div class="text-xs" style="color: var(--theme-text-secondary);">
-                        {t('news.navigation.noNext')}
+                    <a
+                      class="group flex items-center space-x-3 p-4 rounded-lg transition-all duration-300 hover:shadow-md text-right"
+                      style="background: var(--theme-card-bg); border: 2px solid var(--theme-border);"
+                    >
+                      <div class="flex-1 min-w-0">
+                        <div class="text-xs font-medium mb-1 opacity-0" style="color: var(--color-primary-500);">
+                          {t('news.navigation.nextArticle')}
+                        </div>
+                        <div class="text-sm font-medium line-clamp-2" style="color: var(--theme-text);">
+                          {t('news.navigation.noNext')}
+                        </div>
                       </div>
-                    </div>
+                      <svg
+                        class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0 opacity-0"
+                        style="color: var(--color-primary-500);"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </a>
                   )}
                 </div>
               </div>
