@@ -109,8 +109,13 @@ const {
       if (!showDots || !dotsContainer) return
 
       const totalPages = getTotalPages()
-      dotsContainer.innerHTML = ''
-
+      
+      // 避免不必要的重新創建
+      if (dotsContainer.children.length === totalPages) return
+      
+      // 使用 DocumentFragment 避免多次 DOM 操作導致的閃爍
+      const fragment = document.createDocumentFragment()
+      
       for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button')
         dot.className = 'carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 bg-[var(--theme-text)] opacity-30'
@@ -123,8 +128,12 @@ const {
           resetAutoSlide()
         })
 
-        dotsContainer.appendChild(dot)
+        fragment.appendChild(dot)
       }
+      
+      // 一次性替換所有內容，減少閃爍
+      dotsContainer.innerHTML = ''
+      dotsContainer.appendChild(fragment)
     }
 
     // 更新輪播位置
@@ -146,30 +155,41 @@ const {
       // 更新指示器
       if (showDots && dotsContainer) {
         const dots = dotsContainer.querySelectorAll('.carousel-dot')
-        dots.forEach((dot, index) => {
-          if (index === currentIndex) {
-            dot.style.opacity = '1'
-            dot.style.transform = 'scale(1.2)'
-          } else {
-            dot.style.opacity = '0.3'
-            dot.style.transform = 'scale(1)'
-          }
-        })
+        
+        // 確保有指示器點存在
+        if (dots.length > 0) {
+          // 確保 currentIndex 在有效範圍內
+          const safeCurrentIndex = Math.max(0, Math.min(currentIndex, dots.length - 1))
+          
+          dots.forEach((dot, index) => {
+            if (index === safeCurrentIndex) {
+              dot.style.opacity = '1'
+              dot.style.transform = 'scale(1.2)'
+            } else {
+              dot.style.opacity = '0.3'
+              dot.style.transform = 'scale(1)'
+            }
+          })
+        }
       }
     }
 
     // 下一頁
     function nextSlide() {
       const totalPages = getTotalPages()
-      currentIndex = (currentIndex + 1) % totalPages
-      updateCarouselPosition()
+      if (totalPages > 0) {
+        currentIndex = (currentIndex + 1) % totalPages
+        updateCarouselPosition()
+      }
     }
 
     // 上一頁
     function prevSlide() {
       const totalPages = getTotalPages()
-      currentIndex = currentIndex === 0 ? totalPages - 1 : currentIndex - 1
-      updateCarouselPosition()
+      if (totalPages > 0) {
+        currentIndex = currentIndex === 0 ? totalPages - 1 : currentIndex - 1
+        updateCarouselPosition()
+      }
     }
 
     // 自動輪播
@@ -254,12 +274,18 @@ const {
 
     // 響應式處理
     function handleResize() {
-      const totalPages = getTotalPages()
-      // 如果當前索引超過新的總頁數，重置到第一頁
-      if (currentIndex >= totalPages) {
-        currentIndex = 0
+      const oldTotalPages = dotsContainer ? dotsContainer.children.length : 0
+      const newTotalPages = getTotalPages()
+      
+      // 只有在總頁數真正改變時才重新創建指示器
+      if (oldTotalPages !== newTotalPages) {
+        // 如果當前索引超過新的總頁數，調整到合適的位置
+        if (currentIndex >= newTotalPages) {
+          currentIndex = Math.max(0, newTotalPages - 1)
+        }
+        createDots()
       }
-      createDots()
+      
       updateCarouselPosition()
       // 延遲更新按鈕位置，確保布局完成
       setTimeout(updateButtonPosition, 100)
@@ -271,8 +297,16 @@ const {
     // 延遲更新按鈕位置，確保布局完成
     setTimeout(updateButtonPosition, 100)
 
+    // 防抖的 resize 處理
+    let resizeTimeout
+    
+    function debouncedResize() {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(handleResize, 150)
+    }
+    
     // 監聽視窗大小變化
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', debouncedResize)
 
     // 延遲啟動自動輪播
     setTimeout(startAutoSlide, 1000)
@@ -287,5 +321,22 @@ const {
   /* 確保輪播在不同螢幕大小下正確顯示 */
   .carousel-slide {
     box-sizing: border-box;
+  }
+
+  /* 指示器容器穩定性 */
+  .carousel-dots {
+    min-height: 32px; /* 確保即使沒有指示器也有固定高度 */
+    transition: opacity 0.3s ease;
+  }
+
+  /* 指示器點樣式增強 */
+  .carousel-dot {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    will-change: transform, opacity;
+  }
+
+  /* 防止指示器在更新時閃爍 */
+  .carousel-dots:empty {
+    opacity: 0;
   }
 </style>
