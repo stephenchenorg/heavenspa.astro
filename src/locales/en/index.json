@@ -220,7 +220,10 @@
     "job": {
       "title": "Job Openings",
       "jobContent": "Job Responsibilities:",
-      "requirements": "Requirements:"
+      "requirements": "Requirements:",
+      "noPositions": "No Job Openings Available",
+      "noPositionsDescription": "There are currently no open positions. Please check back later or contact us directly.",
+      "fillFormBelow": "Or fill out the resume form below"
     },
     "contact": {
       "title": "Contact Us",

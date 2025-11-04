@@ -220,7 +220,10 @@
     "job": {
       "title": "職缺內容",
       "jobContent": "職務內容：",
-      "requirements": "經歷條件："
+      "requirements": "經歷條件：",
+      "noPositions": "暫無職缺內容",
+      "noPositionsDescription": "目前沒有職缺開放，請稍後再回來查看，或直接與我們聯繫。",
+      "fillFormBelow": "或直接填寫下方履歷表單"
     },
     "contact": {
       "title": "聯絡我們",

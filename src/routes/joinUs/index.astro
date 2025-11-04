@@ -40,8 +40,10 @@ const meta = {
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light mb-8 lg:mb-12 lg:tracking-[4px] md:tracking-[3px] tracking-[2px] text-black ／">
                     {t('joinUs.job.title')}
                 </h2>
+                
+                {positions && positions.length > 0 ? (
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {positions && positions.map((item, index) => (
+                    {positions.map((item, index) => (
                         <div
                           class="liquid border overflow-hidden flex flex-col"
                           style="border-color: var(--theme-border);"
@@ -112,8 +114,44 @@ const meta = {
                         </div>
                     ))}
                 </div>
-            </div>
-        </section>
+                ) : (
+                <!-- 暫無職缺時顯示的內容 -->
+                <div class="text-center py-16">
+                    <div class="max-w-lg mx-auto">
+                        <!-- 圖標 -->
+                        <div class="mb-6">
+                            <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a1 1 0 01-1 1H9a1 1 0 01-1-1V6m8 0H8m0 10v4a2 2 0 002 2h4a2 2 0 002-2v-4M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h2v12z"></path>
+                            </svg>
+                        </div>
+                        
+                        <!-- 標題 -->
+                        <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-200 mb-4">
+                            {t('joinUs.job.noPositions')}
+                        </h3>
+                        
+                        <!-- 描述 -->
+                        <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                            {t('joinUs.job.noPositionsDescription')}
+                        </p>
+                        
+                        <!-- 聯絡按鈕 -->
+                        <div class="space-y-4">
+                            <a
+                              href="mailto:heavenspa999@gmail.com"
+                              class="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-all duration-300 hover:opacity-90 hover:shadow-lg transform hover:-translate-y-0.5"
+                              style="background: var(--color-primary-500);"
+                            >
+                                <span>📩</span>
+                                <span class="font-medium">{t('joinUs.form.sendResume')}</span>
+                            </a>
+                            <div class="text-sm text-gray-500">
+                                {t('joinUs.job.fillFormBelow')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                )}
 
         <!-- Page content will be added here -->
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
