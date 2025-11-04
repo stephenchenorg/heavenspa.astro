@@ -119,31 +119,22 @@ const meta = {
     <div class="max-w-6xl mx-auto w-full">
       <div class="mb-8 px-4">
         <div class="max-w-4xl mx-auto">
-          <!-- 可滑動的分類選單容器 -->
-          <div class="category-tabs-container relative overflow-hidden">
-            <div class="category-tabs-track overflow-x-auto scrollbar-hide pb-2" style="scroll-behavior: smooth; display: flex; gap: 0.5rem; justify-content: center;">
-              {categories.map(category => (
-                <a
-                  href={getLinkByLocale(`/services/${category.id}/items`)}
-                  class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${
-                    categoryId === Number.parseInt(category.id, 10)
-                      ? 'active'
-                      : ''
-                  }`}
-                  style={`${categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'} flex-shrink: 0; min-width: fit-content;`}
-                  role="tab"
-                  aria-selected={categoryId === Number.parseInt(category.id, 10)}
-                >
-                  {category.title}
-                </a>
-              ))}
-            </div>
-
-            <!-- 左側漸變遮罩 -->
-            <div class="absolute left-0 top-0 bottom-2 w-8 bg-gradient-to-r from-white dark:from-black to-transparent pointer-events-none z-10 category-fade-left opacity-0 transition-opacity duration-300"></div>
-
-            <!-- 右側漸變遮罩 -->
-            <div class="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-white dark:from-black to-transparent pointer-events-none z-10 category-fade-right opacity-0 transition-opacity duration-300"></div>
+          <div class="flex flex-wrap gap-2 justify-center">
+            {categories.map(category => (
+              <a
+                href={getLinkByLocale(`/services/${category.id}/items`)}
+                class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${
+                  categoryId === Number.parseInt(category.id, 10)
+                    ? 'active'
+                    : ''
+                }`}
+                style={categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                role="tab"
+                aria-selected={categoryId === Number.parseInt(category.id, 10)}
+              >
+                {category.title}
+              </a>
+            ))}
           </div>
         </div>
       </div>
