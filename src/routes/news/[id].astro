@@ -54,21 +54,19 @@ const meta = {
   <section class="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[1920/600] overflow-hidden pt-20">
     <div class="absolute inset-0">
       <!-- Mobile Image -->
-      <img
-        src={article.background?.mobile || article.background?.desktop}
-        alt={article.title}
-        class="object-cover object-center w-full h-full md:hidden"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <!-- Desktop Image -->
-      <img
-        src={article.background?.desktop || article.background?.mobile}
-        alt={article.title}
-        class="object-cover object-center w-full h-full hidden md:block"
-        loading="eager"
-        fetchpriority="high"
-      />
+      <picture>
+        <source
+          media="(min-width: 768px)"
+          srcset={article.background?.desktop || article.background?.mobile}
+        />
+        <img
+          src={article.background?.mobile || article.background?.desktop}
+          alt={article.title}
+          class="object-cover object-center w-full h-full"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </picture>
       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10"></div>
     </div>
 
@@ -113,7 +111,7 @@ const meta = {
           )}
 
           <!-- Tags -->
-          <div class="flex items-center justify-center space-x-2">
+          <div class="flex flex-wrap items-center justify-center gap-2 mx-2">
             {article.tags?.map(tag => (
               <span
                 class="px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm border border-white/20">
