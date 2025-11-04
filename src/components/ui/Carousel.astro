@@ -104,35 +104,119 @@ const {
       return Math.ceil(itemCount / slidesPerView)
     }
 
-    // 創建指示器
-    function createDots() {
-      if (!showDots || !dotsContainer) return
-
-      const totalPages = getTotalPages()
-      
-      // 如果總頁數為 0 或 1，隱藏指示器
-      if (totalPages <= 1) {
-        dotsContainer.innerHTML = ''
-        return
-      }
-      
-      // 清空容器
-      dotsContainer.innerHTML = ''
-      
-      // 創建指示器
+    // 強化的指示器管理系統
+    let dotsInitialized = false
+    let expectedTotalPages = 0
+    let isCreatingDots = false // 防止重複創建
+    let dotsTemplate = [] // 儲存指示器模板
+    let forceRecreate = false
+    
+    // 創建指示器模板
+    function createDotsTemplate(totalPages) {
+      const template = []
       for (let i = 0; i < totalPages; i++) {
-        const dot = document.createElement('button')
-        dot.className = 'carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 bg-[var(--theme-text)] opacity-30'
-        dot.setAttribute('data-slide', i.toString())
-        dot.setAttribute('aria-label', `第 ${i + 1} 頁`)
-
-        dot.addEventListener('click', () => {
-          currentIndex = i
-          updateCarouselPosition()
-          resetAutoSlide()
+        template.push({
+          index: i,
+          className: 'carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110 bg-[var(--theme-text)] opacity-30',
+          'data-slide': i.toString(),
+          'aria-label': `第 ${i + 1} 頁`,
+          'data-carousel-id': uniqueId
         })
+      }
+      return template
+    }
+    
+    // 強化的指示器創建函式
+    function createDots(force = false) {
+      if (!showDots || !dotsContainer) return
+      if (isCreatingDots && !force) return // 防止重複創建
 
-        dotsContainer.appendChild(dot)
+      isCreatingDots = true
+      
+      try {
+        const totalPages = getTotalPages()
+        
+        // 如果總頁數為 0 或 1，隱藏指示器
+        if (totalPages <= 1) {
+          dotsContainer.style.cssText = 'display: none !important;'
+          isCreatingDots = false
+          return
+        }
+        
+        // 強制顯示指示器
+        dotsContainer.style.cssText = `
+          display: flex !important; 
+          justify-content: center !important; 
+          margin-top: 1.5rem !important; 
+          padding: 1rem !important; 
+          gap: 0.5rem !important;
+          min-height: 32px !important;
+          position: relative !important;
+          z-index: 100 !important;
+        `
+        
+        // 檢查是否需要重新創建
+        const existingDots = dotsContainer.querySelectorAll('.carousel-dot')
+        if (!force && existingDots.length === totalPages && dotsInitialized && expectedTotalPages === totalPages) {
+          isCreatingDots = false
+          return // 已經有正確數量的指示器，不需要重新創建
+        }
+        
+        // 記錄預期的總頁數
+        expectedTotalPages = totalPages
+        dotsTemplate = createDotsTemplate(totalPages)
+        
+        // 立即且完全清空容器
+        dotsContainer.innerHTML = ''
+        
+        // 使用 DocumentFragment 提升效能
+        const fragment = document.createDocumentFragment()
+        
+        // 根據模板創建指示器
+        dotsTemplate.forEach((dotConfig, i) => {
+          const dot = document.createElement('button')
+          dot.className = dotConfig.className
+          dot.setAttribute('data-slide', dotConfig['data-slide'])
+          dot.setAttribute('aria-label', dotConfig['aria-label'])
+          dot.setAttribute('data-carousel-id', dotConfig['data-carousel-id'])
+          dot.setAttribute('data-dot-index', i.toString()) // 額外的索引標識
+          
+          // 添加強制樣式確保可見性
+          dot.style.cssText = `
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 50% !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+            flex-shrink: 0 !important;
+            border: none !important;
+            background-color: var(--theme-text) !important;
+            opacity: 0.3 !important;
+            position: relative !important;
+            z-index: 101 !important;
+          `
+
+          dot.onclick = function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            currentIndex = i
+            updateCarouselPosition()
+            resetAutoSlide()
+          }
+
+          fragment.appendChild(dot)
+        })
+        
+        // 一次性添加所有指示器
+        dotsContainer.appendChild(fragment)
+        
+        dotsInitialized = true
+        forceRecreate = false
+        
+      } catch (error) {
+        console.error('建立指示器時發生錯誤:', error)
+      } finally {
+        isCreatingDots = false
       }
     }
 
@@ -152,17 +236,70 @@ const {
 
       track.style.transform = `translateX(${translateX}%)`
 
-      // 更新指示器
+      // 強化的指示器更新
       if (showDots && dotsContainer) {
-        const dots = dotsContainer.querySelectorAll('.carousel-dot')
+        // 多層檢查確保指示器存在
+        let dots = dotsContainer.querySelectorAll('.carousel-dot')
         
+        // 第一層檢查：指示器是否存在且數量正確
+        if (dots.length === 0 || dots.length !== totalPages) {
+          createDots(true) // 強制重新創建
+          dots = dotsContainer.querySelectorAll('.carousel-dot')
+        }
+        
+        // 第二層檢查：確保指示器容器可見
+        const containerStyle = window.getComputedStyle(dotsContainer)
+        if (containerStyle.display === 'none' && totalPages > 1) {
+          dotsContainer.style.cssText = `
+            display: flex !important; 
+            justify-content: center !important; 
+            margin-top: 1.5rem !important; 
+            padding: 1rem !important; 
+            gap: 0.5rem !important;
+            min-height: 32px !important;
+            position: relative !important;
+            z-index: 100 !important;
+          `
+        }
+        
+        // 第三層檢查：更新指示器狀態並確保樣式正確
         dots.forEach((dot, index) => {
-          if (index === currentIndex) {
-            dot.style.opacity = '1'
-            dot.style.transform = 'scale(1.2)'
-          } else {
-            dot.style.opacity = '0.3'
-            dot.style.transform = 'scale(1)'
+          try {
+            if (index === currentIndex) {
+              dot.style.cssText = `
+                width: 12px !important;
+                height: 12px !important;
+                border-radius: 50% !important;
+                transition: all 0.3s ease !important;
+                cursor: pointer !important;
+                flex-shrink: 0 !important;
+                border: none !important;
+                background-color: var(--theme-text) !important;
+                opacity: 1 !important;
+                transform: scale(1.2) !important;
+                position: relative !important;
+                z-index: 101 !important;
+              `
+            } else {
+              dot.style.cssText = `
+                width: 12px !important;
+                height: 12px !important;
+                border-radius: 50% !important;
+                transition: all 0.3s ease !important;
+                cursor: pointer !important;
+                flex-shrink: 0 !important;
+                border: none !important;
+                background-color: var(--theme-text) !important;
+                opacity: 0.3 !important;
+                transform: scale(1) !important;
+                position: relative !important;
+                z-index: 101 !important;
+              `
+            }
+          } catch (error) {
+            console.error('更新指示器狀態時發生錯誤:', error)
+            // 如果樣式更新失敗，重新創建指示器
+            createDots(true)
           }
         })
       }
@@ -266,24 +403,210 @@ const {
       }
     }
 
-    // 響應式處理
+    // 強化的響應式處理
+    let resizeTimeout = null
+    
     function handleResize() {
-      const totalPages = getTotalPages()
-      // 如果當前索引超過新的總頁數，重置到第一頁
-      if (currentIndex >= totalPages) {
-        currentIndex = 0
+      // 使用防抖動機制避免頻繁執行
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout)
       }
-      createDots()
-      updateCarouselPosition()
-      // 延遲更新按鈕位置，確保布局完成
-      setTimeout(updateButtonPosition, 100)
+      
+      resizeTimeout = setTimeout(() => {
+        const newTotalPages = getTotalPages()
+        
+        // 如果當前索引超過新的總頁數，重置到第一頁
+        if (currentIndex >= newTotalPages) {
+          currentIndex = 0
+        }
+        
+        // 總頁數改變時強制重新創建指示器
+        if (expectedTotalPages !== newTotalPages) {
+          dotsInitialized = false // 重置初始化標記
+          forceRecreate = true
+          createDots(true) // 強制創建
+        }
+        
+        updateCarouselPosition()
+        
+        // 延遲更新按鈕位置，確保布局完成
+        setTimeout(updateButtonPosition, 100)
+        
+        // 確保指示器在響應式調整後仍然正確
+        setTimeout(() => {
+          ensureDotsStability()
+        }, 200)
+        
+      }, 100) // 100ms 防抖動延遲
     }
 
-    // 初始化
-    createDots()
-    updateCarouselPosition()
-    // 延遲更新按鈕位置，確保布局完成
-    setTimeout(updateButtonPosition, 100)
+    // 全面的指示器監控和恢復機制
+    let stabilityCheckCount = 0
+    
+    function ensureDotsStability() {
+      if (!showDots || !dotsContainer) return
+      
+      const totalPages = getTotalPages()
+      const existingDots = dotsContainer.querySelectorAll('.carousel-dot')
+      const containerVisible = dotsContainer.offsetParent !== null
+      
+      stabilityCheckCount++
+      
+      // 多層檢查確保指示器完整性
+      let needsRecreation = false
+      
+      // 檢查1: 指示器數量是否正確
+      if (totalPages > 1 && existingDots.length !== totalPages) {
+        needsRecreation = true
+      }
+      
+      // 檢查2: 容器是否可見
+      if (totalPages > 1 && !containerVisible) {
+        needsRecreation = true
+      }
+      
+      // 檢查3: 指示器是否具有正確的屬性
+      if (totalPages > 1 && existingDots.length > 0) {
+        const firstDot = existingDots[0]
+        if (!firstDot.hasAttribute('data-carousel-id') || 
+            firstDot.getAttribute('data-carousel-id') !== uniqueId) {
+          needsRecreation = true
+        }
+      }
+      
+      // 檢查4: CSS 樣式是否正確
+      if (totalPages > 1 && existingDots.length > 0) {
+        const computedStyle = window.getComputedStyle(existingDots[0])
+        if (computedStyle.display === 'none' || computedStyle.opacity === '0') {
+          needsRecreation = true
+        }
+      }
+      
+      // 執行重建
+      if (needsRecreation) {
+        createDots(true)
+        setTimeout(() => {
+          updateCarouselPosition()
+        }, 50)
+      }
+      
+      // 每10次檢查後強制重建一次（終極保險）
+      if (stabilityCheckCount % 10 === 0 && totalPages > 1) {
+        createDots(true)
+        updateCarouselPosition()
+      }
+    }
+    
+    // 強化的 MutationObserver 監控
+    if (showDots && dotsContainer && window.MutationObserver) {
+      const observer = new MutationObserver((mutations) => {
+        let shouldRecheck = false
+        
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'childList') {
+            shouldRecheck = true
+          }
+          
+          if (mutation.type === 'attributes' && 
+              (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
+            shouldRecheck = true
+          }
+        })
+        
+        if (shouldRecheck) {
+          setTimeout(() => {
+            const totalPages = getTotalPages()
+            const currentDots = dotsContainer.querySelectorAll('.carousel-dot')
+            
+            // 如果指示器被意外移除或修改，立即重建
+            if (totalPages > 1 && (currentDots.length === 0 || currentDots.length !== totalPages)) {
+              createDots(true)
+              updateCarouselPosition()
+            }
+          }, 10)
+        }
+      })
+      
+      observer.observe(dotsContainer, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+      })
+      
+      // 額外監控整個輪播容器
+      const carouselObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+            setTimeout(ensureDotsStability, 100)
+          }
+        })
+      })
+      
+      carouselObserver.observe(carousel, {
+        attributes: true,
+        attributeFilter: ['style', 'class']
+      })
+    }
+
+    // 強化的初始化流程
+    function initialize() {
+      try {
+        createDots(true) // 強制創建指示器
+        updateCarouselPosition()
+        
+        // 延遲更新按鈕位置，確保布局完成
+        setTimeout(updateButtonPosition, 100)
+        
+        // 多次檢查確保初始化完成
+        setTimeout(() => {
+          ensureDotsStability()
+        }, 200)
+        
+        setTimeout(() => {
+          ensureDotsStability()
+        }, 500)
+        
+        setTimeout(() => {
+          ensureDotsStability()
+        }, 1000)
+        
+      } catch (error) {
+        console.error('輪播初始化失敗:', error)
+        // 初始化失敗時，延遲重試
+        setTimeout(initialize, 1000)
+      }
+    }
+    
+    // 執行初始化
+    initialize()
+    
+    // 多層級定期檢查指示器穩定性
+    const quickCheck = setInterval(() => {
+      ensureDotsStability()
+    }, 1000) // 每1秒快速檢查
+    
+    const normalCheck = setInterval(() => {
+      ensureDotsStability()
+    }, 3000) // 每3秒正常檢查
+    
+    const deepCheck = setInterval(() => {
+      const totalPages = getTotalPages()
+      if (totalPages > 1) {
+        createDots(true) // 每10秒強制重建一次
+        updateCarouselPosition()
+      }
+    }, 10000) // 每10秒深度檢查
+    
+    // 清理機制
+    window.addEventListener('beforeunload', () => {
+      clearInterval(quickCheck)
+      clearInterval(normalCheck)
+      clearInterval(deepCheck)
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout)
+      }
+    })
 
     // 監聽視窗大小變化
     window.addEventListener('resize', handleResize)
@@ -303,15 +626,79 @@ const {
     box-sizing: border-box;
   }
 
-  /* 指示器容器穩定性 */
+  /* 強化的指示器容器穩定性 */
   .carousel-dots {
-    min-height: 32px;
-    transition: opacity 0.3s ease;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem !important;
+    gap: 0.5rem !important;
+    min-height: 32px !important;
+    position: relative !important;
+    z-index: 100 !important;
+    isolation: isolate !important; /* 創建新的層疊上下文 */
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  /* 指示器點樣式 */
+  /* 強化的指示器點樣式 */
   .carousel-dot {
-    transition: all 0.3s ease;
-    cursor: pointer;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important; /* 防止被壓縮 */
+    position: relative !important;
+    border: none !important;
+    background-color: var(--theme-text) !important;
+    opacity: 0.3 !important;
+    z-index: 101 !important;
+    visibility: visible !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 確保指示器在所有主題下都可見 */
+  .carousel-dot::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: inherit !important;
+    background-color: inherit !important;
+    z-index: -1 !important;
+    display: block !important;
+  }
+  
+  /* 活動狀態的指示器 */
+  .carousel-dot[data-active="true"] {
+    opacity: 1 !important;
+    transform: scale(1.2) !important;
+  }
+  
+  /* 防止指示器被任何方式隱藏 */
+  .carousel-dots,
+  .carousel-dots[style*="display: none"],
+  .carousel-dots[style*="visibility: hidden"],
+  .carousel-dots[style*="opacity: 0"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .carousel-dot,
+  .carousel-dot[style*="display: none"],
+  .carousel-dot[style*="visibility: hidden"] {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* 確保容器在任何情況下都不會被隱藏 */
+  .carousel-dots:empty::after {
+    content: "載入中...";
+    color: var(--theme-text);
+    opacity: 0.5;
+    font-size: 12px;
   }
 </style>

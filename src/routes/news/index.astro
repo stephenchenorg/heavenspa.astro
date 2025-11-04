@@ -11,6 +11,7 @@ import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
 const t = await createNestedT()
 const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const url = new URL(Astro.request.url)
@@ -93,12 +94,9 @@ const meta = {
                 <div class="p-4 flex-1 flex flex-col justify-between">
                   <!-- Title -->
                   <div class="space-y-2">
-                    <h3
-                      class="text-lg font-bold leading-tight tracking-wide line-clamp-2 h-14 transition-colors duration-300"
-                      style="color: var(--theme-text);"
-                    >
-                      {article.title}
-                    </h3>
+                     <h3 class={`font-bold leading-tight tracking-wide transition-colors duration-300 ${isEnglish ? 'text-base' : 'text-lg'}`} style="color: var(--theme-text);">
+                        {article.title.length > 30 ? `${article.title.substring(0, 30)}...` : article.title}
+                      </h3>
                     <div
                       class="w-12 h-0.5 rounded-full"
                       style="background: linear-gradient(to right, var(--color-primary-500), transparent);"
