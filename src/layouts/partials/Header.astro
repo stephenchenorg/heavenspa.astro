@@ -1,5 +1,5 @@
 ---
-import type { CompanySettingData } from '@/types/companySetting'
+import type { CompanySettingData } from '@/types'
 import ButtonBooking from '@/components/ButtonBooking.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.astro'
 import ThemeController from '@/components/ThemeController.astro'
@@ -38,7 +38,7 @@ const navItems = [
 
 <!-- 導航列 -->
 <nav
-    class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav"
+  class="fixed top-0 left-0 right-0 z-[2000] flex justify-between items-center md:px-16 px-4 py-8 bg-transparent backdrop-blur-none transition-all duration-300 ease-in-out main-nav"
   data-scrolled="false"
 >
   <!-- Logo - flexible width -->
@@ -49,12 +49,12 @@ const navItems = [
         class="flex items-center space-x-2 transition-all duration-300 group"
       >
         { companySetting?.logo ? (
-              <img
-                src={companySetting?.logo}
-                alt={companySetting?.name || 'Logo'}
-                class="w-[150px] h-[50px] lg:w-[120px] lg:h-[40px] object-contain transition-transform duration-300 group-hover:scale-105"
-                loading="eager"
-              />
+            <img
+              src={companySetting?.logo}
+              alt={companySetting?.name || 'Logo'}
+              class="h-10 w-auto sm:h-12 transition-transform duration-300 group-hover:scale-105"
+              loading="eager"
+            />
           )
           : (
             <span class="text-xl font-bold">{ companySetting?.name }</span>
@@ -103,7 +103,7 @@ const navItems = [
         {companySetting?.logo && (
           <img
             src={companySetting?.logo}
-            class="w-[120px] h-[40px] object-contain"
+            class="h-10 w-auto object-contain"
             alt="Logo"
             loading="eager"
           />
@@ -327,63 +327,63 @@ const navItems = [
 </script>
 
 <style is:global>
-/* 移除不必要的桌面版下拉選單樣式 */
+  /* 移除不必要的桌面版下拉選單樣式 */
 
-/* CSS 變數定義 */
-:root {
-  /* 導航列變數 */
-  --theme-header-bg: rgba(255, 255, 255, 0.95);
-  --theme-header-text: #000000;
-  --theme-header-border: rgba(0, 0, 0, 0.1);
+  /* CSS 變數定義 */
+  :root {
+    /* 導航列變數 */
+    --theme-header-bg: rgba(255, 255, 255, 0.95);
+    --theme-header-text: #000000;
+    --theme-header-border: rgba(0, 0, 0, 0.1);
 
-  /* 子選單變數 */
-  --theme-submenu-bg: rgba(255, 255, 255, 0.98);
-  --theme-submenu-text: #000000;
-  --theme-submenu-border: rgba(0, 0, 0, 0.1);
-  --theme-submenu-hover-bg: rgba(59, 130, 246, 0.1);
-  --theme-submenu-hover-text: #D7AE54;
-}
+    /* 子選單變數 */
+    --theme-submenu-bg: rgba(255, 255, 255, 0.98);
+    --theme-submenu-text: #000000;
+    --theme-submenu-border: rgba(0, 0, 0, 0.1);
+    --theme-submenu-hover-bg: rgba(59, 130, 246, 0.1);
+    --theme-submenu-hover-text: #D7AE54;
+  }
 
-/* 深色模式變數 */
-.dark, .dark-theme, [data-theme="dark"] {
-  /* 導航列變數 */
-  --theme-header-bg: rgba(30, 30, 30, 0.95);
-  --theme-header-text: #ffffff;
-  --theme-header-border: rgba(255, 255, 255, 0.2);
+  /* 深色模式變數 */
+  .dark, .dark-theme, [data-theme="dark"] {
+    /* 導航列變數 */
+    --theme-header-bg: rgba(30, 30, 30, 0.95);
+    --theme-header-text: #ffffff;
+    --theme-header-border: rgba(255, 255, 255, 0.2);
 
-  /* 子選單變數 */
-  --theme-submenu-bg: rgba(30, 30, 30, 0.98);
-  --theme-submenu-text: #ffffff;
-  --theme-submenu-border: rgba(255, 255, 255, 0.2);
-  --theme-submenu-hover-bg: rgba(215, 174, 84, 0.2);
-  --theme-submenu-hover-text: #D7AE54;
-}
+    /* 子選單變數 */
+    --theme-submenu-bg: rgba(30, 30, 30, 0.98);
+    --theme-submenu-text: #ffffff;
+    --theme-submenu-border: rgba(255, 255, 255, 0.2);
+    --theme-submenu-hover-bg: rgba(215, 174, 84, 0.2);
+    --theme-submenu-hover-text: #D7AE54;
+  }
 
-/* 移除所有桌面版子選單樣式 */
+  /* 移除所有桌面版子選單樣式 */
 
-/* 手機版子選單樣式 */
-.mobile-nav-dropdown .mobile-nav-item {
-  border-bottom: none;
-}
+  /* 手機版子選單樣式 */
+  .mobile-nav-dropdown .mobile-nav-item {
+    border-bottom: none;
+  }
 
-.mobile-nav-submenu {
-  background-color: var(--theme-mobile-submenu-bg, rgba(0,0,0,0.1));
-  border-left: 2px solid var(--theme-mobile-nav-indicator, #D7AE54);
-  margin-left: 1rem;
-}
+  .mobile-nav-submenu {
+    background-color: var(--theme-mobile-submenu-bg, rgba(0,0,0,0.1));
+    border-left: 2px solid var(--theme-mobile-nav-indicator, #D7AE54);
+    margin-left: 1rem;
+  }
 
-.mobile-nav-subitem {
-  border-left: 3px solid transparent !important;
-  transition: all 0.2s ease !important;
-}
+  .mobile-nav-subitem {
+    border-left: 3px solid transparent !important;
+    transition: all 0.2s ease !important;
+  }
 
-.mobile-nav-subitem:hover,
-.mobile-nav-subitem.active {
-  background-color: var(--theme-mobile-submenu-hover-bg, rgba(215, 174, 84, 0.1)) !important;
-  opacity: 1 !important;
-  border-left: 3px solid #D7AE54 !important;
-  padding-left: 2.5rem !important;
-}
+  .mobile-nav-subitem:hover,
+  .mobile-nav-subitem.active {
+    background-color: var(--theme-mobile-submenu-hover-bg, rgba(215, 174, 84, 0.1)) !important;
+    opacity: 1 !important;
+    border-left: 3px solid #D7AE54 !important;
+    padding-left: 2.5rem !important;
+  }
 
-/* 移除桌面版導航相關的響應式樣式，統一使用側邊選單 */
+  /* 移除桌面版導航相關的響應式樣式，統一使用側邊選單 */
 </style>
