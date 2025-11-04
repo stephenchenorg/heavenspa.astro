@@ -112,6 +112,12 @@ export async function getAboutPageData(): Promise<AboutPageData> {
             mobile
             mobile_blur
           }
+          slide {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           background {
             desktop
             desktop_blur
