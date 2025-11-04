@@ -5,6 +5,12 @@ export interface ServiceCategory {
   title: string
   sub_title: string
   description: string
+  slide: {
+    desktop: string // 上滑蓋板 建議尺寸: 1920 x 1080px | 16:9
+    desktop_blur: string
+    mobile: string // 上滑蓋板 建議尺寸: 800 x 1120px | 5:7
+    mobile_blur: string
+  }
   cover: {
     desktop: string // 建議尺寸: 1920x960px (2:1 比例，適合首頁服務項目)
     desktop_blur: string
@@ -38,7 +44,13 @@ export async function getServiceCategories(): Promise<ServiceCategoriesResponse>
   return await graphQLAPI<ServiceCategoriesResponse>(gql`
     query MyQuery {
       serviceCategories {
-        data {
+        data {ㄇ
+          slide {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           cover {
             desktop
             desktop_blur

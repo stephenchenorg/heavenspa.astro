@@ -77,13 +77,13 @@ const meta = {
       <!-- Background Image - Mobile -->
       <div
         class="absolute inset-0 bg-cover bg-center md:hidden"
-        style={`background-image: url('${service.cover?.mobile || service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+        style={`background-image: url('${service.background?.mobile || service.background?.desktop}')`}
       >
       </div>
       <!-- Background Image - Desktop -->
       <div
         class="absolute inset-0 bg-cover bg-center hidden md:block"
-        style={`background-image: url('${service.cover?.desktop || service.cover?.mobile || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+        style={`background-image: url('${service.background?.desktop || service.background?.mobile}')`}
       >
       </div>
       <!-- Gradient Overlay -->

@@ -8,6 +8,12 @@ export interface ServiceDetail {
   content_3: string
   content_4: string
   service_category_id: string
+  background: {
+    desktop: string
+    desktop_blur: string
+    mobile: string
+    mobile_blur: string
+  }
   cover: {
     desktop: string
     desktop_blur: string
@@ -58,6 +64,12 @@ export async function getServiceDetail(id: number): Promise<ServiceDetailRespons
             title
           }
           service_category_id
+          background {
+            desktop
+            desktop_blur
+            mobile
+            mobile_blur
+          }
           cover {
             desktop
             desktop_blur

@@ -41,7 +41,7 @@ const meta = {
 
 <Layout meta={meta}>
     <!-- Hero Banner -->
-    <section class="relative aspect-[4/3] md:aspect-[16/9] overflow-hidden">
+    <section class="relative aspect-[16/9] overflow-hidden">
         <div class="absolute inset-0">
             <picture>
                 <!-- 手機版圖片 (< 768px) -->
@@ -185,8 +185,8 @@ const meta = {
             <div id="service-categories">
                 {services.map((service, index) => {
                     // 決定要使用的背景圖片（上滑蓋板）：優先使用對應裝置的圖片，如果沒有則使用另一個
-                    const desktopImage = service.background?.desktop || service.background?.mobile || ''
-                    const mobileImage = service.background?.mobile || service.background?.desktop || ''
+                    const desktopImage = service.slide?.desktop || service.slide?.mobile || ''
+                    const mobileImage = service.slide?.mobile || service.slide?.desktop || ''
 
                     return (
                     <section class="sticky top-0 aspect-[5/7] md:aspect-[16/9] flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index} data-desktop-bg={desktopImage} data-mobile-bg={mobileImage}>
