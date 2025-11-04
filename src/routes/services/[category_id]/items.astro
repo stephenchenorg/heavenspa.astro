@@ -120,7 +120,7 @@ const meta = {
         <div class="max-w-4xl mx-auto">
           <!-- 可滑動的分類選單容器 -->
           <div class="category-tabs-container relative overflow-hidden">
-            <div class="category-tabs-track overflow-x-auto scrollbar-hide pb-2" style="scroll-behavior: smooth; display: flex; gap: 0.5rem;">
+            <div class="category-tabs-track overflow-x-auto scrollbar-hide pb-2" style="scroll-behavior: smooth; display: flex; gap: 0.5rem; justify-content: center;">
               {categories.map(category => (
                 <a
                   href={getLinkByLocale(`/services/${category.id}/items`)}
@@ -310,7 +310,7 @@ const meta = {
       .category-tabs-track {
         padding-left: 1rem;
         padding-right: 1rem;
-        justify-content: flex-start; /* 確保從左開始排列 */
+        justify-content: center; /* 手機版也置中 */
       }
       
       .category-tabs-track a {
