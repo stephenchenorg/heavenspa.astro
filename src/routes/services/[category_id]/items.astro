@@ -118,22 +118,31 @@ const meta = {
     <div class="max-w-6xl mx-auto w-full">
       <div class="mb-8 px-4">
         <div class="max-w-4xl mx-auto">
-          <div class="flex flex-wrap gap-2 justify-center">
-            {categories.map(category => (
-              <a
-                href={getLinkByLocale(`/services/${category.id}/items`)}
-                class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${
-                  categoryId === Number.parseInt(category.id, 10)
-                    ? 'active'
-                    : ''
-                }`}
-                style={categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
-                role="tab"
-                aria-selected={categoryId === Number.parseInt(category.id, 10)}
-              >
-                {category.title}
-              </a>
-            ))}
+          <!-- 可滑動的分類選單容器 -->
+          <div class="category-tabs-container relative overflow-hidden">
+            <div class="category-tabs-track flex gap-2 transition-transform duration-300 ease-out overflow-x-auto scrollbar-hide pb-2" style="scroll-behavior: smooth;">
+              {categories.map(category => (
+                <a
+                  href={getLinkByLocale(`/services/${category.id}/items`)}
+                  class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer flex-shrink-0 ${
+                    categoryId === Number.parseInt(category.id, 10)
+                      ? 'active'
+                      : ''
+                  }`}
+                  style={categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                  role="tab"
+                  aria-selected={categoryId === Number.parseInt(category.id, 10)}
+                >
+                  {category.title}
+                </a>
+              ))}
+            </div>
+            
+            <!-- 左側漸變遮罩 -->
+            <div class="absolute left-0 top-0 bottom-2 w-8 bg-gradient-to-r from-white dark:from-black to-transparent pointer-events-none z-10 category-fade-left opacity-0 transition-opacity duration-300"></div>
+            
+            <!-- 右側漸變遮罩 -->
+            <div class="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-white dark:from-black to-transparent pointer-events-none z-10 category-fade-right opacity-0 transition-opacity duration-300"></div>
           </div>
         </div>
       </div>
@@ -256,6 +265,57 @@ const meta = {
       overflow: hidden;
     }
 
+    /* 分類選單滑動樣式 */
+    .category-tabs-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .category-tabs-track {
+      display: flex;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      min-height: 44px; /* 確保有足夠高度 */
+    }
+
+    .category-tabs-track a {
+      scroll-snap-align: start;
+      display: inline-block;
+      min-width: fit-content; /* 確保按鈕寬度適合內容 */
+    }
+
+    /* 隱藏滾動條 */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 漸變遮罩動畫 */
+    .category-fade-left.show,
+    .category-fade-right.show {
+      opacity: 1;
+    }
+
+    /* 手機版優化 */
+    @media (max-width: 768px) {
+      .category-tabs-track {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+      }
+      
+      .category-fade-left,
+      .category-fade-right {
+        display: none;
+      }
+    }
+
     /* English language optimizations for banner */
     .banner-en-title {
       word-break: break-word;
@@ -303,4 +363,98 @@ const meta = {
       }
     }
   </style>
+
+  <script>
+    // 分類選單滑動功能
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.category-tabs-container')
+      const track = document.querySelector('.category-tabs-track')
+      const fadeLeft = document.querySelector('.category-fade-left')
+      const fadeRight = document.querySelector('.category-fade-right')
+
+      if (!container || !track || !fadeLeft || !fadeRight) return
+
+      // 更新漸變遮罩顯示狀態
+      function updateFadeStates() {
+        const scrollLeft = track.scrollLeft
+        const scrollWidth = track.scrollWidth
+        const clientWidth = track.clientWidth
+        const maxScroll = scrollWidth - clientWidth
+
+        // 左側遮罩：當可以向左滑動時顯示
+        if (scrollLeft > 10) {
+          fadeLeft.classList.add('show')
+        } else {
+          fadeLeft.classList.remove('show')
+        }
+
+        // 右側遮罩：當可以向右滑動時顯示
+        if (scrollLeft < maxScroll - 10) {
+          fadeRight.classList.add('show')
+        } else {
+          fadeRight.classList.remove('show')
+        }
+      }
+
+      // 滾動到當前活躍的分類
+      function scrollToActiveTab() {
+        const activeTab = track.querySelector('.active')
+        if (activeTab) {
+          const tabRect = activeTab.getBoundingClientRect()
+          const trackRect = track.getBoundingClientRect()
+          const tabCenter = tabRect.left + tabRect.width / 2
+          const trackCenter = trackRect.left + trackRect.width / 2
+          const scrollOffset = tabCenter - trackCenter
+
+          track.scrollBy({
+            left: scrollOffset,
+            behavior: 'smooth'
+          })
+        }
+      }
+
+      // 監聽滾動事件
+      track.addEventListener('scroll', updateFadeStates, { passive: true })
+
+      // 初始化
+      updateFadeStates()
+      
+      // 延遲滾動到活躍分類，確保頁面完全載入
+      setTimeout(() => {
+        scrollToActiveTab()
+        updateFadeStates()
+      }, 100)
+
+      // 監聽視窗大小變化
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          updateFadeStates()
+          scrollToActiveTab()
+        }, 100)
+      })
+
+      // 觸控滑動支持（可選）
+      let isScrolling = false
+      let startX = 0
+      let scrollStart = 0
+
+      track.addEventListener('touchstart', (e) => {
+        isScrolling = true
+        startX = e.touches[0].clientX
+        scrollStart = track.scrollLeft
+      }, { passive: true })
+
+      track.addEventListener('touchmove', (e) => {
+        if (!isScrolling) return
+        
+        const currentX = e.touches[0].clientX
+        const diff = startX - currentX
+        track.scrollLeft = scrollStart + diff
+      }, { passive: true })
+
+      track.addEventListener('touchend', () => {
+        isScrolling = false
+      }, { passive: true })
+    })
+  </script>
 </Layout>
