@@ -44,7 +44,7 @@ export async function getServiceCategories(): Promise<ServiceCategoriesResponse>
   return await graphQLAPI<ServiceCategoriesResponse>(gql`
     query MyQuery {
       serviceCategories {
-        data {ㄇ
+        data {
           slide {
             desktop
             desktop_blur
