@@ -120,16 +120,16 @@ const meta = {
         <div class="max-w-4xl mx-auto">
           <!-- 可滑動的分類選單容器 -->
           <div class="category-tabs-container relative overflow-hidden">
-            <div class="category-tabs-track flex gap-2 transition-transform duration-300 ease-out overflow-x-auto scrollbar-hide pb-2" style="scroll-behavior: smooth;">
+            <div class="category-tabs-track overflow-x-auto scrollbar-hide pb-2" style="scroll-behavior: smooth; display: flex; gap: 0.5rem;">
               {categories.map(category => (
                 <a
                   href={getLinkByLocale(`/services/${category.id}/items`)}
-                  class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer flex-shrink-0 ${
+                  class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${
                     categoryId === Number.parseInt(category.id, 10)
                       ? 'active'
                       : ''
                   }`}
-                  style={categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                  style={`${categoryId === Number.parseInt(category.id, 10) ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'} flex-shrink: 0; min-width: fit-content;`}
                   role="tab"
                   aria-selected={categoryId === Number.parseInt(category.id, 10)}
                 >
@@ -303,16 +303,33 @@ const meta = {
 
     /* 手機版優化 */
     @media (max-width: 768px) {
+      .category-tabs-container {
+        margin: 0 -1rem; /* 延伸到螢幕邊緣 */
+      }
+      
       .category-tabs-track {
         padding-left: 1rem;
         padding-right: 1rem;
-        margin-left: -1rem;
-        margin-right: -1rem;
+        justify-content: flex-start; /* 確保從左開始排列 */
       }
       
+      .category-tabs-track a {
+        margin-right: 0.5rem; /* 確保按鈕間距 */
+      }
+      
+      /* 手機版也顯示漸變遮罩，但更subtle */
       .category-fade-left,
       .category-fade-right {
-        display: none;
+        width: 1rem;
+        opacity: 0.7;
+      }
+      
+      .category-fade-left {
+        background: linear-gradient(to right, var(--theme-bg) 0%, transparent 100%);
+      }
+      
+      .category-fade-right {
+        background: linear-gradient(to left, var(--theme-bg) 0%, transparent 100%);
       }
     }
 
@@ -367,15 +384,17 @@ const meta = {
   <script>
     // 分類選單滑動功能
     document.addEventListener('DOMContentLoaded', () => {
-      const container = document.querySelector('.category-tabs-container')
-      const track = document.querySelector('.category-tabs-track')
-      const fadeLeft = document.querySelector('.category-fade-left')
-      const fadeRight = document.querySelector('.category-fade-right')
+      const container = document.querySelector('.category-tabs-container') as HTMLElement
+      const track = document.querySelector('.category-tabs-track') as HTMLElement
+      const fadeLeft = document.querySelector('.category-fade-left') as HTMLElement
+      const fadeRight = document.querySelector('.category-fade-right') as HTMLElement
 
       if (!container || !track || !fadeLeft || !fadeRight) return
 
       // 更新漸變遮罩顯示狀態
       function updateFadeStates() {
+        if (!track || !fadeLeft || !fadeRight) return
+        
         const scrollLeft = track.scrollLeft
         const scrollWidth = track.scrollWidth
         const clientWidth = track.clientWidth
@@ -398,7 +417,9 @@ const meta = {
 
       // 滾動到當前活躍的分類
       function scrollToActiveTab() {
-        const activeTab = track.querySelector('.active')
+        if (!track) return
+        
+        const activeTab = track.querySelector('.active') as HTMLElement
         if (activeTab) {
           const tabRect = activeTab.getBoundingClientRect()
           const trackRect = track.getBoundingClientRect()
@@ -433,18 +454,18 @@ const meta = {
         }, 100)
       })
 
-      // 觸控滑動支持（可選）
+      // 觸控滑動支持
       let isScrolling = false
       let startX = 0
       let scrollStart = 0
 
-      track.addEventListener('touchstart', (e) => {
+      track.addEventListener('touchstart', (e: TouchEvent) => {
         isScrolling = true
         startX = e.touches[0].clientX
         scrollStart = track.scrollLeft
       }, { passive: true })
 
-      track.addEventListener('touchmove', (e) => {
+      track.addEventListener('touchmove', (e: TouchEvent) => {
         if (!isScrolling) return
         
         const currentX = e.touches[0].clientX
