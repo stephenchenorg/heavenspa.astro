@@ -777,8 +777,9 @@ const meta = {
                 // 環境區塊 - 固定中英文
                 return isEnglishLang ? 'Environment' : '環境'
             } else {
-                // 服務區塊 - 固定中英文
-                return isEnglishLang ? 'Services' : '服務'
+                // 服務區塊 - 保持原來動態抓取標題
+                const title = section?.querySelector('.service-title')?.textContent?.trim() || `服務 ${index - 1}`
+                return title
             }
         })
 
