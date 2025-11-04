@@ -80,11 +80,12 @@ const meta = {
 ---
 
 <Layout meta={meta}>
-  <main class="section-container">
+  <main class="relative z-10 w-full min-h-[80vh] pt-32 pb-16 md:pb-32 bg-white dark:bg-black text-black dark:text-white"
+     style="overflow-x: hidden;">
 
     <!-- 分類橫幅 -->
     {currentCategory && (
-      <section class="relative w-full aspect-[16/9] mb-8 overflow-hidden">
+      <section class="relative w-full h-64 md:h-80 lg:h-96 mb-8 overflow-hidden">
         <!-- 背景圖片 -->
         <!-- Mobile Background -->
         <div
@@ -137,10 +138,10 @@ const meta = {
                 </a>
               ))}
             </div>
-            
+
             <!-- 左側漸變遮罩 -->
             <div class="absolute left-0 top-0 bottom-2 w-8 bg-gradient-to-r from-white dark:from-black to-transparent pointer-events-none z-10 category-fade-left opacity-0 transition-opacity duration-300"></div>
-            
+
             <!-- 右側漸變遮罩 -->
             <div class="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-white dark:from-black to-transparent pointer-events-none z-10 category-fade-right opacity-0 transition-opacity duration-300"></div>
           </div>
@@ -155,7 +156,7 @@ const meta = {
             >
               <a href={getLinkByLocale(`/services/${categoryId}/items/${service.id}`)} class="flex flex-col">
                 <!-- 上半部：封面圖 -->
-                <div class="relative w-full overflow-hidden aspect-[4/3]">
+                <div class="relative w-full overflow-hidden aspect-square">
                   <!-- Background Image - Mobile -->
                   <div
                     class="absolute inset-0 bg-cover bg-center md:hidden"
@@ -306,28 +307,28 @@ const meta = {
       .category-tabs-container {
         margin: 0 -1rem; /* 延伸到螢幕邊緣 */
       }
-      
+
       .category-tabs-track {
         padding-left: 1rem;
         padding-right: 1rem;
         justify-content: center; /* 手機版也置中 */
       }
-      
+
       .category-tabs-track a {
         margin-right: 0.5rem; /* 確保按鈕間距 */
       }
-      
+
       /* 手機版也顯示漸變遮罩，但更subtle */
       .category-fade-left,
       .category-fade-right {
         width: 1rem;
         opacity: 0.7;
       }
-      
+
       .category-fade-left {
         background: linear-gradient(to right, var(--theme-bg) 0%, transparent 100%);
       }
-      
+
       .category-fade-right {
         background: linear-gradient(to left, var(--theme-bg) 0%, transparent 100%);
       }
@@ -394,7 +395,7 @@ const meta = {
       // 更新漸變遮罩顯示狀態
       function updateFadeStates() {
         if (!track || !fadeLeft || !fadeRight) return
-        
+
         const scrollLeft = track.scrollLeft
         const scrollWidth = track.scrollWidth
         const clientWidth = track.clientWidth
@@ -418,7 +419,7 @@ const meta = {
       // 滾動到當前活躍的分類
       function scrollToActiveTab() {
         if (!track) return
-        
+
         const activeTab = track.querySelector('.active') as HTMLElement
         if (activeTab) {
           const tabRect = activeTab.getBoundingClientRect()
@@ -439,7 +440,7 @@ const meta = {
 
       // 初始化
       updateFadeStates()
-      
+
       // 延遲滾動到活躍分類，確保頁面完全載入
       setTimeout(() => {
         scrollToActiveTab()
@@ -467,7 +468,7 @@ const meta = {
 
       track.addEventListener('touchmove', (e: TouchEvent) => {
         if (!isScrolling) return
-        
+
         const currentX = e.touches[0].clientX
         const diff = startX - currentX
         track.scrollLeft = scrollStart + diff
