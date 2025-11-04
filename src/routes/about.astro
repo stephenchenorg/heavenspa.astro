@@ -71,7 +71,7 @@ const meta = {
         </div>
     </section>
 
-    <main class="section-container-detail">
+    <main>
         <SectionTitle title={t('about.sectionTitle')} subtitle={t('about.sectionSubtitle')} />
 
         <!-- 品牌介紹內容 -->
@@ -189,7 +189,7 @@ const meta = {
                     const mobileImage = service.background?.mobile || service.background?.desktop || ''
 
                     return (
-                    <section class="sticky top-0 aspect-[9/16] md:aspect-[16/9] flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index} data-desktop-bg={desktopImage} data-mobile-bg={mobileImage}>
+                    <section class="sticky top-0 aspect-[5/7] md:aspect-[16/9] flex flex-col md:flex-row md:items-center md:justify-end relative overflow-hidden service-section" data-service-index={index} data-desktop-bg={desktopImage} data-mobile-bg={mobileImage}>
                         <!-- 背景圖層 -->
                         <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 ease-out service-bg"></div>
 
