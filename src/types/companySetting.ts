@@ -11,7 +11,7 @@ export interface Company {
   instagram?: string
   youtube?: string
   linkedin?: string
-  logo: string // 建議尺寸: 120x40px (3:1)
+  logo: string // 建議尺寸: 桌面版 120x40px, 手機版選單 180x60px (3:1)
   // 額外的屬性
   address_1?: string
   phone_1?: string
