@@ -110,8 +110,29 @@ const {
 
       const totalPages = getTotalPages()
       
-      // 避免不必要的重新創建
-      if (dotsContainer.children.length === totalPages) return
+      // 如果總頁數為 0 或 1，隱藏指示器
+      if (totalPages <= 1) {
+        dotsContainer.innerHTML = ''
+        dotsContainer.style.display = 'none'
+        return
+      }
+      
+      // 顯示指示器容器
+      dotsContainer.style.display = 'flex'
+      
+      // 只有在數量真的不同時才重新創建
+      const currentDots = dotsContainer.querySelectorAll('.carousel-dot')
+      if (currentDots.length === totalPages) {
+        // 確保所有點都有正確的事件監聽器
+        currentDots.forEach((dot, i) => {
+          dot.onclick = () => {
+            currentIndex = i
+            updateCarouselPosition()
+            resetAutoSlide()
+          }
+        })
+        return
+      }
       
       // 使用 DocumentFragment 避免多次 DOM 操作導致的閃爍
       const fragment = document.createDocumentFragment()
@@ -156,20 +177,31 @@ const {
       if (showDots && dotsContainer) {
         const dots = dotsContainer.querySelectorAll('.carousel-dot')
         
-        // 確保有指示器點存在
-        if (dots.length > 0) {
+        // 確保有指示器點存在且容器是可見的
+        if (dots.length > 0 && dotsContainer.style.display !== 'none') {
           // 確保 currentIndex 在有效範圍內
           const safeCurrentIndex = Math.max(0, Math.min(currentIndex, dots.length - 1))
+          
+          // 調試資訊
+          console.log(`Carousel: Updating dots - currentIndex: ${currentIndex}, safeIndex: ${safeCurrentIndex}, totalDots: ${dots.length}`)
           
           dots.forEach((dot, index) => {
             if (index === safeCurrentIndex) {
               dot.style.opacity = '1'
               dot.style.transform = 'scale(1.2)'
+              dot.classList.add('active')
             } else {
               dot.style.opacity = '0.3'
               dot.style.transform = 'scale(1)'
+              dot.classList.remove('active')
             }
           })
+        } else if (dots.length === 0) {
+          // 如果點點消失了，重新創建
+          console.log('Carousel: Dots disappeared, recreating...')
+          createDots()
+          // 遞歸調用一次以更新狀態
+          setTimeout(() => updateCarouselPosition(), 50)
         }
       }
     }
@@ -296,6 +328,25 @@ const {
     updateCarouselPosition()
     // 延遲更新按鈕位置，確保布局完成
     setTimeout(updateButtonPosition, 100)
+    
+    // 定期檢查指示器是否存在（調試用）
+    const checkDotsInterval = setInterval(() => {
+      if (showDots && dotsContainer) {
+        const dots = dotsContainer.querySelectorAll('.carousel-dot')
+        const totalPages = getTotalPages()
+        
+        if (dots.length === 0 && totalPages > 1) {
+          console.log('Carousel: Dots missing, recreating...')
+          createDots()
+          updateCarouselPosition()
+        }
+      }
+    }, 2000) // 每 2 秒檢查一次
+    
+    // 清理函數（在某些情況下可能需要）
+    window.addEventListener('beforeunload', () => {
+      clearInterval(checkDotsInterval)
+    })
 
     // 防抖的 resize 處理
     let resizeTimeout
@@ -327,16 +378,30 @@ const {
   .carousel-dots {
     min-height: 32px; /* 確保即使沒有指示器也有固定高度 */
     transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 10; /* 確保指示器在最上層 */
   }
 
   /* 指示器點樣式增強 */
   .carousel-dot {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     will-change: transform, opacity;
+    pointer-events: auto; /* 確保點擊事件可以觸發 */
+    cursor: pointer;
+  }
+
+  /* 活躍指示器樣式 */
+  .carousel-dot.active {
+    background-color: var(--color-primary-500) !important;
   }
 
   /* 防止指示器在更新時閃爍 */
   .carousel-dots:empty {
     opacity: 0;
+  }
+  
+  /* 確保指示器容器不會被隱藏 */
+  .carousel-dots[style*="display: none"] {
+    display: flex !important;
   }
 </style>
