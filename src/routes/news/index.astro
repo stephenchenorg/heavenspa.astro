@@ -107,16 +107,19 @@ const meta = {
                   <div
                     class="text-sm leading-relaxed line-clamp-3 h-16 transition-colors duration-300 py-4"
                     style="color: var(--theme-text-secondary);"
-                  >
-                    {(() => {
+                    set:html={(() => {
                       if (!article.content) return t('news.noContentSummary')
                       // 移除 HTML 標籤
-
-                      const textContent = article.content.replace(/<[^>]*>/g, '')
+                      let textContent = article.content.replace(/<[^>]*>/g, '')
+                      // 移除圖片 URL (http/https URLs)
+                      textContent = textContent.replace(/https?:\/\/[^\s]+/g, '')
+                      // 移除多餘空白
+                      textContent = textContent.replace(/\s+/g, ' ').trim()
                       // 截取前50個字
-
-                      return textContent.length > 50 ? `${textContent.substring(0, 50)}...` : textContent
+                      const summary = textContent.length > 50 ? `${textContent.substring(0, 50)}...` : textContent
+                      return summary
                     })()}
+                  >
                   </div>
                   <div class="flex items-center justify-between pt-2">
                     {article.author && (
