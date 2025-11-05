@@ -148,6 +148,13 @@ const t = await createNestedT()
     white-space: nowrap;
   }
 
+  /* Speed up on mobile */
+  @media (max-width: 768px) {
+    .marquee-content {
+      animation: marquee 15s linear infinite;
+    }
+  }
+
   @keyframes marquee {
     0% {
       transform: translateX(100%);
