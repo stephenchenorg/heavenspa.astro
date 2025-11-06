@@ -17,7 +17,7 @@ export default defineConfig({
   }),
   server: {
     host: '0.0.0.0',
-    port: 4323, // 新專案用不同 port
+    port: 4325, // 新專案用不同 port
   },
   integrations: [
     vue(),
