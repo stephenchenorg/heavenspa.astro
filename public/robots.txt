@@ -3,7 +3,8 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://dev-www.heavenspa.com.tw/sitemap.xml
+# Sitemap: https://dev-www.heavenspa.com.tw/sitemap.xml
+Sitemap: https://www.heavenspa.com.tw/sitemap-index.xml
 
 # Disallow admin and private areas
 Disallow: /admin/

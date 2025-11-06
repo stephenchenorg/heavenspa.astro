@@ -25,7 +25,8 @@ type Locale = 'zh_TW' | 'en'
 export const DEFAULT_OG_IMAGE = '/images/about/about1.jpg'
 
 // 網站基礎 URL
-export const SITE_URL = 'https://dev-www.heavenspa.com.tw'
+// export const SITE_URL = 'https://dev-www.heavenspa.com.tw'
+export const SITE_URL = 'https://www.heavenspa.com.tw'
 
 /**
  * 生成 canonical URL

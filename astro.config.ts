@@ -6,7 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import icons from 'unplugin-icons/vite'
 
-const site = 'https://dev-www.heavenspa.com.tw'
+// const site = 'https://dev-www.heavenspa.com.tw'
+const site = 'https://www.heavenspa.com.tw'
 
 export default defineConfig({
   site,
