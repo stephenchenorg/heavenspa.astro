@@ -32,7 +32,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
             data-target={`faq-body-${faq.id}`}
             data-column="left"
           >
-            <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
+            <span class="text-lg font-bold text-left break-words text-black dark:text-white flex-1 pr-2">
               {faq.title}
             </span>
             <svg
@@ -53,7 +53,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
           </button>
           <div id={`faq-body-${faq.id}`} class="faq-content overflow-hidden transition-all duration-300 ease-in-out max-h-0">
             <div class="px-6 pb-6 pt-2">
-              <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
+              <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap" data-content={faq.content}></div>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
             data-target={`faq-body-${faq.id}`}
             data-column="right"
           >
-            <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
+            <span class="text-lg font-bold text-left break-words text-black dark:text-white flex-1 pr-2">
               {faq.title}
             </span>
             <svg
@@ -89,7 +89,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
           </button>
           <div id={`faq-body-${faq.id}`} class="faq-content overflow-hidden transition-all duration-300 ease-in-out max-h-0">
             <div class="px-6 pb-6 pt-2">
-              <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
+              <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap" data-content={faq.content}></div>
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
           class="flex items-center justify-between w-full py-5 font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-transparent hover:via-primary-500/[0.03] hover:to-transparent gap-3 faq-toggle group"
           data-target={`faq-body-${faq.id}`}
         >
-          <span class="text-lg font-bold text-left break-keep text-black dark:text-white">
+          <span class="text-lg font-bold text-left break-words text-black dark:text-white flex-1 pr-2">
             {faq.title}
           </span>
           <svg
@@ -126,7 +126,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
         </button>
         <div id={`faq-body-${faq.id}`} class="faq-content overflow-hidden transition-all duration-300 ease-in-out max-h-0">
           <div class="px-6 pb-6 pt-2">
-            <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300" data-content={faq.content}></div>
+            <div class="faq-text leading-relaxed text-gray-700 dark:text-gray-300 break-words whitespace-pre-wrap" data-content={faq.content}></div>
           </div>
         </div>
       </div>
@@ -357,7 +357,8 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
         }
 
         #faq-accordion.faq-two-column > .faq-column {
-            flex: 1;
+            flex: 0 0 calc(50% - 1rem);
+            width: calc(50% - 1rem);
         }
     }
 </style>
