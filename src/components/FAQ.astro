@@ -341,6 +341,19 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
         will-change: auto;
     }
 
+    /* 確保文字能正確換行 */
+    .faq-toggle span {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .faq-text {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
     /* 雙欄佈局 */
     #faq-accordion.faq-two-column {
         display: flex;
