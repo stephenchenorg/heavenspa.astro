@@ -160,7 +160,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
         const contentHeights = new Map()
 
         // 優化的打字機效果函數 - 使用 DocumentFragment 減少 reflow
-        function typewriterEffect(element: HTMLElement, text: string, speed: number = 20) {
+        function typewriterEffect(element: HTMLElement, text: string, speed: number = 35) {
             element.textContent = ''
             let i = 0
             let animationFrameId: number | null = null
@@ -172,7 +172,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
                     i++
 
                     // 標點符號稍微停頓
-                    const nextSpeed = (char === '。' || char === '，' || char === '！' || char === '？') ? speed * 1.5 : speed
+                    const nextSpeed = (char === '。' || char === '，' || char === '！' || char === '？') ? speed * 2 : speed
                     animationFrameId = window.setTimeout(type, nextSpeed)
                 } else {
                     animationFrameId = null
@@ -316,7 +316,7 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
                     if (textElement) {
                         const htmlContent = textElement.getAttribute('data-content') || ''
                         const plainText = stripHtml(htmlContent)
-                        const cancel = typewriterEffect(textElement, plainText, 15)
+                        const cancel = typewriterEffect(textElement, plainText, 30)
                         activeTypewriters.set(targetId, cancel)
                     }
                 }
