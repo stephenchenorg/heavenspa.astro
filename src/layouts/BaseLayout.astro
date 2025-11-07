@@ -103,7 +103,7 @@ if (!ogImage) {
       </>
     )}
 
-    {import.meta.env.DEV && ga4TrackingId && <GAScript ga4TrackingId={ga4TrackingId} />}
+    {!import.meta.env.DEV && ga4TrackingId && <GAScript ga4TrackingId={ga4TrackingId} />}
     {!import.meta.env.DEV && metaPixelId && <MetaPixel pixelId={metaPixelId} />}
   </head>
   <body class:list={['antialiased', bodyClass]}>
