@@ -159,10 +159,11 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
         // 預先計算所有內容的高度，避免運行時計算
         const contentHeights = new Map()
 
-        // 優化的打字機效果函數
-        function typewriterEffect(element: HTMLElement, text: string, speed: number = 25) {
+        // 優化的打字機效果函數 - 使用 DocumentFragment 減少 reflow
+        function typewriterEffect(element: HTMLElement, text: string, speed: number = 20) {
             element.textContent = ''
             let i = 0
+            let animationFrameId: number | null = null
 
             function type() {
                 if (i < text.length) {
@@ -170,13 +171,23 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
                     element.textContent += char
                     i++
 
-                    // 使用 requestAnimationFrame 讓動畫更流暢
+                    // 標點符號稍微停頓
                     const nextSpeed = (char === '。' || char === '，' || char === '！' || char === '？') ? speed * 1.5 : speed
-                    setTimeout(() => requestAnimationFrame(type), nextSpeed)
+                    animationFrameId = window.setTimeout(type, nextSpeed)
+                } else {
+                    animationFrameId = null
                 }
             }
 
-            requestAnimationFrame(type)
+            type()
+
+            // 返回取消函數
+            return () => {
+                if (animationFrameId) {
+                    clearTimeout(animationFrameId)
+                    animationFrameId = null
+                }
+            }
         }
 
         // 將 HTML 轉為純文字
@@ -209,6 +220,9 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
             }
         })
 
+        // 儲存正在執行的打字機效果取消函數
+        const activeTypewriters = new Map<string, () => void>()
+
         toggles.forEach(btn => {
             btn.addEventListener('click', () => {
                 const targetId = btn.getAttribute('data-target')
@@ -239,6 +253,13 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
                             }
                         }
 
+                        // 取消正在執行的打字機效果
+                        const cancelFn = activeTypewriters.get(contentEl.id)
+                        if (cancelFn) {
+                            cancelFn()
+                            activeTypewriters.delete(contentEl.id)
+                        }
+
                         contentEl.style.maxHeight = '0px'
                         const otherBtn = document.querySelector(`[data-target="${contentEl.id}"]`)
                         const otherSvg = otherBtn?.querySelector('svg')
@@ -255,6 +276,13 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
 
                 // 切換當前項目
                 if (isCurrentlyOpen) {
+                    // 取消正在執行的打字機效果
+                    const cancelFn = activeTypewriters.get(targetId)
+                    if (cancelFn) {
+                        cancelFn()
+                        activeTypewriters.delete(targetId)
+                    }
+
                     // 關閉
                     target.style.maxHeight = '0px'
                     if (svg) {
@@ -264,24 +292,33 @@ const evenFaqs = twoColumn ? faqs.filter((_, index) => index % 2 === 1) : []
                         textElement.textContent = ''
                     }
                 } else {
-                    // 打開 - 使用預先計算的高度
-                    const targetHeight = contentHeights.get(targetId)
-                    if (targetHeight) {
-                        target.style.maxHeight = `${targetHeight}px`
+                    // 打開 - 先設置完整內容以計算正確高度
+                    if (textElement) {
+                        const htmlContent = textElement.getAttribute('data-content') || ''
+                        const plainText = stripHtml(htmlContent)
+
+                        // 暫時設置完整文字以計算高度
+                        textElement.textContent = plainText
+                        const actualHeight = target.scrollHeight
+
+                        // 設置正確的 max-height
+                        target.style.maxHeight = `${actualHeight}px`
+
+                        // 清空內容準備打字機效果
+                        textElement.textContent = ''
                     }
 
                     if (svg) {
                         svg.style.transform = 'rotate(180deg)'
                     }
 
-                    // 等待展開動畫完成後開始打字機效果
-                    setTimeout(() => {
-                        if (textElement) {
-                            const htmlContent = textElement.getAttribute('data-content') || ''
-                            const plainText = stripHtml(htmlContent)
-                            typewriterEffect(textElement, plainText, 20)
-                        }
-                    }, 300)
+                    // 開始打字機效果
+                    if (textElement) {
+                        const htmlContent = textElement.getAttribute('data-content') || ''
+                        const plainText = stripHtml(htmlContent)
+                        const cancel = typewriterEffect(textElement, plainText, 15)
+                        activeTypewriters.set(targetId, cancel)
+                    }
                 }
             })
         })
