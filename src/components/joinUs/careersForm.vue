@@ -173,8 +173,8 @@ const translatedText = ref({
 })
 
 // 初始化翻譯
-async function initializeTranslations() {
-  await initTranslations()
+function initializeTranslations() {
+  initTranslations()
   updateTranslations()
 }
 
@@ -292,9 +292,9 @@ function handleLanguageChange() {
 }
 
 // 監聽主題變化
-onMounted(async () => {
+onMounted(() => {
   // 初始化翻譯
-  await initializeTranslations()
+  initializeTranslations()
 
   updateTheme()
 
@@ -302,8 +302,8 @@ onMounted(async () => {
   document.addEventListener('themeChanged', updateTheme)
 
   // 監聽語言變化事件（自定義事件）
-  window.addEventListener('localechange', async event => {
-    await initTranslations()
+  window.addEventListener('localechange', () => {
+    initTranslations()
     updateTranslations()
   })
 

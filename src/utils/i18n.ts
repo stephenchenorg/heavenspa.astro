@@ -1,28 +1,9 @@
 import { getLocale } from 'i18n:astro'
+import { translations, type NestedTranslation } from '@/locales/translations'
 
-// 語系資料類型定義
-interface NestedTranslation {
-  [key: string]: string | string[] | NestedTranslation
-}
-
-// 動態載入語系資料
-async function loadTranslations(locale: string): Promise<NestedTranslation> {
-  try {
-    if (locale === 'zh-TW') {
-      const module = await import('@/locales/zh-TW/index.json')
-      return module.default || module
-    } else if (locale === 'en') {
-      const module = await import('@/locales/en/index.json')
-      return module.default || module
-    }
-
-    // 預設回傳中文
-    const module = await import('@/locales/zh-TW/index.json')
-    return module.default || module
-  } catch (error) {
-    console.error('Failed to load translations:', error)
-    return {}
-  }
+// 直接從 TypeScript 檔案載入翻譯資料，避免動態 JSON import 的問題
+function loadTranslations(locale: string): NestedTranslation {
+  return translations[locale] || translations['zh-TW']
 }
 
 // 遞迴取得嵌套物件的值
@@ -43,16 +24,16 @@ function getNestedValue(obj: NestedTranslation, path: string[]): string | string
 }
 
 // 創建嵌套的翻譯函數
-export async function createNestedT() {
+export function createNestedT() {
   const locale = getLocale()
-  const translations = await loadTranslations(locale)
+  const translationsData = loadTranslations(locale)
 
   // 回傳一個物件，可以用鏈式方法或函數呼叫方式使用
   function createProxy(_currentObj: NestedTranslation, currentPath: string[] = []): any {
     return new Proxy(() => {}, {
       get(_target, prop: string) {
         const newPath = [...currentPath, prop]
-        const value = getNestedValue(translations, newPath)
+        const value = getNestedValue(translationsData, newPath)
 
         if (typeof value === 'string') {
           return value
@@ -69,14 +50,14 @@ export async function createNestedT() {
         if (args.length > 0 && typeof args[0] === 'string') {
           // 支持 t('nav.home') 的用法
           const path = args[0].split('.')
-          const value = getNestedValue(translations, path)
+          const value = getNestedValue(translationsData, path)
           if (typeof value === 'string') return value
           if (Array.isArray(value)) return value
           return args[0]
         }
 
         // 如果沒有參數，回傳當前路徑的值
-        const value = getNestedValue(translations, currentPath)
+        const value = getNestedValue(translationsData, currentPath)
         if (typeof value === 'string') return value
         if (Array.isArray(value)) return value
         return ''
@@ -84,15 +65,15 @@ export async function createNestedT() {
     })
   }
 
-  return createProxy(translations)
+  return createProxy(translationsData)
 }
 
 // 簡化版本，直接支持路徑查詢
-export async function nt(key: string): Promise<string> {
+export function nt(key: string): string {
   const locale = getLocale()
-  const translations = await loadTranslations(locale)
+  const translationsData = loadTranslations(locale)
   const path = key.split('.')
-  const value = getNestedValue(translations, path)
+  const value = getNestedValue(translationsData, path)
   return typeof value === 'string' ? value : key
 }
 
@@ -153,10 +134,10 @@ export class NestedTranslator {
 }
 
 // 創建翻譯器實例
-export async function createTranslator(): Promise<NestedTranslator> {
+export function createTranslator(): NestedTranslator {
   const locale = getLocale()
-  const translations = await loadTranslations(locale)
-  return new NestedTranslator(translations)
+  const translationsData = loadTranslations(locale)
+  return new NestedTranslator(translationsData)
 }
 
 // Vue 元件用的函數
@@ -219,17 +200,17 @@ export function getLocaleName(locale: Locale): string {
 // Vue 元件用的翻譯函數
 const translationsCache: { [key: string]: NestedTranslation } = {}
 
-export async function initTranslations() {
+export function initTranslations() {
   const locale = getCurrentLocale()
   if (!translationsCache[locale]) {
-    const translations = await loadTranslations(locale)
-    if (translations && Object.keys(translations).length > 0) {
-      translationsCache[locale] = translations
+    const translationsData = loadTranslations(locale)
+    if (translationsData && Object.keys(translationsData).length > 0) {
+      translationsCache[locale] = translationsData
     } else {
       console.error(`[i18n] Failed to load translations for locale: ${locale}`)
       // Fallback to default locale if current locale fails
       if (locale !== defaultLocale) {
-        translationsCache[locale] = await loadTranslations(defaultLocale)
+        translationsCache[locale] = loadTranslations(defaultLocale)
       }
     }
   }
