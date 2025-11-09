@@ -114,7 +114,7 @@
 
       <div>
         <label class="block font-medium mb-2 text-base sm:text-lg" :style="{ color: 'var(--theme-text)' }">
-          <span class="text-red-500">*</span> {{ translatedText.email }} 2222
+          <span class="text-red-500">*</span> {{ translatedText.email }}
         </label>
         <input
           v-model="form.email"
