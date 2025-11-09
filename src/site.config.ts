@@ -5,4 +5,5 @@ export default {
   apiBaseUrl: import.meta.env.API_BASE_URL.replace(/\/$/, ''),
   ga4TrackingId: import.meta.env.GA4_TRACKING_ID,
   metaPixelId: import.meta.env.META_PIXEL_ID,
+  googleAdsId: import.meta.env.GOOGLE_ADS_ID,
 }

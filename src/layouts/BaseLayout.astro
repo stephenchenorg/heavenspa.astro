@@ -5,6 +5,7 @@ import { getLocale } from 'i18n:astro'
 import { getBanners } from '@/api/banners'
 import siteConfig from '@/site.config'
 import GAScript from './partials/GAScript.astro'
+import GoogleAdsScript from './partials/GoogleAdsScript.astro'
 import MetaPixel from './partials/MetaPixel.astro'
 import '@/styles/index.css'
 
@@ -31,6 +32,7 @@ const companySetting = createCompanySetting({
 
 const ga4TrackingId = siteConfig.ga4TrackingId
 const metaPixelId = siteConfig.metaPixelId
+const googleAdsId = siteConfig.googleAdsId
 
 // 獲取當前語言
 const currentLocale = getLocale()
@@ -104,6 +106,7 @@ if (!ogImage) {
     )}
 
     {!import.meta.env.DEV && ga4TrackingId && <GAScript ga4TrackingId={ga4TrackingId} />}
+    {!import.meta.env.DEV && googleAdsId && <GoogleAdsScript googleAdsId={googleAdsId} />}
     {!import.meta.env.DEV && metaPixelId && <MetaPixel pixelId={metaPixelId} />}
   </head>
   <body class:list={['antialiased', bodyClass]}>

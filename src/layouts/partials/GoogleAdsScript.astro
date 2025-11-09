@@ -1,0 +1,19 @@
+---
+interface Props {
+  googleAdsId: string
+}
+
+const { googleAdsId } = Astro.props
+---
+
+<!--
+  This section is for Google Ads conversion tracking code.
+  Using async attribute to prevent blocking page render and improve LCP.
+-->
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}></script>
+<script is:inline define:vars={{ googleAdsId }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', googleAdsId);
+</script>

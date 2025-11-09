@@ -1,0 +1,29 @@
+---
+interface Props {
+  conversionLabel: string
+  conversionValue?: number
+  currency?: string
+}
+
+const {
+  conversionLabel,
+  conversionValue,
+  currency = 'TWD'
+} = Astro.props
+---
+
+<!-- Event snippet for Google Ads conversion page -->
+<script is:inline define:vars={{ conversionLabel, conversionValue, currency }}>
+  if (window.gtag) {
+    const conversionConfig = {
+      'send_to': conversionLabel
+    };
+
+    if (conversionValue !== undefined) {
+      conversionConfig.value = conversionValue;
+      conversionConfig.currency = currency;
+    }
+
+    gtag('event', 'conversion', conversionConfig);
+  }
+</script>
