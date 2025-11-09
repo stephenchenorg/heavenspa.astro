@@ -3,7 +3,7 @@ import { getLocale } from 'i18n:astro'
 import Button from '@/components/ui/Button.astro'
 import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 
-const t = await createNestedT()
+const t = createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 ---

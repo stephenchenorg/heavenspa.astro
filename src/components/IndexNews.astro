@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { articles } = Astro.props
-const t = await createNestedT()
+const t = createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 

@@ -6,7 +6,7 @@ import ThemeController from '@/components/ThemeController.astro'
 import NavLink from '@/components/ui/NavLink.astro'
 import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 
-const t = await createNestedT()
+const t = createNestedT()
 
 export interface Props {
   class?: astroHTML.JSX.HTMLAttributes['class']

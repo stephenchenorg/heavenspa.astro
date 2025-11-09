@@ -10,7 +10,7 @@ import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 import SectionTitle from '../../components/ui/SectionTitle.astro'
 import TeamCard from '../../components/ui/TeamCard.astro'
 
-const t = await createNestedT()
+const t = createNestedT()
 
 const url = new URL(Astro.request.url)
 const selectedType = Number.parseInt(url.searchParams.get('type') || '10')

@@ -8,7 +8,7 @@ import Layout from '@/layouts/Layout.astro'
 import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 
-const t = await createNestedT()
+const t = createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'

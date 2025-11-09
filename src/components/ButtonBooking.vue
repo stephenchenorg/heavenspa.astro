@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'md',
 })
 
-const t = await createNestedT()
+const t = createNestedT()
 
 // Vue component for booking button with single size prop and theme awareness
 interface Props {

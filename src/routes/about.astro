@@ -10,7 +10,7 @@ import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
 import Button from '../components/ui/Button.astro'
 import SectionTitle from '../components/ui/SectionTitle.astro'
 
-const t = await createNestedT()
+const t = createNestedT()
 const currentLocale = getLocale()
 const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
