@@ -9,13 +9,16 @@ interface NestedTranslation {
 async function loadTranslations(locale: string): Promise<NestedTranslation> {
   try {
     if (locale === 'zh-TW') {
-      return await import('@/locales/zh-TW/index.json').then(m => m.default)
+      const module = await import('@/locales/zh-TW/index.json')
+      return module.default || module
     } else if (locale === 'en') {
-      return await import('@/locales/en/index.json').then(m => m.default)
+      const module = await import('@/locales/en/index.json')
+      return module.default || module
     }
 
     // 預設回傳中文
-    return await import('@/locales/zh-TW/index.json').then(m => m.default)
+    const module = await import('@/locales/zh-TW/index.json')
+    return module.default || module
   } catch (error) {
     console.error('Failed to load translations:', error)
     return {}
@@ -219,7 +222,16 @@ const translationsCache: { [key: string]: NestedTranslation } = {}
 export async function initTranslations() {
   const locale = getCurrentLocale()
   if (!translationsCache[locale]) {
-    translationsCache[locale] = await loadTranslations(locale)
+    const translations = await loadTranslations(locale)
+    if (translations && Object.keys(translations).length > 0) {
+      translationsCache[locale] = translations
+    } else {
+      console.error(`[i18n] Failed to load translations for locale: ${locale}`)
+      // Fallback to default locale if current locale fails
+      if (locale !== defaultLocale) {
+        translationsCache[locale] = await loadTranslations(defaultLocale)
+      }
+    }
   }
 }
 
@@ -228,6 +240,7 @@ export function t(key: string): string | string[] {
   const translations = translationsCache[locale]
 
   if (!translations) {
+    console.warn(`[i18n] Translation cache not initialized for locale: ${locale}`)
     return key
   }
 
@@ -235,6 +248,12 @@ export function t(key: string): string | string[] {
   const value = getNestedValue(translations, path)
   if (typeof value === 'string') return value
   if (Array.isArray(value)) return value
+
+  // Log missing translation key in development
+  if (import.meta.env.DEV) {
+    console.warn(`[i18n] Translation key not found: ${key} for locale: ${locale}`)
+  }
+
   return key
 }
 

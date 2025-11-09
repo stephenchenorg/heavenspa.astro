@@ -45,6 +45,9 @@ export default defineConfig({
         compiler: 'vue3',
       }),
     ],
+    json: {
+      stringify: false,
+    },
   },
   security: {
     checkOrigin: false,
