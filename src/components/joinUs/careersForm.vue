@@ -253,6 +253,13 @@ async function submitForm() {
     showSuccess.value = true
     resetForm()
 
+    // 觸發 Google Ads 應徵表單轉換追蹤
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-17352893346/d_AyCO3Lv7sbEKLHwNJA'
+      })
+    }
+
     // 5秒後隱藏成功訊息
     setTimeout(() => {
       showSuccess.value = false
