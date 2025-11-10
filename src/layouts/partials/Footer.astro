@@ -63,7 +63,10 @@ const hasSocialMedia = companySetting?.fb_link ||
                             <div class="text-base opacity-80">
                                 <Phone size="20" />
                             </div>
-                            <a href={`tel:${companySetting.phone_1}`}>
+                            <a
+                                href={`tel:${companySetting.phone_1}`}
+                                onclick="if(window.gtag){gtag('event','conversion',{'send_to':'AW-17352893346/oUD4COrLv7sbEKLHwNJA'});}"
+                            >
                                 {companySetting.phone_1}
                             </a>
                         </div>
@@ -162,15 +165,21 @@ const hasSocialMedia = companySetting?.fb_link ||
                                 </FooterLink>
                             )}
                             {companySetting?.line_link && (
-                                <FooterLink
-                                    href={companySetting.line_link}
-                                    text="Line"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title="Line"
-                                >
-                                    <Line slot="icon" size="18" />
-                                </FooterLink>
+                                <li>
+                                    <a
+                                        href={companySetting.line_link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title="Line"
+                                        class="footer-link group flex items-center justify-start text-sm text-[var(--theme-text-secondary,#666666)] hover:text-[var(--color-primary-600,#c4a428)] hover:translate-x-1 gap-2 has-icon"
+                                        onclick="if(window.gtag){gtag('event','conversion',{'send_to':'AW-17352893346/7qNICOTLv7sbEKLHwNJA'});}"
+                                    >
+                                        <div class="w-4 h-4 transition-transform duration-300">
+                                            <Line size="18" />
+                                        </div>
+                                        <span class="font-normal tracking-wide">Line</span>
+                                    </a>
+                                </li>
                             )}
                             {companySetting?.twitter_link && (
                                 <FooterLink

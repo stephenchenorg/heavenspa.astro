@@ -10,6 +10,7 @@
         rel="noopener noreferrer"
         class="group flex h-7 w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full hover:scale-110 transition-all duration-300 bg-gradient-to-br from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-md hover:shadow-lg"
         aria-label="聯絡 LINE"
+        @click="trackLineConversion"
       >
         <LineMessenger class-name="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-white" />
       </a>
@@ -23,6 +24,7 @@
         rel="noopener noreferrer"
         class="group flex h-7 w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full hover:scale-110 transition-all duration-300 bg-gradient-to-br from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-md hover:shadow-lg"
         aria-label="WhatsApp 聯絡"
+        @click="trackWhatsAppConversion"
       >
         <WhatsApp class-name="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-white" />
       </a>
@@ -34,6 +36,7 @@
         :href="`tel:${companySetting.phone_1}`"
         class="group flex h-7 w-7 md:h-8 md:w-8 lg:h-9 lg:w-9 items-center justify-center rounded-full shadow-md hover:shadow-lg hover:scale-110 transition-all duration-300 bg-gradient-to-br from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700"
         aria-label="電話聯絡"
+        @click="trackPhoneConversion"
       >
         <PhoneCall class-name="h-3 w-3 md:h-4 md:w-4 lg:h-5 lg:w-5 text-white" />
       </a>
@@ -69,4 +72,29 @@ interface Props {
 }
 
 const { companySetting } = defineProps<Props>()
+
+// Google Ads conversion tracking functions
+function trackLineConversion() {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17352893346/7qNICOTLv7sbEKLHwNJA'
+    })
+  }
+}
+
+function trackWhatsAppConversion() {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17352893346/S7CWCOfLv7sbEKLHwNJA'
+    })
+  }
+}
+
+function trackPhoneConversion() {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17352893346/oUD4COrLv7sbEKLHwNJA'
+    })
+  }
+}
 </script>

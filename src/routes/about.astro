@@ -7,6 +7,7 @@ import Carousel from '@/components/ui/Carousel.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT, getLinkByLocale } from '@/utils/i18n'
 import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
+import { getConversionOnClick } from '@/utils/googleAdsTracking'
 import Button from '../components/ui/Button.astro'
 import SectionTitle from '../components/ui/SectionTitle.astro'
 
@@ -229,6 +230,7 @@ const meta = {
                   variant="outline"
                   size="large"
                   text={about.cta_title}
+                  onclick={getConversionOnClick(about.cta_link)}
                 />
             </div>
         </section>

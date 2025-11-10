@@ -5,6 +5,7 @@
     rel="noopener noreferrer"
     :class="buttonClasses"
     :style="themeStyles"
+    @click="handleBookingClick"
   >
     <span data-i18n="buttons.book-now">{{ t('buttons.book-now') }}</span>
   </a>
@@ -67,4 +68,13 @@ const themeStyles = computed(() => ({
   // Ensure proper contrast in both light and dark themes
   filter: 'brightness(1)',
 }))
+
+// Google Ads conversion tracking for Line booking
+function handleBookingClick() {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17352893346/7qNICOTLv7sbEKLHwNJA'
+    })
+  }
+}
 </script>

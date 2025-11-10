@@ -40,7 +40,7 @@ const buttonClass = `${sizeClasses[size]} ${variantClasses[variant]}`
 
 <div class={wrapperClass}>
   {href ? (
-    <a href={href} class={buttonClass} rel="noopener noreferrer">
+    <a href={href} class={buttonClass} rel="noopener noreferrer" onclick={onclick}>
       {text ? <span>{text}</span> : null}
       {icon ? <span>{icon}</span> : null}
       <slot />

@@ -1,6 +1,7 @@
 ---
 import Button from '@/components/ui/Button.astro'
 import { createNestedT } from '@/utils/i18n'
+import { getConversionOnClick } from '@/utils/googleAdsTracking'
 
 const t = createNestedT()
 
@@ -109,7 +110,12 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
                 {banner.sub_title}
               </p>
               { banner.cta_link && (
-                  <a href={banner.cta_link} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={banner.cta_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onclick={getConversionOnClick(banner.cta_link)}
+                  >
                     <Button><span>{banner.cta_title}</span></Button>
                   </a>
               )}
@@ -139,7 +145,12 @@ const firstBannerMobile = banners?.[0]?.image?.mobile || banners?.[0]?.image?.de
             >
               {t('hero.subtitle')}
             </p>
-            <a href="https://page.line.me/284pgmle?openQrModal=true" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://page.line.me/284pgmle?openQrModal=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="if(window.gtag){gtag('event','conversion',{'send_to':'AW-17352893346/7qNICOTLv7sbEKLHwNJA'});}"
+            >
               <Button><span>{t('buttons.book-now')}</span></Button>
             </a>
           </div>
