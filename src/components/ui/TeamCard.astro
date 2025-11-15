@@ -16,7 +16,7 @@ const { member, uniqueId } = Astro.props
 ---
 <a
   class="group cursor-pointer transition-transform duration-300 hover:-translate-y-2 w-full h-full"
-  href={getLinkByLocale(`/team/${member.id}`)}
+  href={getLinkByLocale(`/team/${member.slug}`)}
 >
   <!-- 圖片容器 -->
   <div class="relative w-full aspect-square overflow-hidden mb-4 bg-[var(--theme-border,#e5e7eb)]">

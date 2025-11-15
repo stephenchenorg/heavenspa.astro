@@ -20,10 +20,10 @@ const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 let teamMembers: TeamMember[] = []
 let teamsData
 const types = [
-  { id: 10, title: t('team.types.all') },
-  { id: 20, title: t('team.types.available') },
-  { id: 30, title: t('team.types.new') },
-  { id: 40, title: t('team.types.recommended') },
+  { id: 10, slug: '', title: t('team.types.all') },
+  { id: 20, slug: 'today', title: t('team.types.available') },
+  { id: 30, slug: 'new', title: t('team.types.new') },
+  { id: 40, slug: 'recommend', title: t('team.types.recommended') },
 ]
 
 try {
@@ -62,7 +62,7 @@ const meta = {
                 <div class="flex flex-wrap gap-2 justify-center">
                   {types.map(type => (
                       <a
-                        href={`?type=${type.id}`}
+                        href={type.slug ? getLinkByLocale(`/team/${type.slug}`) : getLinkByLocale('/team')}
                         class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${selectedType === type.id ? 'active' : ''}`}
                         style={selectedType === type.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
                       >

@@ -29,6 +29,7 @@ export async function getAllTeams(
           data {
             content
             id
+            slug
             images {
               created_at
               id
@@ -104,6 +105,8 @@ export async function getTeamMember(id: number): Promise<TeamMember | null> {
     const { team } = await graphQLAPI<{ team: TeamMember }>(gql`
       query MyQuery {
         team(id: ${id}) {
+          id
+          slug
           title
           content
           age
@@ -150,6 +153,75 @@ export async function getTeamMember(id: number): Promise<TeamMember | null> {
     return team || null
   } catch (error) {
     console.error(`Failed to fetch team member with id ${id}:`, error)
+    return null
+  }
+}
+
+export async function getTeamMemberBySlug(slug: string): Promise<TeamMember | null> {
+  try {
+    // 獲取所有團隊成員，然後根據 slug 過濾
+    const response = await graphQLAPI<TeamsResponse>(gql`
+      query GetAllTeamsForSlug {
+        teams(sort_by: "asc", sort_column: "sort", per_page: 1000) {
+          data {
+            content
+            id
+            slug
+            images {
+              created_at
+              id
+              image {
+                desktop
+                desktop_blur
+                mobile
+                mobile_blur
+              }
+            }
+            job
+            title
+            age
+            height
+            weight
+            years
+            monday_end
+            monday_start
+            tuesday_end
+            tuesday_start
+            wednesday_end
+            wednesday_start
+            thursday_start
+            thursday_end
+            sunday_start
+            sunday_end
+            saturday_end
+            saturday_start
+            friday_start
+            friday_end
+            og_description
+            og_image
+            og_title
+            seo_body
+            seo_description
+            seo_head
+            seo_json_ld
+            seo_keyword
+            seo_title
+          }
+          has_more_pages
+          last_page
+          per_page
+          to
+          total
+          from
+        }
+      }
+    `)
+
+    // 根據 slug 找到對應的團隊成員
+    const teamMember = response.teams.data.find(member => member.slug === slug)
+    return teamMember || null
+  } catch (error) {
+    console.error(`Failed to fetch team member with slug ${slug}:`, error)
     return null
   }
 }

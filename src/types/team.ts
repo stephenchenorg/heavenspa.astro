@@ -21,6 +21,7 @@ export interface TeamImageItem {
 
 export interface TeamMember {
   id: number
+  slug: string
   title: string
   job: string
   content?: string
