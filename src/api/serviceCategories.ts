@@ -2,6 +2,7 @@ import { gql, graphQLAPI } from '@/api/index'
 
 export interface ServiceCategory {
   id: string
+  slug: string
   title: string
   sub_title: string
   description: string
@@ -67,6 +68,7 @@ export async function getServiceCategories(): Promise<ServiceCategoriesResponse>
           sub_title
           title
           id
+          slug
           og_description
           og_image
           og_title

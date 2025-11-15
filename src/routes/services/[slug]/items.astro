@@ -1,0 +1,475 @@
+---
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
+import { getServicesCategoryPageData } from '@/api/servicesCategoryPage'
+import Button from '@/components/ui/Button.astro'
+import Layout from '@/layouts/Layout.astro'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
+
+const t = createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
+// 取得路由參數
+const { slug } = Astro.params
+
+// 驗證 slug 參數
+if (!slug) {
+  return Astro.rewrite('/404')
+}
+
+const url = new URL(Astro.request.url)
+const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
+
+// 取得分類和服務資料（批次查詢）
+let categoriesData
+let categories
+let currentCategory
+let servicesData
+let services
+let categoryId: number
+
+try {
+  // 先獲取所有分類來找到對應的 slug
+  // 使用一個預設的 category_id 來獲取分類列表
+  const pageData = await getServicesCategoryPageData(0, 1, 10, '')
+  categoriesData = pageData.serviceCategories
+  categories = categoriesData.serviceCategories.data
+
+  // 根據 slug 找到對應的分類
+  currentCategory = categories.find(cat => cat.slug === slug)
+
+  // 如果分類不存在，導向 404
+  if (!currentCategory) {
+    return Astro.rewrite('/404')
+  }
+
+  categoryId = Number.parseInt(currentCategory.id, 10)
+
+  // 使用找到的 category_id 獲取服務資料
+  const servicesPageData = await getServicesCategoryPageData(categoryId, currentPage, 10, '')
+  servicesData = servicesPageData.services
+  services = servicesData?.services?.data || []
+} catch (error) {
+  console.error('Failed to fetch service category:', error)
+  return Astro.rewrite('/404')
+}
+
+const coverImage = currentCategory?.cover?.desktop || currentCategory?.cover?.mobile
+
+// 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
+const defaultSeo = getSeoConfig('services', locale)
+
+const meta = {
+  ...seoMeta({
+    title: currentCategory?.seo_title || defaultSeo.seo_title,
+    seo_description: currentCategory?.seo_description || defaultSeo.seo_description,
+    seo_keyword: currentCategory?.seo_keyword || defaultSeo.seo_keyword,
+    og_title: currentCategory?.og_title || defaultSeo.og_title,
+    og_description: currentCategory?.og_description || defaultSeo.og_description,
+    og_image: currentCategory?.og_image || coverImage || defaultSeo.og_image,
+    // 後台額外欄位 (有值才顯示)
+    seo_head: currentCategory?.seo_head,
+    seo_body: currentCategory?.seo_body,
+    seo_json_ld: currentCategory?.seo_json_ld,
+  }),
+  canonical: getCanonicalUrl(`services/${slug}/items`, locale),
+} as PageMeta
+
+---
+
+<Layout meta={meta}>
+  <main class="relative z-10 w-full min-h-[80vh] pt-32 pb-16 md:pb-32 bg-white dark:bg-black text-black dark:text-white"
+     style="overflow-x: hidden;">
+
+    <!-- 分類橫幅 -->
+    {currentCategory && (
+      <section class="relative w-full h-64 md:h-80 lg:h-96 mb-8 overflow-hidden">
+        <!-- 背景圖片 -->
+        <!-- Mobile Background -->
+        <div
+          class="absolute inset-0 bg-cover bg-center md:hidden"
+          style={`background-image: url('${currentCategory.background?.mobile || currentCategory.background?.desktop}')`}
+        >
+        </div>
+        <!-- Desktop Background -->
+        <div
+          class="absolute inset-0 bg-cover bg-center hidden md:block"
+          style={`background-image: url('${currentCategory.background?.desktop || currentCategory.background?.mobile}')`}
+        >
+        </div>
+        <!-- 漸層遮罩 -->
+        <div class="absolute inset-0 bg-black/40"></div>
+        <!-- 文字內容 -->
+        <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4">
+          <div class={`${isEnglish ? 'max-w-6xl' : 'max-w-4xl'}`}>
+            <h1 class={`font-bold mb-4 ${isEnglish ? 'text-[clamp(1.75rem,5vw,3rem)]' : 'text-4xl md:text-5xl lg:text-6xl'}`}>{currentCategory.title}</h1>
+            {currentCategory.sub_title && (
+              <p class={`text-white/80 mb-3 ${isEnglish ? 'text-base md:text-lg' : 'text-lg md:text-xl'}`}>{currentCategory.sub_title}</p>
+            )}
+            {currentCategory.description && (
+              <p class={`text-white/70 mx-auto leading-relaxed ${isEnglish ? 'text-sm max-w-4xl' : 'text-sm md:text-base max-w-2xl'}`}>{currentCategory.description}</p>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <div class="max-w-6xl mx-auto w-full">
+      <div class="mb-8 px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex flex-wrap gap-2 justify-center">
+            {categories.map(category => (
+              <a
+                href={getLinkByLocale(`/services/${category.slug}/items`)}
+                class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline border-0 cursor-pointer ${
+                  currentCategory?.slug === category.slug
+                    ? 'active'
+                    : ''
+                }`}
+                style={currentCategory?.slug === category.slug ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                role="tab"
+                aria-selected={currentCategory?.slug === category.slug}
+              >
+                {category.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <!-- 服務網格 -->
+      {services && services.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8 w-full px-4">
+          {services.map(service => (
+            <div class="group cursor-pointer transform transition-transform duration-700
+                  hover:scale-95 active:scale-90 relative backdrop-blur-sm overflow-hidden w-full flex flex-col"
+            >
+              <a href={getLinkByLocale(`/services/${slug}/items/${service.id}`)} class="flex flex-col">
+                <!-- 上半部：封面圖 -->
+                <div class="relative w-full overflow-hidden aspect-square">
+                  <!-- Background Image - Mobile -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center md:hidden"
+                    style={`background-image: url('${service.cover?.mobile || service.cover?.desktop || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                  >
+                  </div>
+                  <!-- Background Image - Desktop -->
+                  <div
+                    class="absolute inset-0 bg-cover bg-center hidden md:block"
+                    style={`background-image: url('${service.cover?.desktop || service.cover?.mobile || 'https://imagefaker.access.mx.com/1920x1080/282828/eae0d0/?retina=1'}')`}
+                  >
+                  </div>
+                  <!-- Base Overlay for better text readability -->
+                  <div class="absolute inset-0 bg-black/20"></div>
+                  <!-- Hover Overlay -->
+                  <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                  <!-- VIEW MORE Button Overlay -->
+                  <Button
+                    variant="ghost"
+                    text={t('buttons.view-more')}
+                    size="small"
+                    icon="→"
+                    wrapperClass="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+
+                  <!-- 時間與價格資訊（圖片底部） -->
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                    <div class="flex items-center gap-3 text-sm text-white">
+                      {service.time_min && service.time_max && (
+                        <span class="flex items-center gap-1">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {service.time_min === service.time_max
+                            ? `${service.time_min}${isEnglish ? ' min' : ' 分鐘'}`
+                            : `${service.time_min}-${service.time_max}${isEnglish ? ' min' : ' 分鐘'}`}
+                        </span>
+                      )}
+                      {service.price_min && service.price_max && (
+                        <span class="flex items-center gap-1 text-primary-400 font-semibold">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {service.price_min === service.price_max
+                            ? `$${service.price_min.toLocaleString()}`
+                            : `$${service.price_min.toLocaleString()}-$${service.price_max.toLocaleString()}`}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <!-- 標題區域 -->
+                <div class="p-4 flex-1 flex items-center">
+                  <p class={`text-neutral-900 font-medium line-clamp-2 ${isEnglish ? 'text-base' : 'text-lg'}`}>{service.title}</p>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="flex flex-col items-center justify-center py-16 px-4">
+          <svg class="w-20 h-20 text-neutral-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+          <p class="text-neutral-500 text-lg">
+            {isEnglish ? 'No services available' : '暫無服務項目'}
+          </p>
+        </div>
+      )}
+
+      <!-- 分頁器 -->
+      {services && services.length > 0 && servicesData.services.last_page > 1 && (
+        <div class="flex justify-center items-center space-x-2">
+          {Array.from({ length: servicesData.services.last_page }, (_, i) => {
+            const pageNum = i + 1
+            return (
+              <a
+                href={getLinkByLocale(`/services/${slug}/items?page=${pageNum}`)}
+                class={`px-3 py-2 rounded-lg border transition-all duration-300 ${isEnglish ? 'text-sm' : 'text-base'}`}
+                style={pageNum === currentPage
+                        ? 'background-color: var(--color-primary-500); border-color: var(--color-primary-500); color: white;'
+                        : 'border-color: var(--theme-border); background-color: var(--theme-card-bg); color: var(--theme-text);'}
+              >
+                {pageNum}
+              </a>
+            )
+          })}
+        </div>
+      )}
+    </div>
+
+  </main>
+
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* 分類選單滑動樣式 */
+    .category-tabs-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .category-tabs-track {
+      display: flex;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      min-height: 44px; /* 確保有足夠高度 */
+    }
+
+    .category-tabs-track a {
+      scroll-snap-align: start;
+      display: inline-block;
+      min-width: fit-content; /* 確保按鈕寬度適合內容 */
+    }
+
+    /* 隱藏滾動條 */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* 漸變遮罩動畫 */
+    .category-fade-left.show,
+    .category-fade-right.show {
+      opacity: 1;
+    }
+
+    /* 手機版優化 */
+    @media (max-width: 768px) {
+      .category-tabs-container {
+        margin: 0 -1rem; /* 延伸到螢幕邊緣 */
+      }
+
+      .category-tabs-track {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        justify-content: center; /* 手機版也置中 */
+      }
+
+      .category-tabs-track a {
+        margin-right: 0.5rem; /* 確保按鈕間距 */
+      }
+
+      /* 手機版也顯示漸變遮罩，但更subtle */
+      .category-fade-left,
+      .category-fade-right {
+        width: 1rem;
+        opacity: 0.7;
+      }
+
+      .category-fade-left {
+        background: linear-gradient(to right, var(--theme-bg) 0%, transparent 100%);
+      }
+
+      .category-fade-right {
+        background: linear-gradient(to left, var(--theme-bg) 0%, transparent 100%);
+      }
+    }
+
+    /* English language optimizations for banner */
+    .banner-en-title {
+      word-break: break-word;
+      hyphens: auto;
+      letter-spacing: -0.01em;
+    }
+
+    .banner-en-subtitle {
+      word-break: break-word;
+      hyphens: auto;
+      letter-spacing: 0.025em;
+    }
+
+    .banner-en-description {
+      word-break: break-word;
+      hyphens: auto;
+      line-height: 1.6;
+    }
+
+    /* Service cards English optimizations */
+    .service-en-title {
+      word-break: break-word;
+      hyphens: auto;
+      letter-spacing: 0.025em;
+    }
+
+    /* Responsive adjustments for English content */
+    @media (max-width: 768px) {
+      .banner-en-title {
+        line-height: 1.1;
+      }
+
+      .banner-en-subtitle {
+        font-size: 0.875rem;
+      }
+
+      .banner-en-description {
+        font-size: 0.75rem;
+        line-height: 1.5;
+      }
+
+      .service-en-title {
+        font-size: 0.875rem;
+        line-height: 1.25;
+      }
+    }
+  </style>
+
+  <script>
+    // 分類選單滑動功能
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.category-tabs-container') as HTMLElement
+      const track = document.querySelector('.category-tabs-track') as HTMLElement
+      const fadeLeft = document.querySelector('.category-fade-left') as HTMLElement
+      const fadeRight = document.querySelector('.category-fade-right') as HTMLElement
+
+      if (!container || !track || !fadeLeft || !fadeRight) return
+
+      // 更新漸變遮罩顯示狀態
+      function updateFadeStates() {
+        if (!track || !fadeLeft || !fadeRight) return
+
+        const scrollLeft = track.scrollLeft
+        const scrollWidth = track.scrollWidth
+        const clientWidth = track.clientWidth
+        const maxScroll = scrollWidth - clientWidth
+
+        // 左側遮罩：當可以向左滑動時顯示
+        if (scrollLeft > 10) {
+          fadeLeft.classList.add('show')
+        } else {
+          fadeLeft.classList.remove('show')
+        }
+
+        // 右側遮罩：當可以向右滑動時顯示
+        if (scrollLeft < maxScroll - 10) {
+          fadeRight.classList.add('show')
+        } else {
+          fadeRight.classList.remove('show')
+        }
+      }
+
+      // 滾動到當前活躍的分類
+      function scrollToActiveTab() {
+        if (!track) return
+
+        const activeTab = track.querySelector('.active') as HTMLElement
+        if (activeTab) {
+          const tabRect = activeTab.getBoundingClientRect()
+          const trackRect = track.getBoundingClientRect()
+          const tabCenter = tabRect.left + tabRect.width / 2
+          const trackCenter = trackRect.left + trackRect.width / 2
+          const scrollOffset = tabCenter - trackCenter
+
+          track.scrollBy({
+            left: scrollOffset,
+            behavior: 'smooth'
+          })
+        }
+      }
+
+      // 監聽滾動事件
+      track.addEventListener('scroll', updateFadeStates, { passive: true })
+
+      // 初始化
+      updateFadeStates()
+
+      // 延遲滾動到活躍分類，確保頁面完全載入
+      setTimeout(() => {
+        scrollToActiveTab()
+        updateFadeStates()
+      }, 100)
+
+      // 監聽視窗大小變化
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          updateFadeStates()
+          scrollToActiveTab()
+        }, 100)
+      })
+
+      // 觸控滑動支持
+      let isScrolling = false
+      let startX = 0
+      let scrollStart = 0
+
+      track.addEventListener('touchstart', (e: TouchEvent) => {
+        isScrolling = true
+        startX = e.touches[0].clientX
+        scrollStart = track.scrollLeft
+      }, { passive: true })
+
+      track.addEventListener('touchmove', (e: TouchEvent) => {
+        if (!isScrolling) return
+
+        const currentX = e.touches[0].clientX
+        const diff = startX - currentX
+        track.scrollLeft = scrollStart + diff
+      }, { passive: true })
+
+      track.addEventListener('touchend', () => {
+        isScrolling = false
+      }, { passive: true })
+    })
+  </script>
+</Layout>

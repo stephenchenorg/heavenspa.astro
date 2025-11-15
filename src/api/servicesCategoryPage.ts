@@ -48,6 +48,7 @@ export async function getServicesCategoryPageData(
           sub_title
           title
           id
+          slug
           og_description
           og_image
           og_title

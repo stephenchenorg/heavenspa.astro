@@ -23,6 +23,7 @@ export interface ServiceDetail {
   category: {
     id: string
     title: string
+    slug: string
   }
   images: Array<{
     image: {
@@ -62,6 +63,7 @@ export async function getServiceDetail(id: number): Promise<ServiceDetailRespons
           category {
             id
             title
+            slug
           }
           service_category_id
           background {

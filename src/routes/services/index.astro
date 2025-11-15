@@ -14,13 +14,14 @@ const isEnglish = currentLocale === 'en'
 const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const { serviceCategories } = await getServiceCategories()
+console.log('serviceCategories', serviceCategories)
 const firstCategory = serviceCategories.data[0]
 
 if (firstCategory) {
     if(isEnglish){
-        return Astro.redirect(`/en/services/${firstCategory.id}/items`)
+        return Astro.redirect(`/en/services/${firstCategory.slug}/items`)
     }
-    return Astro.redirect(`/services/${firstCategory.id}/items`)
+    return Astro.redirect(`/services/${firstCategory.slug}/items`)
 }
 
 const seoConfig = getSeoConfig('services', locale)
