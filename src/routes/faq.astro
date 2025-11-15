@@ -30,14 +30,15 @@ interface FaqItem {
 interface FaqCategory {
   id: number
   title: string
+  key: string
 }
 
 // 定義 FAQ 分類資料
 const faqCategories: FaqCategory[] = [
-  { id: 10, title: t('faq.categories.reservation') },
-  { id: 20, title: t('faq.categories.spa') },
-  { id: 30, title: t('faq.categories.hair_removal') },
-  { id: 50, title: t('faq.categories.water_shuttle') },
+  { id: 10, title: t('faq.categories.reservation'), key: 'reservation' },
+  { id: 20, title: t('faq.categories.spa'), key: 'massage' },
+  { id: 30, title: t('faq.categories.hair_removal'), key: 'wax' },
+  { id: 50, title: t('faq.categories.water_shuttle'), key: 'facial' },
 ]
 
 // 獲取網址參數中的分類 ID
