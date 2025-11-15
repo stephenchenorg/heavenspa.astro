@@ -15,11 +15,6 @@ const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
 
 const seoConfig = getSeoConfig('faq', locale)
 
-const meta = {
-  ...seoMeta(seoConfig),
-  canonical: getCanonicalUrl('faq', locale),
-} as PageMeta
-
 // 定義類型
 interface FaqItem {
   id: string
@@ -31,27 +26,37 @@ interface FaqCategory {
   id: number
   title: string
   key: string
+  slug: string
 }
 
-// 定義 FAQ 分類資料
+// 定義 FAQ 分類資料 - 加入 slug 用於 URL
 const faqCategories: FaqCategory[] = [
-  { id: 10, title: t('faq.categories.reservation'), key: 'reservation' },
-  { id: 20, title: t('faq.categories.spa'), key: 'massage' },
-  { id: 30, title: t('faq.categories.hair_removal'), key: 'wax' },
-  { id: 50, title: t('faq.categories.water_shuttle'), key: 'facial' },
+  { id: 10, title: t('faq.categories.reservation'), key: 'reservation', slug: 'reserve' },
+  { id: 20, title: t('faq.categories.spa'), key: 'massage', slug: 'spa' },
+  { id: 30, title: t('faq.categories.hair_removal'), key: 'wax', slug: 'hair-removal' },
+  { id: 50, title: t('faq.categories.water_shuttle'), key: 'facial', slug: 'water-shuttle' },
 ]
 
-// 獲取網址參數中的分類 ID
-const url = new URL(Astro.request.url)
-const categoryId = url.searchParams.get('category_id')
-const selectedCategoryId = categoryId ? Number.parseInt(categoryId) : 10
+// 從 URL 參數獲取分類
+const { category } = Astro.params
+
+// 根據 slug 找到對應的分類
+const selectedCategory = faqCategories.find(cat => cat.slug === category)
+
+// 如果分類不存在，重導向到 404
+if (!selectedCategory) {
+  return Astro.rewrite('/404')
+}
+
+const meta = {
+  ...seoMeta(seoConfig),
+  canonical: getCanonicalUrl(`faq/${category}`, locale),
+} as PageMeta
 
 let faqs: FaqItem[] = []
-let selectedCategory: FaqCategory | null = null
 
 try {
-  selectedCategory = faqCategories.find(cat => cat.id === selectedCategoryId) || null
-  faqs = await getFaqList(selectedCategoryId)
+  faqs = await getFaqList(selectedCategory.id)
 } catch (error) {
   console.error('Error fetching FAQ data:', error)
 }
@@ -73,13 +78,13 @@ try {
             style=" border-radius: 12px; padding: 8px;"
           >
             <div class="flex gap-2 justify-center min-w-max">
-              {faqCategories.map(category => (
+              {faqCategories.map(cat => (
                 <a
-                  href={`?category_id=${category.id}`}
-                  class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedCategory?.id === category.id ? 'active' : ''}`}
-                  style={selectedCategory?.id === category.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
+                  href={`/faq/${cat.slug}`}
+                  class={`tab-item px-4 py-2 rounded-lg font-medium transition-all duration-300 whitespace-nowrap text-center no-underline flex-shrink-0 border-0 cursor-pointer ${selectedCategory?.id === cat.id ? 'active' : ''}`}
+                  style={selectedCategory?.id === cat.id ? 'background-color: var(--color-primary-500); color: white;' : 'background-color: var(--color-neutral-100); color: var(--theme-text);'}
                 >
-                  {category.title}
+                  {cat.title}
                 </a>
               ))}
             </div>
