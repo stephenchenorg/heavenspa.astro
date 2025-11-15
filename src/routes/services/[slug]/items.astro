@@ -2,7 +2,7 @@
 import type { PageMeta } from '@stephenchenorg/astro/page'
 import { seoMeta } from '@stephenchenorg/astro/page'
 import { getLocale } from 'i18n:astro'
-import { getServicesCategoryPageData } from '@/api/servicesCategoryPage'
+import { getServicesCategoryPageDataBySlug } from '@/api/servicesCategoryPage'
 import Button from '@/components/ui/Button.astro'
 import Layout from '@/layouts/Layout.astro'
 import { createNestedT, getLinkByLocale } from '@/utils/i18n'
@@ -24,35 +24,24 @@ if (!slug) {
 const url = new URL(Astro.request.url)
 const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 
-// 取得分類和服務資料（批次查詢）
-let categoriesData
+// 取得分類和服務資料
 let categories
 let currentCategory
 let servicesData
 let services
-let categoryId: number
 
 try {
-  // 先獲取所有分類來找到對應的 slug
-  // 使用一個預設的 category_id 來獲取分類列表
-  const pageData = await getServicesCategoryPageData(0, 1, 10, '')
-  categoriesData = pageData.serviceCategories
-  categories = categoriesData.serviceCategories.data
-
-  // 根據 slug 找到對應的分類
-  currentCategory = categories.find(cat => cat.slug === slug)
+  // 使用 slug 獲取分類和服務資料
+  const pageData = await getServicesCategoryPageDataBySlug(slug, currentPage, 10, '')
+  categories = pageData.serviceCategories.serviceCategories.data
+  currentCategory = pageData.currentCategory
+  servicesData = pageData.services
+  services = servicesData?.services?.data || []
 
   // 如果分類不存在，導向 404
   if (!currentCategory) {
     return Astro.rewrite('/404')
   }
-
-  categoryId = Number.parseInt(currentCategory.id, 10)
-
-  // 使用找到的 category_id 獲取服務資料
-  const servicesPageData = await getServicesCategoryPageData(categoryId, currentPage, 10, '')
-  servicesData = servicesPageData.services
-  services = servicesData?.services?.data || []
 } catch (error) {
   console.error('Failed to fetch service category:', error)
   return Astro.rewrite('/404')
