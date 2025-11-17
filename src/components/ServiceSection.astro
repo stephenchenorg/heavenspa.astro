@@ -74,7 +74,7 @@ const isEnglish = currentLocale === 'en'
 
                     <!-- CTA Button -->
                     <div class="pt-2 flex justify-center">
-                      <a href={getLinkByLocale(`/services/${service.id}/items`)} class={`group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground rounded-full font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2 ${isEnglish ? 'px-6 py-2.5 text-sm' : 'px-8 py-3 text-base'}`}>
+                      <a href={getLinkByLocale(`/services/${service.slug}/items`)} class={`group bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-primary-foreground rounded-full font-medium tracking-wide transition-all duration-300 hover:scale-105 flex items-center space-x-2 ${isEnglish ? 'px-6 py-2.5 text-sm' : 'px-8 py-3 text-base'}`}>
                         <span data-i18n="courses.service-intro">{t('courses.service-intro')}</span>
                       </a>
                     </div>

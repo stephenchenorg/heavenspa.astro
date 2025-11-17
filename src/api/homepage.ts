@@ -129,6 +129,7 @@ export async function getHomepageData(): Promise<HomepageData> {
           description
           sub_title
           title
+          slug
           id
           og_description
           og_image
