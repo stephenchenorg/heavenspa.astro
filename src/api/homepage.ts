@@ -79,6 +79,7 @@ export async function getHomepageData(): Promise<HomepageData> {
               mobile_blur
             }
           }
+          slug
           job
           title
           age
