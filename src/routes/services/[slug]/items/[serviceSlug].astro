@@ -1,0 +1,371 @@
+---
+import type { PageMeta } from '@stephenchenorg/astro/page'
+import { seoMeta } from '@stephenchenorg/astro/page'
+import { getLocale } from 'i18n:astro'
+import { getServiceDetail } from '@/api/service'
+import Layout from '@/layouts/Layout.astro'
+import { createNestedT, getLinkByLocale } from '@/utils/i18n'
+import { getCanonicalUrl, getSeoConfig } from '@/utils/seoConfig'
+
+const t = createNestedT()
+const currentLocale = getLocale()
+const isEnglish = currentLocale === 'en'
+const locale = currentLocale === 'en' ? 'en' : 'zh_TW'
+
+// Get route parameters
+const { slug: categorySlug, serviceSlug } = Astro.params
+
+// 驗證參數
+if (!categorySlug || !serviceSlug) {
+  return Astro.rewrite('/404')
+}
+
+// Get service details
+let serviceData
+let service
+
+try {
+  serviceData = await getServiceDetail(serviceSlug)
+  service = serviceData?.service
+
+  // 檢查服務是否存在
+  if (!service || !service.id) {
+    return Astro.rewrite('/404')
+  }
+
+  // 檢查服務是否屬於該分類（使用 slug 比對）
+  if (service.category.slug !== categorySlug) {
+    return Astro.rewrite('/404')
+  }
+} catch (error) {
+  console.error('Failed to fetch service:', error)
+  return Astro.rewrite('/404')
+}
+
+const coverImage = service.cover?.desktop || service.cover?.mobile
+
+// 建立 SEO 設定 - 使用 API 資料，沒有則使用預設值
+const defaultSeo = getSeoConfig('services', locale)
+
+const meta = {
+  ...seoMeta({
+    title: service.seo_title || defaultSeo.seo_title,
+    seo_description: service.seo_description || defaultSeo.seo_description,
+    seo_keyword: service.seo_keyword || defaultSeo.seo_keyword,
+    og_title: service.og_title || defaultSeo.og_title,
+    og_description: service.og_description || defaultSeo.og_description,
+    og_image: service.og_image || coverImage || defaultSeo.og_image,
+    // 後台額外欄位 (有值才顯示)
+    seo_head: service.seo_head,
+    seo_body: service.seo_body,
+    seo_json_ld: service.seo_json_ld,
+  }),
+  canonical: getCanonicalUrl(`services/${categorySlug}/items/${serviceSlug}`, locale),
+} as PageMeta
+
+---
+
+<Layout meta={meta}>
+  <main class="section-container  w-screen">
+
+    <!-- Service Banner -->
+    <section class="relative w-screen h-72 sm:h-80 md:h-96 lg:h-[28rem] mb-8 overflow-hidden left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+      <!-- Background Image - Mobile -->
+      <div
+        class="absolute inset-0 bg-cover bg-center md:hidden"
+        style={`background-image: url('${service.background?.mobile || service.background?.desktop}')`}
+      >
+      </div>
+      <!-- Background Image - Desktop -->
+      <div
+        class="absolute inset-0 bg-cover bg-center hidden md:block"
+        style={`background-image: url('${service.background?.desktop || service.background?.mobile}')`}
+      >
+      </div>
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
+      <!-- Text Content -->
+      <div class="relative z-10 flex items-center justify-center h-full text-center text-white px-4 sm:px-6 lg:px-8">
+        <div class={`w-full ${isEnglish ? 'max-w-5xl' : 'max-w-4xl'}`}>
+          <!-- Breadcrumb Navigation -->
+          <nav class={`mb-2 sm:mb-4 md:mb-6 ${isEnglish ? 'hidden xs:block' : ''}`}>
+            <ol class={`flex items-center justify-center flex-wrap gap-x-1 sm:gap-x-2 gap-y-1 text-white/70 ${isEnglish ? 'text-[10px] xs:text-xs sm:text-sm' : 'text-xs sm:text-sm'}`}>
+              <li><a href={getLinkByLocale('/services')} class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-16 sm:max-w-none">{t('nav.services')}</a></li>
+              <li class="text-white/50 text-[8px] sm:text-xs">/</li>
+              <li><a href={getLinkByLocale(`/services/${categorySlug}/items`)} class="hover:text-white transition-colors underline-offset-2 hover:underline truncate max-w-20 sm:max-w-none">{service.category.title}</a></li>
+              <li class="text-white/50 text-[8px] sm:text-xs">/</li>
+              <li class="text-white font-medium truncate max-w-24 sm:max-w-none" title={service.title}>{service.title}</li>
+            </ol>
+          </nav>
+
+          <!-- Main Title -->
+          <h1 class={`font-bold mb-3 sm:mb-4 leading-tight ${isEnglish ? 'text-[clamp(1.5rem,6vw,3rem)] sm:text-[clamp(2rem,5vw,3.5rem)]' : 'text-[clamp(2rem,7vw,4rem)] sm:text-[clamp(2.5rem,6vw,4.5rem)]'}`}>
+            {service.title}
+          </h1>
+
+          <!-- Category Subtitle -->
+          <p class={`text-white/80 font-medium ${isEnglish ? 'text-base sm:text-lg md:text-xl' : 'text-lg sm:text-xl md:text-2xl'}`}>
+            {service.category.title}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Content -->
+    <div class="w-full max-w-7xl mx-auto px-4 py-8">
+
+      <!-- Three Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left Side: General Information -->
+        <div class="lg:col-span-1 space-y-8" data-animate-in="left">
+
+          <!-- Service Specifications -->
+          <div data-animate-in="up">
+            <h2 class="text-xl font-bold mb-3 text-neutral-800 dark:text-neutral-600">{t('services.detail.servicePlans')}</h2>
+            {service.specifications && service.specifications.length > 0 ? (
+              <div class="space-y-4">
+                {service.specifications.map((spec, index) => (
+                  <>
+                    <div class="p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-sm" data-animate-in="fadeIn" style={`animation-delay: ${index * 100}ms`}>
+                      <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600">{spec.title}</h3>
+                      <div class="grid grid-cols-1 gap-2 text-sm">
+                        <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
+                          <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.price')}</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">NT$ {spec.selling_price?.toLocaleString()}</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
+                          <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.duration')}</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.minutes} {t('services.detail.minutes')}</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded px-2">
+                          <span class="text-neutral-800 dark:text-neutral-600">{t('services.detail.sessions')}</span>
+                          <span class="font-medium text-neutral-800 dark:text-neutral-600">{spec.hall_count || '-'}</span>
+                        </div>
+                      </div>
+                      {spec.description && (
+                        <>
+                          <div class="my-3 h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-500"></div>
+                          <p class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed">{spec.description}</p>
+                        </>
+                      )}
+                    </div>
+                    {index < service.specifications.length - 1 && (
+                      <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                    )}
+                  </>
+                ))}
+              </div>
+            ) : (
+              <div class="p-4 text-center text-neutral-500 dark:text-neutral-400 text-sm">
+                {t('services.detail.noData')}
+              </div>
+            )}
+          </div>
+
+          <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700" data-animate-in="right"></div>
+
+          <!-- Service Details -->
+          <div class="space-y-6" data-animate-in="up">
+
+              {service.content_1 && (
+                <div data-animate-in="fadeIn" style="animation-delay: 200ms">
+                  <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
+                    {t('services.detail.detailedDescription')}
+                  </h3>
+                  <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
+                    {service.content_1}
+                  </div>
+                </div>
+              )}
+
+              {service.content_2 && (
+                <>
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                  <div data-animate-in="fadeIn" style="animation-delay: 300ms">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
+                      {t('services.detail.suitableFor')}
+                    </h3>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
+                      {service.content_2}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {service.content_3 && (
+                <>
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                  <div data-animate-in="fadeIn" style="animation-delay: 400ms">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
+                      {t('services.detail.courseHighlights')}
+                    </h3>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
+                      {service.content_3}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {service.content_4 && (
+                <>
+                  <div class="h-px bg-neutral-200 dark:bg-neutral-300 transform origin-left transition-all duration-700"></div>
+                  <div data-animate-in="fadeIn" style="animation-delay: 500ms">
+                    <h3 class="text-base font-semibold mb-3 text-neutral-800 dark:text-neutral-600 flex items-center transition-colors duration-200 hover:text-neutral-600 dark:hover:text-neutral-500">
+                      {t('services.detail.courseContent')}
+                    </h3>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-600 leading-relaxed whitespace-pre-line p-4 transition-all duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-50 rounded">
+                      {service.content_4}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+        </div>
+
+        <!-- Right Side: Vertical Image Display -->
+        {service.images && service.images.length > 0 && (
+          <div class="lg:col-span-2 space-y-4" data-animate-in="right">
+            <div class="space-y-4">
+              {service.images.map((imageItem, index) => (
+                <div
+                  class="aspect-[4/3] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500 hover:scale-[1.02] transform"
+                  data-animate-in="scaleIn"
+                  style={`animation-delay: ${index * 150}ms`}
+                >
+                  <!-- Mobile Image -->
+                  <img
+                    src={imageItem.image.mobile || imageItem.image.desktop}
+                    alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
+                    class="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-700 ease-out md:hidden"
+                    loading="lazy"
+                  />
+                  <!-- Desktop Image -->
+                  <img
+                    src={imageItem.image.desktop || imageItem.image.mobile}
+                    alt={`${service.title} ${t('services.detail.imageAlt')} ${index + 1}`}
+                    class="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-700 ease-out hidden md:block"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  .prose {
+    max-width: none;
+  }
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: #1f2937;
+    font-weight: 600;
+  }
+  .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  /* Animation styles - prevent layout shift */
+  [data-animate-in] {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  [data-animate-in="left"] {
+    transform: translateX(-20px);
+  }
+
+  [data-animate-in="right"] {
+    transform: translateX(20px);
+  }
+
+  [data-animate-in="up"] {
+    transform: translateY(20px);
+  }
+
+  [data-animate-in="fadeIn"],
+  [data-animate-in="scaleIn"] {
+    transform: scale(0.98);
+  }
+
+  [data-animate-in].in-view {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+
+  /* Ensure no overflow during animation */
+  .section-container {
+    overflow-x: hidden;
+  }
+</style>
+
+<script>
+  // Animation Observer
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -10% 0px',
+}
+
+  function animateElements() {
+  const elements = document.querySelectorAll('[data-animate-in]')
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view')
+        observer.unobserve(entry.target)
+      }
+    })
+  }, observerOptions)
+
+  elements.forEach(el => {
+    // Add will-change to optimize animation performance
+    if (el instanceof HTMLElement) {
+      el.style.willChange = 'transform, opacity'
+    }
+    observer.observe(el)
+  })
+}
+
+  // Start animation after page load
+  document.addEventListener('DOMContentLoaded', () => {
+    // Ensure page layout is stable before animating
+    requestAnimationFrame(() => {
+      setTimeout(animateElements, 150)
+    })
+})
+
+  // If page is already loaded (cached situation)
+  if (document.readyState === 'complete') {
+    requestAnimationFrame(() => {
+      setTimeout(animateElements, 150)
+    })
+}
+</script>
+
+<style>
+  /* Custom xs breakpoint for extra small screens */
+  @media (min-width: 475px) {
+    .xs\:block {
+      display: block;
+    }
+
+    .xs\:text-xs {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+  }
+
+  /* Hide breadcrumb on very small screens for English */
+  @media (max-width: 474px) {
+    .hidden.xs\:block {
+      display: none !important;
+    }
+  }
+</style>
