@@ -127,6 +127,7 @@ export async function getAboutPageData(): Promise<AboutPageData> {
           description
           sub_title
           title
+          slug
           id
           og_description
           og_image
