@@ -7,6 +7,7 @@ export interface Tags {
 export interface Partnership {
   id: number
   title: string
+  slug: string
   author: string
   cover: {
     desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合異業合作封面)
@@ -38,6 +39,7 @@ export interface Partnership {
   }>
   next?: {
     id: number
+    slug: string
     title: string
     cover: {
       desktop: string
@@ -48,6 +50,7 @@ export interface Partnership {
   }
   prev?: {
     id: number
+    slug: string
     title: string
     cover: {
       desktop: string
@@ -86,6 +89,7 @@ export async function getPartnerships(page: number = 1, perPage: number = 12): P
         partnerships(page: $page, per_page: $per_page) {
           data {
             id
+            slug
             content
             cover{
               desktop
@@ -149,6 +153,7 @@ export async function getPartnerships(page: number = 1, perPage: number = 12): P
       return {
         id: partnership.id || (index + 1), // 優先使用 API 的 id，否則使用 index + 1
         title: partnership.title,
+        slug: partnership.slug,
         author: partnership.author,
         cover: partnership.cover,
         background: partnership.background,
@@ -205,6 +210,7 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
       partnerships(union_tags: $unionTags) {
         data {
           id
+          slug
           content
           cover{
             desktop
@@ -258,6 +264,7 @@ export async function getRelatedPartnerships(tagIds: number[]): Promise<Partners
     return {
       id: partnership.id || (index + 1),
       title: partnership.title,
+      slug: partnership.slug,
       author: partnership.author,
       cover: partnership.cover,
       background: partnership.background,
@@ -312,6 +319,7 @@ export async function getAdjacentPartnerships(currentId: number): Promise<{ prev
     return {
       id: partnership.id,
       title: partnership.title,
+      slug: partnership.slug,
       author: partnership.author,
       cover: partnership.cover,
       background: partnership.background,
@@ -340,11 +348,12 @@ export async function getAdjacentPartnerships(currentId: number): Promise<{ prev
   }
 }
 
-export async function getPartnership(id: string): Promise<Partnership> {
+export async function getPartnership(slug: string): Promise<Partnership> {
   const res = await graphQLAPI(gql`
-    query GetPartnership($id: Int!) {
-        partnership(id: $id) {
+    query GetPartnership($slug: String!) {
+        partnership(slug: $slug) {
           id
+          slug
           title
           author
           content
@@ -386,16 +395,18 @@ export async function getPartnership(id: string): Promise<Partnership> {
           seo_title
           next {
             id
+            slug
             title
           }
           prev {
             id
+            slug
             title
           }
         }
       }
   `, {
-    variables: { id: Number.parseInt(id) },
+    variables: { slug },
   })
   const createdDate = res.partnership.started_at
   const normalized = createdDate?.replace(' ', 'T') || createdDate
@@ -403,6 +414,7 @@ export async function getPartnership(id: string): Promise<Partnership> {
 
   return {
     id: res.partnership.id,
+    slug: res.partnership.slug,
     title: res.partnership.title,
     author: res.partnership.author,
     cover: res.partnership.cover,
@@ -435,10 +447,10 @@ export interface PartnershipPageData {
   relatedPartnerships: Partnership[]
 }
 
-export async function getPartnershipPageData(id: string): Promise<PartnershipPageData> {
+export async function getPartnershipPageData(slug: string): Promise<PartnershipPageData> {
   try {
     // First fetch the partnership to get tag IDs
-    const partnership = await getPartnership(id)
+    const partnership = await getPartnership(slug)
 
     if (!partnership) {
       return {
@@ -457,7 +469,7 @@ export async function getPartnershipPageData(id: string): Promise<PartnershipPag
     }
   } catch (error) {
     if (import.meta.env.DEV) {
-      console.error(`Error fetching partnership page data for ${id}:`, error)
+      console.error(`Error fetching partnership page data for ${slug}:`, error)
     }
     return {
       partnership: null,

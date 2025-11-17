@@ -184,6 +184,7 @@ export async function getServicesCategoryPageDataBySlug(
             mobile_blur
           }
           id
+          slug
           title
           price_max
           price_min

@@ -19,7 +19,6 @@ const currentPage = Number.parseInt(url.searchParams.get('page') || '1', 10)
 
 const articlesData = await getArticles(currentPage, 12)
 const articles = articlesData.articles.data
-
 const seoConfig = getSeoConfig('news', locale)
 const meta = {
   ...seoMeta(seoConfig),
@@ -58,7 +57,7 @@ const meta = {
               class="group cursor-pointer transition-all duration-300 hover:-translate-y-2 relative backdrop-blur-sm overflow-hidden border shadow-sm hover:shadow-lg w-full h-full flex flex-col"
               style="background-color: var(--theme-card-bg); border-color: var(--theme-border);"
             >
-              <a href={getLinkByLocale(`/news/${article.id}`)} class="h-full flex flex-col">
+              <a href={getLinkByLocale(`/news/${article.slug}`)} class="h-full flex flex-col">
                 <!-- 上半部：封面圖 -->
                 <div class="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
                   <!-- Background Image - Mobile -->

@@ -146,6 +146,7 @@ export async function getHomepageData(): Promise<HomepageData> {
       articles {
         data {
           id
+          slug
           content
           cover {
             desktop
@@ -205,6 +206,7 @@ export async function getHomepageData(): Promise<HomepageData> {
     return {
       id: article.id,
       title: article.title,
+      slug: article.slug,
       author: article.author,
       cover: article.cover,
       background: article.background,

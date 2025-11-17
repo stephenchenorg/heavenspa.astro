@@ -3,6 +3,7 @@ import { gql, graphQLAPI } from '@/api/index'
 export interface ServiceDetail {
   id: string
   title: string
+  slug: string
   content_1: string
   content_2: string
   content_3: string
@@ -55,11 +56,11 @@ export interface ServiceDetailResponse {
   service: ServiceDetail
 }
 
-export async function getServiceDetail(id: number): Promise<ServiceDetailResponse> {
+export async function getServiceDetail(slug: string): Promise<ServiceDetailResponse> {
   try {
     return await graphQLAPI<ServiceDetailResponse>(gql`
-      query MyQuery($id: Int!) {
-        service(id: $id) {
+      query GetServiceBySlug($slug: String!) {
+        service(slug: $slug) {
           category {
             id
             title
@@ -92,6 +93,7 @@ export async function getServiceDetail(id: number): Promise<ServiceDetailRespons
             }
           }
           title
+          slug
           specifications {
             selling_price
             minutes
@@ -111,11 +113,10 @@ export async function getServiceDetail(id: number): Promise<ServiceDetailRespons
         }
       }
     `, {
-      variables: { id },
+      variables: { slug },
     })
   } catch (error) {
-    console.error('Error fetching service detail:', error)
-    // 返回空結果作為後備
-    throw new Error(`Service with id ${id} not found`)
+    console.error('Error fetching service detail by slug:', error)
+    throw new Error(`Service with slug ${slug} not found`)
   }
 }

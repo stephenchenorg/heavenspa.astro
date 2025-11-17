@@ -7,6 +7,7 @@ export interface Tags {
 export interface Article {
   id: number
   title: string
+  slug: string
   author: string
   cover: {
     desktop: string // 建議尺寸: 1920x1440px (4:3 比例，適合首頁最新消息與封面)
@@ -38,6 +39,7 @@ export interface Article {
   }>
   next?: {
     id: number
+    slug: string
     title: string
     image: {
       desktop: string
@@ -48,6 +50,7 @@ export interface Article {
   }
   prev?: {
     id: number
+    slug: string
     title: string
     image: {
       desktop: string
@@ -100,6 +103,7 @@ export async function getArticles(page: number = 1, perPage: number = 12): Promi
           data {
             id
             content
+            slug
             cover {
               desktop
               desktop_blur
@@ -150,6 +154,7 @@ export async function getArticles(page: number = 1, perPage: number = 12): Promi
       return {
         id: article.id,
         title: article.title,
+        slug: article.slug,
         author: article.author,
         cover: article.cover,
         background: article.background,
@@ -198,6 +203,7 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
         data {
           id
           content
+          slug
           cover {
             desktop
             desktop_blur
@@ -247,6 +253,7 @@ export async function getRelatedArticles(tagIds: number[]): Promise<Article[]> {
     return {
       id: article.id,
       title: article.title,
+      slug: article.slug,
       author: article.author,
       cover: article.cover,
       background: article.background,
@@ -268,12 +275,14 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
     query GetAdjacentArticles($currentId: Int!) {
       previousArticle: article(where: { id: { _lt: $currentId } }, orderBy: { id: desc }, first: 1) {
         id
+        slug
         title
         started_at
         created_at
       }
       nextArticle: article(where: { id: { _gt: $currentId } }, orderBy: { id: asc }, first: 1) {
         id
+        slug
         title
         started_at
         created_at
@@ -290,6 +299,7 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
     return {
       id: article.id,
       title: article.title,
+      slug: article.slug,
       author: article.author,
       cover: article.cover,
       background: article.background,
@@ -309,12 +319,13 @@ export async function getAdjacentArticles(currentId: number): Promise<{ previous
   }
 }
 
-export async function getArticle(id: string): Promise<Article | null> {
+export async function getArticle(slug: string): Promise<Article | null> {
   try {
     const res = await graphQLAPI(gql`
-      query GetArticle($id: Int!) {
-        article(id: $id) {
+      query GetArticle($slug: String!) {
+        article(slug: $slug) {
           id
+          slug
           title
           author
           content
@@ -347,10 +358,12 @@ export async function getArticle(id: string): Promise<Article | null> {
           }
           next {
             id
+            slug
             title
           }
           prev {
             id
+            slug
             title
           }
           seo_title
@@ -365,7 +378,7 @@ export async function getArticle(id: string): Promise<Article | null> {
         }
       }
     `, {
-      variables: { id: Number.parseInt(id) },
+      variables: { slug },
     })
 
     if (!res.article) {
@@ -376,6 +389,7 @@ export async function getArticle(id: string): Promise<Article | null> {
 
     return {
       id: res.article.id,
+      slug: res.article.slug,
       title: res.article.title,
       author: res.article.author,
       cover: res.article.cover,
@@ -403,7 +417,7 @@ export async function getArticle(id: string): Promise<Article | null> {
     }
   } catch (error) {
     if (import.meta.env.DEV) {
-      console.error(`Error fetching article ${id}:`, error)
+      console.error(`Error fetching article ${slug}:`, error)
     }
     return null
   }
@@ -414,10 +428,10 @@ export interface ArticlePageData {
   relatedArticles: Article[]
 }
 
-export async function getArticlePageData(id: string): Promise<ArticlePageData> {
+export async function getArticlePageData(slug: string): Promise<ArticlePageData> {
   try {
     // First fetch the article to get tag IDs
-    const article = await getArticle(id)
+    const article = await getArticle(slug)
 
     if (!article) {
       return {
@@ -436,7 +450,7 @@ export async function getArticlePageData(id: string): Promise<ArticlePageData> {
     }
   } catch (error) {
     if (import.meta.env.DEV) {
-      console.error(`Error fetching article page data for ${id}:`, error)
+      console.error(`Error fetching article page data for ${slug}:`, error)
     }
     return {
       article: null,

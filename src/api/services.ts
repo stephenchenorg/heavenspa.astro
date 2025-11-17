@@ -3,6 +3,7 @@ import { gql, graphQLAPI } from '@/api/index'
 export interface Service {
   id: string
   title: string
+  slug: string
   price_max: number
   price_min: number
   time_max: number
