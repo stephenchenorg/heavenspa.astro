@@ -44,6 +44,7 @@ export async function getSitemapData(): Promise<SitemapData> {
       articles {
         data {
           id
+          slug
           content
           cover {
             desktop
@@ -82,6 +83,7 @@ export async function getSitemapData(): Promise<SitemapData> {
       partnerships {
         data {
           id
+          slug
           title
           sub_title
           content
@@ -121,6 +123,7 @@ export async function getSitemapData(): Promise<SitemapData> {
           sub_title
           title
           id
+          slug
         }
       }
 
@@ -128,6 +131,7 @@ export async function getSitemapData(): Promise<SitemapData> {
         data {
           content
           id
+          slug
           images {
             created_at
             id
@@ -150,6 +154,7 @@ export async function getSitemapData(): Promise<SitemapData> {
     const dateInfo = formatArticleDate(article.started_at || article.created_at)
     return {
       id: article.id,
+      slug: article.slug,
       title: article.title,
       author: article.author,
       cover: article.cover,
