@@ -110,7 +110,7 @@ if (!ogImage) {
     {!import.meta.env.DEV && metaPixelId && <MetaPixel pixelId={metaPixelId} />}
 
     <!-- Event snippet for LINE conversion page -->
-    <script>
+    <script is:inline>
     window.addEventListener('load', function () {
     document.querySelectorAll('a[href*="https://page.line.me"]').forEach(function(e){
     e.addEventListener('click', function() {
@@ -122,7 +122,7 @@ if (!ogImage) {
     </script>
 
     <!-- Event snippet for whatsapp点击 conversion page -->
-    <script>
+    <script is:inline>
     window.addEventListener('load', function () {
     document.querySelectorAll('a[href*="https://api.whatsapp.com"]').forEach(function(e){
     e.addEventListener('click', function() {
@@ -134,7 +134,7 @@ if (!ogImage) {
     </script>
 
     <!-- Event snippet for Phone conversion page -->
-    <script>
+    <script is:inline>
     window.addEventListener('load', function () {
     document.querySelectorAll('a[href*="tel:"]').forEach(function(e){
     e.addEventListener('click', function() {
@@ -146,7 +146,7 @@ if (!ogImage) {
     </script>
 
     <!-- Event snippet for form conversion page -->
-    <script>
+    <script is:inline>
     var confirmationCheckInterval;
 
     confirmationCheckInterval = setInterval(() => {
