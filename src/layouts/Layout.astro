@@ -29,9 +29,9 @@ const meta = {
     og_description: pageMeta?.og_description || companySetting.og_description,
     og_image: pageMeta?.og_image || companySetting.og_image,
     // 後台額外欄位 (有值才顯示)
-    seo_head: pageMeta?.seo_head || companySetting.seo_head,
-    seo_body: pageMeta?.seo_body || companySetting.seo_body,
-    seo_json_ld: pageMeta?.seo_json_ld || companySetting.seo_json_ld,
+    seo_head: pageMeta?.seo_head || companySetting.seo_head || null,
+    seo_body: pageMeta?.seo_body || companySetting.seo_body || null,
+    seo_json_ld: pageMeta?.seo_json_ld || companySetting.seo_json_ld || null,
   }),
   ...pageMeta,
 } as PageMeta
