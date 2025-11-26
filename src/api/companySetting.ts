@@ -30,9 +30,6 @@ export async function getCompanySetting() {
       og_title
       og_description
       og_image
-      seo_head
-      seo_body
-      seo_json_ld
     }
   }
 `)

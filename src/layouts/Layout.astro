@@ -7,8 +7,21 @@ import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
 import {seoMeta} from "@stephenchenorg/astro/page";
 import {getCanonicalUrl} from "@/utils/seoConfig";
+import { gql, graphQLAPI } from '@/api'
+import type { PageResponse } from '@/types'
 
 const companySetting = await getCompanySetting()
+
+// 查詢 key="index" 的頁面作為 SEO fallback
+const indexPageData = await graphQLAPI<PageResponse>(gql`
+  query IndexPageSEO {
+    page(key: "index") {
+      seo_head
+      seo_body
+      seo_json_ld
+    }
+  }
+`)
 
 interface Props {
   // metadata
@@ -28,10 +41,10 @@ const meta = {
     og_title: pageMeta?.og_title || companySetting.og_title,
     og_description: pageMeta?.og_description || companySetting.og_description,
     og_image: pageMeta?.og_image || companySetting.og_image,
-    // 後台額外欄位 (有值才顯示)
-    seo_head: pageMeta?.seo_head || companySetting.seo_head || null,
-    seo_body: pageMeta?.seo_body || companySetting.seo_body || null,
-    seo_json_ld: pageMeta?.seo_json_ld || companySetting.seo_json_ld || null,
+    // 後台額外欄位 (有值才顯示) - fallback 到 index 頁面的 SEO 設定
+    seo_head: pageMeta?.seo_head || indexPageData.page?.seo_head,
+    seo_body: pageMeta?.seo_body || indexPageData.page?.seo_body,
+    seo_json_ld: pageMeta?.seo_json_ld || indexPageData.page?.seo_json_ld,
   }),
   ...pageMeta,
 } as PageMeta
