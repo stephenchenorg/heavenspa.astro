@@ -16,6 +16,12 @@ const companySetting = await getCompanySetting()
 const indexPageData = await graphQLAPI<PageResponse>(gql`
   query IndexPageSEO {
     page(key: "index") {
+      seo_title
+      seo_description
+      seo_keyword
+      og_title
+      og_description
+      og_image
       seo_head
       seo_body
       seo_json_ld
@@ -35,12 +41,12 @@ const { meta: pageMeta } = Astro.props
 
 const meta = {
   ...seoMeta({
-    title: pageMeta?.seo_title || companySetting.seo_title,
-    seo_description: pageMeta?.seo_description || companySetting.seo_description,
-    seo_keyword: pageMeta?.seo_keyword || companySetting.seo_keyword,
-    og_title: pageMeta?.og_title || companySetting.og_title,
-    og_description: pageMeta?.og_description || companySetting.og_description,
-    og_image: pageMeta?.og_image || companySetting.og_image,
+    title: pageMeta?.seo_title || indexPageData.page?.seo_title || '享天堂SPA｜台北專業按摩SPA－放鬆身心的專屬體驗',
+    seo_description: pageMeta?.seo_description || indexPageData.page?.seo_description || null,
+    seo_keyword: pageMeta?.seo_keyword || indexPageData.page?.seo_keyword || null,
+    og_title: pageMeta?.og_title || indexPageData.page?.og_title || null,
+    og_description: pageMeta?.og_description || indexPageData.page?.og_description || null,
+    og_image: pageMeta?.og_image || indexPageData.page?.og_image || null,
     // 後台額外欄位 (有值才顯示) - fallback 到 index 頁面的 SEO 設定
     seo_head: pageMeta?.seo_head || indexPageData.page?.seo_head,
     seo_body: pageMeta?.seo_body || indexPageData.page?.seo_body,
