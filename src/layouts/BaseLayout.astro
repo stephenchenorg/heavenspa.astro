@@ -145,24 +145,16 @@ if (!ogImage) {
     });
     </script>
 
-    <!-- Event snippet for form conversion page -->
-    <script is:inline>
-    var confirmationCheckInterval;
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17352893346"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-    confirmationCheckInterval = setInterval(() => {
-    const confirmationContainer = document.querySelector('.ml-3');
-
-    if (confirmationContainer) {
-    const confirmationText = confirmationContainer.textContent || confirmationContainer.innerText;
-
-    if (confirmationText.includes('Application submitted successfully! We will contact you soon.')) {
-    clearInterval(confirmationCheckInterval);
-    gtag('event', 'conversion', {'send_to': 'AW-17352893346/d_AyCO3Lv7sbEKLHwNJA'});
-    gtag('event', '電話', {'send_to': 'G-V2MKP3N56C'});
-    }
-    }
-    }, 500);
+      gtag('config', 'AW-17352893346');
     </script>
+
   </head>
   <body class:list={['antialiased', bodyClass]}>
     <slot />
