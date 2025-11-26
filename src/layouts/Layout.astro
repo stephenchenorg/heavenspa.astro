@@ -5,20 +5,36 @@ import FloatingContactSidebar from '@/components/FloatingContactSidebar.vue'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Footer from '@/layouts/partials/Footer.astro'
 import Header from '@/layouts/partials/Header.astro'
+import {seoMeta} from "@stephenchenorg/astro/page";
+import {getCanonicalUrl} from "@/utils/seoConfig";
 
 const companySetting = await getCompanySetting()
 
 interface Props {
   // metadata
-  meta: PageMeta
+  meta?: PageMeta
 
   // layout props
   // ...
 }
 
-const {
-  meta,
-} = Astro.props
+const { meta: pageMeta } = Astro.props
+
+const meta = {
+  ...seoMeta({
+    title: pageMeta?.seo_title || companySetting.seo_title,
+    seo_description: pageMeta?.seo_description || companySetting.seo_description,
+    seo_keyword: pageMeta?.seo_keyword || companySetting.seo_keyword,
+    og_title: pageMeta?.og_title || companySetting.og_title,
+    og_description: pageMeta?.og_description || companySetting.og_description,
+    og_image: pageMeta?.og_image || companySetting.og_image,
+    // 後台額外欄位 (有值才顯示)
+    seo_head: pageMeta?.seo_head || companySetting.seo_head,
+    seo_body: pageMeta?.seo_body || companySetting.seo_body,
+    seo_json_ld: pageMeta?.seo_json_ld || companySetting.seo_json_ld,
+  }),
+  ...pageMeta,
+} as PageMeta
 
 ---
 

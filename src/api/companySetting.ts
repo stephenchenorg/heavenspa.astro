@@ -24,6 +24,15 @@ export async function getCompanySetting() {
       vat
       payment_method
       business_hours
+      seo_title
+      seo_description
+      seo_keyword
+      og_title
+      og_description
+      og_image
+      seo_head
+      seo_body
+      seo_json_ld
     }
   }
 `)
