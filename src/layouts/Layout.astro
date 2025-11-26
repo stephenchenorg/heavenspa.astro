@@ -40,6 +40,7 @@ interface Props {
 const { meta: pageMeta } = Astro.props
 
 const meta = {
+  ...pageMeta,
   ...seoMeta({
     title: pageMeta?.seo_title || indexPageData.page?.seo_title || '享天堂SPA｜台北專業按摩SPA－放鬆身心的專屬體驗',
     seo_description: pageMeta?.seo_description || indexPageData.page?.seo_description || null,
@@ -48,11 +49,11 @@ const meta = {
     og_description: pageMeta?.og_description || indexPageData.page?.og_description || null,
     og_image: pageMeta?.og_image || indexPageData.page?.og_image || null,
     // 後台額外欄位 (有值才顯示) - fallback 到 index 頁面的 SEO 設定
-    seo_head: pageMeta?.seo_head || indexPageData.page?.seo_head,
-    seo_body: pageMeta?.seo_body || indexPageData.page?.seo_body,
-    seo_json_ld: pageMeta?.seo_json_ld || indexPageData.page?.seo_json_ld,
+    // 使用明確檢查來處理空字串的情況
+    seo_head: (pageMeta?.seo_head && pageMeta.seo_head.trim()) ? pageMeta.seo_head : indexPageData.page?.seo_head,
+    seo_body: (pageMeta?.seo_body && pageMeta.seo_body.trim()) ? pageMeta.seo_body : indexPageData.page?.seo_body,
+    seo_json_ld: (pageMeta?.seo_json_ld && pageMeta.seo_json_ld.trim()) ? pageMeta.seo_json_ld : indexPageData.page?.seo_json_ld,
   }),
-  ...pageMeta,
 } as PageMeta
 
 ---
