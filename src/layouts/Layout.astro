@@ -49,10 +49,9 @@ const meta = {
     og_description: pageMeta?.og_description || indexPageData.page?.og_description || null,
     og_image: pageMeta?.og_image || indexPageData.page?.og_image || null,
     // 後台額外欄位 (有值才顯示) - fallback 到 index 頁面的 SEO 設定
-    // 使用明確檢查來處理空字串的情況
-    seo_head: (pageMeta?.seo_head && pageMeta.seo_head.trim()) ? pageMeta.seo_head : indexPageData.page?.seo_head,
-    seo_body: (pageMeta?.seo_body && pageMeta.seo_body.trim()) ? pageMeta.seo_body : indexPageData.page?.seo_body,
-    seo_json_ld: (pageMeta?.seo_json_ld && pageMeta.seo_json_ld.trim()) ? pageMeta.seo_json_ld : indexPageData.page?.seo_json_ld,
+    // 直接 merge，pageMeta 有值就覆蓋，沒值就用 indexPageData.page 的
+    ...indexPageData.page,
+    ...pageMeta,
   }),
 } as PageMeta
 
