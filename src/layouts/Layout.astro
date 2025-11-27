@@ -49,19 +49,10 @@ const meta = {
     og_description: pageMeta?.og_description || indexPageData.page?.og_description || null,
     og_image: pageMeta?.og_image || indexPageData.page?.og_image || null,
     // 後台額外欄位 (有值才顯示) - fallback 到 index 頁面的 SEO 設定
-    // 使用明確檢查來處理空字串的情況
-    seo_head: {
-      ...indexPageData.page?.seo_head,
-      ...pageMeta?.seo_head,
-    },
-    seo_body: {
-      ...indexPageData.page?.seo_body,
-      ...pageMeta?.seo_body,
-    },
-    seo_json_ld: {
-      ...indexPageData.page?.seo_json_ld,
-      ...pageMeta?.seo_json_ld,
-    },
+    // 字串拼接方式合併,優先使用 index 頁面的設定,再追加當前頁面的設定
+    seo_head: [indexPageData.page?.seo_head, pageMeta?.seo_head].filter(Boolean).join('\n'),
+    seo_body: [indexPageData.page?.seo_body, pageMeta?.seo_body].filter(Boolean).join('\n'),
+    seo_json_ld: [indexPageData.page?.seo_json_ld, pageMeta?.seo_json_ld].filter(Boolean).join('\n'),
   }),
 } as PageMeta
 
