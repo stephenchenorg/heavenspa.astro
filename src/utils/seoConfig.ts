@@ -89,7 +89,7 @@ export const SEO_CONFIG: Record<Locale, Record<string, SeoConfig>> = {
     // 團隊介紹
     team: {
       title: '團隊介紹',
-      seo_title: '團隊介紹 - 享天堂 | 專業美容團隊',
+      seo_title: '團隊介紹 - 享天堂 | 專業師資團隊',
       seo_description: '認識 享天堂 的專業團隊，擁有豐富經驗的美容師、芳療師為您提供最優質的服務。每位團隊成員都經過專業訓練與認證。',
       seo_keyword: '享天堂, 團隊介紹, 專業美容師, 芳療師, 專業團隊, 美容專家',
       og_title: '團隊介紹 - 享天堂',
@@ -100,7 +100,7 @@ export const SEO_CONFIG: Record<Locale, Record<string, SeoConfig>> = {
     // 最新消息
     news: {
       title: '最新消息',
-      seo_title: '最新消息 - 享天堂 | 促銷活動與健康資訊',
+      seo_title: '最新消息 - 享天堂 | 最新優惠與活動資訊',
       seo_description: '了解 享天堂 的最新消息、促銷活動和健康資訊，掌握最新動態，享受專屬優惠。',
       seo_keyword: '享天堂, 最新消息, 促銷活動, 健康資訊, SPA優惠',
       og_title: '最新消息 - 享天堂',
@@ -202,7 +202,7 @@ export const SEO_CONFIG: Record<Locale, Record<string, SeoConfig>> = {
     // Team
     team: {
       title: 'Our Team',
-      seo_title: 'Our Team - Heaven Spa | Professional Beauty Team',
+      seo_title: 'Our Team - Heaven Spa | Professional Massage Team',
       seo_description: 'Meet Heaven Spa\'s professional team with experienced beauticians and aromatherapists providing the highest quality service. Every team member is professionally trained and certified.',
       seo_keyword: 'Heaven Spa, our team, professional beauticians, aromatherapists, professional team, beauty experts',
       og_title: 'Our Team - Heaven Spa',
@@ -213,7 +213,7 @@ export const SEO_CONFIG: Record<Locale, Record<string, SeoConfig>> = {
     // News
     news: {
       title: 'News',
-      seo_title: 'News - Heaven Spa | Promotions & Wellness Information',
+      seo_title: 'News - Heaven Spa | Promotions & Promotions & News',
       seo_description: 'Stay updated with Heaven Spa\'s latest news, promotions, and wellness information. Get the latest updates and enjoy exclusive offers.',
       seo_keyword: 'Heaven Spa, news, promotions, wellness information, SPA offers',
       og_title: 'News - Heaven Spa',
