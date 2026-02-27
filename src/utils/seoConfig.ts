@@ -213,7 +213,7 @@ export const SEO_CONFIG: Record<Locale, Record<string, SeoConfig>> = {
     // News
     news: {
       title: 'News',
-      seo_title: 'News - Heaven Spa | Promotions & Promotions & News',
+      seo_title: 'News - Heaven Spa | Promotions & News',
       seo_description: 'Stay updated with Heaven Spa\'s latest news, promotions, and wellness information. Get the latest updates and enjoy exclusive offers.',
       seo_keyword: 'Heaven Spa, news, promotions, wellness information, SPA offers',
       og_title: 'News - Heaven Spa',
